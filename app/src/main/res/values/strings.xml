@@ -1,0 +1,7 @@
+<resources>
+    <!-- Basic Strings -->
+    <string name="app_version" translatable="false">0.0.1</string>
+    <string name="app_name">Book\'s History Resurrection</string>
+
+
+</resources>
