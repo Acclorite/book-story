@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+
+    id("com.google.dagger.hilt.android")
     kotlin("kapt")
 }
 
@@ -47,6 +49,7 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/gradle/incremental.annotation.processors"
         }
     }
 }
@@ -77,16 +80,13 @@ dependencies {
 
     // All dependencies
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-    implementation ("androidx.compose.material:material-icons-extended:$composeVersion")
+    implementation ("androidx.compose.material:material-icons-extended")
     implementation ("androidx.activity:activity-compose:1.8.2")
     implementation ("com.google.accompanist:accompanist-swiperefresh:0.24.2-alpha")
 
-    //Dagger - Hilt
-    implementation ("com.google.dagger:hilt-compiler:latest.release")
-    implementation ("com.google.dagger:hilt-android:latest.release")
-    kapt ("com.google.dagger:hilt-android-compiler:latest.release")
-    kapt ("androidx.hilt:hilt-compiler:latest.release")
-    implementation ("androidx.hilt:hilt-navigation-compose:1.1.0")
+    // Dagger
+    implementation("com.google.dagger:hilt-android:2.50")
+    kapt("com.google.dagger:hilt-android-compiler:2.50")
 
     // Room
     implementation ("androidx.room:room-runtime:2.6.1")
@@ -94,4 +94,7 @@ dependencies {
 
     // Kotlin Extensions and Coroutines support for Room
     implementation ("androidx.room:room-ktx:2.6.1")
+
+    // Datastore
+    implementation ("androidx.datastore:datastore-preferences:latest.release")
 }
