@@ -1,11 +1,70 @@
 package com.acclorite.books_history.ui.theme
 
-import androidx.compose.ui.graphics.Color
+import android.annotation.SuppressLint
+import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+enum class Theme {
+    DYNAMIC,
+    BLUE,
+    PURPLE,
+    GREEN,
+    PINK
+}
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+/**
+ * Converting [String] into [Theme].
+ */
+fun String.toTheme(): Theme {
+    return when (this) {
+        "DYNAMIC" -> Theme.DYNAMIC
+        "PURPLE" -> Theme.PURPLE
+        "GREEN" -> Theme.GREEN
+        "PINK" -> Theme.PINK
+        else -> Theme.BLUE
+    }
+}
+
+/**
+ * Creates a colorscheme based on [Theme].
+ *
+ * @param theme a [Theme].
+ *
+ * @return a [ColorScheme].
+ */
+@SuppressLint("NewApi")
+@Composable
+fun colorScheme(theme: Theme, darkTheme: Boolean): ColorScheme {
+    when (theme) {
+        Theme.DYNAMIC -> {
+            /* Dynamic Theme */
+            return if (darkTheme)
+                dynamicDarkColorScheme(LocalContext.current)
+            else
+                dynamicLightColorScheme(LocalContext.current)
+        }
+
+        Theme.BLUE -> {
+            /* Blue Theme */
+            return blueTheme(isDark = darkTheme)
+        }
+
+        Theme.PURPLE -> {
+            /* Purple Theme */
+            return purpleTheme(isDark = darkTheme)
+        }
+
+        Theme.GREEN -> {
+            /* Green Theme */
+            return greenTheme(isDark = darkTheme)
+        }
+
+        else -> {
+            /* Pink Theme */
+            return pinkTheme(isDark = darkTheme)
+        }
+    }
+}

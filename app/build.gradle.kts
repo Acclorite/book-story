@@ -16,7 +16,7 @@ android {
         minSdk = 26
         targetSdk = 34
         versionCode = 1
-        versionName = "0.0.1"
+        versionName = "0.2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -69,14 +69,29 @@ dependencies {
     implementation("androidx.compose.ui:ui-android:latest.release")
     implementation("androidx.compose.material3:material3")
 
-    // Debug
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    // Unit tests
+    testImplementation ("androidx.test:core:latest.release")
+    testImplementation ("junit:junit:latest.release")
+    testImplementation ("androidx.arch.core:core-testing:latest.release")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:latest.release")
+    testImplementation ("com.google.truth:truth:1.2.0")
+    testImplementation ("androidx.test.ext:truth:1.5.0")
+    testImplementation ("com.squareup.okhttp3:mockwebserver:latest.release")
+    testImplementation ("io.mockk:mockk:latest.release")
+    debugImplementation ("androidx.compose.ui:ui-test-manifest:latest.release")
+
+    // Instrumentation tests
+    androidTestImplementation ("com.google.dagger:hilt-android-testing:latest.release")
+    kaptAndroidTest ("com.google.dagger:hilt-android-compiler:latest.release")
+    androidTestImplementation ("junit:junit:latest.release")
+    androidTestImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:latest.release")
+    androidTestImplementation ("androidx.arch.core:core-testing:latest.release")
+    androidTestImplementation ("com.google.truth:truth:latest.release")
+    androidTestImplementation ("androidx.test.ext:junit:latest.release")
+    androidTestImplementation ("androidx.test:core-ktx:latest.release")
+    androidTestImplementation ("com.squareup.okhttp3:mockwebserver:latest.release")
+    androidTestImplementation ("io.mockk:mockk-android:latest.release")
+    androidTestImplementation ("androidx.test:runner:latest.release")
 
     // All dependencies
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
@@ -97,4 +112,7 @@ dependencies {
 
     // Datastore
     implementation ("androidx.datastore:datastore-preferences:latest.release")
+
+    // Splash API
+    implementation ("androidx.core:core-splashscreen:latest.release")
 }

@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.BooksHistoryResurrection" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.BooksHistoryResurrection" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:forceDarkAllowed" tools:ignore="NewApi">false</item>
+    </style>
+
+    <style name="Theme.Start.Splash" parent="Theme.SplashScreen">
+        <item name="android:forceDarkAllowed" tools:ignore="NewApi">false</item>
+        <item name="postSplashScreenTheme">@style/Theme.BooksHistoryResurrection</item>
+
+        <item name="windowSplashScreenBackground">@color/splash_bg_light</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon</item>
+    </style>
 </resources>

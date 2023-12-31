@@ -3,7 +3,7 @@ package com.acclorite.books_history.data.repository
 import androidx.datastore.preferences.core.Preferences
 import com.acclorite.books_history.data.local.data_store.DataStore
 import com.acclorite.books_history.data.local.room.BookDao
-import com.acclorite.books_history.data.mapper.toBookEntity
+import com.acclorite.books_history.data.mapper.BookMapper
 import com.acclorite.books_history.domain.model.Book
 import com.acclorite.books_history.domain.repository.BookRepository
 import com.acclorite.books_history.util.Resource
@@ -14,15 +14,17 @@ import javax.inject.Singleton
 @Singleton
 class BookRepositoryImpl @Inject constructor(
     private val database: BookDao,
-    private val dataStore: DataStore
-): BookRepository {
+    private val dataStore: DataStore,
+
+    private val bookMapper: BookMapper
+) : BookRepository {
 
     override suspend fun getBooks(query: String): Flow<Resource<List<Book>>> {
         TODO("Not yet implemented")
     }
 
     override suspend fun insertBooks(books: List<Book>) {
-        database.insertBooks(books.map { it.toBookEntity() })
+        database.insertBooks(books.map { bookMapper.toBookEntity(it) })
     }
 
     override suspend fun updateBooks(books: List<Book>) {

@@ -5,11 +5,11 @@ import com.acclorite.books_history.domain.model.Book
 import javax.inject.Inject
 
 class BookMapperImpl @Inject constructor(): BookMapper {
-    override fun Book.toBookEntity(): BookEntity {
+    override fun toBookEntity(book: Book): BookEntity {
         TODO("Not yet implemented")
     }
 
-    override fun BookEntity.toBook(): Book {
+    override fun toBook(bookEntity: BookEntity): Book {
         TODO("Not yet implemented")
     }
 }

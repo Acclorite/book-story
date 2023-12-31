@@ -1,7 +1,6 @@
 package com.acclorite.books_history.presentation
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.viewModels
@@ -20,12 +19,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
-import androidx.savedstate.SavedStateRegistryOwner
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -34,7 +30,6 @@ import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 
 private const val CURRENT_SCREEN = "current_screen"

@@ -4,7 +4,7 @@ import com.acclorite.books_history.data.local.dto.BookEntity
 import com.acclorite.books_history.domain.model.Book
 
 interface BookMapper {
-    fun Book.toBookEntity(): BookEntity
+    fun toBookEntity(book: Book): BookEntity
 
-    fun BookEntity.toBook(): Book
+    fun toBook(bookEntity: BookEntity): Book
 }

@@ -1,8 +1,10 @@
 package com.acclorite.books_history.domain.model
 
 import android.graphics.Bitmap
+import androidx.compose.runtime.Immutable
 import java.io.File
 
+@Immutable
 data class Book(
     val id: Int,
     val title: String,
