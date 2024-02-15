@@ -2,15 +2,16 @@ package com.acclorite.books_history.domain.model
 
 import android.graphics.Bitmap
 import androidx.compose.runtime.Immutable
+import com.acclorite.books_history.util.UIText
 import java.io.File
 
 @Immutable
 data class Book(
-    val id: Int,
+    val id: Int?,
     val title: String,
-    val author: String,
+    val author: UIText,
     val description: String?,
-    val text: List<FormattedLine> = emptyList(),
+    val text: List<StringWithId> = emptyList(),
     val progress: Float,
     val file: File?,
     val lastOpened: Long?,

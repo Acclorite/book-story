@@ -1,0 +1,67 @@
+<resources>
+    <!-- Basic Strings -->
+    <string name="app_name">Історія Книги</string>
+
+    <!-- Screens -->
+    <string name="library_screen">Бібліотека</string>
+    <string name="history_screen">Історія</string>
+    <string name="browse_screen">Оглянути</string>
+    <string name="settings_screen">Налаштування</string>
+    <string name="about_screen">Про застосунок</string>
+    <string name="help_screen">Допомога</string>
+
+    <!-- Dialog Labels -->
+    <string name="storage_permission">Надати Дозвіл?</string>
+    <string name="add_books">Додати ці книги?</string>
+
+    <!-- Dialog Descriptions -->
+    <string name="storage_permission_description">
+        Нам потрібен дозвіл на сховище, щоб просканувати вашу теку Завантажень.
+        Без цього дозволу ви не зможете додати книгу.
+    </string>
+    <string name="add_books_description">
+        Ви можете вибрати книги, які хочете додати.
+        Ви зможете відредагувати Назву та Обкладинку книги пізніше.
+    </string>
+
+    <!-- Errors -->
+    <string name="error_permission">
+        Нам потрібен дозвіл на сховище, щоб просканувати вашу теку Завантажень та отримати книги
+    </string>
+
+    <!-- Is Empty messages -->
+    <string name="browse_empty">
+        Розширюйте книжковий арсенал бібліотеки своїми завантаженнями
+    </string>
+
+    <!-- Query strings -->
+    <string name="selected_items_count_query">%1$s обрано</string>
+    <string name="search_query">Знайти %1$s...</string>
+
+    <!-- Action Texts -->
+    <string name="cancel">Відмінити</string>
+    <string name="grant">Надати</string>
+    <string name="grant_permission">Надати дозвіл</string>
+    <string name="get_help">Мені потрібна допомога</string>
+    <string name="add">Додати</string>
+
+    <!-- Items -->
+    <string name="files">файли</string>
+
+    <!-- Book -->
+    <string name="unknown_author">Невідомий</string>
+
+    <!-- Tabs -->
+    <string name="reading_tab">Читаю</string>
+    <string name="already_read_tab">Прочитано</string>
+    <string name="planning_tab">Планую</string>
+    <string name="dropped_tab">Кинуто</string>
+
+    <!-- Settings categories -->
+    <string name="general_settings">Головні</string>
+    <string name="general_settings_desc">Мова застосунку</string>
+
+    <!-- Settings options -->
+    <string name="language_option">Мова застосунку</string>
+
+</resources>

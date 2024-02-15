@@ -22,6 +22,13 @@ object Constants {
     const val PARAGRAPH_HEIGHT = "paragraph_height"
     const val PARAGRAPH_INDENTATION = "paragraph_indentation"
 
+    val EXTENSIONS = listOf(".txt", ".pdf", ".epub")
+
+    val LANGUAGES = listOf(
+        Pair("en", "English"),
+        Pair("uk", "Українська")
+    )
+
     val FONTS = listOf(
         FontWithName(
             "Raleway",

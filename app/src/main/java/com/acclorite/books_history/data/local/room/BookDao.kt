@@ -25,6 +25,11 @@ interface BookDao {
     )
     suspend fun searchBooks(query: String): List<BookEntity>
 
+    @Query(
+        "SELECT * FROM bookentity WHERE id=:id"
+    )
+    suspend fun findBookById(id: Int): BookEntity
+
     @Delete
     suspend fun deleteBooks(books: List<BookEntity>)
 

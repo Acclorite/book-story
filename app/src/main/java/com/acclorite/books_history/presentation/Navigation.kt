@@ -7,9 +7,6 @@ import androidx.activity.viewModels
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,9 +16,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.acclorite.books_history.ui.Transitions
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -43,7 +42,15 @@ enum class Screen {
     HISTORY,
     BROWSE,
 
+    BOOKS_INFO,
+    READER,
 
+    SETTINGS,
+    GENERAL_SETTINGS,
+    APPEARANCE_SETTINGS,
+
+    ABOUT,
+    HELP
 }
 
 data class Argument(
@@ -93,6 +100,10 @@ class Navigator @AssistedInject constructor(
         return null
     }
 
+    fun clearArgument(key: String) {
+        arguments.removeIf { it.key == key }
+    }
+
     fun navigate(screen: Screen, vararg args: Argument) =
         viewModelScope.launch(Dispatchers.Default) {
             backStack.value.add(currentScreen.value)
@@ -139,8 +150,8 @@ class Navigator @AssistedInject constructor(
     @Composable
     fun composable(
         screen: Screen,
-        enterAnim: EnterTransition = fadeIn(tween(300)),
-        exitAnim: ExitTransition = fadeOut(tween(300)),
+        enterAnim: EnterTransition = Transitions.DefaultTransitionIn,
+        exitAnim: ExitTransition = Transitions.DefaultTransitionOut,
         content: @Composable () -> Unit
     ) {
         AnimatedVisibility(
@@ -171,10 +182,11 @@ class Navigator @AssistedInject constructor(
 @Composable
 fun NavigationHost(
     startScreen: Screen,
-    activity: ComponentActivity,
     colorBetweenAnimations: Color = MaterialTheme.colorScheme.surface,
     content: @Composable Navigator.() -> Unit
 ) {
+    val activity = LocalContext.current as ComponentActivity
+
     activity.apply {
         val navigator by viewModels<Navigator>(
             extrasProducer = {

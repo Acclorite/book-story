@@ -2,4 +2,98 @@
     <!-- Basic Strings -->
     <string name="app_name">Історія Книги</string>
 
+    <!-- Screens -->
+    <string name="library_screen">Бібліотека</string>
+    <string name="history_screen">Історія</string>
+    <string name="browse_screen">Оглянути</string>
+    <string name="settings_screen">Налаштування</string>
+    <string name="about_screen">Про застосунок</string>
+    <string name="help_screen">Допомога</string>
+
+    <!-- Dialog Labels -->
+    <string name="storage_permission">Надати Дозвіл?</string>
+    <string name="add_books">Додати ці книги?</string>
+    <string name="move_books">Перемістити книги?</string>
+
+    <!-- Dialog Descriptions -->
+    <string name="storage_permission_description">
+        Нам потрібен дозвіл на сховище, щоб просканувати вашу теку Завантажень.
+        Без цього дозволу ви не зможете додати книгу.
+    </string>
+    <string name="add_books_description">
+        Ви можете вибрати книги, які хочете додати.
+        Ви зможете відредагувати Назву та Обкладинку книги пізніше.
+    </string>
+    <string name="move_books_description">
+        Виберіть категорію, в яку ви хочете перемістити всі обрані книги(%1$s).
+        Всі обрані книги будуть переміщені в обрану категорію.
+    </string>
+
+    <!-- Errors -->
+    <string name="error_permission">
+        Нам потрібен дозвіл на сховище, щоб просканувати вашу теку Завантажень та отримати книги
+    </string>
+
+    <!-- Is Empty messages -->
+    <string name="browse_empty">
+        Розширюйте книжковий арсенал бібліотеки своїми завантаженнями
+    </string>
+    <string name="library_empty">
+        Читайте ваші улюблені книги та сортуйте їх між категоріями
+    </string>
+
+    <!-- Query strings -->
+    <string name="selected_items_count_query">%1$s обрано</string>
+    <string name="search_query">Знайти %1$s...</string>
+
+    <!-- Action Texts -->
+    <string name="cancel">Відмінити</string>
+    <string name="grant">Надати</string>
+    <string name="grant_permission">Надати дозвіл</string>
+    <string name="get_help">Мені потрібна допомога</string>
+    <string name="add">Додати</string>
+    <string name="add_book">Додати книгу</string>
+    <string name="move">Перемістити</string>
+
+    <!-- Items -->
+    <string name="files">файли</string>
+    <string name="books">книги</string>
+
+    <!-- Book -->
+    <string name="unknown_author">Невідомий</string>
+
+    <!-- Tabs -->
+    <string name="reading_tab">Читаю</string>
+    <string name="already_read_tab">Прочитано</string>
+    <string name="planning_tab">Планую</string>
+    <string name="dropped_tab">Кинуто</string>
+
+    <!-- Settings categories -->
+    <string name="general_settings">Головні</string>
+    <string name="general_settings_desc">Мова застосунку</string>
+    <string name="appearance_settings">Зовнішній вигляд</string>
+    <string name="appearance_settings_desc">Тема застосунку, темна тема</string>
+
+    <!-- Settings options -->
+    <string name="language_option">Мова застосунку</string>
+    <string name="dark_theme_option">Темна тема</string>
+    <string name="app_theme_option">Тема застосунку</string>
+
+    <!-- Dark Theme properties -->
+    <string name="dark_theme_off">Вимкнено</string>
+    <string name="dark_theme_on">Ввімкнено</string>
+    <string name="dark_theme_follow_system">Тема системи</string>
+
+    <!-- Theme properties -->
+    <string name="dynamic_theme">Хаос</string>
+    <string name="blue_theme">Зоряний шлях</string>
+    <string name="purple_theme">Супернова</string>
+    <string name="green_theme">Земля</string>
+    <string name="pink_theme">Пульсар</string>
+
+    <!-- Toast messages -->
+    <string name="press_again_toast">Натисніть ще раз, щоб вийти</string>
+    <string name="books_added">Всі книги були успішно додані.</string>
+    <string name="books_moved">Всі книги були успішно переміщені.</string>
+
 </resources>
