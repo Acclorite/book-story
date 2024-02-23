@@ -16,7 +16,6 @@ import com.acclorite.books_history.presentation.Argument
 import com.acclorite.books_history.presentation.Screen
 import com.acclorite.books_history.util.Resource
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -52,11 +51,6 @@ class BrowseViewModel @Inject constructor(
                 event.permissionState.launchPermissionRequest()
 
                 viewModelScope.launch {
-                    _state.update {
-                        it.copy(
-                            showErrorMessage = true
-                        )
-                    }
                     for (i in 0 until 100) {
                         if (!event.permissionState.status.isGranted) {
                             delay(100)
@@ -147,7 +141,20 @@ class BrowseViewModel @Inject constructor(
             }
 
             is BrowseEvent.OnPermissionCheck -> {
-                checkPermission(event.permissionState)
+                val legacyPermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
+                val isPermissionGranted =
+                    if (!legacyPermission) Environment.isExternalStorageManager()
+                    else event.permissionState.status.isGranted
+
+                if (isPermissionGranted) {
+                    return
+                }
+                _state.update {
+                    it.copy(
+                        requestPermissionDialog = true,
+                        showErrorMessage = false
+                    )
+                }
             }
 
             is BrowseEvent.OnSelectFile -> {
@@ -299,6 +306,7 @@ class BrowseViewModel @Inject constructor(
                 viewModelScope.launch {
                     val booksToInsert = _state.value.selectedBooks
                         .filterIsInstance<NullableBook.NotNull>()
+                        .filter { it.book!!.second }
                         .map { it.book!!.first }
 
                     if (booksToInsert.isEmpty()) {
@@ -308,8 +316,7 @@ class BrowseViewModel @Inject constructor(
                     insertBooks.execute(booksToInsert)
                     val books = fastGetBooks.execute("")
 
-
-
+                    event.resetScroll()
                     _state.update {
                         it.copy(
                             showAddingDialog = false
@@ -331,22 +338,22 @@ class BrowseViewModel @Inject constructor(
                     getFilesFromDownloads("")
                 }
             }
-        }
-    }
 
-    private fun checkPermission(permissionState: PermissionState) {
-        val legacyPermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
-        val isPermissionGranted = if (!legacyPermission) Environment.isExternalStorageManager()
-        else permissionState.status.isGranted
+            is BrowseEvent.OnUpdateScrollIndex -> {
+                _state.update {
+                    it.copy(
+                        scrollIndex = event.index
+                    )
+                }
+            }
 
-        if (isPermissionGranted) {
-            return
-        }
-        _state.update {
-            it.copy(
-                requestPermissionDialog = true,
-                showErrorMessage = false
-            )
+            is BrowseEvent.OnUpdateScrollOffset -> {
+                _state.update {
+                    it.copy(
+                        scrollOffset = event.offset
+                    )
+                }
+            }
         }
     }
 

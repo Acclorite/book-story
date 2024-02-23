@@ -1,6 +1,6 @@
 <resources>
     <!-- Basic Strings -->
-    <string name="app_version" translatable="false">0.5.0</string>
+    <string name="app_version" translatable="false">0.6.0</string>
     <string name="app_name">Book\'s History</string>
 
     <!-- Screens -->
@@ -13,8 +13,11 @@
 
     <!-- Dialog Labels -->
     <string name="storage_permission">Grant Permission?</string>
-    <string name="add_books">Add these books?</string>
+    <string name="add_books">Add books?</string>
     <string name="move_books">Move books?</string>
+    <string name="delete_books">Delete books?</string>
+    <string name="delete_book">Delete book?</string>
+    <string name="move_book">Move book?</string>
 
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">
@@ -29,10 +32,25 @@
         Choose the category to which you want to move all the selected books(%1$s).
         All selected books will be moved to the selected category.
     </string>
+    <string name="delete_books_description">
+        It will delete all selected books(%1$s) from the database.
+        It will not delete selected books from your device.
+    </string>
+    <string name="delete_book_description">
+        It will delete this book from the database.
+        It will not delete this book from your device.
+    </string>
+    <string name="move_book_description">
+        Choose the category to which you want to move this book.
+        This book will be moved to the selected category.
+    </string>
 
     <!-- Errors -->
     <string name="error_permission">
         We need storage permission to scan your Downloads directory and get books
+    </string>
+    <string name="error_no_description">
+        No description.
     </string>
 
     <!-- Is Empty messages -->
@@ -45,7 +63,8 @@
 
     <!-- Query strings -->
     <string name="selected_items_count_query">%1$s selected</string>
-    <string name="search_query">Search %1$s...</string>
+    <string name="search_query">Search %1$s…</string>
+    <string name="you_read_query">You read %1$s of this book.</string>
 
     <!-- Action Texts -->
     <string name="cancel">Cancel</string>
@@ -55,6 +74,10 @@
     <string name="add">Add</string>
     <string name="add_book">Add a book</string>
     <string name="move">Move</string>
+    <string name="delete">Delete</string>
+    <string name="start">Start</string>
+    <string name="continue_read">Continue</string>
+    <string name="never">Never</string>
 
     <!-- Items -->
     <string name="files">files</string>
@@ -62,6 +85,12 @@
 
     <!-- Book -->
     <string name="unknown_author">Unknown</string>
+    <string name="read_more">You need to read more!</string>
+    <string name="read_keep">Keep it up!</string>
+    <string name="change_cover">Change cover image</string>
+    <string name="change_cover_desc">Choose new cover from your photos</string>
+    <string name="delete_cover">Delete cover image</string>
+    <string name="delete_cover_desc">Delete current cover image of the book</string>
 
     <!-- Tabs -->
     <string name="reading_tab">Reading</string>
@@ -85,16 +114,38 @@
     <string name="dark_theme_on">Enabled</string>
     <string name="dark_theme_follow_system">Follow system</string>
 
-    <!-- Theme properties -->
+    <!-- Themes -->
     <string name="dynamic_theme">Chaos</string>
-    <string name="blue_theme">Milky Way</string>
+    <string name="blue_theme">Neptune</string>
     <string name="purple_theme">Supernova</string>
     <string name="green_theme">Earth</string>
     <string name="pink_theme">Pulsar</string>
+    <string name="yellow_theme">Venus</string>
+    <string name="red_theme">Mars</string>
 
     <!-- Toast messages -->
     <string name="press_again_toast">Press back again to exit</string>
     <string name="books_added">All books were successfully added.</string>
     <string name="books_moved">All books were successfully moved.</string>
+    <string name="books_deleted">All books were successfully deleted.</string>
+    <string name="cover_image_changed">Cover Image was successfully changed.</string>
+    <string name="cover_image_deleted">Cover Image was successfully deleted.</string>
+    <string name="title_changed">Title was successfully changed.</string>
+    <string name="file_not_found">File \"%1$s\" was not found.</string>
+    <string name="book_deleted">This book was successfully deleted.</string>
+    <string name="book_moved">This book was successfully moved.</string>
+    <string name="copied">Copied</string>
+
+    <!-- DropDown properties -->
+    <string name="move_this_book">Move</string>
+    <string name="delete_this_book">Delete</string>
+    <string name="details_book">Details</string>
+
+    <!-- BookInfo details -->
+    <string name="file_name">File name</string>
+    <string name="file_path">File path</string>
+    <string name="file_last_opened">File last opened</string>
+    <string name="file_size">File size</string>
+    <string name="unknown">Unknown</string>
 
 </resources>

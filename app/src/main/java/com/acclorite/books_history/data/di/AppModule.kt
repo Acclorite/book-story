@@ -15,7 +15,6 @@ import javax.inject.Singleton
 object AppModule {
 
 
-
     @Provides
     @Singleton
     fun provideBookDao(app: Application): BookDao {

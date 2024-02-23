@@ -42,7 +42,7 @@ enum class Screen {
     HISTORY,
     BROWSE,
 
-    BOOKS_INFO,
+    BOOK_INFO,
     READER,
 
     SETTINGS,
@@ -134,10 +134,6 @@ class Navigator @AssistedInject constructor(
         return currentScreen
     }
 
-    fun init(startScreen: Screen) {
-        savedStateHandle[CURRENT_SCREEN] = startScreen
-    }
-
     /**
      * Animated Screen. Using in [NavigationHost]. Be sure to not use the same [screen] parameter twice, it'll override the highest one in your code.
      *
@@ -187,29 +183,29 @@ fun NavigationHost(
 ) {
     val activity = LocalContext.current as ComponentActivity
 
-    activity.apply {
-        val navigator by viewModels<Navigator>(
-            extrasProducer = {
-                defaultViewModelCreationExtras.withCreationCallback<Navigator.Factory> { factory ->
+    val navigator by activity.viewModels<Navigator>(
+        extrasProducer = {
+            activity
+                .defaultViewModelCreationExtras
+                .withCreationCallback<Navigator.Factory> { factory ->
                     factory.create(startScreen)
                 }
-            }
-        )
-
-        BackHandler {
-            if (navigator.canGoBack()) {
-                navigator.navigateBack()
-            } else {
-                activity.finishAffinity()
-            }
         }
+    )
 
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(colorBetweenAnimations)
-        )
-
-        content(navigator)
+    BackHandler {
+        if (navigator.canGoBack()) {
+            navigator.navigateBack()
+        } else {
+            activity.finishAffinity()
+        }
     }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(colorBetweenAnimations)
+    )
+
+    content(navigator)
 }

@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.acclorite.books_history.R
 import com.acclorite.books_history.data.local.dto.BookEntity
-import com.acclorite.books_history.data.local.room.BookDao
 import com.acclorite.books_history.data.parser.EpubFileParser
 import com.acclorite.books_history.data.parser.PdfFileParser
 import com.acclorite.books_history.data.parser.TxtFileParser
@@ -20,28 +19,14 @@ class BookMapperImpl @Inject constructor(
     private val pdfFileParser: PdfFileParser,
     private val epubFileParser: EpubFileParser
 ) : BookMapper {
-    override suspend fun toBookEntity(book: Book, database: BookDao): BookEntity {
+    override suspend fun toBookEntity(book: Book): BookEntity {
         val stream = ByteArrayOutputStream()
-        book.coverImage?.compress(Bitmap.CompressFormat.JPEG, 50, stream)
-
-        if (book.file == null) {
-            val bookWithoutFile = database.findBookById(book.id!!)
-
-            return BookEntity(
-                id = book.id,
-                title = book.title,
-                filePath = bookWithoutFile.filePath,
-                progress = book.progress,
-                lastOpened = book.lastOpened,
-                image = stream.toByteArray(),
-                category = book.category
-            )
-        }
+        book.coverImage?.compress(Bitmap.CompressFormat.JPEG, 30, stream)
 
         return BookEntity(
             id = book.id,
             title = book.title,
-            filePath = book.file.path,
+            filePath = book.filePath,
             progress = book.progress,
             lastOpened = book.lastOpened,
             image = stream.toByteArray(),
@@ -73,6 +58,7 @@ class BookMapperImpl @Inject constructor(
                 text = emptyList(),
                 progress = bookEntity.progress,
                 file = file,
+                filePath = bookEntity.filePath,
                 lastOpened = bookEntity.lastOpened,
                 category = bookEntity.category,
                 coverImage = if (bookEntity.image.isNotEmpty()) image else null
@@ -86,6 +72,7 @@ class BookMapperImpl @Inject constructor(
                 description = null,
                 progress = bookEntity.progress,
                 file = null,
+                filePath = bookEntity.filePath,
                 lastOpened = bookEntity.lastOpened,
                 category = bookEntity.category,
                 coverImage = if (bookEntity.image.isNotEmpty()) image else null

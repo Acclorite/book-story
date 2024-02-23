@@ -6,7 +6,6 @@
     <uses-permission
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".util.BookApplication"

@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class SetDatastore @Inject constructor(private val repository: BookRepository) {
 
-    suspend fun <T> execute (key: Preferences.Key<T>, value: T) {
+    suspend fun <T> execute(key: Preferences.Key<T>, value: T) {
         repository.putDataToDataStore(key, value)
     }
 }

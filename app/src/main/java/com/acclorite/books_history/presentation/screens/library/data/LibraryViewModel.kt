@@ -4,6 +4,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.acclorite.books_history.domain.model.Category
+import com.acclorite.books_history.domain.use_case.DeleteBooks
 import com.acclorite.books_history.domain.use_case.GetBooks
 import com.acclorite.books_history.domain.use_case.UpdateBooks
 import com.acclorite.books_history.util.Resource
@@ -21,7 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LibraryViewModel @Inject constructor(
     private val getBooks: GetBooks,
-    private val updateBooks: UpdateBooks
+    private val updateBooks: UpdateBooks,
+    private val deleteBooks: DeleteBooks
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(LibraryState())
@@ -83,6 +85,17 @@ class LibraryViewModel @Inject constructor(
                             isRefreshing = false
                         )
                     }
+                }
+            }
+
+            is LibraryEvent.OnLoadList -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    _state.update {
+                        it.copy(
+                            isLoading = true
+                        )
+                    }
+                    getBooksFromDatabase()
                 }
             }
 
@@ -215,6 +228,33 @@ class LibraryViewModel @Inject constructor(
                             event.pagerState
                         )
                     )
+                }
+            }
+
+            is LibraryEvent.OnShowHideDeleteDialog -> {
+                _state.update {
+                    it.copy(
+                        showDeleteDialog = !it.showDeleteDialog
+                    )
+                }
+            }
+
+            is LibraryEvent.OnDeleteBooks -> {
+                viewModelScope.launch {
+                    _state.update {
+                        it.copy(
+                            showDeleteDialog = false
+                        )
+                    }
+
+                    val books = _state.value.books.filter {
+                        it.second
+                    }.map { it.first }
+                    deleteBooks.execute(books)
+
+                    getBooksFromDatabase()
+
+                    onEvent(LibraryEvent.OnClearSelectedBooks)
                 }
             }
         }

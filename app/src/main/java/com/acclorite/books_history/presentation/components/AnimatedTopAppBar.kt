@@ -1,5 +1,8 @@
 package com.acclorite.books_history.presentation.components
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
@@ -13,19 +16,21 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.acclorite.books_history.ui.DefaultTransition
-import com.acclorite.books_history.ui.elevation
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AnimatedTopAppBar(
-    containerColor: Color,
+    containerColor: Color = MaterialTheme.colorScheme.surface,
     scrolledContainerColor: Color?,
+
     scrollBehavior: TopAppBarScrollBehavior?,
+    isTopBarScrolled: Boolean?,
 
     content1Visibility: Boolean,
     content1NavigationIcon: @Composable () -> Unit,
@@ -42,6 +47,16 @@ fun AnimatedTopAppBar(
     content3Title: @Composable () -> Unit,
     content3Actions: @Composable RowScope.() -> Unit
 ) {
+    val color =
+        if (isTopBarScrolled == true && scrolledContainerColor != null) scrolledContainerColor
+        else containerColor
+
+    val animatedColor by animateColorAsState(
+        targetValue = color,
+        animationSpec = spring(stiffness = Spring.StiffnessMediumLow),
+        label = "TopAppBar color animation"
+    )
+
     if (scrollBehavior != null && scrolledContainerColor != null) {
         val isScrolled = scrollBehavior.state.overlappedFraction > 0.01f
         val statusBarPadding = with(LocalDensity.current) {
@@ -67,8 +82,8 @@ fun AnimatedTopAppBar(
                 actions = content1Actions,
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = containerColor,
-                    scrolledContainerColor = MaterialTheme.elevation()
+                    containerColor = animatedColor,
+                    scrolledContainerColor = scrolledContainerColor ?: Color.Transparent
                 )
             )
         }
@@ -80,8 +95,8 @@ fun AnimatedTopAppBar(
                 actions = content2Actions,
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = containerColor,
-                    scrolledContainerColor = MaterialTheme.elevation()
+                    containerColor = animatedColor,
+                    scrolledContainerColor = scrolledContainerColor ?: Color.Transparent
                 )
             )
         }
@@ -93,8 +108,8 @@ fun AnimatedTopAppBar(
                 actions = content3Actions,
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = containerColor,
-                    scrolledContainerColor = MaterialTheme.elevation()
+                    containerColor = animatedColor,
+                    scrolledContainerColor = scrolledContainerColor ?: Color.Transparent
                 )
             )
         }

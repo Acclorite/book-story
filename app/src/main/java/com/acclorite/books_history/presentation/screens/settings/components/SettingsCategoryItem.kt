@@ -35,7 +35,7 @@ fun SettingsCategoryItem(
             .clickable {
                 onClick()
             }
-            .padding(vertical = verticalPadding, horizontal = 16.dp),
+            .padding(vertical = verticalPadding, horizontal = 18.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start
     ) {

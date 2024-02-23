@@ -11,6 +11,7 @@ import com.acclorite.books_history.domain.model.Category
 sealed class LibraryEvent {
     data class OnPreloadBooks(val books: List<Book>) : LibraryEvent()
     data object OnRefreshList : LibraryEvent()
+    data object OnLoadList : LibraryEvent()
     data class OnScrollToPage(val index: Int, val pagerState: PagerState) : LibraryEvent()
     data class OnUpdateCurrentPage(val page: Int) : LibraryEvent()
     data object OnSearchShowHide : LibraryEvent()
@@ -23,6 +24,6 @@ sealed class LibraryEvent {
     data object OnShowHideMoveDialog : LibraryEvent()
     data class OnSelectCategory(val category: Category) : LibraryEvent()
     data class OnMoveBooks(val pagerState: PagerState) : LibraryEvent()
-
-
+    data object OnShowHideDeleteDialog : LibraryEvent()
+    data object OnDeleteBooks : LibraryEvent()
 }

@@ -22,6 +22,7 @@ import com.acclorite.books_history.presentation.main.MainEvent
 import com.acclorite.books_history.presentation.main.MainViewModel
 import com.acclorite.books_history.ui.Theme
 import com.acclorite.books_history.ui.isDark
+import com.acclorite.books_history.util.Constants
 
 @Composable
 fun AppearanceSettingsThemeSwitcher(
@@ -30,8 +31,8 @@ fun AppearanceSettingsThemeSwitcher(
     val theme = mainViewModel.theme.collectAsState().value!!
     val darkTheme = mainViewModel.darkTheme.collectAsState().value!!
 
-    val themes = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Theme.entries
-    else Theme.entries.dropWhile { it == Theme.DYNAMIC }
+    val themes = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Constants.THEMES
+    else Constants.THEMES.dropWhile { it.first == Theme.DYNAMIC }
 
     Column(
         Modifier
@@ -56,9 +57,9 @@ fun AppearanceSettingsThemeSwitcher(
                 AppearanceSettingsThemeSwitcherItem(
                     theme = themeEntry,
                     darkTheme = darkTheme.isDark(),
-                    selected = theme == themeEntry
+                    selected = theme == themeEntry.first
                 ) {
-                    mainViewModel.onEvent(MainEvent.OnChangeTheme(themeEntry.toString()))
+                    mainViewModel.onEvent(MainEvent.OnChangeTheme(themeEntry.first.toString()))
                 }
 
                 if (index != Theme.entries.lastIndex) {

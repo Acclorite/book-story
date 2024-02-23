@@ -41,6 +41,7 @@ class PdfFileParser @Inject constructor(private val application: Application) : 
                 text = text,
                 progress = 0f,
                 file = file,
+                filePath = file.path,
                 lastOpened = null,
                 category = Category.entries[0],
                 coverImage = null

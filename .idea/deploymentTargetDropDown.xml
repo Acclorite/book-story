@@ -4,9 +4,9 @@
     <value>
       <entry key="app">
         <State>
-          <targetSelectedWithDropDown>
+          <runningDeviceTargetSelectedWithDropDown>
             <Target>
-              <type value="QUICK_BOOT_TARGET" />
+              <type value="RUNNING_DEVICE_TARGET" />
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
@@ -14,15 +14,16 @@
                 </Key>
               </deviceKey>
             </Target>
-          </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-02-15T11:58:02.950581796Z" />
+          </runningDeviceTargetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-02-22T17:49:53.931710327Z" />
+          <multipleDevicesSelectedInDropDown value="true" />
           <targetsSelectedWithDialog>
             <Target>
               <type value="QUICK_BOOT_TARGET" />
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Administrator\.android\avd\Resizable_Experimental_API_33.avd" />
+                  <value value="$USER_HOME$/.android/avd/Pixel_3_XL_API_26.avd" />
                 </Key>
               </deviceKey>
             </Target>
@@ -31,7 +32,7 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Administrator\.android\avd\Pixel_2_API_26.avd" />
+                  <value value="$USER_HOME$/.android/avd/Phone_13_.avd" />
                 </Key>
               </deviceKey>
             </Target>

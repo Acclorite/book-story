@@ -27,21 +27,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.acclorite.books_history.R
 import com.acclorite.books_history.ui.Theme
 import com.acclorite.books_history.ui.colorScheme
+import com.acclorite.books_history.util.UIText
 
 @Composable
 fun AppearanceSettingsThemeSwitcherItem(
-    theme: Theme,
+    theme: Pair<Theme, UIText>,
     darkTheme: Boolean,
     selected: Boolean,
     onClick: () -> Unit
 ) {
-    val colorScheme = colorScheme(theme, darkTheme)
+    val colorScheme = colorScheme(theme.first, darkTheme)
 
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -133,13 +132,7 @@ fun AppearanceSettingsThemeSwitcherItem(
         }
         Spacer(modifier = Modifier.height(6.dp))
         Text(
-            text = when (theme) {
-                Theme.BLUE -> stringResource(id = R.string.blue_theme)
-                Theme.PURPLE -> stringResource(id = R.string.purple_theme)
-                Theme.PINK -> stringResource(id = R.string.pink_theme)
-                Theme.GREEN -> stringResource(id = R.string.green_theme)
-                Theme.DYNAMIC -> stringResource(id = R.string.dynamic_theme)
-            },
+            text = theme.second.asString(),
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.bodyMedium,
             overflow = TextOverflow.Ellipsis,

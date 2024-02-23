@@ -5,10 +5,14 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import com.acclorite.books_history.R
+import com.acclorite.books_history.domain.model.Book
+import com.acclorite.books_history.domain.model.Category
 import com.acclorite.books_history.domain.model.FontWithName
+import com.acclorite.books_history.ui.Theme
 
 object Constants {
 
+    // SavedStateHandle constants(actually just all settings params)
     const val LANGUAGE = "language"
     const val THEME = "theme"
     const val DARK_THEME = "dark_theme"
@@ -22,13 +26,27 @@ object Constants {
     const val PARAGRAPH_HEIGHT = "paragraph_height"
     const val PARAGRAPH_INDENTATION = "paragraph_indentation"
 
+    // Supported file extensions
     val EXTENSIONS = listOf(".txt", ".pdf", ".epub")
 
+    // Supported languages
     val LANGUAGES = listOf(
         Pair("en", "English"),
-        Pair("uk", "Українська")
+        Pair("uk", "Українська"),
     )
 
+    // Supported themes
+    val THEMES = listOf(
+        Pair(Theme.DYNAMIC, UIText.StringResource(R.string.dynamic_theme)),
+        Pair(Theme.BLUE, UIText.StringResource(R.string.blue_theme)),
+        Pair(Theme.PURPLE, UIText.StringResource(R.string.purple_theme)),
+        Pair(Theme.GREEN, UIText.StringResource(R.string.green_theme)),
+        Pair(Theme.PINK, UIText.StringResource(R.string.pink_theme)),
+        Pair(Theme.YELLOW, UIText.StringResource(R.string.yellow_theme)),
+        Pair(Theme.RED, UIText.StringResource(R.string.red_theme)),
+    )
+
+    // Fonts for Reader
     val FONTS = listOf(
         FontWithName(
             "Raleway",
@@ -140,5 +158,19 @@ object Constants {
                 Font(R.font.jost_bold_italic, FontWeight.Bold, style = FontStyle.Italic)
             )
         )
+    )
+
+    val EMPTY_BOOK = Book(
+        null,
+        "",
+        UIText.StringValue(""),
+        null,
+        emptyList(),
+        0f,
+        null,
+        "",
+        null,
+        Category.READING,
+        null
     )
 }

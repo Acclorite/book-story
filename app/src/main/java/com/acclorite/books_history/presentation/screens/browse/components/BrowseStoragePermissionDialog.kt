@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.acclorite.books_history.R
-import com.acclorite.books_history.presentation.components.CustomAlertDialog
+import com.acclorite.books_history.presentation.components.CustomDialogWithContent
 import com.acclorite.books_history.presentation.screens.browse.data.BrowseEvent
 import com.acclorite.books_history.presentation.screens.browse.data.BrowseViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -19,12 +19,14 @@ import com.google.accompanist.permissions.PermissionState
 fun BrowseStoragePermissionDialog(viewModel: BrowseViewModel, permissionState: PermissionState) {
     val activity = LocalContext.current as ComponentActivity
 
-    CustomAlertDialog(
+    CustomDialogWithContent(
         title = stringResource(id = R.string.storage_permission),
         description = stringResource(id = R.string.storage_permission_description),
         actionText = stringResource(id = R.string.grant),
         imageVectorIcon = Icons.Default.SdStorage,
         onDismiss = { viewModel.onEvent(BrowseEvent.OnStoragePermissionDismiss(permissionState)) },
+        isActionEnabled = true,
+        withDivider = false,
         onAction = {
             viewModel.onEvent(
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

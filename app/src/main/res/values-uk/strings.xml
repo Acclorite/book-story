@@ -12,8 +12,11 @@
 
     <!-- Dialog Labels -->
     <string name="storage_permission">Надати Дозвіл?</string>
-    <string name="add_books">Додати ці книги?</string>
+    <string name="add_books">Додати книги?</string>
     <string name="move_books">Перемістити книги?</string>
+    <string name="delete_books">Видалити книги?</string>
+    <string name="delete_book">Видалити книгу?</string>
+    <string name="move_book">Перемістити книгу?</string>
 
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">
@@ -28,10 +31,25 @@
         Виберіть категорію, в яку ви хочете перемістити всі обрані книги(%1$s).
         Всі обрані книги будуть переміщені в обрану категорію.
     </string>
+    <string name="delete_books_description">
+        Це видалить всі обрані книги(%1$s) з бази даних.
+        Це не видалить обрані книги з вашого пристрою.
+    </string>
+    <string name="delete_book_description">
+        Це видалить цю книгу з бази даних.
+        Це не видалить цю книгу з вашого пристрою.
+    </string>
+    <string name="move_book_description">
+        Виберіть категорію, в яку ви хочете перемістити цю книгу.
+        Ця книга буде переміщена в обрану категорію.
+    </string>
 
     <!-- Errors -->
     <string name="error_permission">
         Нам потрібен дозвіл на сховище, щоб просканувати вашу теку Завантажень та отримати книги
+    </string>
+    <string name="error_no_description">
+        Немає опису.
     </string>
 
     <!-- Is Empty messages -->
@@ -44,7 +62,8 @@
 
     <!-- Query strings -->
     <string name="selected_items_count_query">%1$s обрано</string>
-    <string name="search_query">Знайти %1$s...</string>
+    <string name="search_query">Знайти %1$s…</string>
+    <string name="you_read_query">Ви прочитали %1$s цієї книги.</string>
 
     <!-- Action Texts -->
     <string name="cancel">Відмінити</string>
@@ -54,6 +73,10 @@
     <string name="add">Додати</string>
     <string name="add_book">Додати книгу</string>
     <string name="move">Перемістити</string>
+    <string name="delete">Видалити</string>
+    <string name="start">Почати</string>
+    <string name="continue_read">Продовжити</string>
+    <string name="never">Ніколи</string>
 
     <!-- Items -->
     <string name="files">файли</string>
@@ -61,6 +84,12 @@
 
     <!-- Book -->
     <string name="unknown_author">Невідомий</string>
+    <string name="read_more">Вам потрібно читати більше!</string>
+    <string name="read_keep">Так тримати!</string>
+    <string name="change_cover">Змінити обкладинку</string>
+    <string name="change_cover_desc">Виберіть нову обкладинку з ваших фото</string>
+    <string name="delete_cover">Видалити обкладинку</string>
+    <string name="delete_cover_desc">Видаліть нинішню обкладинку книги</string>
 
     <!-- Tabs -->
     <string name="reading_tab">Читаю</string>
@@ -84,16 +113,38 @@
     <string name="dark_theme_on">Ввімкнено</string>
     <string name="dark_theme_follow_system">Тема системи</string>
 
-    <!-- Theme properties -->
+    <!-- Themes -->
     <string name="dynamic_theme">Хаос</string>
-    <string name="blue_theme">Зоряний шлях</string>
+    <string name="blue_theme">Нептун</string>
     <string name="purple_theme">Супернова</string>
     <string name="green_theme">Земля</string>
     <string name="pink_theme">Пульсар</string>
+    <string name="yellow_theme">Венера</string>
+    <string name="red_theme">Марс</string>
 
     <!-- Toast messages -->
     <string name="press_again_toast">Натисніть ще раз, щоб вийти</string>
     <string name="books_added">Всі книги були успішно додані.</string>
     <string name="books_moved">Всі книги були успішно переміщені.</string>
+    <string name="books_deleted">Всі книги були успішно видалені.</string>
+    <string name="cover_image_changed">Обкладинка була успішно змінена.</string>
+    <string name="cover_image_deleted">Обкладинка була успішно видалена.</string>
+    <string name="title_changed">Назва була успішно змінена.</string>
+    <string name="file_not_found">Файл \"%1$s\" не знайдено.</string>
+    <string name="book_deleted">Ця книга була успішно видалена.</string>
+    <string name="book_moved">Ця книга була успішно переміщена.</string>
+    <string name="copied">Скопійовано</string>
+
+    <!-- DropDown properties -->
+    <string name="move_this_book">Перемістити</string>
+    <string name="delete_this_book">Видалити</string>
+    <string name="details_book">Подробиці</string>
+
+    <!-- BookInfo details -->
+    <string name="file_name">Ім\'я файлу</string>
+    <string name="file_path">Шлях до файлу</string>
+    <string name="file_last_opened">Останнє відкриття файлу</string>
+    <string name="file_size">Розмір файлу</string>
+    <string name="unknown">Невідомо</string>
 
 </resources>

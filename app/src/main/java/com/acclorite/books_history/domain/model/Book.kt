@@ -14,6 +14,7 @@ data class Book(
     val text: List<StringWithId> = emptyList(),
     val progress: Float,
     val file: File?,
+    val filePath: String,
     val lastOpened: Long?,
     val category: Category,
     val coverImage: Bitmap?

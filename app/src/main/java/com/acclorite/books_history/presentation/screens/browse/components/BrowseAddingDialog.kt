@@ -19,14 +19,21 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.acclorite.books_history.R
 import com.acclorite.books_history.presentation.Navigator
 import com.acclorite.books_history.presentation.components.CustomDialogWithLazyColumn
 import com.acclorite.books_history.presentation.screens.browse.data.BrowseEvent
 import com.acclorite.books_history.presentation.screens.browse.data.BrowseViewModel
+import com.acclorite.books_history.presentation.screens.library.data.LibraryEvent
+import com.acclorite.books_history.presentation.screens.library.data.LibraryViewModel
 
 @Composable
-fun BrowseAddingDialog(viewModel: BrowseViewModel, navigator: Navigator) {
+fun BrowseAddingDialog(
+    libraryViewModel: LibraryViewModel = hiltViewModel(),
+    viewModel: BrowseViewModel,
+    navigator: Navigator
+) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
 
@@ -38,7 +45,14 @@ fun BrowseAddingDialog(viewModel: BrowseViewModel, navigator: Navigator) {
         isActionEnabled = !state.isBooksLoading,
         onDismiss = { viewModel.onEvent(BrowseEvent.OnAddingDialogDismiss) },
         onAction = {
-            viewModel.onEvent(BrowseEvent.OnAddBooks(navigator))
+            viewModel.onEvent(
+                BrowseEvent.OnAddBooks(
+                    navigator,
+                    resetScroll = {
+                        libraryViewModel.onEvent(LibraryEvent.OnUpdateCurrentPage(0))
+                    }
+                )
+            )
             Toast.makeText(
                 context,
                 context.getString(R.string.books_added),

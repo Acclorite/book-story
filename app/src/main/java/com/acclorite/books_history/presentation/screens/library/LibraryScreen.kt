@@ -4,8 +4,6 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -75,24 +73,27 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.acclorite.books_history.R
 import com.acclorite.books_history.domain.model.Book
 import com.acclorite.books_history.domain.model.Category
+import com.acclorite.books_history.presentation.Argument
 import com.acclorite.books_history.presentation.Navigator
 import com.acclorite.books_history.presentation.Screen
 import com.acclorite.books_history.presentation.components.AnimatedTopAppBar
 import com.acclorite.books_history.presentation.components.IsEmpty
 import com.acclorite.books_history.presentation.components.MoreDropDown
 import com.acclorite.books_history.presentation.screens.library.components.LibraryBookItem
+import com.acclorite.books_history.presentation.screens.library.components.LibraryDeleteDialog
 import com.acclorite.books_history.presentation.screens.library.components.LibraryMoveDialog
 import com.acclorite.books_history.presentation.screens.library.components.LibraryTabRow
 import com.acclorite.books_history.presentation.screens.library.data.LibraryEvent
 import com.acclorite.books_history.presentation.screens.library.data.LibraryViewModel
 import com.acclorite.books_history.ui.Transitions
 import com.acclorite.books_history.ui.elevation
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(
     ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class,
-    ExperimentalMaterialApi::class
+    ExperimentalMaterialApi::class, FlowPreview::class
 )
 @Composable
 fun LibraryScreen(
@@ -124,17 +125,11 @@ fun LibraryScreen(
         viewModel.onEvent(LibraryEvent.OnUpdateCurrentPage(pagerState.currentPage))
     }
 
-    val topAppBarColor = if (state.hasSelectedItems) MaterialTheme.elevation()
-    else MaterialTheme.colorScheme.surface
-
-    val animatedTopAppBarColor by animateColorAsState(
-        targetValue = topAppBarColor,
-        animationSpec = tween(300, easing = LinearEasing),
-        label = "TopAppBar color animation"
-    )
-
     if (state.showMoveDialog) {
         LibraryMoveDialog(viewModel = viewModel, pagerState = pagerState)
+    }
+    if (state.showDeleteDialog) {
+        LibraryDeleteDialog(viewModel = viewModel)
     }
 
     Scaffold(
@@ -145,9 +140,11 @@ fun LibraryScreen(
         topBar = {
             Column(Modifier.fillMaxWidth()) {
                 AnimatedTopAppBar(
-                    containerColor = animatedTopAppBarColor,
-                    scrolledContainerColor = null,
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    scrolledContainerColor = MaterialTheme.elevation(),
+
                     scrollBehavior = null,
+                    isTopBarScrolled = state.hasSelectedItems,
 
                     content1Visibility = !state.hasSelectedItems && !state.showSearch,
                     content1NavigationIcon = {},
@@ -217,7 +214,7 @@ fun LibraryScreen(
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
-                        IconButton(onClick = { /* TODO Delete book */ }) {
+                        IconButton(onClick = { viewModel.onEvent(LibraryEvent.OnShowHideDeleteDialog) }) {
                             Icon(
                                 imageVector = Icons.Outlined.Delete,
                                 contentDescription = "Delete books from database",
@@ -317,18 +314,28 @@ fun LibraryScreen(
                 Box(modifier = Modifier.fillMaxSize()) {
                     LazyVerticalGrid(
                         columns = GridCells.Adaptive(120.dp),
-                        Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize(),
                         contentPadding = PaddingValues(8.dp)
                     ) {
                         if (!state.isLoading) {
-                            items(categorizedBooks) {
+                            items(
+                                categorizedBooks,
+                                key = { it.first.id ?: 0 }
+                            ) {
                                 LibraryBookItem(
                                     book = it,
+                                    modifier = Modifier.animateItemPlacement(
+                                        animationSpec = tween(300)
+                                    ),
                                     onCoverImageClick = {
                                         if (state.hasSelectedItems) {
                                             viewModel.onEvent(LibraryEvent.OnSelectBook(it))
                                         } else {
-                                            navigator.navigate(Screen.BOOKS_INFO)
+                                            navigator.navigate(
+                                                Screen.BOOK_INFO,
+                                                Argument("book", it.first)
+                                            )
                                         }
                                     },
                                     onLongClick = {

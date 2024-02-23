@@ -48,7 +48,6 @@ fun BooksHistoryResurrectionTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            WindowCompat.setDecorFitsSystemWindows(window, false)
 
             window.statusBarColor = Color.Transparent.toArgb()
             window.navigationBarColor = Color.Transparent.toArgb()

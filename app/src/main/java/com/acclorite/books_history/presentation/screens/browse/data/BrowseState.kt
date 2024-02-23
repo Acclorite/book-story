@@ -15,6 +15,9 @@ data class BrowseState(
     val selectedItemsCount: Int = 0,
     val hasSelectedItems: Boolean = false,
 
+    val scrollIndex: Int = 0,
+    val scrollOffset: Int = 0,
+
     val showSearch: Boolean = false,
     val searchQuery: String = "",
     val hasFocused: Boolean = false,

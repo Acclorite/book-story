@@ -10,13 +10,17 @@ import com.acclorite.books_history.ui.theme.blueTheme
 import com.acclorite.books_history.ui.theme.greenTheme
 import com.acclorite.books_history.ui.theme.pinkTheme
 import com.acclorite.books_history.ui.theme.purpleTheme
+import com.acclorite.books_history.ui.theme.redTheme
+import com.acclorite.books_history.ui.theme.yellowTheme
 
 enum class Theme {
     DYNAMIC,
     BLUE,
     PURPLE,
     GREEN,
-    PINK
+    PINK,
+    YELLOW,
+    RED
 }
 
 /**
@@ -28,6 +32,8 @@ fun String.toTheme(): Theme {
         "PURPLE" -> Theme.PURPLE
         "GREEN" -> Theme.GREEN
         "PINK" -> Theme.PINK
+        "YELLOW" -> Theme.YELLOW
+        "RED" -> Theme.RED
         else -> Theme.BLUE
     }
 }
@@ -66,9 +72,19 @@ fun colorScheme(theme: Theme, darkTheme: Boolean): ColorScheme {
             return greenTheme(isDark = darkTheme)
         }
 
-        else -> {
+        Theme.PINK -> {
             /* Pink Theme */
             return pinkTheme(isDark = darkTheme)
+        }
+
+        Theme.YELLOW -> {
+            /* Yellow Theme */
+            return yellowTheme(isDark = darkTheme)
+        }
+
+        Theme.RED -> {
+            /* Red Theme */
+            return redTheme(isDark = darkTheme)
         }
     }
 }

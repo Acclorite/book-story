@@ -17,12 +17,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import com.acclorite.books_history.domain.model.Book
 import com.acclorite.books_history.presentation.NavigationHost
 import com.acclorite.books_history.presentation.Screen
 import com.acclorite.books_history.presentation.components.BottomNavigationBar
 import com.acclorite.books_history.presentation.main.MainEvent
 import com.acclorite.books_history.presentation.main.MainViewModel
+import com.acclorite.books_history.presentation.screens.book_info.BookInfoScreen
 import com.acclorite.books_history.presentation.screens.browse.BrowseScreen
 import com.acclorite.books_history.presentation.screens.library.LibraryScreen
 import com.acclorite.books_history.presentation.screens.settings.SettingsScreen
@@ -41,6 +43,7 @@ class MainActivity : ComponentActivity() {
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
         mainViewModel.init(this)
@@ -49,7 +52,9 @@ class MainActivity : ComponentActivity() {
                 !mainViewModel.isReady.value
             }
         }
+
         enableEdgeToEdge()
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
             val updating = mainViewModel.updating.collectAsState().value
@@ -95,6 +100,18 @@ class MainActivity : ComponentActivity() {
                             }
                         }
 
+                        // Book Info
+                        composable(
+                            screen = Screen.BOOK_INFO,
+                            enterAnim = Transitions.SlidingTransitionIn,
+                            exitAnim = Transitions.SlidingTransitionOut
+                        ) {
+
+                            BookInfoScreen(
+                                navigator = this@NavigationHost
+                            )
+                        }
+
                         // Settings
                         composable(
                             screen = Screen.SETTINGS,
@@ -107,6 +124,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
+                        // Nested categories
                         composable(
                             screen = Screen.GENERAL_SETTINGS,
                             enterAnim = Transitions.SlidingTransitionIn,

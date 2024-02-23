@@ -14,18 +14,18 @@ import javax.inject.Inject
 
 private val Context.dataStore by preferencesDataStore("data_store")
 
-class DataStoreImpl @Inject constructor(context: Application): DataStore {
+class DataStoreImpl @Inject constructor(context: Application) : DataStore {
     private val dataStore = context.dataStore
 
     override suspend fun <T> getData(key: Preferences.Key<T>, defaultValue: T): Flow<T> =
         dataStore.data.catch { exception ->
-            if (exception is IOException){
+            if (exception is IOException) {
                 emit(emptyPreferences())
-            } else{
+            } else {
                 throw exception
             }
         }.map { preferences ->
-            val result = preferences[key]?: defaultValue
+            val result = preferences[key] ?: defaultValue
             result
         }
 

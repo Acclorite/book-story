@@ -43,7 +43,7 @@ fun CustomDialogWithLazyColumn(
     properties: DialogProperties = DialogProperties(),
     drawableIcon: Painter? = null,
     imageVectorIcon: ImageVector? = null,
-    backgroundTransparency: Float = 0.2f,
+    backgroundTransparency: Float = 0.3f,
     title: String,
     description: String?,
     actionText: String?,
@@ -65,7 +65,7 @@ fun CustomDialogWithLazyColumn(
                 .navigationBarsPadding()
                 .statusBarsPadding()
                 .clip(MaterialTheme.shapes.extraLarge)
-                .background(MaterialTheme.elevation(ElevationDefaults.DialogElevation))
+                .background(MaterialTheme.elevation(ElevationDefaults.Dialog))
                 .padding(top = 24.dp, bottom = 12.dp)
         ) {
             if (drawableIcon != null) {

@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class GetDatastore @Inject constructor(private val repository: BookRepository) {
 
-    suspend fun <T> execute (key: Preferences.Key<T>, defaultValue: T): Flow<T> {
+    suspend fun <T> execute(key: Preferences.Key<T>, defaultValue: T): Flow<T> {
         return repository.retrieveDataFromDataStore(key, defaultValue)
     }
 }

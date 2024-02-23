@@ -44,6 +44,7 @@ import com.acclorite.books_history.util.removeTrailingZero
 @Composable
 fun LibraryBookItem(
     book: Pair<Book, Boolean>,
+    modifier: Modifier = Modifier,
     onCoverImageClick: () -> Unit,
     onLongClick: () -> Unit,
     onButtonClick: () -> Unit
@@ -65,7 +66,7 @@ fun LibraryBookItem(
     )
 
     Column(
-        Modifier
+        modifier
             .padding(3.dp)
             .background(
                 animatedBackgroundColor,

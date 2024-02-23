@@ -66,15 +66,15 @@ class BookRepositoryImpl @Inject constructor(
     }
 
     override suspend fun insertBooks(books: List<Book>) {
-        database.insertBooks(books.map { bookMapper.toBookEntity(it, database) })
+        database.insertBooks(books.map { bookMapper.toBookEntity(it) })
     }
 
     override suspend fun updateBooks(books: List<Book>) {
-        database.updateBooks(books.map { bookMapper.toBookEntity(it, database) })
+        database.updateBooks(books.map { bookMapper.toBookEntity(it) })
     }
 
     override suspend fun deleteBooks(books: List<Book>) {
-        database.deleteBooks(books.map { bookMapper.toBookEntity(it, database) })
+        database.deleteBooks(books.map { bookMapper.toBookEntity(it) })
     }
 
     override suspend fun <T> retrieveDataFromDataStore(

@@ -5,7 +5,6 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.acclorite.books_history.R
@@ -27,7 +26,6 @@ fun BottomNavigationBar(
         containerColor = MaterialTheme.elevation()
     ) {
         BottomNavigationBarItem(
-            Modifier.weight(1f),
             item = NavigationBarItem(
                 stringResource(id = R.string.library_screen),
                 selectedIcon = painterResource(id = R.drawable.library_screen_filled),
@@ -38,7 +36,6 @@ fun BottomNavigationBar(
             navigator.navigate(Screen.LIBRARY)
         }
         BottomNavigationBarItem(
-            Modifier.weight(1f),
             item = NavigationBarItem(
                 stringResource(id = R.string.history_screen),
                 selectedIcon = painterResource(id = R.drawable.history_screen_filled),
@@ -49,7 +46,6 @@ fun BottomNavigationBar(
             navigator.navigate(Screen.HISTORY)
         }
         BottomNavigationBarItem(
-            Modifier.weight(1f),
             item = NavigationBarItem(
                 stringResource(id = R.string.browse_screen),
                 selectedIcon = painterResource(id = R.drawable.browse_screen_filled),

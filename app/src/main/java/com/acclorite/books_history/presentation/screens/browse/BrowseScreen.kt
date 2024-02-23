@@ -3,8 +3,6 @@ package com.acclorite.books_history.presentation.screens.browse
 import android.Manifest
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -17,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.CircularProgressIndicator
@@ -35,19 +34,18 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -73,12 +71,15 @@ import com.acclorite.books_history.ui.Transitions
 import com.acclorite.books_history.ui.elevation
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.debounce
 
 @OptIn(
     ExperimentalMaterial3Api::class,
     ExperimentalPermissionsApi::class,
     ExperimentalFoundationApi::class,
-    ExperimentalMaterialApi::class
+    ExperimentalMaterialApi::class, FlowPreview::class
 )
 @Composable
 fun BrowseScreen(
@@ -88,12 +89,7 @@ fun BrowseScreen(
     val permissionState = rememberPermissionState(
         permission = Manifest.permission.READ_EXTERNAL_STORAGE
     )
-    LaunchedEffect(Unit) {
-        viewModel.onEvent(BrowseEvent.OnPermissionCheck(permissionState))
-    }
-
     val state by viewModel.state.collectAsState()
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val refreshState = rememberPullRefreshState(
         refreshing = state.isRefreshing,
         onRefresh = {
@@ -101,15 +97,29 @@ fun BrowseScreen(
         }
     )
     val focusRequester = remember { FocusRequester() }
+    val listState = rememberLazyGridState(state.scrollIndex, state.scrollOffset)
 
-    val topAppBarColor = if (state.hasSelectedItems) MaterialTheme.elevation()
-    else MaterialTheme.colorScheme.surface
-
-    val animatedTopAppBarColor by animateColorAsState(
-        targetValue = topAppBarColor,
-        animationSpec = tween(300, easing = LinearEasing),
-        label = "TopAppBar color animation"
-    )
+    LaunchedEffect(listState) {
+        snapshotFlow {
+            listState.firstVisibleItemIndex
+        }
+            .debounce(10L)
+            .collectLatest {
+                viewModel.onEvent(BrowseEvent.OnUpdateScrollIndex(it))
+            }
+    }
+    LaunchedEffect(listState) {
+        snapshotFlow {
+            listState.firstVisibleItemScrollOffset
+        }
+            .debounce(10L)
+            .collectLatest {
+                viewModel.onEvent(BrowseEvent.OnUpdateScrollOffset(it))
+            }
+    }
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(BrowseEvent.OnPermissionCheck(permissionState))
+    }
 
     if (state.requestPermissionDialog) {
         BrowseStoragePermissionDialog(viewModel, permissionState)
@@ -121,14 +131,15 @@ fun BrowseScreen(
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .pullRefresh(refreshState)
-            .nestedScroll(scrollBehavior.nestedScrollConnection),
+            .pullRefresh(refreshState),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             AnimatedTopAppBar(
-                containerColor = animatedTopAppBarColor,
+                containerColor = MaterialTheme.colorScheme.surface,
                 scrolledContainerColor = MaterialTheme.elevation(),
-                scrollBehavior = scrollBehavior,
+
+                scrollBehavior = null,
+                isTopBarScrolled = state.scrollIndex > 0 || state.scrollOffset > 0 || state.hasSelectedItems,
 
                 content1Visibility = !state.hasSelectedItems && !state.showSearch,
                 content1NavigationIcon = {},
@@ -251,16 +262,18 @@ fun BrowseScreen(
                 .padding(top = padding.calculateTopPadding())
         ) {
             LazyVerticalGrid(
-                modifier = Modifier.fillMaxSize(),
+                state = listState,
+                modifier = Modifier
+                    .fillMaxSize(),
                 columns = GridCells.Adaptive(170.dp),
                 contentPadding = PaddingValues(10.dp)
             ) {
-                items(state.selectableFiles) { selectableFile ->
+                items(state.selectableFiles, key = { it.first.path }) { selectableFile ->
                     BrowseFileItem(
                         file = selectableFile,
                         modifier = Modifier
                             .animateItemPlacement(
-                                animationSpec = tween(500)
+                                animationSpec = tween(300)
                             ),
                         onClick = {
                             viewModel.onEvent(BrowseEvent.OnSelectFile(selectableFile))

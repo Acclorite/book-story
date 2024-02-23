@@ -4,6 +4,8 @@ import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.DriveFileMove
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -24,7 +26,7 @@ fun LibraryMoveDialog(viewModel: LibraryViewModel, pagerState: PagerState) {
 
     CustomDialogWithLazyColumn(
         title = stringResource(id = R.string.move_books),
-        imageVectorIcon = null,
+        imageVectorIcon = Icons.AutoMirrored.Outlined.DriveFileMove,
         description = stringResource(
             id = R.string.move_books_description,
             state.books.filter { it.second }.size
@@ -42,10 +44,6 @@ fun LibraryMoveDialog(viewModel: LibraryViewModel, pagerState: PagerState) {
         },
         withDivider = false,
         items = {
-//            item {
-//                Spacer(modifier = Modifier.height(12.dp))
-//            }
-
             items(state.categories) {
                 val category = when (it) {
                     Category.READING -> stringResource(id = R.string.reading_tab)

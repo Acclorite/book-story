@@ -44,6 +44,7 @@ class EpubFileParser @Inject constructor() : FileParser {
                 text = emptyList(),
                 progress = 0f,
                 file = file,
+                filePath = file.path,
                 lastOpened = null,
                 category = Category.entries[0],
                 coverImage = coverImage
