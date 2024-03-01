@@ -133,8 +133,8 @@ fun AppearanceSettingsThemeSwitcherItem(
         Spacer(modifier = Modifier.height(6.dp))
         Text(
             text = theme.second.asString(),
-            color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.labelLarge,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1
         )

@@ -6,6 +6,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.HideImage
@@ -13,6 +14,7 @@ import androidx.compose.material.icons.filled.ImageSearch
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -61,9 +63,11 @@ fun BookInfoChangeCoverBottomSheet(
     )
 
     ModalBottomSheet(
+        modifier = Modifier.fillMaxWidth(),
         onDismissRequest = {
             viewModel.onEvent(BookInfoEvent.OnShowHideChangeCoverBottomSheet)
         },
+        sheetState = rememberModalBottomSheetState(true),
         windowInsets = WindowInsets(0, 0, 0, 0),
         containerColor = MaterialTheme.elevation(ElevationDefaults.BottomSheet)
     ) {

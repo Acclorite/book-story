@@ -1,13 +1,11 @@
 package com.acclorite.books_history.presentation.screens.settings.nested.appearance
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,38 +18,29 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.acclorite.books_history.R
+import com.acclorite.books_history.domain.model.ChipItem
 import com.acclorite.books_history.presentation.Navigator
-import com.acclorite.books_history.presentation.main.MainViewModel
-import com.acclorite.books_history.presentation.screens.settings.components.SettingsOptionItem
-import com.acclorite.books_history.presentation.screens.settings.nested.appearance.components.AppearanceSettingsDarkThemeDialog
+import com.acclorite.books_history.presentation.data.MainEvent
+import com.acclorite.books_history.presentation.data.MainViewModel
+import com.acclorite.books_history.presentation.screens.settings.components.ChipsWithTitle
 import com.acclorite.books_history.presentation.screens.settings.nested.appearance.components.AppearanceSettingsThemeSwitcher
-import com.acclorite.books_history.presentation.screens.settings.nested.appearance.data.AppearanceSettingsEvent
-import com.acclorite.books_history.presentation.screens.settings.nested.appearance.data.AppearanceSettingsViewModel
 import com.acclorite.books_history.ui.DarkTheme
 import com.acclorite.books_history.ui.elevation
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppearanceSettings(
-    viewModel: AppearanceSettingsViewModel = hiltViewModel(),
     mainViewModel: MainViewModel,
     navigator: Navigator
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    val state by viewModel.state.collectAsState()
 
     val darkTheme = mainViewModel.darkTheme.collectAsState().value!!
-
-    if (state.showDarkThemeDialog) {
-        AppearanceSettingsDarkThemeDialog(viewModel = viewModel, mainViewModel = mainViewModel)
-    }
 
     Scaffold(
         Modifier
@@ -87,23 +76,38 @@ fun AppearanceSettings(
             )
         }
     ) { paddingValues ->
-        Column(
+        LazyColumn(
             Modifier
                 .fillMaxSize()
                 .padding(top = paddingValues.calculateTopPadding())
-                .verticalScroll(rememberScrollState())
         ) {
-            SettingsOptionItem(
-                title = stringResource(id = R.string.dark_theme_option),
-                description = when (darkTheme) {
-                    DarkTheme.OFF -> stringResource(id = R.string.dark_theme_off)
-                    DarkTheme.ON -> stringResource(id = R.string.dark_theme_on)
-                    DarkTheme.FOLLOW_SYSTEM -> stringResource(id = R.string.dark_theme_follow_system)
+            item {
+                ChipsWithTitle(
+                    title = stringResource(id = R.string.dark_theme_option),
+                    chips = DarkTheme.entries.map {
+                        ChipItem(
+                            it.toString(),
+                            when (it) {
+                                DarkTheme.OFF -> stringResource(id = R.string.dark_theme_off)
+                                DarkTheme.ON -> stringResource(id = R.string.dark_theme_on)
+                                DarkTheme.FOLLOW_SYSTEM -> stringResource(id = R.string.dark_theme_follow_system)
+                            },
+                            MaterialTheme.typography.labelLarge,
+                            it == darkTheme
+                        )
+                    },
+                ) {
+                    mainViewModel.onEvent(
+                        MainEvent.OnChangeDarkTheme(
+                            it.id
+                        )
+                    )
                 }
-            ) {
-                viewModel.onEvent(AppearanceSettingsEvent.OnShowHideDarkThemeDialog)
             }
-            AppearanceSettingsThemeSwitcher(mainViewModel = mainViewModel)
+
+            item {
+                AppearanceSettingsThemeSwitcher(mainViewModel = mainViewModel)
+            }
         }
     }
 }

@@ -62,6 +62,7 @@ fun CustomDialogWithLazyColumn(
         )
         Column(
             modifier = modifier
+                .fillMaxWidth()
                 .navigationBarsPadding()
                 .statusBarsPadding()
                 .clip(MaterialTheme.shapes.extraLarge)

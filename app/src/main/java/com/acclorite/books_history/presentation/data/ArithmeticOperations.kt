@@ -1,4 +1,4 @@
-package com.acclorite.books_history.util
+package com.acclorite.books_history.presentation.data
 
 fun String.removeTrailingZero(): String {
     if (!this.contains('.'))

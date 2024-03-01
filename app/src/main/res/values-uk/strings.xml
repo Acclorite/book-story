@@ -51,6 +51,12 @@
     <string name="error_no_description">
         Немає опису.
     </string>
+    <string name="error_file_not_found">
+        Файл не знайдено. Будь ласка, перевірте чи файл цієї книги все ще існує.
+    </string>
+    <string name="error_something_went_wrong">
+        Щось пішло не так. Будь ласка, перевірте чи файл цієї книги не пошкоджений.
+    </string>
 
     <!-- Is Empty messages -->
     <string name="browse_empty">
@@ -64,6 +70,7 @@
     <string name="selected_items_count_query">%1$s обрано</string>
     <string name="search_query">Знайти %1$s…</string>
     <string name="you_read_query">Ви прочитали %1$s цієї книги.</string>
+    <string name="read_query">%1$s прочитано</string>
 
     <!-- Action Texts -->
     <string name="cancel">Відмінити</string>
@@ -77,6 +84,9 @@
     <string name="start">Почати</string>
     <string name="continue_read">Продовжити</string>
     <string name="never">Ніколи</string>
+    <string name="go_back">Назад</string>
+    <string name="move_to_read">Перемістити цю книгу в \"Прочитано\"</string>
+    <string name="back_to_library">Назад в Бібліотеку</string>
 
     <!-- Items -->
     <string name="files">файли</string>
@@ -96,22 +106,43 @@
     <string name="already_read_tab">Прочитано</string>
     <string name="planning_tab">Планую</string>
     <string name="dropped_tab">Кинуто</string>
+    <string name="general_tab">Головні</string>
+    <string name="color_tab">Кольори</string>
 
     <!-- Settings categories -->
     <string name="general_settings">Головні</string>
     <string name="general_settings_desc">Мова застосунку</string>
     <string name="appearance_settings">Зовнішній вигляд</string>
     <string name="appearance_settings_desc">Тема застосунку, темна тема</string>
+    <string name="font_settings">Шрифт</string>
+    <string name="text_settings">Текст</string>
 
     <!-- Settings options -->
     <string name="language_option">Мова застосунку</string>
     <string name="dark_theme_option">Темна тема</string>
     <string name="app_theme_option">Тема застосунку</string>
+    <string name="font_family_option">Сімейство шрифтів</string>
+    <string name="font_style_option">Стиль шрифту</string>
+    <string name="font_size_option">Розмір шрифту</string>
+    <string name="line_height_option">Висота рядка</string>
+    <string name="paragraph_height_option">Висота абзацу</string>
+    <string name="paragraph_indentation_option">Абзацний відступ</string>
+    <string name="background_color_option">Колір фону</string>
+    <string name="font_color_option">Колір шрифту</string>
+
+    <!-- Colors -->
+    <string name="red_color">Червоний</string>
+    <string name="green_color">Зелений</string>
+    <string name="blue_color">Синій</string>
 
     <!-- Dark Theme properties -->
     <string name="dark_theme_off">Вимкнено</string>
     <string name="dark_theme_on">Ввімкнено</string>
     <string name="dark_theme_follow_system">Тема системи</string>
+
+    <!-- Font Style properties -->
+    <string name="font_style_italic">Похилий</string>
+    <string name="font_style_normal">Нормальний</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Хаос</string>
@@ -146,5 +177,16 @@
     <string name="file_last_opened">Останнє відкриття файлу</string>
     <string name="file_size">Розмір файлу</string>
     <string name="unknown">Невідомо</string>
+
+    <!-- Reader -->
+    <string name="loading">Завантаження…</string>
+    <string name="happy_reading">Приємного читання!</string>
+    <string name="thanks_for_reading">
+        Дякуємо за те, що прочитали \"%1$s\" з нами.
+        Ми сподіваємось, що вам сподобалася ця книга!
+    </string>
+
+    <!-- Font families -->
+    <string name="default_font">За замовчуванням</string>
 
 </resources>

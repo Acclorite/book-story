@@ -52,6 +52,12 @@
     <string name="error_no_description">
         No description.
     </string>
+    <string name="error_file_not_found">
+        File was not found. Please check whether this book\'s file still exist.
+    </string>
+    <string name="error_something_went_wrong">
+        Something went wrong. Please check whether this book\'s file is not corrupted.
+    </string>
 
     <!-- Is Empty messages -->
     <string name="browse_empty">
@@ -65,6 +71,7 @@
     <string name="selected_items_count_query">%1$s selected</string>
     <string name="search_query">Search %1$s…</string>
     <string name="you_read_query">You read %1$s of this book.</string>
+    <string name="read_query">%1$s read</string>
 
     <!-- Action Texts -->
     <string name="cancel">Cancel</string>
@@ -78,6 +85,9 @@
     <string name="start">Start</string>
     <string name="continue_read">Continue</string>
     <string name="never">Never</string>
+    <string name="go_back">Go back</string>
+    <string name="move_to_read">Move this book to \"Already Read\"</string>
+    <string name="back_to_library">Back to Library</string>
 
     <!-- Items -->
     <string name="files">files</string>
@@ -97,22 +107,43 @@
     <string name="already_read_tab">Already Read</string>
     <string name="planning_tab">Planning</string>
     <string name="dropped_tab">Dropped</string>
+    <string name="general_tab">General</string>
+    <string name="color_tab">Colors</string>
 
     <!-- Settings categories -->
     <string name="general_settings">General</string>
     <string name="general_settings_desc">App language</string>
     <string name="appearance_settings">Appearance</string>
     <string name="appearance_settings_desc">App theme, dark theme</string>
+    <string name="font_settings">Font</string>
+    <string name="text_settings">Text</string>
 
     <!-- Settings options -->
     <string name="language_option">App language</string>
-    <string name="dark_theme_option">Dark Theme</string>
+    <string name="dark_theme_option">Dark theme</string>
     <string name="app_theme_option">App theme</string>
+    <string name="font_family_option">Font family</string>
+    <string name="font_style_option">Font style</string>
+    <string name="font_size_option">Font size</string>
+    <string name="line_height_option">Line height</string>
+    <string name="paragraph_height_option">Paragraph height</string>
+    <string name="paragraph_indentation_option">Paragraph indentation</string>
+    <string name="background_color_option">Background color</string>
+    <string name="font_color_option">Font color</string>
+
+    <!-- Colors -->
+    <string name="red_color">Red</string>
+    <string name="green_color">Green</string>
+    <string name="blue_color">Blue</string>
 
     <!-- Dark Theme properties -->
     <string name="dark_theme_off">Disabled</string>
     <string name="dark_theme_on">Enabled</string>
     <string name="dark_theme_follow_system">Follow system</string>
+
+    <!-- Font Style properties -->
+    <string name="font_style_italic">Italic</string>
+    <string name="font_style_normal">Normal</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Chaos</string>
@@ -147,5 +178,16 @@
     <string name="file_last_opened">File last opened</string>
     <string name="file_size">File size</string>
     <string name="unknown">Unknown</string>
+
+    <!-- Reader -->
+    <string name="loading">Loading…</string>
+    <string name="happy_reading">Happy reading!</string>
+    <string name="thanks_for_reading">
+        Thank you for reading \"%1$s\" with us.
+        We hope you enjoyed this book!
+    </string>
+
+    <!-- Font families -->
+    <string name="default_font">Default</string>
 
 </resources>

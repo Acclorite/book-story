@@ -343,7 +343,12 @@ fun LibraryScreen(
                                             viewModel.onEvent(LibraryEvent.OnSelectBook(it, true))
                                         }
                                     },
-                                    onButtonClick = { navigator.navigate(Screen.READER) }
+                                    onButtonClick = {
+                                        navigator.navigate(
+                                            Screen.READER,
+                                            Argument("book", it.first)
+                                        )
+                                    }
                                 )
                             }
                         }

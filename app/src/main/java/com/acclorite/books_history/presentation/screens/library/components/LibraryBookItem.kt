@@ -36,9 +36,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.acclorite.books_history.domain.model.Book
+import com.acclorite.books_history.presentation.data.removeDigits
+import com.acclorite.books_history.presentation.data.removeTrailingZero
 import com.acclorite.books_history.ui.elevation
-import com.acclorite.books_history.util.removeDigits
-import com.acclorite.books_history.util.removeTrailingZero
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

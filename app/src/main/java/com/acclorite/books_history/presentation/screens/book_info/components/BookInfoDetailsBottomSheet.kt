@@ -3,10 +3,12 @@ package com.acclorite.books_history.presentation.screens.book_info.components
 import android.widget.Toast
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -31,7 +33,7 @@ fun BookInfoDetailsBottomSheet(
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
 
-    val pattern = SimpleDateFormat("HH:mm dd MMM", Locale.getDefault())
+    val pattern = SimpleDateFormat("HH:mm dd MMM yyyy", Locale.getDefault())
     val lastOpened = pattern.format(Date(state.book.lastOpened ?: 0))
 
     val sizeBytes = state.book.file?.length() ?: 0
@@ -46,9 +48,11 @@ fun BookInfoDetailsBottomSheet(
 
 
     ModalBottomSheet(
+        modifier = Modifier.fillMaxWidth(),
         onDismissRequest = {
             viewModel.onEvent(BookInfoEvent.OnShowHideDetailsBottomSheet)
         },
+        sheetState = rememberModalBottomSheetState(true),
         windowInsets = WindowInsets(0, 0, 0, 0),
         containerColor = MaterialTheme.elevation(ElevationDefaults.BottomSheet)
     ) {

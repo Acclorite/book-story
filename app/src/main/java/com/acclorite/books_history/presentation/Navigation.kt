@@ -75,7 +75,7 @@ class Navigator @AssistedInject constructor(
     private val backStack = savedStateHandle.getStateFlow(BACKSTACK, mutableListOf<Screen>())
     private val arguments = mutableStateListOf<Argument>()
 
-    private fun putArgument(argument: Argument) {
+    fun putArgument(argument: Argument) {
         var found = false
 
         for ((index, arg) in arguments.withIndex()) {
@@ -115,6 +115,19 @@ class Navigator @AssistedInject constructor(
             savedStateHandle[CURRENT_SCREEN] = screen
         }
 
+    fun navigateWithoutBackStack(screen: Screen, vararg args: Argument) =
+        viewModelScope.launch(Dispatchers.Default) {
+            if (backStack.value.last() == screen) {
+                backStack.value.removeLast()
+            }
+
+            args.forEach {
+                putArgument(it)
+            }
+
+            savedStateHandle[CURRENT_SCREEN] = screen
+        }
+
     fun navigateBack() = viewModelScope.launch(Dispatchers.Default) {
         if (canGoBack()) {
             savedStateHandle[CURRENT_SCREEN] = backStack.value.last()
@@ -124,10 +137,6 @@ class Navigator @AssistedInject constructor(
 
     fun canGoBack(): Boolean {
         return backStack.value.isNotEmpty()
-    }
-
-    fun clearBackStack() {
-        backStack.value.clear()
     }
 
     fun getCurrentScreen(): StateFlow<Screen> {

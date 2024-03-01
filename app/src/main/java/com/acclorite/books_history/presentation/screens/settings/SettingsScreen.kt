@@ -1,13 +1,11 @@
 package com.acclorite.books_history.presentation.screens.settings
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.DisplaySettings
@@ -28,14 +26,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import com.acclorite.books_history.R
 import com.acclorite.books_history.presentation.Navigator
 import com.acclorite.books_history.presentation.Screen
-import com.acclorite.books_history.presentation.main.MainViewModel
 import com.acclorite.books_history.presentation.screens.settings.components.SettingsCategoryItem
 import com.acclorite.books_history.ui.elevation
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
-    viewModel: MainViewModel,
     navigator: Navigator
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -74,26 +70,32 @@ fun SettingsScreen(
             )
         }
     ) { paddingValues ->
-        Column(
+        LazyColumn(
             Modifier
                 .fillMaxSize()
                 .padding(top = paddingValues.calculateTopPadding())
-                .verticalScroll(rememberScrollState())
         ) {
-            SettingsCategoryItem(
-                icon = Icons.Default.DisplaySettings,
-                text = stringResource(id = R.string.general_settings),
-                description = stringResource(id = R.string.general_settings_desc)
-            ) {
-                navigator.navigate(Screen.GENERAL_SETTINGS)
+            item {
+                SettingsCategoryItem(
+                    icon = Icons.Default.DisplaySettings,
+                    text = stringResource(id = R.string.general_settings),
+                    description = stringResource(id = R.string.general_settings_desc)
+                ) {
+                    navigator.navigate(Screen.GENERAL_SETTINGS)
+                }
             }
-            SettingsCategoryItem(
-                icon = Icons.Default.Palette,
-                text = stringResource(id = R.string.appearance_settings),
-                description = stringResource(id = R.string.appearance_settings_desc)
-            ) {
-                navigator.navigate(Screen.APPEARANCE_SETTINGS)
+
+            item {
+                SettingsCategoryItem(
+                    icon = Icons.Default.Palette,
+                    text = stringResource(id = R.string.appearance_settings),
+                    description = stringResource(id = R.string.appearance_settings_desc)
+                ) {
+                    navigator.navigate(Screen.APPEARANCE_SETTINGS)
+                }
             }
+
+            //todo Reader settings
         }
     }
 }

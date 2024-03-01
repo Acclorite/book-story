@@ -12,14 +12,15 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.filled.Done
@@ -37,7 +38,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -45,6 +48,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.acclorite.books_history.R
@@ -95,7 +99,9 @@ fun BookInfoScreen(
 
     val state by viewModel.state.collectAsState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    val scrollState = rememberScrollState()
+    val listState = rememberLazyListState()
+
+    val firstVisibleItemIndex by remember { derivedStateOf { listState.firstVisibleItemIndex } }
 
     LaunchedEffect(Unit) {
         viewModel.init(
@@ -154,7 +160,17 @@ fun BookInfoScreen(
                         )
                     }
                 },
-                title = {},
+                title = {
+                    DefaultTransition(visible = firstVisibleItemIndex > 0) {
+                        Text(
+                            state.book.title,
+                            style = MaterialTheme.typography.titleLarge,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            overflow = TextOverflow.Ellipsis,
+                            maxLines = 1
+                        )
+                    }
+                },
                 actions = {
                     Box {
                         DefaultTransition(
@@ -206,33 +222,43 @@ fun BookInfoScreen(
             )
         }
     ) { paddingValues ->
-        if (state.book.coverImage != null) {
-            BookInfoBackground(image = state.book.coverImage!!.asImageBitmap())
-        }
-
         Box(
             Modifier
                 .fillMaxSize()
-                .padding(top = paddingValues.calculateTopPadding())
         ) {
-            Column(
+            LazyColumn(
                 Modifier
-                    .fillMaxSize()
-                    .verticalScroll(scrollState)
-                    .padding(horizontal = 24.dp)
+                    .fillMaxSize(),
+                state = listState
             ) {
+                item {
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        if (state.book.coverImage != null) {
+                            BookInfoBackground(
+                                height = paddingValues.calculateTopPadding() + 12.dp + 195.dp,
+                                image = state.book.coverImage!!.asImageBitmap()
+                            )
+                        }
 
-                Spacer(modifier = Modifier.height(12.dp))
-                // Info
-                BookInfoInfoSection(viewModel = viewModel, book = state.book)
+                        Column(Modifier.fillMaxWidth()) {
+                            Spacer(modifier = Modifier.height(paddingValues.calculateTopPadding() + 12.dp))
+                            // Info
+                            BookInfoInfoSection(viewModel = viewModel, book = state.book)
+                        }
+                    }
+                }
 
-                Spacer(modifier = Modifier.height(24.dp))
-                // Statistic
-                BookInfoStatisticSection(book = state.book)
+                item {
+                    Spacer(modifier = Modifier.height(24.dp))
+                    // Statistic
+                    BookInfoStatisticSection(book = state.book)
+                }
 
-                Spacer(modifier = Modifier.height(24.dp))
-                // Description
-                BookInfoDescriptionSection(book = state.book)
+                item {
+                    Spacer(modifier = Modifier.height(24.dp))
+                    // Description
+                    BookInfoDescriptionSection(book = state.book)
+                }
             }
 
             if (state.book.file != null) {
@@ -260,7 +286,7 @@ fun BookInfoScreen(
                                 Modifier.size(24.dp)
                             )
                             AnimatedVisibility(
-                                visible = scrollState.value < 5
+                                visible = !listState.canScrollBackward
                             ) {
                                 Text(
                                     text = stringResource(

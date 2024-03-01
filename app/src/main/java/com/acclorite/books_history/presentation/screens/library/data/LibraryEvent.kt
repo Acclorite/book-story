@@ -26,4 +26,5 @@ sealed class LibraryEvent {
     data class OnMoveBooks(val pagerState: PagerState) : LibraryEvent()
     data object OnShowHideDeleteDialog : LibraryEvent()
     data object OnDeleteBooks : LibraryEvent()
+    data class OnUpdateBook(val book: Book) : LibraryEvent()
 }

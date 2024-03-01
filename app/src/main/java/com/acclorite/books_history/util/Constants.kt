@@ -49,7 +49,13 @@ object Constants {
     // Fonts for Reader
     val FONTS = listOf(
         FontWithName(
-            "Raleway",
+            "default",
+            UIText.StringResource(R.string.default_font),
+            FontFamily.Default
+        ),
+        FontWithName(
+            "raleway",
+            UIText.StringValue("Raleway"),
             FontFamily(
                 Font(R.font.raleway_regular),
                 Font(R.font.raleway_regular_italic, style = FontStyle.Italic),
@@ -60,7 +66,8 @@ object Constants {
             )
         ),
         FontWithName(
-            "Open Sans",
+            "open_sans",
+            UIText.StringValue("Open Sans"),
             FontFamily(
                 Font(R.font.opensans_regular),
                 Font(R.font.opensans_regular_italic, style = FontStyle.Italic),
@@ -71,7 +78,8 @@ object Constants {
             )
         ),
         FontWithName(
-            "Mulish",
+            "mulish",
+            UIText.StringValue("Mulish"),
             FontFamily(
                 Font(R.font.mulish_regular),
                 Font(R.font.mulish_regular_italic, style = FontStyle.Italic),
@@ -82,7 +90,8 @@ object Constants {
             )
         ),
         FontWithName(
-            "Arimo",
+            "arimo",
+            UIText.StringValue("Arimo"),
             FontFamily(
                 Font(R.font.arimo_regular),
                 Font(R.font.arimo_regular_italic, style = FontStyle.Italic),
@@ -93,7 +102,8 @@ object Constants {
             )
         ),
         FontWithName(
-            "Garamond",
+            "garamond",
+            UIText.StringValue("Garamond"),
             FontFamily(
                 Font(R.font.garamond_regular),
                 Font(R.font.garamond_regular_italic, style = FontStyle.Italic),
@@ -104,7 +114,8 @@ object Constants {
             )
         ),
         FontWithName(
-            "Roboto Serif",
+            "roboto_serif",
+            UIText.StringValue("Roboto Serif"),
             FontFamily(
                 Font(R.font.robotoserif_regular),
                 Font(R.font.robotoserif_regular_italic, style = FontStyle.Italic),
@@ -115,7 +126,8 @@ object Constants {
             )
         ),
         FontWithName(
-            "Noto Serif",
+            "noto_serif",
+            UIText.StringValue("Noto Serif"),
             FontFamily(
                 Font(R.font.notoserif_regular),
                 Font(R.font.notoserif_regular_italic, style = FontStyle.Italic),
@@ -126,7 +138,8 @@ object Constants {
             )
         ),
         FontWithName(
-            "Noto Sans",
+            "noto_sans",
+            UIText.StringValue("Noto Sans"),
             FontFamily(
                 Font(R.font.notosans_regular),
                 Font(R.font.notosans_regular_italic, style = FontStyle.Italic),
@@ -137,7 +150,8 @@ object Constants {
             )
         ),
         FontWithName(
-            "Roboto",
+            "roboto",
+            UIText.StringValue("Roboto"),
             FontFamily(
                 Font(R.font.roboto_regular),
                 Font(R.font.roboto_regular_italic, style = FontStyle.Italic),
@@ -148,7 +162,8 @@ object Constants {
             )
         ),
         FontWithName(
-            "Jost",
+            "jost",
+            UIText.StringValue("Jost"),
             FontFamily(
                 Font(R.font.jost_regular),
                 Font(R.font.jost_regular_italic, style = FontStyle.Italic),

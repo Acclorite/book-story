@@ -10,7 +10,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import java.io.File
 
-sealed class BrowseEvent() {
+sealed class BrowseEvent {
     data class OnStoragePermissionRequest(val activity: ComponentActivity) : BrowseEvent()
     data class OnLegacyStoragePermissionRequest(val permissionState: PermissionState) :
         BrowseEvent()

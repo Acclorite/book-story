@@ -1,4 +1,4 @@
-package com.acclorite.books_history.presentation.main
+package com.acclorite.books_history.presentation.data
 
 import android.os.Build
 import androidx.activity.ComponentActivity
@@ -109,7 +109,7 @@ class MainViewModel @Inject constructor(
 
     /* -- Font Family -------------------------------------------------- */
     private var _fontFamily: String =
-        stateHandle[Constants.FONT] ?: Constants.FONTS[0].fontName
+        stateHandle[Constants.FONT] ?: Constants.FONTS[0].id
         set(value) {
             field = value
             stateHandle[Constants.FONT] = value
@@ -204,6 +204,63 @@ class MainViewModel @Inject constructor(
                     _theme = event.theme.toTheme()
                 }
             }
+
+            is MainEvent.OnChangeFontFamily -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.FONT, event.fontFamily)
+                    _fontFamily = Constants.FONTS.find { font -> font.id == event.fontFamily }?.id
+                        ?: Constants.FONTS[0].id
+                }
+            }
+
+            is MainEvent.OnChangeFontStyle -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.IS_ITALIC, event.fontStyle)
+                    _isItalic = event.fontStyle
+                }
+            }
+
+            is MainEvent.OnChangeFontSize -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.FONT_SIZE, event.fontSize)
+                    _fontSize = event.fontSize
+                }
+            }
+
+            is MainEvent.OnChangeLineHeight -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.LINE_HEIGHT, event.lineHeight)
+                    _lineHeight = event.lineHeight
+                }
+            }
+
+            is MainEvent.OnChangeParagraphHeight -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.PARAGRAPH_HEIGHT, event.paragraphHeight)
+                    _paragraphHeight = event.paragraphHeight
+                }
+            }
+
+            is MainEvent.OnChangeParagraphIndentation -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.PARAGRAPH_INDENTATION, event.bool)
+                    _paragraphIndentation = event.bool
+                }
+            }
+
+            is MainEvent.OnChangeBackgroundColor -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.BACKGROUND_COLOR, event.color)
+                    _backgroundColor = event.color
+                }
+            }
+
+            is MainEvent.OnChangeFontColor -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.FONT_COLOR, event.color)
+                    _fontColor = event.color
+                }
+            }
         }
     }
 
@@ -271,9 +328,7 @@ class MainViewModel @Inject constructor(
             getDatastore
                 .execute(DataStoreConstants.BACKGROUND_COLOR, _backgroundColor)
                 .first {
-                    setDatastore.execute(DataStoreConstants.BACKGROUND_COLOR, it)
-                    _backgroundColor = it
-
+                    onEvent(MainEvent.OnChangeBackgroundColor(it))
                     true
                 }
         }
@@ -283,9 +338,7 @@ class MainViewModel @Inject constructor(
             getDatastore
                 .execute(DataStoreConstants.FONT_COLOR, _fontColor)
                 .first {
-                    setDatastore.execute(DataStoreConstants.FONT_COLOR, it)
-                    _fontColor = it
-
+                    onEvent(MainEvent.OnChangeFontColor(it))
                     true
                 }
         }
@@ -295,10 +348,7 @@ class MainViewModel @Inject constructor(
             getDatastore
                 .execute(DataStoreConstants.FONT, _fontFamily)
                 .first {
-                    setDatastore.execute(DataStoreConstants.FONT, it)
-                    _fontFamily = Constants.FONTS.find { font -> font.fontName == it }?.fontName
-                        ?: Constants.FONTS[0].fontName
-
+                    onEvent(MainEvent.OnChangeFontFamily(it))
                     true
                 }
         }
@@ -308,9 +358,7 @@ class MainViewModel @Inject constructor(
             getDatastore
                 .execute(DataStoreConstants.IS_ITALIC, _isItalic)
                 .first {
-                    setDatastore.execute(DataStoreConstants.IS_ITALIC, it)
-                    _isItalic = it
-
+                    onEvent(MainEvent.OnChangeFontStyle(it))
                     true
                 }
         }
@@ -320,9 +368,7 @@ class MainViewModel @Inject constructor(
             getDatastore
                 .execute(DataStoreConstants.FONT_SIZE, _fontSize)
                 .first {
-                    setDatastore.execute(DataStoreConstants.FONT_SIZE, it)
-                    _fontSize = it
-
+                    onEvent(MainEvent.OnChangeFontSize(it))
                     it > 0
                 }
         }
@@ -332,9 +378,7 @@ class MainViewModel @Inject constructor(
             getDatastore
                 .execute(DataStoreConstants.LINE_HEIGHT, _lineHeight)
                 .first {
-                    setDatastore.execute(DataStoreConstants.LINE_HEIGHT, it)
-                    _lineHeight = it
-
+                    onEvent(MainEvent.OnChangeLineHeight(it))
                     true
                 }
         }
@@ -344,9 +388,7 @@ class MainViewModel @Inject constructor(
             getDatastore
                 .execute(DataStoreConstants.PARAGRAPH_HEIGHT, _paragraphHeight)
                 .first {
-                    setDatastore.execute(DataStoreConstants.PARAGRAPH_HEIGHT, it)
-                    _paragraphHeight = it
-
+                    onEvent(MainEvent.OnChangeParagraphHeight(it))
                     true
                 }
         }
@@ -356,9 +398,7 @@ class MainViewModel @Inject constructor(
             getDatastore
                 .execute(DataStoreConstants.PARAGRAPH_INDENTATION, _paragraphIndentation)
                 .first {
-                    setDatastore.execute(DataStoreConstants.PARAGRAPH_INDENTATION, it)
-                    _paragraphIndentation = it
-
+                    onEvent(MainEvent.OnChangeParagraphIndentation(it))
                     true
                 }
         }

@@ -257,6 +257,21 @@ class LibraryViewModel @Inject constructor(
                     onEvent(LibraryEvent.OnClearSelectedBooks)
                 }
             }
+
+            is LibraryEvent.OnUpdateBook -> {
+                val books = _state.value.books.toMutableList()
+
+                val index = books.indexOfFirst { it.first.id == event.book.id }
+                if (index != -1) {
+                    books[index] = Pair(event.book, books[index].second)
+                }
+
+                _state.update {
+                    it.copy(
+                        books = books
+                    )
+                }
+            }
         }
     }
 

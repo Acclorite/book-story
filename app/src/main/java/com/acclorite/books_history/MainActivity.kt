@@ -22,11 +22,13 @@ import com.acclorite.books_history.domain.model.Book
 import com.acclorite.books_history.presentation.NavigationHost
 import com.acclorite.books_history.presentation.Screen
 import com.acclorite.books_history.presentation.components.BottomNavigationBar
-import com.acclorite.books_history.presentation.main.MainEvent
-import com.acclorite.books_history.presentation.main.MainViewModel
+import com.acclorite.books_history.presentation.data.MainEvent
+import com.acclorite.books_history.presentation.data.MainViewModel
 import com.acclorite.books_history.presentation.screens.book_info.BookInfoScreen
 import com.acclorite.books_history.presentation.screens.browse.BrowseScreen
+import com.acclorite.books_history.presentation.screens.history.HistoryScreen
 import com.acclorite.books_history.presentation.screens.library.LibraryScreen
+import com.acclorite.books_history.presentation.screens.reader.ReaderScreen
 import com.acclorite.books_history.presentation.screens.settings.SettingsScreen
 import com.acclorite.books_history.presentation.screens.settings.nested.appearance.AppearanceSettings
 import com.acclorite.books_history.presentation.screens.settings.nested.general.GeneralSettings
@@ -93,6 +95,10 @@ class MainActivity : ComponentActivity() {
                                         )
                                     }
 
+                                    composable(screen = Screen.HISTORY) {
+                                        HistoryScreen(navigator = this@NavigationHost)
+                                    }
+
                                     composable(screen = Screen.BROWSE) {
                                         BrowseScreen(navigator = this@NavigationHost)
                                     }
@@ -106,9 +112,18 @@ class MainActivity : ComponentActivity() {
                             enterAnim = Transitions.SlidingTransitionIn,
                             exitAnim = Transitions.SlidingTransitionOut
                         ) {
-
                             BookInfoScreen(
                                 navigator = this@NavigationHost
+                            )
+                        }
+                        composable(
+                            screen = Screen.READER,
+                            enterAnim = Transitions.SlidingTransitionIn,
+                            exitAnim = Transitions.SlidingTransitionOut
+                        ) {
+                            ReaderScreen(
+                                navigator = this@NavigationHost,
+                                mainViewModel = mainViewModel
                             )
                         }
 
@@ -119,7 +134,6 @@ class MainActivity : ComponentActivity() {
                             exitAnim = Transitions.SlidingTransitionOut
                         ) {
                             SettingsScreen(
-                                viewModel = mainViewModel,
                                 navigator = this@NavigationHost
                             )
                         }

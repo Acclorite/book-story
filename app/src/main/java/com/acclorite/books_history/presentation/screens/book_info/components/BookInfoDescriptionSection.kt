@@ -2,6 +2,7 @@ package com.acclorite.books_history.presentation.screens.book_info.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -21,7 +22,8 @@ fun BookInfoDescriptionSection(book: Book) {
                 ?: stringResource(id = R.string.error_no_description),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface,
-            textAlign = TextAlign.Start
+            textAlign = TextAlign.Start,
+            modifier = Modifier.padding(horizontal = 24.dp)
         )
     }
 
