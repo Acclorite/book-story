@@ -10,15 +10,15 @@ plugins {
 }
 
 android {
-    namespace = "com.acclorite.books_history"
+    namespace = "ua.acclorite.book_story"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.acclorite.books_history"
+        applicationId = "ua.acclorite.book_story"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
-        versionName = "0.6.0"
+        versionName = "0.8.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -140,4 +140,7 @@ dependencies {
     }
     implementation("org.slf4j:slf4j-android:latest.release")
     implementation("org.jsoup:jsoup:latest.release")
+
+    implementation("androidx.appcompat:appcompat:latest.release")
+    implementation("androidx.appcompat:appcompat-resources:latest.release")
 }

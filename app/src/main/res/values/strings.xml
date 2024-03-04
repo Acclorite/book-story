@@ -1,7 +1,7 @@
 <resources>
     <!-- Basic Strings -->
-    <string name="app_version" translatable="false">0.6.0</string>
-    <string name="app_name">Book\'s History</string>
+    <string name="app_version" translatable="false">0.8.0</string>
+    <string name="app_name">Book\'s Story</string>
 
     <!-- Screens -->
     <string name="library_screen">Library</string>
@@ -18,6 +18,7 @@
     <string name="delete_books">Delete books?</string>
     <string name="delete_book">Delete book?</string>
     <string name="move_book">Move book?</string>
+    <string name="delete_history">Delete reading history?</string>
 
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">
@@ -44,6 +45,9 @@
         Choose the category to which you want to move this book.
         This book will be moved to the selected category.
     </string>
+    <string name="delete_history_description">
+        It will delete the whole history from the database.
+    </string>
 
     <!-- Errors -->
     <string name="error_permission">
@@ -65,6 +69,9 @@
     </string>
     <string name="library_empty">
         Read your favorite books and sort them between categories
+    </string>
+    <string name="history_empty">
+        Let your last book you read open the pages of a new great story of your reading journey
     </string>
 
     <!-- Query strings -->
@@ -88,10 +95,12 @@
     <string name="go_back">Go back</string>
     <string name="move_to_read">Move this book to \"Already Read\"</string>
     <string name="back_to_library">Back to Library</string>
+    <string name="undo">Undo</string>
 
     <!-- Items -->
     <string name="files">files</string>
     <string name="books">books</string>
+    <string name="history">history</string>
 
     <!-- Book -->
     <string name="unknown_author">Unknown</string>
@@ -146,13 +155,14 @@
     <string name="font_style_normal">Normal</string>
 
     <!-- Themes -->
-    <string name="dynamic_theme">Chaos</string>
+    <string name="dynamic_theme">Mercury</string>
     <string name="blue_theme">Neptune</string>
-    <string name="purple_theme">Supernova</string>
     <string name="green_theme">Earth</string>
-    <string name="pink_theme">Pulsar</string>
-    <string name="yellow_theme">Venus</string>
     <string name="red_theme">Mars</string>
+    <string name="purple_theme">Jupiter</string>
+    <string name="pink_theme">Saturn</string>
+    <string name="yellow_theme">Venus</string>
+    <string name="aqua_theme">Uranus</string>
 
     <!-- Toast messages -->
     <string name="press_again_toast">Press back again to exit</string>
@@ -166,6 +176,10 @@
     <string name="book_deleted">This book was successfully deleted.</string>
     <string name="book_moved">This book was successfully moved.</string>
     <string name="copied">Copied</string>
+    <string name="history_deleted">History was successfully deleted.</string>
+
+    <!-- Snackbar messages -->
+    <string name="history_element_deleted">History element was successfully deleted.</string>
 
     <!-- DropDown properties -->
     <string name="move_this_book">Move</string>
@@ -189,5 +203,9 @@
 
     <!-- Font families -->
     <string name="default_font">Default</string>
+
+    <!-- History -->
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
 
 </resources>

@@ -17,6 +17,7 @@
     <string name="delete_books">Видалити книги?</string>
     <string name="delete_book">Видалити книгу?</string>
     <string name="move_book">Перемістити книгу?</string>
+    <string name="delete_history">Видалити історію читання?</string>
 
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">
@@ -43,6 +44,9 @@
         Виберіть категорію, в яку ви хочете перемістити цю книгу.
         Ця книга буде переміщена в обрану категорію.
     </string>
+    <string name="delete_history_description">
+        Це видалить всю історію з бази даних.
+    </string>
 
     <!-- Errors -->
     <string name="error_permission">
@@ -64,6 +68,10 @@
     </string>
     <string name="library_empty">
         Читайте ваші улюблені книги та сортуйте їх між категоріями
+    </string>
+    <string name="history_empty">
+        Нехай ваша остання прочитана книга відкриє перед
+        вами сторінки нової великої історії вашого читацького шляху
     </string>
 
     <!-- Query strings -->
@@ -87,10 +95,12 @@
     <string name="go_back">Назад</string>
     <string name="move_to_read">Перемістити цю книгу в \"Прочитано\"</string>
     <string name="back_to_library">Назад в Бібліотеку</string>
+    <string name="undo">Скасувати</string>
 
     <!-- Items -->
     <string name="files">файли</string>
     <string name="books">книги</string>
+    <string name="history">історію</string>
 
     <!-- Book -->
     <string name="unknown_author">Невідомий</string>
@@ -145,13 +155,14 @@
     <string name="font_style_normal">Нормальний</string>
 
     <!-- Themes -->
-    <string name="dynamic_theme">Хаос</string>
+    <string name="dynamic_theme">Меркурій</string>
     <string name="blue_theme">Нептун</string>
-    <string name="purple_theme">Супернова</string>
     <string name="green_theme">Земля</string>
-    <string name="pink_theme">Пульсар</string>
-    <string name="yellow_theme">Венера</string>
     <string name="red_theme">Марс</string>
+    <string name="purple_theme">Юпітер</string>
+    <string name="pink_theme">Сатурн</string>
+    <string name="yellow_theme">Венера</string>
+    <string name="aqua_theme">Уран</string>
 
     <!-- Toast messages -->
     <string name="press_again_toast">Натисніть ще раз, щоб вийти</string>
@@ -165,6 +176,10 @@
     <string name="book_deleted">Ця книга була успішно видалена.</string>
     <string name="book_moved">Ця книга була успішно переміщена.</string>
     <string name="copied">Скопійовано</string>
+    <string name="history_deleted">Історія була успішно видалена.</string>
+
+    <!-- Snackbar messages -->
+    <string name="history_element_deleted">Елемент історії був успішно видалений.</string>
 
     <!-- DropDown properties -->
     <string name="move_this_book">Перемістити</string>
@@ -188,5 +203,9 @@
 
     <!-- Font families -->
     <string name="default_font">За замовчуванням</string>
+
+    <!-- History -->
+    <string name="today">Сьогодні</string>
+    <string name="yesterday">Вчора</string>
 
 </resources>
