@@ -31,6 +31,9 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.ui.elevation
 
+/**
+ * Tab row, either scrollable or static, depends on screen width.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LibraryTabRow(viewModel: LibraryViewModel, books: List<Book>, pagerState: PagerState) {
@@ -97,9 +100,9 @@ fun LibraryTabRow(viewModel: LibraryViewModel, books: List<Book>, pagerState: Pa
                             Text(
                                 text = tabItem.second.toString(),
                                 modifier = Modifier
-                                    .clip(RoundedCornerShape(12.dp))
+                                    .clip(MaterialTheme.shapes.medium)
                                     .background(MaterialTheme.elevation(6.dp))
-                                    .padding(horizontal = 6.dp, vertical = 4.dp),
+                                    .padding(horizontal = 8.dp, vertical = 4.dp),
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 style = MaterialTheme.typography.bodyMedium
                             )
@@ -153,9 +156,9 @@ fun LibraryTabRow(viewModel: LibraryViewModel, books: List<Book>, pagerState: Pa
                             Text(
                                 text = tabItem.second.toString(),
                                 modifier = Modifier
-                                    .clip(RoundedCornerShape(12.dp))
+                                    .clip(MaterialTheme.shapes.medium)
                                     .background(MaterialTheme.elevation(6.dp))
-                                    .padding(horizontal = 6.dp, vertical = 4.dp),
+                                    .padding(horizontal = 8.dp, vertical = 4.dp),
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 style = MaterialTheme.typography.bodyMedium
                             )

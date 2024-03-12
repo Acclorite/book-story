@@ -37,6 +37,9 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+/**
+ * Browse list element item. Can be selected.
+ */
 @Composable
 fun BrowseFileItem(file: Pair<File, Boolean>, modifier: Modifier, onClick: () -> Unit) {
     val fileExtension: String = file.first.name.substringAfterLast(".", "")

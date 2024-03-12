@@ -6,9 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 
 
-sealed class UIText {
-    data class StringValue(val value: String) : UIText()
-    class StringResource(@StringRes val resId: Int, vararg val args: Any) : UIText()
+sealed class UIText(val string: String?) {
+    data class StringValue(val value: String) : UIText(value)
+    class StringResource(@StringRes val resId: Int, vararg val args: Any) : UIText(null)
 
     @Composable
     fun asString(): String {

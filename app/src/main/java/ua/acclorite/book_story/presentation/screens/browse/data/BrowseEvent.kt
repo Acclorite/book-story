@@ -7,7 +7,7 @@ import androidx.compose.ui.focus.FocusRequester
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.domain.model.NullableBook
-import ua.acclorite.book_story.presentation.Navigator
+import ua.acclorite.book_story.presentation.data.Navigator
 import java.io.File
 
 sealed class BrowseEvent {

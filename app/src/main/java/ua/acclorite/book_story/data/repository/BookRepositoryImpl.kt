@@ -4,24 +4,27 @@ import android.os.Environment
 import androidx.datastore.preferences.core.Preferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.local.data_store.DataStore
 import ua.acclorite.book_story.data.local.dto.BookEntity
 import ua.acclorite.book_story.data.local.room.BookDao
-import ua.acclorite.book_story.data.mapper.BookMapper
-import ua.acclorite.book_story.data.mapper.HistoryMapper
-import ua.acclorite.book_story.data.parser.EpubFileParser
-import ua.acclorite.book_story.data.parser.EpubTextParser
-import ua.acclorite.book_story.data.parser.PdfFileParser
-import ua.acclorite.book_story.data.parser.PdfTextParser
-import ua.acclorite.book_story.data.parser.TxtFileParser
-import ua.acclorite.book_story.data.parser.TxtTextParser
+import ua.acclorite.book_story.data.mapper.book.BookMapper
+import ua.acclorite.book_story.data.mapper.history.HistoryMapper
+import ua.acclorite.book_story.data.parser.epub.EpubFileParser
+import ua.acclorite.book_story.data.parser.epub.EpubTextParser
+import ua.acclorite.book_story.data.parser.pdf.PdfFileParser
+import ua.acclorite.book_story.data.parser.pdf.PdfTextParser
+import ua.acclorite.book_story.data.parser.txt.TxtFileParser
+import ua.acclorite.book_story.data.parser.txt.TxtTextParser
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.model.StringWithId
 import ua.acclorite.book_story.domain.repository.BookRepository
+import ua.acclorite.book_story.presentation.data.calculateFamiliarity
 import ua.acclorite.book_story.util.Constants
 import ua.acclorite.book_story.util.Resource
+import ua.acclorite.book_story.util.UIText
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -49,9 +52,20 @@ class BookRepositoryImpl @Inject constructor(
             emit(Resource.Loading(true))
 
             val books = database.searchBooks(query)
+            val history = database.getHistory()
+
             emit(
                 Resource.Success(
-                    data = books.map { bookMapper.toBook(it) }
+                    data = books.map { entity ->
+                        val book = bookMapper.toBook(entity)
+                        val lastHistory = history
+                            .filter { it.bookId == book.id }
+                            .maxByOrNull { it.time }
+
+                        book.copy(
+                            lastOpened = lastHistory?.time
+                        )
+                    }
                 )
             )
         }
@@ -59,7 +73,21 @@ class BookRepositoryImpl @Inject constructor(
 
     override suspend fun fastGetBooks(query: String): List<Book> {
         val books = database.searchBooks(query)
-        return books.map { bookMapper.toBook(it) }
+        val history = database.getHistory()
+
+        return books.map { entity ->
+            val book = bookMapper.toBook(entity)
+            val lastHistory =
+                history.filter { it.bookId == book.id }.maxByOrNull { it.time }
+
+            book.copy(
+                lastOpened = lastHistory?.time
+            )
+        }
+    }
+
+    override suspend fun getBooksById(ids: List<Int>): List<Book> {
+        return database.findBooksById(ids).map { bookMapper.toBook(it) }
     }
 
     override suspend fun findBook(
@@ -154,7 +182,10 @@ class BookRepositoryImpl @Inject constructor(
 
             filteredFiles = if (query.trim().isNotEmpty()) {
                 filteredFiles.sortedByDescending {
-                    it.name.lowercase().startsWith(query.trim().lowercase())
+                    calculateFamiliarity(
+                        query,
+                        it.name.lowercase().trim()
+                    )
                 }.toMutableList()
             } else {
                 filteredFiles.sortedByDescending {
@@ -182,59 +213,111 @@ class BookRepositoryImpl @Inject constructor(
             } else if (file.name.endsWith(".epub")) {
                 epubTextParser.parse(file)
             } else {
+                emit(Resource.Error(UIText.StringResource(R.string.error_wrong_file_format)))
                 return@flow
             }
 
-            emit(Resource.Success(text))
-        }
-    }
-
-    override suspend fun getBooksFromFiles(files: List<File>): Flow<Resource<List<NullableBook>>> {
-        return flow {
-            emit(Resource.Loading(true))
-
-            val books = mutableListOf<NullableBook>()
-            for (file in files) {
-
-                val parsedBook = if (file.name.endsWith(".txt")) {
-                    txtFileParser.parse(file)
-                } else if (file.name.endsWith(".pdf")) {
-                    pdfFileParser.parse(file)
-                } else if (file.name.endsWith(".epub")) {
-                    epubFileParser.parse(file)
-                } else {
-                    books.add(NullableBook.Null(file.name))
-                    continue
-                }
-
-                val parsedText = if (file.name.endsWith(".txt")) {
-                    txtTextParser.parse(file)
-                } else if (file.name.endsWith(".pdf")) {
-                    pdfTextParser.parse(file)
-                } else if (file.name.endsWith(".epub")) {
-                    epubTextParser.parse(file)
-                } else {
-                    books.add(NullableBook.Null(file.name))
-                    continue
-                }
-
-                if (parsedBook == null || parsedText.isEmpty()) {
-                    books.add(NullableBook.Null(file.name))
-                    continue
-                }
-
-                books.add(
-                    NullableBook.NotNull(
-                        Pair(
-                            parsedBook.copy(text = parsedText),
-                            true
-                        )
+            if (text is Resource.Success && text.data == null) {
+                emit(
+                    Resource.Error(
+                        text.message
+                            ?: UIText.StringResource(R.string.error_file_empty)
                     )
                 )
             }
 
-            emit(Resource.Success(books))
+            when (text) {
+                is Resource.Success -> emit(Resource.Success(text.data))
+                is Resource.Error -> emit(
+                    Resource.Error(
+                        text.message
+                            ?: UIText.StringResource(R.string.error_something_went_wrong)
+                    )
+                )
+
+                is Resource.Loading -> Unit
+            }
+
         }
+    }
+
+    override suspend fun getBooksFromFiles(files: List<File>): List<NullableBook> {
+        val books = mutableListOf<NullableBook>()
+
+        for (file in files) {
+            val parsedBook = if (file.name.endsWith(".txt")) {
+                txtFileParser.parse(file)
+            } else if (file.name.endsWith(".pdf")) {
+                pdfFileParser.parse(file)
+            } else if (file.name.endsWith(".epub")) {
+                epubFileParser.parse(file)
+            } else {
+                books.add(
+                    NullableBook.Null(
+                        file.name,
+                        UIText.StringResource(R.string.error_wrong_file_format)
+                    )
+                )
+                continue
+            }
+
+            val parsedText = if (file.name.endsWith(".txt")) {
+                txtTextParser.parse(file)
+            } else if (file.name.endsWith(".pdf")) {
+                pdfTextParser.parse(file)
+            } else if (file.name.endsWith(".epub")) {
+                epubTextParser.parse(file)
+            } else {
+                books.add(
+                    NullableBook.Null(
+                        file.name,
+                        UIText.StringResource(R.string.error_wrong_file_format)
+                    )
+                )
+                continue
+            }
+
+            if (parsedBook == null) {
+                books.add(
+                    NullableBook.Null(
+                        file.name,
+                        UIText.StringResource(R.string.error_something_went_wrong)
+                    )
+                )
+                continue
+            }
+
+            if (parsedText is Resource.Error) {
+                books.add(
+                    NullableBook.Null(
+                        file.name,
+                        parsedText.message
+                    )
+                )
+                continue
+            }
+
+            if (parsedText.data == null) {
+                books.add(
+                    NullableBook.Null(
+                        file.name,
+                        UIText.StringResource(R.string.error_file_empty)
+                    )
+                )
+                continue
+            }
+
+            books.add(
+                NullableBook.NotNull(
+                    Pair(
+                        parsedBook.copy(text = parsedText.data),
+                        true
+                    )
+                )
+            )
+        }
+
+        return books
     }
 
     override suspend fun insertHistory(history: List<History>) {
@@ -246,11 +329,13 @@ class BookRepositoryImpl @Inject constructor(
             emit(Resource.Loading(true))
 
             val history = database.getHistory()
+
             emit(
                 Resource.Success(
                     data = history.map {
-                        val book = database.findBookById(it.bookId)
-                        historyMapper.toHistory(it, bookMapper.toBook(book))
+                        historyMapper.toHistory(
+                            it
+                        )
                     }
                 )
             )

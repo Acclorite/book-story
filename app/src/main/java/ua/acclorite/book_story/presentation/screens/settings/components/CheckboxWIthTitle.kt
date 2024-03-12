@@ -14,6 +14,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 
+/**
+ * Checkbox with title.
+ */
 @Composable
 fun CheckboxWithTitle(
     selected: Boolean,

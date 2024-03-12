@@ -53,24 +53,24 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.Navigator
-import ua.acclorite.book_story.presentation.Screen
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
-import ua.acclorite.book_story.presentation.components.IsEmpty
-import ua.acclorite.book_story.presentation.components.IsError
 import ua.acclorite.book_story.presentation.components.MoreDropDown
-import ua.acclorite.book_story.presentation.screens.browse.components.BrowseAddingDialog
+import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
+import ua.acclorite.book_story.presentation.components.is_messages.IsError
+import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.browse.components.BrowseFileItem
 import ua.acclorite.book_story.presentation.screens.browse.components.BrowseStoragePermissionDialog
+import ua.acclorite.book_story.presentation.screens.browse.components.adding_dialog.BrowseAddingDialog
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.ui.DefaultTransition
 import ua.acclorite.book_story.ui.Transitions
 import ua.acclorite.book_story.ui.elevation
@@ -83,7 +83,8 @@ import ua.acclorite.book_story.ui.elevation
 )
 @Composable
 fun BrowseScreen(
-    viewModel: BrowseViewModel = hiltViewModel(),
+    viewModel: BrowseViewModel,
+    libraryViewModel: LibraryViewModel,
     navigator: Navigator
 ) {
     val permissionState = rememberPermissionState(
@@ -127,7 +128,11 @@ fun BrowseScreen(
         BrowseStoragePermissionDialog(viewModel, permissionState)
     }
     if (state.showAddingDialog) {
-        BrowseAddingDialog(viewModel = viewModel, navigator = navigator)
+        BrowseAddingDialog(
+            viewModel = viewModel,
+            navigator = navigator,
+            libraryViewModel = libraryViewModel
+        )
     }
 
     Scaffold(
@@ -270,13 +275,14 @@ fun BrowseScreen(
                 columns = GridCells.Adaptive(170.dp),
                 contentPadding = PaddingValues(12.dp)
             ) {
-                items(state.selectableFiles, key = { it.first.path }) { selectableFile ->
+                items(
+                    state.selectableFiles,
+                    key = { it.first.path }
+                ) { selectableFile ->
                     BrowseFileItem(
                         file = selectableFile,
                         modifier = Modifier
-                            .animateItemPlacement(
-                                animationSpec = tween(300)
-                            ),
+                            .animateItemPlacement(),
                         onClick = {
                             viewModel.onEvent(BrowseEvent.OnSelectFile(selectableFile))
                         }
@@ -317,7 +323,7 @@ fun BrowseScreen(
                     message = stringResource(id = R.string.browse_empty),
                     icon = painterResource(id = R.drawable.empty_browse),
                     actionTitle = stringResource(id = R.string.get_help),
-                    action = { navigator.navigate(Screen.HELP) }
+                    action = { navigator.navigate(Screen.HELP, false) }
                 )
             }
 
@@ -325,9 +331,8 @@ fun BrowseScreen(
                 state.isRefreshing,
                 refreshState,
                 Modifier.align(Alignment.TopCenter),
-                backgroundColor = MaterialTheme.elevation(),
-                contentColor = MaterialTheme.colorScheme.primary,
-                scale = true
+                backgroundColor = MaterialTheme.colorScheme.inverseSurface,
+                contentColor = MaterialTheme.colorScheme.inverseOnSurface
             )
         }
     }
@@ -343,7 +348,7 @@ fun BrowseScreen(
             return@BackHandler
         }
 
-        navigator.navigate(Screen.LIBRARY)
+        navigator.navigate(Screen.LIBRARY, false)
     }
 }
 

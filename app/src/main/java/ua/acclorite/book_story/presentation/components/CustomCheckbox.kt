@@ -16,6 +16,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.ui.elevation
 
+/**
+ * Custom Checkbox. Has a Circle shape.
+ */
 @Composable
 fun CustomCheckbox(selected: Boolean) {
     Icon(

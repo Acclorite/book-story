@@ -29,10 +29,23 @@ class LibraryViewModel @Inject constructor(
     private val _state = MutableStateFlow(LibraryState())
     val state = _state.asStateFlow()
 
+    private val _isReady = MutableStateFlow(false)
+    val isReady = _isReady.asStateFlow()
+
     private var job: Job? = null
 
     init {
-        onEvent(LibraryEvent.OnLoadList)
+        viewModelScope.launch(Dispatchers.IO) {
+            _state.update {
+                it.copy(
+                    isLoading = true
+                )
+            }
+            getBooksFromDatabase()
+            _isReady.update {
+                true
+            }
+        }
     }
 
     fun onEvent(event: LibraryEvent) {

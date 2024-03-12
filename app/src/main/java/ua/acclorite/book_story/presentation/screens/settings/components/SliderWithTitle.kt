@@ -18,6 +18,9 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import kotlin.math.roundToInt
 
+/**
+ * Slider with title.
+ */
 @Composable
 fun SliderWithTitle(
     modifier: Modifier = Modifier,

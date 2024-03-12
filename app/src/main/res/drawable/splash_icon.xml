@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:drawable="@drawable/app_icon_colored"
-        android:height="75.dp"
-        android:width="75.dp"
+        android:height="80.dp"
+        android:width="80.dp"
         android:gravity="center" />
 </layer-list>

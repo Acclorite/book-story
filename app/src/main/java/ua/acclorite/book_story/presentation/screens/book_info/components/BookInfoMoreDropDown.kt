@@ -11,6 +11,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,8 +24,11 @@ import ua.acclorite.book_story.presentation.components.CustomDropDownMenuItem
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
 
+/**
+ * Book info more dropdown. Has three options: Delete, Move and Details.
+ */
 @Composable
-fun BookInfoMoreDropDown(viewModel: BookInfoViewModel) {
+fun BookInfoMoreDropDown(viewModel: BookInfoViewModel, snackbarState: SnackbarHostState) {
     val state by viewModel.state.collectAsState()
 
     Box {
@@ -64,6 +68,7 @@ fun BookInfoMoreDropDown(viewModel: BookInfoViewModel) {
                 leadingIcon = Icons.Outlined.Info,
                 text = stringResource(id = R.string.details_book)
             ) {
+                snackbarState.currentSnackbarData?.dismiss()
                 viewModel.onEvent(BookInfoEvent.OnShowHideDetailsBottomSheet)
                 viewModel.onEvent(BookInfoEvent.OnShowHideMoreDropDown)
             }

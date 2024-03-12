@@ -1,5 +1,7 @@
 package ua.acclorite.book_story.presentation.screens.reader.data
 
+import android.app.SearchManager
+import android.content.Intent
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.LazyListState
@@ -24,13 +26,11 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.model.History
-import ua.acclorite.book_story.domain.use_case.GetText
 import ua.acclorite.book_story.domain.use_case.InsertHistory
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
-import ua.acclorite.book_story.presentation.Argument
-import ua.acclorite.book_story.presentation.Navigator
-import ua.acclorite.book_story.presentation.Screen
-import ua.acclorite.book_story.util.Resource
+import ua.acclorite.book_story.presentation.data.Argument
+import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.util.UIText
 import java.util.Date
 import kotlin.math.roundToInt
@@ -39,7 +39,6 @@ import kotlin.math.roundToInt
 @HiltViewModel(assistedFactory = ReaderViewModel.Factory::class)
 class ReaderViewModel @AssistedInject constructor(
     @Assisted book: Book,
-    private val getText: GetText,
     private val updateBooks: UpdateBooks,
     private val insertHistory: InsertHistory
 ) : ViewModel() {
@@ -49,61 +48,29 @@ class ReaderViewModel @AssistedInject constructor(
 
     fun onEvent(event: ReaderEvent) {
         when (event) {
-            is ReaderEvent.OnFileNotFound -> {
+            is ReaderEvent.OnTextIsEmpty -> {
                 _state.update {
                     event.onLoaded()
                     it.copy(
-                        errorMessage = UIText.StringResource(R.string.error_file_not_found),
+                        errorMessage = UIText.StringResource(R.string.error_no_text),
                     )
                 }
             }
 
             is ReaderEvent.OnLoadText -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    if (_state.value.book.file == null) {
-                        return@launch
-                    }
-
-                    if (_state.value.book.text.isEmpty()) {
-                        getText.execute(_state.value.book.file!!).collect { result ->
-                            when (result) {
-                                is Resource.Loading -> Unit
-                                is Resource.Success -> {
-                                    if (result.data?.isEmpty() != false) {
-                                        _state.update {
-                                            it.copy(
-                                                errorMessage = UIText.StringResource(
-                                                    R.string.error_something_went_wrong
-                                                ),
-                                            )
-                                        }
-                                        event.onLoaded()
-                                        return@collect
-                                    }
-
-                                    _state.update {
-                                        it.copy(
-                                            book = it.book.copy(
-                                                text = result.data,
-                                            )
-                                        )
-                                    }
-
-
-                                }
-
-                                is Resource.Error -> Unit
-                            }
-                        }
-                    }
-
                     val time = Date().time
+                    val text = _state.value.book.text.joinToString(separator = " ") { it.line }
+                    val letters = text.replace(" ", "").length
+                    val words = text.split("\\s+".toRegex()).size
 
                     _state.update {
                         it.copy(
                             book = it.book.copy(
                                 lastOpened = time
-                            )
+                            ),
+                            letters = letters,
+                            words = words
                         )
                     }
 
@@ -114,7 +81,7 @@ class ReaderViewModel @AssistedInject constructor(
                         listOf(
                             History(
                                 null,
-                                _state.value.book,
+                                _state.value.book.id!!,
                                 time
                             )
                         )
@@ -141,7 +108,7 @@ class ReaderViewModel @AssistedInject constructor(
                                     }
                                 }
 
-                                delay(500)
+                                delay(100)
                                 event.onLoaded()
                                 return@collectLatest
                             }
@@ -234,7 +201,8 @@ class ReaderViewModel @AssistedInject constructor(
                     onEvent(ReaderEvent.OnShowSystemBars(event.context))
 
                     val book = _state.value.book.copy(
-                        category = Category.ALREADY_READ
+                        category = Category.ALREADY_READ,
+                        progress = 1f
                     )
                     updateBooks.execute(listOf(book))
 
@@ -245,7 +213,59 @@ class ReaderViewModel @AssistedInject constructor(
                             it != Category.ALREADY_READ
                         }.size - 1
                     )
-                    event.navigator.navigate(Screen.LIBRARY)
+                    event.navigator.navigate(Screen.LIBRARY, true)
+                }
+            }
+
+            is ReaderEvent.OnTranslateText -> {
+                viewModelScope.launch {
+                    val translatorIntent = Intent()
+                    val browserIntent = Intent()
+
+                    translatorIntent.type = "text/plain"
+                    translatorIntent.action = Intent.ACTION_PROCESS_TEXT
+
+                    browserIntent.action = Intent.ACTION_WEB_SEARCH
+
+                    translatorIntent.putExtra(Intent.EXTRA_PROCESS_TEXT, event.textToTranslate)
+                    translatorIntent.putExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, true)
+
+                    browserIntent.putExtra(
+                        SearchManager.QUERY,
+                        "translate: ${event.textToTranslate.trim()}"
+                    )
+
+                    if (translatorIntent.resolveActivity(event.context.packageManager) != null) {
+                        event.context.startActivity(translatorIntent)
+                        return@launch
+                    }
+
+                    if (browserIntent.resolveActivity(event.context.packageManager) != null) {
+                        event.context.startActivity(browserIntent)
+                        return@launch
+                    }
+
+                    event.noAppsFound()
+                }
+            }
+
+            is ReaderEvent.OnOpenDictionary -> {
+                viewModelScope.launch {
+                    val browserIntent = Intent()
+
+                    browserIntent.action = Intent.ACTION_WEB_SEARCH
+                    browserIntent.putExtra(
+                        SearchManager.QUERY,
+                        "dictionary" +
+                                ": ${event.textToDefine.trim()}"
+                    )
+
+                    if (browserIntent.resolveActivity(event.context.packageManager) != null) {
+                        event.context.startActivity(browserIntent)
+                        return@launch
+                    }
+
+                    event.noAppsFound()
                 }
             }
         }
@@ -270,8 +290,8 @@ class ReaderViewModel @AssistedInject constructor(
                 ReaderState(book = book)
             }
 
-            if (book.file == null) {
-                onEvent(ReaderEvent.OnFileNotFound(onLoaded = { onLoaded() }))
+            if (book.text.isEmpty()) {
+                onEvent(ReaderEvent.OnTextIsEmpty(onLoaded = { onLoaded() }))
             } else {
                 onEvent(ReaderEvent.OnShowHideMenu(false, context))
                 onEvent(
@@ -293,6 +313,8 @@ class ReaderViewModel @AssistedInject constructor(
         fun create(book: Book): ReaderViewModel
     }
 }
+
+
 
 
 

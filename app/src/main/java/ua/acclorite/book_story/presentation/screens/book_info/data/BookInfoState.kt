@@ -7,6 +7,7 @@ import ua.acclorite.book_story.domain.model.Category
 @Immutable
 data class BookInfoState(
     val book: Book,
+    val isRefreshing: Boolean = false,
 
     val editTitle: Boolean = false,
     val hasFocused: Boolean = false,

@@ -24,7 +24,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.CircularProgressIndicator
@@ -69,24 +68,23 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.presentation.Argument
-import ua.acclorite.book_story.presentation.Navigator
-import ua.acclorite.book_story.presentation.Screen
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
-import ua.acclorite.book_story.presentation.components.IsEmpty
 import ua.acclorite.book_story.presentation.components.MoreDropDown
+import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
+import ua.acclorite.book_story.presentation.data.Argument
+import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.components.LibraryBookItem
-import ua.acclorite.book_story.presentation.screens.library.components.LibraryDeleteDialog
-import ua.acclorite.book_story.presentation.screens.library.components.LibraryMoveDialog
 import ua.acclorite.book_story.presentation.screens.library.components.LibraryTabRow
+import ua.acclorite.book_story.presentation.screens.library.components.dialog.LibraryDeleteDialog
+import ua.acclorite.book_story.presentation.screens.library.components.dialog.LibraryMoveDialog
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.ui.Transitions
@@ -99,15 +97,17 @@ import java.util.UUID
 )
 @Composable
 fun LibraryScreen(
-    viewModel: LibraryViewModel = hiltViewModel(),
-    browseViewModel: BrowseViewModel = hiltViewModel(),
-    historyViewModel: HistoryViewModel = hiltViewModel(),
+    viewModel: LibraryViewModel,
+    browseViewModel: BrowseViewModel,
+    historyViewModel: HistoryViewModel,
     navigator: Navigator,
     addedBooks: List<Book>
 ) {
     val state by viewModel.state.collectAsState()
-    val pagerState =
-        rememberPagerState(initialPage = state.currentPage, pageCount = { Category.entries.size })
+    val pagerState = rememberPagerState(
+        initialPage = state.currentPage,
+        pageCount = { Category.entries.size }
+    )
     val refreshState = rememberPullRefreshState(
         refreshing = state.isRefreshing,
         onRefresh = {
@@ -165,16 +165,15 @@ fun LibraryScreen(
                                 overflow = TextOverflow.Ellipsis,
                                 maxLines = 1
                             )
-                            Spacer(modifier = Modifier.width(4.dp))
+                            Spacer(modifier = Modifier.width(6.dp))
                             Text(
                                 text = state.books.size.toString(),
                                 modifier = Modifier
-                                    .clip(RoundedCornerShape(12.dp))
+                                    .clip(MaterialTheme.shapes.medium)
                                     .background(MaterialTheme.elevation(elevation = 6.dp))
-                                    .padding(horizontal = 10.dp, vertical = 4.dp),
+                                    .padding(horizontal = 8.dp, vertical = 3.dp),
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                fontSize = 16.sp,
-                                style = MaterialTheme.typography.titleLarge
+                                fontSize = 16.sp
                             )
                         }
                     },
@@ -313,9 +312,11 @@ fun LibraryScreen(
                 LaunchedEffect(state.books) {
                     categorizedBooks.clear()
                     categorizedBooks.addAll(state.books.filter { it.first.category == category }
-                        .sortedByDescending {
-                            it.first.lastOpened
-                        })
+                        .sortedWith(
+                            compareByDescending<Pair<Book, Boolean>> { it.first.lastOpened }
+                                .thenBy { it.first.title }
+                        )
+                    )
                     categoryIsLoading = false
                 }
 
@@ -333,15 +334,14 @@ fun LibraryScreen(
                             ) {
                                 LibraryBookItem(
                                     book = it,
-                                    modifier = Modifier.animateItemPlacement(
-                                        animationSpec = tween(300)
-                                    ),
+                                    modifier = Modifier.animateItemPlacement(),
                                     onCoverImageClick = {
                                         if (state.hasSelectedItems) {
                                             viewModel.onEvent(LibraryEvent.OnSelectBook(it))
                                         } else {
                                             navigator.navigate(
                                                 Screen.BOOK_INFO,
+                                                false,
                                                 Argument("book", it.first)
                                             )
                                         }
@@ -354,6 +354,7 @@ fun LibraryScreen(
                                     onButtonClick = {
                                         navigator.navigate(
                                             Screen.READER,
+                                            false,
                                             Argument("book", it.first)
                                         )
                                     }
@@ -385,7 +386,7 @@ fun LibraryScreen(
                             modifier = Modifier.align(Alignment.Center),
                             actionTitle = stringResource(id = R.string.add_book)
                         ) {
-                            navigator.navigate(Screen.BROWSE)
+                            navigator.navigate(Screen.BROWSE, false)
                         }
                     }
 
@@ -393,9 +394,8 @@ fun LibraryScreen(
                         state.isRefreshing,
                         refreshState,
                         Modifier.align(Alignment.TopCenter),
-                        backgroundColor = MaterialTheme.elevation(),
-                        contentColor = MaterialTheme.colorScheme.primary,
-                        scale = true
+                        backgroundColor = MaterialTheme.colorScheme.inverseSurface,
+                        contentColor = MaterialTheme.colorScheme.inverseOnSurface
                     )
                 }
             }

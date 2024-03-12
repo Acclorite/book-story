@@ -19,6 +19,9 @@ import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.presentation.data.removeDigits
 import ua.acclorite.book_story.presentation.data.removeTrailingZero
 
+/**
+ * Statistic section.
+ */
 @Composable
 fun BookInfoStatisticSection(book: Book) {
     Column(
@@ -41,16 +44,16 @@ fun BookInfoStatisticSection(book: Book) {
 
         LinearProgressIndicator(
             book.progress.coerceAtLeast(0.01f),
-            strokeCap = StrokeCap.Round,
             modifier = Modifier
                 .fillMaxWidth(),
             color = MaterialTheme.colorScheme.primary,
-            trackColor = MaterialTheme.colorScheme.onPrimaryContainer.copy(0.05f)
+            trackColor = MaterialTheme.colorScheme.onPrimaryContainer.copy(0.05f),
+            strokeCap = StrokeCap.Round,
         )
 
         Spacer(modifier = Modifier.height(6.dp))
         Text(
-            text = stringResource(
+            text = if (book.progress < 1f) stringResource(
                 id = R.string.you_read_query,
                 (book.progress * 100)
                     .toDouble()
@@ -59,7 +62,7 @@ fun BookInfoStatisticSection(book: Book) {
             ) + " " + stringResource(
                 if (book.progress > 0.2f) R.string.read_keep
                 else R.string.read_more
-            ),
+            ) else stringResource(id = R.string.read_done),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             style = MaterialTheme.typography.bodySmall,
             maxLines = 1,

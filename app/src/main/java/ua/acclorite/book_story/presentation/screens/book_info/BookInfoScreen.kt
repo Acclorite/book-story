@@ -21,10 +21,15 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.pullrefresh.PullRefreshDefaults
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
@@ -32,6 +37,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -43,32 +49,33 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import dagger.hilt.android.lifecycle.withCreationCallback
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
-import ua.acclorite.book_story.presentation.Argument
-import ua.acclorite.book_story.presentation.Navigator
-import ua.acclorite.book_story.presentation.Screen
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
+import ua.acclorite.book_story.presentation.components.CustomSnackbar
+import ua.acclorite.book_story.presentation.components.GoBackButton
+import ua.acclorite.book_story.presentation.data.Argument
+import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoBackground
-import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoChangeCoverBottomSheet
-import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoDeleteDialog
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoDescriptionSection
-import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoDetailsBottomSheet
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoInfoSection
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoMoreDropDown
-import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoMoveDialog
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoStatisticSection
+import ua.acclorite.book_story.presentation.screens.book_info.components.change_cover_bottom_sheet.BookInfoChangeCoverBottomSheet
+import ua.acclorite.book_story.presentation.screens.book_info.components.details_bottom_sheet.BookInfoDetailsBottomSheet
+import ua.acclorite.book_story.presentation.screens.book_info.components.dialog.BookInfoDeleteDialog
+import ua.acclorite.book_story.presentation.screens.book_info.components.dialog.BookInfoMoveDialog
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
@@ -77,12 +84,12 @@ import ua.acclorite.book_story.ui.Transitions
 import ua.acclorite.book_story.ui.elevation
 import ua.acclorite.book_story.util.Constants
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun BookInfoScreen(
-    libraryViewModel: LibraryViewModel = hiltViewModel(),
-    browseViewModel: BrowseViewModel = hiltViewModel(),
-    historyViewModel: HistoryViewModel = hiltViewModel(),
+    libraryViewModel: LibraryViewModel,
+    browseViewModel: BrowseViewModel,
+    historyViewModel: HistoryViewModel,
     navigator: Navigator
 ) {
     val context = LocalContext.current
@@ -104,22 +111,29 @@ fun BookInfoScreen(
     val state by viewModel.state.collectAsState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val listState = rememberLazyListState()
-
+    val snackbarState = remember { SnackbarHostState() }
+    val refreshState = rememberPullRefreshState(
+        refreshing = state.isRefreshing,
+        refreshThreshold = PullRefreshDefaults.RefreshThreshold + 32.dp,
+        refreshingOffset = PullRefreshDefaults.RefreshingOffset + 64.dp,
+        onRefresh = {
+            viewModel.onEvent(
+                BookInfoEvent.OnUpdateBook(
+                    refreshList = {
+                        libraryViewModel.onEvent(LibraryEvent.OnLoadList)
+                        historyViewModel.onEvent(HistoryEvent.OnLoadList)
+                    },
+                    snackbarState,
+                    context
+                )
+            )
+        }
+    )
     val firstVisibleItemIndex by remember { derivedStateOf { listState.firstVisibleItemIndex } }
 
     LaunchedEffect(Unit) {
         viewModel.init(
-            navigator,
-            failure = {
-                Toast.makeText(
-                    context,
-                    context.getString(
-                        R.string.file_not_found,
-                        it.takeLast(40)
-                    ),
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+            navigator
         )
     }
 
@@ -153,8 +167,9 @@ fun BookInfoScreen(
     Scaffold(
         Modifier
             .fillMaxSize()
-            .nestedScroll(scrollBehavior.nestedScrollConnection)
-            .windowInsetsPadding(WindowInsets.navigationBars),
+            .windowInsetsPadding(WindowInsets.navigationBars)
+            .pullRefresh(refreshState)
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             AnimatedTopAppBar(
@@ -164,15 +179,7 @@ fun BookInfoScreen(
                 isTopBarScrolled = null,
 
                 content1NavigationIcon = {
-                    IconButton(onClick = {
-                        navigator.navigateBack()
-                    }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                            contentDescription = "Go back",
-                            tint = MaterialTheme.colorScheme.onSurface
-                        )
-                    }
+                    GoBackButton(navigator = navigator)
                 },
                 content1Title = {
                     DefaultTransition(visible = firstVisibleItemIndex > 0) {
@@ -186,11 +193,37 @@ fun BookInfoScreen(
                     }
                 },
                 content1Actions = {
+                    IconButton(
+                        enabled = !state.isRefreshing,
+                        onClick = {
+                            viewModel.onEvent(
+                                BookInfoEvent.OnUpdateBook(
+                                    refreshList = {
+                                        libraryViewModel.onEvent(LibraryEvent.OnLoadList)
+                                        historyViewModel.onEvent(HistoryEvent.OnLoadList)
+                                    },
+                                    snackbarState,
+                                    context
+                                )
+                            )
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Refresh,
+                            contentDescription = stringResource(id = R.string.refresh_book_content_desc),
+                            modifier = Modifier.size(24.dp),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+
                     Box {
                         DefaultTransition(
                             visible = !state.editTitle
                         ) {
-                            BookInfoMoreDropDown(viewModel = viewModel)
+                            BookInfoMoreDropDown(
+                                viewModel = viewModel,
+                                snackbarState = snackbarState
+                            )
                         }
                         androidx.compose.animation.AnimatedVisibility(
                             visible = state.editTitle,
@@ -230,6 +263,12 @@ fun BookInfoScreen(
                     }
                 }
             )
+        },
+        bottomBar = {
+            CustomSnackbar(
+                modifier = Modifier.padding(bottom = 70.dp),
+                snackbarState = snackbarState
+            )
         }
     ) { paddingValues ->
         Box(
@@ -246,7 +285,7 @@ fun BookInfoScreen(
                         if (state.book.coverImage != null) {
                             BookInfoBackground(
                                 height = paddingValues.calculateTopPadding() + 12.dp + 195.dp,
-                                image = state.book.coverImage!!.asImageBitmap()
+                                image = state.book.coverImage!!
                             )
                         }
 
@@ -271,48 +310,54 @@ fun BookInfoScreen(
                 }
             }
 
-            if (state.book.file != null) {
-                FloatingActionButton(
-                    onClick = {
-                        navigator.navigate(
-                            Screen.READER, Argument(
-                                "book", state.book
-                            )
+            FloatingActionButton(
+                onClick = {
+                    navigator.navigate(
+                        Screen.READER, false, Argument(
+                            "book", state.book
                         )
-                    },
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .padding(16.dp),
-                    shape = MaterialTheme.shapes.large,
-                    elevation = FloatingActionButtonDefaults.elevation(),
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    content = {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Spacer(modifier = Modifier.width(13.dp))
-                            Icon(
-                                imageVector = Icons.Filled.PlayArrow,
-                                contentDescription = "Continue reading",
-                                Modifier.size(24.dp)
+                    )
+                },
+                shape = MaterialTheme.shapes.large,
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp),
+                elevation = FloatingActionButtonDefaults.elevation(),
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                content = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Spacer(modifier = Modifier.width(13.dp))
+                        Icon(
+                            imageVector = Icons.Filled.PlayArrow,
+                            contentDescription = stringResource(id = R.string.continue_reading_content_desc),
+                            Modifier.size(24.dp)
+                        )
+                        AnimatedVisibility(
+                            visible = !listState.canScrollBackward
+                        ) {
+                            Text(
+                                text = stringResource(
+                                    if (state.book.progress == 0f) R.string.start
+                                    else R.string.continue_read
+                                ),
+                                style = MaterialTheme.typography.labelLarge,
+                                maxLines = 1,
+                                modifier = Modifier.padding(start = 8.dp)
                             )
-                            AnimatedVisibility(
-                                visible = !listState.canScrollBackward
-                            ) {
-                                Text(
-                                    text = stringResource(
-                                        if (state.book.progress == 0f) R.string.start
-                                        else R.string.continue_read
-                                    ),
-                                    style = MaterialTheme.typography.labelLarge,
-                                    maxLines = 1,
-                                    modifier = Modifier.padding(start = 8.dp)
-                                )
-                            }
-                            Spacer(modifier = Modifier.width(16.dp))
                         }
+                        Spacer(modifier = Modifier.width(16.dp))
                     }
-                )
-            }
+                }
+            )
+
+            PullRefreshIndicator(
+                state.isRefreshing,
+                refreshState,
+                Modifier.align(Alignment.TopCenter),
+                backgroundColor = MaterialTheme.colorScheme.inverseSurface,
+                contentColor = MaterialTheme.colorScheme.inverseOnSurface
+            )
         }
     }
 }

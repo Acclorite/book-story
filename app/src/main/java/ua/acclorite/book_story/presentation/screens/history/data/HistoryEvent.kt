@@ -9,10 +9,11 @@ sealed class HistoryEvent {
     data object OnRefreshList : HistoryEvent()
     data object OnLoadList : HistoryEvent()
     data object OnShowHideDeleteWholeHistoryDialog : HistoryEvent()
-    data object OnDeleteWholeHistory : HistoryEvent()
+    data class OnDeleteWholeHistory(val refreshList: () -> Unit) : HistoryEvent()
     data class OnDeleteHistoryElement(
         val historyToDelete: History,
         val snackbarState: SnackbarHostState,
+        val refreshList: () -> Unit,
         val context: Context
     ) : HistoryEvent()
 

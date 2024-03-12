@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 import ua.acclorite.book_story.domain.use_case.ChangeLanguage
 import ua.acclorite.book_story.domain.use_case.GetDatastore
 import ua.acclorite.book_story.domain.use_case.SetDatastore
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.ui.DarkTheme
 import ua.acclorite.book_story.ui.Theme
 import ua.acclorite.book_story.ui.toDarkTheme
@@ -264,19 +265,47 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun init(activity: ComponentActivity) {
+    fun init(
+        activity: ComponentActivity,
+        libraryViewModel: LibraryViewModel,
+    ) {
+        val isViewModelsReady = combine(
+            libraryViewModel.isReady,
+        ) { values ->
+            values.all { it }
+        }
+
         val isDataReady = combine(
-            language, theme, darkTheme, showStartScreen, backgroundColor,
-            fontColor, fontFamily, isItalic, fontSize, lineHeight,
-            paragraphHeight, paragraphIndentation
+            language,
+            theme,
+            darkTheme,
+            showStartScreen,
+            backgroundColor,
+            fontColor,
+            fontFamily,
+            isItalic,
+            fontSize,
+            lineHeight,
+            paragraphHeight,
+            paragraphIndentation
         ) { values ->
             values.all { it != null }
         }
 
+        val isReady = combine(
+            isViewModelsReady,
+            isDataReady
+        ) { values ->
+            values.all { it }
+        }
+
         viewModelScope.launch {
-            isDataReady.collect { bool ->
+            isReady.collect { bool ->
                 if (bool) {
-                    _isReady.value = true
+                    _isReady.update {
+                        true
+                    }
+                    return@collect
                 }
             }
         }

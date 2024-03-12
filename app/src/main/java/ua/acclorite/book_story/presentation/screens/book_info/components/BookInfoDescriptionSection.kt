@@ -14,12 +14,15 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 
+/**
+ * Description section.
+ */
 @Composable
 fun BookInfoDescriptionSection(book: Book) {
     SelectionContainer {
         Text(
-            book.description
-                ?: stringResource(id = R.string.error_no_description),
+            if (book.description?.isNotBlank() == true) book.description
+            else stringResource(id = R.string.error_no_description),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Start,

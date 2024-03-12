@@ -6,10 +6,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ua.acclorite.book_story.data.local.data_store.DataStore
 import ua.acclorite.book_story.data.local.data_store.DataStoreImpl
-import ua.acclorite.book_story.data.mapper.BookMapper
-import ua.acclorite.book_story.data.mapper.BookMapperImpl
-import ua.acclorite.book_story.data.mapper.HistoryMapper
-import ua.acclorite.book_story.data.mapper.HistoryMapperImpl
+import ua.acclorite.book_story.data.mapper.book.BookMapper
+import ua.acclorite.book_story.data.mapper.book.BookMapperImpl
+import ua.acclorite.book_story.data.mapper.history.HistoryMapper
+import ua.acclorite.book_story.data.mapper.history.HistoryMapperImpl
 import ua.acclorite.book_story.data.repository.BookRepositoryImpl
 import ua.acclorite.book_story.domain.repository.BookRepository
 import javax.inject.Singleton

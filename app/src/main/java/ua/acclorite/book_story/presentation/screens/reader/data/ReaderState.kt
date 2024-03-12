@@ -7,6 +7,9 @@ import ua.acclorite.book_story.util.UIText
 @Immutable
 data class ReaderState(
     val book: Book,
+    val letters: Int = 0,
+    val words: Int = 0,
+
     val errorMessage: UIText? = null,
 
     val showMenu: Boolean = false,

@@ -15,6 +15,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+/**
+ * Background of the BookInfoScreen.
+ */
 @Composable
 fun BookInfoBackground(height: Dp, image: ImageBitmap) {
     val background = MaterialTheme.colorScheme.background
@@ -34,7 +37,7 @@ fun BookInfoBackground(height: Dp, image: ImageBitmap) {
                     )
                 )
             }
-            .blur(2.dp),
+            .blur(3.dp),
         alpha = 0.3f,
         contentScale = ContentScale.Crop
     )

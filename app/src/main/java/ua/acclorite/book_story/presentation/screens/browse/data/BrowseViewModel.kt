@@ -22,8 +22,8 @@ import ua.acclorite.book_story.domain.use_case.FastGetBooks
 import ua.acclorite.book_story.domain.use_case.GetBooksFromFiles
 import ua.acclorite.book_story.domain.use_case.GetFilesFromDownloads
 import ua.acclorite.book_story.domain.use_case.InsertBooks
-import ua.acclorite.book_story.presentation.Argument
-import ua.acclorite.book_story.presentation.Screen
+import ua.acclorite.book_story.presentation.data.Argument
+import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.util.Resource
 import javax.inject.Inject
 
@@ -42,7 +42,14 @@ class BrowseViewModel @Inject constructor(
     private var job: Job? = null
 
     init {
-        onEvent(BrowseEvent.OnLoadList)
+        viewModelScope.launch(Dispatchers.IO) {
+            _state.update {
+                it.copy(
+                    isLoading = true
+                )
+            }
+            getFilesFromDownloads()
+        }
     }
 
     fun onEvent(event: BrowseEvent) {
@@ -268,34 +275,23 @@ class BrowseViewModel @Inject constructor(
 
             is BrowseEvent.OnGetBooksFromFiles -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    getBooksFromFiles.execute(
+                    _state.update {
+                        it.copy(
+                            isBooksLoading = true
+                        )
+                    }
+
+                    val books = getBooksFromFiles.execute(
                         _state.value.selectableFiles
                             .filter { it.second }
                             .map { it.first }
-                    ).collect { result ->
-                        when (result) {
-                            is Resource.Success -> {
-                                if (result.data?.isEmpty() ?: return@collect) {
-                                    return@collect
-                                }
-                                _state.update {
-                                    it.copy(
-                                        selectedBooks = result.data,
-                                        isBooksLoading = false
-                                    )
-                                }
-                            }
+                    )
 
-                            is Resource.Loading -> {
-                                _state.update {
-                                    it.copy(
-                                        isBooksLoading = result.isLoading
-                                    )
-                                }
-                            }
-
-                            is Resource.Error -> Unit
-                        }
+                    _state.update {
+                        it.copy(
+                            selectedBooks = books,
+                            isBooksLoading = false
+                        )
                     }
                 }
             }
@@ -323,7 +319,11 @@ class BrowseViewModel @Inject constructor(
                     onEvent(BrowseEvent.OnClearSelectedFiles)
                     onEvent(BrowseEvent.OnLoadList)
 
-                    event.navigator.navigate(Screen.LIBRARY, Argument("added_books", books))
+                    event.navigator.navigate(
+                        Screen.LIBRARY,
+                        false,
+                        Argument("added_books", books)
+                    )
                 }
             }
 

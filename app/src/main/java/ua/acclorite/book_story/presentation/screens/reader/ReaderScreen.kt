@@ -1,6 +1,8 @@
 package ua.acclorite.book_story.presentation.screens.reader
 
 import android.annotation.SuppressLint
+import android.os.Build
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.viewModels
@@ -20,7 +22,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.selection.DisableSelection
-import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -50,25 +51,25 @@ import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
-import ua.acclorite.book_story.presentation.Navigator
-import ua.acclorite.book_story.presentation.components.IsError
+import ua.acclorite.book_story.presentation.components.CustomSelectionContainer
+import ua.acclorite.book_story.presentation.components.is_messages.IsError
 import ua.acclorite.book_story.presentation.data.MainViewModel
+import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
-import ua.acclorite.book_story.presentation.screens.reader.components.ReaderBottomBar
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderEndItem
-import ua.acclorite.book_story.presentation.screens.reader.components.ReaderSettingsBottomSheet
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderStartItem
-import ua.acclorite.book_story.presentation.screens.reader.components.ReaderTopBar
+import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderBottomBar
+import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderTopBar
+import ua.acclorite.book_story.presentation.screens.reader.components.settings_bottom_sheet.ReaderSettingsBottomSheet
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 import ua.acclorite.book_story.ui.elevation
@@ -78,9 +79,9 @@ import ua.acclorite.book_story.util.Constants
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ReaderScreen(
-    mainViewModel: MainViewModel = hiltViewModel(),
-    libraryViewModel: LibraryViewModel = hiltViewModel(),
-    historyViewModel: HistoryViewModel = hiltViewModel(),
+    mainViewModel: MainViewModel,
+    libraryViewModel: LibraryViewModel,
+    historyViewModel: HistoryViewModel,
     navigator: Navigator
 ) {
     val context = LocalContext.current as ComponentActivity
@@ -189,7 +190,7 @@ fun ReaderScreen(
         Modifier
             .fillMaxSize()
             .nestedScroll(nestedScrollConnection),
-        containerColor = Color(backgroundColor.toULong()),
+        containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             AnimatedVisibility(
                 visible = state.showMenu,
@@ -219,19 +220,66 @@ fun ReaderScreen(
             }
         }
     ) {
-        SelectionContainer {
+        CustomSelectionContainer(
+            onCopyRequested = {
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.copied),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            },
+            onTranslateRequested = { textToTranslate ->
+                viewModel.onEvent(
+                    ReaderEvent.OnTranslateText(
+                        textToTranslate,
+                        context,
+                        noAppsFound = {
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.error_no_translator),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    )
+                )
+            },
+            onDictionaryRequested = { textToDefine ->
+                viewModel.onEvent(
+                    ReaderEvent.OnOpenDictionary(
+                        textToDefine,
+                        context,
+                        noAppsFound = {
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.error_no_browser),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    )
+                )
+            }
+        ) { toolbarShowed ->
             LazyColumn(
                 state = listState,
                 modifier = Modifier
-                    .fillMaxSize()
-                    .clickable(
-                        interactionSource = null,
-                        indication = null,
-                        enabled = !loading,
-                        onClick = {
-                            viewModel.onEvent(
-                                ReaderEvent.OnShowHideMenu(context = context)
-                            )
+                    .then(
+                        if (!loading && toolbarShowed) {
+                            Modifier
+                                .fillMaxSize()
+                                .clickable(
+                                    interactionSource = null,
+                                    indication = null,
+                                    onClick = {
+                                        viewModel.onEvent(
+                                            ReaderEvent.OnShowHideMenu(context = context)
+                                        )
+                                    }
+                                )
+                        } else {
+                            Modifier
+                                .fillMaxSize()
                         }
                     )
             ) {
@@ -246,28 +294,31 @@ fun ReaderScreen(
                 itemsIndexed(
                     state.book.text, key = { _, key -> key.id }
                 ) { index, text ->
-                    if (index == 0)
-                        Spacer(modifier = Modifier.height(36.dp))
+                    Column(
+                        Modifier
+                            .background(Color(backgroundColor.toULong()))
+                            .fillMaxWidth()
+                            .padding(
+                                top = if (index == 0) 36.dp else 0.dp,
+                                start = 18.dp,
+                                end = 18.dp,
+                                bottom = if (index == state.book.text.lastIndex) 36.dp
+                                else (paragraphHeight * 3).dp
+                            )
+                    ) {
+                        Text(
+                            text = "${if (paragraphIndentation) "  " else ""}${text.line}",
+                            color = Color(fontColor.toULong()),
 
-                    Text(
-                        text = "${if (paragraphIndentation) "  " else ""}${text.line}",
-                        color = Color(fontColor.toULong()),
-
-                        style = TextStyle(
-                            lineBreak = LineBreak.Paragraph
-                        ),
-                        fontFamily = fontFamily.font,
-                        fontStyle = fontStyle,
-                        fontSize = fontSize.sp,
-                        lineHeight = (fontSize + lineHeight).sp,
-
-                        modifier = Modifier.padding(horizontal = 18.dp)
-                    )
-
-                    if (index == state.book.text.lastIndex)
-                        Spacer(modifier = Modifier.height(36.dp))
-                    else
-                        Spacer(modifier = Modifier.height((paragraphHeight * 3).dp))
+                            style = TextStyle(
+                                lineBreak = LineBreak.Paragraph
+                            ),
+                            fontFamily = fontFamily.font,
+                            fontStyle = fontStyle,
+                            fontSize = fontSize.sp,
+                            lineHeight = (fontSize + lineHeight).sp
+                        )
+                    }
                 }
 
                 if (state.book.text.isNotEmpty()) {
@@ -300,6 +351,9 @@ fun ReaderScreen(
                     actionTitle = stringResource(id = R.string.go_back),
                     action = {
                         navigator.navigateBack()
+                        libraryViewModel.onEvent(LibraryEvent.OnLoadList)
+                        historyViewModel.onEvent(HistoryEvent.OnLoadList)
+                        viewModel.onEvent(ReaderEvent.OnShowSystemBars(context))
                     }
                 )
             } else {

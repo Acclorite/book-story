@@ -7,10 +7,10 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.pager.PagerState
 import ua.acclorite.book_story.domain.model.Book
-import ua.acclorite.book_story.presentation.Navigator
+import ua.acclorite.book_story.presentation.data.Navigator
 
 sealed class ReaderEvent {
-    data class OnFileNotFound(val onLoaded: () -> Unit) : ReaderEvent()
+    data class OnTextIsEmpty(val onLoaded: () -> Unit) : ReaderEvent()
     data class OnLoadText(
         val scrollState: LazyListState,
         val navigator: Navigator,
@@ -36,5 +36,17 @@ sealed class ReaderEvent {
         val refreshList: () -> Unit,
         val updatePage: (Int) -> Unit,
         val navigator: Navigator
+    ) : ReaderEvent()
+
+    data class OnTranslateText(
+        val textToTranslate: String,
+        val context: ComponentActivity,
+        val noAppsFound: () -> Unit
+    ) : ReaderEvent()
+
+    data class OnOpenDictionary(
+        val textToDefine: String,
+        val context: ComponentActivity,
+        val noAppsFound: () -> Unit
     ) : ReaderEvent()
 }

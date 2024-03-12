@@ -26,6 +26,14 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.ui.DefaultTransition
 import ua.acclorite.book_story.ui.elevation
 
+/**
+ * Animated top app bar. Has up to 3 different top bars inside it. Follow [TopAppBar] for more info.
+ *
+ * @param isTopBarScrolled Whether isScrolled state should be forced or not.
+ * @param content1Visibility Whether first top app bar should be shown.
+ * @param content2Visibility Whether second top app bar should be shown.
+ * @param content3Visibility Whether third top app bar should be shown.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AnimatedTopAppBar(
@@ -50,6 +58,7 @@ fun AnimatedTopAppBar(
     content3Title: @Composable () -> Unit = {},
     content3Actions: @Composable RowScope.() -> Unit = {}
 ) {
+    //todo fix lags.
     Box(modifier = Modifier.fillMaxWidth()) {
         if ((scrollBehavior != null || isTopBarScrolled != null) && scrolledContainerColor != null) {
 

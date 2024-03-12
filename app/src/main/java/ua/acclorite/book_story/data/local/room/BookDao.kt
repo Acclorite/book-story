@@ -19,8 +19,7 @@ interface BookDao {
 
     @Query(
         """
-        SELECT *
-        FROM bookentity
+        SELECT * FROM bookentity
         WHERE LOWER(title) LIKE '%' || LOWER(:query) || '%'
     """
     )
@@ -30,6 +29,9 @@ interface BookDao {
         "SELECT * FROM bookentity WHERE id=:id"
     )
     suspend fun findBookById(id: Int): BookEntity
+
+    @Query("SELECT * FROM bookentity WHERE id IN (:ids)")
+    suspend fun findBooksById(ids: List<Int>): List<BookEntity>
 
     @Delete
     suspend fun deleteBooks(books: List<BookEntity>)

@@ -21,9 +21,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.Navigator
-import ua.acclorite.book_story.presentation.Screen
+import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.Screen
 
+/**
+ * More drop down. Navigates to Settings, About and Help screens.
+ */
 @Composable
 fun MoreDropDown(navigator: Navigator) {
     var showDropDown by remember { mutableStateOf(false) }
@@ -58,7 +61,7 @@ fun MoreDropDown(navigator: Navigator) {
                     )
                 },
                 onClick = {
-                    navigator.navigate(Screen.SETTINGS)
+                    navigator.navigate(Screen.SETTINGS, false)
                     showDropDown = false
                 },
                 contentPadding = PaddingValues(start = startPadding, end = endPadding)
@@ -72,7 +75,7 @@ fun MoreDropDown(navigator: Navigator) {
                     )
                 },
                 onClick = {
-                    navigator.navigate(Screen.HELP)
+                    navigator.navigate(Screen.HELP, false)
                     showDropDown = false
                 },
                 contentPadding = PaddingValues(start = startPadding, end = endPadding)
@@ -86,7 +89,7 @@ fun MoreDropDown(navigator: Navigator) {
                     )
                 },
                 onClick = {
-                    navigator.navigate(Screen.ABOUT)
+                    navigator.navigate(Screen.ABOUT, false)
                     showDropDown = false
                 },
                 contentPadding = PaddingValues(start = startPadding, end = endPadding)

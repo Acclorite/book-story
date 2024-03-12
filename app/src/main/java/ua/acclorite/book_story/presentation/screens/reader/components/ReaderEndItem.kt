@@ -4,11 +4,15 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsIgnoringVisibility
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,13 +30,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.presentation.Navigator
-import ua.acclorite.book_story.presentation.Screen
+import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 
+/**
+ * Reader end item. Displays at the end of the book.
+ */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ReaderEndItem(
     libraryViewModel: LibraryViewModel,
@@ -46,7 +54,13 @@ fun ReaderEndItem(
         modifier = Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surface)
-            .padding(24.dp),
+            .windowInsetsPadding(WindowInsets.navigationBarsIgnoringVisibility)
+            .padding(
+                top = 24.dp,
+                start = 24.dp,
+                end = 24.dp,
+                bottom = 8.dp
+            ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -56,7 +70,14 @@ fun ReaderEndItem(
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            stringResource(id = R.string.letters_and_words, state.letters, state.words),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.bodyLarge,
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.height(12.dp))
         TextButton(
             onClick = {
                 if (state.book.category != Category.ALREADY_READ) {
@@ -86,7 +107,7 @@ fun ReaderEndItem(
                             context
                         )
                     )
-                    navigator.navigate(Screen.LIBRARY)
+                    navigator.navigate(Screen.LIBRARY, true)
                 }
             },
             contentPadding = PaddingValues(horizontal = 12.dp),

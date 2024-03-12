@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.history.data
 
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarResult
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,6 +16,7 @@ import ua.acclorite.book_story.domain.model.GroupedHistory
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.use_case.DeleteHistory
 import ua.acclorite.book_story.domain.use_case.DeleteWholeHistory
+import ua.acclorite.book_story.domain.use_case.GetBooksById
 import ua.acclorite.book_story.domain.use_case.GetHistory
 import ua.acclorite.book_story.domain.use_case.InsertHistory
 import ua.acclorite.book_story.util.Resource
@@ -30,16 +30,25 @@ class HistoryViewModel @Inject constructor(
     private val insertHistory: InsertHistory,
     private val getHistory: GetHistory,
     private val deleteWholeHistory: DeleteWholeHistory,
-    private val deleteHistory: DeleteHistory
+    private val deleteHistory: DeleteHistory,
+    private val getBooksById: GetBooksById
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HistoryState())
     val state = _state.asStateFlow()
 
     private var job: Job? = null
+    private var job2: Job? = null
 
     init {
-        onEvent(HistoryEvent.OnLoadList)
+        viewModelScope.launch(Dispatchers.IO) {
+            _state.update {
+                it.copy(
+                    isLoading = true
+                )
+            }
+            getHistoryFromDatabase()
+        }
     }
 
     fun onEvent(event: HistoryEvent) {
@@ -85,6 +94,7 @@ class HistoryViewModel @Inject constructor(
                     }
 
                     deleteWholeHistory.execute()
+                    event.refreshList()
                     getHistoryFromDatabase("")
                 }
 
@@ -104,20 +114,27 @@ class HistoryViewModel @Inject constructor(
                         listOf(event.historyToDelete)
                     )
                     onEvent(HistoryEvent.OnRefreshList)
+                    event.refreshList()
 
+                    job2?.cancel()
                     event.snackbarState.currentSnackbarData?.dismiss()
+
+                    job2 = viewModelScope.launch(Dispatchers.IO) {
+                        delay(10000)
+                        event.snackbarState.currentSnackbarData?.dismiss()
+                    }
                     val snackbar = event.snackbarState.showSnackbar(
                         event.context.getString(R.string.history_element_deleted),
-                        event.context.getString(R.string.undo),
-                        duration = SnackbarDuration.Long
+                        event.context.getString(R.string.undo)
                     )
 
                     when (snackbar) {
-                        SnackbarResult.Dismissed -> return@launch
+                        SnackbarResult.Dismissed -> Unit
                         SnackbarResult.ActionPerformed -> {
                             insertHistory.execute(
                                 listOf(event.historyToDelete)
                             )
+                            event.refreshList()
                             onEvent(HistoryEvent.OnRefreshList)
                         }
                     }
@@ -197,7 +214,7 @@ class HistoryViewModel @Inject constructor(
         }
 
         fun filterMaxElementsById(elements: List<History>): List<History> {
-            val groupedById = elements.groupBy { it.book.id }
+            val groupedById = elements.groupBy { it.bookId }
             val maxElementsById = groupedById.map { (_, values) ->
                 values.maxByOrNull { it.time }
             }
@@ -223,11 +240,15 @@ class HistoryViewModel @Inject constructor(
                         return@collect
                     }
 
+                    val books = getBooksById.execute(
+                        history.map { it.bookId }.distinct()
+                    )
                     val groupedHistory = mutableListOf<GroupedHistory>()
 
                     history
                         .filter {
-                            it.book.title.lowercase().trim().contains(query.lowercase().trim())
+                            val book = books.find { book -> book.id == it.bookId }!!
+                            book.title.lowercase().trim().contains(query.lowercase().trim())
                         }.groupBy { item ->
                             val calendar = Calendar.getInstance().apply {
                                 timeInMillis = item.time

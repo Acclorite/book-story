@@ -5,7 +5,7 @@
     <!-- Screens -->
     <string name="library_screen">Бібліотека</string>
     <string name="history_screen">Історія</string>
-    <string name="browse_screen">Оглянути</string>
+    <string name="browse_screen">Огляд</string>
     <string name="settings_screen">Налаштування</string>
     <string name="about_screen">Про застосунок</string>
     <string name="help_screen">Допомога</string>
@@ -61,6 +61,15 @@
     <string name="error_something_went_wrong">
         Щось пішло не так. Будь ласка, перевірте чи файл цієї книги не пошкоджений.
     </string>
+    <string name="error_wrong_file_format">Хибний формат файлу.</string>
+    <string name="error_query">Помилка: %1$s</string>
+    <string name="error_file_encrypted">Цей файл зашифрований.</string>
+    <string name="error_file_empty">Цей файл пустий або пошкоджений.</string>
+    <string name="error_no_translator">Не знайдено жодного перекладача.</string>
+    <string name="error_no_browser">Не знайдено жодного браузера.</string>
+    <string name="error_no_text">
+        Вміст книги пустий. Будь ласка, перевірте вміст книги та оновіть її.
+    </string>
 
     <!-- Is Empty messages -->
     <string name="browse_empty">
@@ -96,6 +105,10 @@
     <string name="move_to_read">Перемістити цю книгу в \"Прочитано\"</string>
     <string name="back_to_library">Назад в Бібліотеку</string>
     <string name="undo">Скасувати</string>
+    <string name="copy">Копіювати</string>
+    <string name="translate">Перекласти</string>
+    <string name="dictionary">Словник</string>
+    <string name="retry">Ще раз</string>
 
     <!-- Items -->
     <string name="files">файли</string>
@@ -106,6 +119,7 @@
     <string name="unknown_author">Невідомий</string>
     <string name="read_more">Вам потрібно читати більше!</string>
     <string name="read_keep">Так тримати!</string>
+    <string name="read_done">Браво, ви повністю прочитали цю книгу!</string>
     <string name="change_cover">Змінити обкладинку</string>
     <string name="change_cover_desc">Виберіть нову обкладинку з ваших фото</string>
     <string name="delete_cover">Видалити обкладинку</string>
@@ -121,24 +135,30 @@
 
     <!-- Settings categories -->
     <string name="general_settings">Головні</string>
-    <string name="general_settings_desc">Мова застосунку</string>
+    <string name="general_settings_desc">Мова застосунка</string>
     <string name="appearance_settings">Зовнішній вигляд</string>
-    <string name="appearance_settings_desc">Тема застосунку, темна тема</string>
-    <string name="font_settings">Шрифт</string>
-    <string name="text_settings">Текст</string>
+    <string name="appearance_settings_desc">Налаштування теми, кольори</string>
+    <string name="reader_settings">Читач</string>
+    <string name="reader_settings_desc">Налаштування шрифта, налаштування текста</string>
+
+    <!-- Settings subcategories -->
+    <string name="font_reader_settings">Шрифт</string>
+    <string name="text_reader_settings">Текст</string>
+    <string name="theme_appearance_settings">Налаштування теми</string>
+    <string name="colors_appearance_settings">Кольори</string>
 
     <!-- Settings options -->
-    <string name="language_option">Мова застосунку</string>
+    <string name="language_option">Мова застосунка</string>
     <string name="dark_theme_option">Темна тема</string>
-    <string name="app_theme_option">Тема застосунку</string>
+    <string name="app_theme_option">Тема застосунка</string>
     <string name="font_family_option">Сімейство шрифтів</string>
-    <string name="font_style_option">Стиль шрифту</string>
-    <string name="font_size_option">Розмір шрифту</string>
+    <string name="font_style_option">Стиль шрифта</string>
+    <string name="font_size_option">Розмір шрифта</string>
     <string name="line_height_option">Висота рядка</string>
-    <string name="paragraph_height_option">Висота абзацу</string>
+    <string name="paragraph_height_option">Висота абзаца</string>
     <string name="paragraph_indentation_option">Абзацний відступ</string>
-    <string name="background_color_option">Колір фону</string>
-    <string name="font_color_option">Колір шрифту</string>
+    <string name="background_color_option">Колір фона</string>
+    <string name="font_color_option">Колір шрифта</string>
 
     <!-- Colors -->
     <string name="red_color">Червоний</string>
@@ -172,7 +192,6 @@
     <string name="cover_image_changed">Обкладинка була успішно змінена.</string>
     <string name="cover_image_deleted">Обкладинка була успішно видалена.</string>
     <string name="title_changed">Назва була успішно змінена.</string>
-    <string name="file_not_found">Файл \"%1$s\" не знайдено.</string>
     <string name="book_deleted">Ця книга була успішно видалена.</string>
     <string name="book_moved">Ця книга була успішно переміщена.</string>
     <string name="copied">Скопійовано</string>
@@ -180,6 +199,8 @@
 
     <!-- Snackbar messages -->
     <string name="history_element_deleted">Елемент історії був успішно видалений.</string>
+    <string name="file_not_found">Файл \"%1$s\" не знайдено.</string>
+    <string name="book_updated">Текст, автор та опис книги були успішно оновлені.</string>
 
     <!-- DropDown properties -->
     <string name="move_this_book">Перемістити</string>
@@ -200,6 +221,7 @@
         Дякуємо за те, що прочитали \"%1$s\" з нами.
         Ми сподіваємось, що вам сподобалася ця книга!
     </string>
+    <string name="letters_and_words">%1$s букв, %2$s слів.</string>
 
     <!-- Font families -->
     <string name="default_font">За замовчуванням</string>
@@ -207,5 +229,12 @@
     <!-- History -->
     <string name="today">Сьогодні</string>
     <string name="yesterday">Вчора</string>
+
+    <!-- Content description -->
+    <string name="refresh_book_content_desc">Оновити текст, автора та опис книги</string>
+    <string name="continue_reading_content_desc">Продовжити читання</string>
+    <string name="go_back_content_desc">Назад</string>
+    <string name="cover_image_content_desc">Обкладинка</string>
+    <string name="open_reader_settings_content_desc">Відкрити налаштування читача</string>
 
 </resources>

@@ -2,9 +2,10 @@ package ua.acclorite.book_story.presentation.screens.book_info.data
 
 import android.content.Context
 import android.net.Uri
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.presentation.Navigator
+import ua.acclorite.book_story.presentation.data.Navigator
 
 sealed class BookInfoEvent {
     data object OnShowHideChangeCoverBottomSheet : BookInfoEvent()
@@ -32,5 +33,19 @@ sealed class BookInfoEvent {
         val context: Context,
         val text: String,
         val success: () -> Unit
+    ) : BookInfoEvent()
+
+    data class OnShowSnackbar(
+        val text: String,
+        val action: String?,
+        val onAction: () -> Unit = {},
+        val durationMillis: Long,
+        val snackbarState: SnackbarHostState
+    ) : BookInfoEvent()
+
+    data class OnUpdateBook(
+        val refreshList: () -> Unit,
+        val snackbarState: SnackbarHostState,
+        val context: Context
     ) : BookInfoEvent()
 }

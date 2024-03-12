@@ -14,6 +14,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/**
+ * Category Title. Used to name a category.
+ */
 @Composable
 fun CategoryTitle(
     modifier: Modifier = Modifier,

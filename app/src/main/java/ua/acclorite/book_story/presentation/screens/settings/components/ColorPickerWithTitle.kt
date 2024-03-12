@@ -28,6 +28,9 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 
+/**
+ * Color picker with title.
+ */
 @Composable
 fun ColorPickerWithTitle(
     value: Color,

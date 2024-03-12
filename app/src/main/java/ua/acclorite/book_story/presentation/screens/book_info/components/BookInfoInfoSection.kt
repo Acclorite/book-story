@@ -34,7 +34,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.TextStyle
@@ -46,6 +45,9 @@ import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
 import ua.acclorite.book_story.ui.elevation
 
+/**
+ * Info section.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BookInfoInfoSection(viewModel: BookInfoViewModel, book: Book) {
@@ -84,7 +86,7 @@ fun BookInfoInfoSection(viewModel: BookInfoViewModel, book: Book) {
 
             if (book.coverImage != null) {
                 Image(
-                    bitmap = book.coverImage.asImageBitmap(),
+                    bitmap = book.coverImage,
                     contentDescription = "Cover",
                     modifier = Modifier
                         .fillMaxSize()

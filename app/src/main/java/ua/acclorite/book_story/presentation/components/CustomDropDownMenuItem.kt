@@ -11,6 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
+/**
+ * Custom Dropdown Menu Item. Used in Dropdown.
+ */
 @Composable
 fun CustomDropDownMenuItem(
     leadingIcon: ImageVector,

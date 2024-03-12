@@ -1,6 +1,6 @@
 <resources>
     <!-- Basic Strings -->
-    <string name="app_version" translatable="false">0.8.0</string>
+    <string name="app_version" translatable="false">0.9.0</string>
     <string name="app_name">Book\'s Story</string>
 
     <!-- Screens -->
@@ -57,10 +57,19 @@
         No description.
     </string>
     <string name="error_file_not_found">
-        File was not found. Please check whether this book\'s file still exist.
+        File was not found. Please check whether this book\'s file still exists.
     </string>
     <string name="error_something_went_wrong">
         Something went wrong. Please check whether this book\'s file is not corrupted.
+    </string>
+    <string name="error_wrong_file_format">Wrong file format.</string>
+    <string name="error_query">Error: %1$s</string>
+    <string name="error_file_encrypted">This file is encrypted.</string>
+    <string name="error_file_empty">This file is empty or corrupted.</string>
+    <string name="error_no_translator">No translator app found.</string>
+    <string name="error_no_browser">No browser app found.</string>
+    <string name="error_no_text">
+        The book content is empty. Please, make sure that the book content is not empty and update it.
     </string>
 
     <!-- Is Empty messages -->
@@ -96,6 +105,10 @@
     <string name="move_to_read">Move this book to \"Already Read\"</string>
     <string name="back_to_library">Back to Library</string>
     <string name="undo">Undo</string>
+    <string name="copy">Copy</string>
+    <string name="translate">Translate</string>
+    <string name="dictionary">Dictionary</string>
+    <string name="retry">Retry</string>
 
     <!-- Items -->
     <string name="files">files</string>
@@ -106,6 +119,7 @@
     <string name="unknown_author">Unknown</string>
     <string name="read_more">You need to read more!</string>
     <string name="read_keep">Keep it up!</string>
+    <string name="read_done">Well done, you have read the whole book!</string>
     <string name="change_cover">Change cover image</string>
     <string name="change_cover_desc">Choose new cover from your photos</string>
     <string name="delete_cover">Delete cover image</string>
@@ -123,9 +137,15 @@
     <string name="general_settings">General</string>
     <string name="general_settings_desc">App language</string>
     <string name="appearance_settings">Appearance</string>
-    <string name="appearance_settings_desc">App theme, dark theme</string>
-    <string name="font_settings">Font</string>
-    <string name="text_settings">Text</string>
+    <string name="appearance_settings_desc">Theme preferences, colors</string>
+    <string name="reader_settings">Reader</string>
+    <string name="reader_settings_desc">Font settings, text settings</string>
+
+    <!-- Settings subcategories -->
+    <string name="font_reader_settings">Font</string>
+    <string name="text_reader_settings">Text</string>
+    <string name="theme_appearance_settings">Theme preferences</string>
+    <string name="colors_appearance_settings">Colors</string>
 
     <!-- Settings options -->
     <string name="language_option">App language</string>
@@ -172,7 +192,6 @@
     <string name="cover_image_changed">Cover Image was successfully changed.</string>
     <string name="cover_image_deleted">Cover Image was successfully deleted.</string>
     <string name="title_changed">Title was successfully changed.</string>
-    <string name="file_not_found">File \"%1$s\" was not found.</string>
     <string name="book_deleted">This book was successfully deleted.</string>
     <string name="book_moved">This book was successfully moved.</string>
     <string name="copied">Copied</string>
@@ -180,6 +199,8 @@
 
     <!-- Snackbar messages -->
     <string name="history_element_deleted">History element was successfully deleted.</string>
+    <string name="file_not_found">File \"%1$s\" was not found.</string>
+    <string name="book_updated">Book text, author and description were successfully updated.</string>
 
     <!-- DropDown properties -->
     <string name="move_this_book">Move</string>
@@ -200,6 +221,7 @@
         Thank you for reading \"%1$s\" with us.
         We hope you enjoyed this book!
     </string>
+    <string name="letters_and_words">%1$s characters, %2$s words.</string>
 
     <!-- Font families -->
     <string name="default_font">Default</string>
@@ -207,5 +229,12 @@
     <!-- History -->
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
+
+    <!-- Content description -->
+    <string name="refresh_book_content_desc">Refresh text, author and description of the book</string>
+    <string name="continue_reading_content_desc">Continue reading</string>
+    <string name="go_back_content_desc">Go back</string>
+    <string name="cover_image_content_desc">Cover image</string>
+    <string name="open_reader_settings_content_desc">Open reader settings</string>
 
 </resources>

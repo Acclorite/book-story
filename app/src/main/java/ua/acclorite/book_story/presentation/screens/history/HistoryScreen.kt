@@ -54,23 +54,24 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.Argument
-import ua.acclorite.book_story.presentation.Navigator
-import ua.acclorite.book_story.presentation.Screen
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.components.CustomSnackbar
-import ua.acclorite.book_story.presentation.components.IsEmpty
 import ua.acclorite.book_story.presentation.components.MoreDropDown
+import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
+import ua.acclorite.book_story.presentation.data.Argument
+import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.history.components.HistoryDeleteWholeHistoryDialog
 import ua.acclorite.book_story.presentation.screens.history.components.HistoryItem
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.ui.Transitions
 import ua.acclorite.book_story.ui.elevation
 import java.util.UUID
@@ -81,11 +82,14 @@ import java.util.UUID
 )
 @Composable
 fun HistoryScreen(
-    viewModel: HistoryViewModel = hiltViewModel(),
+    viewModel: HistoryViewModel,
+    libraryViewModel: LibraryViewModel,
     navigator: Navigator
 ) {
     val context = LocalContext.current
     val state by viewModel.state.collectAsState()
+    val books = libraryViewModel.state.collectAsState().value.books.map { it.first }
+
     val refreshState = rememberPullRefreshState(
         refreshing = state.isRefreshing,
         onRefresh = {
@@ -118,7 +122,7 @@ fun HistoryScreen(
     }
 
     if (state.showDeleteWholeHistoryDialog) {
-        HistoryDeleteWholeHistoryDialog(viewModel = viewModel)
+        HistoryDeleteWholeHistoryDialog(viewModel = viewModel, libraryViewModel = libraryViewModel)
     }
 
     Scaffold(
@@ -144,7 +148,10 @@ fun HistoryScreen(
                     )
                 },
                 content1Actions = {
-                    IconButton(onClick = { viewModel.onEvent(HistoryEvent.OnSearchShowHide) }) {
+                    IconButton(
+                        enabled = !state.isRefreshing,
+                        onClick = { viewModel.onEvent(HistoryEvent.OnSearchShowHide) }
+                    ) {
                         Icon(
                             imageVector = Icons.Default.Search,
                             contentDescription = "Search history",
@@ -153,7 +160,9 @@ fun HistoryScreen(
                         )
                     }
                     IconButton(
-                        enabled = !state.isLoading && !state.isRefreshing && state.history.isNotEmpty(),
+                        enabled = !state.isLoading
+                                && !state.isRefreshing
+                                && state.history.isNotEmpty(),
                         onClick = {
                             viewModel.onEvent(HistoryEvent.OnShowHideDeleteWholeHistoryDialog)
                         }
@@ -248,7 +257,7 @@ fun HistoryScreen(
                             }
 
                             CategoryTitle(
-                                modifier = Modifier.animateItemPlacement(tween(300)),
+                                modifier = Modifier.animateItemPlacement(),
                                 title = when (groupedHistory.title) {
                                     "today" -> stringResource(id = R.string.today)
                                     "yesterday" -> stringResource(id = R.string.yesterday)
@@ -262,27 +271,36 @@ fun HistoryScreen(
                         items(
                             groupedHistory.history, key = { it.id ?: UUID.randomUUID() }
                         ) {
+                            val book = books.find { book -> book.id == it.bookId } ?: return@items
+
                             HistoryItem(
-                                modifier = Modifier.animateItemPlacement(tween(300)),
+                                modifier = Modifier.animateItemPlacement(),
                                 history = it,
+                                book = book,
                                 onBodyClick = {
                                     navigator.navigate(
                                         Screen.BOOK_INFO,
-                                        Argument("book", it.book)
+                                        false,
+                                        Argument("book", book)
                                     )
                                 },
                                 onTitleClick = {
                                     navigator.navigate(
                                         Screen.READER,
-                                        Argument("book", it.book)
+                                        false,
+                                        Argument("book", book)
                                     )
                                 },
+                                isDeleteEnabled = !state.isRefreshing,
                                 onDeleteClick = {
                                     viewModel.onEvent(
                                         HistoryEvent.OnDeleteHistoryElement(
-                                            it,
-                                            snackbarState,
-                                            context
+                                            historyToDelete = it,
+                                            snackbarState = snackbarState,
+                                            context = context,
+                                            refreshList = {
+                                                libraryViewModel.onEvent(LibraryEvent.OnLoadList)
+                                            }
                                         )
                                     )
                                 }
@@ -318,9 +336,8 @@ fun HistoryScreen(
                 state.isRefreshing,
                 refreshState,
                 Modifier.align(Alignment.TopCenter),
-                backgroundColor = MaterialTheme.elevation(),
-                contentColor = MaterialTheme.colorScheme.primary,
-                scale = true
+                backgroundColor = MaterialTheme.colorScheme.inverseSurface,
+                contentColor = MaterialTheme.colorScheme.inverseOnSurface
             )
         }
     }
@@ -331,7 +348,7 @@ fun HistoryScreen(
             return@BackHandler
         }
 
-        navigator.navigate(Screen.LIBRARY)
+        navigator.navigate(Screen.LIBRARY, false)
     }
 }
 

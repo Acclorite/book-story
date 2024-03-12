@@ -22,6 +22,9 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.model.ChipItem
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 
+/**
+ * Chips with title. Use list of [ChipItem]s to display chips.
+ */
 @OptIn(ExperimentalMaterialApi::class, ExperimentalLayoutApi::class)
 @Composable
 fun ChipsWithTitle(

@@ -8,9 +8,11 @@ import ua.acclorite.book_story.domain.model.Category
 data class BookEntity(
     @PrimaryKey(true) val id: Int? = null,
     val title: String,
+    val author: String?,
+    val description: String?,
+    val text: String,
     val filePath: String,
     val progress: Float,
-    var lastOpened: Long? = null,
     val image: ByteArray = byteArrayOf(),
     val category: Category
 ) {

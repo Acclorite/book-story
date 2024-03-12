@@ -20,6 +20,10 @@ interface BookRepository {
         query: String
     ): List<Book>
 
+    suspend fun getBooksById(
+        ids: List<Int>
+    ): List<Book>
+
     suspend fun findBook(
         id: Int
     ): BookEntity
@@ -50,7 +54,7 @@ interface BookRepository {
 
     suspend fun getBookTextFromFile(file: File): Flow<Resource<List<StringWithId>>>
 
-    suspend fun getBooksFromFiles(files: List<File>): Flow<Resource<List<NullableBook>>>
+    suspend fun getBooksFromFiles(files: List<File>): List<NullableBook>
 
 
     suspend fun insertHistory(history: List<History>)
