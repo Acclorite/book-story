@@ -1,6 +1,6 @@
 <resources>
     <!-- Basic Strings -->
-    <string name="app_version" translatable="false">0.9.0</string>
+    <string name="app_version" translatable="false">0.9.2</string>
     <string name="app_name">Book\'s Story</string>
 
     <!-- Screens -->
@@ -22,7 +22,7 @@
 
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">
-        We need storage permission to scan your Downloads folder.
+        We need storage permission to scan Your Device for books.
         Without this permission, you will not be able to add a book.
     </string>
     <string name="add_books_description">
@@ -51,13 +51,10 @@
 
     <!-- Errors -->
     <string name="error_permission">
-        We need storage permission to scan your Downloads directory and get books
+        We need storage permission to scan Your Device for books
     </string>
     <string name="error_no_description">
         No description.
-    </string>
-    <string name="error_file_not_found">
-        File was not found. Please check whether this book\'s file still exists.
     </string>
     <string name="error_something_went_wrong">
         Something went wrong. Please check whether this book\'s file is not corrupted.
@@ -186,9 +183,9 @@
 
     <!-- Toast messages -->
     <string name="press_again_toast">Press back again to exit</string>
-    <string name="books_added">All books were successfully added.</string>
-    <string name="books_moved">All books were successfully moved.</string>
-    <string name="books_deleted">All books were successfully deleted.</string>
+    <string name="books_added">All selected books were successfully added.</string>
+    <string name="books_moved">All selected books were successfully moved.</string>
+    <string name="books_deleted">All selected books were successfully deleted.</string>
     <string name="cover_image_changed">Cover Image was successfully changed.</string>
     <string name="cover_image_deleted">Cover Image was successfully deleted.</string>
     <string name="title_changed">Title was successfully changed.</string>
@@ -236,5 +233,23 @@
     <string name="go_back_content_desc">Go back</string>
     <string name="cover_image_content_desc">Cover image</string>
     <string name="open_reader_settings_content_desc">Open reader settings</string>
+    <string name="background_anim_content_desc">Background animation</string>
+    <string name="outline_anim_content_desc">Outline animation</string>
+    <string name="top_app_bar_anim_content_desc">Top app bar animation</string>
+    <string name="file_icon_content_desc">File</string>
+    <string name="checkbox_content_desc">Checkbox</string>
+    <string name="show_dropdown_content_desc">Show dropdown</string>
+    <string name="cover_image_not_found_content_desc">Cover image not found</string>
+    <string name="apply_changes_content_desc">Apply changes</string>
+    <string name="error_content_desc">Error</string>
+    <string name="search_content_desc">Search</string>
+    <string name="clear_selected_items_content_desc">Clear selected items</string>
+    <string name="add_files_content_desc">Add files</string>
+    <string name="exit_search_content_desc">Exit search</string>
+    <string name="delete_whole_history_content_desc">Delete whole history</string>
+    <string name="move_books_content_desc">Move books to another category</string>
+    <string name="delete_books_content_desc">Delete selected books</string>
+    <string name="revert_content_desc">Revert</string>
+    <string name="selected_content_desc">Selected</string>
 
 </resources>

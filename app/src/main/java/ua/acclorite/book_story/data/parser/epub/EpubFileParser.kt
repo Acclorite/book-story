@@ -37,10 +37,12 @@ class EpubFileParser @Inject constructor() : FileParser {
             }
 
             if (description != null) {
-                if (description.isEmpty()) {
+                if (description.isBlank()) {
                     description = null
                 }
             }
+
+
 
             return Book(
                 id = null,

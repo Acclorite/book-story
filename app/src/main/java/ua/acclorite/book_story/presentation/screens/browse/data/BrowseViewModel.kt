@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -20,7 +21,7 @@ import kotlinx.coroutines.launch
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.use_case.FastGetBooks
 import ua.acclorite.book_story.domain.use_case.GetBooksFromFiles
-import ua.acclorite.book_story.domain.use_case.GetFilesFromDownloads
+import ua.acclorite.book_story.domain.use_case.GetFilesFromDevice
 import ua.acclorite.book_story.domain.use_case.InsertBooks
 import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.Screen
@@ -31,7 +32,7 @@ import javax.inject.Inject
 @HiltViewModel
 class BrowseViewModel @Inject constructor(
     private val getBooksFromFiles: GetBooksFromFiles,
-    private val getFilesFromDownloads: GetFilesFromDownloads,
+    private val getFilesFromDevice: GetFilesFromDevice,
     private val insertBooks: InsertBooks,
     private val fastGetBooks: FastGetBooks
 ) : ViewModel() {
@@ -65,10 +66,10 @@ class BrowseViewModel @Inject constructor(
                         }
                         _state.update {
                             it.copy(
-                                requestPermissionDialog = false,
-                                showErrorMessage = false
+                                requestPermissionDialog = false
                             )
                         }
+                        event.hideErrorMessage()
                         onEvent(BrowseEvent.OnRefreshList)
                         break
                     }
@@ -93,10 +94,10 @@ class BrowseViewModel @Inject constructor(
                             }
                             _state.update {
                                 it.copy(
-                                    requestPermissionDialog = false,
-                                    showErrorMessage = false
+                                    requestPermissionDialog = false
                                 )
                             }
+                            event.hideErrorMessage()
                             onEvent(BrowseEvent.OnRefreshList)
                             break
                         }
@@ -112,8 +113,7 @@ class BrowseViewModel @Inject constructor(
 
                 _state.update {
                     it.copy(
-                        requestPermissionDialog = false,
-                        showErrorMessage = !isPermissionGranted
+                        requestPermissionDialog = false
                     )
                 }
 
@@ -121,8 +121,9 @@ class BrowseViewModel @Inject constructor(
                     viewModelScope.launch(Dispatchers.IO) {
                         getFilesFromDownloads()
                     }
+                } else {
+                    event.showErrorMessage()
                 }
-
             }
 
             is BrowseEvent.OnRefreshList -> {
@@ -131,7 +132,8 @@ class BrowseViewModel @Inject constructor(
                         it.copy(
                             isRefreshing = true,
                             hasSelectedItems = false,
-                            showSearch = false
+                            showSearch = false,
+                            listState = LazyListState(0, 0)
                         )
                     }
 
@@ -146,55 +148,72 @@ class BrowseViewModel @Inject constructor(
             }
 
             is BrowseEvent.OnPermissionCheck -> {
-                val legacyPermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
-                val isPermissionGranted =
-                    if (!legacyPermission) Environment.isExternalStorageManager()
-                    else event.permissionState.status.isGranted
+                viewModelScope.launch(Dispatchers.IO) {
+                    val legacyPermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
+                    val isPermissionGranted =
+                        if (!legacyPermission) Environment.isExternalStorageManager()
+                        else event.permissionState.status.isGranted
 
-                if (isPermissionGranted) {
-                    return
-                }
-                _state.update {
-                    it.copy(
-                        requestPermissionDialog = true,
-                        showErrorMessage = false
-                    )
+                    if (isPermissionGranted) {
+                        return@launch
+                    }
+
+                    _state.update {
+                        it.copy(
+                            requestPermissionDialog = true
+                        )
+                    }
+                    event.hideErrorMessage()
                 }
             }
 
             is BrowseEvent.OnSelectFile -> {
-                val indexOfFile = _state.value.selectableFiles.indexOf(event.file)
-                val editedList = _state.value.selectableFiles.toMutableList()
-                editedList[indexOfFile] = editedList[indexOfFile].copy(
-                    second = !editedList[indexOfFile].second
-                )
+                viewModelScope.launch(Dispatchers.IO) {
+                    val indexOfFile = _state.value.selectableFiles.indexOf(event.file)
 
-                _state.update {
-                    it.copy(
-                        selectableFiles = editedList.toList(),
-                        selectedItemsCount = editedList.filter { file -> file.second }.size,
-                        hasSelectedItems = editedList.any { file -> file.second }
+                    if (indexOfFile == -1) {
+                        return@launch
+                    }
+
+                    val editedList = _state.value.selectableFiles.toMutableList()
+                    editedList[indexOfFile] = editedList[indexOfFile].copy(
+                        second = !editedList[indexOfFile].second
                     )
+
+                    _state.update {
+                        it.copy(
+                            selectableFiles = editedList.toList(),
+                            selectedItemsCount = editedList.filter { file -> file.second }.size,
+                            hasSelectedItems = editedList.any { file -> file.second }
+                        )
+                    }
                 }
             }
 
             is BrowseEvent.OnSelectBook -> {
-                val indexOfFile = _state.value.selectedBooks.indexOf(event.book)
-                val editedList = _state.value.selectedBooks.toMutableList()
-                editedList[indexOfFile] = NullableBook.NotNull(
-                    editedList[indexOfFile].book!!.copy(
-                        second = !editedList[indexOfFile].book!!.second
-                    )
-                )
+                viewModelScope.launch(Dispatchers.IO) {
+                    val indexOfFile = _state.value.selectedBooks.indexOf(event.book)
 
-                if (!editedList.any { it.book?.second == true }) {
-                    return
-                }
+                    if (indexOfFile == -1) {
+                        return@launch
+                    }
 
-                _state.update {
-                    it.copy(
-                        selectedBooks = editedList
+                    val editedList = _state.value.selectedBooks.toMutableList()
+                    editedList[indexOfFile] = NullableBook.NotNull(
+                        editedList[indexOfFile].book!!.copy(
+                            second = !editedList[indexOfFile].book!!.second
+                        )
                     )
+
+                    if (!editedList.any { it.book?.second == true }) {
+                        return@launch
+                    }
+
+                    _state.update {
+                        it.copy(
+                            selectedBooks = editedList
+                        )
+                    }
                 }
             }
 
@@ -331,26 +350,11 @@ class BrowseViewModel @Inject constructor(
                 viewModelScope.launch(Dispatchers.IO) {
                     _state.update {
                         it.copy(
-                            isLoading = true
+                            isLoading = true,
+                            listState = LazyListState(0, 0)
                         )
                     }
                     getFilesFromDownloads()
-                }
-            }
-
-            is BrowseEvent.OnUpdateScrollIndex -> {
-                _state.update {
-                    it.copy(
-                        scrollIndex = event.index
-                    )
-                }
-            }
-
-            is BrowseEvent.OnUpdateScrollOffset -> {
-                _state.update {
-                    it.copy(
-                        scrollOffset = event.offset
-                    )
                 }
             }
         }
@@ -359,7 +363,7 @@ class BrowseViewModel @Inject constructor(
     private suspend fun getFilesFromDownloads(
         query: String = if (_state.value.showSearch) _state.value.searchQuery else ""
     ) {
-        getFilesFromDownloads.execute(query).collect { result ->
+        getFilesFromDevice.execute(query).collect { result ->
             when (result) {
                 is Resource.Success -> {
                     _state.update {
@@ -371,13 +375,7 @@ class BrowseViewModel @Inject constructor(
                     }
                 }
 
-                is Resource.Loading -> {
-                    _state.update {
-                        it.copy(
-                            isLoading = result.isLoading
-                        )
-                    }
-                }
+                is Resource.Loading -> Unit
 
                 is Resource.Error -> Unit
             }

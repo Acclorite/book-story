@@ -74,15 +74,18 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
     val backgroundColor = mainViewModel.backgroundColor.collectAsState().value!!
     val fontColor = mainViewModel.fontColor.collectAsState().value!!
 
-    val scrimColor =
-        if (currentPage == 1) Color.Transparent else BottomSheetDefaults.ScrimColor
+    val scrimColor = if (currentPage == 1) Color.Transparent
+    else BottomSheetDefaults.ScrimColor
+
     val animatedScrimColor by animateColorAsState(
         targetValue = scrimColor,
         animationSpec = tween(300),
         label = "Scrim animation"
     )
 
-    val height = if (currentPage == 1) 0.5f else 0.7f
+    val height = remember(currentPage) {
+        if (currentPage == 1) 0.5f else 0.7f
+    }
     val animatedHeight by animateFloatAsState(
         targetValue = height,
         animationSpec = tween(300),

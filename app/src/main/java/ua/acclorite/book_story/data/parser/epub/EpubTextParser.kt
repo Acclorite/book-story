@@ -32,14 +32,26 @@ class EpubTextParser @Inject constructor() : TextParser {
             for (spineReference in book.spine.spineReferences) {
                 val resource = spineReference.resource
                 val inputStream = resource.inputStream
-                val reader =
-                    BufferedReader(InputStreamReader(inputStream, Charset.forName("UTF-8")))
+                val reader = BufferedReader(
+                    InputStreamReader(
+                        inputStream,
+                        Charset.forName("UTF-8")
+                    )
+                )
                 var line: String?
+
+                withContext(Dispatchers.IO) {
+                    inputStream.close()
+                }
 
                 while (withContext(Dispatchers.IO) {
                         reader.readLine()
                     }.also { line = it } != null) {
                     unformattedText.append(line).append("\n")
+                }
+
+                withContext(Dispatchers.IO) {
+                    reader.close()
                 }
             }
 

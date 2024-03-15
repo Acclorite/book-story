@@ -7,6 +7,7 @@ import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.NavigationRailItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -22,6 +23,11 @@ fun CustomNavigationRailItem(
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
+    val icon = remember(isSelected) {
+        if (isSelected) item.selectedIcon
+        else item.unselectedIcon
+    }
+
     NavigationRailItem(
         label = {
             Text(
@@ -36,9 +42,7 @@ fun CustomNavigationRailItem(
         onClick = { onClick() },
         icon = {
             Icon(
-                painter =
-                if (isSelected) item.selectedIcon
-                else item.unselectedIcon,
+                painter = icon,
                 contentDescription = item.title,
                 modifier = Modifier.size(24.dp)
             )

@@ -9,7 +9,6 @@ import androidx.compose.ui.graphics.asImageBitmap
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.local.dto.BookEntity
 import ua.acclorite.book_story.domain.model.Book
-import ua.acclorite.book_story.domain.model.StringWithId
 import ua.acclorite.book_story.util.UIText
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -22,12 +21,12 @@ class BookMapperImpl @Inject constructor() : BookMapper {
         val stream = ByteArrayOutputStream()
         book.coverImage?.asAndroidBitmap()?.compress(
             if (legacyAPI) Bitmap.CompressFormat.WEBP
-            else Bitmap.CompressFormat.WEBP_LOSSLESS,
-            if (legacyAPI) 30 else 100,
+            else Bitmap.CompressFormat.WEBP_LOSSY,
+            0,
             stream
         )
 
-        val text = book.text.joinToString("\n") {
+        val textAsString = book.text.joinToString("\n") {
             it.line.trim()
         }
 
@@ -37,7 +36,7 @@ class BookMapperImpl @Inject constructor() : BookMapper {
             filePath = book.filePath,
             progress = book.progress,
             author = book.author.string,
-            text = text,
+            text = textAsString,
             description = book.description,
             image = stream.toByteArray(),
             category = book.category
@@ -64,7 +63,7 @@ class BookMapperImpl @Inject constructor() : BookMapper {
             description = bookEntity.description,
             progress = bookEntity.progress,
             file = if (file.exists()) file else null,
-            text = bookEntity.text.split("\n").map { StringWithId(it) },
+            text = emptyList(),
             filePath = bookEntity.filePath,
             lastOpened = null,
             category = bookEntity.category,

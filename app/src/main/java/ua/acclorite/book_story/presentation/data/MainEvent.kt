@@ -1,10 +1,7 @@
 package ua.acclorite.book_story.presentation.data
 
-import androidx.activity.ComponentActivity
-
 sealed class MainEvent {
-    data class OnLocaleUpdate(val activity: ComponentActivity) : MainEvent()
-    data class OnChangeLanguage(val lang: String, val activity: ComponentActivity) : MainEvent()
+    data class OnChangeLanguage(val lang: String) : MainEvent()
     data class OnChangeTheme(val theme: String) : MainEvent()
     data class OnChangeDarkTheme(val darkTheme: String) : MainEvent()
     data class OnChangeFontFamily(val fontFamily: String) : MainEvent()

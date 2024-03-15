@@ -81,7 +81,7 @@ fun BrowseAddingDialogItem(result: NullableBook, onClick: (Boolean) -> Unit) {
         ) {
             Icon(
                 imageVector = icon,
-                contentDescription = "Error",
+                contentDescription = stringResource(id = R.string.error_content_desc),
                 modifier = Modifier.size(26.dp),
                 tint = MaterialTheme.colorScheme.error
             )

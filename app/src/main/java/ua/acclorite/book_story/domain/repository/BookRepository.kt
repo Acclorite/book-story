@@ -24,6 +24,10 @@ interface BookRepository {
         ids: List<Int>
     ): List<Book>
 
+    suspend fun getBookTextById(
+        bookId: Int
+    ): String
+
     suspend fun findBook(
         id: Int
     ): BookEntity
@@ -33,6 +37,10 @@ interface BookRepository {
     )
 
     suspend fun updateBooks(
+        books: List<Book>
+    )
+
+    suspend fun updateBooksWithText(
         books: List<Book>
     )
 
@@ -50,7 +58,7 @@ interface BookRepository {
         value: T
     )
 
-    suspend fun getFilesFromDownloads(query: String = ""): Flow<Resource<List<File>>>
+    suspend fun getFilesFromDevice(query: String = ""): Flow<Resource<List<File>>>
 
     suspend fun getBookTextFromFile(file: File): Flow<Resource<List<StringWithId>>>
 

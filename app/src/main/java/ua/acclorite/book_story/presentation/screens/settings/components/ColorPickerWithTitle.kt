@@ -119,7 +119,7 @@ private fun RevertibleSlider(
             ) {
                 Icon(
                     imageVector = Icons.Default.History,
-                    contentDescription = "Revert to initial",
+                    contentDescription = stringResource(id = R.string.revert_content_desc),
                     modifier = Modifier
                         .size(28.dp),
                     tint = if (initialValue == value.first) MaterialTheme.colorScheme.onSurfaceVariant

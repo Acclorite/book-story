@@ -25,14 +25,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.presentation.data.removeDigits
 import ua.acclorite.book_story.presentation.data.removeTrailingZero
@@ -54,6 +57,15 @@ fun LibraryBookItem(
     else Color.Transparent
     val fontColor = if (book.second) MaterialTheme.colorScheme.onPrimary
     else MaterialTheme.colorScheme.onSurface
+
+    val progress = remember(book.first) {
+        "${
+            (book.first.progress * 100)
+                .toDouble()
+                .removeDigits(1)
+                .removeTrailingZero()
+        }%"
+    }
 
     val animatedBackgroundColor by animateColorAsState(
         targetValue = backgroundColor,
@@ -93,7 +105,9 @@ fun LibraryBookItem(
         ) {
             Icon(
                 imageVector = Icons.Default.Image,
-                contentDescription = "Cover Image not found",
+                contentDescription = stringResource(
+                    id = R.string.cover_image_not_found_content_desc
+                ),
                 modifier = Modifier
                     .align(Alignment.Center)
                     .fillMaxWidth(0.7f)
@@ -104,7 +118,7 @@ fun LibraryBookItem(
             if (book.first.coverImage != null) {
                 Image(
                     bitmap = book.first.coverImage!!,
-                    contentDescription = "Cover",
+                    contentDescription = stringResource(id = R.string.cover_image_content_desc),
                     modifier = Modifier
                         .fillMaxSize()
                         .clip(MaterialTheme.shapes.large),
@@ -113,12 +127,7 @@ fun LibraryBookItem(
             }
 
             Text(
-                "${
-                    (book.first.progress * 100)
-                        .toDouble()
-                        .removeDigits(1)
-                        .removeTrailingZero()
-                }%",
+                progress,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier

@@ -13,14 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.elevation
 
 /**
  * Custom Checkbox. Has a Circle shape.
  */
 @Composable
-fun CustomCheckbox(selected: Boolean) {
+fun CustomCheckbox(selected: Boolean, size: Dp = 22.dp) {
     Icon(
         imageVector = Icons.Default.Check,
         tint = if (selected) MaterialTheme.elevation(elevation = 2.dp) else Color.Transparent,
@@ -36,7 +39,7 @@ fun CustomCheckbox(selected: Boolean) {
                 shape = CircleShape
             )
             .padding(4.dp)
-            .size(22.dp),
-        contentDescription = "checkbox"
+            .size(size),
+        contentDescription = stringResource(id = R.string.checkbox_content_desc)
     )
 }

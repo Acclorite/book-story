@@ -21,7 +21,7 @@
 
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">
-        Нам потрібен дозвіл на сховище, щоб просканувати вашу теку Завантажень.
+        Нам потрібен дозвіл на сховище, щоб просканувати Ваш Девайс на наявність книг.
         Без цього дозволу ви не зможете додати книгу.
     </string>
     <string name="add_books_description">
@@ -50,13 +50,10 @@
 
     <!-- Errors -->
     <string name="error_permission">
-        Нам потрібен дозвіл на сховище, щоб просканувати вашу теку Завантажень та отримати книги
+        Нам потрібен дозвіл на сховище, щоб просканувати Ваш Девайс на наявність книг
     </string>
     <string name="error_no_description">
         Немає опису.
-    </string>
-    <string name="error_file_not_found">
-        Файл не знайдено. Будь ласка, перевірте чи файл цієї книги все ще існує.
     </string>
     <string name="error_something_went_wrong">
         Щось пішло не так. Будь ласка, перевірте чи файл цієї книги не пошкоджений.
@@ -186,9 +183,9 @@
 
     <!-- Toast messages -->
     <string name="press_again_toast">Натисніть ще раз, щоб вийти</string>
-    <string name="books_added">Всі книги були успішно додані.</string>
-    <string name="books_moved">Всі книги були успішно переміщені.</string>
-    <string name="books_deleted">Всі книги були успішно видалені.</string>
+    <string name="books_added">Всі обрані книги були успішно додані.</string>
+    <string name="books_moved">Всі обрані книги були успішно переміщені.</string>
+    <string name="books_deleted">Всі обрані книги були успішно видалені.</string>
     <string name="cover_image_changed">Обкладинка була успішно змінена.</string>
     <string name="cover_image_deleted">Обкладинка була успішно видалена.</string>
     <string name="title_changed">Назва була успішно змінена.</string>
@@ -236,5 +233,23 @@
     <string name="go_back_content_desc">Назад</string>
     <string name="cover_image_content_desc">Обкладинка</string>
     <string name="open_reader_settings_content_desc">Відкрити налаштування читача</string>
+    <string name="background_anim_content_desc">Анімація фону</string>
+    <string name="outline_anim_content_desc">Анімація контуру</string>
+    <string name="top_app_bar_anim_content_desc">Анімація верхньої панелі</string>
+    <string name="file_icon_content_desc">Файл</string>
+    <string name="checkbox_content_desc">Галочка</string>
+    <string name="show_dropdown_content_desc">Показати випадаючий список</string>
+    <string name="cover_image_not_found_content_desc">Обкладенка не знайдена</string>
+    <string name="apply_changes_content_desc">Застосувати зміни</string>
+    <string name="error_content_desc">Помилка</string>
+    <string name="search_content_desc">Пошук</string>
+    <string name="clear_selected_items_content_desc">Очистити вибрані предмети</string>
+    <string name="add_files_content_desc">Додати файли</string>
+    <string name="exit_search_content_desc">Вийти з пошуку</string>
+    <string name="delete_whole_history_content_desc">Видалити всю історію</string>
+    <string name="move_books_content_desc">Перемістити книгу в іншу категорію</string>
+    <string name="delete_books_content_desc">Видалити обрані книги</string>
+    <string name="revert_content_desc">Повернути</string>
+    <string name="selected_content_desc">Вибрано</string>
 
 </resources>

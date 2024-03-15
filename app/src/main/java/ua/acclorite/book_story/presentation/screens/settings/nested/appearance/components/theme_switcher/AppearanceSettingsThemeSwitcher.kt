@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -31,8 +32,10 @@ fun AppearanceSettingsThemeSwitcher(
     val theme = mainViewModel.theme.collectAsState().value!!
     val darkTheme = mainViewModel.darkTheme.collectAsState().value!!
 
-    val themes = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Constants.THEMES
-    else Constants.THEMES.dropWhile { it.first == Theme.DYNAMIC }
+    val themes = remember {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Constants.THEMES
+        else Constants.THEMES.dropWhile { it.first == Theme.DYNAMIC }
+    }
 
     Column(
         Modifier

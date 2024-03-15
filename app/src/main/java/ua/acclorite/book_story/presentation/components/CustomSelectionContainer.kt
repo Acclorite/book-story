@@ -127,7 +127,6 @@ private class CustomSelectionToolbar(
         context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
     override var status: TextToolbarStatus by mutableStateOf(TextToolbarStatus.Hidden)
-        private set
 
     override fun showMenu(
         rect: Rect,

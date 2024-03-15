@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -26,7 +25,6 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -38,8 +36,6 @@ import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -58,7 +54,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -74,6 +69,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
+import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.MoreDropDown
 import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
 import ua.acclorite.book_story.presentation.data.Argument
@@ -87,6 +83,7 @@ import ua.acclorite.book_story.presentation.screens.library.components.dialog.Li
 import ua.acclorite.book_story.presentation.screens.library.components.dialog.LibraryMoveDialog
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
+import ua.acclorite.book_story.ui.DefaultTransition
 import ua.acclorite.book_story.ui.Transitions
 import ua.acclorite.book_story.ui.elevation
 import java.util.UUID
@@ -178,26 +175,26 @@ fun LibraryScreen(
                         }
                     },
                     content1Actions = {
-                        IconButton(onClick = { viewModel.onEvent(LibraryEvent.OnSearchShowHide) }) {
-                            Icon(
-                                imageVector = Icons.Default.Search,
-                                contentDescription = "Search books",
-                                modifier = Modifier.size(24.dp),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
+                        CustomIconButton(
+                            icon = Icons.Default.Search,
+                            contentDescription = stringResource(id = R.string.search_content_desc),
+                            disableOnClick = false,
+                            enabled = !state.showSearch
+                        ) {
+                            viewModel.onEvent(LibraryEvent.OnSearchShowHide)
                         }
                         MoreDropDown(navigator = navigator)
                     },
 
                     content2Visibility = state.hasSelectedItems,
                     content2NavigationIcon = {
-                        IconButton(onClick = { viewModel.onEvent(LibraryEvent.OnClearSelectedBooks) }) {
-                            Icon(
-                                imageVector = Icons.Default.Clear,
-                                contentDescription = "Clear selected items",
-                                modifier = Modifier.size(24.dp),
-                                tint = MaterialTheme.colorScheme.onSurface
-                            )
+                        CustomIconButton(
+                            icon = Icons.Default.Clear,
+                            contentDescription =
+                            stringResource(id = R.string.clear_selected_items_content_desc),
+                            disableOnClick = true
+                        ) {
+                            viewModel.onEvent(LibraryEvent.OnClearSelectedBooks)
                         }
                     },
                     content2Title = {
@@ -213,36 +210,37 @@ fun LibraryScreen(
                         )
                     },
                     content2Actions = {
-                        IconButton(onClick = { viewModel.onEvent(LibraryEvent.OnShowHideMoveDialog) }) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Outlined.DriveFileMove,
-                                contentDescription = "Move books to another category",
-                                modifier = Modifier.size(24.dp),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
+                        CustomIconButton(
+                            icon = Icons.AutoMirrored.Outlined.DriveFileMove,
+                            contentDescription = stringResource(
+                                id = R.string.move_books_content_desc
+                            ),
+                            disableOnClick = true
+                        ) {
+                            viewModel.onEvent(LibraryEvent.OnShowHideMoveDialog)
                         }
-                        IconButton(onClick = { viewModel.onEvent(LibraryEvent.OnShowHideDeleteDialog) }) {
-                            Icon(
-                                imageVector = Icons.Outlined.Delete,
-                                contentDescription = "Delete books from database",
-                                modifier = Modifier.size(24.dp),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
+                        CustomIconButton(
+                            icon = Icons.Outlined.Delete,
+                            contentDescription = stringResource(
+                                id = R.string.delete_books_content_desc
+                            ),
+                            disableOnClick = true
+                        ) {
+                            viewModel.onEvent(LibraryEvent.OnShowHideDeleteDialog)
                         }
                     },
 
                     content3Visibility = state.showSearch && !state.hasSelectedItems,
                     content3NavigationIcon = {
-                        IconButton(onClick = {
+                        CustomIconButton(
+                            icon = Icons.AutoMirrored.Default.ArrowBack,
+                            contentDescription = stringResource(
+                                id = R.string.exit_search_content_desc
+                            ),
+                            disableOnClick = true
+                        ) {
                             viewModel.onEvent(
                                 LibraryEvent.OnSearchShowHide
-                            )
-                        }) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                                contentDescription = "Exit search mode",
-                                modifier = Modifier.size(24.dp),
-                                tint = MaterialTheme.colorScheme.onSurface
                             )
                         }
                     },
@@ -307,7 +305,7 @@ fun LibraryScreen(
             HorizontalPager(state = pagerState, userScrollEnabled = !state.isRefreshing) { index ->
                 var categoryIsLoading by remember { mutableStateOf(true) }
                 val categorizedBooks = remember { mutableStateListOf<Pair<Book, Boolean>>() }
-                val category = Category.entries[index]
+                val category = remember { Category.entries[index] }
 
                 LaunchedEffect(state.books) {
                     categorizedBooks.clear()
@@ -321,13 +319,13 @@ fun LibraryScreen(
                 }
 
                 Box(modifier = Modifier.fillMaxSize()) {
-                    LazyVerticalGrid(
-                        columns = GridCells.Adaptive(120.dp),
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        contentPadding = PaddingValues(8.dp)
-                    ) {
-                        if (!state.isLoading) {
+                    DefaultTransition(visible = !state.isLoading && !categoryIsLoading) {
+                        LazyVerticalGrid(
+                            columns = GridCells.Adaptive(120.dp),
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            contentPadding = PaddingValues(8.dp)
+                        ) {
                             items(
                                 categorizedBooks,
                                 key = { it.first.id ?: UUID.randomUUID() }
@@ -363,16 +361,6 @@ fun LibraryScreen(
                         }
                     }
 
-                    if (state.isLoading && !state.isRefreshing) {
-                        CircularProgressIndicator(
-                            color = MaterialTheme.colorScheme.primary,
-                            strokeCap = StrokeCap.Round,
-                            modifier = Modifier
-                                .align(Alignment.Center)
-                                .size(36.dp)
-                        )
-                    }
-
                     AnimatedVisibility(
                         visible = !state.isLoading && !state.isRefreshing && categorizedBooks.isEmpty()
                                 && !categoryIsLoading,
@@ -404,7 +392,7 @@ fun LibraryScreen(
 
     val activity = LocalContext.current as ComponentActivity
     val scope = rememberCoroutineScope()
-    var shouldExit = false
+    var shouldExit = remember { false }
     BackHandler {
         if (state.hasSelectedItems) {
             viewModel.onEvent(LibraryEvent.OnClearSelectedBooks)

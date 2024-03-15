@@ -64,7 +64,7 @@ fun ReaderStartItem(viewModel: ReaderViewModel) {
             ) {
                 Icon(
                     imageVector = Icons.Default.Image,
-                    contentDescription = "Cover Image not found",
+                    contentDescription = stringResource(id = R.string.cover_image_not_found_content_desc),
                     modifier = Modifier
                         .align(Alignment.Center)
                         .fillMaxWidth(0.7f)
@@ -75,7 +75,7 @@ fun ReaderStartItem(viewModel: ReaderViewModel) {
                 if (state.book.coverImage != null) {
                     Image(
                         bitmap = state.book.coverImage!!,
-                        contentDescription = "Cover",
+                        contentDescription = stringResource(id = R.string.cover_image_content_desc),
                         modifier = Modifier
                             .fillMaxSize()
                             .clip(MaterialTheme.shapes.medium),

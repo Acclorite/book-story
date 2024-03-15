@@ -15,7 +15,7 @@ android {
         minSdk = 26
         targetSdk = 34
         versionCode = 1
-        versionName = "0.9.0"
+        versionName = "0.9.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -139,4 +139,6 @@ dependencies {
 
     implementation("androidx.appcompat:appcompat:latest.release")
     implementation("androidx.appcompat:appcompat-resources:latest.release")
+
+    implementation("io.coil-kt:coil-compose:2.6.0")
 }

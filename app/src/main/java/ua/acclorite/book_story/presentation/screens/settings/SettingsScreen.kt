@@ -1,7 +1,9 @@
 package ua.acclorite.book_story.presentation.screens.settings
 
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -21,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.data.Navigator
@@ -97,6 +100,8 @@ fun SettingsScreen(
                     navigator.navigate(Screen.READER_SETTINGS, false)
                 }
             }
+
+            item { Spacer(modifier = Modifier.height(48.dp)) }
         }
     }
 }

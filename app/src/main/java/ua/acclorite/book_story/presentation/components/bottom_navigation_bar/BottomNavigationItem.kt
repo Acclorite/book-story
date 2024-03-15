@@ -8,6 +8,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -23,6 +24,11 @@ fun RowScope.BottomNavigationBarItem(
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
+    val icon = remember(isSelected) {
+        if (isSelected) item.selectedIcon
+        else item.unselectedIcon
+    }
+
     NavigationBarItem(
         label = {
             Text(
@@ -37,9 +43,7 @@ fun RowScope.BottomNavigationBarItem(
         onClick = { onClick() },
         icon = {
             Icon(
-                painter =
-                if (isSelected) item.selectedIcon
-                else item.unselectedIcon,
+                painter = icon,
                 contentDescription = item.title,
                 modifier = Modifier.size(24.dp)
             )

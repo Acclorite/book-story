@@ -34,9 +34,7 @@ fun BookInfoDetailsBottomSheetItem(
         modifier
             .fillMaxWidth()
             .combinedClickable(
-                onClick = {
-
-                },
+                onClick = {},
                 onLongClick = {
                     onClick()
                 }

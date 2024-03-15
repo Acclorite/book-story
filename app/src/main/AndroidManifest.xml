@@ -35,7 +35,6 @@
 
         <activity
             android:name=".Activity"
-            android:configChanges="screenSize|screenLayout|smallestScreenSize|locale|density|uiMode"
             android:windowSoftInputMode="adjustResize"
             android:exported="true"
             android:theme="@style/Theme.Start.Splash">

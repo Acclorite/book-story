@@ -18,6 +18,8 @@ import ua.acclorite.book_story.ui.elevation
 
 /**
  * Bottom navigation bar, uses default [NavigationBar].
+ *
+ * @param navigator Navigator.
  */
 @Composable
 fun BottomNavigationBar(

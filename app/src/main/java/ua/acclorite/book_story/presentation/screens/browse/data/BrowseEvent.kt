@@ -11,13 +11,24 @@ import ua.acclorite.book_story.presentation.data.Navigator
 import java.io.File
 
 sealed class BrowseEvent {
-    data class OnStoragePermissionRequest(val activity: ComponentActivity) : BrowseEvent()
-    data class OnLegacyStoragePermissionRequest(val permissionState: PermissionState) :
-        BrowseEvent()
+    data class OnStoragePermissionRequest(
+        val activity: ComponentActivity, val hideErrorMessage: () -> Unit
+    ) : BrowseEvent()
 
-    data class OnStoragePermissionDismiss(val permissionState: PermissionState) : BrowseEvent()
+    data class OnLegacyStoragePermissionRequest(
+        val permissionState: PermissionState, val hideErrorMessage: () -> Unit
+    ) : BrowseEvent()
+
+    data class OnStoragePermissionDismiss(
+        val permissionState: PermissionState, val showErrorMessage: () -> Unit
+    ) : BrowseEvent()
+
     data object OnRefreshList : BrowseEvent()
-    data class OnPermissionCheck(val permissionState: PermissionState) : BrowseEvent()
+    data class OnPermissionCheck(
+        val permissionState: PermissionState,
+        val hideErrorMessage: () -> Unit
+    ) : BrowseEvent()
+
     data class OnSelectFile(val file: Pair<File, Boolean>) : BrowseEvent()
     data class OnSelectBook(val book: NullableBook) : BrowseEvent()
     data object OnSearchShowHide : BrowseEvent()
@@ -29,8 +40,5 @@ sealed class BrowseEvent {
     data object OnGetBooksFromFiles : BrowseEvent()
     data class OnAddBooks(val navigator: Navigator, val resetScroll: () -> Unit) : BrowseEvent()
     data object OnLoadList : BrowseEvent()
-    data class OnUpdateScrollIndex(val index: Int) : BrowseEvent()
-    data class OnUpdateScrollOffset(val offset: Int) : BrowseEvent()
-
 
 }

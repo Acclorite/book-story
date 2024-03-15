@@ -12,13 +12,10 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -28,24 +25,19 @@ import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -54,12 +46,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.debounce
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
 import ua.acclorite.book_story.presentation.components.CategoryTitle
+import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.CustomSnackbar
 import ua.acclorite.book_story.presentation.components.MoreDropDown
 import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
@@ -72,13 +62,14 @@ import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
+import ua.acclorite.book_story.ui.DefaultTransition
 import ua.acclorite.book_story.ui.Transitions
 import ua.acclorite.book_story.ui.elevation
 import java.util.UUID
 
 @OptIn(
     ExperimentalMaterial3Api::class,
-    ExperimentalMaterialApi::class, FlowPreview::class, ExperimentalFoundationApi::class
+    ExperimentalMaterialApi::class, ExperimentalFoundationApi::class
 )
 @Composable
 fun HistoryScreen(
@@ -89,7 +80,6 @@ fun HistoryScreen(
     val context = LocalContext.current
     val state by viewModel.state.collectAsState()
     val books = libraryViewModel.state.collectAsState().value.books.map { it.first }
-
     val refreshState = rememberPullRefreshState(
         refreshing = state.isRefreshing,
         onRefresh = {
@@ -98,28 +88,6 @@ fun HistoryScreen(
     )
     val focusRequester = remember { FocusRequester() }
     val snackbarState = remember { SnackbarHostState() }
-    val listState = rememberLazyListState(state.scrollIndex, state.scrollOffset)
-
-    LaunchedEffect(listState) {
-        snapshotFlow {
-            listState.firstVisibleItemIndex
-        }
-            .debounce(10L)
-            .collectLatest {
-                viewModel.onEvent(HistoryEvent.OnUpdateScrollIndex(it))
-            }
-    }
-    LaunchedEffect(listState) {
-        snapshotFlow {
-            listState.firstVisibleItemScrollOffset
-        }
-            .debounce(10L)
-            .collectLatest {
-                viewModel.onEvent(
-                    HistoryEvent.OnUpdateScrollOffset(it)
-                )
-            }
-    }
 
     if (state.showDeleteWholeHistoryDialog) {
         HistoryDeleteWholeHistoryDialog(viewModel = viewModel, libraryViewModel = libraryViewModel)
@@ -134,7 +102,7 @@ fun HistoryScreen(
             AnimatedTopAppBar(
                 scrolledContainerColor = MaterialTheme.elevation(),
                 scrollBehavior = null,
-                isTopBarScrolled = (state.scrollIndex > 0 || state.scrollOffset > 0) && !state.isLoading,
+                isTopBarScrolled = state.listState.canScrollBackward,
 
                 content1Visibility = !state.showSearch,
                 content1NavigationIcon = {},
@@ -148,43 +116,39 @@ fun HistoryScreen(
                     )
                 },
                 content1Actions = {
-                    IconButton(
-                        enabled = !state.isRefreshing,
-                        onClick = { viewModel.onEvent(HistoryEvent.OnSearchShowHide) }
+                    CustomIconButton(
+                        icon = Icons.Default.Search,
+                        contentDescription = stringResource(id = R.string.search_content_desc),
+                        disableOnClick = false,
+                        enabled = !state.showSearch
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = "Search history",
-                            modifier = Modifier.size(24.dp),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                        viewModel.onEvent(HistoryEvent.OnSearchShowHide)
                     }
-                    IconButton(
+                    CustomIconButton(
+                        icon = Icons.Outlined.DeleteSweep,
+                        contentDescription = stringResource(
+                            id = R.string.delete_whole_history_content_desc
+                        ),
+                        disableOnClick = false,
                         enabled = !state.isLoading
                                 && !state.isRefreshing
-                                && state.history.isNotEmpty(),
-                        onClick = {
-                            viewModel.onEvent(HistoryEvent.OnShowHideDeleteWholeHistoryDialog)
-                        }
+                                && state.history.isNotEmpty()
                     ) {
-                        Icon(
-                            imageVector = Icons.Outlined.DeleteSweep,
-                            contentDescription = "Delete whole history",
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                        viewModel.onEvent(HistoryEvent.OnShowHideDeleteWholeHistoryDialog)
                     }
                     MoreDropDown(navigator = navigator)
                 },
 
                 content2Visibility = state.showSearch,
                 content2NavigationIcon = {
-                    IconButton(onClick = { viewModel.onEvent(HistoryEvent.OnSearchShowHide) }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                            contentDescription = "Exit search mode",
-                            modifier = Modifier.size(24.dp),
-                            tint = MaterialTheme.colorScheme.onSurface
-                        )
+                    CustomIconButton(
+                        icon = Icons.AutoMirrored.Default.ArrowBack,
+                        contentDescription = stringResource(
+                            id = R.string.exit_search_content_desc
+                        ),
+                        disableOnClick = true
+                    ) {
+                        viewModel.onEvent(HistoryEvent.OnSearchShowHide)
                     }
                 },
                 content2Title = {
@@ -243,68 +207,72 @@ fun HistoryScreen(
                 .fillMaxSize()
                 .padding(top = paddingValues.calculateTopPadding())
         ) {
-            LazyColumn(
-                Modifier
-                    .fillMaxSize(),
-                state = listState,
-                contentPadding = PaddingValues(vertical = 12.dp)
-            ) {
-                if (!state.isLoading) {
-                    state.history.forEachIndexed { index, groupedHistory ->
-                        item(key = groupedHistory.title) {
-                            if (index > 0) {
+            DefaultTransition(visible = !state.isLoading) {
+                LazyColumn(
+                    Modifier
+                        .fillMaxSize(),
+                    state = state.listState,
+                    contentPadding = PaddingValues(vertical = 12.dp)
+                ) {
+                    if (!state.isLoading) {
+                        state.history.forEachIndexed { index, groupedHistory ->
+                            item(key = groupedHistory.title) {
+                                if (index > 0) {
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                }
+
+                                CategoryTitle(
+                                    modifier = Modifier.animateItemPlacement(),
+                                    title = when (groupedHistory.title) {
+                                        "today" -> stringResource(id = R.string.today)
+                                        "yesterday" -> stringResource(id = R.string.yesterday)
+                                        else -> groupedHistory.title
+                                    },
+                                    padding = 16.dp
+                                )
                                 Spacer(modifier = Modifier.height(8.dp))
                             }
 
-                            CategoryTitle(
-                                modifier = Modifier.animateItemPlacement(),
-                                title = when (groupedHistory.title) {
-                                    "today" -> stringResource(id = R.string.today)
-                                    "yesterday" -> stringResource(id = R.string.yesterday)
-                                    else -> groupedHistory.title
-                                },
-                                padding = 16.dp
-                            )
-                            Spacer(modifier = Modifier.height(8.dp))
-                        }
+                            items(
+                                groupedHistory.history, key = { it.id ?: UUID.randomUUID() }
+                            ) {
+                                val book = remember {
+                                    books.find { book -> book.id == it.bookId }
+                                } ?: return@items
 
-                        items(
-                            groupedHistory.history, key = { it.id ?: UUID.randomUUID() }
-                        ) {
-                            val book = books.find { book -> book.id == it.bookId } ?: return@items
-
-                            HistoryItem(
-                                modifier = Modifier.animateItemPlacement(),
-                                history = it,
-                                book = book,
-                                onBodyClick = {
-                                    navigator.navigate(
-                                        Screen.BOOK_INFO,
-                                        false,
-                                        Argument("book", book)
-                                    )
-                                },
-                                onTitleClick = {
-                                    navigator.navigate(
-                                        Screen.READER,
-                                        false,
-                                        Argument("book", book)
-                                    )
-                                },
-                                isDeleteEnabled = !state.isRefreshing,
-                                onDeleteClick = {
-                                    viewModel.onEvent(
-                                        HistoryEvent.OnDeleteHistoryElement(
-                                            historyToDelete = it,
-                                            snackbarState = snackbarState,
-                                            context = context,
-                                            refreshList = {
-                                                libraryViewModel.onEvent(LibraryEvent.OnLoadList)
-                                            }
+                                HistoryItem(
+                                    modifier = Modifier.animateItemPlacement(),
+                                    history = it,
+                                    book = book,
+                                    onBodyClick = {
+                                        navigator.navigate(
+                                            Screen.BOOK_INFO,
+                                            false,
+                                            Argument("book", book)
                                         )
-                                    )
-                                }
-                            )
+                                    },
+                                    onTitleClick = {
+                                        navigator.navigate(
+                                            Screen.READER,
+                                            false,
+                                            Argument("book", book)
+                                        )
+                                    },
+                                    isDeleteEnabled = !state.isRefreshing,
+                                    onDeleteClick = {
+                                        viewModel.onEvent(
+                                            HistoryEvent.OnDeleteHistoryElement(
+                                                historyToDelete = it,
+                                                snackbarState = snackbarState,
+                                                context = context,
+                                                refreshList = {
+                                                    libraryViewModel.onEvent(LibraryEvent.OnLoadList)
+                                                }
+                                            )
+                                        )
+                                    }
+                                )
+                            }
                         }
                     }
                 }
@@ -320,15 +288,6 @@ fun HistoryScreen(
                     modifier = Modifier.align(Alignment.Center),
                     message = stringResource(id = R.string.history_empty),
                     icon = painterResource(id = R.drawable.empty_history)
-                )
-            }
-            if (state.isLoading && !state.isRefreshing) {
-                CircularProgressIndicator(
-                    color = MaterialTheme.colorScheme.primary,
-                    strokeCap = StrokeCap.Round,
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .size(36.dp)
                 )
             }
 

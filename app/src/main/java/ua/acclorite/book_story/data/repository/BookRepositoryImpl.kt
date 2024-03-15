@@ -90,6 +90,11 @@ class BookRepositoryImpl @Inject constructor(
         return database.findBooksById(ids).map { bookMapper.toBook(it) }
     }
 
+    override suspend fun getBookTextById(bookId: Int): String {
+        val book = database.findBookById(bookId)
+        return book.text
+    }
+
     override suspend fun findBook(
         id: Int
     ): BookEntity {
@@ -101,11 +106,39 @@ class BookRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateBooks(books: List<Book>) {
+        // without text
+        database.updateBooks(
+            books.map {
+                val book = database.findBookById(it.id ?: return)
+                bookMapper.toBookEntity(
+                    it.copy(
+                        text = book.text
+                            .split("\n")
+                            .map { line -> StringWithId(line.trim()) }
+                    )
+                )
+            }
+        )
+    }
+
+    override suspend fun updateBooksWithText(books: List<Book>) {
         database.updateBooks(books.map { bookMapper.toBookEntity(it) })
     }
 
     override suspend fun deleteBooks(books: List<Book>) {
-        database.deleteBooks(books.map { bookMapper.toBookEntity(it) })
+        // without text
+        database.deleteBooks(
+            books.map {
+                val book = database.findBookById(it.id ?: return)
+                bookMapper.toBookEntity(
+                    it.copy(
+                        text = book.text
+                            .split("\n")
+                            .map { line -> StringWithId(line.trim()) }
+                    )
+                )
+            }
+        )
     }
 
     override suspend fun <T> retrieveDataFromDataStore(
@@ -119,7 +152,7 @@ class BookRepositoryImpl @Inject constructor(
         dataStore.putData(key, value)
     }
 
-    override suspend fun getFilesFromDownloads(query: String): Flow<Resource<List<File>>> {
+    override suspend fun getFilesFromDevice(query: String): Flow<Resource<List<File>>> {
         fun getAllFilesInDirectory(directory: File): List<File> {
             val filesList = mutableListOf<File>()
 
@@ -140,20 +173,15 @@ class BookRepositoryImpl @Inject constructor(
         }
 
         return flow {
-            emit(Resource.Loading(true))
-
             val existingBooks = database
                 .searchBooks("")
                 .map { bookMapper.toBook(it) }
-                .filter { it.file != null }
 
-            val allFiles = getAllFilesInDirectory(
-                Environment
-                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            )
+            val primaryDirectory = Environment.getExternalStorageDirectory()
+            val allFiles = getAllFilesInDirectory(primaryDirectory)
 
             if (allFiles.isEmpty()) {
-                emit(Resource.Loading(false))
+                emit(Resource.Success(null))
                 return@flow
             }
 
@@ -168,7 +196,8 @@ class BookRepositoryImpl @Inject constructor(
                     )
                 }
                 val isFileAlreadyAdded = existingBooks.all {
-                    it.file != file
+                    it.filePath.substringAfterLast("/") !=
+                            file.path.substringAfterLast("/")
                 }
                 val isQuery = if (query.isEmpty()) true else file.name.lowercase()
                     .contains(query.trim().lowercase())
@@ -193,7 +222,6 @@ class BookRepositoryImpl @Inject constructor(
                 }.toMutableList()
             }
 
-            emit(Resource.Loading(false))
             emit(
                 Resource.Success(
                     data = filteredFiles

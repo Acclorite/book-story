@@ -26,6 +26,8 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.model.History
+import ua.acclorite.book_story.domain.model.StringWithId
+import ua.acclorite.book_story.domain.use_case.GetText
 import ua.acclorite.book_story.domain.use_case.InsertHistory
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
 import ua.acclorite.book_story.presentation.data.Argument
@@ -40,7 +42,8 @@ import kotlin.math.roundToInt
 class ReaderViewModel @AssistedInject constructor(
     @Assisted book: Book,
     private val updateBooks: UpdateBooks,
-    private val insertHistory: InsertHistory
+    private val insertHistory: InsertHistory,
+    private val getText: GetText
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ReaderState(book))
@@ -59,14 +62,27 @@ class ReaderViewModel @AssistedInject constructor(
 
             is ReaderEvent.OnLoadText -> {
                 viewModelScope.launch(Dispatchers.IO) {
+                    val text = getText.execute(_state.value.book.id!!)
+
+                    if (text.isBlank()) {
+                        event.onTextIsEmpty()
+                    }
+
                     val time = Date().time
-                    val text = _state.value.book.text.joinToString(separator = " ") { it.line }
-                    val letters = text.replace(" ", "").length
-                    val words = text.split("\\s+".toRegex()).size
+                    val letters = text
+                        .replace("\n", "")
+                        .length
+                    val words = text
+                        .replace("\n", " ")
+                        .split("\\s+".toRegex())
+                        .size
 
                     _state.update {
                         it.copy(
                             book = it.book.copy(
+                                text = text
+                                    .split("\n")
+                                    .map { line -> StringWithId(line.trim()) },
                                 lastOpened = time
                             ),
                             letters = letters,
@@ -98,13 +114,19 @@ class ReaderViewModel @AssistedInject constructor(
                             val scrollTo = (itemsCount * _state.value.book.progress).roundToInt()
                             if (itemsCount >= _state.value.book.text.size) {
                                 if (scrollTo > 0) {
-                                    while (true) {
+                                    var loaded = false
+                                    for (i in 1..100) {
                                         try {
                                             event.scrollState.scrollToItem(scrollTo)
+                                            loaded = true
                                             break
                                         } catch (e: Exception) {
-                                            delay(50)
+                                            delay(100)
                                         }
+                                    }
+
+                                    if (!loaded) {
+                                        event.onTextIsEmpty()
                                     }
                                 }
 
@@ -172,12 +194,12 @@ class ReaderViewModel @AssistedInject constructor(
                     }
 
                     updateBooks.execute(
-                        listOf(_state.value.book)
+                        listOf(_state.value.book.copy(progress = event.progress))
                     )
                     event.navigator.putArgument(
-                        Argument("book", _state.value.book)
+                        Argument("book", _state.value.book.copy(progress = event.progress))
                     )
-                    event.refreshList(_state.value.book)
+                    event.refreshList(_state.value.book.copy(progress = event.progress))
                 }
             }
 
@@ -290,21 +312,20 @@ class ReaderViewModel @AssistedInject constructor(
                 ReaderState(book = book)
             }
 
-            if (book.text.isEmpty()) {
-                onEvent(ReaderEvent.OnTextIsEmpty(onLoaded = { onLoaded() }))
-            } else {
-                onEvent(ReaderEvent.OnShowHideMenu(false, context))
-                onEvent(
-                    ReaderEvent.OnLoadText(
-                        scrollState,
-                        navigator,
-                        refreshList = { refreshList(it) },
-                        onLoaded = {
-                            onLoaded()
-                        }
-                    )
+            onEvent(ReaderEvent.OnShowHideMenu(false, context))
+            onEvent(
+                ReaderEvent.OnLoadText(
+                    scrollState,
+                    navigator,
+                    refreshList = { refreshList(it) },
+                    onLoaded = {
+                        onLoaded()
+                    },
+                    onTextIsEmpty = {
+                        onEvent(ReaderEvent.OnTextIsEmpty(onLoaded = { onLoaded() }))
+                    }
                 )
-            }
+            )
         }
     }
 

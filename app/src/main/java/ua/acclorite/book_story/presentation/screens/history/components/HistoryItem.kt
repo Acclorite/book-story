@@ -23,6 +23,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -51,8 +52,10 @@ fun HistoryItem(
     isDeleteEnabled: Boolean,
     onDeleteClick: () -> Unit
 ) {
-    val date = Date(history.time)
-    val pattern = SimpleDateFormat("HH:mm", Locale.getDefault())
+    val date = remember(history) { Date(history.time) }
+    val pattern = remember {
+        SimpleDateFormat("HH:mm", Locale.getDefault())
+    }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -65,7 +68,7 @@ fun HistoryItem(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.weight(0.9f)
+            modifier = Modifier.weight(0.89f)
         ) {
             Box(
                 modifier = Modifier
@@ -76,7 +79,9 @@ fun HistoryItem(
             ) {
                 Icon(
                     imageVector = Icons.Default.Image,
-                    contentDescription = "Cover Image not found",
+                    contentDescription = stringResource(
+                        id = R.string.cover_image_not_found_content_desc
+                    ),
                     modifier = Modifier
                         .align(Alignment.Center)
                         .fillMaxWidth(0.7f)
@@ -128,7 +133,7 @@ fun HistoryItem(
                 )
             }
         }
-        Box(modifier = Modifier.weight(0.1f), contentAlignment = Alignment.CenterEnd) {
+        Box(modifier = Modifier.weight(0.11f), contentAlignment = Alignment.CenterEnd) {
             IconButton(
                 enabled = isDeleteEnabled,
                 onClick = {

@@ -3,20 +3,18 @@ package ua.acclorite.book_story.presentation.screens.reader.components.app_bar
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -27,6 +25,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.Navigator
@@ -44,7 +43,16 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 fun ReaderTopBar(viewModel: ReaderViewModel, navigator: Navigator, containerColor: Color) {
     val context = LocalContext.current as ComponentActivity
     val state by viewModel.state.collectAsState()
-    val book = state.book
+
+    val progress by remember(state.book.progress) {
+        derivedStateOf {
+            (state.book.progress * 100)
+                .toDouble()
+                .removeDigits(2)
+                .removeTrailingZero()
+                .dropWhile { it == '-' } + "%"
+        }
+    }
 
     TopAppBar(
         navigationIcon = {
@@ -55,7 +63,7 @@ fun ReaderTopBar(viewModel: ReaderViewModel, navigator: Navigator, containerColo
         title = {
             Column(verticalArrangement = Arrangement.Center) {
                 Text(
-                    book.title,
+                    state.book.title,
                     fontFamily = FontFamily.Default,
                     fontWeight = FontWeight.Normal,
                     fontSize = 20.sp,
@@ -63,7 +71,7 @@ fun ReaderTopBar(viewModel: ReaderViewModel, navigator: Navigator, containerColo
                     maxLines = 1,
                     modifier = Modifier
                         .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
+                            interactionSource = null,
                             indication = null,
                             onClick = {
                                 navigator.navigateWithoutBackStack(
@@ -71,7 +79,7 @@ fun ReaderTopBar(viewModel: ReaderViewModel, navigator: Navigator, containerColo
                                     true,
                                     Argument(
                                         "book",
-                                        book
+                                        state.book
                                     )
                                 )
                             }
@@ -83,11 +91,7 @@ fun ReaderTopBar(viewModel: ReaderViewModel, navigator: Navigator, containerColo
                 Text(
                     stringResource(
                         id = R.string.read_query,
-                        (book.progress * 100)
-                            .toDouble()
-                            .removeDigits(2)
-                            .removeTrailingZero()
-                            .dropWhile { it == '-' } + "%"
+                        progress
                     ),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.bodyLarge
@@ -95,13 +99,12 @@ fun ReaderTopBar(viewModel: ReaderViewModel, navigator: Navigator, containerColo
             }
         },
         actions = {
-            IconButton(onClick = {
+            CustomIconButton(
+                icon = Icons.Default.Settings,
+                contentDescription = stringResource(id = R.string.open_reader_settings_content_desc),
+                disableOnClick = false
+            ) {
                 viewModel.onEvent(ReaderEvent.OnShowHideSettingsBottomSheet)
-            }) {
-                Icon(
-                    imageVector = Icons.Default.Settings,
-                    contentDescription = stringResource(id = R.string.open_reader_settings_content_desc),
-                )
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(

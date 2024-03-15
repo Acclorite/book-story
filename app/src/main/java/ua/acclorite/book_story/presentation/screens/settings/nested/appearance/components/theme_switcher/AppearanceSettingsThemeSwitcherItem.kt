@@ -27,8 +27,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.Theme
 import ua.acclorite.book_story.ui.colorScheme
 import ua.acclorite.book_story.util.UIText
@@ -83,7 +85,7 @@ fun AppearanceSettingsThemeSwitcherItem(
                 Spacer(modifier = Modifier.width(8.dp))
                 Icon(
                     imageVector = Icons.Default.CheckCircle,
-                    contentDescription = null,
+                    contentDescription = stringResource(id = R.string.selected_content_desc),
                     modifier = Modifier
                         .size(26.dp),
                     tint =

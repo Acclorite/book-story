@@ -15,7 +15,8 @@ sealed class ReaderEvent {
         val scrollState: LazyListState,
         val navigator: Navigator,
         val refreshList: (Book) -> Unit,
-        val onLoaded: () -> Unit
+        val onLoaded: () -> Unit,
+        val onTextIsEmpty: () -> Unit
     ) : ReaderEvent()
 
     data class OnShowHideMenu(val show: Boolean? = null, val context: ComponentActivity) :

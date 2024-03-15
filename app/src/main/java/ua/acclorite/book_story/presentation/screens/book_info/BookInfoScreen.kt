@@ -26,7 +26,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.pullrefresh.PullRefreshDefaults
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
@@ -34,7 +33,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
@@ -58,6 +56,7 @@ import dagger.hilt.android.lifecycle.withCreationCallback
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
+import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.CustomSnackbar
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.data.Argument
@@ -114,8 +113,6 @@ fun BookInfoScreen(
     val snackbarState = remember { SnackbarHostState() }
     val refreshState = rememberPullRefreshState(
         refreshing = state.isRefreshing,
-        refreshThreshold = PullRefreshDefaults.RefreshThreshold + 32.dp,
-        refreshingOffset = PullRefreshDefaults.RefreshingOffset + 64.dp,
         onRefresh = {
             viewModel.onEvent(
                 BookInfoEvent.OnUpdateBook(
@@ -193,26 +190,21 @@ fun BookInfoScreen(
                     }
                 },
                 content1Actions = {
-                    IconButton(
-                        enabled = !state.isRefreshing,
-                        onClick = {
-                            viewModel.onEvent(
-                                BookInfoEvent.OnUpdateBook(
-                                    refreshList = {
-                                        libraryViewModel.onEvent(LibraryEvent.OnLoadList)
-                                        historyViewModel.onEvent(HistoryEvent.OnLoadList)
-                                    },
-                                    snackbarState,
-                                    context
-                                )
-                            )
-                        }
+                    CustomIconButton(
+                        icon = Icons.Default.Refresh,
+                        contentDescription = stringResource(id = R.string.refresh_book_content_desc),
+                        disableOnClick = false,
+                        enabled = !state.isRefreshing
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Refresh,
-                            contentDescription = stringResource(id = R.string.refresh_book_content_desc),
-                            modifier = Modifier.size(24.dp),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        viewModel.onEvent(
+                            BookInfoEvent.OnUpdateBook(
+                                refreshList = {
+                                    libraryViewModel.onEvent(LibraryEvent.OnLoadList)
+                                    historyViewModel.onEvent(HistoryEvent.OnLoadList)
+                                },
+                                snackbarState,
+                                context
+                            )
                         )
                     }
 
@@ -230,34 +222,30 @@ fun BookInfoScreen(
                             enter = Transitions.DefaultTransitionIn,
                             exit = fadeOut(tween(200))
                         ) {
-                            IconButton(
+                            CustomIconButton(
+                                icon = Icons.Default.Done,
+                                contentDescription = stringResource(id = R.string.apply_changes_content_desc),
+                                disableOnClick = true,
                                 enabled = state.titleValue.isNotBlank() &&
-                                        state.titleValue.trim() != state.book.title.trim(),
-                                onClick = {
-                                    viewModel.onEvent(BookInfoEvent.OnUpdateTitle(
-                                        refreshList = {
-                                            libraryViewModel.onEvent(
-                                                LibraryEvent.OnLoadList
-                                            )
-                                        }
-                                    ))
-                                    Toast.makeText(
-                                        context,
-                                        context.getString(R.string.title_changed),
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                }
+                                        state.titleValue.trim() !=
+                                        state.book.title.trim(),
+                                color = if (state.titleValue.isNotBlank()
+                                    && state.titleValue != state.book.title
+                                ) MaterialTheme.colorScheme.onSurface
+                                else MaterialTheme.colorScheme.onSurfaceVariant
                             ) {
-                                Icon(
-                                    imageVector = Icons.Default.Done,
-                                    contentDescription = "Apply changes",
-                                    tint =
-                                    if (state.titleValue.isNotBlank()
-                                        && state.titleValue != state.book.title
-                                    )
-                                        MaterialTheme.colorScheme.onSurface
-                                    else MaterialTheme.colorScheme.onSurfaceVariant
-                                )
+                                viewModel.onEvent(BookInfoEvent.OnUpdateTitle(
+                                    refreshList = {
+                                        libraryViewModel.onEvent(
+                                            LibraryEvent.OnLoadList
+                                        )
+                                    }
+                                ))
+                                Toast.makeText(
+                                    context,
+                                    context.getString(R.string.title_changed),
+                                    Toast.LENGTH_LONG
+                                ).show()
                             }
                         }
                     }
@@ -354,7 +342,9 @@ fun BookInfoScreen(
             PullRefreshIndicator(
                 state.isRefreshing,
                 refreshState,
-                Modifier.align(Alignment.TopCenter),
+                Modifier
+                    .align(Alignment.TopCenter)
+                    .padding(top = paddingValues.calculateTopPadding()),
                 backgroundColor = MaterialTheme.colorScheme.inverseSurface,
                 contentColor = MaterialTheme.colorScheme.inverseOnSurface
             )

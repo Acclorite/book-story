@@ -13,9 +13,6 @@ data class ReaderState(
     val errorMessage: UIText? = null,
 
     val showMenu: Boolean = false,
-
     val showSettingsBottomSheet: Boolean = false,
     val currentPage: Int = 0,
-
-
-    )
+)

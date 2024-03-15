@@ -1,8 +1,11 @@
 package ua.acclorite.book_story.presentation.components
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
@@ -22,8 +25,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.ui.DefaultTransition
+import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.elevation
 
 /**
@@ -38,7 +42,7 @@ import ua.acclorite.book_story.ui.elevation
 @Composable
 fun AnimatedTopAppBar(
     containerColor: Color = MaterialTheme.colorScheme.surface,
-    scrolledContainerColor: Color? = MaterialTheme.elevation(),
+    scrolledContainerColor: Color = MaterialTheme.elevation(),
 
     scrollBehavior: TopAppBarScrollBehavior?,
     isTopBarScrolled: Boolean?,
@@ -58,79 +62,90 @@ fun AnimatedTopAppBar(
     content3Title: @Composable () -> Unit = {},
     content3Actions: @Composable RowScope.() -> Unit = {}
 ) {
-    //todo fix lags.
     Box(modifier = Modifier.fillMaxWidth()) {
-        if ((scrollBehavior != null || isTopBarScrolled != null) && scrolledContainerColor != null) {
+        val density = LocalDensity.current
+        val statusBarPadding = with(density) {
+            WindowInsets.statusBars.getTop(density).toDp()
+        }
 
-            val fraction by remember {
-                derivedStateOf {
-                    scrollBehavior?.state?.overlappedFraction ?: 0f
-                }
-            }
-
-            val isScrolled = if (scrollBehavior != null) {
-                fraction > 0.01f
-            } else isTopBarScrolled ?: false
-
-            val color = if (isScrolled) scrolledContainerColor else containerColor
-            val animatedColor by animateColorAsState(
-                targetValue = color,
-                animationSpec = spring(stiffness = Spring.StiffnessMediumLow),
-                label = "TopAppBar color animation"
-            )
-
-            val statusBarPadding = with(LocalDensity.current) {
-                WindowInsets.statusBars.getTop(LocalDensity.current).toDp()
-            }
-
+        if (containerColor != Color.Transparent) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(64.dp + statusBarPadding)
                     .background(
-                        animatedColor
+                        if (isTopBarScrolled == true) scrolledContainerColor
+                        else containerColor
                     )
             )
         }
 
-        DefaultTransition(visible = content1Visibility ?: true) {
+        val scrollableContainerColor by remember(isTopBarScrolled) {
+            derivedStateOf {
+                if (isTopBarScrolled == true) {
+                    scrolledContainerColor
+                } else {
+                    containerColor
+                }
+            }
+        }
+
+        val animatedContainerColor by animateColorAsState(
+            targetValue = scrollableContainerColor,
+            animationSpec = spring(stiffness = Spring.StiffnessMediumLow),
+            label = stringResource(id = R.string.top_app_bar_anim_content_desc)
+        )
+
+        AnimatedVisibility(
+            visible = content1Visibility ?: true,
+            enter = fadeIn(spring(stiffness = Spring.StiffnessMediumLow)),
+            exit = fadeOut(spring(stiffness = Spring.StiffnessMediumLow))
+        ) {
             TopAppBar(
                 navigationIcon = content1NavigationIcon,
                 title = content1Title,
                 actions = content1Actions,
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.Transparent,
-                    scrolledContainerColor = Color.Transparent
+                    containerColor = animatedContainerColor,
+                    scrolledContainerColor = scrolledContainerColor
                 )
             )
         }
 
         if (content2Visibility != null) {
-            DefaultTransition(visible = content2Visibility) {
+            AnimatedVisibility(
+                visible = content2Visibility,
+                enter = fadeIn(spring(stiffness = Spring.StiffnessMediumLow)),
+                exit = fadeOut(spring(stiffness = Spring.StiffnessMediumLow))
+            ) {
                 TopAppBar(
                     navigationIcon = content2NavigationIcon,
                     title = content2Title,
                     actions = content2Actions,
                     scrollBehavior = scrollBehavior,
                     colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = Color.Transparent,
-                        scrolledContainerColor = Color.Transparent
+                        containerColor = animatedContainerColor,
+                        scrolledContainerColor = scrolledContainerColor
                     )
                 )
             }
         }
 
         if (content3Visibility != null) {
-            DefaultTransition(visible = content3Visibility) {
+            AnimatedVisibility(
+                visible = content3Visibility,
+                enter = fadeIn(spring(stiffness = Spring.StiffnessMediumLow)),
+                exit = fadeOut(spring(stiffness = Spring.StiffnessMediumLow))
+            ) {
                 TopAppBar(
                     navigationIcon = content3NavigationIcon,
                     title = content3Title,
                     actions = content3Actions,
                     scrollBehavior = scrollBehavior,
                     colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = Color.Transparent,
-                        scrolledContainerColor = Color.Transparent
+                        containerColor = animatedContainerColor,
+                        scrolledContainerColor = scrolledContainerColor
                     )
                 )
             }

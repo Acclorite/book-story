@@ -156,18 +156,25 @@ class LibraryViewModel @Inject constructor(
             }
 
             is LibraryEvent.OnSelectBook -> {
-                val indexOfBook = _state.value.books.indexOf(event.book)
-                val editedList = _state.value.books.toMutableList()
-                editedList[indexOfBook] = editedList[indexOfBook].copy(
-                    second = event.select ?: !editedList[indexOfBook].second
-                )
+                viewModelScope.launch(Dispatchers.IO) {
+                    val indexOfBook = _state.value.books.indexOf(event.book)
 
-                _state.update {
-                    it.copy(
-                        books = editedList.toList(),
-                        selectedItemsCount = editedList.filter { book -> book.second }.size,
-                        hasSelectedItems = editedList.any { book -> book.second }
+                    if (indexOfBook == -1) {
+                        return@launch
+                    }
+
+                    val editedList = _state.value.books.toMutableList()
+                    editedList[indexOfBook] = editedList[indexOfBook].copy(
+                        second = event.select ?: !editedList[indexOfBook].second
                     )
+
+                    _state.update {
+                        it.copy(
+                            books = editedList.toList(),
+                            selectedItemsCount = editedList.filter { book -> book.second }.size,
+                            hasSelectedItems = editedList.any { book -> book.second }
+                        )
+                    }
                 }
             }
 
@@ -252,7 +259,8 @@ class LibraryViewModel @Inject constructor(
                 viewModelScope.launch {
                     _state.update {
                         it.copy(
-                            showDeleteDialog = false
+                            showDeleteDialog = false,
+                            isLoading = true
                         )
                     }
 
@@ -269,17 +277,20 @@ class LibraryViewModel @Inject constructor(
             }
 
             is LibraryEvent.OnUpdateBook -> {
-                val books = _state.value.books.toMutableList()
+                viewModelScope.launch(Dispatchers.IO) {
+                    val books = _state.value.books.toMutableList()
+                    val index = books.indexOfFirst { it.first.id == event.book.id }
 
-                val index = books.indexOfFirst { it.first.id == event.book.id }
-                if (index != -1) {
+                    if (index == -1) {
+                        return@launch
+                    }
+
                     books[index] = Pair(event.book, books[index].second)
-                }
-
-                _state.update {
-                    it.copy(
-                        books = books
-                    )
+                    _state.update {
+                        it.copy(
+                            books = books
+                        )
+                    }
                 }
             }
         }
@@ -300,14 +311,7 @@ class LibraryViewModel @Inject constructor(
                     }
                 }
 
-                is Resource.Loading -> {
-                    _state.update {
-                        it.copy(
-                            isLoading = result.isLoading
-                        )
-                    }
-                }
-
+                is Resource.Loading -> Unit
                 is Resource.Error -> Unit
             }
         }

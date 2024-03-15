@@ -27,6 +27,7 @@ import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.use_case.DeleteBooks
 import ua.acclorite.book_story.domain.use_case.GetBookFromFile
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
+import ua.acclorite.book_story.domain.use_case.UpdateBooksWithText
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
 
@@ -35,6 +36,7 @@ import ua.acclorite.book_story.presentation.data.Screen
 class BookInfoViewModel @AssistedInject constructor(
     @Assisted book: Book,
     private val updateBooks: UpdateBooks,
+    private val updateBooksWithText: UpdateBooksWithText,
     private val deleteBooks: DeleteBooks,
     private val getBookFromFile: GetBookFromFile
 ) : ViewModel() {
@@ -42,7 +44,7 @@ class BookInfoViewModel @AssistedInject constructor(
     private val _state = MutableStateFlow(BookInfoState(book))
     val state = _state.asStateFlow()
 
-    var job: Job? = null
+    private var job: Job? = null
 
     fun onEvent(event: BookInfoEvent) {
         when (event) {
@@ -286,7 +288,8 @@ class BookInfoViewModel @AssistedInject constructor(
                 viewModelScope.launch(Dispatchers.IO) {
                     _state.update {
                         it.copy(
-                            isRefreshing = true
+                            isRefreshing = true,
+                            editTitle = false
                         )
                     }
 
@@ -359,12 +362,19 @@ class BookInfoViewModel @AssistedInject constructor(
                         it.copy(
                             book = it.book.copy(
                                 author = updatedBook.author,
+                                description = updatedBook.description
+                            )
+                        )
+                    }
+                    updateBooksWithText.execute(
+                        listOf(
+                            _state.value.book.copy(
+                                author = updatedBook.author,
                                 description = updatedBook.description,
                                 text = updatedBook.text
                             )
                         )
-                    }
-                    updateBooks.execute(listOf(_state.value.book))
+                    )
                     event.refreshList()
 
                     onEvent(

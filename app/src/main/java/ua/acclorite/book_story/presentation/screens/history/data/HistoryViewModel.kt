@@ -1,5 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.history.data
 
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.SnackbarResult
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -58,7 +59,8 @@ class HistoryViewModel @Inject constructor(
                     _state.update {
                         it.copy(
                             isRefreshing = true,
-                            showSearch = false
+                            showSearch = false,
+                            listState = LazyListState(0, 0),
                         )
                     }
 
@@ -76,12 +78,11 @@ class HistoryViewModel @Inject constructor(
                 viewModelScope.launch(Dispatchers.IO) {
                     _state.update {
                         it.copy(
-                            isLoading = true
+                            isLoading = true,
+                            listState = LazyListState(0, 0),
                         )
                     }
                     getHistoryFromDatabase()
-                    onEvent(HistoryEvent.OnUpdateScrollIndex(0))
-                    onEvent(HistoryEvent.OnUpdateScrollOffset(0))
                 }
             }
 
@@ -89,7 +90,8 @@ class HistoryViewModel @Inject constructor(
                 viewModelScope.launch {
                     _state.update {
                         it.copy(
-                            showDeleteWholeHistoryDialog = false
+                            showDeleteWholeHistoryDialog = false,
+                            isLoading = true
                         )
                     }
 
@@ -109,7 +111,7 @@ class HistoryViewModel @Inject constructor(
             }
 
             is HistoryEvent.OnDeleteHistoryElement -> {
-                viewModelScope.launch {
+                viewModelScope.launch(Dispatchers.IO) {
                     deleteHistory.execute(
                         listOf(event.historyToDelete)
                     )
@@ -186,22 +188,6 @@ class HistoryViewModel @Inject constructor(
                     }
                 }
             }
-
-            is HistoryEvent.OnUpdateScrollIndex -> {
-                _state.update {
-                    it.copy(
-                        scrollIndex = event.index
-                    )
-                }
-            }
-
-            is HistoryEvent.OnUpdateScrollOffset -> {
-                _state.update {
-                    it.copy(
-                        scrollOffset = event.offset
-                    )
-                }
-            }
         }
     }
 
@@ -224,16 +210,12 @@ class HistoryViewModel @Inject constructor(
         getHistory.execute().collect { result ->
             when (result) {
                 is Resource.Success -> {
-                    _state.update {
-                        it.copy(
-                            history = emptyList()
-                        )
-                    }
                     val history = result.data?.sortedByDescending { it.time } ?: emptyList()
 
                     if (history.isEmpty()) {
                         _state.update {
                             it.copy(
+                                history = emptyList(),
                                 isLoading = false
                             )
                         }

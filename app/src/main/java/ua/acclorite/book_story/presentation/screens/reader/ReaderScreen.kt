@@ -150,16 +150,19 @@ fun ReaderScreen(
             }
         )
     }
+
     LaunchedEffect(listState) {
         snapshotFlow {
             listState.firstVisibleItemIndex
-        }.debounce(50).collectLatest {
+        }.debounce(1000).collectLatest {
             if (!loading) {
+                val lastVisibleItemIndex = listState.layoutInfo.visibleItemsInfo.last().index
+
                 val progress = if (it > 0) {
-                    if ((it + listState.layoutInfo.visibleItemsInfo.size) >= state.book.text.lastIndex) {
+                    if (lastVisibleItemIndex >= (listState.layoutInfo.totalItemsCount - 1)) {
                         1f
                     } else {
-                        (it.toFloat() / (state.book.text.size - 1).toFloat())
+                        (it.toFloat() / (state.book.text.lastIndex).toFloat())
                     }
                 } else {
                     0f
@@ -264,10 +267,10 @@ fun ReaderScreen(
             LazyColumn(
                 state = listState,
                 modifier = Modifier
+                    .fillMaxSize()
                     .then(
                         if (!loading && toolbarShowed) {
                             Modifier
-                                .fillMaxSize()
                                 .clickable(
                                     interactionSource = null,
                                     indication = null,
@@ -279,7 +282,6 @@ fun ReaderScreen(
                                 )
                         } else {
                             Modifier
-                                .fillMaxSize()
                         }
                     )
             ) {
@@ -293,7 +295,11 @@ fun ReaderScreen(
 
                 itemsIndexed(
                     state.book.text, key = { _, key -> key.id }
-                ) { index, text ->
+                ) { index, line ->
+                    val text = remember { "${if (paragraphIndentation) "  " else ""}${line.line}" }
+                    val color = remember { Color(fontColor.toULong()) }
+                    val lineHeightSp = remember { (fontSize + lineHeight).sp }
+
                     Column(
                         Modifier
                             .background(Color(backgroundColor.toULong()))
@@ -307,8 +313,8 @@ fun ReaderScreen(
                             )
                     ) {
                         Text(
-                            text = "${if (paragraphIndentation) "  " else ""}${text.line}",
-                            color = Color(fontColor.toULong()),
+                            text = text,
+                            color = color,
 
                             style = TextStyle(
                                 lineBreak = LineBreak.Paragraph
@@ -316,7 +322,7 @@ fun ReaderScreen(
                             fontFamily = fontFamily.font,
                             fontStyle = fontStyle,
                             fontSize = fontSize.sp,
-                            lineHeight = (fontSize + lineHeight).sp
+                            lineHeight = lineHeightSp
                         )
                     }
                 }

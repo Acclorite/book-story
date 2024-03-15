@@ -212,6 +212,8 @@ fun ReaderSettings(
                     )
                 }
             }
+
+            item { Spacer(modifier = Modifier.height(48.dp)) }
         }
     }
 }

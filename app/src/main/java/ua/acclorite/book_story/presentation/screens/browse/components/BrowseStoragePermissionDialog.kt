@@ -19,7 +19,11 @@ import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
  */
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun BrowseStoragePermissionDialog(viewModel: BrowseViewModel, permissionState: PermissionState) {
+fun BrowseStoragePermissionDialog(
+    viewModel: BrowseViewModel,
+    permissionState: PermissionState,
+    showErrorMessage: (Boolean) -> Unit
+) {
     val activity = LocalContext.current as ComponentActivity
 
     CustomDialogWithContent(
@@ -27,15 +31,28 @@ fun BrowseStoragePermissionDialog(viewModel: BrowseViewModel, permissionState: P
         description = stringResource(id = R.string.storage_permission_description),
         actionText = stringResource(id = R.string.grant),
         imageVectorIcon = Icons.Default.SdStorage,
-        onDismiss = { viewModel.onEvent(BrowseEvent.OnStoragePermissionDismiss(permissionState)) },
+        onDismiss = {
+            viewModel.onEvent(
+                BrowseEvent.OnStoragePermissionDismiss(
+                    permissionState,
+                    showErrorMessage = { showErrorMessage(true) }
+                )
+            )
+        },
         isActionEnabled = true,
         withDivider = false,
         onAction = {
             viewModel.onEvent(
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    BrowseEvent.OnStoragePermissionRequest(activity)
+                    BrowseEvent.OnStoragePermissionRequest(
+                        activity,
+                        hideErrorMessage = { showErrorMessage(false) }
+                    )
                 } else {
-                    BrowseEvent.OnLegacyStoragePermissionRequest(permissionState)
+                    BrowseEvent.OnLegacyStoragePermissionRequest(
+                        permissionState,
+                        hideErrorMessage = { showErrorMessage(false) }
+                    )
                 }
             )
         }

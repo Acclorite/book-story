@@ -18,11 +18,12 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
@@ -37,24 +38,27 @@ import ua.acclorite.book_story.ui.elevation
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LibraryTabRow(viewModel: LibraryViewModel, books: List<Book>, pagerState: PagerState) {
-    val tabItems = listOf(
-        Pair(
-            stringResource(id = R.string.reading_tab),
-            books.filter { it.category == Category.READING }.size
-        ),
-        Pair(
-            stringResource(id = R.string.already_read_tab),
-            books.filter { it.category == Category.ALREADY_READ }.size
-        ),
-        Pair(
-            stringResource(id = R.string.planning_tab),
-            books.filter { it.category == Category.PLANNING }.size
-        ),
-        Pair(
-            stringResource(id = R.string.dropped_tab),
-            books.filter { it.category == Category.DROPPED }.size
+    val context = LocalContext.current
+    val tabItems = remember(books) {
+        listOf(
+            Pair(
+                context.getString(R.string.reading_tab),
+                books.filter { it.category == Category.READING }.size
+            ),
+            Pair(
+                context.getString(R.string.already_read_tab),
+                books.filter { it.category == Category.ALREADY_READ }.size
+            ),
+            Pair(
+                context.getString(R.string.planning_tab),
+                books.filter { it.category == Category.PLANNING }.size
+            ),
+            Pair(
+                context.getString(R.string.dropped_tab),
+                books.filter { it.category == Category.DROPPED }.size
+            )
         )
-    )
+    }
 
     if (LocalConfiguration.current.screenWidthDp > 450) {
         TabRow(

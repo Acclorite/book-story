@@ -11,14 +11,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -29,8 +25,6 @@ import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -38,14 +32,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshotFlow
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -55,11 +49,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.debounce
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
+import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.MoreDropDown
 import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
 import ua.acclorite.book_story.presentation.components.is_messages.IsError
@@ -79,7 +71,7 @@ import ua.acclorite.book_story.ui.elevation
     ExperimentalMaterial3Api::class,
     ExperimentalPermissionsApi::class,
     ExperimentalFoundationApi::class,
-    ExperimentalMaterialApi::class, FlowPreview::class
+    ExperimentalMaterialApi::class
 )
 @Composable
 fun BrowseScreen(
@@ -98,34 +90,21 @@ fun BrowseScreen(
         }
     )
     val focusRequester = remember { FocusRequester() }
-    val listState = rememberLazyGridState(state.scrollIndex, state.scrollOffset)
+    var showErrorMessage by remember { mutableStateOf(false) }
 
-    LaunchedEffect(listState) {
-        snapshotFlow {
-            listState.firstVisibleItemIndex
-        }
-            .debounce(10L)
-            .collectLatest {
-                viewModel.onEvent(BrowseEvent.OnUpdateScrollIndex(it))
-            }
-    }
-    LaunchedEffect(listState) {
-        snapshotFlow {
-            listState.firstVisibleItemScrollOffset
-        }
-            .debounce(10L)
-            .collectLatest {
-                viewModel.onEvent(
-                    BrowseEvent.OnUpdateScrollOffset(it)
-                )
-            }
-    }
     LaunchedEffect(Unit) {
-        viewModel.onEvent(BrowseEvent.OnPermissionCheck(permissionState))
+        viewModel.onEvent(
+            BrowseEvent.OnPermissionCheck(
+                permissionState,
+                hideErrorMessage = { showErrorMessage = false }
+            )
+        )
     }
 
     if (state.requestPermissionDialog) {
-        BrowseStoragePermissionDialog(viewModel, permissionState)
+        BrowseStoragePermissionDialog(viewModel, permissionState) {
+            showErrorMessage = it
+        }
     }
     if (state.showAddingDialog) {
         BrowseAddingDialog(
@@ -146,7 +125,7 @@ fun BrowseScreen(
                 scrolledContainerColor = MaterialTheme.elevation(),
 
                 scrollBehavior = null,
-                isTopBarScrolled = state.scrollIndex > 0 || state.scrollOffset > 0 || state.hasSelectedItems,
+                isTopBarScrolled = state.hasSelectedItems || state.listState.canScrollBackward,
 
                 content1Visibility = !state.hasSelectedItems && !state.showSearch,
                 content1NavigationIcon = {},
@@ -160,26 +139,26 @@ fun BrowseScreen(
                     )
                 },
                 content1Actions = {
-                    IconButton(onClick = { viewModel.onEvent(BrowseEvent.OnSearchShowHide) }) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = "Search files",
-                            modifier = Modifier.size(24.dp),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                    CustomIconButton(
+                        icon = Icons.Default.Search,
+                        contentDescription = stringResource(id = R.string.search_content_desc),
+                        disableOnClick = false,
+                        enabled = !state.showSearch
+                    ) {
+                        viewModel.onEvent(BrowseEvent.OnSearchShowHide)
                     }
                     MoreDropDown(navigator = navigator)
                 },
 
                 content2Visibility = state.hasSelectedItems,
                 content2NavigationIcon = {
-                    IconButton(onClick = { viewModel.onEvent(BrowseEvent.OnClearSelectedFiles) }) {
-                        Icon(
-                            imageVector = Icons.Default.Clear,
-                            contentDescription = "Clear selected items",
-                            modifier = Modifier.size(24.dp),
-                            tint = MaterialTheme.colorScheme.onSurface
-                        )
+                    CustomIconButton(
+                        icon = Icons.Default.Clear,
+                        contentDescription =
+                        stringResource(id = R.string.clear_selected_items_content_desc),
+                        disableOnClick = true
+                    ) {
+                        viewModel.onEvent(BrowseEvent.OnClearSelectedFiles)
                     }
                 },
                 content2Title = {
@@ -195,25 +174,27 @@ fun BrowseScreen(
                     )
                 },
                 content2Actions = {
-                    IconButton(onClick = { viewModel.onEvent(BrowseEvent.OnAddingDialogRequest) }) {
-                        Icon(
-                            imageVector = Icons.Default.Check,
-                            contentDescription = "Add files to library",
-                            modifier = Modifier.size(24.dp),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                    CustomIconButton(
+                        icon = Icons.Default.Check,
+                        contentDescription =
+                        stringResource(id = R.string.add_files_content_desc),
+                        disableOnClick = false,
+                        enabled = !state.showAddingDialog
+                    ) {
+                        viewModel.onEvent(BrowseEvent.OnAddingDialogRequest)
                     }
                 },
 
                 content3Visibility = state.showSearch && !state.hasSelectedItems,
                 content3NavigationIcon = {
-                    IconButton(onClick = { viewModel.onEvent(BrowseEvent.OnSearchShowHide) }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                            contentDescription = "Exit search mode",
-                            modifier = Modifier.size(24.dp),
-                            tint = MaterialTheme.colorScheme.onSurface
-                        )
+                    CustomIconButton(
+                        icon = Icons.AutoMirrored.Default.ArrowBack,
+                        contentDescription = stringResource(
+                            id = R.string.exit_search_content_desc
+                        ),
+                        disableOnClick = true
+                    ) {
+                        viewModel.onEvent(BrowseEvent.OnSearchShowHide)
                     }
                 },
                 content3Title = {
@@ -268,52 +249,54 @@ fun BrowseScreen(
                 .fillMaxSize()
                 .padding(top = padding.calculateTopPadding())
         ) {
-            LazyVerticalGrid(
-                state = listState,
-                modifier = Modifier
-                    .fillMaxSize(),
-                columns = GridCells.Adaptive(170.dp),
-                contentPadding = PaddingValues(12.dp)
-            ) {
-                items(
-                    state.selectableFiles,
-                    key = { it.first.path }
-                ) { selectableFile ->
-                    BrowseFileItem(
-                        file = selectableFile,
-                        modifier = Modifier
-                            .animateItemPlacement(),
-                        onClick = {
-                            viewModel.onEvent(BrowseEvent.OnSelectFile(selectableFile))
-                        }
-                    )
+            DefaultTransition(visible = !state.isLoading) {
+                LazyColumn(
+                    state = state.listState,
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentPadding = PaddingValues(vertical = 8.dp)
+                ) {
+                    items(
+                        state.selectableFiles,
+                        key = { it.first.path }
+                    ) { selectableFile ->
+                        BrowseFileItem(
+                            file = selectableFile,
+                            modifier = Modifier
+                                .animateItemPlacement(),
+                            hasSelectedFiles = state.selectableFiles.any { it.second },
+                            onClick = {
+                                viewModel.onEvent(BrowseEvent.OnSelectFile(selectableFile))
+                            }
+                        )
+                    }
                 }
             }
 
-            if (state.isLoading && !state.isRefreshing && state.selectableFiles.isEmpty()) {
-                CircularProgressIndicator(
-                    color = MaterialTheme.colorScheme.primary,
-                    strokeCap = StrokeCap.Round,
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .size(36.dp)
-                )
-            }
-
-            DefaultTransition(visible = state.showErrorMessage, Modifier.align(Alignment.Center)) {
+            AnimatedVisibility(
+                visible = showErrorMessage,
+                modifier = Modifier.align(Alignment.Center),
+                enter = Transitions.DefaultTransitionIn,
+                exit = fadeOut(tween(0))
+            ) {
                 IsError(
                     modifier = Modifier.align(Alignment.Center),
                     errorMessage = stringResource(id = R.string.error_permission),
                     icon = painterResource(id = R.drawable.error),
                     actionTitle = stringResource(id = R.string.grant_permission)
                 ) {
-                    viewModel.onEvent(BrowseEvent.OnPermissionCheck(permissionState))
+                    viewModel.onEvent(
+                        BrowseEvent.OnPermissionCheck(
+                            permissionState,
+                            hideErrorMessage = { showErrorMessage = false }
+                        )
+                    )
                 }
             }
 
             AnimatedVisibility(
                 visible = !state.isLoading && state.selectableFiles.isEmpty()
-                        && !state.showErrorMessage && !state.requestPermissionDialog
+                        && !showErrorMessage && !state.requestPermissionDialog
                         && !state.isRefreshing,
                 modifier = Modifier.align(Alignment.Center),
                 enter = Transitions.DefaultTransitionIn,

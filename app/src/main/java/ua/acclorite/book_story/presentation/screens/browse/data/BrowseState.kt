@@ -1,5 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.browse.data
 
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.domain.model.NullableBook
 import java.io.File
@@ -7,10 +8,11 @@ import java.io.File
 @Immutable
 data class BrowseState(
     val selectableFiles: List<Pair<File, Boolean>> = emptyList(),
+    val listState: LazyListState = LazyListState(0, 0),
+
     val isLoading: Boolean = true,
     val isRefreshing: Boolean = false,
     val requestPermissionDialog: Boolean = false,
-    val showErrorMessage: Boolean = false,
 
     val selectedItemsCount: Int = 0,
     val hasSelectedItems: Boolean = false,

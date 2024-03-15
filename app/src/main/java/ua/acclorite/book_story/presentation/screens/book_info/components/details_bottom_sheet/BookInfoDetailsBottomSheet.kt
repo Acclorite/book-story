@@ -3,8 +3,10 @@ package ua.acclorite.book_story.presentation.screens.book_info.components.detail
 import android.widget.Toast
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -12,6 +14,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -35,20 +38,32 @@ fun BookInfoDetailsBottomSheet(
 ) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
+    val navigationBarPadding =
+        WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
-    val pattern = SimpleDateFormat("HH:mm dd MMM yyyy", Locale.getDefault())
-    val lastOpened = pattern.format(Date(state.book.lastOpened ?: 0))
+    val pattern = remember {
+        SimpleDateFormat("HH:mm dd MMM yyyy", Locale.getDefault())
+    }
+    val lastOpened = remember {
+        pattern.format(Date(state.book.lastOpened ?: 0))
+    }
 
-    val sizeBytes = state.book.file?.length() ?: 0
+    val sizeBytes = remember {
+        state.book.file?.length() ?: 0
+    }
 
-    val fileSizeKB = if (sizeBytes > 0) sizeBytes.toDouble() / 1024.0 else 0.0
-    val fileSizeMB = if (sizeBytes > 0) fileSizeKB / 1024.0 else 0.0
+    val fileSizeKB = remember {
+        if (sizeBytes > 0) sizeBytes.toDouble() / 1024.0 else 0.0
+    }
+    val fileSizeMB = remember {
+        if (sizeBytes > 0) fileSizeKB / 1024.0 else 0.0
+    }
 
-    val fileSize =
+    val fileSize = remember {
         if (fileSizeMB >= 1.0) "%.2f MB".format(fileSizeMB)
         else if (fileSizeMB > 0.0) "%.2f KB".format(fileSizeKB)
         else ""
-
+    }
 
     ModalBottomSheet(
         modifier = Modifier.fillMaxWidth(),
@@ -129,7 +144,10 @@ fun BookInfoDetailsBottomSheet(
             }
         }
 
-
-        Spacer(modifier = Modifier.height(48.dp))
+        Spacer(
+            modifier = Modifier.height(
+                8.dp + navigationBarPadding
+            )
+        )
     }
 }

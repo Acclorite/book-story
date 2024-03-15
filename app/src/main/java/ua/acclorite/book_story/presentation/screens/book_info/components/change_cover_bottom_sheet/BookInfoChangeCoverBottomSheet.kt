@@ -6,8 +6,10 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.HideImage
 import androidx.compose.material.icons.filled.ImageSearch
@@ -44,7 +46,8 @@ fun BookInfoChangeCoverBottomSheet(
 ) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
-    val book = state.book
+    val navigationBarPadding =
+        WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
     val photoPicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
@@ -89,7 +92,7 @@ fun BookInfoChangeCoverBottomSheet(
             )
         }
 
-        if (book.coverImage != null) {
+        if (state.book.coverImage != null) {
             BookInfoChangeCoverBottomSheetItem(
                 icon = Icons.Default.HideImage,
                 text = stringResource(id = R.string.delete_cover),
@@ -109,6 +112,10 @@ fun BookInfoChangeCoverBottomSheet(
             }
         }
 
-        Spacer(modifier = Modifier.height(48.dp))
+        Spacer(
+            modifier = Modifier.height(
+                8.dp + navigationBarPadding
+            )
+        )
     }
 }

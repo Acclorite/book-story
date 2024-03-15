@@ -36,10 +36,12 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
@@ -76,7 +78,7 @@ fun BookInfoInfoSection(viewModel: BookInfoViewModel, book: Book) {
         ) {
             Icon(
                 imageVector = Icons.Default.Image,
-                contentDescription = "Cover Image not found",
+                contentDescription = stringResource(id = R.string.cover_image_not_found_content_desc),
                 modifier = Modifier
                     .align(Alignment.Center)
                     .fillMaxWidth(0.7f)
@@ -87,7 +89,7 @@ fun BookInfoInfoSection(viewModel: BookInfoViewModel, book: Book) {
             if (book.coverImage != null) {
                 Image(
                     bitmap = book.coverImage,
-                    contentDescription = "Cover",
+                    contentDescription = stringResource(id = R.string.cover_image_content_desc),
                     modifier = Modifier
                         .fillMaxSize()
                         .clip(MaterialTheme.shapes.large),

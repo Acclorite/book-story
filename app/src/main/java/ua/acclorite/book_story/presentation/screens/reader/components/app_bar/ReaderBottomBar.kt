@@ -14,7 +14,9 @@ import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,7 +41,15 @@ fun ReaderBottomBar(
     systemBarsColor: Color
 ) {
     val state by viewModel.state.collectAsState()
-    val book = state.book
+    val progress by remember(state.book.progress) {
+        derivedStateOf {
+            (state.book.progress * 100)
+                .toDouble()
+                .removeDigits(4)
+                .removeTrailingZero()
+                .dropWhile { it == '-' } + "%"
+        }
+    }
 
     Column(
         Modifier
@@ -57,17 +67,12 @@ fun ReaderBottomBar(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text =
-            (book.progress * 100)
-                .toDouble()
-                .removeDigits(4)
-                .removeTrailingZero()
-                .dropWhile { it == '-' } + "%",
+            text = progress,
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleLarge
         )
         Slider(
-            value = book.progress,
+            value = state.book.progress,
             onValueChange = {
                 viewModel.onEvent(
                     ReaderEvent.OnChangeProgress(

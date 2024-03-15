@@ -1,14 +1,12 @@
 package ua.acclorite.book_story.presentation.data
 
 import android.os.Build
-import androidx.activity.ComponentActivity
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -44,12 +42,16 @@ class MainViewModel @Inject constructor(
     private val _isReady = MutableStateFlow(false)
     val isReady = _isReady.asStateFlow()
 
-    private val _updating = MutableStateFlow(false)
-    val updating = _updating.asStateFlow()
-
     /* -- Language ----------------------------------------------------- */
     private var _language: String =
-        stateHandle[Constants.LANGUAGE] ?: Locale.getDefault().language
+        stateHandle[Constants.LANGUAGE]
+            ?: if (
+                Constants.LANGUAGES.any { Locale.getDefault().language.take(2) == it.first }
+            ) {
+                Locale.getDefault().language.take(2)
+            } else {
+                "en"
+            }
         set(value) {
             field = value
             stateHandle[Constants.LANGUAGE] = value
@@ -172,23 +174,9 @@ class MainViewModel @Inject constructor(
     fun onEvent(event: MainEvent) {
         when (event) {
             is MainEvent.OnChangeLanguage -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    _updating.update { true }
-
-                    changeLanguage.execute(event.lang, event.activity)
+                viewModelScope.launch(Dispatchers.Main) {
+                    changeLanguage.execute(event.lang)
                     _language = event.lang
-                    delay(100)
-
-                    _updating.update { false }
-                }
-            }
-
-            is MainEvent.OnLocaleUpdate -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    _updating.update { true }
-                    changeLanguage.execute(_language, event.activity)
-                    delay(10)
-                    _updating.update { false }
                 }
             }
 
@@ -266,7 +254,6 @@ class MainViewModel @Inject constructor(
     }
 
     fun init(
-        activity: ComponentActivity,
         libraryViewModel: LibraryViewModel,
     ) {
         val isViewModelsReady = combine(
@@ -311,11 +298,11 @@ class MainViewModel @Inject constructor(
         }
 
         // Language
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Main) {
             getDatastore
                 .execute(DataStoreConstants.LANGUAGE, _language)
                 .first {
-                    onEvent(MainEvent.OnChangeLanguage(it, activity))
+                    onEvent(MainEvent.OnChangeLanguage(it))
                     it.isNotBlank()
                 }
         }

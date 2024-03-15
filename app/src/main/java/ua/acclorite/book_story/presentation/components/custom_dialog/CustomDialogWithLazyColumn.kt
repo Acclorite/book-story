@@ -21,6 +21,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -71,6 +75,7 @@ fun CustomDialogWithLazyColumn(
     withDivider: Boolean,
     items: (LazyListScope.() -> Unit) = {}
 ) {
+    var actionClicked by remember { mutableStateOf(false) }
     AlertDialog(
         onDismissRequest = { onDismiss() },
         properties = properties
@@ -156,7 +161,13 @@ fun CustomDialogWithLazyColumn(
                                 .align(Alignment.End)
                                 .padding(horizontal = 24.dp)
                         ) {
-                            TextButton(onClick = { onDismiss() }) {
+                            TextButton(
+                                onClick = {
+                                    actionClicked = true
+                                    onDismiss()
+                                },
+                                enabled = !actionClicked
+                            ) {
                                 Text(
                                     text = stringResource(id = R.string.cancel),
                                     style = MaterialTheme.typography.labelLarge,
@@ -166,8 +177,11 @@ fun CustomDialogWithLazyColumn(
                             if (actionText != null) {
                                 Spacer(modifier = Modifier.width(4.dp))
                                 TextButton(
-                                    onClick = { onAction() },
-                                    enabled = isActionEnabled == true
+                                    onClick = {
+                                        actionClicked = true
+                                        onAction()
+                                    },
+                                    enabled = isActionEnabled == true && !actionClicked
                                 ) {
                                     Text(
                                         text = actionText,
