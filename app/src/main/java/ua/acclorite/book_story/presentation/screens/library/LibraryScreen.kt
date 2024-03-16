@@ -86,6 +86,7 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewMode
 import ua.acclorite.book_story.ui.DefaultTransition
 import ua.acclorite.book_story.ui.Transitions
 import ua.acclorite.book_story.ui.elevation
+import ua.acclorite.book_story.util.Selected
 import java.util.UUID
 
 @OptIn(
@@ -304,14 +305,14 @@ fun LibraryScreen(
         ) {
             HorizontalPager(state = pagerState, userScrollEnabled = !state.isRefreshing) { index ->
                 var categoryIsLoading by remember { mutableStateOf(true) }
-                val categorizedBooks = remember { mutableStateListOf<Pair<Book, Boolean>>() }
+                val categorizedBooks = remember { mutableStateListOf<Pair<Book, Selected>>() }
                 val category = remember { Category.entries[index] }
 
                 LaunchedEffect(state.books) {
                     categorizedBooks.clear()
                     categorizedBooks.addAll(state.books.filter { it.first.category == category }
                         .sortedWith(
-                            compareByDescending<Pair<Book, Boolean>> { it.first.lastOpened }
+                            compareByDescending<Pair<Book, Selected>> { it.first.lastOpened }
                                 .thenBy { it.first.title }
                         )
                     )
@@ -340,7 +341,7 @@ fun LibraryScreen(
                                             navigator.navigate(
                                                 Screen.BOOK_INFO,
                                                 false,
-                                                Argument("book", it.first)
+                                                Argument("book", it.first.id)
                                             )
                                         }
                                     },
@@ -353,7 +354,7 @@ fun LibraryScreen(
                                         navigator.navigate(
                                             Screen.READER,
                                             false,
-                                            Argument("book", it.first)
+                                            Argument("book", it.first.id)
                                         )
                                     }
                                 )

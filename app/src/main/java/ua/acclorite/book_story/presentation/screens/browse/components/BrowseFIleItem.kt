@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CustomCheckbox
 import ua.acclorite.book_story.ui.DefaultTransition
+import ua.acclorite.book_story.util.Selected
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -45,7 +46,7 @@ import java.util.Locale
  */
 @Composable
 fun BrowseFileItem(
-    file: Pair<File, Boolean>,
+    file: Pair<File, Selected>,
     hasSelectedFiles: Boolean,
     modifier: Modifier, onClick: () -> Unit
 ) {

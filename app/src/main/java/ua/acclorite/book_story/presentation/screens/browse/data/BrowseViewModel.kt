@@ -199,13 +199,12 @@ class BrowseViewModel @Inject constructor(
                     }
 
                     val editedList = _state.value.selectedBooks.toMutableList()
-                    editedList[indexOfFile] = NullableBook.NotNull(
-                        editedList[indexOfFile].book!!.copy(
-                            second = !editedList[indexOfFile].book!!.second
-                        )
-                    )
+                    editedList[indexOfFile] = editedList[indexOfFile].first to
+                            !editedList[indexOfFile].second
 
-                    if (!editedList.any { it.book?.second == true }) {
+                    if (!editedList.filter { it.first is NullableBook.NotNull }
+                            .any { it.second }
+                    ) {
                         return@launch
                     }
 
@@ -308,7 +307,7 @@ class BrowseViewModel @Inject constructor(
 
                     _state.update {
                         it.copy(
-                            selectedBooks = books,
+                            selectedBooks = books.map { book -> book to true },
                             isBooksLoading = false
                         )
                     }
@@ -318,9 +317,9 @@ class BrowseViewModel @Inject constructor(
             is BrowseEvent.OnAddBooks -> {
                 viewModelScope.launch {
                     val booksToInsert = _state.value.selectedBooks
-                        .filterIsInstance<NullableBook.NotNull>()
-                        .filter { it.book!!.second }
-                        .map { it.book!!.first }
+                        .filter { it.first is NullableBook.NotNull }
+                        .filter { it.second }
+                        .map { it.first.book!! }
 
                     if (booksToInsert.isEmpty()) {
                         return@launch
@@ -330,19 +329,21 @@ class BrowseViewModel @Inject constructor(
                     val books = fastGetBooks.execute("")
 
                     event.resetScroll()
-                    _state.update {
-                        it.copy(
-                            showAddingDialog = false
-                        )
-                    }
-                    onEvent(BrowseEvent.OnClearSelectedFiles)
-                    onEvent(BrowseEvent.OnLoadList)
-
                     event.navigator.navigate(
                         Screen.LIBRARY,
                         false,
                         Argument("added_books", books)
                     )
+
+                    _state.update {
+                        it.copy(
+                            showAddingDialog = false,
+                            selectableFiles = emptyList(),
+                            listState = LazyListState(0, 0)
+                        )
+                    }
+                    onEvent(BrowseEvent.OnLoadList)
+                    onEvent(BrowseEvent.OnClearSelectedFiles)
                 }
             }
 

@@ -5,13 +5,14 @@ import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.model.StringWithId
+import ua.acclorite.book_story.util.CoverImage
 import ua.acclorite.book_story.util.UIText
 import java.io.File
 import javax.inject.Inject
 
 class TxtFileParser @Inject constructor() : FileParser {
 
-    override suspend fun parse(file: File): Book? {
+    override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
         if (!file.name.endsWith(".txt")) {
             return null
         }
@@ -33,7 +34,7 @@ class TxtFileParser @Inject constructor() : FileParser {
                 lastOpened = null,
                 category = Category.entries[0],
                 coverImage = null
-            )
+            ) to null
         } catch (e: Exception) {
             return null
         }

@@ -46,9 +46,7 @@ fun BrowseAddingDialog(
         description = stringResource(id = R.string.add_books_description),
         actionText = stringResource(id = R.string.add),
         isActionEnabled = !state.isBooksLoading &&
-                state.selectedBooks
-                    .filterIsInstance<NullableBook.NotNull>()
-                    .isNotEmpty(),
+                state.selectedBooks.any { it.first is NullableBook.NotNull },
         onDismiss = { viewModel.onEvent(BrowseEvent.OnAddingDialogDismiss) },
         onAction = {
             viewModel.onEvent(
@@ -91,7 +89,7 @@ fun BrowseAddingDialog(
                         } else {
                             Toast.makeText(
                                 context,
-                                book.message?.asString(context),
+                                book.first.message?.asString(context),
                                 Toast.LENGTH_LONG
                             ).show()
                         }

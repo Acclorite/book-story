@@ -8,6 +8,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.util.Selected
 import java.io.File
 
 sealed class BrowseEvent {
@@ -29,8 +30,8 @@ sealed class BrowseEvent {
         val hideErrorMessage: () -> Unit
     ) : BrowseEvent()
 
-    data class OnSelectFile(val file: Pair<File, Boolean>) : BrowseEvent()
-    data class OnSelectBook(val book: NullableBook) : BrowseEvent()
+    data class OnSelectFile(val file: Pair<File, Selected>) : BrowseEvent()
+    data class OnSelectBook(val book: Pair<NullableBook, Selected>) : BrowseEvent()
     data object OnSearchShowHide : BrowseEvent()
     data class OnRequestFocus(val focusRequester: FocusRequester) : BrowseEvent()
     data object OnClearSelectedFiles : BrowseEvent()

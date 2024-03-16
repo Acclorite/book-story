@@ -11,9 +11,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -27,6 +24,7 @@ import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.StringWithId
+import ua.acclorite.book_story.domain.use_case.GetBooksById
 import ua.acclorite.book_story.domain.use_case.GetText
 import ua.acclorite.book_story.domain.use_case.InsertHistory
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
@@ -35,18 +33,19 @@ import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.util.UIText
 import java.util.Date
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalFoundationApi::class)
-@HiltViewModel(assistedFactory = ReaderViewModel.Factory::class)
-class ReaderViewModel @AssistedInject constructor(
-    @Assisted book: Book,
+@HiltViewModel
+class ReaderViewModel @Inject constructor(
     private val updateBooks: UpdateBooks,
     private val insertHistory: InsertHistory,
-    private val getText: GetText
+    private val getText: GetText,
+    private val getBooksById: GetBooksById
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(ReaderState(book))
+    private val _state = MutableStateFlow(ReaderState())
     val state = _state.asStateFlow()
 
     fun onEvent(event: ReaderEvent) {
@@ -104,14 +103,17 @@ class ReaderViewModel @AssistedInject constructor(
                     )
                     event.refreshList(_state.value.book)
                     event.navigator.putArgument(
-                        Argument("book", _state.value.book)
+                        Argument("book", _state.value.book.id)
                     )
 
                     viewModelScope.launch {
                         snapshotFlow {
                             event.scrollState.layoutInfo.totalItemsCount
                         }.collectLatest { itemsCount ->
-                            val scrollTo = (itemsCount * _state.value.book.progress).roundToInt()
+                            val scrollTo =
+                                (_state.value.book.text.size * _state.value.book.progress)
+                                    .toInt()
+
                             if (itemsCount >= _state.value.book.text.size) {
                                 if (scrollTo > 0) {
                                     var loaded = false
@@ -194,12 +196,12 @@ class ReaderViewModel @AssistedInject constructor(
                     }
 
                     updateBooks.execute(
-                        listOf(_state.value.book.copy(progress = event.progress))
+                        listOf(_state.value.book)
                     )
                     event.navigator.putArgument(
-                        Argument("book", _state.value.book.copy(progress = event.progress))
+                        Argument("book", _state.value.book.id)
                     )
-                    event.refreshList(_state.value.book.copy(progress = event.progress))
+                    event.refreshList(_state.value.book)
                 }
             }
 
@@ -301,12 +303,14 @@ class ReaderViewModel @AssistedInject constructor(
         onLoaded: () -> Unit
     ) {
         viewModelScope.launch {
-            val book = navigator.retrieveArgument("book") as? Book
+            val bookIndex = navigator.retrieveArgument("book") as? Int
 
-            if (book == null) {
+            if (bookIndex == null || bookIndex < 0) {
                 navigator.navigateBack()
                 return@launch
             }
+
+            val book = getBooksById.execute(listOf(bookIndex)).first()
 
             _state.update {
                 ReaderState(book = book)
@@ -327,11 +331,6 @@ class ReaderViewModel @AssistedInject constructor(
                 )
             )
         }
-    }
-
-    @AssistedFactory
-    interface Factory {
-        fun create(book: Book): ReaderViewModel
     }
 }
 

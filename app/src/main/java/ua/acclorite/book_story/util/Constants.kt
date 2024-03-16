@@ -177,7 +177,7 @@ object Constants {
     )
 
     val EMPTY_BOOK = Book(
-        0,
+        -1,
         "",
         UIText.StringValue(""),
         null,

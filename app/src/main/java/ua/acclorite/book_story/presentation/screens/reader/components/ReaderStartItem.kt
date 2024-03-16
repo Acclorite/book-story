@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.reader.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,6 +31,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 import ua.acclorite.book_story.ui.elevation
@@ -62,24 +62,24 @@ fun ReaderStartItem(viewModel: ReaderViewModel) {
                     .clip(MaterialTheme.shapes.medium)
                     .background(MaterialTheme.elevation())
             ) {
-                Icon(
-                    imageVector = Icons.Default.Image,
-                    contentDescription = stringResource(id = R.string.cover_image_not_found_content_desc),
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .fillMaxWidth(0.7f)
-                        .aspectRatio(1f),
-                    tint = MaterialTheme.elevation(12.dp)
-                )
-
                 if (state.book.coverImage != null) {
-                    Image(
-                        bitmap = state.book.coverImage!!,
+                    AsyncImage(
+                        model = state.book.coverImage!!,
                         contentDescription = stringResource(id = R.string.cover_image_content_desc),
                         modifier = Modifier
                             .fillMaxSize()
                             .clip(MaterialTheme.shapes.medium),
                         contentScale = ContentScale.Crop
+                    )
+                } else {
+                    Icon(
+                        imageVector = Icons.Default.Image,
+                        contentDescription = stringResource(id = R.string.cover_image_not_found_content_desc),
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .fillMaxWidth(0.7f)
+                            .aspectRatio(1f),
+                        tint = MaterialTheme.elevation(12.dp)
                     )
                 }
             }

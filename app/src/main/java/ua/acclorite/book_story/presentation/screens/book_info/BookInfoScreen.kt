@@ -1,8 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.book_info
 
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.viewModels
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
@@ -52,9 +50,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import dagger.hilt.android.lifecycle.withCreationCallback
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.CustomSnackbar
@@ -81,31 +77,17 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewMode
 import ua.acclorite.book_story.ui.DefaultTransition
 import ua.acclorite.book_story.ui.Transitions
 import ua.acclorite.book_story.ui.elevation
-import ua.acclorite.book_story.util.Constants
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun BookInfoScreen(
+    viewModel: BookInfoViewModel,
     libraryViewModel: LibraryViewModel,
     browseViewModel: BrowseViewModel,
     historyViewModel: HistoryViewModel,
     navigator: Navigator
 ) {
     val context = LocalContext.current
-
-    val viewModel by (context as ComponentActivity).viewModels<BookInfoViewModel>(
-        extrasProducer = {
-            val book = navigator.retrieveArgument("book") as? Book
-            if (book == null) {
-                navigator.navigateBack()
-            }
-
-            context.defaultViewModelCreationExtras
-                .withCreationCallback<BookInfoViewModel.Factory> { factory ->
-                    factory.create(book ?: Constants.EMPTY_BOOK)
-                }
-        }
-    )
 
     val state by viewModel.state.collectAsState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -302,7 +284,7 @@ fun BookInfoScreen(
                 onClick = {
                     navigator.navigate(
                         Screen.READER, false, Argument(
-                            "book", state.book
+                            "book", state.book.id
                         )
                     )
                 },

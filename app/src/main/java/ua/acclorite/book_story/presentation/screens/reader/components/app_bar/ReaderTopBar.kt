@@ -79,7 +79,7 @@ fun ReaderTopBar(viewModel: ReaderViewModel, navigator: Navigator, containerColo
                                     true,
                                     Argument(
                                         "book",
-                                        state.book
+                                        state.book.id
                                     )
                                 )
                             }

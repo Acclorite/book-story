@@ -1,7 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.book_info.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -41,6 +40,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
@@ -76,24 +76,24 @@ fun BookInfoInfoSection(viewModel: BookInfoViewModel, book: Book) {
                     }
                 )
         ) {
-            Icon(
-                imageVector = Icons.Default.Image,
-                contentDescription = stringResource(id = R.string.cover_image_not_found_content_desc),
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .fillMaxWidth(0.7f)
-                    .aspectRatio(1f),
-                tint = MaterialTheme.elevation(12.dp)
-            )
-
             if (book.coverImage != null) {
-                Image(
-                    bitmap = book.coverImage,
+                AsyncImage(
+                    model = book.coverImage,
                     contentDescription = stringResource(id = R.string.cover_image_content_desc),
                     modifier = Modifier
                         .fillMaxSize()
                         .clip(MaterialTheme.shapes.large),
                     contentScale = ContentScale.Crop
+                )
+            } else {
+                Icon(
+                    imageVector = Icons.Default.Image,
+                    contentDescription = stringResource(id = R.string.cover_image_not_found_content_desc),
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .fillMaxWidth(0.7f)
+                        .aspectRatio(1f),
+                    tint = MaterialTheme.elevation(12.dp)
                 )
             }
         }

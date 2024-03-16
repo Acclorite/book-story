@@ -30,6 +30,7 @@ import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.NavigationHost
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.book_info.BookInfoScreen
+import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
 import ua.acclorite.book_story.presentation.screens.browse.BrowseScreen
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.history.HistoryScreen
@@ -37,6 +38,7 @@ import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewMode
 import ua.acclorite.book_story.presentation.screens.library.LibraryScreen
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.reader.ReaderScreen
+import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 import ua.acclorite.book_story.presentation.screens.settings.SettingsScreen
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.AppearanceSettings
 import ua.acclorite.book_story.presentation.screens.settings.nested.general.GeneralSettings
@@ -57,7 +59,8 @@ class Activity : AppCompatActivity() {
     private val libraryViewModel: LibraryViewModel by viewModels()
     private val historyViewModel: HistoryViewModel by viewModels()
     private val browseViewModel: BrowseViewModel by viewModels()
-
+    private val bookInfoViewModel: BookInfoViewModel by viewModels()
+    private val readerViewModel: ReaderViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,150 +90,155 @@ class Activity : AppCompatActivity() {
 
         setContent {
             val windowClass = calculateWindowSizeClass(activity = this)
+            val isLoaded by mainViewModel.isReady.collectAsState()
 
             val theme = mainViewModel.theme.collectAsState().value ?: Theme.BLUE
             val darkTheme =
                 mainViewModel.darkTheme.collectAsState().value ?: DarkTheme.FOLLOW_SYSTEM
             val tabletUI = windowClass.widthSizeClass != WindowWidthSizeClass.Compact
 
-            BooksHistoryResurrectionTheme(
-                theme = theme,
-                isDark = darkTheme.isDark()
-            ) {
-                NavigationHost(startScreen = Screen.LIBRARY) {
-                    val currentScreen by this.getCurrentScreen().collectAsState()
+            if (isLoaded) {
+                BooksHistoryResurrectionTheme(
+                    theme = theme,
+                    isDark = darkTheme.isDark()
+                ) {
+                    NavigationHost(startScreen = Screen.LIBRARY) {
+                        val currentScreen by this.getCurrentScreen().collectAsState()
 
-                    AnimatedVisibility(
-                        visible = currentScreen == Screen.LIBRARY ||
-                                currentScreen == Screen.HISTORY ||
-                                currentScreen == Screen.BROWSE,
-                        enter = Transitions.BackSlidingTransitionIn,
-                        exit = Transitions.SlidingTransitionOut
-                    ) {
-                        Scaffold(
-                            bottomBar = {
-                                if (!tabletUI) {
-                                    BottomNavigationBar(navigator = this@NavigationHost)
-                                }
-                            },
-                            containerColor = MaterialTheme.colorScheme.surface
+                        AnimatedVisibility(
+                            visible = currentScreen == Screen.LIBRARY ||
+                                    currentScreen == Screen.HISTORY ||
+                                    currentScreen == Screen.BROWSE,
+                            enter = Transitions.BackSlidingTransitionIn,
+                            exit = Transitions.SlidingTransitionOut
                         ) {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(
-                                        start = if (tabletUI) 80.dp else 0.dp,
-                                        bottom = it.calculateBottomPadding()
-                                    )
+                            Scaffold(
+                                bottomBar = {
+                                    if (!tabletUI) {
+                                        BottomNavigationBar(navigator = this@NavigationHost)
+                                    }
+                                },
+                                containerColor = MaterialTheme.colorScheme.surface
                             ) {
-                                composable(screen = Screen.LIBRARY) {
-                                    @Suppress("UNCHECKED_CAST")
-                                    LibraryScreen(
-                                        viewModel = libraryViewModel,
-                                        historyViewModel = historyViewModel,
-                                        browseViewModel = browseViewModel,
-                                        navigator = this@NavigationHost,
-                                        addedBooks = retrieveArgument("added_books") as? List<Book>
-                                            ?: emptyList()
-                                    )
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(
+                                            start = if (tabletUI) 80.dp else 0.dp,
+                                            bottom = it.calculateBottomPadding()
+                                        )
+                                ) {
+                                    composable(screen = Screen.LIBRARY) {
+                                        @Suppress("UNCHECKED_CAST")
+                                        LibraryScreen(
+                                            viewModel = libraryViewModel,
+                                            historyViewModel = historyViewModel,
+                                            browseViewModel = browseViewModel,
+                                            navigator = this@NavigationHost,
+                                            addedBooks = retrieveArgument("added_books") as? List<Book>
+                                                ?: emptyList()
+                                        )
+                                    }
+
+                                    composable(screen = Screen.HISTORY) {
+                                        HistoryScreen(
+                                            viewModel = historyViewModel,
+                                            libraryViewModel = libraryViewModel,
+                                            navigator = this@NavigationHost
+                                        )
+                                    }
+
+                                    composable(screen = Screen.BROWSE) {
+                                        BrowseScreen(
+                                            viewModel = browseViewModel,
+                                            libraryViewModel = libraryViewModel,
+                                            navigator = this@NavigationHost
+                                        )
+                                    }
                                 }
 
-                                composable(screen = Screen.HISTORY) {
-                                    HistoryScreen(
-                                        viewModel = historyViewModel,
-                                        libraryViewModel = libraryViewModel,
-                                        navigator = this@NavigationHost
-                                    )
+                                if (tabletUI) {
+                                    CustomNavigationRail(navigator = this@NavigationHost)
                                 }
-
-                                composable(screen = Screen.BROWSE) {
-                                    BrowseScreen(
-                                        viewModel = browseViewModel,
-                                        libraryViewModel = libraryViewModel,
-                                        navigator = this@NavigationHost
-                                    )
-                                }
-                            }
-
-                            if (tabletUI) {
-                                CustomNavigationRail(navigator = this@NavigationHost)
                             }
                         }
-                    }
 
-                    // Book Info
-                    composable(
-                        screen = Screen.BOOK_INFO,
-                        enterAnim = Transitions.SlidingTransitionIn,
-                        exitAnim = Transitions.SlidingTransitionOut
-                    ) {
-                        BookInfoScreen(
-                            libraryViewModel = libraryViewModel,
-                            browseViewModel = browseViewModel,
-                            historyViewModel = historyViewModel,
-                            navigator = this@NavigationHost
-                        )
-                    }
-                    composable(
-                        screen = Screen.READER,
-                        enterAnim = Transitions.SlidingTransitionIn,
-                        exitAnim = Transitions.SlidingTransitionOut
-                    ) {
-                        ReaderScreen(
-                            mainViewModel = mainViewModel,
-                            libraryViewModel = libraryViewModel,
-                            historyViewModel = historyViewModel,
-                            navigator = this@NavigationHost
-                        )
-                    }
+                        // Book Info
+                        composable(
+                            screen = Screen.BOOK_INFO,
+                            enterAnim = Transitions.SlidingTransitionIn,
+                            exitAnim = Transitions.SlidingTransitionOut
+                        ) {
+                            BookInfoScreen(
+                                viewModel = bookInfoViewModel,
+                                libraryViewModel = libraryViewModel,
+                                browseViewModel = browseViewModel,
+                                historyViewModel = historyViewModel,
+                                navigator = this@NavigationHost
+                            )
+                        }
+                        composable(
+                            screen = Screen.READER,
+                            enterAnim = Transitions.SlidingTransitionIn,
+                            exitAnim = Transitions.SlidingTransitionOut
+                        ) {
+                            ReaderScreen(
+                                viewModel = readerViewModel,
+                                mainViewModel = mainViewModel,
+                                libraryViewModel = libraryViewModel,
+                                historyViewModel = historyViewModel,
+                                navigator = this@NavigationHost
+                            )
+                        }
 
-                    // Settings
-                    composable(
-                        screen = Screen.SETTINGS,
-                        enterAnim = Transitions.SlidingTransitionIn,
-                        exitAnim = Transitions.SlidingTransitionOut
-                    ) {
-                        SettingsScreen(
-                            navigator = this@NavigationHost
-                        )
-                    }
+                        // Settings
+                        composable(
+                            screen = Screen.SETTINGS,
+                            enterAnim = Transitions.SlidingTransitionIn,
+                            exitAnim = Transitions.SlidingTransitionOut
+                        ) {
+                            SettingsScreen(
+                                navigator = this@NavigationHost
+                            )
+                        }
 
-                    // Nested categories
-                    composable(
-                        screen = Screen.GENERAL_SETTINGS,
-                        enterAnim = Transitions.SlidingTransitionIn,
-                        exitAnim = Transitions.SlidingTransitionOut
-                    ) {
-                        GeneralSettings(
-                            mainViewModel = mainViewModel,
-                            navigator = this@NavigationHost
-                        )
-                    }
-                    composable(
-                        screen = Screen.APPEARANCE_SETTINGS,
-                        enterAnim = Transitions.SlidingTransitionIn,
-                        exitAnim = Transitions.SlidingTransitionOut
-                    ) {
-                        AppearanceSettings(
-                            mainViewModel = mainViewModel,
-                            navigator = this@NavigationHost
-                        )
-                    }
-                    composable(
-                        screen = Screen.READER_SETTINGS,
-                        enterAnim = Transitions.SlidingTransitionIn,
-                        exitAnim = Transitions.SlidingTransitionOut
-                    ) {
-                        ReaderSettings(
-                            mainViewModel = mainViewModel,
-                            navigator = this@NavigationHost
-                        )
-                    }
+                        // Nested categories
+                        composable(
+                            screen = Screen.GENERAL_SETTINGS,
+                            enterAnim = Transitions.SlidingTransitionIn,
+                            exitAnim = Transitions.SlidingTransitionOut
+                        ) {
+                            GeneralSettings(
+                                mainViewModel = mainViewModel,
+                                navigator = this@NavigationHost
+                            )
+                        }
+                        composable(
+                            screen = Screen.APPEARANCE_SETTINGS,
+                            enterAnim = Transitions.SlidingTransitionIn,
+                            exitAnim = Transitions.SlidingTransitionOut
+                        ) {
+                            AppearanceSettings(
+                                mainViewModel = mainViewModel,
+                                navigator = this@NavigationHost
+                            )
+                        }
+                        composable(
+                            screen = Screen.READER_SETTINGS,
+                            enterAnim = Transitions.SlidingTransitionIn,
+                            exitAnim = Transitions.SlidingTransitionOut
+                        ) {
+                            ReaderSettings(
+                                mainViewModel = mainViewModel,
+                                navigator = this@NavigationHost
+                            )
+                        }
 
 //                        Start screen (later)
 //                        composable(screen = Screen.START) {
 //                            StartScreen()
 //                        }
+                    }
                 }
             }
         }

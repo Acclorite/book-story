@@ -6,7 +6,7 @@ import ua.acclorite.book_story.data.local.dto.BookEntity
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
-import ua.acclorite.book_story.domain.model.StringWithId
+import ua.acclorite.book_story.util.CoverImage
 import ua.acclorite.book_story.util.Resource
 import java.io.File
 
@@ -33,7 +33,7 @@ interface BookRepository {
     ): BookEntity
 
     suspend fun insertBooks(
-        books: List<Book>
+        books: List<Pair<Book, CoverImage?>>
     )
 
     suspend fun updateBooks(
@@ -42,6 +42,11 @@ interface BookRepository {
 
     suspend fun updateBooksWithText(
         books: List<Book>
+    )
+
+    suspend fun updateCoverImageOfBook(
+        bookWithOldCover: Book,
+        newCoverImage: CoverImage?
     )
 
     suspend fun deleteBooks(
@@ -60,10 +65,7 @@ interface BookRepository {
 
     suspend fun getFilesFromDevice(query: String = ""): Flow<Resource<List<File>>>
 
-    suspend fun getBookTextFromFile(file: File): Flow<Resource<List<StringWithId>>>
-
     suspend fun getBooksFromFiles(files: List<File>): List<NullableBook>
-
 
     suspend fun insertHistory(history: List<History>)
 

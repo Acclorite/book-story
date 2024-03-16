@@ -1,7 +1,7 @@
 package ua.acclorite.book_story.domain.model
 
+import android.net.Uri
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.graphics.ImageBitmap
 import ua.acclorite.book_story.util.UIText
 import java.io.File
 
@@ -17,5 +17,5 @@ data class Book(
     val filePath: String,
     val lastOpened: Long?,
     val category: Category,
-    val coverImage: ImageBitmap?
+    val coverImage: Uri?
 )

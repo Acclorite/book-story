@@ -24,13 +24,14 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.presentation.components.CustomCheckbox
+import ua.acclorite.book_story.util.Selected
 
 /**
  * Adding dialog item.
  */
 @Composable
-fun BrowseAddingDialogItem(result: NullableBook, onClick: (Boolean) -> Unit) {
-    if (result is NullableBook.NotNull) {
+fun BrowseAddingDialogItem(result: Pair<NullableBook, Selected>, onClick: (Boolean) -> Unit) {
+    if (result.first is NullableBook.NotNull) {
         Row(
             Modifier
                 .fillMaxWidth()
@@ -44,14 +45,14 @@ fun BrowseAddingDialogItem(result: NullableBook, onClick: (Boolean) -> Unit) {
                 Modifier.weight(0.85f)
             ) {
                 Text(
-                    text = result.book!!.first.title,
+                    text = result.first.book!!.first.title,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurface,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = result.book.first.author.asString(),
+                    text = result.first.book!!.first.author.asString(),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
@@ -59,12 +60,12 @@ fun BrowseAddingDialogItem(result: NullableBook, onClick: (Boolean) -> Unit) {
                 )
             }
             Box(modifier = Modifier.weight(0.15f), contentAlignment = Alignment.CenterEnd) {
-                CustomCheckbox(selected = result.book!!.second)
+                CustomCheckbox(selected = result.second)
             }
         }
     } else {
         val icon =
-            if (result.message?.asString() == stringResource(R.string.error_file_encrypted)) {
+            if (result.first.message?.asString() == stringResource(R.string.error_file_encrypted)) {
                 Icons.Default.Lock
             } else {
                 Icons.Default.Error
@@ -87,7 +88,7 @@ fun BrowseAddingDialogItem(result: NullableBook, onClick: (Boolean) -> Unit) {
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = result.fileName!!,
+                text = result.first.fileName!!,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.error,
                 maxLines = 2,

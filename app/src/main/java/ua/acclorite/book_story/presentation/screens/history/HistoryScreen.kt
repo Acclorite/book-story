@@ -248,14 +248,14 @@ fun HistoryScreen(
                                         navigator.navigate(
                                             Screen.BOOK_INFO,
                                             false,
-                                            Argument("book", book)
+                                            Argument("book", book.id)
                                         )
                                     },
                                     onTitleClick = {
                                         navigator.navigate(
                                             Screen.READER,
                                             false,
-                                            Argument("book", book)
+                                            Argument("book", book.id)
                                         )
                                     },
                                     isDeleteEnabled = !state.isRefreshing,

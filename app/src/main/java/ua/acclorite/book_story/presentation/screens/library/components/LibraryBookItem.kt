@@ -3,7 +3,6 @@ package ua.acclorite.book_story.presentation.screens.library.components
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
@@ -35,11 +34,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.presentation.data.removeDigits
 import ua.acclorite.book_story.presentation.data.removeTrailingZero
 import ua.acclorite.book_story.ui.elevation
+import ua.acclorite.book_story.util.Selected
 
 /**
  * Library list element item.
@@ -47,7 +48,7 @@ import ua.acclorite.book_story.ui.elevation
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LibraryBookItem(
-    book: Pair<Book, Boolean>,
+    book: Pair<Book, Selected>,
     modifier: Modifier = Modifier,
     onCoverImageClick: () -> Unit,
     onLongClick: () -> Unit,
@@ -103,26 +104,26 @@ fun LibraryBookItem(
                     }
                 )
         ) {
-            Icon(
-                imageVector = Icons.Default.Image,
-                contentDescription = stringResource(
-                    id = R.string.cover_image_not_found_content_desc
-                ),
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .fillMaxWidth(0.7f)
-                    .aspectRatio(1f),
-                tint = MaterialTheme.elevation(12.dp)
-            )
-
             if (book.first.coverImage != null) {
-                Image(
-                    bitmap = book.first.coverImage!!,
+                AsyncImage(
+                    model = book.first.coverImage,
                     contentDescription = stringResource(id = R.string.cover_image_content_desc),
                     modifier = Modifier
                         .fillMaxSize()
                         .clip(MaterialTheme.shapes.large),
                     contentScale = ContentScale.Crop
+                )
+            } else {
+                Icon(
+                    imageVector = Icons.Default.Image,
+                    contentDescription = stringResource(
+                        id = R.string.cover_image_not_found_content_desc
+                    ),
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .fillMaxWidth(0.7f)
+                        .aspectRatio(1f),
+                    tint = MaterialTheme.elevation(12.dp)
                 )
             }
 

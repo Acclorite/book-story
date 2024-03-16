@@ -5,7 +5,6 @@ import android.os.Build
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
-import androidx.activity.viewModels
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
@@ -51,12 +50,10 @@ import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.presentation.components.CustomSelectionContainer
 import ua.acclorite.book_story.presentation.components.is_messages.IsError
 import ua.acclorite.book_story.presentation.data.MainViewModel
@@ -79,6 +76,7 @@ import ua.acclorite.book_story.util.Constants
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ReaderScreen(
+    viewModel: ReaderViewModel,
     mainViewModel: MainViewModel,
     libraryViewModel: LibraryViewModel,
     historyViewModel: HistoryViewModel,
@@ -86,20 +84,6 @@ fun ReaderScreen(
 ) {
     val context = LocalContext.current as ComponentActivity
     val systemBarsColor = MaterialTheme.elevation(20.dp).copy(0.85f)
-
-    val viewModel by context.viewModels<ReaderViewModel>(
-        extrasProducer = {
-            val book = navigator.retrieveArgument("book") as? Book
-            if (book == null) {
-                navigator.navigateBack()
-            }
-
-            context.defaultViewModelCreationExtras
-                .withCreationCallback<ReaderViewModel.Factory> { factory ->
-                    factory.create(book ?: Constants.EMPTY_BOOK)
-                }
-        }
-    )
 
     var loading by remember { mutableStateOf(true) }
     val state by viewModel.state.collectAsState()
@@ -296,13 +280,16 @@ fun ReaderScreen(
                 itemsIndexed(
                     state.book.text, key = { _, key -> key.id }
                 ) { index, line ->
-                    val text = remember { "${if (paragraphIndentation) "  " else ""}${line.line}" }
-                    val color = remember { Color(fontColor.toULong()) }
-                    val lineHeightSp = remember { (fontSize + lineHeight).sp }
+                    val text =
+                        remember(paragraphIndentation) { "${if (paragraphIndentation) "  " else ""}${line.line}" }
+                    val fontCol = remember(fontColor) { Color(fontColor.toULong()) }
+                    val backgroundCol =
+                        remember(backgroundColor) { Color(backgroundColor.toULong()) }
+                    val lineHeightSp = remember(fontSize, lineHeight) { (fontSize + lineHeight).sp }
 
                     Column(
                         Modifier
-                            .background(Color(backgroundColor.toULong()))
+                            .background(backgroundCol)
                             .fillMaxWidth()
                             .padding(
                                 top = if (index == 0) 36.dp else 0.dp,
@@ -314,7 +301,7 @@ fun ReaderScreen(
                     ) {
                         Text(
                             text = text,
-                            color = color,
+                            color = fontCol,
 
                             style = TextStyle(
                                 lineBreak = LineBreak.Paragraph

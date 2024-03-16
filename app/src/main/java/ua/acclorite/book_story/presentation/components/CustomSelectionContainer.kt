@@ -1,5 +1,6 @@
 package ua.acclorite.book_story.presentation.components
 
+import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.view.ActionMode
@@ -151,6 +152,8 @@ private class CustomSelectionToolbar(
                 clipboardManager.setPrimaryClip(
                     previousClipboard
                 )
+            } else {
+                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, " "))
             }
         }
         callback.onDictionaryRequested = {
@@ -164,6 +167,8 @@ private class CustomSelectionToolbar(
                 clipboardManager.setPrimaryClip(
                     previousClipboard
                 )
+            } else {
+                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, " "))
             }
         }
 

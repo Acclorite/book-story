@@ -1,13 +1,13 @@
 package ua.acclorite.book_story.data.parser.epub
 
 import android.graphics.BitmapFactory
-import androidx.compose.ui.graphics.asImageBitmap
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import nl.siegmann.epublib.epub.EpubReader
 import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
+import ua.acclorite.book_story.util.CoverImage
 import ua.acclorite.book_story.util.UIText
 import java.io.File
 import java.io.FileInputStream
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class EpubFileParser @Inject constructor() : FileParser {
 
-    override suspend fun parse(file: File): Book? {
+    override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
         if (!file.name.endsWith(".epub")) {
             return null
         }
@@ -23,7 +23,9 @@ class EpubFileParser @Inject constructor() : FileParser {
         try {
             val epubReader = EpubReader()
             val book = withContext(Dispatchers.IO) {
-                epubReader.readEpub(FileInputStream(file))
+                FileInputStream(file).use {
+                    epubReader.readEpub(it)
+                }
             }
 
             val metadata = book.metadata
@@ -42,8 +44,6 @@ class EpubFileParser @Inject constructor() : FileParser {
                 }
             }
 
-
-
             return Book(
                 id = null,
                 title = title,
@@ -55,8 +55,8 @@ class EpubFileParser @Inject constructor() : FileParser {
                 filePath = file.path,
                 lastOpened = null,
                 category = Category.entries[0],
-                coverImage = coverImage?.asImageBitmap()
-            )
+                coverImage = null
+            ) to coverImage
         } catch (e: Exception) {
             return null
         }

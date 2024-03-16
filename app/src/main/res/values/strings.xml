@@ -1,6 +1,6 @@
 <resources>
     <!-- Basic Strings -->
-    <string name="app_version" translatable="false">0.9.2</string>
+    <string name="app_version" translatable="false">0.9.3</string>
     <string name="app_name">Book\'s Story</string>
 
     <!-- Screens -->
@@ -28,6 +28,7 @@
     <string name="add_books_description">
         You can choose which books you want to add.
         You can edit Title and Cover image of the book later.
+        The loading process can take up to several minutes.
     </string>
     <string name="move_books_description">
         Choose the category to which you want to move all the selected books(%1$s).

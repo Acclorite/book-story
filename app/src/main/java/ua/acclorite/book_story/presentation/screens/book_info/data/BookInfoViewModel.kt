@@ -6,12 +6,8 @@ import android.content.Context.CLIPBOARD_SERVICE
 import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.compose.material3.SnackbarResult
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -21,27 +17,30 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.use_case.DeleteBooks
 import ua.acclorite.book_story.domain.use_case.GetBookFromFile
+import ua.acclorite.book_story.domain.use_case.GetBooksById
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
 import ua.acclorite.book_story.domain.use_case.UpdateBooksWithText
+import ua.acclorite.book_story.domain.use_case.UpdateCoverImageOfBook
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
+import javax.inject.Inject
 
 
-@HiltViewModel(assistedFactory = BookInfoViewModel.Factory::class)
-class BookInfoViewModel @AssistedInject constructor(
-    @Assisted book: Book,
+@HiltViewModel
+class BookInfoViewModel @Inject constructor(
     private val updateBooks: UpdateBooks,
     private val updateBooksWithText: UpdateBooksWithText,
+    private val updateCoverImageOfBook: UpdateCoverImageOfBook,
     private val deleteBooks: DeleteBooks,
-    private val getBookFromFile: GetBookFromFile
+    private val getBookFromFile: GetBookFromFile,
+    private val getBookById: GetBooksById
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(BookInfoState(book))
+    private val _state = MutableStateFlow(BookInfoState())
     val state = _state.asStateFlow()
 
     private var job: Job? = null
@@ -59,22 +58,24 @@ class BookInfoViewModel @AssistedInject constructor(
             is BookInfoEvent.OnChangeCover -> {
                 viewModelScope.launch {
                     val image = event.context.contentResolver?.openInputStream(event.uri)?.use {
-                        BitmapFactory.decodeStream(it).asImageBitmap()
+                        BitmapFactory.decodeStream(it)
                     } ?: return@launch
 
-                    image.prepareToDraw()
-
-                    updateBooks.execute(
-                        listOf(
-                            _state.value.book.copy(coverImage = image)
-                        )
+                    updateCoverImageOfBook.execute(
+                        _state.value.book,
+                        image
                     )
                     event.refreshList()
+                    val newCoverImage = getBookById.execute(
+                        listOf(
+                            _state.value.book.id ?: return@launch
+                        )
+                    ).first().coverImage
 
                     _state.update {
                         it.copy(
                             book = it.book.copy(
-                                coverImage = image
+                                coverImage = newCoverImage
                             ),
                             showChangeCoverBottomSheet = false
                         )
@@ -88,10 +89,9 @@ class BookInfoViewModel @AssistedInject constructor(
                         return@launch
                     }
 
-                    updateBooks.execute(
-                        listOf(
-                            _state.value.book.copy(coverImage = null)
-                        )
+                    updateCoverImageOfBook.execute(
+                        bookWithOldCover = _state.value.book,
+                        newCoverImage = null
                     )
                     event.refreshList()
 
@@ -251,7 +251,7 @@ class BookInfoViewModel @AssistedInject constructor(
                 val clipboardManager =
                     event.context.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
 
-                clipboardManager.setPrimaryClip(ClipData.newPlainText("", event.text))
+                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, event.text))
 
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
                     event.success()
@@ -399,21 +399,18 @@ class BookInfoViewModel @AssistedInject constructor(
 
     fun init(navigator: Navigator) {
         viewModelScope.launch {
-            val book = navigator.retrieveArgument("book") as? Book
+            val bookIndex = navigator.retrieveArgument("book") as? Int
 
-            if (book == null) {
+            if (bookIndex == null || bookIndex < 0) {
                 navigator.navigateBack()
                 return@launch
             }
+
+            val book = getBookById.execute(listOf(bookIndex)).first()
 
             _state.update {
                 BookInfoState(book = book)
             }
         }
-    }
-
-    @AssistedFactory
-    interface Factory {
-        fun create(book: Book): BookInfoViewModel
     }
 }

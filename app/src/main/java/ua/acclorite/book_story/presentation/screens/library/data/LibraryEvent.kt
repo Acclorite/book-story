@@ -7,6 +7,7 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
+import ua.acclorite.book_story.util.Selected
 
 sealed class LibraryEvent {
     data class OnPreloadBooks(val books: List<Book>) : LibraryEvent()
@@ -17,7 +18,7 @@ sealed class LibraryEvent {
     data object OnSearchShowHide : LibraryEvent()
     data class OnRequestFocus(val focusRequester: FocusRequester) : LibraryEvent()
     data class OnSearchQueryChange(val query: String) : LibraryEvent()
-    data class OnSelectBook(val book: Pair<Book, Boolean>, val select: Boolean? = null) :
+    data class OnSelectBook(val book: Pair<Book, Selected>, val select: Boolean? = null) :
         LibraryEvent()
 
     data object OnClearSelectedBooks : LibraryEvent()

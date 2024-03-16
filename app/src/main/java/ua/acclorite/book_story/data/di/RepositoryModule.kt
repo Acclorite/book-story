@@ -10,6 +10,10 @@ import ua.acclorite.book_story.data.mapper.book.BookMapper
 import ua.acclorite.book_story.data.mapper.book.BookMapperImpl
 import ua.acclorite.book_story.data.mapper.history.HistoryMapper
 import ua.acclorite.book_story.data.mapper.history.HistoryMapperImpl
+import ua.acclorite.book_story.data.parser.FileParser
+import ua.acclorite.book_story.data.parser.FileParserImpl
+import ua.acclorite.book_story.data.parser.TextParser
+import ua.acclorite.book_story.data.parser.TextParserImpl
 import ua.acclorite.book_story.data.repository.BookRepositoryImpl
 import ua.acclorite.book_story.domain.repository.BookRepository
 import javax.inject.Singleton
@@ -40,4 +44,16 @@ abstract class RepositoryModule {
     abstract fun bindHistoryMapper(
         historyMapperImpl: HistoryMapperImpl
     ): HistoryMapper
+
+    @Binds
+    @Singleton
+    abstract fun bindFileParser(
+        fileParserImpl: FileParserImpl
+    ): FileParser
+
+    @Binds
+    @Singleton
+    abstract fun bindTextParser(
+        textParserImpl: TextParserImpl
+    ): TextParser
 }

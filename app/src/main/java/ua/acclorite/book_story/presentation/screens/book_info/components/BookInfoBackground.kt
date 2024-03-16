@@ -1,6 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.book_info.components
 
-import androidx.compose.foundation.Image
+import android.net.Uri
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
@@ -10,20 +10,20 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 
 /**
  * Background of the BookInfoScreen.
  */
 @Composable
-fun BookInfoBackground(height: Dp, image: ImageBitmap) {
+fun BookInfoBackground(height: Dp, image: Uri) {
     val background = MaterialTheme.colorScheme.background
 
-    Image(
-        bitmap = image,
+    AsyncImage(
+        model = image,
         contentDescription = null,
         modifier = Modifier
             .fillMaxWidth()
@@ -38,7 +38,7 @@ fun BookInfoBackground(height: Dp, image: ImageBitmap) {
                 )
             }
             .blur(3.dp),
-        alpha = 0.3f,
+        alpha = 0.4f,
         contentScale = ContentScale.Crop
     )
 }
