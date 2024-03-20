@@ -15,8 +15,4 @@ data class HistoryState(
     val showSearch: Boolean = false,
     val searchQuery: String = "",
     val hasFocused: Boolean = false,
-
-    val scrollIndex: Int = 0,
-    val scrollOffset: Int = 0,
-
-    )
+)

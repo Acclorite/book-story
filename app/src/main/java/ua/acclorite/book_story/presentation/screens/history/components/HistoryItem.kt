@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.outlined.Delete
@@ -30,11 +31,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.History
-import ua.acclorite.book_story.ui.elevation
+import ua.acclorite.book_story.presentation.ui.elevation
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -46,7 +47,7 @@ import java.util.Locale
 fun HistoryItem(
     modifier: Modifier = Modifier,
     history: History,
-    book: Book,
+    isOnClickEnabled: Boolean,
     onBodyClick: () -> Unit,
     onTitleClick: () -> Unit,
     isDeleteEnabled: Boolean,
@@ -61,7 +62,7 @@ fun HistoryItem(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .clickable {
+            .clickable(enabled = isOnClickEnabled) {
                 onBodyClick()
             }
             .padding(top = 6.dp, bottom = 6.dp, start = 16.dp, end = 10.dp)
@@ -74,16 +75,16 @@ fun HistoryItem(
                 modifier = Modifier
                     .height(90.dp)
                     .width(60.dp)
-                    .clip(MaterialTheme.shapes.medium)
+                    .clip(RoundedCornerShape(10.dp))
                     .background(MaterialTheme.elevation())
             ) {
-                if (book.coverImage != null) {
+                if (history.book?.coverImage != null) {
                     AsyncImage(
-                        model = book.coverImage,
+                        model = history.book.coverImage,
                         contentDescription = stringResource(id = R.string.cover_image_content_desc),
                         modifier = Modifier
                             .fillMaxSize()
-                            .clip(MaterialTheme.shapes.medium),
+                            .clip(RoundedCornerShape(10.dp)),
                         contentScale = ContentScale.Crop
                     )
                 } else {
@@ -108,14 +109,16 @@ fun HistoryItem(
                 modifier = Modifier.fillMaxHeight()
             ) {
                 Text(
-                    book.title,
+                    history.book?.title ?: return,
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.bodyLarge,
+                    lineHeight = 21.sp,
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable(
                             interactionSource = null,
                             indication = null,
+                            enabled = isOnClickEnabled,
                             onClick = onTitleClick
                         ),
                     maxLines = 2,
@@ -135,7 +138,7 @@ fun HistoryItem(
         }
         Box(modifier = Modifier.weight(0.11f), contentAlignment = Alignment.CenterEnd) {
             IconButton(
-                enabled = isDeleteEnabled,
+                enabled = isDeleteEnabled && isOnClickEnabled,
                 onClick = {
                     onDeleteClick()
                 }

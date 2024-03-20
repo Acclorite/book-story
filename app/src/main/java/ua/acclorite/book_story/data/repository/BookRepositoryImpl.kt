@@ -5,11 +5,12 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
 import androidx.datastore.preferences.core.Preferences
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.local.data_store.DataStore
-import ua.acclorite.book_story.data.local.dto.BookEntity
 import ua.acclorite.book_story.data.local.room.BookDao
 import ua.acclorite.book_story.data.mapper.book.BookMapper
 import ua.acclorite.book_story.data.mapper.history.HistoryMapper
@@ -20,12 +21,13 @@ import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.model.StringWithId
 import ua.acclorite.book_story.domain.repository.BookRepository
+import ua.acclorite.book_story.domain.util.Constants
+import ua.acclorite.book_story.domain.util.CoverImage
+import ua.acclorite.book_story.domain.util.Resource
+import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.data.calculateFamiliarity
-import ua.acclorite.book_story.util.Constants
-import ua.acclorite.book_story.util.CoverImage
-import ua.acclorite.book_story.util.Resource
-import ua.acclorite.book_story.util.UIText
 import java.io.File
+import java.io.FileOutputStream
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -47,17 +49,15 @@ class BookRepositoryImpl @Inject constructor(
     override suspend fun getBooks(query: String): Flow<Resource<List<Book>>> {
         return flow {
             emit(Resource.Loading(true))
-
             val books = database.searchBooks(query)
-            val history = database.getHistory()
 
             emit(
                 Resource.Success(
                     data = books.map { entity ->
                         val book = bookMapper.toBook(entity)
-                        val lastHistory = history
-                            .filter { it.bookId == book.id }
-                            .maxByOrNull { it.time }
+                        val lastHistory = database.getLatestHistoryForBook(
+                            book.id ?: -1
+                        )
 
                         book.copy(
                             lastOpened = lastHistory?.time
@@ -70,12 +70,12 @@ class BookRepositoryImpl @Inject constructor(
 
     override suspend fun fastGetBooks(query: String): List<Book> {
         val books = database.searchBooks(query)
-        val history = database.getHistory()
 
         return books.map { entity ->
             val book = bookMapper.toBook(entity)
-            val lastHistory =
-                history.filter { it.bookId == book.id }.maxByOrNull { it.time }
+            val lastHistory = database.getLatestHistoryForBook(
+                book.id ?: -1
+            )
 
             book.copy(
                 lastOpened = lastHistory?.time
@@ -84,7 +84,18 @@ class BookRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getBooksById(ids: List<Int>): List<Book> {
-        return database.findBooksById(ids).map { bookMapper.toBook(it) }
+        val books = database.findBooksById(ids)
+
+        return books.map { entity ->
+            val book = bookMapper.toBook(entity)
+            val lastHistory = database.getLatestHistoryForBook(
+                book.id ?: -1
+            )
+
+            book.copy(
+                lastOpened = lastHistory?.time
+            )
+        }
     }
 
     override suspend fun getBookTextById(bookId: Int): String {
@@ -92,30 +103,35 @@ class BookRepositoryImpl @Inject constructor(
         return book.text
     }
 
-    override suspend fun findBook(
-        id: Int
-    ): BookEntity {
-        return database.findBookById(id)
-    }
-
     override suspend fun insertBooks(
         books: List<Pair<Book, CoverImage?>>
     ) {
+        val filesDir = application.filesDir
+        val coversDir = File(filesDir, "covers")
+
+        if (!coversDir.exists()) {
+            coversDir.mkdirs()
+        }
+
         val booksWithCover = books.map {
             var uri = ""
 
             if (it.second != null) {
                 try {
                     uri = "${UUID.randomUUID()}.webp"
-                    application.openFileOutput(uri, 0x0000).use { stream ->
-                        if (
-                            !it.second!!.compress(
-                                Bitmap.CompressFormat.WEBP,
-                                30,
-                                stream
-                            )
-                        ) {
-                            throw Exception("Couldn't save cover image")
+                    val cover = File(coversDir, uri)
+
+                    withContext(Dispatchers.IO) {
+                        FileOutputStream(cover).use { stream ->
+                            if (
+                                !it.second!!.compress(
+                                    Bitmap.CompressFormat.WEBP,
+                                    30,
+                                    stream
+                                )
+                            ) {
+                                throw Exception("Couldn't save cover image")
+                            }
                         }
                     }
                 } catch (e: Exception) {
@@ -126,7 +142,7 @@ class BookRepositoryImpl @Inject constructor(
 
             val book = it.first.copy(
                 coverImage = if (uri.isNotBlank()) {
-                    Uri.fromFile(File("${application.filesDir}/$uri"))
+                    Uri.fromFile(File("$coversDir/$uri"))
                 } else null
             )
 
@@ -175,18 +191,29 @@ class BookRepositoryImpl @Inject constructor(
         val book = database.findBookById(bookWithOldCover.id ?: return)
         var uri: String? = null
 
+        val filesDir = application.filesDir
+        val coversDir = File(filesDir, "covers")
+
+        if (!coversDir.exists()) {
+            coversDir.mkdirs()
+        }
+
         if (newCoverImage != null) {
             try {
                 uri = "${UUID.randomUUID()}.webp"
-                application.openFileOutput(uri, 0x0000).use { stream ->
-                    if (
-                        !newCoverImage.compress(
-                            Bitmap.CompressFormat.WEBP,
-                            30,
-                            stream
-                        )
-                    ) {
-                        throw Exception("Couldn't save cover image")
+                val cover = File(coversDir, uri)
+
+                withContext(Dispatchers.IO) {
+                    FileOutputStream(cover).use { stream ->
+                        if (
+                            !newCoverImage.compress(
+                                Bitmap.CompressFormat.WEBP,
+                                30,
+                                stream
+                            )
+                        ) {
+                            throw Exception("Couldn't save cover image")
+                        }
                     }
                 }
             } catch (e: Exception) {
@@ -197,16 +224,20 @@ class BookRepositoryImpl @Inject constructor(
 
         if (book.image != null) {
             try {
-                application.deleteFile(
-                    book.image.substringAfterLast("/")
+                val fileToDelete = File(
+                    "$coversDir/${book.image.substringAfterLast("/")}"
                 )
+
+                if (fileToDelete.exists()) {
+                    fileToDelete.delete()
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
 
         val newCoverImageUri = if (uri != null) {
-            Uri.fromFile(File("${application.filesDir}/$uri"))
+            Uri.fromFile(File("$coversDir/$uri"))
         } else {
             null
         }
@@ -228,15 +259,26 @@ class BookRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deleteBooks(books: List<Book>) {
+        val filesDir = application.filesDir
+        val coversDir = File(filesDir, "covers")
+
+        if (!coversDir.exists()) {
+            coversDir.mkdirs()
+        }
+
         database.deleteBooks(
             books.map {
                 val book = database.findBookById(it.id ?: return)
 
                 if (book.image != null) {
                     try {
-                        application.deleteFile(
-                            book.image.substringAfterLast("/")
+                        val fileToDelete = File(
+                            "$coversDir/${book.image.substringAfterLast("/")}"
                         )
+
+                        if (fileToDelete.exists()) {
+                            fileToDelete.delete()
+                        }
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
@@ -301,14 +343,28 @@ class BookRepositoryImpl @Inject constructor(
                         ignoreCase = true
                     )
                 }
-                val isFileAlreadyAdded = existingBooks.all {
+
+                if (!isFileSupported) {
+                    return@filter false
+                }
+
+                val isFileNotAdded = existingBooks.all {
                     it.filePath.substringAfterLast("/") !=
                             file.path.substringAfterLast("/")
                 }
+
+                if (!isFileNotAdded) {
+                    return@filter false
+                }
+
                 val isQuery = if (query.isEmpty()) true else file.name.lowercase()
                     .contains(query.trim().lowercase())
 
-                isFileAlreadyAdded && isFileSupported && isQuery
+                if (!isQuery) {
+                    return@filter false
+                }
+
+                true
             }.forEach {
                 filteredFiles.add(
                     it
@@ -414,7 +470,6 @@ class BookRepositoryImpl @Inject constructor(
     override suspend fun getHistory(): Flow<Resource<List<History>>> {
         return flow {
             emit(Resource.Loading(true))
-
             val history = database.getHistory()
 
             emit(
@@ -427,6 +482,11 @@ class BookRepositoryImpl @Inject constructor(
                 )
             )
         }
+    }
+
+    override suspend fun getLatestBookHistory(bookId: Int): History? {
+        val history = database.getLatestHistoryForBook(bookId)
+        return history?.let { historyMapper.toHistory(it) }
     }
 
     override suspend fun deleteWholeHistory() {

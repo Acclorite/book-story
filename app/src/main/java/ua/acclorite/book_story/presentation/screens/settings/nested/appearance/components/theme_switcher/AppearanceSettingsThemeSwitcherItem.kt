@@ -31,9 +31,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.ui.Theme
-import ua.acclorite.book_story.ui.colorScheme
-import ua.acclorite.book_story.util.UIText
+import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.presentation.ui.Theme
+import ua.acclorite.book_story.presentation.ui.colorScheme
 
 /**
  * Theme switcher item.

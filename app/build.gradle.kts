@@ -137,8 +137,10 @@ dependencies {
     implementation("org.slf4j:slf4j-android:latest.release")
     implementation("org.jsoup:jsoup:latest.release")
 
+    // App Compat for Language Switcher
     implementation("androidx.appcompat:appcompat:latest.release")
     implementation("androidx.appcompat:appcompat-resources:latest.release")
 
+    // Coil for loading bitmaps
     implementation("io.coil-kt:coil-compose:2.6.0")
 }

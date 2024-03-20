@@ -1,8 +1,8 @@
 package ua.acclorite.book_story.domain.model
 
 import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.util.CoverImage
-import ua.acclorite.book_story.util.UIText
+import ua.acclorite.book_story.domain.util.CoverImage
+import ua.acclorite.book_story.domain.util.UIText
 
 @Immutable
 sealed class NullableBook(

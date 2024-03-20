@@ -35,6 +35,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ChipItem
+import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
@@ -44,9 +45,8 @@ import ua.acclorite.book_story.presentation.screens.settings.components.Checkbox
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.ColorPickerWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.SliderWithTitle
-import ua.acclorite.book_story.ui.ElevationDefaults
-import ua.acclorite.book_story.ui.elevation
-import ua.acclorite.book_story.util.Constants
+import ua.acclorite.book_story.presentation.ui.ElevationDefaults
+import ua.acclorite.book_story.presentation.ui.elevation
 
 /**
  * Settings bottom sheet. Has General and Colors categories.
@@ -63,16 +63,13 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
     val navigationBarPadding =
         WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
-    val fontFamily = Constants.FONTS.find {
-        it.id == mainViewModel.fontFamily.collectAsState().value!!
-    } ?: Constants.FONTS[0]
-    val fontStyle = mainViewModel.isItalic.collectAsState().value!!
-    val fontSize = mainViewModel.fontSize.collectAsState().value!!
-    val lineHeight = mainViewModel.lineHeight.collectAsState().value!!
-    val paragraphHeight = mainViewModel.paragraphHeight.collectAsState().value!!
-    val paragraphIndentation = mainViewModel.paragraphIndentation.collectAsState().value!!
-    val backgroundColor = mainViewModel.backgroundColor.collectAsState().value!!
-    val fontColor = mainViewModel.fontColor.collectAsState().value!!
+    val state by mainViewModel.state.collectAsState()
+
+    val fontFamily = remember(state.fontFamily) {
+        Constants.FONTS.find {
+            it.id == state.fontFamily
+        } ?: Constants.FONTS[0]
+    }
 
     val scrimColor = if (currentPage == 1) Color.Transparent
     else BottomSheetDefaults.ScrimColor
@@ -161,7 +158,7 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                                         fontFamily = fontFamily.font,
                                         fontStyle = FontStyle.Normal
                                     ),
-                                    !fontStyle
+                                    !state.isItalic!!
                                 ),
                                 ChipItem(
                                     "italic",
@@ -170,7 +167,7 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                                         fontFamily = fontFamily.font,
                                         fontStyle = FontStyle.Italic
                                     ),
-                                    fontStyle
+                                    state.isItalic!!
                                 ),
                             ),
                             onClick = {
@@ -187,7 +184,7 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                     }
                     item {
                         SliderWithTitle(
-                            value = fontSize to "pt",
+                            value = state.fontSize!! to "pt",
                             fromValue = 10,
                             toValue = 35,
                             title = stringResource(id = R.string.font_size_option),
@@ -212,7 +209,7 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                     }
                     item {
                         SliderWithTitle(
-                            value = lineHeight to "pt",
+                            value = state.lineHeight!! to "pt",
                             fromValue = 1,
                             toValue = 16,
                             title = stringResource(id = R.string.line_height_option),
@@ -225,7 +222,7 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                     }
                     item {
                         SliderWithTitle(
-                            value = paragraphHeight to "pt",
+                            value = state.paragraphHeight!! to "pt",
                             fromValue = 0,
                             toValue = 24,
                             title = stringResource(id = R.string.paragraph_height_option),
@@ -238,11 +235,11 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                     }
                     item {
                         CheckboxWithTitle(
-                            selected = paragraphIndentation,
+                            selected = state.paragraphIndentation!!,
                             title = stringResource(id = R.string.paragraph_indentation_option)
                         ) {
                             mainViewModel.onEvent(
-                                MainEvent.OnChangeParagraphIndentation(!paragraphIndentation)
+                                MainEvent.OnChangeParagraphIndentation(!state.paragraphIndentation!!)
                             )
                         }
                     }
@@ -254,7 +251,7 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                     }
                     item {
                         ColorPickerWithTitle(
-                            value = Color(backgroundColor.toULong()),
+                            value = Color(state.backgroundColor!!.toULong()),
                             title = stringResource(id = R.string.background_color_option),
                             onValueChange = {
                                 mainViewModel.onEvent(
@@ -267,7 +264,7 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                     }
                     item {
                         ColorPickerWithTitle(
-                            value = Color(fontColor.toULong()),
+                            value = Color(state.fontColor!!.toULong()),
                             title = stringResource(id = R.string.font_color_option),
                             onValueChange = {
                                 mainViewModel.onEvent(

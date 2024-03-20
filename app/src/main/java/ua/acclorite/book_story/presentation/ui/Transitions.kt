@@ -1,4 +1,4 @@
-package ua.acclorite.book_story.ui
+package ua.acclorite.book_story.presentation.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween

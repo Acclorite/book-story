@@ -7,8 +7,8 @@ import nl.siegmann.epublib.epub.EpubReader
 import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.util.CoverImage
-import ua.acclorite.book_story.util.UIText
+import ua.acclorite.book_story.domain.util.CoverImage
+import ua.acclorite.book_story.domain.util.UIText
 import java.io.File
 import java.io.FileInputStream
 import javax.inject.Inject
@@ -50,6 +50,10 @@ class EpubFileParser @Inject constructor() : FileParser {
                 author = author,
                 description = description?.toString(),
                 text = emptyList(),
+                letters = 0,
+                words = 0,
+                scrollIndex = 0,
+                scrollOffset = 0,
                 progress = 0f,
                 file = file,
                 filePath = file.path,

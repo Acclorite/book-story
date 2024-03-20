@@ -5,8 +5,8 @@ import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.domain.model.StringWithId
-import ua.acclorite.book_story.util.Resource
-import ua.acclorite.book_story.util.UIText
+import ua.acclorite.book_story.domain.util.Resource
+import ua.acclorite.book_story.domain.util.UIText
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader

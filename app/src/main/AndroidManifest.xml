@@ -19,19 +19,24 @@
         <intent>
             <action android:name="android.intent.action.WEB_SEARCH" />
         </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
 
     </queries>
 
     <application
-        android:name=".util.BookApplication"
-        android:allowBackup="true"
+        android:name=".Application"
+        android:allowBackup="false"
         android:icon="@mipmap/app_icon"
         android:roundIcon="@mipmap/app_icon_round"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Start.Splash"
         android:enableOnBackInvokedCallback="true"
-        tools:targetApi="tiramisu">
+        tools:targetApi="tiramisu"
+        tools:ignore="DataExtractionRules">
 
         <activity
             android:name=".Activity"
@@ -43,6 +48,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false"
+            android:exported="false">
+            <meta-data
+                android:name="autoStoreLocales"
+                android:value="true" />
+        </service>
 
     </application>
 

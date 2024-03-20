@@ -17,19 +17,20 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ChipItem
+import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
-import ua.acclorite.book_story.ui.elevation
-import ua.acclorite.book_story.util.Constants
+import ua.acclorite.book_story.presentation.ui.elevation
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,11 +41,11 @@ fun GeneralSettings(
     val listState = rememberLazyListState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         canScroll = {
-            listState.canScrollForward
+            listState.canScrollForward || listState.canScrollBackward
         }
     )
 
-    val language = mainViewModel.language.collectAsState().value!!
+    val state by mainViewModel.state.collectAsState()
 
     Scaffold(
         Modifier
@@ -75,6 +76,9 @@ fun GeneralSettings(
             state = listState
         ) {
             item {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+            item {
                 ChipsWithTitle(
                     title = stringResource(id = R.string.language_option),
                     chips = Constants.LANGUAGES.sortedBy { it.second }.map {
@@ -82,7 +86,7 @@ fun GeneralSettings(
                             it.first,
                             it.second,
                             MaterialTheme.typography.labelLarge,
-                            it.first == language
+                            it.first == state.language
                         )
                     }.sortedBy { it.title }
                 ) {

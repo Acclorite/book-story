@@ -8,11 +8,12 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsIgnoringVisibility
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,6 +33,8 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
@@ -44,7 +47,9 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 @Composable
 fun ReaderEndItem(
     libraryViewModel: LibraryViewModel,
+    historyViewModel: HistoryViewModel,
     viewModel: ReaderViewModel,
+    listState: LazyListState,
     navigator: Navigator
 ) {
     val state by viewModel.state.collectAsState()
@@ -54,12 +59,11 @@ fun ReaderEndItem(
         modifier = Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surface)
-            .windowInsetsPadding(WindowInsets.navigationBarsIgnoringVisibility)
             .padding(
-                top = 24.dp,
-                start = 24.dp,
-                end = 24.dp,
-                bottom = 8.dp
+                horizontal = 36.dp,
+                vertical = 108.dp + WindowInsets.navigationBarsIgnoringVisibility
+                    .asPaddingValues()
+                    .calculateBottomPadding()
             ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -72,7 +76,11 @@ fun ReaderEndItem(
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            stringResource(id = R.string.letters_and_words, state.letters, state.words),
+            stringResource(
+                id = R.string.letters_and_words,
+                state.book.letters,
+                state.book.words
+            ),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center
@@ -83,15 +91,15 @@ fun ReaderEndItem(
                 if (state.book.category != Category.ALREADY_READ) {
                     viewModel.onEvent(
                         ReaderEvent.OnMoveBookToAlreadyRead(
-                            refreshList = {
-                                libraryViewModel.onEvent(
-                                    LibraryEvent.OnLoadList
-                                )
+                            onUpdateCategories = {
+                                libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
+                                historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
                             },
                             updatePage = {
                                 libraryViewModel.onEvent(LibraryEvent.OnUpdateCurrentPage(it))
                             },
                             navigator = navigator,
+                            listState = listState,
                             context = context
                         )
                     )
@@ -103,11 +111,19 @@ fun ReaderEndItem(
                     ).show()
                 } else {
                     viewModel.onEvent(
-                        ReaderEvent.OnShowSystemBars(
-                            context
+                        ReaderEvent.OnGoBack(
+                            context,
+                            navigator,
+                            refreshList = {
+                                libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
+                                historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
+                            },
+                            listState = listState,
+                            navigate = {
+                                it.navigate(Screen.LIBRARY, true)
+                            }
                         )
                     )
-                    navigator.navigate(Screen.LIBRARY, true)
                 }
             },
             contentPadding = PaddingValues(horizontal = 12.dp),

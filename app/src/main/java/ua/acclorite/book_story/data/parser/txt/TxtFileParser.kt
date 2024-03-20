@@ -4,9 +4,8 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.domain.model.StringWithId
-import ua.acclorite.book_story.util.CoverImage
-import ua.acclorite.book_story.util.UIText
+import ua.acclorite.book_story.domain.util.CoverImage
+import ua.acclorite.book_story.domain.util.UIText
 import java.io.File
 import javax.inject.Inject
 
@@ -20,14 +19,17 @@ class TxtFileParser @Inject constructor() : FileParser {
         try {
             val title = file.name.trim().dropLast(4)
             val author = UIText.StringResource(R.string.unknown_author)
-            val text = emptyList<StringWithId>()
 
             return Book(
                 id = null,
                 title = title,
                 author = author,
                 description = null,
-                text = text,
+                text = emptyList(),
+                letters = 0,
+                words = 0,
+                scrollIndex = 0,
+                scrollOffset = 0,
                 progress = 0f,
                 file = file,
                 filePath = file.path,

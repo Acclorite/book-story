@@ -28,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -54,6 +55,7 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.CustomSelectionContainer
 import ua.acclorite.book_story.presentation.components.is_messages.IsError
 import ua.acclorite.book_story.presentation.data.MainViewModel
@@ -69,8 +71,7 @@ import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.Re
 import ua.acclorite.book_story.presentation.screens.reader.components.settings_bottom_sheet.ReaderSettingsBottomSheet
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
-import ua.acclorite.book_story.ui.elevation
-import ua.acclorite.book_story.util.Constants
+import ua.acclorite.book_story.presentation.ui.elevation
 
 @OptIn(FlowPreview::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -86,8 +87,10 @@ fun ReaderScreen(
     val systemBarsColor = MaterialTheme.elevation(20.dp).copy(0.85f)
 
     var loading by remember { mutableStateOf(true) }
-    val state by viewModel.state.collectAsState()
     val listState = rememberLazyListState()
+
+    val state by viewModel.state.collectAsState()
+    val canScrollForward by remember { derivedStateOf { listState.canScrollForward } }
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
             override fun onPostScroll(
@@ -106,47 +109,45 @@ fun ReaderScreen(
         }
     }
 
-    val fontFamily = Constants.FONTS.find {
-        it.id == mainViewModel.fontFamily.collectAsState().value!!
-    } ?: Constants.FONTS[0]
-    val fontStyle = when (mainViewModel.isItalic.collectAsState().value!!) {
-        false -> FontStyle.Normal
-        true -> FontStyle.Italic
+    val mainState by mainViewModel.state.collectAsState()
+    val fontFamily = remember(mainState.fontFamily) {
+        Constants.FONTS.find {
+            it.id == mainState.fontFamily
+        } ?: Constants.FONTS[0]
     }
-    val fontSize = mainViewModel.fontSize.collectAsState().value!!
-    val lineHeight = mainViewModel.lineHeight.collectAsState().value!!
-    val paragraphHeight = mainViewModel.paragraphHeight.collectAsState().value!!
-    val paragraphIndentation = mainViewModel.paragraphIndentation.collectAsState().value!!
-    val backgroundColor = mainViewModel.backgroundColor.collectAsState().value!!
-    val fontColor = mainViewModel.fontColor.collectAsState().value!!
 
     LaunchedEffect(Unit) {
         viewModel.init(
             navigator,
             context,
-            listState,
             refreshList = {
                 libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
                 historyViewModel.onEvent(HistoryEvent.OnLoadList)
             },
+            listState = listState,
             onLoaded = {
                 loading = false
             }
         )
     }
+    LaunchedEffect(canScrollForward) {
+        if (!canScrollForward && !state.showMenu && !loading) {
+            viewModel.onEvent(ReaderEvent.OnShowHideMenu(context = context))
+        }
+    }
 
     LaunchedEffect(listState) {
         snapshotFlow {
-            listState.firstVisibleItemIndex
-        }.debounce(1000).collectLatest {
+            listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
+        }.debounce(500).collectLatest { items ->
             if (!loading) {
                 val lastVisibleItemIndex = listState.layoutInfo.visibleItemsInfo.last().index
 
-                val progress = if (it > 0) {
+                val progress = if (items.first > 0) {
                     if (lastVisibleItemIndex >= (listState.layoutInfo.totalItemsCount - 1)) {
                         1f
                     } else {
-                        (it.toFloat() / (state.book.text.lastIndex).toFloat())
+                        (items.first.toFloat() / (state.book.text.lastIndex).toFloat())
                     }
                 } else {
                     0f
@@ -154,14 +155,13 @@ fun ReaderScreen(
 
                 viewModel.onEvent(
                     ReaderEvent.OnChangeProgress(
-                        progress,
-                        navigator,
+                        progress = progress,
+                        navigator = navigator,
+                        firstVisibleItemIndex = items.first,
+                        firstVisibleItemOffset = items.second,
                         refreshList = { book ->
-                            libraryViewModel.onEvent(
-                                LibraryEvent.OnUpdateBook(
-                                    book
-                                )
-                            )
+                            libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(book))
+                            historyViewModel.onEvent(HistoryEvent.OnUpdateBook(book))
                         }
                     )
                 )
@@ -186,7 +186,10 @@ fun ReaderScreen(
             ) {
                 ReaderTopBar(
                     viewModel = viewModel,
+                    libraryViewModel = libraryViewModel,
+                    historyViewModel = historyViewModel,
                     navigator = navigator,
+                    listState = listState,
                     containerColor = systemBarsColor
                 )
             }
@@ -200,8 +203,9 @@ fun ReaderScreen(
                 ReaderBottomBar(
                     viewModel = viewModel,
                     libraryViewModel = libraryViewModel,
+                    historyViewModel = historyViewModel,
+                    listState = listState,
                     navigator = navigator,
-                    scrollState = listState,
                     systemBarsColor = systemBarsColor
                 )
             }
@@ -280,36 +284,44 @@ fun ReaderScreen(
                 itemsIndexed(
                     state.book.text, key = { _, key -> key.id }
                 ) { index, line ->
-                    val text =
-                        remember(paragraphIndentation) { "${if (paragraphIndentation) "  " else ""}${line.line}" }
-                    val fontCol = remember(fontColor) { Color(fontColor.toULong()) }
-                    val backgroundCol =
-                        remember(backgroundColor) { Color(backgroundColor.toULong()) }
-                    val lineHeightSp = remember(fontSize, lineHeight) { (fontSize + lineHeight).sp }
+                    val text = remember(mainState.paragraphIndentation) {
+                        "${if (mainState.paragraphIndentation!!) "  " else ""}${line.line}"
+                    }
+                    val fontColor = remember(mainState.fontColor) {
+                        Color(mainState.fontColor!!.toULong())
+                    }
+                    val backgroundColor = remember(mainState.backgroundColor) {
+                        Color(mainState.backgroundColor!!.toULong())
+                    }
+                    val lineHeight = remember(mainState.fontSize, mainState.lineHeight) {
+                        (mainState.fontSize!! + mainState.lineHeight!!).sp
+                    }
 
                     Column(
                         Modifier
-                            .background(backgroundCol)
+                            .background(backgroundColor)
                             .fillMaxWidth()
                             .padding(
-                                top = if (index == 0) 36.dp else 0.dp,
+                                top = if (index == 0) 18.dp else 0.dp,
                                 start = 18.dp,
                                 end = 18.dp,
-                                bottom = if (index == state.book.text.lastIndex) 36.dp
-                                else (paragraphHeight * 3).dp
+                                bottom = if (index == state.book.text.lastIndex) 18.dp
+                                else (mainState.paragraphHeight!! * 3).dp
                             )
                     ) {
                         Text(
                             text = text,
-                            color = fontCol,
-
+                            color = fontColor,
                             style = TextStyle(
                                 lineBreak = LineBreak.Paragraph
                             ),
                             fontFamily = fontFamily.font,
-                            fontStyle = fontStyle,
-                            fontSize = fontSize.sp,
-                            lineHeight = lineHeightSp
+                            fontStyle = when (mainState.isItalic!!) {
+                                true -> FontStyle.Italic
+                                false -> FontStyle.Normal
+                            },
+                            fontSize = mainState.fontSize!!.sp,
+                            lineHeight = lineHeight
                         )
                     }
                 }
@@ -319,7 +331,9 @@ fun ReaderScreen(
                         DisableSelection {
                             ReaderEndItem(
                                 libraryViewModel = libraryViewModel,
+                                historyViewModel = historyViewModel,
                                 viewModel = viewModel,
+                                listState = listState,
                                 navigator = navigator
                             )
                         }
@@ -343,10 +357,21 @@ fun ReaderScreen(
                     icon = painterResource(id = R.drawable.error),
                     actionTitle = stringResource(id = R.string.go_back),
                     action = {
-                        navigator.navigateBack()
                         libraryViewModel.onEvent(LibraryEvent.OnLoadList)
-                        historyViewModel.onEvent(HistoryEvent.OnLoadList)
-                        viewModel.onEvent(ReaderEvent.OnShowSystemBars(context))
+                        viewModel.onEvent(
+                            ReaderEvent.OnGoBack(
+                                context,
+                                navigator,
+                                refreshList = {
+                                    libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
+                                    historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
+                                },
+                                listState = listState,
+                                navigate = {
+                                    it.navigateBack()
+                                }
+                            )
+                        )
                     }
                 )
             } else {
@@ -369,7 +394,19 @@ fun ReaderScreen(
     }
 
     BackHandler {
-        navigator.navigateBack()
-        viewModel.onEvent(ReaderEvent.OnShowSystemBars(context))
+        viewModel.onEvent(
+            ReaderEvent.OnGoBack(
+                context,
+                navigator,
+                refreshList = {
+                    libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
+                    historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
+                },
+                listState = listState,
+                navigate = {
+                    it.navigateBack()
+                }
+            )
+        )
     }
 }

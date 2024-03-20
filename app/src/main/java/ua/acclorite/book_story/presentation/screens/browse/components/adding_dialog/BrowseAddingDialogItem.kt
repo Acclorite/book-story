@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Error
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,8 +22,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.NullableBook
+import ua.acclorite.book_story.domain.util.Selected
 import ua.acclorite.book_story.presentation.components.CustomCheckbox
-import ua.acclorite.book_story.util.Selected
 
 /**
  * Adding dialog item.
@@ -64,13 +63,6 @@ fun BrowseAddingDialogItem(result: Pair<NullableBook, Selected>, onClick: (Boole
             }
         }
     } else {
-        val icon =
-            if (result.first.message?.asString() == stringResource(R.string.error_file_encrypted)) {
-                Icons.Default.Lock
-            } else {
-                Icons.Default.Error
-            }
-
         Row(
             Modifier
                 .fillMaxWidth()
@@ -81,7 +73,7 @@ fun BrowseAddingDialogItem(result: Pair<NullableBook, Selected>, onClick: (Boole
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                imageVector = icon,
+                imageVector = Icons.Default.Error,
                 contentDescription = stringResource(id = R.string.error_content_desc),
                 modifier = Modifier.size(26.dp),
                 tint = MaterialTheme.colorScheme.error

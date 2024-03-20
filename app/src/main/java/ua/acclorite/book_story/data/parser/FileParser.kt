@@ -1,7 +1,7 @@
 package ua.acclorite.book_story.data.parser
 
 import ua.acclorite.book_story.domain.model.Book
-import ua.acclorite.book_story.util.CoverImage
+import ua.acclorite.book_story.domain.util.CoverImage
 import java.io.File
 
 

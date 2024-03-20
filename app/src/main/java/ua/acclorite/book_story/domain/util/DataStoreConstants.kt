@@ -1,4 +1,4 @@
-package ua.acclorite.book_story.util
+package ua.acclorite.book_story.domain.util
 
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
@@ -10,7 +10,6 @@ object DataStoreConstants {
     val THEME = stringPreferencesKey("theme")
     val DARK_THEME = stringPreferencesKey("dark_theme")
     val SHOW_START_SCREEN = booleanPreferencesKey("guide")
-
     val BACKGROUND_COLOR = longPreferencesKey("background_color")
     val FONT_COLOR = longPreferencesKey("font_color")
     val FONT = stringPreferencesKey("font")

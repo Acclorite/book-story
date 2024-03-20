@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Modifier
@@ -28,7 +29,7 @@ import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import ua.acclorite.book_story.ui.Transitions
+import ua.acclorite.book_story.presentation.ui.Transitions
 
 
 private const val CURRENT_SCREEN = "current_screen"
@@ -56,11 +57,11 @@ enum class Screen {
     START
 }
 
+@Immutable
 data class Argument(
     val key: String,
     val arg: Any?
 )
-
 
 /**
  * Navigator. Using for navigation between screens.
@@ -180,7 +181,6 @@ class Navigator @AssistedInject constructor(
             content()
         }
     }
-
 
     @AssistedFactory
     interface Factory {

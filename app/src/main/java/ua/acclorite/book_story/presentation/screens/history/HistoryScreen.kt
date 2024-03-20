@@ -62,9 +62,9 @@ import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
-import ua.acclorite.book_story.ui.DefaultTransition
-import ua.acclorite.book_story.ui.Transitions
-import ua.acclorite.book_story.ui.elevation
+import ua.acclorite.book_story.presentation.ui.DefaultTransition
+import ua.acclorite.book_story.presentation.ui.Transitions
+import ua.acclorite.book_story.presentation.ui.elevation
 import java.util.UUID
 
 @OptIn(
@@ -79,7 +79,6 @@ fun HistoryScreen(
 ) {
     val context = LocalContext.current
     val state by viewModel.state.collectAsState()
-    val books = libraryViewModel.state.collectAsState().value.books.map { it.first }
     val refreshState = rememberPullRefreshState(
         refreshing = state.isRefreshing,
         onRefresh = {
@@ -108,19 +107,14 @@ fun HistoryScreen(
                 content1NavigationIcon = {},
                 content1Title = {
                     Text(
-                        stringResource(id = R.string.history_screen),
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 1
+                        stringResource(id = R.string.history_screen)
                     )
                 },
                 content1Actions = {
                     CustomIconButton(
                         icon = Icons.Default.Search,
                         contentDescription = stringResource(id = R.string.search_content_desc),
-                        disableOnClick = false,
-                        enabled = !state.showSearch
+                        disableOnClick = true,
                     ) {
                         viewModel.onEvent(HistoryEvent.OnSearchShowHide)
                     }
@@ -133,6 +127,7 @@ fun HistoryScreen(
                         enabled = !state.isLoading
                                 && !state.isRefreshing
                                 && state.history.isNotEmpty()
+                                && !state.showDeleteWholeHistoryDialog
                     ) {
                         viewModel.onEvent(HistoryEvent.OnShowHideDeleteWholeHistoryDialog)
                     }
@@ -214,72 +209,72 @@ fun HistoryScreen(
                     state = state.listState,
                     contentPadding = PaddingValues(vertical = 12.dp)
                 ) {
-                    if (!state.isLoading) {
-                        state.history.forEachIndexed { index, groupedHistory ->
-                            item(key = groupedHistory.title) {
-                                if (index > 0) {
-                                    Spacer(modifier = Modifier.height(8.dp))
-                                }
-
-                                CategoryTitle(
-                                    modifier = Modifier.animateItemPlacement(),
-                                    title = when (groupedHistory.title) {
-                                        "today" -> stringResource(id = R.string.today)
-                                        "yesterday" -> stringResource(id = R.string.yesterday)
-                                        else -> groupedHistory.title
-                                    },
-                                    padding = 16.dp
-                                )
+                    state.history.forEachIndexed { index, groupedHistory ->
+                        item(key = groupedHistory.title) {
+                            if (index > 0) {
                                 Spacer(modifier = Modifier.height(8.dp))
                             }
 
-                            items(
-                                groupedHistory.history, key = { it.id ?: UUID.randomUUID() }
-                            ) {
-                                val book = remember {
-                                    books.find { book -> book.id == it.bookId }
-                                } ?: return@items
+                            CategoryTitle(
+                                modifier = Modifier.animateItemPlacement(),
+                                title = when (groupedHistory.title) {
+                                    "today" -> stringResource(id = R.string.today)
+                                    "yesterday" -> stringResource(id = R.string.yesterday)
+                                    else -> groupedHistory.title
+                                },
+                                padding = 16.dp
+                            )
 
-                                HistoryItem(
-                                    modifier = Modifier.animateItemPlacement(),
-                                    history = it,
-                                    book = book,
-                                    onBodyClick = {
-                                        navigator.navigate(
-                                            Screen.BOOK_INFO,
-                                            false,
-                                            Argument("book", book.id)
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
+
+                        items(
+                            groupedHistory.history, key = { it.id ?: UUID.randomUUID() }
+                        ) {
+                            HistoryItem(
+                                modifier = Modifier.animateItemPlacement(),
+                                history = it,
+                                isOnClickEnabled = !state.isRefreshing,
+                                onBodyClick = {
+                                    navigator.navigate(
+                                        Screen.BOOK_INFO,
+                                        false,
+                                        Argument("book", it.book)
+                                    )
+                                },
+                                onTitleClick = {
+                                    viewModel.onEvent(
+                                        HistoryEvent.OnNavigateToReaderScreen(
+                                            navigator,
+                                            it.book
                                         )
-                                    },
-                                    onTitleClick = {
-                                        navigator.navigate(
-                                            Screen.READER,
-                                            false,
-                                            Argument("book", book.id)
+                                    )
+                                },
+                                isDeleteEnabled = !state.isRefreshing,
+                                onDeleteClick = {
+                                    viewModel.onEvent(
+                                        HistoryEvent.OnDeleteHistoryElement(
+                                            historyToDelete = it,
+                                            snackbarState = snackbarState,
+                                            context = context,
+                                            refreshList = {
+                                                libraryViewModel.onEvent(
+                                                    LibraryEvent.OnLoadList
+                                                )
+                                            }
                                         )
-                                    },
-                                    isDeleteEnabled = !state.isRefreshing,
-                                    onDeleteClick = {
-                                        viewModel.onEvent(
-                                            HistoryEvent.OnDeleteHistoryElement(
-                                                historyToDelete = it,
-                                                snackbarState = snackbarState,
-                                                context = context,
-                                                refreshList = {
-                                                    libraryViewModel.onEvent(LibraryEvent.OnLoadList)
-                                                }
-                                            )
-                                        )
-                                    }
-                                )
-                            }
+                                    )
+                                }
+                            )
                         }
                     }
                 }
             }
 
             AnimatedVisibility(
-                visible = !state.isLoading && state.history.isEmpty() && !state.isRefreshing,
+                visible = !state.isLoading
+                        && state.history.isEmpty()
+                        && !state.isRefreshing,
                 modifier = Modifier.align(Alignment.Center),
                 enter = Transitions.DefaultTransitionIn,
                 exit = fadeOut(tween(0))

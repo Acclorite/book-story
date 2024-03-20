@@ -3,7 +3,9 @@ package ua.acclorite.book_story.presentation.screens.history.data
 import android.content.Context
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.ui.focus.FocusRequester
+import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.History
+import ua.acclorite.book_story.presentation.data.Navigator
 
 sealed class HistoryEvent {
     data object OnRefreshList : HistoryEvent()
@@ -20,4 +22,9 @@ sealed class HistoryEvent {
     data class OnSearchQueryChange(val query: String) : HistoryEvent()
     data object OnSearchShowHide : HistoryEvent()
     data class OnRequestFocus(val focusRequester: FocusRequester) : HistoryEvent()
+    data class OnUpdateBook(val book: Book) : HistoryEvent()
+    data class OnNavigateToReaderScreen(
+        val navigator: Navigator,
+        val book: Book?
+    ) : HistoryEvent()
 }

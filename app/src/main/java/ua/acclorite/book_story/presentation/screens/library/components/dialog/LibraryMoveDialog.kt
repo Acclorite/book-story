@@ -15,6 +15,8 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithLazyColumn
 import ua.acclorite.book_story.presentation.components.custom_dialog.SelectableDialogItem
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 
@@ -23,7 +25,11 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewMode
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun LibraryMoveDialog(viewModel: LibraryViewModel, pagerState: PagerState) {
+fun LibraryMoveDialog(
+    viewModel: LibraryViewModel,
+    historyViewModel: HistoryViewModel,
+    pagerState: PagerState
+) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
 
@@ -38,7 +44,14 @@ fun LibraryMoveDialog(viewModel: LibraryViewModel, pagerState: PagerState) {
         isActionEnabled = true,
         onDismiss = { viewModel.onEvent(LibraryEvent.OnShowHideMoveDialog) },
         onAction = {
-            viewModel.onEvent(LibraryEvent.OnMoveBooks(pagerState))
+            viewModel.onEvent(
+                LibraryEvent.OnMoveBooks(
+                    pagerState,
+                    refreshList = {
+                        historyViewModel.onEvent(HistoryEvent.OnLoadList)
+                    }
+                )
+            )
             Toast.makeText(
                 context,
                 context.getString(R.string.books_moved),

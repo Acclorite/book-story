@@ -37,10 +37,10 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
+import ua.acclorite.book_story.domain.util.Selected
 import ua.acclorite.book_story.presentation.data.removeDigits
 import ua.acclorite.book_story.presentation.data.removeTrailingZero
-import ua.acclorite.book_story.ui.elevation
-import ua.acclorite.book_story.util.Selected
+import ua.acclorite.book_story.presentation.ui.elevation
 
 /**
  * Library list element item.
@@ -93,7 +93,7 @@ fun LibraryBookItem(
             modifier = Modifier
                 .aspectRatio(1f / 1.5f)
                 .fillMaxWidth()
-                .clip(MaterialTheme.shapes.large)
+                .clip(MaterialTheme.shapes.medium)
                 .background(MaterialTheme.elevation())
                 .combinedClickable(
                     onClick = {
@@ -110,7 +110,7 @@ fun LibraryBookItem(
                     contentDescription = stringResource(id = R.string.cover_image_content_desc),
                     modifier = Modifier
                         .fillMaxSize()
-                        .clip(MaterialTheme.shapes.large),
+                        .clip(MaterialTheme.shapes.medium),
                     contentScale = ContentScale.Crop
                 )
             } else {

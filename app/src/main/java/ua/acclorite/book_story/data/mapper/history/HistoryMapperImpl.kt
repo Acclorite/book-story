@@ -17,6 +17,7 @@ class HistoryMapperImpl @Inject constructor() : HistoryMapper {
         return History(
             historyEntity.id,
             bookId = historyEntity.bookId,
+            book = null,
             time = historyEntity.time
         )
     }

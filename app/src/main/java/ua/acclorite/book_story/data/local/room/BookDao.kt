@@ -43,6 +43,9 @@ interface BookDao {
     @Query("SELECT * FROM historyentity")
     suspend fun getHistory(): List<HistoryEntity>
 
+    @Query("SELECT * FROM historyentity WHERE bookId = :bookId ORDER BY time DESC LIMIT 1")
+    fun getLatestHistoryForBook(bookId: Int): HistoryEntity?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertHistory(
         history: List<HistoryEntity>

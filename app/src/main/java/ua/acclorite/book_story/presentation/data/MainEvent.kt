@@ -12,5 +12,5 @@ sealed class MainEvent {
     data class OnChangeParagraphIndentation(val bool: Boolean) : MainEvent()
     data class OnChangeBackgroundColor(val color: Long) : MainEvent()
     data class OnChangeFontColor(val color: Long) : MainEvent()
-
+    data class OnChangeShowStartScreen(val bool: Boolean) : MainEvent()
 }

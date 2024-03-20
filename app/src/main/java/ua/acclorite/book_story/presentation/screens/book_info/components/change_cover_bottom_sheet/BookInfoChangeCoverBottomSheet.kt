@@ -31,8 +31,8 @@ import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
-import ua.acclorite.book_story.ui.ElevationDefaults
-import ua.acclorite.book_story.ui.elevation
+import ua.acclorite.book_story.presentation.ui.ElevationDefaults
+import ua.acclorite.book_story.presentation.ui.elevation
 
 /**
  * Change cover bottom sheet. Lets user select photo from the gallery and replaces old one.
@@ -58,8 +58,8 @@ fun BookInfoChangeCoverBottomSheet(
                         uri,
                         context,
                         refreshList = {
-                            libraryViewModel.onEvent(LibraryEvent.OnLoadList)
-                            historyViewModel.onEvent(HistoryEvent.OnLoadList)
+                            libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
+                            historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
                         }
                     )
                 )
@@ -98,12 +98,14 @@ fun BookInfoChangeCoverBottomSheet(
                 text = stringResource(id = R.string.delete_cover),
                 description = stringResource(id = R.string.delete_cover_desc)
             ) {
-                viewModel.onEvent(BookInfoEvent.OnDeleteCover(
-                    refreshList = {
-                        libraryViewModel.onEvent(LibraryEvent.OnLoadList)
-                        historyViewModel.onEvent(HistoryEvent.OnLoadList)
-                    }
-                ))
+                viewModel.onEvent(
+                    BookInfoEvent.OnDeleteCover(
+                        refreshList = {
+                            libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
+                            historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
+                        }
+                    )
+                )
                 Toast.makeText(
                     context,
                     context.getString(R.string.cover_image_deleted),

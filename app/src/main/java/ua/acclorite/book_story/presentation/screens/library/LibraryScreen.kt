@@ -68,6 +68,7 @@ import kotlinx.coroutines.launch
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
+import ua.acclorite.book_story.domain.util.Selected
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.MoreDropDown
@@ -83,10 +84,9 @@ import ua.acclorite.book_story.presentation.screens.library.components.dialog.Li
 import ua.acclorite.book_story.presentation.screens.library.components.dialog.LibraryMoveDialog
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
-import ua.acclorite.book_story.ui.DefaultTransition
-import ua.acclorite.book_story.ui.Transitions
-import ua.acclorite.book_story.ui.elevation
-import ua.acclorite.book_story.util.Selected
+import ua.acclorite.book_story.presentation.ui.DefaultTransition
+import ua.acclorite.book_story.presentation.ui.Transitions
+import ua.acclorite.book_story.presentation.ui.elevation
 import java.util.UUID
 
 @OptIn(
@@ -98,8 +98,7 @@ fun LibraryScreen(
     viewModel: LibraryViewModel,
     browseViewModel: BrowseViewModel,
     historyViewModel: HistoryViewModel,
-    navigator: Navigator,
-    addedBooks: List<Book>
+    navigator: Navigator
 ) {
     val state by viewModel.state.collectAsState()
     val pagerState = rememberPagerState(
@@ -115,20 +114,20 @@ fun LibraryScreen(
     val focusRequester = remember { FocusRequester() }
 
     LaunchedEffect(Unit) {
-        if (addedBooks.isNotEmpty()) {
-            viewModel.onEvent(LibraryEvent.OnPreloadBooks(addedBooks))
-            navigator.clearArgument("added_books")
-        }
-    }
-    LaunchedEffect(Unit) {
         viewModel.onEvent(LibraryEvent.OnScrollToPage(state.currentPage, pagerState))
     }
     LaunchedEffect(pagerState.currentPage) {
-        viewModel.onEvent(LibraryEvent.OnUpdateCurrentPage(pagerState.currentPage))
+        if (pagerState.currentPage != state.currentPage) {
+            viewModel.onEvent(LibraryEvent.OnUpdateCurrentPage(pagerState.currentPage))
+        }
     }
 
     if (state.showMoveDialog) {
-        LibraryMoveDialog(viewModel = viewModel, pagerState = pagerState)
+        LibraryMoveDialog(
+            viewModel = viewModel,
+            historyViewModel = historyViewModel,
+            pagerState = pagerState
+        )
     }
     if (state.showDeleteDialog) {
         LibraryDeleteDialog(
@@ -156,13 +155,7 @@ fun LibraryScreen(
                     content1NavigationIcon = {},
                     content1Title = {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(
-                                stringResource(id = R.string.library_screen),
-                                style = MaterialTheme.typography.titleLarge,
-                                color = MaterialTheme.colorScheme.onSurface,
-                                overflow = TextOverflow.Ellipsis,
-                                maxLines = 1
-                            )
+                            Text(stringResource(id = R.string.library_screen))
                             Spacer(modifier = Modifier.width(6.dp))
                             Text(
                                 text = state.books.size.toString(),
@@ -179,8 +172,7 @@ fun LibraryScreen(
                         CustomIconButton(
                             icon = Icons.Default.Search,
                             contentDescription = stringResource(id = R.string.search_content_desc),
-                            disableOnClick = false,
-                            enabled = !state.showSearch
+                            disableOnClick = true,
                         ) {
                             viewModel.onEvent(LibraryEvent.OnSearchShowHide)
                         }
@@ -204,8 +196,6 @@ fun LibraryScreen(
                                 id = R.string.selected_items_count_query,
                                 state.selectedItemsCount.coerceAtLeast(1)
                             ),
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.onSurface,
                             overflow = TextOverflow.Ellipsis,
                             maxLines = 1
                         )
@@ -216,8 +206,12 @@ fun LibraryScreen(
                             contentDescription = stringResource(
                                 id = R.string.move_books_content_desc
                             ),
-                            disableOnClick = true
-                        ) {
+                            enabled = !state.isLoading
+                                    && !state.isRefreshing
+                                    && !state.showMoveDialog,
+                            disableOnClick = false,
+
+                            ) {
                             viewModel.onEvent(LibraryEvent.OnShowHideMoveDialog)
                         }
                         CustomIconButton(
@@ -225,7 +219,10 @@ fun LibraryScreen(
                             contentDescription = stringResource(
                                 id = R.string.delete_books_content_desc
                             ),
-                            disableOnClick = true
+                            enabled = !state.isLoading
+                                    && !state.isRefreshing
+                                    && !state.showDeleteDialog,
+                            disableOnClick = false
                         ) {
                             viewModel.onEvent(LibraryEvent.OnShowHideDeleteDialog)
                         }
@@ -310,11 +307,13 @@ fun LibraryScreen(
 
                 LaunchedEffect(state.books) {
                     categorizedBooks.clear()
-                    categorizedBooks.addAll(state.books.filter { it.first.category == category }
-                        .sortedWith(
-                            compareByDescending<Pair<Book, Selected>> { it.first.lastOpened }
-                                .thenBy { it.first.title }
-                        )
+                    categorizedBooks.addAll(
+                        state.books
+                            .filter { it.first.category == category }
+                            .sortedWith(
+                                compareByDescending<Pair<Book, Selected>> { it.first.lastOpened }
+                                    .thenBy { it.first.title }
+                            )
                     )
                     categoryIsLoading = false
                 }
@@ -323,8 +322,7 @@ fun LibraryScreen(
                     DefaultTransition(visible = !state.isLoading && !categoryIsLoading) {
                         LazyVerticalGrid(
                             columns = GridCells.Adaptive(120.dp),
-                            modifier = Modifier
-                                .fillMaxSize(),
+                            modifier = Modifier.fillMaxSize(),
                             contentPadding = PaddingValues(8.dp)
                         ) {
                             items(
@@ -341,7 +339,7 @@ fun LibraryScreen(
                                             navigator.navigate(
                                                 Screen.BOOK_INFO,
                                                 false,
-                                                Argument("book", it.first.id)
+                                                Argument("book", it.first)
                                             )
                                         }
                                     },
@@ -351,10 +349,11 @@ fun LibraryScreen(
                                         }
                                     },
                                     onButtonClick = {
-                                        navigator.navigate(
-                                            Screen.READER,
-                                            false,
-                                            Argument("book", it.first.id)
+                                        viewModel.onEvent(
+                                            LibraryEvent.OnNavigateToReaderScreen(
+                                                navigator,
+                                                it.first
+                                            )
                                         )
                                     }
                                 )
@@ -363,7 +362,9 @@ fun LibraryScreen(
                     }
 
                     AnimatedVisibility(
-                        visible = !state.isLoading && !state.isRefreshing && categorizedBooks.isEmpty()
+                        visible = !state.isLoading
+                                && !state.isRefreshing
+                                && categorizedBooks.isEmpty()
                                 && !categoryIsLoading,
                         modifier = Modifier.align(Alignment.Center),
                         enter = Transitions.DefaultTransitionIn,

@@ -7,8 +7,8 @@ import com.tom_roush.pdfbox.text.PDFTextStripper
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.domain.model.StringWithId
-import ua.acclorite.book_story.util.Resource
-import ua.acclorite.book_story.util.UIText
+import ua.acclorite.book_story.domain.util.Resource
+import ua.acclorite.book_story.domain.util.UIText
 import java.io.File
 import javax.inject.Inject
 
@@ -27,11 +27,6 @@ class PdfTextParser @Inject constructor(private val application: Application) : 
 
             val pdfStripper = PDFTextStripper()
             pdfStripper.paragraphStart = "_new_line_"
-
-            if (document.isEncrypted) {
-                document.close()
-                return Resource.Error(UIText.StringResource(R.string.error_file_encrypted))
-            }
 
             val oldText = pdfStripper.getText(document)
                 .replace("\r", "")

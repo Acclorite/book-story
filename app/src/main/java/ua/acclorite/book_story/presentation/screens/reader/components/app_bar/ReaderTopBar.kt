@@ -5,7 +5,9 @@ import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -26,12 +28,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CustomIconButton
-import ua.acclorite.book_story.presentation.components.GoBackButton
-import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.data.removeDigits
 import ua.acclorite.book_story.presentation.data.removeTrailingZero
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 
@@ -40,7 +44,14 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReaderTopBar(viewModel: ReaderViewModel, navigator: Navigator, containerColor: Color) {
+fun ReaderTopBar(
+    viewModel: ReaderViewModel,
+    libraryViewModel: LibraryViewModel,
+    historyViewModel: HistoryViewModel,
+    listState: LazyListState,
+    navigator: Navigator,
+    containerColor: Color
+) {
     val context = LocalContext.current as ComponentActivity
     val state by viewModel.state.collectAsState()
 
@@ -56,8 +67,25 @@ fun ReaderTopBar(viewModel: ReaderViewModel, navigator: Navigator, containerColo
 
     TopAppBar(
         navigationIcon = {
-            GoBackButton(navigator = navigator) {
-                viewModel.onEvent(ReaderEvent.OnShowSystemBars(context))
+            CustomIconButton(
+                icon = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = stringResource(id = R.string.go_back_content_desc),
+                disableOnClick = true
+            ) {
+                viewModel.onEvent(
+                    ReaderEvent.OnGoBack(
+                        context,
+                        navigator,
+                        refreshList = {
+                            libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
+                            historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
+                        },
+                        listState = listState,
+                        navigate = {
+                            it.navigateBack()
+                        }
+                    )
+                )
             }
         },
         title = {
@@ -74,12 +102,21 @@ fun ReaderTopBar(viewModel: ReaderViewModel, navigator: Navigator, containerColo
                             interactionSource = null,
                             indication = null,
                             onClick = {
-                                navigator.navigateWithoutBackStack(
-                                    Screen.BOOK_INFO,
-                                    true,
-                                    Argument(
-                                        "book",
-                                        state.book.id
+                                viewModel.onEvent(
+                                    ReaderEvent.OnGoBack(
+                                        context,
+                                        navigator,
+                                        refreshList = {
+                                            libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
+                                            historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
+                                        },
+                                        listState = listState,
+                                        navigate = {
+                                            it.navigateWithoutBackStack(
+                                                Screen.BOOK_INFO,
+                                                true
+                                            )
+                                        }
                                     )
                                 )
                             }

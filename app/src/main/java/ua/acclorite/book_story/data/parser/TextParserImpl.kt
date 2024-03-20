@@ -5,8 +5,8 @@ import ua.acclorite.book_story.data.parser.epub.EpubTextParser
 import ua.acclorite.book_story.data.parser.pdf.PdfTextParser
 import ua.acclorite.book_story.data.parser.txt.TxtTextParser
 import ua.acclorite.book_story.domain.model.StringWithId
-import ua.acclorite.book_story.util.Resource
-import ua.acclorite.book_story.util.UIText
+import ua.acclorite.book_story.domain.util.Resource
+import ua.acclorite.book_story.domain.util.UIText
 import java.io.File
 import javax.inject.Inject
 

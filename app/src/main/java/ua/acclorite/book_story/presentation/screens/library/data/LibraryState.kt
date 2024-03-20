@@ -3,7 +3,7 @@ package ua.acclorite.book_story.presentation.screens.library.data
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.util.Selected
+import ua.acclorite.book_story.domain.util.Selected
 
 @Immutable
 data class LibraryState(
@@ -25,6 +25,4 @@ data class LibraryState(
     val selectedCategory: Category = Category.READING,
 
     val showDeleteDialog: Boolean = false,
-
-
-    )
+)

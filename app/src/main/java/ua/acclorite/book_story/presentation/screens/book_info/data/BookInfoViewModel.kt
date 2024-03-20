@@ -17,16 +17,21 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
+import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.use_case.DeleteBooks
 import ua.acclorite.book_story.domain.use_case.GetBookFromFile
 import ua.acclorite.book_story.domain.use_case.GetBooksById
+import ua.acclorite.book_story.domain.use_case.InsertHistory
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
 import ua.acclorite.book_story.domain.use_case.UpdateBooksWithText
 import ua.acclorite.book_story.domain.use_case.UpdateCoverImageOfBook
+import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
+import java.util.Date
 import javax.inject.Inject
 
 
@@ -35,6 +40,7 @@ class BookInfoViewModel @Inject constructor(
     private val updateBooks: UpdateBooks,
     private val updateBooksWithText: UpdateBooksWithText,
     private val updateCoverImageOfBook: UpdateCoverImageOfBook,
+    private val insertHistory: InsertHistory,
     private val deleteBooks: DeleteBooks,
     private val getBookFromFile: GetBookFromFile,
     private val getBookById: GetBooksById
@@ -65,7 +71,7 @@ class BookInfoViewModel @Inject constructor(
                         _state.value.book,
                         image
                     )
-                    event.refreshList()
+
                     val newCoverImage = getBookById.execute(
                         listOf(
                             _state.value.book.id ?: return@launch
@@ -80,6 +86,7 @@ class BookInfoViewModel @Inject constructor(
                             showChangeCoverBottomSheet = false
                         )
                     }
+                    event.refreshList(_state.value.book)
                 }
             }
 
@@ -93,8 +100,6 @@ class BookInfoViewModel @Inject constructor(
                         bookWithOldCover = _state.value.book,
                         newCoverImage = null
                     )
-                    event.refreshList()
-
                     _state.update {
                         it.copy(
                             book = it.book.copy(
@@ -103,6 +108,7 @@ class BookInfoViewModel @Inject constructor(
                             showChangeCoverBottomSheet = false
                         )
                     }
+                    event.refreshList(_state.value.book)
                 }
             }
 
@@ -155,8 +161,6 @@ class BookInfoViewModel @Inject constructor(
                             _state.value.book.copy(title = title)
                         )
                     )
-                    event.refreshList()
-
                     _state.update {
                         it.copy(
                             book = it.book.copy(
@@ -164,6 +168,8 @@ class BookInfoViewModel @Inject constructor(
                             )
                         )
                     }
+                    event.refreshList(_state.value.book)
+
                     onEvent(BookInfoEvent.OnShowHideEditTitle)
                 }
             }
@@ -223,13 +229,16 @@ class BookInfoViewModel @Inject constructor(
                         )
                     }
 
-                    val book = _state.value.book.copy(
-                        category = _state.value.selectedCategory
-                    )
-                    updateBooks.execute(listOf(book))
+                    _state.update {
+                        it.copy(
+                            book = it.book.copy(
+                                category = it.selectedCategory
+                            )
+                        )
+                    }
+                    updateBooks.execute(listOf(_state.value.book))
 
-                    event.refreshList()
-
+                    event.refreshList(_state.value.book)
                     event.updatePage(
                         Category.entries.dropLastWhile {
                             it != _state.value.selectedCategory
@@ -375,7 +384,7 @@ class BookInfoViewModel @Inject constructor(
                             )
                         )
                     )
-                    event.refreshList()
+                    event.refreshList(_state.value.book)
 
                     onEvent(
                         BookInfoEvent.OnShowSnackbar(
@@ -394,19 +403,41 @@ class BookInfoViewModel @Inject constructor(
                     }
                 }
             }
+
+            is BookInfoEvent.OnNavigateToReaderScreen -> {
+                viewModelScope.launch {
+                    _state.value.book.id?.let {
+                        insertHistory.execute(
+                            listOf(
+                                History(
+                                    null,
+                                    it,
+                                    null,
+                                    Date().time
+                                )
+                            )
+                        )
+                    }
+                    event.navigator.navigate(
+                        Screen.READER,
+                        false,
+                        Argument(
+                            "book", _state.value.book
+                        )
+                    )
+                }
+            }
         }
     }
 
     fun init(navigator: Navigator) {
         viewModelScope.launch {
-            val bookIndex = navigator.retrieveArgument("book") as? Int
+            val book = navigator.retrieveArgument("book") as? Book
 
-            if (bookIndex == null || bookIndex < 0) {
+            if (book == null) {
                 navigator.navigateBack()
                 return@launch
             }
-
-            val book = getBookById.execute(listOf(bookIndex)).first()
 
             _state.update {
                 BookInfoState(book = book)

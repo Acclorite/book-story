@@ -29,7 +29,7 @@ import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.settings.components.SettingsCategoryItem
-import ua.acclorite.book_story.ui.elevation
+import ua.acclorite.book_story.presentation.ui.elevation
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,7 +39,7 @@ fun SettingsScreen(
     val listState = rememberLazyListState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         canScroll = {
-            listState.canScrollForward
+            listState.canScrollForward || listState.canScrollBackward
         }
     )
 
@@ -71,6 +71,10 @@ fun SettingsScreen(
                 .padding(top = paddingValues.calculateTopPadding()),
             state = listState
         ) {
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
             item {
                 SettingsCategoryItem(
                     icon = Icons.Default.DisplaySettings,

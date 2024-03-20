@@ -11,13 +11,14 @@ import ua.acclorite.book_story.presentation.data.Navigator
  * Go back arrow button. Prevents double or triple clicking on it while going back action is performed.
  */
 @Composable
-fun GoBackButton(navigator: Navigator, customOnClick: () -> Unit = {}) {
+fun GoBackButton(navigator: Navigator, enabled: Boolean = true, customOnClick: () -> Unit = {}) {
     CustomIconButton(
         icon = Icons.AutoMirrored.Filled.ArrowBack,
         contentDescription = stringResource(id = R.string.go_back_content_desc),
-        disableOnClick = true
+        disableOnClick = true,
+        enabled = enabled
     ) {
-        navigator.navigateBack()
         customOnClick()
+        navigator.navigateBack()
     }
 }

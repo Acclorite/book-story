@@ -1,4 +1,4 @@
-package ua.acclorite.book_story.ui
+package ua.acclorite.book_story.presentation.ui
 
 import android.app.Activity
 import android.os.Build
@@ -22,11 +22,7 @@ enum class DarkTheme {
 }
 
 fun String.toDarkTheme(): DarkTheme {
-    return when (this) {
-        "OFF" -> DarkTheme.OFF
-        "ON" -> DarkTheme.ON
-        else -> DarkTheme.FOLLOW_SYSTEM
-    }
+    return DarkTheme.valueOf(this)
 }
 
 @Composable

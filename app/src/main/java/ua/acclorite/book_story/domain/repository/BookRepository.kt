@@ -2,12 +2,11 @@ package ua.acclorite.book_story.domain.repository
 
 import androidx.datastore.preferences.core.Preferences
 import kotlinx.coroutines.flow.Flow
-import ua.acclorite.book_story.data.local.dto.BookEntity
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
-import ua.acclorite.book_story.util.CoverImage
-import ua.acclorite.book_story.util.Resource
+import ua.acclorite.book_story.domain.util.CoverImage
+import ua.acclorite.book_story.domain.util.Resource
 import java.io.File
 
 interface BookRepository {
@@ -27,10 +26,6 @@ interface BookRepository {
     suspend fun getBookTextById(
         bookId: Int
     ): String
-
-    suspend fun findBook(
-        id: Int
-    ): BookEntity
 
     suspend fun insertBooks(
         books: List<Pair<Book, CoverImage?>>
@@ -70,6 +65,8 @@ interface BookRepository {
     suspend fun insertHistory(history: List<History>)
 
     suspend fun getHistory(): Flow<Resource<List<History>>>
+
+    suspend fun getLatestBookHistory(bookId: Int): History?
 
     suspend fun deleteWholeHistory()
 

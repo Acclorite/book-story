@@ -14,7 +14,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.NavigationItem
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
-import ua.acclorite.book_story.ui.elevation
+import ua.acclorite.book_story.presentation.ui.elevation
 
 /**
  * Bottom navigation bar, uses default [NavigationBar].

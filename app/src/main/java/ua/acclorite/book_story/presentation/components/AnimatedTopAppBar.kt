@@ -28,7 +28,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.ui.elevation
+import ua.acclorite.book_story.presentation.ui.elevation
 
 /**
  * Animated top app bar. Has up to 3 different top bars inside it. Follow [TopAppBar] for more info.
@@ -102,10 +102,12 @@ fun AnimatedTopAppBar(
             exit = fadeOut(spring(stiffness = Spring.StiffnessMediumLow))
         ) {
             TopAppBar(
+                windowInsets = WindowInsets.statusBars,
                 navigationIcon = content1NavigationIcon,
                 title = content1Title,
                 actions = content1Actions,
                 scrollBehavior = scrollBehavior,
+                modifier = Modifier.fillMaxWidth(),
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = animatedContainerColor,
                     scrolledContainerColor = scrolledContainerColor
@@ -120,10 +122,12 @@ fun AnimatedTopAppBar(
                 exit = fadeOut(spring(stiffness = Spring.StiffnessMediumLow))
             ) {
                 TopAppBar(
+                    windowInsets = WindowInsets.statusBars,
                     navigationIcon = content2NavigationIcon,
                     title = content2Title,
                     actions = content2Actions,
                     scrollBehavior = scrollBehavior,
+                    modifier = Modifier.fillMaxWidth(),
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = animatedContainerColor,
                         scrolledContainerColor = scrolledContainerColor
@@ -139,10 +143,12 @@ fun AnimatedTopAppBar(
                 exit = fadeOut(spring(stiffness = Spring.StiffnessMediumLow))
             ) {
                 TopAppBar(
+                    windowInsets = WindowInsets.statusBars,
                     navigationIcon = content3NavigationIcon,
                     title = content3Title,
                     actions = content3Actions,
                     scrollBehavior = scrollBehavior,
+                    modifier = Modifier.fillMaxWidth(),
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = animatedContainerColor,
                         scrolledContainerColor = scrolledContainerColor

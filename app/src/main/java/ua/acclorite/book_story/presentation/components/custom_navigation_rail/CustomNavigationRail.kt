@@ -2,8 +2,13 @@ package ua.acclorite.book_story.presentation.components.custom_navigation_rail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
@@ -18,19 +23,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.NavigationItem
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
-import ua.acclorite.book_story.ui.elevation
+import ua.acclorite.book_story.presentation.ui.elevation
 
 /**
  * Custom Navigation Rail. It is used to be shown on Tablets.
  */
 @Composable
-fun CustomNavigationRail(
-    navigator: Navigator
+fun BoxScope.CustomNavigationRail(
+    navigator: Navigator,
+    layoutDirection: LayoutDirection
 ) {
     var currentScreen: Screen? by remember { mutableStateOf(null) }
 
@@ -44,10 +51,19 @@ fun CustomNavigationRail(
 
     NavigationRail(
         modifier = Modifier
-            .width(80.dp)
+            .align(
+                Alignment.CenterStart
+            )
             .background(MaterialTheme.elevation())
+            .padding(
+                start = WindowInsets.navigationBars
+                    .asPaddingValues()
+                    .calculateStartPadding(layoutDirection)
+            )
+            .width(80.dp)
             .padding(horizontal = 12.dp),
-        containerColor = MaterialTheme.elevation()
+        containerColor = MaterialTheme.elevation(),
+        windowInsets = WindowInsets(0, 0, 0, 0)
     ) {
         Column(
             Modifier

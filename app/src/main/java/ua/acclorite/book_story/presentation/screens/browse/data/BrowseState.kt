@@ -3,7 +3,7 @@ package ua.acclorite.book_story.presentation.screens.browse.data
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.domain.model.NullableBook
-import ua.acclorite.book_story.util.Selected
+import ua.acclorite.book_story.domain.util.Selected
 import java.io.File
 
 @Immutable
@@ -17,9 +17,6 @@ data class BrowseState(
 
     val selectedItemsCount: Int = 0,
     val hasSelectedItems: Boolean = false,
-
-    val scrollIndex: Int = 0,
-    val scrollOffset: Int = 0,
 
     val showSearch: Boolean = false,
     val searchQuery: String = "",

@@ -12,6 +12,8 @@ data class BookEntity(
     val description: String?,
     val text: String,
     val filePath: String,
+    val scrollIndex: Int,
+    val scrollOffset: Int,
     val progress: Float,
     val image: String? = null,
     val category: Category

@@ -20,9 +20,12 @@ import ua.acclorite.book_story.domain.use_case.DeleteWholeHistory
 import ua.acclorite.book_story.domain.use_case.GetBooksById
 import ua.acclorite.book_story.domain.use_case.GetHistory
 import ua.acclorite.book_story.domain.use_case.InsertHistory
-import ua.acclorite.book_story.util.Resource
+import ua.acclorite.book_story.domain.util.Resource
+import ua.acclorite.book_story.presentation.data.Argument
+import ua.acclorite.book_story.presentation.data.Screen
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
 
@@ -40,6 +43,7 @@ class HistoryViewModel @Inject constructor(
 
     private var job: Job? = null
     private var job2: Job? = null
+    private var job3: Job? = null
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -55,7 +59,8 @@ class HistoryViewModel @Inject constructor(
     fun onEvent(event: HistoryEvent) {
         when (event) {
             is HistoryEvent.OnRefreshList -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                job3?.cancel()
+                job3 = viewModelScope.launch(Dispatchers.IO) {
                     _state.update {
                         it.copy(
                             isRefreshing = true,
@@ -115,6 +120,7 @@ class HistoryViewModel @Inject constructor(
                     deleteHistory.execute(
                         listOf(event.historyToDelete)
                     )
+
                     onEvent(HistoryEvent.OnRefreshList)
                     event.refreshList()
 
@@ -172,7 +178,7 @@ class HistoryViewModel @Inject constructor(
                     )
                 }
                 job?.cancel()
-                job = viewModelScope.launch {
+                job = viewModelScope.launch(Dispatchers.IO) {
                     delay(500)
                     getHistoryFromDatabase()
                 }
@@ -186,6 +192,54 @@ class HistoryViewModel @Inject constructor(
                             hasFocused = true
                         )
                     }
+                }
+            }
+
+            is HistoryEvent.OnUpdateBook -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    val history = _state.value.history.map {
+                        it.copy(
+                            history = it.history.map { history ->
+                                if (history.bookId == event.book.id) {
+                                    history.copy(
+                                        book = event.book
+                                    )
+                                } else {
+                                    history
+                                }
+                            }
+                        )
+                    }
+
+                    _state.update {
+                        it.copy(
+                            history = history
+                        )
+                    }
+                }
+            }
+
+            is HistoryEvent.OnNavigateToReaderScreen -> {
+                viewModelScope.launch {
+                    event.book?.id?.let {
+                        insertHistory.execute(
+                            listOf(
+                                History(
+                                    null,
+                                    it,
+                                    null,
+                                    Date().time
+                                )
+                            )
+                        )
+                    }
+                    event.navigator.navigate(
+                        Screen.READER,
+                        false,
+                        Argument(
+                            "book", event.book
+                        )
+                    )
                 }
             }
         }
@@ -210,9 +264,10 @@ class HistoryViewModel @Inject constructor(
         getHistory.execute().collect { result ->
             when (result) {
                 is Resource.Success -> {
-                    val history = result.data?.sortedByDescending { it.time } ?: emptyList()
+                    val historyWithoutBook =
+                        result.data?.sortedByDescending { it.time } ?: emptyList()
 
-                    if (history.isEmpty()) {
+                    if (historyWithoutBook.isEmpty()) {
                         _state.update {
                             it.copy(
                                 history = emptyList(),
@@ -223,8 +278,26 @@ class HistoryViewModel @Inject constructor(
                     }
 
                     val books = getBooksById.execute(
-                        history.map { it.bookId }.distinct()
+                        historyWithoutBook.map { it.bookId }.distinct()
                     )
+
+                    if (books.isEmpty()) {
+                        _state.update {
+                            it.copy(
+                                history = emptyList(),
+                                isLoading = false
+                            )
+                        }
+                        return@collect
+                    }
+
+                    val history = historyWithoutBook.map {
+                        val book = books.find { book -> book.id == it.bookId }!!
+                        it.copy(
+                            book = book
+                        )
+                    }
+
                     val groupedHistory = mutableListOf<GroupedHistory>()
 
                     history
@@ -277,21 +350,4 @@ class HistoryViewModel @Inject constructor(
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

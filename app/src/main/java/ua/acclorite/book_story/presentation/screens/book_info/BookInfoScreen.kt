@@ -1,6 +1,7 @@
 package ua.acclorite.book_story.presentation.screens.book_info
 
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
@@ -55,9 +56,7 @@ import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.CustomSnackbar
 import ua.acclorite.book_story.presentation.components.GoBackButton
-import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.Navigator
-import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoBackground
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoDescriptionSection
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoInfoSection
@@ -74,9 +73,9 @@ import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
-import ua.acclorite.book_story.ui.DefaultTransition
-import ua.acclorite.book_story.ui.Transitions
-import ua.acclorite.book_story.ui.elevation
+import ua.acclorite.book_story.presentation.ui.DefaultTransition
+import ua.acclorite.book_story.presentation.ui.Transitions
+import ua.acclorite.book_story.presentation.ui.elevation
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -99,8 +98,8 @@ fun BookInfoScreen(
             viewModel.onEvent(
                 BookInfoEvent.OnUpdateBook(
                     refreshList = {
-                        libraryViewModel.onEvent(LibraryEvent.OnLoadList)
-                        historyViewModel.onEvent(HistoryEvent.OnLoadList)
+                        libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
+                        historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
                     },
                     snackbarState,
                     context
@@ -138,6 +137,7 @@ fun BookInfoScreen(
     if (state.showMoveDialog) {
         BookInfoMoveDialog(
             libraryViewModel = libraryViewModel,
+            historyViewModel = historyViewModel,
             viewModel = viewModel,
             navigator = navigator
         )
@@ -158,7 +158,7 @@ fun BookInfoScreen(
                 isTopBarScrolled = null,
 
                 content1NavigationIcon = {
-                    GoBackButton(navigator = navigator)
+                    GoBackButton(navigator = navigator, enabled = !state.isRefreshing)
                 },
                 content1Title = {
                     DefaultTransition(visible = firstVisibleItemIndex > 0) {
@@ -181,8 +181,8 @@ fun BookInfoScreen(
                         viewModel.onEvent(
                             BookInfoEvent.OnUpdateBook(
                                 refreshList = {
-                                    libraryViewModel.onEvent(LibraryEvent.OnLoadList)
-                                    historyViewModel.onEvent(HistoryEvent.OnLoadList)
+                                    libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
+                                    historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
                                 },
                                 snackbarState,
                                 context
@@ -218,9 +218,8 @@ fun BookInfoScreen(
                             ) {
                                 viewModel.onEvent(BookInfoEvent.OnUpdateTitle(
                                     refreshList = {
-                                        libraryViewModel.onEvent(
-                                            LibraryEvent.OnLoadList
-                                        )
+                                        libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
+                                        historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
                                     }
                                 ))
                                 Toast.makeText(
@@ -282,11 +281,9 @@ fun BookInfoScreen(
 
             FloatingActionButton(
                 onClick = {
-                    navigator.navigate(
-                        Screen.READER, false, Argument(
-                            "book", state.book.id
-                        )
-                    )
+                    if (!state.isRefreshing) {
+                        viewModel.onEvent(BookInfoEvent.OnNavigateToReaderScreen(navigator))
+                    }
                 },
                 shape = MaterialTheme.shapes.large,
                 modifier = Modifier
@@ -330,6 +327,12 @@ fun BookInfoScreen(
                 backgroundColor = MaterialTheme.colorScheme.inverseSurface,
                 contentColor = MaterialTheme.colorScheme.inverseOnSurface
             )
+        }
+    }
+
+    BackHandler {
+        if (!state.isRefreshing) {
+            navigator.navigateBack()
         }
     }
 }

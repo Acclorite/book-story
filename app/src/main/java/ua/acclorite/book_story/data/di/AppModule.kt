@@ -22,6 +22,6 @@ object AppModule {
             app,
             BookDatabase::class.java,
             "book_db"
-        ).build().dao
+        ).allowMainThreadQueries().build().dao
     }
 }

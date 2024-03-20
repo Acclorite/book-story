@@ -1,4 +1,4 @@
-package ua.acclorite.book_story.ui
+package ua.acclorite.book_story.presentation.ui
 
 import android.annotation.SuppressLint
 import androidx.compose.material3.ColorScheme
@@ -6,13 +6,13 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import ua.acclorite.book_story.ui.theme.aquaTheme
-import ua.acclorite.book_story.ui.theme.blueTheme
-import ua.acclorite.book_story.ui.theme.greenTheme
-import ua.acclorite.book_story.ui.theme.pinkTheme
-import ua.acclorite.book_story.ui.theme.purpleTheme
-import ua.acclorite.book_story.ui.theme.redTheme
-import ua.acclorite.book_story.ui.theme.yellowTheme
+import ua.acclorite.book_story.presentation.ui.theme.aquaTheme
+import ua.acclorite.book_story.presentation.ui.theme.blueTheme
+import ua.acclorite.book_story.presentation.ui.theme.greenTheme
+import ua.acclorite.book_story.presentation.ui.theme.pinkTheme
+import ua.acclorite.book_story.presentation.ui.theme.purpleTheme
+import ua.acclorite.book_story.presentation.ui.theme.redTheme
+import ua.acclorite.book_story.presentation.ui.theme.yellowTheme
 
 enum class Theme {
     DYNAMIC,
@@ -29,16 +29,7 @@ enum class Theme {
  * Converting [String] into [Theme].
  */
 fun String.toTheme(): Theme {
-    return when (this) {
-        "DYNAMIC" -> Theme.DYNAMIC
-        "PURPLE" -> Theme.PURPLE
-        "GREEN" -> Theme.GREEN
-        "PINK" -> Theme.PINK
-        "YELLOW" -> Theme.YELLOW
-        "RED" -> Theme.RED
-        "AQUA" -> Theme.AQUA
-        else -> Theme.BLUE
-    }
+    return Theme.valueOf(this)
 }
 
 /**

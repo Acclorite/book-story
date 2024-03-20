@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -32,8 +33,8 @@ import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.ColorPickerWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.theme_switcher.AppearanceSettingsThemeSwitcher
-import ua.acclorite.book_story.ui.DarkTheme
-import ua.acclorite.book_story.ui.elevation
+import ua.acclorite.book_story.presentation.ui.DarkTheme
+import ua.acclorite.book_story.presentation.ui.elevation
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,13 +45,11 @@ fun AppearanceSettings(
     val listState = rememberLazyListState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         canScroll = {
-            listState.canScrollForward
+            listState.canScrollForward || listState.canScrollBackward
         }
     )
 
-    val darkTheme = mainViewModel.darkTheme.collectAsState().value!!
-    val backgroundColor = mainViewModel.backgroundColor.collectAsState().value!!
-    val fontColor = mainViewModel.fontColor.collectAsState().value!!
+    val state by mainViewModel.state.collectAsState()
 
     Scaffold(
         Modifier
@@ -81,7 +80,7 @@ fun AppearanceSettings(
             state = listState
         ) {
             item {
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(16.dp))
             }
             item {
                 CategoryTitle(
@@ -105,7 +104,7 @@ fun AppearanceSettings(
                                 DarkTheme.FOLLOW_SYSTEM -> stringResource(id = R.string.dark_theme_follow_system)
                             },
                             MaterialTheme.typography.labelLarge,
-                            it == darkTheme
+                            it == state.darkTheme
                         )
                     },
                 ) {
@@ -136,7 +135,7 @@ fun AppearanceSettings(
 
             item {
                 ColorPickerWithTitle(
-                    value = Color(backgroundColor.toULong()),
+                    value = Color(state.backgroundColor!!.toULong()),
                     title = stringResource(id = R.string.background_color_option),
                     onValueChange = {
                         mainViewModel.onEvent(
@@ -149,7 +148,7 @@ fun AppearanceSettings(
             }
             item {
                 ColorPickerWithTitle(
-                    value = Color(fontColor.toULong()),
+                    value = Color(state.fontColor!!.toULong()),
                     title = stringResource(id = R.string.font_color_option),
                     onValueChange = {
                         mainViewModel.onEvent(

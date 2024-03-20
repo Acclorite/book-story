@@ -1,4 +1,4 @@
-package ua.acclorite.book_story.ui
+package ua.acclorite.book_story.presentation.ui
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

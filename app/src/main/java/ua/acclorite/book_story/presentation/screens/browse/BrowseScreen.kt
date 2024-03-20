@@ -1,6 +1,7 @@
 package ua.acclorite.book_story.presentation.screens.browse
 
 import android.Manifest
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -41,6 +42,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -63,9 +65,9 @@ import ua.acclorite.book_story.presentation.screens.browse.components.adding_dia
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
-import ua.acclorite.book_story.ui.DefaultTransition
-import ua.acclorite.book_story.ui.Transitions
-import ua.acclorite.book_story.ui.elevation
+import ua.acclorite.book_story.presentation.ui.DefaultTransition
+import ua.acclorite.book_story.presentation.ui.Transitions
+import ua.acclorite.book_story.presentation.ui.elevation
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -79,6 +81,7 @@ fun BrowseScreen(
     libraryViewModel: LibraryViewModel,
     navigator: Navigator
 ) {
+    val context = LocalContext.current
     val permissionState = rememberPermissionState(
         permission = Manifest.permission.READ_EXTERNAL_STORAGE
     )
@@ -130,20 +133,13 @@ fun BrowseScreen(
                 content1Visibility = !state.hasSelectedItems && !state.showSearch,
                 content1NavigationIcon = {},
                 content1Title = {
-                    Text(
-                        stringResource(id = R.string.browse_screen),
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 1
-                    )
+                    Text(stringResource(id = R.string.browse_screen))
                 },
                 content1Actions = {
                     CustomIconButton(
                         icon = Icons.Default.Search,
                         contentDescription = stringResource(id = R.string.search_content_desc),
-                        disableOnClick = false,
-                        enabled = !state.showSearch
+                        disableOnClick = true
                     ) {
                         viewModel.onEvent(BrowseEvent.OnSearchShowHide)
                     }
@@ -167,8 +163,6 @@ fun BrowseScreen(
                             id = R.string.selected_items_count_query,
                             state.selectedItemsCount.coerceAtLeast(1)
                         ),
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1
                     )
@@ -265,6 +259,16 @@ fun BrowseScreen(
                             modifier = Modifier
                                 .animateItemPlacement(),
                             hasSelectedFiles = state.selectableFiles.any { it.second },
+                            onLongClick = {
+                                Toast.makeText(
+                                    context,
+                                    context.getString(
+                                        R.string.file_path_query,
+                                        selectableFile.first.path
+                                    ),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            },
                             onClick = {
                                 viewModel.onEvent(BrowseEvent.OnSelectFile(selectableFile))
                             }

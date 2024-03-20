@@ -10,17 +10,18 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
-import ua.acclorite.book_story.ui.Theme
-import ua.acclorite.book_story.ui.isDark
-import ua.acclorite.book_story.util.Constants
+import ua.acclorite.book_story.presentation.ui.Theme
+import ua.acclorite.book_story.presentation.ui.isDark
 
 /**
  * Theme switcher.
@@ -29,8 +30,7 @@ import ua.acclorite.book_story.util.Constants
 fun AppearanceSettingsThemeSwitcher(
     mainViewModel: MainViewModel
 ) {
-    val theme = mainViewModel.theme.collectAsState().value!!
-    val darkTheme = mainViewModel.darkTheme.collectAsState().value!!
+    val state by mainViewModel.state.collectAsState()
 
     val themes = remember {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Constants.THEMES
@@ -56,8 +56,8 @@ fun AppearanceSettingsThemeSwitcher(
 
                 AppearanceSettingsThemeSwitcherItem(
                     theme = themeEntry,
-                    darkTheme = darkTheme.isDark(),
-                    selected = theme == themeEntry.first
+                    darkTheme = state.darkTheme!!.isDark(),
+                    selected = state.theme == themeEntry.first
                 ) {
                     mainViewModel.onEvent(MainEvent.OnChangeTheme(themeEntry.first.toString()))
                 }

@@ -4,7 +4,7 @@ import android.net.Uri
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.local.dto.BookEntity
 import ua.acclorite.book_story.domain.model.Book
-import ua.acclorite.book_story.util.UIText
+import ua.acclorite.book_story.domain.util.UIText
 import java.io.File
 import javax.inject.Inject
 
@@ -18,6 +18,8 @@ class BookMapperImpl @Inject constructor() : BookMapper {
             id = book.id,
             title = book.title,
             filePath = book.filePath,
+            scrollIndex = book.scrollIndex,
+            scrollOffset = book.scrollOffset,
             progress = book.progress,
             author = book.author.string,
             text = textAsString,
@@ -37,9 +39,13 @@ class BookMapperImpl @Inject constructor() : BookMapper {
                 R.string.unknown_author
             ),
             description = bookEntity.description,
+            scrollIndex = bookEntity.scrollIndex,
+            scrollOffset = bookEntity.scrollOffset,
             progress = bookEntity.progress,
             file = if (file.exists()) file else null,
             text = emptyList(),
+            letters = 0,
+            words = 0,
             filePath = bookEntity.filePath,
             lastOpened = null,
             category = bookEntity.category,

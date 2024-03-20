@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.removeDigits
 import ua.acclorite.book_story.presentation.data.removeTrailingZero
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
@@ -36,8 +38,9 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 fun ReaderBottomBar(
     viewModel: ReaderViewModel,
     libraryViewModel: LibraryViewModel,
+    historyViewModel: HistoryViewModel,
+    listState: LazyListState,
     navigator: Navigator,
-    scrollState: LazyListState,
     systemBarsColor: Color
 ) {
     val state by viewModel.state.collectAsState()
@@ -74,20 +77,19 @@ fun ReaderBottomBar(
         Slider(
             value = state.book.progress,
             onValueChange = {
+                viewModel.onEvent(ReaderEvent.OnScroll(listState, it))
                 viewModel.onEvent(
                     ReaderEvent.OnChangeProgress(
                         progress = it,
                         navigator = navigator,
+                        firstVisibleItemIndex = listState.firstVisibleItemIndex,
+                        firstVisibleItemOffset = 0,
                         refreshList = { book ->
-                            libraryViewModel.onEvent(
-                                LibraryEvent.OnUpdateBook(
-                                    book
-                                )
-                            )
+                            libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(book))
+                            historyViewModel.onEvent(HistoryEvent.OnUpdateBook(book))
                         }
                     )
                 )
-                viewModel.onEvent(ReaderEvent.OnScroll(scrollState, it))
             },
             colors = SliderDefaults.colors(
                 activeTrackColor = MaterialTheme.colorScheme.primary,

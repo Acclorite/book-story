@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
@@ -17,13 +16,13 @@ import kotlinx.coroutines.launch
 import ua.acclorite.book_story.domain.use_case.ChangeLanguage
 import ua.acclorite.book_story.domain.use_case.GetDatastore
 import ua.acclorite.book_story.domain.use_case.SetDatastore
+import ua.acclorite.book_story.domain.util.Constants
+import ua.acclorite.book_story.domain.util.DataStoreConstants
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
-import ua.acclorite.book_story.ui.DarkTheme
-import ua.acclorite.book_story.ui.Theme
-import ua.acclorite.book_story.ui.toDarkTheme
-import ua.acclorite.book_story.ui.toTheme
-import ua.acclorite.book_story.util.Constants
-import ua.acclorite.book_story.util.DataStoreConstants
+import ua.acclorite.book_story.presentation.ui.DarkTheme
+import ua.acclorite.book_story.presentation.ui.Theme
+import ua.acclorite.book_story.presentation.ui.toDarkTheme
+import ua.acclorite.book_story.presentation.ui.toTheme
 import java.util.Locale
 import javax.inject.Inject
 
@@ -42,212 +41,143 @@ class MainViewModel @Inject constructor(
     private val _isReady = MutableStateFlow(false)
     val isReady = _isReady.asStateFlow()
 
-    /* -- Language ----------------------------------------------------- */
-    private var _language: String =
-        stateHandle[Constants.LANGUAGE]
-            ?: if (
-                Constants.LANGUAGES.any { Locale.getDefault().language.take(2) == it.first }
-            ) {
-                Locale.getDefault().language.take(2)
-            } else {
-                "en"
-            }
-        set(value) {
-            field = value
-            stateHandle[Constants.LANGUAGE] = value
-        }
-    val language: StateFlow<String?>
-        get() = stateHandle.getStateFlow(Constants.LANGUAGE, null)
-
-    /* -- Theme -------------------------------------------------------- */
-    private var _theme: Theme =
-        stateHandle[Constants.THEME]
-            ?: if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Theme.DYNAMIC else Theme.BLUE
-        set(value) {
-            field = value
-            stateHandle[Constants.THEME] = value
-        }
-    val theme: StateFlow<Theme?>
-        get() = stateHandle.getStateFlow(Constants.THEME, null)
-
-    /* -- Dark Theme --------------------------------------------------- */
-    private var _darkTheme: DarkTheme =
-        stateHandle[Constants.DARK_THEME] ?: DarkTheme.FOLLOW_SYSTEM
-        set(value) {
-            field = value
-            stateHandle[Constants.DARK_THEME] = value
-        }
-    val darkTheme: StateFlow<DarkTheme?>
-        get() = stateHandle.getStateFlow(Constants.DARK_THEME, null)
-
-    /* -- Show Start Screen -------------------------------------------- */
-    private var _showStartScreen: Boolean =
-        stateHandle[Constants.SHOW_START_SCREEN] ?: true
-        set(value) {
-            field = value
-            stateHandle[Constants.SHOW_START_SCREEN] = value
-        }
-    val showStartScreen: StateFlow<Boolean?>
-        get() = stateHandle.getStateFlow(Constants.SHOW_START_SCREEN, null)
-
-    /* -- Background Color --------------------------------------------- */
-    private var _backgroundColor: Long =
-        stateHandle[Constants.BACKGROUND_COLOR] ?: Color.DarkGray.value.toLong()
-        set(value) {
-            field = value
-            stateHandle[Constants.BACKGROUND_COLOR] = value
-        }
-    val backgroundColor: StateFlow<Long?>
-        get() = stateHandle.getStateFlow(Constants.BACKGROUND_COLOR, null)
-
-    /* -- Font Color --------------------------------------------------- */
-    private var _fontColor: Long =
-        stateHandle[Constants.FONT_COLOR] ?: Color.LightGray.value.toLong()
-        set(value) {
-            field = value
-            stateHandle[Constants.FONT_COLOR] = value
-        }
-    val fontColor: StateFlow<Long?>
-        get() = stateHandle.getStateFlow(Constants.FONT_COLOR, null)
-
-    /* -- Font Family -------------------------------------------------- */
-    private var _fontFamily: String =
-        stateHandle[Constants.FONT] ?: Constants.FONTS[0].id
-        set(value) {
-            field = value
-            stateHandle[Constants.FONT] = value
-        }
-    val fontFamily: StateFlow<String?>
-        get() = stateHandle.getStateFlow(Constants.FONT, null)
-
-    /* -- Is Italic ---------------------------------------------------- */
-    private var _isItalic: Boolean =
-        stateHandle[Constants.IS_ITALIC] ?: false
-        set(value) {
-            field = value
-            stateHandle[Constants.IS_ITALIC] = value
-        }
-    val isItalic: StateFlow<Boolean?>
-        get() = stateHandle.getStateFlow(Constants.IS_ITALIC, null)
-
-    /* -- Font Size ---------------------------------------------------- */
-    private var _fontSize: Int =
-        stateHandle[Constants.FONT_SIZE] ?: 16
-        set(value) {
-            field = value
-            stateHandle[Constants.FONT_SIZE] = value
-        }
-    val fontSize: StateFlow<Int?>
-        get() = stateHandle.getStateFlow(Constants.FONT_SIZE, null)
-
-    /* -- Line Height -------------------------------------------------- */
-    private var _lineHeight: Int =
-        stateHandle[Constants.LINE_HEIGHT] ?: 4
-        set(value) {
-            field = value
-            stateHandle[Constants.LINE_HEIGHT] = value
-        }
-    val lineHeight: StateFlow<Int?>
-        get() = stateHandle.getStateFlow(Constants.LINE_HEIGHT, null)
-
-    /* -- Paragraph Height --------------------------------------------- */
-    private var _paragraphHeight: Int =
-        stateHandle[Constants.PARAGRAPH_HEIGHT] ?: 8
-        set(value) {
-            field = value
-            stateHandle[Constants.PARAGRAPH_HEIGHT] = value
-        }
-    val paragraphHeight: StateFlow<Int?>
-        get() = stateHandle.getStateFlow(Constants.PARAGRAPH_HEIGHT, null)
-
-    /* -- Paragraph Indentation ---------------------------------------- */
-    private var _paragraphIndentation: Boolean =
-        stateHandle[Constants.PARAGRAPH_INDENTATION] ?: false
-        set(value) {
-            field = value
-            stateHandle[Constants.PARAGRAPH_INDENTATION] = value
-        }
-    val paragraphIndentation: StateFlow<Boolean?>
-        get() = stateHandle.getStateFlow(Constants.PARAGRAPH_INDENTATION, null)
-    /* --------------------------------------------------------------- */
+    private val _state: MutableStateFlow<MainState> = MutableStateFlow(
+        stateHandle[Constants.MAIN_STATE] ?: MainState()
+    )
+    val state = _state.asStateFlow()
 
     fun onEvent(event: MainEvent) {
         when (event) {
             is MainEvent.OnChangeLanguage -> {
                 viewModelScope.launch(Dispatchers.Main) {
                     changeLanguage.execute(event.lang)
-                    _language = event.lang
+                    _state.updateWithSavedHandle {
+                        it.copy(
+                            language = event.lang
+                        )
+                    }
                 }
             }
 
             is MainEvent.OnChangeDarkTheme -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     setDatastore.execute(DataStoreConstants.DARK_THEME, event.darkTheme)
-                    _darkTheme = event.darkTheme.toDarkTheme()
+                    _state.updateWithSavedHandle {
+                        it.copy(
+                            darkTheme = event.darkTheme.toDarkTheme()
+                        )
+                    }
                 }
             }
 
             is MainEvent.OnChangeTheme -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     setDatastore.execute(DataStoreConstants.THEME, event.theme)
-                    _theme = event.theme.toTheme()
+                    _state.updateWithSavedHandle {
+                        it.copy(
+                            theme = event.theme.toTheme()
+                        )
+                    }
                 }
             }
 
             is MainEvent.OnChangeFontFamily -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     setDatastore.execute(DataStoreConstants.FONT, event.fontFamily)
-                    _fontFamily = Constants.FONTS.find { font -> font.id == event.fontFamily }?.id
-                        ?: Constants.FONTS[0].id
+                    _state.updateWithSavedHandle {
+                        it.copy(
+                            fontFamily = Constants.FONTS.find { font -> font.id == event.fontFamily }?.id
+                                ?: Constants.FONTS[0].id
+                        )
+                    }
                 }
             }
 
             is MainEvent.OnChangeFontStyle -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     setDatastore.execute(DataStoreConstants.IS_ITALIC, event.fontStyle)
-                    _isItalic = event.fontStyle
+                    _state.updateWithSavedHandle {
+                        it.copy(
+                            isItalic = event.fontStyle
+                        )
+                    }
                 }
             }
 
             is MainEvent.OnChangeFontSize -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     setDatastore.execute(DataStoreConstants.FONT_SIZE, event.fontSize)
-                    _fontSize = event.fontSize
+                    _state.updateWithSavedHandle {
+                        it.copy(
+                            fontSize = event.fontSize
+                        )
+                    }
                 }
             }
 
             is MainEvent.OnChangeLineHeight -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     setDatastore.execute(DataStoreConstants.LINE_HEIGHT, event.lineHeight)
-                    _lineHeight = event.lineHeight
+                    _state.updateWithSavedHandle {
+                        it.copy(
+                            lineHeight = event.lineHeight
+                        )
+                    }
                 }
             }
 
             is MainEvent.OnChangeParagraphHeight -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     setDatastore.execute(DataStoreConstants.PARAGRAPH_HEIGHT, event.paragraphHeight)
-                    _paragraphHeight = event.paragraphHeight
+                    _state.updateWithSavedHandle {
+                        it.copy(
+                            paragraphHeight = event.paragraphHeight
+                        )
+                    }
                 }
             }
 
             is MainEvent.OnChangeParagraphIndentation -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     setDatastore.execute(DataStoreConstants.PARAGRAPH_INDENTATION, event.bool)
-                    _paragraphIndentation = event.bool
+                    _state.updateWithSavedHandle {
+                        it.copy(
+                            paragraphIndentation = event.bool
+                        )
+                    }
                 }
             }
 
             is MainEvent.OnChangeBackgroundColor -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     setDatastore.execute(DataStoreConstants.BACKGROUND_COLOR, event.color)
-                    _backgroundColor = event.color
+                    _state.updateWithSavedHandle {
+                        it.copy(
+                            backgroundColor = event.color
+                        )
+                    }
                 }
             }
 
             is MainEvent.OnChangeFontColor -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     setDatastore.execute(DataStoreConstants.FONT_COLOR, event.color)
-                    _fontColor = event.color
+                    _state.updateWithSavedHandle {
+                        it.copy(
+                            fontColor = event.color
+                        )
+                    }
+                }
+            }
+
+            is MainEvent.OnChangeShowStartScreen -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.SHOW_START_SCREEN, event.bool)
+                    _state.updateWithSavedHandle {
+                        it.copy(
+                            showStartScreen = event.bool
+                        )
+                    }
                 }
             }
         }
@@ -263,20 +193,22 @@ class MainViewModel @Inject constructor(
         }
 
         val isDataReady = combine(
-            language,
-            theme,
-            darkTheme,
-            showStartScreen,
-            backgroundColor,
-            fontColor,
-            fontFamily,
-            isItalic,
-            fontSize,
-            lineHeight,
-            paragraphHeight,
-            paragraphIndentation
-        ) { values ->
-            values.all { it != null }
+            _state
+        ) {
+            val value = it.first()
+
+            return@combine value.language != null &&
+                    value.theme != null &&
+                    value.darkTheme != null &&
+                    value.fontFamily != null &&
+                    value.isItalic != null &&
+                    value.fontSize != null &&
+                    value.lineHeight != null &&
+                    value.paragraphHeight != null &&
+                    value.paragraphIndentation != null &&
+                    value.backgroundColor != null &&
+                    value.fontColor != null &&
+                    value.showStartScreen != null
         }
 
         val isReady = combine(
@@ -300,7 +232,14 @@ class MainViewModel @Inject constructor(
         // Language
         viewModelScope.launch(Dispatchers.Main) {
             getDatastore
-                .execute(DataStoreConstants.LANGUAGE, _language)
+                .execute(
+                    DataStoreConstants.LANGUAGE,
+                    if (Constants.LANGUAGES.any { Locale.getDefault().language.take(2) == it.first }) {
+                        Locale.getDefault().language.take(2)
+                    } else {
+                        "en"
+                    }
+                )
                 .first {
                     onEvent(MainEvent.OnChangeLanguage(it))
                     it.isNotBlank()
@@ -310,7 +249,11 @@ class MainViewModel @Inject constructor(
         // Theme
         viewModelScope.launch(Dispatchers.IO) {
             getDatastore
-                .execute(DataStoreConstants.THEME, _theme.toString())
+                .execute(
+                    DataStoreConstants.THEME,
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Theme.DYNAMIC.name
+                    else Theme.BLUE.name
+                )
                 .first {
                     onEvent(MainEvent.OnChangeTheme(it))
                     it.isNotBlank()
@@ -320,7 +263,7 @@ class MainViewModel @Inject constructor(
         // Dark Theme
         viewModelScope.launch(Dispatchers.IO) {
             getDatastore
-                .execute(DataStoreConstants.DARK_THEME, _darkTheme.toString())
+                .execute(DataStoreConstants.DARK_THEME, DarkTheme.FOLLOW_SYSTEM.name)
                 .first {
                     onEvent(MainEvent.OnChangeDarkTheme(it))
                     it.isNotBlank()
@@ -330,11 +273,9 @@ class MainViewModel @Inject constructor(
         // Show Start Screen
         viewModelScope.launch(Dispatchers.IO) {
             getDatastore
-                .execute(DataStoreConstants.SHOW_START_SCREEN, _showStartScreen)
+                .execute(DataStoreConstants.SHOW_START_SCREEN, true)
                 .first {
-                    setDatastore.execute(DataStoreConstants.SHOW_START_SCREEN, it)
-                    _showStartScreen = it
-
+                    onEvent(MainEvent.OnChangeShowStartScreen(it))
                     true
                 }
         }
@@ -342,7 +283,7 @@ class MainViewModel @Inject constructor(
         // Background Color
         viewModelScope.launch(Dispatchers.IO) {
             getDatastore
-                .execute(DataStoreConstants.BACKGROUND_COLOR, _backgroundColor)
+                .execute(DataStoreConstants.BACKGROUND_COLOR, Color.DarkGray.value.toLong())
                 .first {
                     onEvent(MainEvent.OnChangeBackgroundColor(it))
                     true
@@ -352,7 +293,7 @@ class MainViewModel @Inject constructor(
         // Font Color
         viewModelScope.launch(Dispatchers.IO) {
             getDatastore
-                .execute(DataStoreConstants.FONT_COLOR, _fontColor)
+                .execute(DataStoreConstants.FONT_COLOR, Color.LightGray.value.toLong())
                 .first {
                     onEvent(MainEvent.OnChangeFontColor(it))
                     true
@@ -362,7 +303,7 @@ class MainViewModel @Inject constructor(
         // Font Family
         viewModelScope.launch(Dispatchers.IO) {
             getDatastore
-                .execute(DataStoreConstants.FONT, _fontFamily)
+                .execute(DataStoreConstants.FONT, Constants.FONTS[0].id)
                 .first {
                     onEvent(MainEvent.OnChangeFontFamily(it))
                     true
@@ -372,7 +313,7 @@ class MainViewModel @Inject constructor(
         // Font Style
         viewModelScope.launch(Dispatchers.IO) {
             getDatastore
-                .execute(DataStoreConstants.IS_ITALIC, _isItalic)
+                .execute(DataStoreConstants.IS_ITALIC, false)
                 .first {
                     onEvent(MainEvent.OnChangeFontStyle(it))
                     true
@@ -382,7 +323,7 @@ class MainViewModel @Inject constructor(
         // Font Size
         viewModelScope.launch(Dispatchers.IO) {
             getDatastore
-                .execute(DataStoreConstants.FONT_SIZE, _fontSize)
+                .execute(DataStoreConstants.FONT_SIZE, 16)
                 .first {
                     onEvent(MainEvent.OnChangeFontSize(it))
                     it > 0
@@ -392,7 +333,7 @@ class MainViewModel @Inject constructor(
         // Line Height
         viewModelScope.launch(Dispatchers.IO) {
             getDatastore
-                .execute(DataStoreConstants.LINE_HEIGHT, _lineHeight)
+                .execute(DataStoreConstants.LINE_HEIGHT, 4)
                 .first {
                     onEvent(MainEvent.OnChangeLineHeight(it))
                     true
@@ -402,7 +343,7 @@ class MainViewModel @Inject constructor(
         // Paragraph Height
         viewModelScope.launch(Dispatchers.IO) {
             getDatastore
-                .execute(DataStoreConstants.PARAGRAPH_HEIGHT, _paragraphHeight)
+                .execute(DataStoreConstants.PARAGRAPH_HEIGHT, 8)
                 .first {
                     onEvent(MainEvent.OnChangeParagraphHeight(it))
                     true
@@ -412,7 +353,7 @@ class MainViewModel @Inject constructor(
         // Paragraph Indentation
         viewModelScope.launch(Dispatchers.IO) {
             getDatastore
-                .execute(DataStoreConstants.PARAGRAPH_INDENTATION, _paragraphIndentation)
+                .execute(DataStoreConstants.PARAGRAPH_INDENTATION, false)
                 .first {
                     onEvent(MainEvent.OnChangeParagraphIndentation(it))
                     true
@@ -421,4 +362,17 @@ class MainViewModel @Inject constructor(
 
     }
 
+    /**
+     * Updates [MutableStateFlow] along with [SavedStateHandle].
+     */
+    private fun <T> MutableStateFlow<T>.updateWithSavedHandle(
+        const: String = Constants.MAIN_STATE,
+        function: (T) -> T
+    ) {
+        val nextValue = function(value)
+        update {
+            stateHandle[const] = nextValue
+            nextValue
+        }
+    }
 }

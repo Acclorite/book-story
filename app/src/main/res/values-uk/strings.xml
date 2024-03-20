@@ -61,7 +61,6 @@
     </string>
     <string name="error_wrong_file_format">Хибний формат файлу.</string>
     <string name="error_query">Помилка: %1$s</string>
-    <string name="error_file_encrypted">Цей файл зашифрований.</string>
     <string name="error_file_empty">Цей файл пустий або пошкоджений.</string>
     <string name="error_no_translator">Не знайдено жодного перекладача.</string>
     <string name="error_no_browser">Не знайдено жодного браузера.</string>
@@ -84,8 +83,8 @@
     <!-- Query strings -->
     <string name="selected_items_count_query">%1$s обрано</string>
     <string name="search_query">Знайти %1$s…</string>
-    <string name="you_read_query">Ви прочитали %1$s цієї книги.</string>
     <string name="read_query">%1$s прочитано</string>
+    <string name="file_path_query">Шлях до файлу: %1$s</string>
 
     <!-- Action Texts -->
     <string name="cancel">Відмінити</string>
@@ -221,6 +220,22 @@
     </string>
     <string name="letters_and_words">%1$s букв, %2$s слів.</string>
 
+    <!-- About -->
+    <string name="app_version_option">Версія застосунку</string>
+    <string name="app_version_option_desc">Версія %1$s</string>
+    <string name="all_releases_option">Всі релізи</string>
+    <string name="all_releases_option_desc">Перевірити на нову версію</string>
+    <string name="issues_option">Знайшли помилку?</string>
+    <string name="issues_option_desc">Розкажіть мені!</string>
+    <string name="project_page_option">Сторінка проєкту</string>
+    <string name="project_page_option_desc">Головна сторінка застосунку</string>
+    <string name="my_page_option">Сподобався застосунок?</string>
+    <string name="my_page_option_desc">Перевірте мій профіль!</string>
+    <string name="support_option">Хочете підтримати мою роботу?</string>
+    <string name="support_option_desc">Купіть мені каву ♥</string>
+    <string name="slava_ukraini_option">Слава Україні! 🇺🇦</string>
+    <string name="slava_ukraini_option_desc">Героям Слава! 🐉</string>
+
     <!-- Font families -->
     <string name="default_font">За замовчуванням</string>
 
@@ -252,5 +267,6 @@
     <string name="delete_books_content_desc">Видалити обрані книги</string>
     <string name="revert_content_desc">Повернути</string>
     <string name="selected_content_desc">Вибрано</string>
+    <string name="app_icon_content_desc">Іконка застосунку</string>
 
 </resources>

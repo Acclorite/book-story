@@ -1,4 +1,4 @@
-package ua.acclorite.book_story.util
+package ua.acclorite.book_story.domain.util
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -8,23 +8,12 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.model.FontWithName
-import ua.acclorite.book_story.ui.Theme
+import ua.acclorite.book_story.presentation.ui.Theme
 
 object Constants {
 
-    // SavedStateHandle constants(actually just all settings params)
-    const val LANGUAGE = "language"
-    const val THEME = "theme"
-    const val DARK_THEME = "dark_theme"
-    const val SHOW_START_SCREEN = "guide"
-    const val BACKGROUND_COLOR = "background_color"
-    const val FONT_COLOR = "font_color"
-    const val FONT = "font"
-    const val IS_ITALIC = "font_style"
-    const val FONT_SIZE = "font_size"
-    const val LINE_HEIGHT = "line_height"
-    const val PARAGRAPH_HEIGHT = "paragraph_height"
-    const val PARAGRAPH_INDENTATION = "paragraph_indentation"
+    // Main State Constant
+    const val MAIN_STATE = "main_state"
 
     // Supported file extensions
     val EXTENSIONS = listOf(".txt", ".pdf", ".epub")
@@ -182,6 +171,10 @@ object Constants {
         UIText.StringValue(""),
         null,
         emptyList(),
+        0,
+        0,
+        0,
+        0,
         0f,
         null,
         "",

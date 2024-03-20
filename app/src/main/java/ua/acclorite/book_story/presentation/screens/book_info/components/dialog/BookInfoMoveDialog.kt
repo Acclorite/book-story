@@ -18,6 +18,8 @@ import ua.acclorite.book_story.presentation.components.custom_dialog.SelectableD
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 
@@ -27,6 +29,7 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewMode
 @Composable
 fun BookInfoMoveDialog(
     libraryViewModel: LibraryViewModel,
+    historyViewModel: HistoryViewModel,
     viewModel: BookInfoViewModel,
     navigator: Navigator
 ) {
@@ -54,9 +57,8 @@ fun BookInfoMoveDialog(
             viewModel.onEvent(
                 BookInfoEvent.OnMoveBook(
                     refreshList = {
-                        libraryViewModel.onEvent(
-                            LibraryEvent.OnLoadList
-                        )
+                        libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
+                        historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
                     },
                     updatePage = {
                         libraryViewModel.onEvent(LibraryEvent.OnUpdateCurrentPage(it))

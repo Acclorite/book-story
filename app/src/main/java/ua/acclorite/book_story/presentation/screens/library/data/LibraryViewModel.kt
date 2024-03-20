@@ -12,10 +12,15 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.domain.model.Category
+import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.use_case.DeleteBooks
 import ua.acclorite.book_story.domain.use_case.GetBooks
+import ua.acclorite.book_story.domain.use_case.InsertHistory
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
-import ua.acclorite.book_story.util.Resource
+import ua.acclorite.book_story.domain.util.Resource
+import ua.acclorite.book_story.presentation.data.Argument
+import ua.acclorite.book_story.presentation.data.Screen
+import java.util.Date
 import javax.inject.Inject
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -23,7 +28,8 @@ import javax.inject.Inject
 class LibraryViewModel @Inject constructor(
     private val getBooks: GetBooks,
     private val updateBooks: UpdateBooks,
-    private val deleteBooks: DeleteBooks
+    private val deleteBooks: DeleteBooks,
+    private val insertHistory: InsertHistory
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(LibraryState())
@@ -33,6 +39,7 @@ class LibraryViewModel @Inject constructor(
     val isReady = _isReady.asStateFlow()
 
     private var job: Job? = null
+    private var job2: Job? = null
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -69,16 +76,9 @@ class LibraryViewModel @Inject constructor(
                 }
             }
 
-            is LibraryEvent.OnPreloadBooks -> {
-                _state.update {
-                    it.copy(
-                        books = event.books.map { book -> Pair(book, false) }
-                    )
-                }
-            }
-
             is LibraryEvent.OnRefreshList -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                job2?.cancel()
+                job2 = viewModelScope.launch(Dispatchers.IO) {
                     _state.update {
                         it.copy(
                             isRefreshing = true,
@@ -101,7 +101,8 @@ class LibraryViewModel @Inject constructor(
                 viewModelScope.launch(Dispatchers.IO) {
                     _state.update {
                         it.copy(
-                            isLoading = true
+                            isLoading = true,
+                            hasSelectedItems = false
                         )
                     }
                     getBooksFromDatabase()
@@ -149,7 +150,7 @@ class LibraryViewModel @Inject constructor(
                     )
                 }
                 job?.cancel()
-                job = viewModelScope.launch {
+                job = viewModelScope.launch(Dispatchers.IO) {
                     delay(500)
                     getBooksFromDatabase()
                 }
@@ -157,20 +158,19 @@ class LibraryViewModel @Inject constructor(
 
             is LibraryEvent.OnSelectBook -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    val indexOfBook = _state.value.books.indexOf(event.book)
-
-                    if (indexOfBook == -1) {
-                        return@launch
+                    val editedList = _state.value.books.map {
+                        if (it.first.id == event.book.first.id) {
+                            it.copy(
+                                second = event.select ?: !it.second
+                            )
+                        } else {
+                            it
+                        }
                     }
-
-                    val editedList = _state.value.books.toMutableList()
-                    editedList[indexOfBook] = editedList[indexOfBook].copy(
-                        second = event.select ?: !editedList[indexOfBook].second
-                    )
 
                     _state.update {
                         it.copy(
-                            books = editedList.toList(),
+                            books = editedList,
                             selectedItemsCount = editedList.filter { book -> book.second }.size,
                             hasSelectedItems = editedList.any { book -> book.second }
                         )
@@ -234,6 +234,7 @@ class LibraryViewModel @Inject constructor(
                     updateBooks.execute(books)
 
                     getBooksFromDatabase()
+                    event.refreshList()
 
                     onEvent(LibraryEvent.OnClearSelectedBooks)
                     onEvent(
@@ -278,19 +279,45 @@ class LibraryViewModel @Inject constructor(
 
             is LibraryEvent.OnUpdateBook -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    val books = _state.value.books.toMutableList()
-                    val index = books.indexOfFirst { it.first.id == event.book.id }
-
-                    if (index == -1) {
-                        return@launch
+                    val books = _state.value.books.map {
+                        if (it.first.id == event.book.id) {
+                            it.copy(
+                                first = event.book
+                            )
+                        } else {
+                            it
+                        }
                     }
 
-                    books[index] = Pair(event.book, books[index].second)
                     _state.update {
                         it.copy(
                             books = books
                         )
                     }
+                }
+            }
+
+            is LibraryEvent.OnNavigateToReaderScreen -> {
+                viewModelScope.launch {
+                    event.book.id?.let {
+                        insertHistory.execute(
+                            listOf(
+                                History(
+                                    null,
+                                    it,
+                                    null,
+                                    Date().time
+                                )
+                            )
+                        )
+                    }
+                    event.navigator.navigate(
+                        Screen.READER,
+                        false,
+                        Argument(
+                            "book", event.book
+                        )
+                    )
                 }
             }
         }

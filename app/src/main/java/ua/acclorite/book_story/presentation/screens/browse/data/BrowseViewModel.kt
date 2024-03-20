@@ -23,9 +23,9 @@ import ua.acclorite.book_story.domain.use_case.FastGetBooks
 import ua.acclorite.book_story.domain.use_case.GetBooksFromFiles
 import ua.acclorite.book_story.domain.use_case.GetFilesFromDevice
 import ua.acclorite.book_story.domain.use_case.InsertBooks
+import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.Screen
-import ua.acclorite.book_story.util.Resource
 import javax.inject.Inject
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -41,6 +41,7 @@ class BrowseViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     private var job: Job? = null
+    private var job2: Job? = null
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -127,7 +128,8 @@ class BrowseViewModel @Inject constructor(
             }
 
             is BrowseEvent.OnRefreshList -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                job2?.cancel()
+                job2 = viewModelScope.launch(Dispatchers.IO) {
                     _state.update {
                         it.copy(
                             isRefreshing = true,
@@ -169,20 +171,19 @@ class BrowseViewModel @Inject constructor(
 
             is BrowseEvent.OnSelectFile -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    val indexOfFile = _state.value.selectableFiles.indexOf(event.file)
-
-                    if (indexOfFile == -1) {
-                        return@launch
+                    val editedList = _state.value.selectableFiles.map {
+                        if (event.file.first.path == it.first.path) {
+                            it.copy(
+                                second = !it.second
+                            )
+                        } else {
+                            it
+                        }
                     }
-
-                    val editedList = _state.value.selectableFiles.toMutableList()
-                    editedList[indexOfFile] = editedList[indexOfFile].copy(
-                        second = !editedList[indexOfFile].second
-                    )
 
                     _state.update {
                         it.copy(
-                            selectableFiles = editedList.toList(),
+                            selectableFiles = editedList,
                             selectedItemsCount = editedList.filter { file -> file.second }.size,
                             hasSelectedItems = editedList.any { file -> file.second }
                         )
@@ -267,7 +268,7 @@ class BrowseViewModel @Inject constructor(
                     )
                 }
                 job?.cancel()
-                job = viewModelScope.launch {
+                job = viewModelScope.launch(Dispatchers.IO) {
                     delay(500)
                     getFilesFromDownloads()
                 }
@@ -352,6 +353,7 @@ class BrowseViewModel @Inject constructor(
                     _state.update {
                         it.copy(
                             isLoading = true,
+                            hasSelectedItems = false,
                             listState = LazyListState(0, 0)
                         )
                     }

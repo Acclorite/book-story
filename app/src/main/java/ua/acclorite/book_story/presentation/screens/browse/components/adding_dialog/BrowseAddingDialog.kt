@@ -54,6 +54,7 @@ fun BrowseAddingDialog(
                     navigator,
                     resetScroll = {
                         libraryViewModel.onEvent(LibraryEvent.OnUpdateCurrentPage(0))
+                        libraryViewModel.onEvent(LibraryEvent.OnLoadList)
                     }
                 )
             )
@@ -83,7 +84,9 @@ fun BrowseAddingDialog(
                 }
             } else {
                 items(state.selectedBooks) { book ->
-                    BrowseAddingDialogItem(result = book) {
+                    BrowseAddingDialogItem(
+                        result = book
+                    ) {
                         if (it) {
                             viewModel.onEvent(BrowseEvent.OnSelectBook(book))
                         } else {

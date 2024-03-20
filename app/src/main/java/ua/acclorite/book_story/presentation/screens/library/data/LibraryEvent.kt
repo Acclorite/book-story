@@ -7,10 +7,10 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.util.Selected
+import ua.acclorite.book_story.domain.util.Selected
+import ua.acclorite.book_story.presentation.data.Navigator
 
 sealed class LibraryEvent {
-    data class OnPreloadBooks(val books: List<Book>) : LibraryEvent()
     data object OnRefreshList : LibraryEvent()
     data object OnLoadList : LibraryEvent()
     data class OnScrollToPage(val index: Int, val pagerState: PagerState) : LibraryEvent()
@@ -24,8 +24,12 @@ sealed class LibraryEvent {
     data object OnClearSelectedBooks : LibraryEvent()
     data object OnShowHideMoveDialog : LibraryEvent()
     data class OnSelectCategory(val category: Category) : LibraryEvent()
-    data class OnMoveBooks(val pagerState: PagerState) : LibraryEvent()
+    data class OnMoveBooks(val pagerState: PagerState, val refreshList: () -> Unit) : LibraryEvent()
     data object OnShowHideDeleteDialog : LibraryEvent()
     data class OnDeleteBooks(val refreshList: () -> Unit) : LibraryEvent()
     data class OnUpdateBook(val book: Book) : LibraryEvent()
+    data class OnNavigateToReaderScreen(
+        val navigator: Navigator,
+        val book: Book
+    ) : LibraryEvent()
 }

@@ -1,4 +1,4 @@
-package ua.acclorite.book_story.ui.theme
+package ua.acclorite.book_story.presentation.ui.theme
 
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.darkColorScheme

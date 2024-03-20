@@ -22,8 +22,8 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
-import ua.acclorite.book_story.ui.ElevationDefaults
-import ua.acclorite.book_story.ui.elevation
+import ua.acclorite.book_story.presentation.ui.ElevationDefaults
+import ua.acclorite.book_story.presentation.ui.elevation
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

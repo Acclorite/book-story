@@ -45,7 +45,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
-import ua.acclorite.book_story.ui.elevation
+import ua.acclorite.book_story.presentation.ui.elevation
 
 /**
  * Info section.
@@ -65,7 +65,7 @@ fun BookInfoInfoSection(viewModel: BookInfoViewModel, book: Book) {
             modifier = Modifier
                 .height(195.dp)
                 .width(130.dp)
-                .clip(MaterialTheme.shapes.large)
+                .clip(MaterialTheme.shapes.medium)
                 .background(MaterialTheme.elevation())
                 .combinedClickable(
                     interactionSource = remember { MutableInteractionSource() },
@@ -82,7 +82,7 @@ fun BookInfoInfoSection(viewModel: BookInfoViewModel, book: Book) {
                     contentDescription = stringResource(id = R.string.cover_image_content_desc),
                     modifier = Modifier
                         .fillMaxSize()
-                        .clip(MaterialTheme.shapes.large),
+                        .clip(MaterialTheme.shapes.medium),
                     contentScale = ContentScale.Crop
                 )
             } else {

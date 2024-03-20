@@ -37,15 +37,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.ui.ElevationDefaults
-import ua.acclorite.book_story.ui.elevation
+import ua.acclorite.book_story.presentation.ui.ElevationDefaults
+import ua.acclorite.book_story.presentation.ui.elevation
 
 
 /**
  * Custom Dialog with lazy column.
  *
  * @param modifier Modifier to be applied.
- * @param properties Dialog properties.
  * @param drawableIcon Drawable icon to show(1/2).
  * @param imageVectorIcon Image vector icon to show(2/2).
  * @param backgroundTransparency The transparency of the background behind the dialog.
@@ -62,7 +61,6 @@ import ua.acclorite.book_story.ui.elevation
 @Composable
 fun CustomDialogWithLazyColumn(
     modifier: Modifier = Modifier,
-    properties: DialogProperties = DialogProperties(),
     drawableIcon: Painter? = null,
     imageVectorIcon: ImageVector? = null,
     backgroundTransparency: Float = 0.3f,
@@ -78,7 +76,10 @@ fun CustomDialogWithLazyColumn(
     var actionClicked by remember { mutableStateOf(false) }
     AlertDialog(
         onDismissRequest = { onDismiss() },
-        properties = properties
+        properties = DialogProperties(
+            dismissOnBackPress = !actionClicked,
+            dismissOnClickOutside = !actionClicked
+        )
     ) {
         (LocalView.current.parent as DialogWindowProvider).window.setDimAmount(
             backgroundTransparency

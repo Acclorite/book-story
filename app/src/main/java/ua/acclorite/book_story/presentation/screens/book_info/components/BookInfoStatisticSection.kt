@@ -33,13 +33,11 @@ fun BookInfoStatisticSection(book: Book) {
                 .removeTrailingZero()
         }%"
     }
-    val description = if (book.progress < 1f) stringResource(
-        id = R.string.you_read_query,
-        progress
-    ) + " " + stringResource(
-        if (book.progress > 0.2f) R.string.read_keep
+    val description = stringResource(
+        if (book.progress == 1f) R.string.read_done
+        else if (book.progress > 0.2f) R.string.read_keep
         else R.string.read_more
-    ) else stringResource(id = R.string.read_done)
+    )
 
     Column(
         Modifier

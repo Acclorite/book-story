@@ -6,5 +6,6 @@ import androidx.compose.runtime.Immutable
 data class History(
     val id: Int?,
     val bookId: Int,
+    val book: Book?,
     val time: Long
 )

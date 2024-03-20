@@ -2,9 +2,10 @@ package ua.acclorite.book_story.presentation.screens.browse.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,9 +34,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.util.Selected
 import ua.acclorite.book_story.presentation.components.CustomCheckbox
-import ua.acclorite.book_story.ui.DefaultTransition
-import ua.acclorite.book_story.util.Selected
+import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -44,11 +45,14 @@ import java.util.Locale
 /**
  * Browse list element item. Can be selected.
  */
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BrowseFileItem(
     file: Pair<File, Selected>,
     hasSelectedFiles: Boolean,
-    modifier: Modifier, onClick: () -> Unit
+    modifier: Modifier,
+    onClick: () -> Unit,
+    onLongClick: () -> Unit
 ) {
     val pattern = remember { SimpleDateFormat("HH:mm dd MMM yyyy", Locale.getDefault()) }
     val lastModified = remember { pattern.format(Date(file.first.lastModified())) }
@@ -85,9 +89,14 @@ fun BrowseFileItem(
             .padding(horizontal = 8.dp, vertical = 3.dp)
             .clip(RoundedCornerShape(10.dp))
             .background(animatedBackgroundColor)
-            .clickable {
-                onClick()
-            }
+            .combinedClickable(
+                onLongClick = {
+                    onLongClick()
+                },
+                onClick = {
+                    onClick()
+                }
+            )
             .padding(horizontal = 8.dp, vertical = 7.dp)
     ) {
         Row(

@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsIgnoringVisibility
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material3.Icon
@@ -34,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
-import ua.acclorite.book_story.ui.elevation
+import ua.acclorite.book_story.presentation.ui.elevation
 
 /**
  * Reader start item. Displays at the beginning of the book.
@@ -49,7 +50,7 @@ fun ReaderStartItem(viewModel: ReaderViewModel) {
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surface)
             .windowInsetsPadding(WindowInsets.statusBarsIgnoringVisibility)
-            .padding(24.dp)
+            .padding(horizontal = 24.dp, vertical = 80.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically, modifier = Modifier
@@ -59,7 +60,7 @@ fun ReaderStartItem(viewModel: ReaderViewModel) {
                 modifier = Modifier
                     .height(135.dp)
                     .width(90.dp)
-                    .clip(MaterialTheme.shapes.medium)
+                    .clip(RoundedCornerShape(10.dp))
                     .background(MaterialTheme.elevation())
             ) {
                 if (state.book.coverImage != null) {
@@ -68,7 +69,7 @@ fun ReaderStartItem(viewModel: ReaderViewModel) {
                         contentDescription = stringResource(id = R.string.cover_image_content_desc),
                         modifier = Modifier
                             .fillMaxSize()
-                            .clip(MaterialTheme.shapes.medium),
+                            .clip(RoundedCornerShape(10.dp)),
                         contentScale = ContentScale.Crop
                     )
                 } else {

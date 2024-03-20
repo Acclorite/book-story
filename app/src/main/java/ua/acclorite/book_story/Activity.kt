@@ -9,6 +9,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -18,17 +20,20 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
-import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.presentation.components.bottom_navigation_bar.BottomNavigationBar
 import ua.acclorite.book_story.presentation.components.custom_navigation_rail.CustomNavigationRail
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.NavigationHost
 import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.screens.about.AboutScreen
 import ua.acclorite.book_story.presentation.screens.book_info.BookInfoScreen
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
 import ua.acclorite.book_story.presentation.screens.browse.BrowseScreen
@@ -43,11 +48,9 @@ import ua.acclorite.book_story.presentation.screens.settings.SettingsScreen
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.AppearanceSettings
 import ua.acclorite.book_story.presentation.screens.settings.nested.general.GeneralSettings
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.ReaderSettings
-import ua.acclorite.book_story.ui.BooksHistoryResurrectionTheme
-import ua.acclorite.book_story.ui.DarkTheme
-import ua.acclorite.book_story.ui.Theme
-import ua.acclorite.book_story.ui.Transitions
-import ua.acclorite.book_story.ui.isDark
+import ua.acclorite.book_story.presentation.ui.BooksHistoryResurrectionTheme
+import ua.acclorite.book_story.presentation.ui.Transitions
+import ua.acclorite.book_story.presentation.ui.isDark
 import java.lang.reflect.Field
 
 
@@ -89,18 +92,26 @@ class Activity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            val windowClass = calculateWindowSizeClass(activity = this)
             val isLoaded by mainViewModel.isReady.collectAsState()
+            val state by mainViewModel.state.collectAsState()
 
-            val theme = mainViewModel.theme.collectAsState().value ?: Theme.BLUE
-            val darkTheme =
-                mainViewModel.darkTheme.collectAsState().value ?: DarkTheme.FOLLOW_SYSTEM
-            val tabletUI = windowClass.widthSizeClass != WindowWidthSizeClass.Compact
+            val windowClass = calculateWindowSizeClass(activity = this)
+            val tabletUI = remember(windowClass) {
+                windowClass.widthSizeClass != WindowWidthSizeClass.Compact
+            }
+            val localLayoutDirection = LocalLayoutDirection.current
+            val layoutDirection = remember(localLayoutDirection) {
+                if (localLayoutDirection == LayoutDirection.Ltr) {
+                    LayoutDirection.Ltr
+                } else {
+                    LayoutDirection.Rtl
+                }
+            }
 
             if (isLoaded) {
                 BooksHistoryResurrectionTheme(
-                    theme = theme,
-                    isDark = darkTheme.isDark()
+                    theme = state.theme!!,
+                    isDark = state.darkTheme!!.isDark()
                 ) {
                     NavigationHost(startScreen = Screen.LIBRARY) {
                         val currentScreen by this.getCurrentScreen().collectAsState()
@@ -123,42 +134,58 @@ class Activity : AppCompatActivity() {
                                 Box(
                                     modifier = Modifier
                                         .fillMaxSize()
-                                        .padding(
-                                            start = if (tabletUI) 80.dp else 0.dp,
-                                            bottom = it.calculateBottomPadding()
-                                        )
                                 ) {
-                                    composable(screen = Screen.LIBRARY) {
-                                        @Suppress("UNCHECKED_CAST")
-                                        LibraryScreen(
-                                            viewModel = libraryViewModel,
-                                            historyViewModel = historyViewModel,
-                                            browseViewModel = browseViewModel,
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(
+                                                end = it.calculateEndPadding(
+                                                    layoutDirection
+                                                ),
+                                                bottom = it.calculateBottomPadding(),
+                                                start = if (tabletUI) {
+                                                    80.dp + it.calculateStartPadding(
+                                                        layoutDirection
+                                                    )
+                                                } else {
+                                                    it.calculateStartPadding(
+                                                        layoutDirection
+                                                    )
+                                                },
+                                            )
+                                    ) {
+                                        composable(screen = Screen.LIBRARY) {
+                                            LibraryScreen(
+                                                viewModel = libraryViewModel,
+                                                historyViewModel = historyViewModel,
+                                                browseViewModel = browseViewModel,
+                                                navigator = this@NavigationHost
+                                            )
+                                        }
+
+                                        composable(screen = Screen.HISTORY) {
+                                            HistoryScreen(
+                                                viewModel = historyViewModel,
+                                                libraryViewModel = libraryViewModel,
+                                                navigator = this@NavigationHost
+                                            )
+                                        }
+
+                                        composable(screen = Screen.BROWSE) {
+                                            BrowseScreen(
+                                                viewModel = browseViewModel,
+                                                libraryViewModel = libraryViewModel,
+                                                navigator = this@NavigationHost
+                                            )
+                                        }
+                                    }
+
+                                    if (tabletUI) {
+                                        CustomNavigationRail(
                                             navigator = this@NavigationHost,
-                                            addedBooks = retrieveArgument("added_books") as? List<Book>
-                                                ?: emptyList()
+                                            layoutDirection = layoutDirection
                                         )
                                     }
-
-                                    composable(screen = Screen.HISTORY) {
-                                        HistoryScreen(
-                                            viewModel = historyViewModel,
-                                            libraryViewModel = libraryViewModel,
-                                            navigator = this@NavigationHost
-                                        )
-                                    }
-
-                                    composable(screen = Screen.BROWSE) {
-                                        BrowseScreen(
-                                            viewModel = browseViewModel,
-                                            libraryViewModel = libraryViewModel,
-                                            navigator = this@NavigationHost
-                                        )
-                                    }
-                                }
-
-                                if (tabletUI) {
-                                    CustomNavigationRail(navigator = this@NavigationHost)
                                 }
                             }
                         }
@@ -232,6 +259,15 @@ class Activity : AppCompatActivity() {
                                 mainViewModel = mainViewModel,
                                 navigator = this@NavigationHost
                             )
+                        }
+
+                        // About screen
+                        composable(
+                            screen = Screen.ABOUT,
+                            enterAnim = Transitions.SlidingTransitionIn,
+                            exitAnim = Transitions.SlidingTransitionOut
+                        ) {
+                            AboutScreen(navigator = this@NavigationHost)
                         }
 
 //                        Start screen (later)
