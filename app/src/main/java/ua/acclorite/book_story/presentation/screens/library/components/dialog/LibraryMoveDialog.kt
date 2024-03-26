@@ -1,7 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.library.components.dialog
 
 import android.widget.Toast
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material.icons.Icons
@@ -23,7 +22,6 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewMode
 /**
  * Move dialog. Moves all selected books to the selected category.
  */
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LibraryMoveDialog(
     viewModel: LibraryViewModel,

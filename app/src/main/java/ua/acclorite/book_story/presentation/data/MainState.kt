@@ -5,6 +5,7 @@ import android.os.Parcelable
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.presentation.ui.DarkTheme
 import ua.acclorite.book_story.presentation.ui.Theme
+import ua.acclorite.book_story.presentation.ui.ThemeContrast
 
 /**
  * Main State. All app's settings are here. Wrapped in SavedStateHandle, so it won't reset.
@@ -14,6 +15,7 @@ data class MainState(
     val language: String? = null,
     val theme: Theme? = null,
     val darkTheme: DarkTheme? = null,
+    val themeContrast: ThemeContrast? = null,
     val fontFamily: String? = null,
     val isItalic: Boolean? = null,
     val fontSize: Int? = null,
@@ -31,6 +33,8 @@ data class MainState(
         theme = Theme.valueOf(parcel.readString() ?: Theme.BLUE.name),
         // String
         darkTheme = DarkTheme.valueOf(parcel.readString() ?: DarkTheme.FOLLOW_SYSTEM.name),
+        // String
+        themeContrast = ThemeContrast.valueOf(parcel.readString() ?: ThemeContrast.STANDARD.name),
         // String
         fontFamily = parcel.readString(),
         // Boolean
@@ -60,6 +64,8 @@ data class MainState(
         parcel.writeString(theme?.name)
         // Dark Theme
         parcel.writeString(darkTheme?.name)
+        // Contrast Level
+        parcel.writeString(themeContrast?.name)
         // Font Family
         parcel.writeString(fontFamily)
         // Is Italic

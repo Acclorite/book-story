@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.settings.components
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -9,30 +8,26 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ChipDefaults
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.FilterChip
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.domain.model.ChipItem
+import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 
 /**
- * Chips with title. Use list of [ChipItem]s to display chips.
+ * Chips with title. Use list of [ButtonItem]s to display chips.
  */
-@OptIn(ExperimentalMaterialApi::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ChipsWithTitle(
     title: String,
-    chips: List<ChipItem>,
+    chips: List<ButtonItem>,
     horizontalPadding: Dp = 18.dp,
     verticalPadding: Dp = 8.dp,
-    onClick: (ChipItem) -> Unit
+    onClick: (ButtonItem) -> Unit
 ) {
     Column(
         Modifier
@@ -50,29 +45,15 @@ fun ChipsWithTitle(
                     FilterChip(
                         modifier = Modifier.height(36.dp),
                         selected = item.selected,
-                        enabled = !item.selected,
-                        shape = MaterialTheme.shapes.small,
-                        border = if (!item.selected) BorderStroke(
-                            1.dp,
-                            MaterialTheme.colorScheme.outline
-                        ) else null,
-                        colors = ChipDefaults.filterChipColors(
-                            backgroundColor = Color.Transparent,
-                            disabledBackgroundColor = MaterialTheme.colorScheme.secondaryContainer
-                        ),
+                        label = {
+                            Text(
+                                item.title,
+                                style = item.textStyle,
+                                maxLines = 1
+                            )
+                        },
                         onClick = { onClick(item) },
-                    ) {
-                        Text(
-                            item.title,
-                            style = item.textStyle,
-                            color = if (item.selected) {
-                                MaterialTheme.colorScheme.onSecondaryContainer
-                            } else {
-                                MaterialTheme.colorScheme.onSurfaceVariant
-                            },
-                            maxLines = 1
-                        )
-                    }
+                    )
                 }
             },
         )

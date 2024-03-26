@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material3.MaterialTheme
@@ -27,6 +25,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CategoryTitle
+import ua.acclorite.book_story.presentation.components.CustomIconButton
 
 /**
  * Color picker with title.
@@ -49,8 +48,7 @@ fun ColorPickerWithTitle(
     ) {
         CategoryTitle(
             title = title,
-            padding = 0.dp,
-//            color = MaterialTheme.colorScheme.onSurface
+            padding = 0.dp
         )
         Spacer(modifier = Modifier.height(8.dp))
         RevertibleSlider(
@@ -111,22 +109,18 @@ private fun RevertibleSlider(
             horizontalPadding = 0.dp,
             verticalPadding = 0.dp
         )
-        Box(modifier = Modifier.weight(0.15f)) {
-            IconButton(
-                modifier = Modifier.align(Alignment.CenterEnd),
+        Box(modifier = Modifier.weight(0.15f), contentAlignment = Alignment.CenterEnd) {
+            CustomIconButton(
+                modifier = Modifier.size(28.dp),
+                icon = Icons.Default.History,
+                contentDescription = R.string.revert_content_desc,
+                disableOnClick = false,
                 enabled = initialValue != value.first,
-                onClick = { onValueChange(initialValue) }
+                color = if (initialValue == value.first) MaterialTheme.colorScheme.onSurfaceVariant
+                else MaterialTheme.colorScheme.onSurface
             ) {
-                Icon(
-                    imageVector = Icons.Default.History,
-                    contentDescription = stringResource(id = R.string.revert_content_desc),
-                    modifier = Modifier
-                        .size(28.dp),
-                    tint = if (initialValue == value.first) MaterialTheme.colorScheme.onSurfaceVariant
-                    else MaterialTheme.colorScheme.onSurface
-                )
+                onValueChange(initialValue)
             }
-
         }
     }
 }

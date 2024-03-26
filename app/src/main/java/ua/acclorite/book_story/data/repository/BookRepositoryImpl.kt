@@ -4,6 +4,7 @@ import android.app.Application
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
+import android.util.Log
 import androidx.datastore.preferences.core.Preferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -46,35 +47,13 @@ class BookRepositoryImpl @Inject constructor(
 
 ) : BookRepository {
 
-    override suspend fun getBooks(query: String): Flow<Resource<List<Book>>> {
-        return flow {
-            emit(Resource.Loading(true))
-            val books = database.searchBooks(query)
-
-            emit(
-                Resource.Success(
-                    data = books.map { entity ->
-                        val book = bookMapper.toBook(entity)
-                        val lastHistory = database.getLatestHistoryForBook(
-                            book.id ?: -1
-                        )
-
-                        book.copy(
-                            lastOpened = lastHistory?.time
-                        )
-                    }
-                )
-            )
-        }
-    }
-
-    override suspend fun fastGetBooks(query: String): List<Book> {
+    override suspend fun getBooks(query: String): List<Book> {
         val books = database.searchBooks(query)
 
         return books.map { entity ->
             val book = bookMapper.toBook(entity)
             val lastHistory = database.getLatestHistoryForBook(
-                book.id ?: -1
+                book.id
             )
 
             book.copy(
@@ -89,7 +68,7 @@ class BookRepositoryImpl @Inject constructor(
         return books.map { entity ->
             val book = bookMapper.toBook(entity)
             val lastHistory = database.getLatestHistoryForBook(
-                book.id ?: -1
+                book.id
             )
 
             book.copy(
@@ -98,35 +77,73 @@ class BookRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getBookTextById(bookId: Int): String {
-        val book = database.findBookById(bookId)
-        return book.text
+    override suspend fun getBookTextById(textPath: String): List<StringWithId> {
+        val textFile = File(textPath)
+
+        if (textPath.isBlank() || !textFile.exists()) {
+            Log.w("BOOK TEXT", "Failed to load file")
+            return emptyList()
+        }
+
+        val text = textParser.parse(textFile)
+
+        if (text.data.isNullOrEmpty()) {
+            return emptyList()
+        }
+
+        return text.data
     }
 
     override suspend fun insertBooks(
         books: List<Pair<Book, CoverImage?>>
-    ) {
+    ): Boolean {
         val filesDir = application.filesDir
         val coversDir = File(filesDir, "covers")
+        val booksDir = File(filesDir, "books")
 
         if (!coversDir.exists()) {
             coversDir.mkdirs()
         }
+        if (!booksDir.exists()) {
+            booksDir.mkdirs()
+        }
 
-        val booksWithCover = books.map {
-            var uri = ""
+        val booksWithCoverAndText = books.map {
+            var coverUri = ""
+            val textUri: String
+
+            if (it.first.text.isEmpty()) {
+                return false
+            }
+
+            try {
+                textUri = "${UUID.randomUUID()}.txt"
+                val text = File(booksDir, textUri)
+
+                withContext(Dispatchers.IO) {
+                    FileOutputStream(text).use { stream ->
+                        it.first.text.forEach { line ->
+                            stream.write(line.line.toByteArray())
+                            stream.write(System.lineSeparator().toByteArray())
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return false
+            }
 
             if (it.second != null) {
                 try {
-                    uri = "${UUID.randomUUID()}.webp"
-                    val cover = File(coversDir, uri)
+                    coverUri = "${UUID.randomUUID()}.webp"
+                    val cover = File(coversDir, coverUri)
 
                     withContext(Dispatchers.IO) {
                         FileOutputStream(cover).use { stream ->
                             if (
-                                !it.second!!.compress(
+                                !it.second!!.copy(Bitmap.Config.RGB_565, false).compress(
                                     Bitmap.CompressFormat.WEBP,
-                                    30,
+                                    20,
                                     stream
                                 )
                             ) {
@@ -135,33 +152,34 @@ class BookRepositoryImpl @Inject constructor(
                         }
                     }
                 } catch (e: Exception) {
-                    uri = ""
+                    coverUri = ""
                     e.printStackTrace()
                 }
             }
 
+
             val book = it.first.copy(
-                coverImage = if (uri.isNotBlank()) {
-                    Uri.fromFile(File("$coversDir/$uri"))
+                textPath = "$booksDir/$textUri",
+                coverImage = if (coverUri.isNotBlank()) {
+                    Uri.fromFile(File("$coversDir/$coverUri"))
                 } else null
             )
 
             bookMapper.toBookEntity(book)
         }
 
-        database.insertBooks(booksWithCover)
+        database.insertBooks(booksWithCoverAndText)
+        return true
     }
 
     override suspend fun updateBooks(books: List<Book>) {
         // without text and cover image
         database.updateBooks(
             books.map {
-                val book = database.findBookById(it.id ?: return)
+                val book = database.findBookById(it.id)
                 bookMapper.toBookEntity(
                     it.copy(
-                        text = book.text
-                            .split("\n")
-                            .map { line -> StringWithId(line.trim()) },
+                        textPath = book.textPath,
                         coverImage = if (book.image != null) Uri.parse(book.image) else null
                     )
                 )
@@ -169,18 +187,66 @@ class BookRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun updateBooksWithText(books: List<Book>) {
+    override suspend fun updateBooksWithText(books: List<Book>): Boolean {
         // without cover image
-        database.updateBooks(
-            books.map {
-                val book = database.findBookById(it.id ?: return)
-                bookMapper.toBookEntity(
-                    it.copy(
-                        coverImage = if (book.image != null) Uri.parse(book.image) else null
-                    )
-                )
+        val filesDir = application.filesDir
+        val booksDir = File(filesDir, "books")
+
+        if (!booksDir.exists()) {
+            booksDir.mkdirs()
+        }
+
+        val booksWithText = books.map {
+            val textUri: String
+            val bookEntity = database.findBookById(it.id)
+
+            if (it.text.isEmpty()) {
+                return false
             }
+
+            try {
+                textUri = "${UUID.randomUUID()}.txt"
+                val text = File(booksDir, textUri)
+
+                withContext(Dispatchers.IO) {
+                    FileOutputStream(text).use { stream ->
+                        it.text.forEach { line ->
+                            stream.write(line.line.toByteArray())
+                            stream.write(System.lineSeparator().toByteArray())
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return false
+            }
+
+            if (it.textPath.isNotBlank()) {
+                try {
+                    val fileToDelete = File(
+                        it.textPath
+                    )
+
+                    if (fileToDelete.exists()) {
+                        fileToDelete.delete()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            bookMapper.toBookEntity(
+                it.copy(
+                    textPath = "$booksDir/$textUri",
+                    coverImage = if (bookEntity.image != null) Uri.parse(bookEntity.image) else null
+                )
+            )
+        }
+
+        database.updateBooks(
+            booksWithText
         )
+        return true
     }
 
     override suspend fun updateCoverImageOfBook(
@@ -188,7 +254,7 @@ class BookRepositoryImpl @Inject constructor(
         newCoverImage: CoverImage?
     ) {
         // without text
-        val book = database.findBookById(bookWithOldCover.id ?: return)
+        val book = database.findBookById(bookWithOldCover.id)
         var uri: String? = null
 
         val filesDir = application.filesDir
@@ -206,9 +272,9 @@ class BookRepositoryImpl @Inject constructor(
                 withContext(Dispatchers.IO) {
                     FileOutputStream(cover).use { stream ->
                         if (
-                            !newCoverImage.compress(
+                            !newCoverImage.copy(Bitmap.Config.RGB_565, false).compress(
                                 Bitmap.CompressFormat.WEBP,
-                                30,
+                                20,
                                 stream
                             )
                         ) {
@@ -243,9 +309,7 @@ class BookRepositoryImpl @Inject constructor(
         }
 
         val bookWithNewCover = bookWithOldCover.copy(
-            text = book.text
-                .split("\n")
-                .map { line -> StringWithId(line.trim()) },
+            textPath = book.textPath,
             coverImage = newCoverImageUri
         )
 
@@ -261,20 +325,36 @@ class BookRepositoryImpl @Inject constructor(
     override suspend fun deleteBooks(books: List<Book>) {
         val filesDir = application.filesDir
         val coversDir = File(filesDir, "covers")
+        val booksDir = File(filesDir, "books")
 
         if (!coversDir.exists()) {
             coversDir.mkdirs()
         }
+        if (!booksDir.exists()) {
+            booksDir.mkdirs()
+        }
 
         database.deleteBooks(
             books.map {
-                val book = database.findBookById(it.id ?: return)
+                val book = database.findBookById(it.id)
 
                 if (book.image != null) {
                     try {
                         val fileToDelete = File(
                             "$coversDir/${book.image.substringAfterLast("/")}"
                         )
+
+                        if (fileToDelete.exists()) {
+                            fileToDelete.delete()
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+
+                if (book.textPath.isNotBlank()) {
+                    try {
+                        val fileToDelete = File(book.textPath)
 
                         if (fileToDelete.exists()) {
                             fileToDelete.delete()
@@ -424,7 +504,7 @@ class BookRepositoryImpl @Inject constructor(
                 books.add(
                     NullableBook.Null(
                         file.name,
-                        UIText.StringResource(R.string.error_something_went_wrong)
+                        UIText.StringResource(R.string.error_something_went_wrong_with_file)
                     )
                 )
                 continue
@@ -469,7 +549,6 @@ class BookRepositoryImpl @Inject constructor(
 
     override suspend fun getHistory(): Flow<Resource<List<History>>> {
         return flow {
-            emit(Resource.Loading(true))
             val history = database.getHistory()
 
             emit(

@@ -28,7 +28,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.ui.elevation
 
 /**
  * Animated top app bar. Has up to 3 different top bars inside it. Follow [TopAppBar] for more info.
@@ -42,7 +41,7 @@ import ua.acclorite.book_story.presentation.ui.elevation
 @Composable
 fun AnimatedTopAppBar(
     containerColor: Color = MaterialTheme.colorScheme.surface,
-    scrolledContainerColor: Color = MaterialTheme.elevation(),
+    scrolledContainerColor: Color = MaterialTheme.colorScheme.surfaceContainer,
 
     scrollBehavior: TopAppBarScrollBehavior?,
     isTopBarScrolled: Boolean?,

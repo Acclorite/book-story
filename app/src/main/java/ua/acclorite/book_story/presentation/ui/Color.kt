@@ -5,6 +5,7 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.platform.LocalContext
 import ua.acclorite.book_story.presentation.ui.theme.aquaTheme
 import ua.acclorite.book_story.presentation.ui.theme.blueTheme
@@ -14,6 +15,7 @@ import ua.acclorite.book_story.presentation.ui.theme.purpleTheme
 import ua.acclorite.book_story.presentation.ui.theme.redTheme
 import ua.acclorite.book_story.presentation.ui.theme.yellowTheme
 
+@Immutable
 enum class Theme {
     DYNAMIC,
     BLUE,
@@ -41,7 +43,7 @@ fun String.toTheme(): Theme {
  */
 @SuppressLint("NewApi")
 @Composable
-fun colorScheme(theme: Theme, darkTheme: Boolean): ColorScheme {
+fun colorScheme(theme: Theme, darkTheme: Boolean, themeContrast: ThemeContrast): ColorScheme {
     when (theme) {
         Theme.DYNAMIC -> {
             /* Dynamic Theme */
@@ -53,37 +55,37 @@ fun colorScheme(theme: Theme, darkTheme: Boolean): ColorScheme {
 
         Theme.BLUE -> {
             /* Blue Theme */
-            return blueTheme(isDark = darkTheme)
+            return blueTheme(isDark = darkTheme, themeContrast = themeContrast)
         }
 
         Theme.PURPLE -> {
             /* Purple Theme */
-            return purpleTheme(isDark = darkTheme)
+            return purpleTheme(isDark = darkTheme, themeContrast = themeContrast)
         }
 
         Theme.GREEN -> {
             /* Green Theme */
-            return greenTheme(isDark = darkTheme)
+            return greenTheme(isDark = darkTheme, themeContrast = themeContrast)
         }
 
         Theme.PINK -> {
             /* Pink Theme */
-            return pinkTheme(isDark = darkTheme)
+            return pinkTheme(isDark = darkTheme, themeContrast = themeContrast)
         }
 
         Theme.YELLOW -> {
             /* Yellow Theme */
-            return yellowTheme(isDark = darkTheme)
+            return yellowTheme(isDark = darkTheme, themeContrast = themeContrast)
         }
 
         Theme.RED -> {
             /* Red Theme */
-            return redTheme(isDark = darkTheme)
+            return redTheme(isDark = darkTheme, themeContrast = themeContrast)
         }
 
         Theme.AQUA -> {
             /* Aqua Theme */
-            return aquaTheme(isDark = darkTheme)
+            return aquaTheme(isDark = darkTheme, themeContrast = themeContrast)
         }
     }
 }

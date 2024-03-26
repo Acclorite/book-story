@@ -59,7 +59,10 @@ fun BrowseAddingDialogItem(result: Pair<NullableBook, Selected>, onClick: (Boole
                 )
             }
             Box(modifier = Modifier.weight(0.15f), contentAlignment = Alignment.CenterEnd) {
-                CustomCheckbox(selected = result.second)
+                CustomCheckbox(
+                    selected = result.second,
+                    MaterialTheme.colorScheme.surfaceContainerHigh
+                )
             }
         }
     } else {

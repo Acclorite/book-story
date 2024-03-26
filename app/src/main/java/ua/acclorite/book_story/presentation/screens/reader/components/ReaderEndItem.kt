@@ -21,6 +21,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -54,6 +55,13 @@ fun ReaderEndItem(
 ) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current as ComponentActivity
+
+    val buttonText = remember {
+        context.getString(
+            if (state.book.category != Category.ALREADY_READ) R.string.move_to_read
+            else R.string.back_to_library
+        )
+    }
 
     Column(
         modifier = Modifier
@@ -133,10 +141,7 @@ fun ReaderEndItem(
             )
         ) {
             Text(
-                stringResource(
-                    if (state.book.category != Category.ALREADY_READ) R.string.move_to_read
-                    else R.string.back_to_library
-                ),
+                buttonText,
                 style = MaterialTheme.typography.bodyMedium,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis

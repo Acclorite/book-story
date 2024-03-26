@@ -3,9 +3,7 @@ package ua.acclorite.book_story.presentation.components.bottom_navigation_bar
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -33,27 +31,19 @@ fun RowScope.BottomNavigationBarItem(
         label = {
             Text(
                 text = item.title,
-                style = MaterialTheme.typography.labelMedium,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
         },
         selected = isSelected,
-        enabled = !isSelected,
         onClick = { onClick() },
         icon = {
             Icon(
                 painter = icon,
-                contentDescription = item.title,
+                contentDescription = null,
                 modifier = Modifier.size(24.dp)
             )
         },
-        modifier = modifier,
-        colors = NavigationBarItemDefaults.colors(
-            unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-            unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
-            disabledIconColor = MaterialTheme.colorScheme.onSurface,
-            disabledTextColor = MaterialTheme.colorScheme.onSurface
-        )
+        modifier = modifier
     )
 }

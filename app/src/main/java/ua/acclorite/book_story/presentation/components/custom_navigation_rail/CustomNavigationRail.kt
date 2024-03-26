@@ -29,7 +29,6 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.NavigationItem
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
-import ua.acclorite.book_story.presentation.ui.elevation
 
 /**
  * Custom Navigation Rail. It is used to be shown on Tablets.
@@ -54,7 +53,7 @@ fun BoxScope.CustomNavigationRail(
             .align(
                 Alignment.CenterStart
             )
-            .background(MaterialTheme.elevation())
+            .background(MaterialTheme.colorScheme.surfaceContainer)
             .padding(
                 start = WindowInsets.navigationBars
                     .asPaddingValues()
@@ -62,7 +61,7 @@ fun BoxScope.CustomNavigationRail(
             )
             .width(80.dp)
             .padding(horizontal = 12.dp),
-        containerColor = MaterialTheme.elevation(),
+        containerColor = MaterialTheme.colorScheme.surfaceContainer,
         windowInsets = WindowInsets(0, 0, 0, 0)
     ) {
         Column(

@@ -30,6 +30,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -64,8 +65,6 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.Transitions
-import ua.acclorite.book_story.presentation.ui.elevation
-import java.util.UUID
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -88,6 +87,10 @@ fun HistoryScreen(
     val focusRequester = remember { FocusRequester() }
     val snackbarState = remember { SnackbarHostState() }
 
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(HistoryEvent.OnUpdateScrollOffset)
+    }
+
     if (state.showDeleteWholeHistoryDialog) {
         HistoryDeleteWholeHistoryDialog(viewModel = viewModel, libraryViewModel = libraryViewModel)
     }
@@ -99,7 +102,6 @@ fun HistoryScreen(
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             AnimatedTopAppBar(
-                scrolledContainerColor = MaterialTheme.elevation(),
                 scrollBehavior = null,
                 isTopBarScrolled = state.listState.canScrollBackward,
 
@@ -113,16 +115,14 @@ fun HistoryScreen(
                 content1Actions = {
                     CustomIconButton(
                         icon = Icons.Default.Search,
-                        contentDescription = stringResource(id = R.string.search_content_desc),
+                        contentDescription = R.string.search_content_desc,
                         disableOnClick = true,
                     ) {
                         viewModel.onEvent(HistoryEvent.OnSearchShowHide)
                     }
                     CustomIconButton(
                         icon = Icons.Outlined.DeleteSweep,
-                        contentDescription = stringResource(
-                            id = R.string.delete_whole_history_content_desc
-                        ),
+                        contentDescription = R.string.delete_whole_history_content_desc,
                         disableOnClick = false,
                         enabled = !state.isLoading
                                 && !state.isRefreshing
@@ -138,9 +138,7 @@ fun HistoryScreen(
                 content2NavigationIcon = {
                     CustomIconButton(
                         icon = Icons.AutoMirrored.Default.ArrowBack,
-                        contentDescription = stringResource(
-                            id = R.string.exit_search_content_desc
-                        ),
+                        contentDescription = R.string.exit_search_content_desc,
                         disableOnClick = true
                     ) {
                         viewModel.onEvent(HistoryEvent.OnSearchShowHide)
@@ -229,7 +227,7 @@ fun HistoryScreen(
                         }
 
                         items(
-                            groupedHistory.history, key = { it.id ?: UUID.randomUUID() }
+                            groupedHistory.history, key = { it.id }
                         ) {
                             HistoryItem(
                                 modifier = Modifier.animateItemPlacement(),
@@ -239,14 +237,14 @@ fun HistoryScreen(
                                     navigator.navigate(
                                         Screen.BOOK_INFO,
                                         false,
-                                        Argument("book", it.book)
+                                        Argument("book", it.bookId)
                                     )
                                 },
                                 onTitleClick = {
                                     viewModel.onEvent(
                                         HistoryEvent.OnNavigateToReaderScreen(
                                             navigator,
-                                            it.book
+                                            it.book!!
                                         )
                                     )
                                 },

@@ -25,6 +25,8 @@ sealed class HistoryEvent {
     data class OnUpdateBook(val book: Book) : HistoryEvent()
     data class OnNavigateToReaderScreen(
         val navigator: Navigator,
-        val book: Book?
+        val book: Book
     ) : HistoryEvent()
+
+    data object OnUpdateScrollOffset : HistoryEvent()
 }

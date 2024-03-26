@@ -10,10 +10,6 @@ import javax.inject.Inject
 
 class BookMapperImpl @Inject constructor() : BookMapper {
     override suspend fun toBookEntity(book: Book): BookEntity {
-        val textAsString = book.text.joinToString("\n") {
-            it.line.trim()
-        }
-
         return BookEntity(
             id = book.id,
             title = book.title,
@@ -22,7 +18,7 @@ class BookMapperImpl @Inject constructor() : BookMapper {
             scrollOffset = book.scrollOffset,
             progress = book.progress,
             author = book.author.string,
-            text = textAsString,
+            textPath = book.textPath,
             description = book.description,
             image = if (book.coverImage != null) book.coverImage.toString() else null,
             category = book.category
@@ -43,6 +39,7 @@ class BookMapperImpl @Inject constructor() : BookMapper {
             scrollOffset = bookEntity.scrollOffset,
             progress = bookEntity.progress,
             file = if (file.exists()) file else null,
+            textPath = bookEntity.textPath,
             text = emptyList(),
             letters = 0,
             words = 0,

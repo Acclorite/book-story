@@ -18,6 +18,7 @@
     <string name="delete_book">Видалити книгу?</string>
     <string name="move_book">Перемістити книгу?</string>
     <string name="delete_history">Видалити історію читання?</string>
+    <string name="confirm_update">Підтвердити оновлення?</string>
 
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">
@@ -48,6 +49,11 @@
     <string name="delete_history_description">
         Це видалить всю історію з бази даних.
     </string>
+    <string name="confirm_update_description">
+        При підтвердженні ця книга буде оновлена.
+        Будь ласка, запам\'ятайте де ви зупинилися перед оновленням тексту.
+        Наступне буде оновлено:
+    </string>
 
     <!-- Errors -->
     <string name="error_permission">
@@ -57,6 +63,9 @@
         Немає опису.
     </string>
     <string name="error_something_went_wrong">
+        Щось пішло не так.
+    </string>
+    <string name="error_something_went_wrong_with_file">
         Щось пішло не так. Будь ласка, перевірте чи файл цієї книги не пошкоджений.
     </string>
     <string name="error_wrong_file_format">Хибний формат файлу.</string>
@@ -106,6 +115,7 @@
     <string name="translate">Перекласти</string>
     <string name="dictionary">Словник</string>
     <string name="retry">Ще раз</string>
+    <string name="confirm">Підтвердити</string>
 
     <!-- Items -->
     <string name="files">файли</string>
@@ -121,6 +131,9 @@
     <string name="change_cover_desc">Виберіть нову обкладинку з ваших фото</string>
     <string name="delete_cover">Видалити обкладинку</string>
     <string name="delete_cover_desc">Видаліть нинішню обкладинку книги</string>
+    <string name="author">Автор</string>
+    <string name="description">Опис</string>
+    <string name="text">Текст</string>
 
     <!-- Tabs -->
     <string name="reading_tab">Читаю</string>
@@ -147,6 +160,7 @@
     <!-- Settings options -->
     <string name="language_option">Мова застосунка</string>
     <string name="dark_theme_option">Темна тема</string>
+    <string name="theme_contrast_option">Контрастність теми</string>
     <string name="app_theme_option">Тема застосунка</string>
     <string name="font_family_option">Сімейство шрифтів</string>
     <string name="font_style_option">Стиль шрифта</string>
@@ -163,9 +177,14 @@
     <string name="blue_color">Синій</string>
 
     <!-- Dark Theme properties -->
-    <string name="dark_theme_off">Вимкнено</string>
-    <string name="dark_theme_on">Ввімкнено</string>
-    <string name="dark_theme_follow_system">Тема системи</string>
+    <string name="dark_theme_off">Вимкнена</string>
+    <string name="dark_theme_on">Ввімкнена</string>
+    <string name="dark_theme_follow_system">Системна</string>
+
+    <!-- Theme Contrast properties -->
+    <string name="theme_contrast_standard">Типова</string>
+    <string name="theme_contrast_medium">Середня</string>
+    <string name="theme_contrast_high">Висока</string>
 
     <!-- Font Style properties -->
     <string name="font_style_italic">Похилий</string>
@@ -198,6 +217,7 @@
     <string name="history_element_deleted">Елемент історії був успішно видалений.</string>
     <string name="file_not_found">Файл \"%1$s\" не знайдено.</string>
     <string name="book_updated">Текст, автор та опис книги були успішно оновлені.</string>
+    <string name="nothing_changed">Книга актуальна.</string>
 
     <!-- DropDown properties -->
     <string name="move_this_book">Перемістити</string>
@@ -236,6 +256,12 @@
     <string name="slava_ukraini_option">Слава Україні! 🇺🇦</string>
     <string name="slava_ukraini_option_desc">Героям Слава! 🐉</string>
 
+    <!-- Help -->
+    <string name="clickable_note_1">Будь ласка, зверніть увагу, що на</string>
+    <string name="clickable_note_2">такий виділений текст</string>
+    <string name="clickable_note_3">можна натиснути.</string>
+    <string name="clickable_note_action">На мене можна натиснути!</string>
+
     <!-- Font families -->
     <string name="default_font">За замовчуванням</string>
 
@@ -244,29 +270,30 @@
     <string name="yesterday">Вчора</string>
 
     <!-- Content description -->
-    <string name="refresh_book_content_desc">Оновити текст, автора та опис книги</string>
+    <string name="refresh_book_content_desc">Оновити книгу</string>
     <string name="continue_reading_content_desc">Продовжити читання</string>
     <string name="go_back_content_desc">Назад</string>
     <string name="cover_image_content_desc">Обкладинка</string>
-    <string name="open_reader_settings_content_desc">Відкрити налаштування читача</string>
-    <string name="background_anim_content_desc">Анімація фону</string>
-    <string name="outline_anim_content_desc">Анімація контуру</string>
+    <string name="open_reader_settings_content_desc">Налаштування читача</string>
     <string name="top_app_bar_anim_content_desc">Анімація верхньої панелі</string>
     <string name="file_icon_content_desc">Файл</string>
     <string name="checkbox_content_desc">Галочка</string>
-    <string name="show_dropdown_content_desc">Показати випадаючий список</string>
+    <string name="show_dropdown_content_desc">Випадаючий список</string>
     <string name="cover_image_not_found_content_desc">Обкладенка не знайдена</string>
     <string name="apply_changes_content_desc">Застосувати зміни</string>
     <string name="error_content_desc">Помилка</string>
     <string name="search_content_desc">Пошук</string>
-    <string name="clear_selected_items_content_desc">Очистити вибрані предмети</string>
+    <string name="clear_selected_items_content_desc">Очистити обрані предмети</string>
     <string name="add_files_content_desc">Додати файли</string>
     <string name="exit_search_content_desc">Вийти з пошуку</string>
     <string name="delete_whole_history_content_desc">Видалити всю історію</string>
-    <string name="move_books_content_desc">Перемістити книгу в іншу категорію</string>
+    <string name="move_books_content_desc">Перемістити обрані книги</string>
     <string name="delete_books_content_desc">Видалити обрані книги</string>
     <string name="revert_content_desc">Повернути</string>
     <string name="selected_content_desc">Вибрано</string>
     <string name="app_icon_content_desc">Іконка застосунку</string>
+    <string name="note_content_desc">Примітка</string>
+    <string name="delete_history_element_content_desc">Видалити елемент історії</string>
+
 
 </resources>

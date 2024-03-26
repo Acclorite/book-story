@@ -4,7 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
@@ -74,35 +76,34 @@ fun ReaderBottomBar(
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleLarge
         )
+        Spacer(modifier = Modifier.height(3.dp))
         Slider(
             value = state.book.progress,
+            enabled = !state.lockMenu,
             onValueChange = {
-                viewModel.onEvent(ReaderEvent.OnScroll(listState, it))
-                viewModel.onEvent(
-                    ReaderEvent.OnChangeProgress(
-                        progress = it,
-                        navigator = navigator,
-                        firstVisibleItemIndex = listState.firstVisibleItemIndex,
-                        firstVisibleItemOffset = 0,
-                        refreshList = { book ->
-                            libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(book))
-                            historyViewModel.onEvent(HistoryEvent.OnUpdateBook(book))
-                        }
+                if (listState.layoutInfo.totalItemsCount > 0) {
+                    viewModel.onEvent(ReaderEvent.OnScroll(listState, it))
+                    viewModel.onEvent(
+                        ReaderEvent.OnChangeProgress(
+                            progress = it,
+                            navigator = navigator,
+                            firstVisibleItemIndex = listState.firstVisibleItemIndex,
+                            firstVisibleItemOffset = 0,
+                            refreshList = { book ->
+                                libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(book))
+                                historyViewModel.onEvent(HistoryEvent.OnUpdateBook(book))
+                            }
+                        )
                     )
-                )
+                }
             },
             colors = SliderDefaults.colors(
-                activeTrackColor = MaterialTheme.colorScheme.primary,
-                thumbColor = MaterialTheme.colorScheme.primary,
-                inactiveTrackColor = MaterialTheme.colorScheme.onPrimaryContainer.copy(0.15f),
-                disabledActiveTickColor = Color.Transparent,
-                disabledActiveTrackColor = Color.Transparent,
-                disabledInactiveTickColor = Color.Transparent,
-                disabledInactiveTrackColor = Color.Transparent,
-                disabledThumbColor = Color.Transparent,
-                activeTickColor = Color.Transparent,
-                inactiveTickColor = Color.Transparent
+                inactiveTrackColor = MaterialTheme.colorScheme.secondary.copy(0.15f),
+                disabledActiveTrackColor = MaterialTheme.colorScheme.primary,
+                disabledThumbColor = MaterialTheme.colorScheme.primary,
+                disabledInactiveTrackColor = MaterialTheme.colorScheme.secondary.copy(0.15f),
             )
         )
+        Spacer(modifier = Modifier.height(5.dp))
     }
 }

@@ -21,8 +21,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ExperimentalMaterialApi
@@ -43,7 +45,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -86,8 +87,6 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.Transitions
-import ua.acclorite.book_story.presentation.ui.elevation
-import java.util.UUID
 
 @OptIn(
     ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class,
@@ -105,6 +104,7 @@ fun LibraryScreen(
         initialPage = state.currentPage,
         pageCount = { Category.entries.size }
     )
+    var isScrollInProgress by remember { mutableStateOf(false) }
     val refreshState = rememberPullRefreshState(
         refreshing = state.isRefreshing,
         onRefresh = {
@@ -145,9 +145,6 @@ fun LibraryScreen(
         topBar = {
             Column(Modifier.fillMaxWidth()) {
                 AnimatedTopAppBar(
-                    containerColor = MaterialTheme.colorScheme.surface,
-                    scrolledContainerColor = MaterialTheme.elevation(),
-
                     scrollBehavior = null,
                     isTopBarScrolled = state.hasSelectedItems,
 
@@ -160,8 +157,8 @@ fun LibraryScreen(
                             Text(
                                 text = state.books.size.toString(),
                                 modifier = Modifier
-                                    .clip(MaterialTheme.shapes.medium)
-                                    .background(MaterialTheme.elevation(elevation = 6.dp))
+                                    .clip(RoundedCornerShape(14.dp))
+                                    .background(MaterialTheme.colorScheme.surfaceContainer)
                                     .padding(horizontal = 8.dp, vertical = 3.dp),
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 fontSize = 16.sp
@@ -171,7 +168,7 @@ fun LibraryScreen(
                     content1Actions = {
                         CustomIconButton(
                             icon = Icons.Default.Search,
-                            contentDescription = stringResource(id = R.string.search_content_desc),
+                            contentDescription = R.string.search_content_desc,
                             disableOnClick = true,
                         ) {
                             viewModel.onEvent(LibraryEvent.OnSearchShowHide)
@@ -183,8 +180,7 @@ fun LibraryScreen(
                     content2NavigationIcon = {
                         CustomIconButton(
                             icon = Icons.Default.Clear,
-                            contentDescription =
-                            stringResource(id = R.string.clear_selected_items_content_desc),
+                            contentDescription = R.string.clear_selected_items_content_desc,
                             disableOnClick = true
                         ) {
                             viewModel.onEvent(LibraryEvent.OnClearSelectedBooks)
@@ -203,9 +199,7 @@ fun LibraryScreen(
                     content2Actions = {
                         CustomIconButton(
                             icon = Icons.AutoMirrored.Outlined.DriveFileMove,
-                            contentDescription = stringResource(
-                                id = R.string.move_books_content_desc
-                            ),
+                            contentDescription = R.string.move_books_content_desc,
                             enabled = !state.isLoading
                                     && !state.isRefreshing
                                     && !state.showMoveDialog,
@@ -216,9 +210,7 @@ fun LibraryScreen(
                         }
                         CustomIconButton(
                             icon = Icons.Outlined.Delete,
-                            contentDescription = stringResource(
-                                id = R.string.delete_books_content_desc
-                            ),
+                            contentDescription = R.string.delete_books_content_desc,
                             enabled = !state.isLoading
                                     && !state.isRefreshing
                                     && !state.showDeleteDialog,
@@ -232,9 +224,7 @@ fun LibraryScreen(
                     content3NavigationIcon = {
                         CustomIconButton(
                             icon = Icons.AutoMirrored.Default.ArrowBack,
-                            contentDescription = stringResource(
-                                id = R.string.exit_search_content_desc
-                            ),
+                            contentDescription = R.string.exit_search_content_desc,
                             disableOnClick = true
                         ) {
                             viewModel.onEvent(
@@ -289,7 +279,7 @@ fun LibraryScreen(
                 )
                 LibraryTabRow(
                     viewModel = viewModel,
-                    books = state.books.map { it.first },
+                    books = state.categorizedBooks,
                     pagerState = pagerState
                 )
             }
@@ -300,34 +290,40 @@ fun LibraryScreen(
                 .fillMaxSize()
                 .padding(top = paddingValues.calculateTopPadding())
         ) {
-            HorizontalPager(state = pagerState, userScrollEnabled = !state.isRefreshing) { index ->
-                var categoryIsLoading by remember { mutableStateOf(true) }
-                val categorizedBooks = remember { mutableStateListOf<Pair<Book, Selected>>() }
+            HorizontalPager(
+                state = pagerState,
+                userScrollEnabled = !isScrollInProgress
+            ) { index ->
                 val category = remember { Category.entries[index] }
+                val books = remember(state.categorizedBooks) {
+                    state.categorizedBooks.find {
+                        it.category == category
+                    }?.books?.sortedWith(
+                        compareByDescending<Pair<Book, Selected>> { it.first.lastOpened }
+                            .thenBy { it.first.title }
+                    ) ?: emptyList()
+                }
+                val listState = rememberLazyGridState()
 
-                LaunchedEffect(state.books) {
-                    categorizedBooks.clear()
-                    categorizedBooks.addAll(
-                        state.books
-                            .filter { it.first.category == category }
-                            .sortedWith(
-                                compareByDescending<Pair<Book, Selected>> { it.first.lastOpened }
-                                    .thenBy { it.first.title }
-                            )
-                    )
-                    categoryIsLoading = false
+                LaunchedEffect(listState.isScrollInProgress, pagerState.currentPage) {
+                    if (listState.isScrollInProgress != isScrollInProgress
+                        && pagerState.currentPage == state.currentPage
+                    ) {
+                        isScrollInProgress = listState.isScrollInProgress
+                    }
                 }
 
                 Box(modifier = Modifier.fillMaxSize()) {
-                    DefaultTransition(visible = !state.isLoading && !categoryIsLoading) {
+                    DefaultTransition(visible = !state.isLoading) {
                         LazyVerticalGrid(
                             columns = GridCells.Adaptive(120.dp),
                             modifier = Modifier.fillMaxSize(),
+                            state = listState,
                             contentPadding = PaddingValues(8.dp)
                         ) {
                             items(
-                                categorizedBooks,
-                                key = { it.first.id ?: UUID.randomUUID() }
+                                books,
+                                key = { it.first.id }
                             ) {
                                 LibraryBookItem(
                                     book = it,
@@ -339,7 +335,7 @@ fun LibraryScreen(
                                             navigator.navigate(
                                                 Screen.BOOK_INFO,
                                                 false,
-                                                Argument("book", it.first)
+                                                Argument("book", it.first.id)
                                             )
                                         }
                                     },
@@ -364,8 +360,7 @@ fun LibraryScreen(
                     AnimatedVisibility(
                         visible = !state.isLoading
                                 && !state.isRefreshing
-                                && categorizedBooks.isEmpty()
-                                && !categoryIsLoading,
+                                && books.isEmpty(),
                         modifier = Modifier.align(Alignment.Center),
                         enter = Transitions.DefaultTransitionIn,
                         exit = fadeOut(tween(0))
@@ -379,16 +374,16 @@ fun LibraryScreen(
                             navigator.navigate(Screen.BROWSE, false)
                         }
                     }
-
-                    PullRefreshIndicator(
-                        state.isRefreshing,
-                        refreshState,
-                        Modifier.align(Alignment.TopCenter),
-                        backgroundColor = MaterialTheme.colorScheme.inverseSurface,
-                        contentColor = MaterialTheme.colorScheme.inverseOnSurface
-                    )
                 }
             }
+
+            PullRefreshIndicator(
+                state.isRefreshing,
+                refreshState,
+                Modifier.align(Alignment.TopCenter),
+                backgroundColor = MaterialTheme.colorScheme.inverseSurface,
+                contentColor = MaterialTheme.colorScheme.inverseOnSurface
+            )
         }
     }
 

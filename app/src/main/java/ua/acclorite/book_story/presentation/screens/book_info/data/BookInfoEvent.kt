@@ -19,7 +19,6 @@ sealed class BookInfoEvent {
     data class OnRequestFocus(val focusRequester: FocusRequester) : BookInfoEvent()
     data class OnTitleValueChange(val value: String) : BookInfoEvent()
     data class OnUpdateTitle(val refreshList: (Book) -> Unit) : BookInfoEvent()
-    data object OnShowHideMoreDropDown : BookInfoEvent()
     data object OnShowHideDeleteDialog : BookInfoEvent()
     data object OnShowHideMoveDialog : BookInfoEvent()
     data class OnDeleteBook(val refreshList: () -> Unit, val navigator: Navigator) : BookInfoEvent()
@@ -44,13 +43,27 @@ sealed class BookInfoEvent {
         val snackbarState: SnackbarHostState
     ) : BookInfoEvent()
 
-    data class OnUpdateBook(
-        val refreshList: (Book) -> Unit,
+    data class OnLoadUpdate(
         val snackbarState: SnackbarHostState,
         val context: Context
     ) : BookInfoEvent()
 
     data class OnNavigateToReaderScreen(
         val navigator: Navigator
+    ) : BookInfoEvent()
+
+    data object OnDismissConfirmUpdateDialog : BookInfoEvent()
+
+    data class OnShowConfirmUpdateDialog(
+        val updatedBook: Book,
+        val authorUpdated: Boolean,
+        val descriptionUpdated: Boolean,
+        val textUpdated: Boolean,
+    ) : BookInfoEvent()
+
+    data class OnConfirmUpdate(
+        val snackbarState: SnackbarHostState,
+        val context: Context,
+        val refreshList: (Book) -> Unit
     ) : BookInfoEvent()
 }

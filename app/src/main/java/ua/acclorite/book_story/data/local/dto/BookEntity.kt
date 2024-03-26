@@ -6,11 +6,11 @@ import ua.acclorite.book_story.domain.model.Category
 
 @Entity
 data class BookEntity(
-    @PrimaryKey(true) val id: Int? = null,
+    @PrimaryKey(true) val id: Int = 0,
     val title: String,
     val author: String?,
     val description: String?,
-    val text: String,
+    val textPath: String,
     val filePath: String,
     val scrollIndex: Int,
     val scrollOffset: Int,

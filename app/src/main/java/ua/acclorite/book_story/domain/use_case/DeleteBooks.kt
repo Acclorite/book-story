@@ -9,9 +9,7 @@ class DeleteBooks @Inject constructor(private val repository: BookRepository) {
     suspend fun execute(books: List<Book>) {
         repository.deleteBooks(books)
         books.forEach {
-            if (it.id != null) {
-                repository.deleteBookHistory(it.id)
-            }
+            repository.deleteBookHistory(it.id)
         }
     }
 }

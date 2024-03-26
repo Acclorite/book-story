@@ -1,6 +1,6 @@
 <resources>
     <!-- Basic Strings -->
-    <string name="app_version" translatable="false">0.9.3</string>
+    <string name="app_version" translatable="false">0.9.6</string>
     <string name="app_name">Book\'s Story</string>
     <string name="releases_page" translatable="false">
         https://github.com/Acclorite/book-story/releases/latest
@@ -34,6 +34,7 @@
     <string name="delete_book">Delete book?</string>
     <string name="move_book">Move book?</string>
     <string name="delete_history">Delete reading history?</string>
+    <string name="confirm_update">Confirm update?</string>
 
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">
@@ -64,6 +65,11 @@
     <string name="delete_history_description">
         It will delete the whole history from the database.
     </string>
+    <string name="confirm_update_description">
+        By confirming this book will be updated.
+        Please remember where you left before updating text.
+        Following will be updated:
+    </string>
 
     <!-- Errors -->
     <string name="error_permission">
@@ -73,6 +79,9 @@
         No description.
     </string>
     <string name="error_something_went_wrong">
+        Something went wrong.
+    </string>
+    <string name="error_something_went_wrong_with_file">
         Something went wrong. Please check whether this book\'s file is not corrupted.
     </string>
     <string name="error_wrong_file_format">Wrong file format.</string>
@@ -121,6 +130,7 @@
     <string name="translate">Translate</string>
     <string name="dictionary">Dictionary</string>
     <string name="retry">Retry</string>
+    <string name="confirm">Confirm</string>
 
     <!-- Items -->
     <string name="files">files</string>
@@ -136,6 +146,9 @@
     <string name="change_cover_desc">Choose new cover from your photos</string>
     <string name="delete_cover">Delete cover image</string>
     <string name="delete_cover_desc">Delete current cover image of the book</string>
+    <string name="author">Author</string>
+    <string name="description">Description</string>
+    <string name="text">Text</string>
 
     <!-- Tabs -->
     <string name="reading_tab">Reading</string>
@@ -162,6 +175,7 @@
     <!-- Settings options -->
     <string name="language_option">App language</string>
     <string name="dark_theme_option">Dark theme</string>
+    <string name="theme_contrast_option">Theme contrast</string>
     <string name="app_theme_option">App theme</string>
     <string name="font_family_option">Font family</string>
     <string name="font_style_option">Font style</string>
@@ -180,7 +194,12 @@
     <!-- Dark Theme properties -->
     <string name="dark_theme_off">Disabled</string>
     <string name="dark_theme_on">Enabled</string>
-    <string name="dark_theme_follow_system">Follow system</string>
+    <string name="dark_theme_follow_system">System</string>
+
+    <!-- Theme Contrast properties -->
+    <string name="theme_contrast_standard">Standard</string>
+    <string name="theme_contrast_medium">Medium</string>
+    <string name="theme_contrast_high">High</string>
 
     <!-- Font Style properties -->
     <string name="font_style_italic">Italic</string>
@@ -213,6 +232,7 @@
     <string name="history_element_deleted">History element was successfully deleted.</string>
     <string name="file_not_found">File \"%1$s\" was not found.</string>
     <string name="book_updated">Book text, author and description were successfully updated.</string>
+    <string name="nothing_changed">Book is up to date.</string>
 
     <!-- DropDown properties -->
     <string name="move_this_book">Move</string>
@@ -251,6 +271,12 @@
     <string name="slava_ukraini_option">Slava Ukraini! 🇺🇦</string>
     <string name="slava_ukraini_option_desc">Heroyam Slava! 🐉</string>
 
+    <!-- Help -->
+    <string name="clickable_note_1">Please note, that</string>
+    <string name="clickable_note_2">such highlighted text</string>
+    <string name="clickable_note_3">can be clicked.</string>
+    <string name="clickable_note_action">I\'m clickable!</string>
+
     <!-- Font families -->
     <string name="default_font">Default</string>
 
@@ -259,17 +285,15 @@
     <string name="yesterday">Yesterday</string>
 
     <!-- Content description -->
-    <string name="refresh_book_content_desc">Refresh text, author and description of the book</string>
+    <string name="refresh_book_content_desc">Refresh book</string>
     <string name="continue_reading_content_desc">Continue reading</string>
     <string name="go_back_content_desc">Go back</string>
     <string name="cover_image_content_desc">Cover image</string>
-    <string name="open_reader_settings_content_desc">Open reader settings</string>
-    <string name="background_anim_content_desc">Background animation</string>
-    <string name="outline_anim_content_desc">Outline animation</string>
+    <string name="open_reader_settings_content_desc">Reader settings</string>
     <string name="top_app_bar_anim_content_desc">Top app bar animation</string>
     <string name="file_icon_content_desc">File</string>
     <string name="checkbox_content_desc">Checkbox</string>
-    <string name="show_dropdown_content_desc">Show dropdown</string>
+    <string name="show_dropdown_content_desc">Dropdown</string>
     <string name="cover_image_not_found_content_desc">Cover image not found</string>
     <string name="apply_changes_content_desc">Apply changes</string>
     <string name="error_content_desc">Error</string>
@@ -278,10 +302,12 @@
     <string name="add_files_content_desc">Add files</string>
     <string name="exit_search_content_desc">Exit search</string>
     <string name="delete_whole_history_content_desc">Delete whole history</string>
-    <string name="move_books_content_desc">Move books to another category</string>
+    <string name="move_books_content_desc">Move selected books</string>
     <string name="delete_books_content_desc">Delete selected books</string>
     <string name="revert_content_desc">Revert</string>
     <string name="selected_content_desc">Selected</string>
     <string name="app_icon_content_desc">App icon</string>
+    <string name="note_content_desc">Note</string>
+    <string name="delete_history_element_content_desc">Delete history element</string>
 
 </resources>

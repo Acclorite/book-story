@@ -67,7 +67,6 @@ import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.Transitions
-import ua.acclorite.book_story.presentation.ui.elevation
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -96,6 +95,7 @@ fun BrowseScreen(
     var showErrorMessage by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
+        viewModel.onEvent(BrowseEvent.OnUpdateScrollOffset)
         viewModel.onEvent(
             BrowseEvent.OnPermissionCheck(
                 permissionState,
@@ -124,9 +124,6 @@ fun BrowseScreen(
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             AnimatedTopAppBar(
-                containerColor = MaterialTheme.colorScheme.surface,
-                scrolledContainerColor = MaterialTheme.elevation(),
-
                 scrollBehavior = null,
                 isTopBarScrolled = state.hasSelectedItems || state.listState.canScrollBackward,
 
@@ -138,7 +135,7 @@ fun BrowseScreen(
                 content1Actions = {
                     CustomIconButton(
                         icon = Icons.Default.Search,
-                        contentDescription = stringResource(id = R.string.search_content_desc),
+                        contentDescription = R.string.search_content_desc,
                         disableOnClick = true
                     ) {
                         viewModel.onEvent(BrowseEvent.OnSearchShowHide)
@@ -150,8 +147,7 @@ fun BrowseScreen(
                 content2NavigationIcon = {
                     CustomIconButton(
                         icon = Icons.Default.Clear,
-                        contentDescription =
-                        stringResource(id = R.string.clear_selected_items_content_desc),
+                        contentDescription = R.string.clear_selected_items_content_desc,
                         disableOnClick = true
                     ) {
                         viewModel.onEvent(BrowseEvent.OnClearSelectedFiles)
@@ -170,8 +166,7 @@ fun BrowseScreen(
                 content2Actions = {
                     CustomIconButton(
                         icon = Icons.Default.Check,
-                        contentDescription =
-                        stringResource(id = R.string.add_files_content_desc),
+                        contentDescription = R.string.add_files_content_desc,
                         disableOnClick = false,
                         enabled = !state.showAddingDialog
                     ) {
@@ -183,9 +178,7 @@ fun BrowseScreen(
                 content3NavigationIcon = {
                     CustomIconButton(
                         icon = Icons.AutoMirrored.Default.ArrowBack,
-                        contentDescription = stringResource(
-                            id = R.string.exit_search_content_desc
-                        ),
+                        contentDescription = R.string.exit_search_content_desc,
                         disableOnClick = true
                     ) {
                         viewModel.onEvent(BrowseEvent.OnSearchShowHide)
@@ -256,8 +249,7 @@ fun BrowseScreen(
                     ) { selectableFile ->
                         BrowseFileItem(
                             file = selectableFile,
-                            modifier = Modifier
-                                .animateItemPlacement(),
+                            modifier = Modifier.animateItemPlacement(),
                             hasSelectedFiles = state.selectableFiles.any { it.second },
                             onLongClick = {
                                 Toast.makeText(

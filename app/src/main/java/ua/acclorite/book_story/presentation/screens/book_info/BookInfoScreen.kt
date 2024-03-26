@@ -63,6 +63,7 @@ import ua.acclorite.book_story.presentation.screens.book_info.components.BookInf
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoMoreDropDown
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoStatisticSection
 import ua.acclorite.book_story.presentation.screens.book_info.components.change_cover_bottom_sheet.BookInfoChangeCoverBottomSheet
+import ua.acclorite.book_story.presentation.screens.book_info.components.confirm_update_dialog.BookInfoConfirmUpdateDialog
 import ua.acclorite.book_story.presentation.screens.book_info.components.details_bottom_sheet.BookInfoDetailsBottomSheet
 import ua.acclorite.book_story.presentation.screens.book_info.components.dialog.BookInfoDeleteDialog
 import ua.acclorite.book_story.presentation.screens.book_info.components.dialog.BookInfoMoveDialog
@@ -75,7 +76,6 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.Transitions
-import ua.acclorite.book_story.presentation.ui.elevation
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -96,11 +96,7 @@ fun BookInfoScreen(
         refreshing = state.isRefreshing,
         onRefresh = {
             viewModel.onEvent(
-                BookInfoEvent.OnUpdateBook(
-                    refreshList = {
-                        libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
-                        historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
-                    },
+                BookInfoEvent.OnLoadUpdate(
                     snackbarState,
                     context
                 )
@@ -142,6 +138,14 @@ fun BookInfoScreen(
             navigator = navigator
         )
     }
+    if (state.showConfirmUpdateDialog) {
+        BookInfoConfirmUpdateDialog(
+            libraryViewModel = libraryViewModel,
+            historyViewModel = historyViewModel,
+            viewModel = viewModel,
+            snackbarHostState = snackbarState
+        )
+    }
 
     Scaffold(
         Modifier
@@ -153,7 +157,6 @@ fun BookInfoScreen(
         topBar = {
             AnimatedTopAppBar(
                 containerColor = Color.Transparent,
-                scrolledContainerColor = MaterialTheme.elevation(),
                 scrollBehavior = scrollBehavior,
                 isTopBarScrolled = null,
 
@@ -174,16 +177,12 @@ fun BookInfoScreen(
                 content1Actions = {
                     CustomIconButton(
                         icon = Icons.Default.Refresh,
-                        contentDescription = stringResource(id = R.string.refresh_book_content_desc),
+                        contentDescription = R.string.refresh_book_content_desc,
                         disableOnClick = false,
                         enabled = !state.isRefreshing
                     ) {
                         viewModel.onEvent(
-                            BookInfoEvent.OnUpdateBook(
-                                refreshList = {
-                                    libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
-                                    historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
-                                },
+                            BookInfoEvent.OnLoadUpdate(
                                 snackbarState,
                                 context
                             )
@@ -206,9 +205,10 @@ fun BookInfoScreen(
                         ) {
                             CustomIconButton(
                                 icon = Icons.Default.Done,
-                                contentDescription = stringResource(id = R.string.apply_changes_content_desc),
+                                contentDescription = R.string.apply_changes_content_desc,
                                 disableOnClick = true,
-                                enabled = state.titleValue.isNotBlank() &&
+                                enabled = !state.isRefreshing &&
+                                        state.titleValue.isNotBlank() &&
                                         state.titleValue.trim() !=
                                         state.book.title.trim(),
                                 color = if (state.titleValue.isNotBlank()

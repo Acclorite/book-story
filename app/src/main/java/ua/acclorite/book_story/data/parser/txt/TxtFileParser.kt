@@ -21,10 +21,10 @@ class TxtFileParser @Inject constructor() : FileParser {
             val author = UIText.StringResource(R.string.unknown_author)
 
             return Book(
-                id = null,
                 title = title,
                 author = author,
                 description = null,
+                textPath = "",
                 text = emptyList(),
                 letters = 0,
                 words = 0,

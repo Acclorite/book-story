@@ -1,7 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.library.components
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
@@ -23,24 +21,21 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.util.Selected
+import ua.acclorite.book_story.presentation.components.CustomCoverImage
 import ua.acclorite.book_story.presentation.data.removeDigits
 import ua.acclorite.book_story.presentation.data.removeTrailingZero
-import ua.acclorite.book_story.presentation.ui.elevation
 
 /**
  * Library list element item.
@@ -54,10 +49,18 @@ fun LibraryBookItem(
     onLongClick: () -> Unit,
     onButtonClick: () -> Unit
 ) {
-    val backgroundColor = if (book.second) MaterialTheme.colorScheme.primary
-    else Color.Transparent
-    val fontColor = if (book.second) MaterialTheme.colorScheme.onPrimary
-    else MaterialTheme.colorScheme.onSurface
+    val primaryColor = MaterialTheme.colorScheme.primary
+    val onPrimaryColor = MaterialTheme.colorScheme.onPrimary
+    val onSurfaceColor = MaterialTheme.colorScheme.onSurface
+
+    val backgroundColor = remember(book.second) {
+        if (book.second) primaryColor
+        else Color.Transparent
+    }
+    val fontColor = remember(book.second) {
+        if (book.second) onPrimaryColor
+        else onSurfaceColor
+    }
 
     val progress = remember(book.first) {
         "${
@@ -68,22 +71,11 @@ fun LibraryBookItem(
         }%"
     }
 
-    val animatedBackgroundColor by animateColorAsState(
-        targetValue = backgroundColor,
-        tween(300),
-        label = "Background animation"
-    )
-    val animatedFontColor by animateColorAsState(
-        targetValue = fontColor,
-        tween(300),
-        label = "Font color animation"
-    )
-
     Column(
         modifier
             .padding(3.dp)
             .background(
-                animatedBackgroundColor,
+                backgroundColor,
                 MaterialTheme.shapes.large
             )
             .padding(3.dp)
@@ -94,7 +86,7 @@ fun LibraryBookItem(
                 .aspectRatio(1f / 1.5f)
                 .fillMaxWidth()
                 .clip(MaterialTheme.shapes.medium)
-                .background(MaterialTheme.elevation())
+                .background(MaterialTheme.colorScheme.surfaceContainerLow)
                 .combinedClickable(
                     onClick = {
                         onCoverImageClick()
@@ -105,13 +97,11 @@ fun LibraryBookItem(
                 )
         ) {
             if (book.first.coverImage != null) {
-                AsyncImage(
-                    model = book.first.coverImage,
-                    contentDescription = stringResource(id = R.string.cover_image_content_desc),
+                CustomCoverImage(
+                    uri = book.first.coverImage!!,
                     modifier = Modifier
                         .fillMaxSize()
-                        .clip(MaterialTheme.shapes.medium),
-                    contentScale = ContentScale.Crop
+                        .clip(MaterialTheme.shapes.medium)
                 )
             } else {
                 Icon(
@@ -123,7 +113,7 @@ fun LibraryBookItem(
                         .align(Alignment.Center)
                         .fillMaxWidth(0.7f)
                         .aspectRatio(1f),
-                    tint = MaterialTheme.elevation(12.dp)
+                    tint = MaterialTheme.colorScheme.surfaceContainerHigh
                 )
             }
 
@@ -155,7 +145,7 @@ fun LibraryBookItem(
             ) {
                 Icon(
                     imageVector = Icons.Filled.PlayArrow,
-                    contentDescription = "Continue reading",
+                    contentDescription = stringResource(id = R.string.continue_reading_content_desc),
                     Modifier.size(20.dp)
                 )
             }
@@ -163,7 +153,7 @@ fun LibraryBookItem(
         Spacer(modifier = Modifier.height(6.dp))
         Text(
             book.first.title,
-            color = animatedFontColor,
+            color = fontColor,
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier
                 .fillMaxWidth()

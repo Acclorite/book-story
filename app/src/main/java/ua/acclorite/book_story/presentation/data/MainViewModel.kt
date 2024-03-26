@@ -21,8 +21,10 @@ import ua.acclorite.book_story.domain.util.DataStoreConstants
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.ui.DarkTheme
 import ua.acclorite.book_story.presentation.ui.Theme
+import ua.acclorite.book_story.presentation.ui.ThemeContrast
 import ua.acclorite.book_story.presentation.ui.toDarkTheme
 import ua.acclorite.book_story.presentation.ui.toTheme
+import ua.acclorite.book_story.presentation.ui.toThemeContrast
 import java.util.Locale
 import javax.inject.Inject
 
@@ -65,6 +67,17 @@ class MainViewModel @Inject constructor(
                     _state.updateWithSavedHandle {
                         it.copy(
                             darkTheme = event.darkTheme.toDarkTheme()
+                        )
+                    }
+                }
+            }
+
+            is MainEvent.OnChangeThemeContrast -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.THEME_CONTRAST, event.themeContrast)
+                    _state.updateWithSavedHandle {
+                        it.copy(
+                            themeContrast = event.themeContrast.toThemeContrast()
                         )
                     }
                 }
@@ -200,6 +213,7 @@ class MainViewModel @Inject constructor(
             return@combine value.language != null &&
                     value.theme != null &&
                     value.darkTheme != null &&
+                    value.themeContrast != null &&
                     value.fontFamily != null &&
                     value.isItalic != null &&
                     value.fontSize != null &&
@@ -266,6 +280,16 @@ class MainViewModel @Inject constructor(
                 .execute(DataStoreConstants.DARK_THEME, DarkTheme.FOLLOW_SYSTEM.name)
                 .first {
                     onEvent(MainEvent.OnChangeDarkTheme(it))
+                    it.isNotBlank()
+                }
+        }
+
+        // Theme Contrast
+        viewModelScope.launch(Dispatchers.IO) {
+            getDatastore
+                .execute(DataStoreConstants.THEME_CONTRAST, ThemeContrast.STANDARD.name)
+                .first {
+                    onEvent(MainEvent.OnChangeThemeContrast(it))
                     it.isNotBlank()
                 }
         }

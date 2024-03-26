@@ -25,7 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.ChipItem
+import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.components.GoBackButton
@@ -35,7 +35,6 @@ import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.settings.components.CheckboxWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.SliderWithTitle
-import ua.acclorite.book_story.presentation.ui.elevation
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -74,7 +73,7 @@ fun ReaderSettings(
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.largeTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
-                    scrolledContainerColor = MaterialTheme.elevation()
+                    scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
                 )
             )
         }
@@ -102,7 +101,7 @@ fun ReaderSettings(
                     title = stringResource(id = R.string.font_family_option),
                     chips = Constants.FONTS
                         .map {
-                            ChipItem(
+                            ButtonItem(
                                 it.id,
                                 it.fontName.asString(),
                                 MaterialTheme.typography.labelLarge.copy(
@@ -120,7 +119,7 @@ fun ReaderSettings(
                 ChipsWithTitle(
                     title = stringResource(id = R.string.font_style_option),
                     chips = listOf(
-                        ChipItem(
+                        ButtonItem(
                             "normal",
                             stringResource(id = R.string.font_style_normal),
                             MaterialTheme.typography.labelLarge.copy(
@@ -129,7 +128,7 @@ fun ReaderSettings(
                             ),
                             !state.isItalic!!
                         ),
-                        ChipItem(
+                        ButtonItem(
                             "italic",
                             stringResource(id = R.string.font_style_italic),
                             MaterialTheme.typography.labelLarge.copy(

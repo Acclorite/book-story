@@ -7,13 +7,13 @@ import java.io.File
 
 @Immutable
 data class Book(
-    val id: Int?,
+    val id: Int = 0,
 
     val title: String,
     val author: UIText,
     val description: String?,
 
-//    val textPath: String,
+    val textPath: String,
     val text: List<StringWithId> = emptyList(),
     val letters: Int,
     val words: Int,

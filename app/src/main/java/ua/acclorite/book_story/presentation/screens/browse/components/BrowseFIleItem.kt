@@ -1,7 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.browse.components
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,7 +21,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -71,24 +68,13 @@ fun BrowseFileItem(
     val backgroundColor = if (file.second) MaterialTheme.colorScheme.secondaryContainer
     else Color.Transparent
 
-    val animatedOutlineColor by animateColorAsState(
-        targetValue = outlineColor,
-        tween(300),
-        label = stringResource(id = R.string.outline_anim_content_desc)
-    )
-    val animatedBackgroundColor by animateColorAsState(
-        targetValue = backgroundColor,
-        tween(300),
-        label = stringResource(id = R.string.background_anim_content_desc)
-    )
-
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 8.dp, vertical = 3.dp)
             .clip(RoundedCornerShape(10.dp))
-            .background(animatedBackgroundColor)
+            .background(backgroundColor)
             .combinedClickable(
                 onLongClick = {
                     onLongClick()
@@ -107,7 +93,7 @@ fun BrowseFileItem(
                 modifier = Modifier
                     .border(
                         1.dp,
-                        animatedOutlineColor,
+                        outlineColor,
                         RoundedCornerShape(6.dp)
                     )
                     .padding(14.dp),
@@ -153,7 +139,11 @@ fun BrowseFileItem(
             DefaultTransition(
                 visible = hasSelectedFiles
             ) {
-                CustomCheckbox(selected = file.second, size = 18.dp)
+                CustomCheckbox(
+                    selected = file.second,
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    size = 18.dp
+                )
             }
         }
     }

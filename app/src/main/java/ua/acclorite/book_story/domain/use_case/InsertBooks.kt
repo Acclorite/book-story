@@ -6,7 +6,7 @@ import ua.acclorite.book_story.domain.util.CoverImage
 import javax.inject.Inject
 
 class InsertBooks @Inject constructor(private val repository: BookRepository) {
-    suspend fun execute(books: List<Pair<Book, CoverImage?>>) {
-        repository.insertBooks(books)
+    suspend fun execute(books: List<Pair<Book, CoverImage?>>): Boolean {
+        return repository.insertBooks(books)
     }
 }

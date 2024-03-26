@@ -45,10 +45,10 @@ class EpubFileParser @Inject constructor() : FileParser {
             }
 
             return Book(
-                id = null,
                 title = title,
                 author = author,
                 description = description?.toString(),
+                textPath = "",
                 text = emptyList(),
                 letters = 0,
                 words = 0,

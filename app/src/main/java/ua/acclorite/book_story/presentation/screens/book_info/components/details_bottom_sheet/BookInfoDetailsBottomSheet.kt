@@ -22,8 +22,6 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
-import ua.acclorite.book_story.presentation.ui.ElevationDefaults
-import ua.acclorite.book_story.presentation.ui.elevation
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -72,7 +70,7 @@ fun BookInfoDetailsBottomSheet(
         },
         sheetState = rememberModalBottomSheetState(true),
         windowInsets = WindowInsets(0, 0, 0, 0),
-        containerColor = MaterialTheme.elevation(ElevationDefaults.BottomSheet)
+        containerColor = MaterialTheme.colorScheme.surfaceContainerLow
     ) {
         BookInfoDetailsBottomSheetItem(
             title = stringResource(id = R.string.file_name),

@@ -33,7 +33,7 @@ fun MoreDropDown(navigator: Navigator) {
     Box {
         CustomIconButton(
             icon = Icons.Default.MoreVert,
-            contentDescription = stringResource(id = R.string.show_dropdown_content_desc),
+            contentDescription = R.string.show_dropdown_content_desc,
             disableOnClick = false,
             enabled = !showDropDown
         ) {
@@ -43,7 +43,7 @@ fun MoreDropDown(navigator: Navigator) {
         DropdownMenu(
             expanded = showDropDown,
             onDismissRequest = { showDropDown = false },
-            offset = DpOffset(10.dp, 0.dp)
+            offset = DpOffset((-15).dp, 0.dp)
         ) {
             DropdownMenuItem(
                 text = {
@@ -55,7 +55,6 @@ fun MoreDropDown(navigator: Navigator) {
                 },
                 onClick = {
                     navigator.navigate(Screen.SETTINGS, false)
-                    showDropDown = false
                 },
                 contentPadding = PaddingValues(start = startPadding, end = endPadding)
             )
@@ -69,7 +68,6 @@ fun MoreDropDown(navigator: Navigator) {
                 },
                 onClick = {
                     navigator.navigate(Screen.HELP, false)
-                    showDropDown = false
                 },
                 contentPadding = PaddingValues(start = startPadding, end = endPadding)
             )
@@ -83,7 +81,6 @@ fun MoreDropDown(navigator: Navigator) {
                 },
                 onClick = {
                     navigator.navigate(Screen.ABOUT, false)
-                    showDropDown = false
                 },
                 contentPadding = PaddingValues(start = startPadding, end = endPadding)
             )

@@ -2,8 +2,8 @@ package ua.acclorite.book_story.presentation.screens.reader.data
 
 import android.app.SearchManager
 import android.content.Intent
+import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.snapshotFlow
 import androidx.core.view.WindowCompat
@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.domain.model.StringWithId
+import ua.acclorite.book_story.domain.use_case.GetBooksById
 import ua.acclorite.book_story.domain.use_case.GetLatestHistory
 import ua.acclorite.book_story.domain.use_case.GetText
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
@@ -33,12 +33,12 @@ import ua.acclorite.book_story.presentation.data.Screen
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
-@OptIn(ExperimentalFoundationApi::class)
 @HiltViewModel
 class ReaderViewModel @Inject constructor(
     private val updateBooks: UpdateBooks,
     private val getText: GetText,
-    private val getLatestHistory: GetLatestHistory
+    private val getLatestHistory: GetLatestHistory,
+    private val getBooksById: GetBooksById
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ReaderState())
@@ -57,21 +57,44 @@ class ReaderViewModel @Inject constructor(
 
             is ReaderEvent.OnLoadText -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    val text = getText.execute(_state.value.book.id!!)
+                    if (
+                        _state.value.book.text.isEmpty() ||
+                        _state.value.book.letters < 1 ||
+                        _state.value.book.words < 1
+                    ) {
+                        val text = getText.execute(_state.value.book.textPath)
 
-                    if (text.isBlank()) {
-                        event.onTextIsEmpty()
+                        if (text.isEmpty()) {
+                            event.onTextIsEmpty()
+                        }
+
+                        val textAsLine = text.joinToString(
+                            separator = "\n",
+                            transform = {
+                                it.line
+                            }
+                        )
+
+                        val letters = textAsLine
+                            .replace("\n", "")
+                            .length
+                        val words = textAsLine
+                            .replace("\n", " ")
+                            .split("\\s+".toRegex())
+                            .size
+
+                        _state.update {
+                            it.copy(
+                                book = it.book.copy(
+                                    text = text,
+                                    letters = letters,
+                                    words = words
+                                )
+                            )
+                        }
                     }
 
-                    val letters = text
-                        .replace("\n", "")
-                        .length
-                    val words = text
-                        .replace("\n", " ")
-                        .split("\\s+".toRegex())
-                        .size
-
-                    val history = _state.value.book.id?.let {
+                    val history = _state.value.book.id.let {
                         getLatestHistory.execute(
                             it
                         )
@@ -80,12 +103,7 @@ class ReaderViewModel @Inject constructor(
                     _state.update {
                         it.copy(
                             book = it.book.copy(
-                                text = text
-                                    .split("\n")
-                                    .map { line -> StringWithId(line.trim()) },
                                 lastOpened = history?.time,
-                                letters = letters,
-                                words = words
                             )
                         )
                     }
@@ -114,6 +132,10 @@ class ReaderViewModel @Inject constructor(
                                             loaded = true
                                             break
                                         } catch (e: Exception) {
+                                            Log.w(
+                                                "READER",
+                                                "Couldn't scroll to desired index and offset"
+                                            )
                                             delay(100)
                                         }
                                     }
@@ -133,6 +155,10 @@ class ReaderViewModel @Inject constructor(
             }
 
             is ReaderEvent.OnShowHideMenu -> {
+                if (_state.value.lockMenu) {
+                    return
+                }
+
                 val shouldShow = event.show ?: !_state.value.showMenu
 
                 val insetsController = WindowCompat.getInsetsController(
@@ -160,42 +186,50 @@ class ReaderViewModel @Inject constructor(
 
             is ReaderEvent.OnGoBack -> {
                 viewModelScope.launch {
+                    _state.update {
+                        it.copy(
+                            lockMenu = true
+                        )
+                    }
+
                     val insetsController = WindowCompat.getInsetsController(
                         event.context.window,
                         event.context.window.decorView
                     )
 
-                    val firstVisibleItemIndex = event.listState.firstVisibleItemIndex
-                    val firstVisibleItemOffset = event.listState.firstVisibleItemScrollOffset
-                    val lastVisibleItemIndex = event.listState.layoutInfo
-                        .visibleItemsInfo.last().index
+                    if (event.listState.layoutInfo.totalItemsCount > 0) {
+                        val firstVisibleItemIndex = event.listState.firstVisibleItemIndex
+                        val firstVisibleItemOffset = event.listState.firstVisibleItemScrollOffset
+                        val lastVisibleItemIndex = event.listState.layoutInfo
+                            .visibleItemsInfo.last().index
 
-                    val progress = if (firstVisibleItemIndex > 0) {
-                        if (lastVisibleItemIndex >= (event.listState.layoutInfo.totalItemsCount - 1)) {
-                            1f
+                        val progress = if (firstVisibleItemIndex > 0) {
+                            if (lastVisibleItemIndex >= (event.listState.layoutInfo.totalItemsCount - 1)) {
+                                1f
+                            } else {
+                                (firstVisibleItemIndex.toFloat() / (_state.value.book.text.lastIndex)
+                                    .toFloat())
+                            }
                         } else {
-                            (firstVisibleItemIndex.toFloat() / (_state.value.book.text.lastIndex)
-                                .toFloat())
+                            0f
                         }
-                    } else {
-                        0f
-                    }
 
-                    _state.update {
-                        it.copy(
-                            book = it.book.copy(
-                                progress = progress,
-                                scrollIndex = firstVisibleItemIndex,
-                                scrollOffset = firstVisibleItemOffset
+                        _state.update {
+                            it.copy(
+                                book = it.book.copy(
+                                    progress = progress,
+                                    scrollIndex = firstVisibleItemIndex,
+                                    scrollOffset = firstVisibleItemOffset
+                                )
                             )
-                        )
+                        }
                     }
 
                     updateBooks.execute(
                         listOf(_state.value.book)
                     )
                     event.navigator.putArgument(
-                        Argument("book", _state.value.book)
+                        Argument("book", _state.value.book.id)
                     )
                     event.refreshList(_state.value.book)
 
@@ -232,7 +266,7 @@ class ReaderViewModel @Inject constructor(
                     event.navigator.putArgument(
                         Argument(
                             "book",
-                            _state.value.book
+                            _state.value.book.id
                         )
                     )
                     event.refreshList(_state.value.book)
@@ -355,9 +389,16 @@ class ReaderViewModel @Inject constructor(
         onLoaded: () -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val book = navigator.retrieveArgument("book") as? Book
+            val bookId = navigator.retrieveArgument("book") as? Int
 
-            if (book == null) {
+            if (bookId == null) {
+                navigator.navigateBack()
+                return@launch
+            }
+
+            val book = getBooksById.execute(listOf(bookId))
+
+            if (book.isEmpty()) {
                 navigator.navigateBack()
                 return@launch
             }
@@ -367,7 +408,7 @@ class ReaderViewModel @Inject constructor(
             }
 
             _state.update {
-                ReaderState(book = book)
+                ReaderState(book = book.first())
             }
 
             onEvent(

@@ -1,22 +1,16 @@
 package ua.acclorite.book_story.presentation.screens.reader.components.settings_bottom_sheet
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
@@ -24,7 +18,7 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 /**
  * Settings bottom sheet tab row. It is used to switch between categories.
  */
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReaderSettingsBottomSheetTabRow(viewModel: ReaderViewModel, pagerState: PagerState) {
     val tabItems = listOf(
@@ -32,27 +26,11 @@ fun ReaderSettingsBottomSheetTabRow(viewModel: ReaderViewModel, pagerState: Page
         stringResource(id = R.string.color_tab)
     )
 
-    TabRow(
+    PrimaryTabRow(
         modifier = Modifier
             .fillMaxWidth(),
         selectedTabIndex = pagerState.currentPage,
-        divider = {
-            Divider(color = MaterialTheme.colorScheme.surfaceVariant)
-        },
-        indicator = { tabPositions ->
-            TabRowDefaults.Indicator(
-                Modifier
-                    .tabIndicatorOffset(tabPositions[pagerState.currentPage])
-                    .padding(horizontal = 64.dp)
-                    .clip(
-                        RoundedCornerShape(
-                            topStartPercent = 100,
-                            topEndPercent = 100
-                        )
-                    ),
-                color = MaterialTheme.colorScheme.primary
-            )
-        }
+        containerColor = Color.Transparent
     ) {
         tabItems.forEachIndexed { index, tabItem ->
             Tab(
@@ -62,7 +40,7 @@ fun ReaderSettingsBottomSheetTabRow(viewModel: ReaderViewModel, pagerState: Page
                     viewModel.onEvent(ReaderEvent.OnScrollToSettingsPage(index, pagerState))
                 },
                 selectedContentColor = MaterialTheme.colorScheme.primary,
-                unselectedContentColor = MaterialTheme.colorScheme.onSurface,
+                unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 text = {
                     Text(
                         tabItem,

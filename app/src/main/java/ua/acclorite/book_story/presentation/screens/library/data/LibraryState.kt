@@ -2,12 +2,15 @@ package ua.acclorite.book_story.presentation.screens.library.data
 
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.domain.model.Book
+import ua.acclorite.book_story.domain.model.CategorizedBooks
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.util.Selected
 
 @Immutable
 data class LibraryState(
     val books: List<Pair<Book, Selected>> = emptyList(),
+    val categorizedBooks: List<CategorizedBooks> = emptyList(),
+
     val isLoading: Boolean = true,
     val isRefreshing: Boolean = false,
 

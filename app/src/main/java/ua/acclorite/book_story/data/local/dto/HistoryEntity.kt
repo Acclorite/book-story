@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class HistoryEntity(
     @PrimaryKey(true)
-    val id: Int? = null,
+    val id: Int = 0,
     val bookId: Int,
     val time: Long
 )

@@ -8,7 +8,13 @@ import ua.acclorite.book_story.domain.util.Constants
 @Immutable
 data class BookInfoState(
     val book: Book = Constants.EMPTY_BOOK,
+
     val isRefreshing: Boolean = false,
+    val showConfirmUpdateDialog: Boolean = false,
+    val updatedBook: Book? = null,
+    val authorChanged: Boolean = false,
+    val descriptionChanged: Boolean = false,
+    val textChanged: Boolean = false,
 
     val editTitle: Boolean = false,
     val hasFocused: Boolean = false,
@@ -17,9 +23,7 @@ data class BookInfoState(
     val showChangeCoverBottomSheet: Boolean = false,
     val showDetailsBottomSheet: Boolean = false,
 
-    val showMoreDropDown: Boolean = false,
     val showDeleteDialog: Boolean = false,
-
     val showMoveDialog: Boolean = false,
     val selectedCategory: Category = Category.READING,
 )

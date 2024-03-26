@@ -4,7 +4,7 @@ import androidx.activity.ComponentActivity
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -27,6 +27,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -34,7 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.ChipItem
+import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.data.MainEvent
@@ -45,14 +46,12 @@ import ua.acclorite.book_story.presentation.screens.settings.components.Checkbox
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.ColorPickerWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.SliderWithTitle
-import ua.acclorite.book_story.presentation.ui.ElevationDefaults
-import ua.acclorite.book_story.presentation.ui.elevation
 
 /**
  * Settings bottom sheet. Has General and Colors categories.
  */
 @OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class
+    ExperimentalMaterial3Api::class
 )
 @Composable
 fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderViewModel) {
@@ -98,195 +97,199 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
         )
     }
 
-    ModalBottomSheet(
-        scrimColor = animatedScrimColor,
-        dragHandle = {},
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(animatedHeight),
-        onDismissRequest = {
-            viewModel.onEvent(ReaderEvent.OnShowHideSettingsBottomSheet)
-        },
-        sheetState = rememberModalBottomSheetState(true),
-        windowInsets = WindowInsets(0, 0, 0, 0),
-        containerColor = MaterialTheme.elevation(ElevationDefaults.BottomSheet)
-    ) {
-        ReaderSettingsBottomSheetTabRow(viewModel = viewModel, pagerState = pagerState)
+    Box(modifier = Modifier.fillMaxSize()) {
+        ModalBottomSheet(
+            scrimColor = animatedScrimColor,
+            dragHandle = {},
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .fillMaxHeight(animatedHeight),
+            onDismissRequest = {
+                viewModel.onEvent(ReaderEvent.OnShowHideSettingsBottomSheet)
+            },
+            sheetState = rememberModalBottomSheetState(true),
+            windowInsets = WindowInsets(0, 0, 0, 0),
+            containerColor = MaterialTheme.colorScheme.surfaceContainerLow
+        ) {
+            ReaderSettingsBottomSheetTabRow(viewModel = viewModel, pagerState = pagerState)
 
-        HorizontalPager(state = pagerState, modifier = Modifier.fillMaxSize()) { page ->
-            LazyColumn(Modifier.fillMaxSize()) {
-                if (page == 0) {
-                    item {
-                        Spacer(modifier = Modifier.height(22.dp))
-                    }
-                    item {
-                        CategoryTitle(
-                            title = stringResource(id = R.string.font_reader_settings),
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                    }
-                    item {
-                        Spacer(modifier = Modifier.height(8.dp))
-                    }
-                    item {
-                        ChipsWithTitle(
-                            title = stringResource(id = R.string.font_family_option),
-                            chips = Constants.FONTS
-                                .map {
-                                    ChipItem(
-                                        it.id,
-                                        it.fontName.asString(),
+            HorizontalPager(state = pagerState) { page ->
+                LazyColumn {
+                    if (page == 0) {
+                        item {
+                            Spacer(modifier = Modifier.height(22.dp))
+                        }
+                        item {
+                            CategoryTitle(
+                                title = stringResource(id = R.string.font_reader_settings),
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+                        item {
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
+                        item {
+                            ChipsWithTitle(
+                                title = stringResource(id = R.string.font_family_option),
+                                chips = Constants.FONTS
+                                    .map {
+                                        ButtonItem(
+                                            it.id,
+                                            it.fontName.asString(),
+                                            MaterialTheme.typography.labelLarge.copy(
+                                                fontFamily = it.font
+                                            ),
+                                            it.id == fontFamily.id
+                                        )
+                                    },
+                                onClick = {
+                                    mainViewModel.onEvent(MainEvent.OnChangeFontFamily(it.id))
+                                }
+                            )
+                        }
+                        item {
+                            ChipsWithTitle(
+                                title = stringResource(id = R.string.font_style_option),
+                                chips = listOf(
+                                    ButtonItem(
+                                        "normal",
+                                        stringResource(id = R.string.font_style_normal),
                                         MaterialTheme.typography.labelLarge.copy(
-                                            fontFamily = it.font
+                                            fontFamily = fontFamily.font,
+                                            fontStyle = FontStyle.Normal
                                         ),
-                                        it.id == fontFamily.id
-                                    )
-                                },
-                            onClick = {
-                                mainViewModel.onEvent(MainEvent.OnChangeFontFamily(it.id))
-                            }
-                        )
-                    }
-                    item {
-                        ChipsWithTitle(
-                            title = stringResource(id = R.string.font_style_option),
-                            chips = listOf(
-                                ChipItem(
-                                    "normal",
-                                    stringResource(id = R.string.font_style_normal),
-                                    MaterialTheme.typography.labelLarge.copy(
-                                        fontFamily = fontFamily.font,
-                                        fontStyle = FontStyle.Normal
+                                        !state.isItalic!!
                                     ),
-                                    !state.isItalic!!
-                                ),
-                                ChipItem(
-                                    "italic",
-                                    stringResource(id = R.string.font_style_italic),
-                                    MaterialTheme.typography.labelLarge.copy(
-                                        fontFamily = fontFamily.font,
-                                        fontStyle = FontStyle.Italic
+                                    ButtonItem(
+                                        "italic",
+                                        stringResource(id = R.string.font_style_italic),
+                                        MaterialTheme.typography.labelLarge.copy(
+                                            fontFamily = fontFamily.font,
+                                            fontStyle = FontStyle.Italic
+                                        ),
+                                        state.isItalic!!
                                     ),
-                                    state.isItalic!!
                                 ),
-                            ),
-                            onClick = {
-                                mainViewModel.onEvent(
-                                    MainEvent.OnChangeFontStyle(
-                                        when (it.id) {
-                                            "italic" -> true
-                                            else -> false
-                                        }
+                                onClick = {
+                                    mainViewModel.onEvent(
+                                        MainEvent.OnChangeFontStyle(
+                                            when (it.id) {
+                                                "italic" -> true
+                                                else -> false
+                                            }
+                                        )
                                     )
-                                )
-                            }
-                        )
-                    }
-                    item {
-                        SliderWithTitle(
-                            value = state.fontSize!! to "pt",
-                            fromValue = 10,
-                            toValue = 35,
-                            title = stringResource(id = R.string.font_size_option),
-                            onValueChange = {
+                                }
+                            )
+                        }
+                        item {
+                            SliderWithTitle(
+                                value = state.fontSize!! to "pt",
+                                fromValue = 10,
+                                toValue = 35,
+                                title = stringResource(id = R.string.font_size_option),
+                                onValueChange = {
+                                    mainViewModel.onEvent(
+                                        MainEvent.OnChangeFontSize(it)
+                                    )
+                                }
+                            )
+                        }
+                        item {
+                            Spacer(modifier = Modifier.height(22.dp))
+                        }
+                        item {
+                            CategoryTitle(
+                                title = stringResource(id = R.string.text_reader_settings),
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+                        item {
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
+                        item {
+                            SliderWithTitle(
+                                value = state.lineHeight!! to "pt",
+                                fromValue = 1,
+                                toValue = 16,
+                                title = stringResource(id = R.string.line_height_option),
+                                onValueChange = {
+                                    mainViewModel.onEvent(
+                                        MainEvent.OnChangeLineHeight(it)
+                                    )
+                                }
+                            )
+                        }
+                        item {
+                            SliderWithTitle(
+                                value = state.paragraphHeight!! to "pt",
+                                fromValue = 0,
+                                toValue = 24,
+                                title = stringResource(id = R.string.paragraph_height_option),
+                                onValueChange = {
+                                    mainViewModel.onEvent(
+                                        MainEvent.OnChangeParagraphHeight(it)
+                                    )
+                                }
+                            )
+                        }
+                        item {
+                            CheckboxWithTitle(
+                                selected = state.paragraphIndentation!!,
+                                title = stringResource(id = R.string.paragraph_indentation_option)
+                            ) {
                                 mainViewModel.onEvent(
-                                    MainEvent.OnChangeFontSize(it)
+                                    MainEvent.OnChangeParagraphIndentation(!state.paragraphIndentation!!)
                                 )
                             }
-                        )
+                        }
                     }
-                    item {
-                        Spacer(modifier = Modifier.height(22.dp))
-                    }
-                    item {
-                        CategoryTitle(
-                            title = stringResource(id = R.string.text_reader_settings),
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                    }
-                    item {
-                        Spacer(modifier = Modifier.height(8.dp))
-                    }
-                    item {
-                        SliderWithTitle(
-                            value = state.lineHeight!! to "pt",
-                            fromValue = 1,
-                            toValue = 16,
-                            title = stringResource(id = R.string.line_height_option),
-                            onValueChange = {
-                                mainViewModel.onEvent(
-                                    MainEvent.OnChangeLineHeight(it)
-                                )
-                            }
-                        )
-                    }
-                    item {
-                        SliderWithTitle(
-                            value = state.paragraphHeight!! to "pt",
-                            fromValue = 0,
-                            toValue = 24,
-                            title = stringResource(id = R.string.paragraph_height_option),
-                            onValueChange = {
-                                mainViewModel.onEvent(
-                                    MainEvent.OnChangeParagraphHeight(it)
-                                )
-                            }
-                        )
-                    }
-                    item {
-                        CheckboxWithTitle(
-                            selected = state.paragraphIndentation!!,
-                            title = stringResource(id = R.string.paragraph_indentation_option)
-                        ) {
-                            mainViewModel.onEvent(
-                                MainEvent.OnChangeParagraphIndentation(!state.paragraphIndentation!!)
+
+                    if (page == 1) {
+                        item {
+                            Spacer(modifier = Modifier.height(14.dp))
+                        }
+                        item {
+                            ColorPickerWithTitle(
+                                value = Color(state.backgroundColor!!.toULong()),
+                                title = stringResource(id = R.string.background_color_option),
+                                onValueChange = {
+                                    mainViewModel.onEvent(
+                                        MainEvent.OnChangeBackgroundColor(
+                                            it.value.toLong()
+                                        )
+                                    )
+                                }
+                            )
+                        }
+                        item {
+                            ColorPickerWithTitle(
+                                value = Color(state.fontColor!!.toULong()),
+                                title = stringResource(id = R.string.font_color_option),
+                                onValueChange = {
+                                    mainViewModel.onEvent(
+                                        MainEvent.OnChangeFontColor(
+                                            it.value.toLong()
+                                        )
+                                    )
+                                }
                             )
                         }
                     }
-                }
 
-                if (page == 1) {
                     item {
-                        Spacer(modifier = Modifier.height(14.dp))
-                    }
-                    item {
-                        ColorPickerWithTitle(
-                            value = Color(state.backgroundColor!!.toULong()),
-                            title = stringResource(id = R.string.background_color_option),
-                            onValueChange = {
-                                mainViewModel.onEvent(
-                                    MainEvent.OnChangeBackgroundColor(
-                                        it.value.toLong()
-                                    )
-                                )
-                            }
+                        Spacer(
+                            modifier = Modifier.height(
+                                8.dp + navigationBarPadding
+                            )
                         )
                     }
-                    item {
-                        ColorPickerWithTitle(
-                            value = Color(state.fontColor!!.toULong()),
-                            title = stringResource(id = R.string.font_color_option),
-                            onValueChange = {
-                                mainViewModel.onEvent(
-                                    MainEvent.OnChangeFontColor(
-                                        it.value.toLong()
-                                    )
-                                )
-                            }
-                        )
-                    }
-                }
-
-                item {
-                    Spacer(
-                        modifier = Modifier.height(
-                            8.dp + navigationBarPadding
-                        )
-                    )
                 }
             }
         }
     }
+
 }
 
 

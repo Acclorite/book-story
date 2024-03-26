@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class UpdateBooksWithText @Inject constructor(private val repository: BookRepository) {
 
-    suspend fun execute(books: List<Book>) {
-        repository.updateBooksWithText(books)
+    suspend fun execute(books: List<Book>): Boolean {
+        return repository.updateBooksWithText(books)
     }
 }

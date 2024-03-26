@@ -24,17 +24,18 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.ChipItem
+import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Navigator
-import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.ColorPickerWithTitle
+import ua.acclorite.book_story.presentation.screens.settings.components.SegmentedButtonWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.theme_switcher.AppearanceSettingsThemeSwitcher
 import ua.acclorite.book_story.presentation.ui.DarkTheme
-import ua.acclorite.book_story.presentation.ui.elevation
+import ua.acclorite.book_story.presentation.ui.Theme
+import ua.acclorite.book_story.presentation.ui.ThemeContrast
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -68,7 +69,7 @@ fun AppearanceSettings(
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.largeTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
-                    scrolledContainerColor = MaterialTheme.elevation()
+                    scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
                 )
             )
         }
@@ -93,10 +94,11 @@ fun AppearanceSettings(
             }
 
             item {
-                ChipsWithTitle(
+                SegmentedButtonWithTitle(
                     title = stringResource(id = R.string.dark_theme_option),
-                    chips = DarkTheme.entries.map {
-                        ChipItem(
+                    enabled = true,
+                    buttons = DarkTheme.entries.map {
+                        ButtonItem(
                             it.toString(),
                             when (it) {
                                 DarkTheme.OFF -> stringResource(id = R.string.dark_theme_off)
@@ -106,10 +108,35 @@ fun AppearanceSettings(
                             MaterialTheme.typography.labelLarge,
                             it == state.darkTheme
                         )
-                    },
+                    }
                 ) {
                     mainViewModel.onEvent(
                         MainEvent.OnChangeDarkTheme(
+                            it.id
+                        )
+                    )
+                }
+            }
+
+            item {
+                SegmentedButtonWithTitle(
+                    title = stringResource(id = R.string.theme_contrast_option),
+                    enabled = state.theme != Theme.DYNAMIC,
+                    buttons = ThemeContrast.entries.map {
+                        ButtonItem(
+                            it.toString(),
+                            when (it) {
+                                ThemeContrast.STANDARD -> stringResource(id = R.string.theme_contrast_standard)
+                                ThemeContrast.MEDIUM -> stringResource(id = R.string.theme_contrast_medium)
+                                ThemeContrast.HIGH -> stringResource(id = R.string.theme_contrast_high)
+                            },
+                            MaterialTheme.typography.labelLarge,
+                            it == state.themeContrast
+                        )
+                    }
+                ) {
+                    mainViewModel.onEvent(
+                        MainEvent.OnChangeThemeContrast(
                             it.id
                         )
                     )

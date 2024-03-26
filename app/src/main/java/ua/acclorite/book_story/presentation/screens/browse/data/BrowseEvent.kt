@@ -39,7 +39,13 @@ sealed class BrowseEvent {
     data object OnAddingDialogRequest : BrowseEvent()
     data object OnAddingDialogDismiss : BrowseEvent()
     data object OnGetBooksFromFiles : BrowseEvent()
-    data class OnAddBooks(val navigator: Navigator, val resetScroll: () -> Unit) : BrowseEvent()
-    data object OnLoadList : BrowseEvent()
+    data class OnAddBooks(
+        val navigator: Navigator,
+        val resetScroll: () -> Unit,
+        val onFailed: () -> Unit,
+        val onSuccess: () -> Unit
+    ) : BrowseEvent()
 
+    data object OnLoadList : BrowseEvent()
+    data object OnUpdateScrollOffset : BrowseEvent()
 }

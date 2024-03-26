@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.components.bottom_navigation_bar
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -14,7 +13,6 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.NavigationItem
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
-import ua.acclorite.book_story.presentation.ui.elevation
 
 /**
  * Bottom navigation bar, uses default [NavigationBar].
@@ -35,9 +33,7 @@ fun BottomNavigationBar(
         }
     }
 
-    NavigationBar(
-        containerColor = MaterialTheme.elevation()
-    ) {
+    NavigationBar {
         BottomNavigationBarItem(
             item = NavigationItem(
                 stringResource(id = R.string.library_screen),

@@ -31,7 +31,6 @@ fun AppearanceSettingsThemeSwitcher(
     mainViewModel: MainViewModel
 ) {
     val state by mainViewModel.state.collectAsState()
-
     val themes = remember {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Constants.THEMES
         else Constants.THEMES.dropWhile { it.first == Theme.DYNAMIC }
@@ -48,23 +47,25 @@ fun AppearanceSettingsThemeSwitcher(
         Spacer(modifier = Modifier.height(10.dp))
         LazyRow(
             Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(),
         ) {
             itemsIndexed(themes) { index, themeEntry ->
-                if (index == 0)
+                if (index == 0) {
                     Spacer(modifier = Modifier.width(18.dp))
+                } else {
+                    Spacer(modifier = Modifier.width(8.dp))
+                }
 
                 AppearanceSettingsThemeSwitcherItem(
                     theme = themeEntry,
                     darkTheme = state.darkTheme!!.isDark(),
+                    themeContrast = state.themeContrast!!,
                     selected = state.theme == themeEntry.first
                 ) {
                     mainViewModel.onEvent(MainEvent.OnChangeTheme(themeEntry.first.toString()))
                 }
 
-                if (index != Theme.entries.lastIndex) {
-                    Spacer(modifier = Modifier.width(8.dp))
-                } else {
+                if (index == themes.lastIndex) {
                     Spacer(modifier = Modifier.width(18.dp))
                 }
             }

@@ -2,19 +2,28 @@ package ua.acclorite.book_story.presentation.ui
 
 import android.app.Activity
 import android.os.Build
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.Shapes
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.unit.Dp
 import androidx.core.view.WindowCompat
 
+@Immutable
+enum class ThemeContrast {
+    STANDARD,
+    MEDIUM,
+    HIGH
+}
+
+@Immutable
 enum class DarkTheme {
     FOLLOW_SYSTEM,
     OFF,
@@ -23,6 +32,10 @@ enum class DarkTheme {
 
 fun String.toDarkTheme(): DarkTheme {
     return DarkTheme.valueOf(this)
+}
+
+fun String.toThemeContrast(): ThemeContrast {
+    return ThemeContrast.valueOf(this)
 }
 
 @Composable
@@ -38,6 +51,7 @@ fun DarkTheme.isDark(): Boolean {
 fun BooksHistoryResurrectionTheme(
     theme: Theme,
     isDark: Boolean,
+    themeContrast: ThemeContrast,
     content: @Composable () -> Unit
 ) {
     val view = LocalView.current
@@ -58,12 +72,16 @@ fun BooksHistoryResurrectionTheme(
         }
     }
 
+    val colorScheme = colorScheme(
+        theme = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) theme
+        else if (theme != Theme.DYNAMIC) theme else Theme.BLUE,
+        darkTheme = isDark,
+        themeContrast = themeContrast
+    )
+    val animatedColorScheme = animateColorScheme(targetColorScheme = colorScheme)
+
     MaterialTheme(
-        colorScheme = colorScheme(
-            theme = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) theme
-            else if (theme != Theme.DYNAMIC) theme else Theme.BLUE,
-            darkTheme = isDark
-        ),
+        colorScheme = animatedColorScheme,
         shapes = Shapes(),
         typography = Typography,
         content = content
@@ -71,5 +89,71 @@ fun BooksHistoryResurrectionTheme(
 }
 
 @Composable
-fun MaterialTheme.elevation(elevation: Dp = NavigationBarDefaults.Elevation): Color =
-    colorScheme.surfaceColorAtElevation(elevation)
+private fun animateColor(targetColor: Color): Color {
+    return animateColorAsState(
+        targetValue = targetColor,
+        animationSpec = tween(300),
+        label = ""
+    ).value
+}
+
+@Composable
+private fun animateColorScheme(targetColorScheme: ColorScheme): ColorScheme {
+    return ColorScheme(
+        primary = animateColor(targetColor = targetColorScheme.primary),
+        onPrimary = animateColor(targetColor = targetColorScheme.onPrimary),
+        primaryContainer = animateColor(targetColor = targetColorScheme.primaryContainer),
+        onPrimaryContainer = animateColor(targetColor = targetColorScheme.onPrimaryContainer),
+        secondary = animateColor(targetColor = targetColorScheme.secondary),
+        onSecondary = animateColor(targetColor = targetColorScheme.onSecondary),
+        secondaryContainer = animateColor(targetColor = targetColorScheme.secondaryContainer),
+        onSecondaryContainer = animateColor(targetColor = targetColorScheme.onSecondaryContainer),
+        tertiary = animateColor(targetColor = targetColorScheme.tertiary),
+        onTertiary = animateColor(targetColor = targetColorScheme.onTertiary),
+        tertiaryContainer = animateColor(targetColor = targetColorScheme.tertiaryContainer),
+        onTertiaryContainer = animateColor(targetColor = targetColorScheme.onTertiaryContainer),
+        error = animateColor(targetColor = targetColorScheme.error),
+        errorContainer = animateColor(targetColor = targetColorScheme.errorContainer),
+        onError = animateColor(targetColor = targetColorScheme.onError),
+        onErrorContainer = animateColor(targetColor = targetColorScheme.onErrorContainer),
+        background = animateColor(targetColor = targetColorScheme.background),
+        onBackground = animateColor(targetColor = targetColorScheme.onBackground),
+        surface = animateColor(targetColor = targetColorScheme.surface),
+        onSurface = animateColor(targetColor = targetColorScheme.onSurface),
+        surfaceVariant = animateColor(targetColor = targetColorScheme.surfaceVariant),
+        onSurfaceVariant = animateColor(targetColor = targetColorScheme.onSurfaceVariant),
+        outline = animateColor(targetColor = targetColorScheme.outline),
+        inverseOnSurface = animateColor(targetColor = targetColorScheme.inverseOnSurface),
+        inverseSurface = animateColor(targetColor = targetColorScheme.inverseSurface),
+        inversePrimary = animateColor(targetColor = targetColorScheme.inversePrimary),
+        surfaceTint = animateColor(targetColor = targetColorScheme.surfaceTint),
+        outlineVariant = animateColor(targetColor = targetColorScheme.outlineVariant),
+        scrim = animateColor(targetColor = targetColorScheme.scrim),
+        surfaceBright = animateColor(targetColor = targetColorScheme.surfaceBright),
+        surfaceDim = animateColor(targetColor = targetColorScheme.surfaceDim),
+        surfaceContainer = animateColor(targetColor = targetColorScheme.surfaceContainer),
+        surfaceContainerHigh = animateColor(targetColor = targetColorScheme.surfaceContainerHigh),
+        surfaceContainerHighest = animateColor(targetColor = targetColorScheme.surfaceContainerHighest),
+        surfaceContainerLow = animateColor(targetColor = targetColorScheme.surfaceContainerLow),
+        surfaceContainerLowest = animateColor(targetColor = targetColorScheme.surfaceContainerLowest),
+    )
+}
+
+@Composable
+fun animatedColorScheme(
+    theme: Theme,
+    isDark: Boolean,
+    themeContrast: ThemeContrast
+): ColorScheme {
+    val colorScheme = colorScheme(
+        theme = theme,
+        darkTheme = isDark,
+        themeContrast = themeContrast
+    )
+
+    return animateColorScheme(targetColorScheme = colorScheme)
+}
+
+
+
+

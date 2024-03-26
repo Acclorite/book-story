@@ -69,7 +69,7 @@ fun ReaderTopBar(
         navigationIcon = {
             CustomIconButton(
                 icon = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = stringResource(id = R.string.go_back_content_desc),
+                contentDescription = R.string.go_back_content_desc,
                 disableOnClick = true
             ) {
                 viewModel.onEvent(
@@ -99,6 +99,7 @@ fun ReaderTopBar(
                     maxLines = 1,
                     modifier = Modifier
                         .clickable(
+                            enabled = !state.lockMenu,
                             interactionSource = null,
                             indication = null,
                             onClick = {
@@ -138,8 +139,9 @@ fun ReaderTopBar(
         actions = {
             CustomIconButton(
                 icon = Icons.Default.Settings,
-                contentDescription = stringResource(id = R.string.open_reader_settings_content_desc),
-                disableOnClick = false
+                contentDescription = R.string.open_reader_settings_content_desc,
+                disableOnClick = false,
+                enabled = !state.lockMenu
             ) {
                 viewModel.onEvent(ReaderEvent.OnShowHideSettingsBottomSheet)
             }

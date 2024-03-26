@@ -33,10 +33,10 @@ class PdfFileParser @Inject constructor(private val application: Application) : 
             document.close()
 
             return Book(
-                id = null,
                 title = title,
                 author = author,
                 description = description,
+                textPath = "",
                 text = emptyList(),
                 letters = 0,
                 words = 0,

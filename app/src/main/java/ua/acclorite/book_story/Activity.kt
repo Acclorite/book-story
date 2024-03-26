@@ -38,6 +38,7 @@ import ua.acclorite.book_story.presentation.screens.book_info.BookInfoScreen
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
 import ua.acclorite.book_story.presentation.screens.browse.BrowseScreen
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
+import ua.acclorite.book_story.presentation.screens.help.HelpScreen
 import ua.acclorite.book_story.presentation.screens.history.HistoryScreen
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.LibraryScreen
@@ -111,7 +112,8 @@ class Activity : AppCompatActivity() {
             if (isLoaded) {
                 BooksHistoryResurrectionTheme(
                     theme = state.theme!!,
-                    isDark = state.darkTheme!!.isDark()
+                    isDark = state.darkTheme!!.isDark(),
+                    themeContrast = state.themeContrast!!
                 ) {
                     NavigationHost(startScreen = Screen.LIBRARY) {
                         val currentScreen by this.getCurrentScreen().collectAsState()
@@ -268,6 +270,14 @@ class Activity : AppCompatActivity() {
                             exitAnim = Transitions.SlidingTransitionOut
                         ) {
                             AboutScreen(navigator = this@NavigationHost)
+                        }
+                        // Help screen
+                        composable(
+                            screen = Screen.HELP,
+                            enterAnim = Transitions.SlidingTransitionIn,
+                            exitAnim = Transitions.SlidingTransitionOut
+                        ) {
+                            HelpScreen(navigator = this@NavigationHost)
                         }
 
 //                        Start screen (later)

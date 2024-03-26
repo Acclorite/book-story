@@ -21,7 +21,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.selection.DisableSelection
-import androidx.compose.material.LinearProgressIndicator
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -71,7 +71,6 @@ import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.Re
 import ua.acclorite.book_story.presentation.screens.reader.components.settings_bottom_sheet.ReaderSettingsBottomSheet
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
-import ua.acclorite.book_story.presentation.ui.elevation
 
 @OptIn(FlowPreview::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -84,7 +83,7 @@ fun ReaderScreen(
     navigator: Navigator
 ) {
     val context = LocalContext.current as ComponentActivity
-    val systemBarsColor = MaterialTheme.elevation(20.dp).copy(0.85f)
+    val systemBarsColor = MaterialTheme.colorScheme.surfaceContainerHighest.copy(0.85f)
 
     var loading by remember { mutableStateOf(true) }
     val listState = rememberLazyListState()
@@ -100,7 +99,7 @@ fun ReaderScreen(
             ): Offset {
                 val velocity = consumed.y
 
-                if ((velocity > 70 || velocity < -70) && state.showMenu) {
+                if ((velocity > 70 || velocity < -70) && state.showMenu && !state.lockMenu) {
                     viewModel.onEvent(ReaderEvent.OnShowHideMenu(context = context))
                 }
 
@@ -140,7 +139,7 @@ fun ReaderScreen(
         snapshotFlow {
             listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
         }.debounce(500).collectLatest { items ->
-            if (!loading) {
+            if (!loading && state.book.text.isNotEmpty() && listState.layoutInfo.totalItemsCount > 0) {
                 val lastVisibleItemIndex = listState.layoutInfo.visibleItemsInfo.last().index
 
                 val progress = if (items.first > 0) {
@@ -386,8 +385,7 @@ fun ReaderScreen(
                 LinearProgressIndicator(
                     modifier = Modifier.fillMaxWidth(0.55f),
                     strokeCap = StrokeCap.Round,
-                    color = MaterialTheme.colorScheme.primary,
-                    backgroundColor = MaterialTheme.elevation(2.dp)
+                    trackColor = MaterialTheme.colorScheme.secondaryContainer.copy(0.7f)
                 )
             }
         }

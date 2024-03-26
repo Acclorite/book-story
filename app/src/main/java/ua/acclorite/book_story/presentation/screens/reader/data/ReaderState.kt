@@ -9,7 +9,10 @@ import ua.acclorite.book_story.domain.util.UIText
 data class ReaderState(
     val book: Book = Constants.EMPTY_BOOK,
     val errorMessage: UIText? = null,
+
     val showMenu: Boolean = false,
+    val lockMenu: Boolean = false,
+
     val showSettingsBottomSheet: Boolean = false,
     val currentPage: Int = 0,
 )

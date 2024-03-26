@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.GroupedHistory
 import ua.acclorite.book_story.domain.model.History
@@ -69,7 +70,9 @@ class HistoryViewModel @Inject constructor(
                         )
                     }
 
+                    yield()
                     getHistoryFromDatabase("")
+
                     delay(500)
                     _state.update {
                         it.copy(
@@ -121,14 +124,27 @@ class HistoryViewModel @Inject constructor(
                         listOf(event.historyToDelete)
                     )
 
-                    onEvent(HistoryEvent.OnRefreshList)
+                    _state.update {
+                        it.copy(
+                            isRefreshing = true
+                        )
+                    }
+                    getHistoryFromDatabase()
+                    _state.update {
+                        it.copy(
+                            isRefreshing = false
+                        )
+                    }
+
                     event.refreshList()
 
                     job2?.cancel()
                     event.snackbarState.currentSnackbarData?.dismiss()
 
                     job2 = viewModelScope.launch(Dispatchers.IO) {
+                        yield()
                         delay(10000)
+                        yield()
                         event.snackbarState.currentSnackbarData?.dismiss()
                     }
                     val snackbar = event.snackbarState.showSnackbar(
@@ -143,7 +159,18 @@ class HistoryViewModel @Inject constructor(
                                 listOf(event.historyToDelete)
                             )
                             event.refreshList()
-                            onEvent(HistoryEvent.OnRefreshList)
+                            _state.update {
+                                it.copy(
+                                    isRefreshing = true
+                                )
+                            }
+                            getHistoryFromDatabase()
+                            delay(500)
+                            _state.update {
+                                it.copy(
+                                    isRefreshing = false
+                                )
+                            }
                         }
                     }
                 }
@@ -180,6 +207,7 @@ class HistoryViewModel @Inject constructor(
                 job?.cancel()
                 job = viewModelScope.launch(Dispatchers.IO) {
                     delay(500)
+                    yield()
                     getHistoryFromDatabase()
                 }
             }
@@ -221,14 +249,13 @@ class HistoryViewModel @Inject constructor(
 
             is HistoryEvent.OnNavigateToReaderScreen -> {
                 viewModelScope.launch {
-                    event.book?.id?.let {
+                    event.book.id.let {
                         insertHistory.execute(
                             listOf(
                                 History(
-                                    null,
-                                    it,
-                                    null,
-                                    Date().time
+                                    bookId = it,
+                                    book = null,
+                                    time = Date().time
                                 )
                             )
                         )
@@ -237,7 +264,18 @@ class HistoryViewModel @Inject constructor(
                         Screen.READER,
                         false,
                         Argument(
-                            "book", event.book
+                            "book", event.book.id
+                        )
+                    )
+                }
+            }
+
+            is HistoryEvent.OnUpdateScrollOffset -> {
+                _state.update {
+                    it.copy(
+                        listState = LazyListState(
+                            it.listState.firstVisibleItemIndex,
+                            0
                         )
                     )
                 }
@@ -342,8 +380,6 @@ class HistoryViewModel @Inject constructor(
                         )
                     }
                 }
-
-                is Resource.Loading -> Unit
 
                 is Resource.Error -> Unit
             }

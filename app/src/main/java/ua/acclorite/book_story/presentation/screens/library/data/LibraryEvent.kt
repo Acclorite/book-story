@@ -1,8 +1,5 @@
-@file:OptIn(ExperimentalFoundationApi::class)
-
 package ua.acclorite.book_story.presentation.screens.library.data
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.domain.model.Book
@@ -13,6 +10,7 @@ import ua.acclorite.book_story.presentation.data.Navigator
 sealed class LibraryEvent {
     data object OnRefreshList : LibraryEvent()
     data object OnLoadList : LibraryEvent()
+    data class OnRecalculateCategories(val books: List<Pair<Book, Selected>>) : LibraryEvent()
     data class OnScrollToPage(val index: Int, val pagerState: PagerState) : LibraryEvent()
     data class OnUpdateCurrentPage(val page: Int) : LibraryEvent()
     data object OnSearchShowHide : LibraryEvent()

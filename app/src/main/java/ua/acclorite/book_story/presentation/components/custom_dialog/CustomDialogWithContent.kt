@@ -12,9 +12,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Divider
+import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -36,8 +36,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.ui.ElevationDefaults
-import ua.acclorite.book_story.presentation.ui.elevation
 
 /**
  * Custom Dialog with custom content.
@@ -72,7 +70,8 @@ fun CustomDialogWithContent(
     customContent: @Composable (ColumnScope.() -> Unit) = {}
 ) {
     var actionClicked by remember { mutableStateOf(false) }
-    AlertDialog(
+
+    BasicAlertDialog(
         onDismissRequest = { onDismiss() },
         properties = DialogProperties(
             dismissOnBackPress = !actionClicked,
@@ -88,7 +87,7 @@ fun CustomDialogWithContent(
                 .navigationBarsPadding()
                 .statusBarsPadding()
                 .clip(MaterialTheme.shapes.extraLarge)
-                .background(MaterialTheme.elevation(ElevationDefaults.Dialog))
+                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
                 .padding(top = 24.dp, bottom = 12.dp)
         ) {
             if (drawableIcon != null) {
@@ -140,7 +139,7 @@ fun CustomDialogWithContent(
             }
             if (withDivider) {
                 Spacer(modifier = Modifier.height(12.dp))
-                Divider(
+                HorizontalDivider(
                     modifier = Modifier.padding(horizontal = 24.dp),
                     color = MaterialTheme.colorScheme.outlineVariant
                 )

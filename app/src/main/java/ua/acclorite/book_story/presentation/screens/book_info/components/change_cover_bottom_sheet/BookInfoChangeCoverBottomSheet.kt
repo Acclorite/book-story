@@ -31,8 +31,6 @@ import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
-import ua.acclorite.book_story.presentation.ui.ElevationDefaults
-import ua.acclorite.book_story.presentation.ui.elevation
 
 /**
  * Change cover bottom sheet. Lets user select photo from the gallery and replaces old one.
@@ -79,7 +77,7 @@ fun BookInfoChangeCoverBottomSheet(
         },
         sheetState = rememberModalBottomSheetState(true),
         windowInsets = WindowInsets(0, 0, 0, 0),
-        containerColor = MaterialTheme.elevation(ElevationDefaults.BottomSheet)
+        containerColor = MaterialTheme.colorScheme.surfaceContainerLow
     ) {
 
         BookInfoChangeCoverBottomSheetItem(

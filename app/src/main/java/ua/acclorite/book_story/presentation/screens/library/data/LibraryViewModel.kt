@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.library.data
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,19 +10,19 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.yield
+import ua.acclorite.book_story.domain.model.CategorizedBooks
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.use_case.DeleteBooks
 import ua.acclorite.book_story.domain.use_case.GetBooks
 import ua.acclorite.book_story.domain.use_case.InsertHistory
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
-import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.Screen
 import java.util.Date
 import javax.inject.Inject
 
-@OptIn(ExperimentalFoundationApi::class)
 @HiltViewModel
 class LibraryViewModel @Inject constructor(
     private val getBooks: GetBooks,
@@ -87,7 +86,9 @@ class LibraryViewModel @Inject constructor(
                         )
                     }
 
+                    yield()
                     getBooksFromDatabase("")
+
                     delay(500)
                     _state.update {
                         it.copy(
@@ -152,6 +153,7 @@ class LibraryViewModel @Inject constructor(
                 job?.cancel()
                 job = viewModelScope.launch(Dispatchers.IO) {
                     delay(500)
+                    yield()
                     getBooksFromDatabase()
                 }
             }
@@ -168,6 +170,7 @@ class LibraryViewModel @Inject constructor(
                         }
                     }
 
+                    onEvent(LibraryEvent.OnRecalculateCategories(editedList))
                     _state.update {
                         it.copy(
                             books = editedList,
@@ -186,6 +189,7 @@ class LibraryViewModel @Inject constructor(
                             hasSelectedItems = false
                         )
                     }
+                    onEvent(LibraryEvent.OnRecalculateCategories(_state.value.books))
                 }
             }
 
@@ -289,6 +293,7 @@ class LibraryViewModel @Inject constructor(
                         }
                     }
 
+                    onEvent(LibraryEvent.OnRecalculateCategories(books))
                     _state.update {
                         it.copy(
                             books = books
@@ -299,14 +304,13 @@ class LibraryViewModel @Inject constructor(
 
             is LibraryEvent.OnNavigateToReaderScreen -> {
                 viewModelScope.launch {
-                    event.book.id?.let {
+                    event.book.id.let {
                         insertHistory.execute(
                             listOf(
                                 History(
-                                    null,
-                                    it,
-                                    null,
-                                    Date().time
+                                    bookId = it,
+                                    book = null,
+                                    time = Date().time
                                 )
                             )
                         )
@@ -315,8 +319,24 @@ class LibraryViewModel @Inject constructor(
                         Screen.READER,
                         false,
                         Argument(
-                            "book", event.book
+                            "book", event.book.id
                         )
+                    )
+                }
+            }
+
+            is LibraryEvent.OnRecalculateCategories -> {
+                val categorizedBooks = event.books.groupBy {
+                    it.first.category
+                }.toList().map {
+                    CategorizedBooks(
+                        it.first,
+                        it.second
+                    )
+                }
+                _state.update {
+                    it.copy(
+                        categorizedBooks = categorizedBooks
                     )
                 }
             }
@@ -326,24 +346,24 @@ class LibraryViewModel @Inject constructor(
     private suspend fun getBooksFromDatabase(
         query: String = if (_state.value.showSearch) _state.value.searchQuery else ""
     ) {
-        getBooks.execute(query).collect { result ->
-            when (result) {
-                is Resource.Success -> {
-                    _state.update {
-                        it.copy(
-                            books = result.data?.map { book -> Pair(book, false) }
-                                ?: emptyList(),
-                            isLoading = false
-                        )
-                    }
-                }
+        val books = getBooks.execute(query).map { book -> Pair(book, false) }
+        val categorizedBooks = books.groupBy {
+            it.first.category
+        }.toList().map {
+            CategorizedBooks(
+                it.first,
+                it.second
+            )
+        }
 
-                is Resource.Loading -> Unit
-                is Resource.Error -> Unit
-            }
+        _state.update {
+            it.copy(
+                books = books,
+                categorizedBooks = categorizedBooks,
+                isLoading = false
+            )
         }
     }
-
 }
 
 

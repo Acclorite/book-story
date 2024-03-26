@@ -19,7 +19,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,15 +26,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.History
-import ua.acclorite.book_story.presentation.ui.elevation
+import ua.acclorite.book_story.presentation.components.CustomCoverImage
+import ua.acclorite.book_story.presentation.components.CustomIconButton
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -76,16 +74,14 @@ fun HistoryItem(
                     .height(90.dp)
                     .width(60.dp)
                     .clip(RoundedCornerShape(10.dp))
-                    .background(MaterialTheme.elevation())
+                    .background(MaterialTheme.colorScheme.surfaceContainerLow)
             ) {
                 if (history.book?.coverImage != null) {
-                    AsyncImage(
-                        model = history.book.coverImage,
-                        contentDescription = stringResource(id = R.string.cover_image_content_desc),
+                    CustomCoverImage(
+                        uri = history.book.coverImage,
                         modifier = Modifier
                             .fillMaxSize()
-                            .clip(RoundedCornerShape(10.dp)),
-                        contentScale = ContentScale.Crop
+                            .clip(RoundedCornerShape(10.dp))
                     )
                 } else {
                     Icon(
@@ -97,7 +93,7 @@ fun HistoryItem(
                             .align(Alignment.Center)
                             .fillMaxWidth(0.7f)
                             .aspectRatio(1f),
-                        tint = MaterialTheme.elevation(12.dp)
+                        tint = MaterialTheme.colorScheme.surfaceContainerHigh
                     )
                 }
             }
@@ -137,17 +133,14 @@ fun HistoryItem(
             }
         }
         Box(modifier = Modifier.weight(0.11f), contentAlignment = Alignment.CenterEnd) {
-            IconButton(
-                enabled = isDeleteEnabled && isOnClickEnabled,
-                onClick = {
-                    onDeleteClick()
-                }
+            CustomIconButton(
+                icon = Icons.Outlined.Delete,
+                contentDescription = R.string.delete_history_element_content_desc,
+                disableOnClick = true,
+                enabled = isDeleteEnabled,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             ) {
-                Icon(
-                    imageVector = Icons.Outlined.Delete,
-                    contentDescription = "Delete this history element",
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                onDeleteClick()
             }
         }
     }

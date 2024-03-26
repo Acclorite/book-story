@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
+import ua.acclorite.book_story.domain.model.StringWithId
 import ua.acclorite.book_story.domain.util.CoverImage
 import ua.acclorite.book_story.domain.util.Resource
 import java.io.File
@@ -13,10 +14,6 @@ interface BookRepository {
 
     suspend fun getBooks(
         query: String
-    ): Flow<Resource<List<Book>>>
-
-    suspend fun fastGetBooks(
-        query: String
     ): List<Book>
 
     suspend fun getBooksById(
@@ -24,12 +21,12 @@ interface BookRepository {
     ): List<Book>
 
     suspend fun getBookTextById(
-        bookId: Int
-    ): String
+        textPath: String
+    ): List<StringWithId>
 
     suspend fun insertBooks(
         books: List<Pair<Book, CoverImage?>>
-    )
+    ): Boolean
 
     suspend fun updateBooks(
         books: List<Book>
@@ -37,7 +34,7 @@ interface BookRepository {
 
     suspend fun updateBooksWithText(
         books: List<Book>
-    )
+    ): Boolean
 
     suspend fun updateCoverImageOfBook(
         bookWithOldCover: Book,

@@ -18,13 +18,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.yield
 import ua.acclorite.book_story.domain.model.NullableBook
-import ua.acclorite.book_story.domain.use_case.FastGetBooks
 import ua.acclorite.book_story.domain.use_case.GetBooksFromFiles
 import ua.acclorite.book_story.domain.use_case.GetFilesFromDevice
 import ua.acclorite.book_story.domain.use_case.InsertBooks
 import ua.acclorite.book_story.domain.util.Resource
-import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.Screen
 import javax.inject.Inject
 
@@ -33,8 +32,7 @@ import javax.inject.Inject
 class BrowseViewModel @Inject constructor(
     private val getBooksFromFiles: GetBooksFromFiles,
     private val getFilesFromDevice: GetFilesFromDevice,
-    private val insertBooks: InsertBooks,
-    private val fastGetBooks: FastGetBooks
+    private val insertBooks: InsertBooks
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(BrowseState())
@@ -42,6 +40,7 @@ class BrowseViewModel @Inject constructor(
 
     private var job: Job? = null
     private var job2: Job? = null
+    private var job3: Job? = null
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -138,7 +137,7 @@ class BrowseViewModel @Inject constructor(
                             listState = LazyListState(0, 0)
                         )
                     }
-
+                    yield()
                     getFilesFromDownloads("")
                     delay(500)
                     _state.update {
@@ -270,6 +269,7 @@ class BrowseViewModel @Inject constructor(
                 job?.cancel()
                 job = viewModelScope.launch(Dispatchers.IO) {
                     delay(500)
+                    yield()
                     getFilesFromDownloads()
                 }
             }
@@ -280,6 +280,7 @@ class BrowseViewModel @Inject constructor(
                         showAddingDialog = false
                     )
                 }
+                job3?.cancel(null)
             }
 
             is BrowseEvent.OnAddingDialogRequest -> {
@@ -293,18 +294,29 @@ class BrowseViewModel @Inject constructor(
             }
 
             is BrowseEvent.OnGetBooksFromFiles -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                job3 = viewModelScope.launch(Dispatchers.IO) {
                     _state.update {
                         it.copy(
                             isBooksLoading = true
                         )
                     }
 
-                    val books = getBooksFromFiles.execute(
-                        _state.value.selectableFiles
-                            .filter { it.second }
-                            .map { it.first }
-                    )
+                    yield()
+
+                    val books = mutableListOf<NullableBook>()
+                    _state.value.selectableFiles
+                        .filter { it.second }
+                        .map { it.first }
+                        .forEach {
+                            yield()
+                            books.add(
+                                getBooksFromFiles.execute(
+                                    listOf(it)
+                                ).first()
+                            )
+                        }
+
+                    yield()
 
                     _state.update {
                         it.copy(
@@ -326,21 +338,21 @@ class BrowseViewModel @Inject constructor(
                         return@launch
                     }
 
-                    insertBooks.execute(booksToInsert)
-                    val books = fastGetBooks.execute("")
+                    if (!insertBooks.execute(booksToInsert)) {
+                        event.onFailed()
+                        return@launch
+                    }
 
                     event.resetScroll()
                     event.navigator.navigate(
                         Screen.LIBRARY,
-                        false,
-                        Argument("added_books", books)
+                        false
                     )
+                    event.onSuccess()
 
                     _state.update {
                         it.copy(
-                            showAddingDialog = false,
-                            selectableFiles = emptyList(),
-                            listState = LazyListState(0, 0)
+                            showAddingDialog = false
                         )
                     }
                     onEvent(BrowseEvent.OnLoadList)
@@ -360,6 +372,17 @@ class BrowseViewModel @Inject constructor(
                     getFilesFromDownloads()
                 }
             }
+
+            is BrowseEvent.OnUpdateScrollOffset -> {
+                _state.update {
+                    it.copy(
+                        listState = LazyListState(
+                            it.listState.firstVisibleItemIndex,
+                            0
+                        )
+                    )
+                }
+            }
         }
     }
 
@@ -377,8 +400,6 @@ class BrowseViewModel @Inject constructor(
                         )
                     }
                 }
-
-                is Resource.Loading -> Unit
 
                 is Resource.Error -> Unit
             }

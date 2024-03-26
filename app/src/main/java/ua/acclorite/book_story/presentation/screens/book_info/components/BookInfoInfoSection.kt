@@ -33,19 +33,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
+import ua.acclorite.book_story.presentation.components.CustomCoverImage
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
-import ua.acclorite.book_story.presentation.ui.elevation
 
 /**
  * Info section.
@@ -66,7 +64,7 @@ fun BookInfoInfoSection(viewModel: BookInfoViewModel, book: Book) {
                 .height(195.dp)
                 .width(130.dp)
                 .clip(MaterialTheme.shapes.medium)
-                .background(MaterialTheme.elevation())
+                .background(MaterialTheme.colorScheme.surfaceContainerLow)
                 .combinedClickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null,
@@ -77,13 +75,11 @@ fun BookInfoInfoSection(viewModel: BookInfoViewModel, book: Book) {
                 )
         ) {
             if (book.coverImage != null) {
-                AsyncImage(
-                    model = book.coverImage,
-                    contentDescription = stringResource(id = R.string.cover_image_content_desc),
+                CustomCoverImage(
+                    uri = book.coverImage,
                     modifier = Modifier
                         .fillMaxSize()
-                        .clip(MaterialTheme.shapes.medium),
-                    contentScale = ContentScale.Crop
+                        .clip(MaterialTheme.shapes.medium)
                 )
             } else {
                 Icon(
@@ -93,7 +89,7 @@ fun BookInfoInfoSection(viewModel: BookInfoViewModel, book: Book) {
                         .align(Alignment.Center)
                         .fillMaxWidth(0.7f)
                         .aspectRatio(1f),
-                    tint = MaterialTheme.elevation(12.dp)
+                    tint = MaterialTheme.colorScheme.surfaceContainerHigh
                 )
             }
         }

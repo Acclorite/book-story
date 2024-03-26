@@ -28,14 +28,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.CustomCoverImage
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
-import ua.acclorite.book_story.presentation.ui.elevation
 
 /**
  * Reader start item. Displays at the beginning of the book.
@@ -61,16 +59,14 @@ fun ReaderStartItem(viewModel: ReaderViewModel) {
                     .height(135.dp)
                     .width(90.dp)
                     .clip(RoundedCornerShape(10.dp))
-                    .background(MaterialTheme.elevation())
+                    .background(MaterialTheme.colorScheme.surfaceContainerLow)
             ) {
                 if (state.book.coverImage != null) {
-                    AsyncImage(
-                        model = state.book.coverImage!!,
-                        contentDescription = stringResource(id = R.string.cover_image_content_desc),
+                    CustomCoverImage(
+                        uri = state.book.coverImage!!,
                         modifier = Modifier
                             .fillMaxSize()
-                            .clip(RoundedCornerShape(10.dp)),
-                        contentScale = ContentScale.Crop
+                            .clip(RoundedCornerShape(10.dp))
                     )
                 } else {
                     Icon(
@@ -80,7 +76,7 @@ fun ReaderStartItem(viewModel: ReaderViewModel) {
                             .align(Alignment.Center)
                             .fillMaxWidth(0.7f)
                             .aspectRatio(1f),
-                        tint = MaterialTheme.elevation(12.dp)
+                        tint = MaterialTheme.colorScheme.surfaceContainerHigh
                     )
                 }
             }

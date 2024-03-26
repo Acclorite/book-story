@@ -53,11 +53,11 @@ fun BookInfoStatisticSection(book: Book) {
         Spacer(modifier = Modifier.height(6.dp))
 
         LinearProgressIndicator(
-            book.progress.coerceAtLeast(0.01f),
+            progress = { book.progress.coerceAtLeast(0.01f) },
             modifier = Modifier
                 .fillMaxWidth(),
             color = MaterialTheme.colorScheme.primary,
-            trackColor = MaterialTheme.colorScheme.onPrimaryContainer.copy(0.05f),
+            trackColor = MaterialTheme.colorScheme.secondaryContainer.copy(0.7f),
             strokeCap = StrokeCap.Round,
         )
 

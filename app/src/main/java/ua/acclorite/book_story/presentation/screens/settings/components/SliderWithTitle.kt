@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -54,7 +55,11 @@ fun SliderWithTitle(
             onValueChange = {
                 onValueChange(it.roundToInt())
             },
-            steps = toValue - fromValue
+            steps = toValue - fromValue,
+            colors = SliderDefaults.colors(
+                activeTickColor = MaterialTheme.colorScheme.onPrimary,
+                inactiveTickColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
         )
     }
 }
@@ -90,7 +95,11 @@ fun SliderWithTitle(
             value = value.first,
             onValueChange = {
                 onValueChange(it)
-            }
+            },
+            colors = SliderDefaults.colors(
+                activeTickColor = MaterialTheme.colorScheme.onPrimary,
+                inactiveTickColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
         )
     }
 }

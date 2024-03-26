@@ -15,7 +15,7 @@ android {
         minSdk = 26
         targetSdk = 34
         versionCode = 1
-        versionName = "0.9.3"
+        versionName = "0.9.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -66,13 +66,19 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.8.2")
 
     // Compose BOM libraries
-    implementation(platform("androidx.compose:compose-bom:2024.01.00"))
+    implementation(platform("androidx.compose:compose-bom:2024.03.00"))
+    implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.compose.animation:animation")
+    implementation("androidx.compose.animation:animation-core")
+    implementation("androidx.compose.animation:animation-graphics")
+    implementation("androidx.compose.foundation:foundation-layout")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.ui:ui-android")
-    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material3:material3:latest.release")
     implementation("androidx.compose.material3:material3-window-size-class")
+    implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.compose.material:material")
 
     // Unit tests
@@ -84,7 +90,7 @@ dependencies {
     testImplementation("androidx.test.ext:truth:1.5.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:latest.release")
     testImplementation("io.mockk:mockk:latest.release")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.3")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.4")
 
     // Instrumentation tests
     androidTestImplementation("com.google.dagger:hilt-android-testing:latest.release")
@@ -100,7 +106,6 @@ dependencies {
 
     // All dependencies
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
-    implementation("androidx.compose.material:material-icons-extended")
     implementation("com.google.accompanist:accompanist-swiperefresh:0.24.2-alpha")
 
     // Dagger - Hilt

@@ -6,9 +6,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddChart
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -55,14 +55,23 @@ fun BrowseAddingDialog(
                     resetScroll = {
                         libraryViewModel.onEvent(LibraryEvent.OnUpdateCurrentPage(0))
                         libraryViewModel.onEvent(LibraryEvent.OnLoadList)
+                    },
+                    onFailed = {
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.error_something_went_wrong),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    },
+                    onSuccess = {
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.books_added),
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 )
             )
-            Toast.makeText(
-                context,
-                context.getString(R.string.books_added),
-                Toast.LENGTH_LONG
-            ).show()
         },
         withDivider = true,
         items = {

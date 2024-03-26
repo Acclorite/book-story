@@ -1,6 +1,7 @@
 package ua.acclorite.book_story.presentation.data
 
 import android.annotation.SuppressLint
+import android.os.Parcelable
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.viewModels
@@ -14,7 +15,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -29,12 +29,15 @@ import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.presentation.ui.Transitions
+import java.io.Serializable
 
 
 private const val CURRENT_SCREEN = "current_screen"
 private const val BACKSTACK = "back_stack"
 private const val USE_BACK_ANIM = "use_back_animation"
+private const val ARGUMENTS = "arguments"
 
 /**
  * All screens are listed here, later each screen will be passed as a param for [Navigator.composable] function.
@@ -57,11 +60,15 @@ enum class Screen {
     START
 }
 
+/**
+ * Navigation Argument.
+ */
 @Immutable
-data class Argument(
+@Parcelize
+data class Argument<out T : Serializable>(
     val key: String,
-    val arg: Any?
-)
+    val value: T
+) : Parcelable
 
 /**
  * Navigator. Using for navigation between screens.
@@ -78,38 +85,39 @@ class Navigator @AssistedInject constructor(
     private val currentScreen = savedStateHandle.getStateFlow(CURRENT_SCREEN, startScreen)
     private val useBackAnimation = savedStateHandle.getStateFlow(USE_BACK_ANIM, false)
     private val backStack = savedStateHandle.getStateFlow(BACKSTACK, mutableListOf<Screen>())
-    private val arguments = mutableStateListOf<Argument>()
+    private val arguments = savedStateHandle
+        .getStateFlow(ARGUMENTS, mutableListOf<Argument<Serializable>>())
 
-    fun putArgument(argument: Argument) {
+    fun putArgument(argument: Argument<Serializable>) {
         var found = false
 
-        for ((index, arg) in arguments.withIndex()) {
+        for ((index, arg) in arguments.value.withIndex()) {
             if (arg.key == argument.key) {
-                arguments[index] = argument
+                arguments.value[index] = argument
                 found = true
                 break
             }
         }
 
         if (!found) {
-            arguments.add(argument)
+            arguments.value.add(argument)
         }
     }
 
-    fun retrieveArgument(key: String): Any? {
-        for (arg in arguments) {
+    fun retrieveArgument(key: String): Serializable? {
+        for (arg in arguments.value) {
             if (arg.key == key) {
-                return arg.arg
+                return arg.value
             }
         }
         return null
     }
 
     fun clearArgument(key: String) {
-        arguments.removeIf { it.key == key }
+        arguments.value.removeIf { it.key == key }
     }
 
-    fun navigate(screen: Screen, useBackAnimation: Boolean, vararg args: Argument) =
+    fun navigate(screen: Screen, useBackAnimation: Boolean, vararg args: Argument<Serializable>) =
         viewModelScope.launch(Dispatchers.Default) {
             backStack.value.add(currentScreen.value)
 
@@ -121,19 +129,22 @@ class Navigator @AssistedInject constructor(
             savedStateHandle[CURRENT_SCREEN] = screen
         }
 
-    fun navigateWithoutBackStack(screen: Screen, useBackAnimation: Boolean, vararg args: Argument) =
-        viewModelScope.launch(Dispatchers.Default) {
-            if (backStack.value.last() == screen) {
-                backStack.value.removeLast()
-            }
-
-            args.forEach {
-                putArgument(it)
-            }
-
-            savedStateHandle[USE_BACK_ANIM] = useBackAnimation
-            savedStateHandle[CURRENT_SCREEN] = screen
+    fun navigateWithoutBackStack(
+        screen: Screen,
+        useBackAnimation: Boolean,
+        vararg args: Argument<Serializable>
+    ) = viewModelScope.launch(Dispatchers.Default) {
+        if (backStack.value.last() == screen) {
+            backStack.value.removeLast()
         }
+
+        args.forEach {
+            putArgument(it)
+        }
+
+        savedStateHandle[USE_BACK_ANIM] = useBackAnimation
+        savedStateHandle[CURRENT_SCREEN] = screen
+    }
 
     fun navigateBack(useBackAnimation: Boolean = true) =
         viewModelScope.launch(Dispatchers.Default) {
@@ -153,7 +164,7 @@ class Navigator @AssistedInject constructor(
     }
 
     /**
-     * Animated Screen. Using in [NavigationHost]. Be sure to not use the same [screen] parameter twice, it'll override the highest one in your code.
+     * Animated Screen. Used in [NavigationHost]. Be sure to not use the same [screen] parameter twice, it'll override the highest one in your code.
      *
      * @param screen The [Screen] that represents [content].
      * @param enterAnim Enter Animation.

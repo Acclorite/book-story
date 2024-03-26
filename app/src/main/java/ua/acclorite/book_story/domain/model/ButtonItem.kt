@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.text.TextStyle
 
 @Immutable
-data class ChipItem(
+data class ButtonItem(
     val id: String,
     val title: String,
     val textStyle: TextStyle,
