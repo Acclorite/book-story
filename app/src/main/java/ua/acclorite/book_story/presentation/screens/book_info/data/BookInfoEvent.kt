@@ -61,6 +61,8 @@ sealed class BookInfoEvent {
         val textUpdated: Boolean,
     ) : BookInfoEvent()
 
+    data object OnCancelUpdate : BookInfoEvent()
+
     data class OnConfirmUpdate(
         val snackbarState: SnackbarHostState,
         val context: Context,

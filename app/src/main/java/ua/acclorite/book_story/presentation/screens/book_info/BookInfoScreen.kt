@@ -93,7 +93,7 @@ fun BookInfoScreen(
     val listState = rememberLazyListState()
     val snackbarState = remember { SnackbarHostState() }
     val refreshState = rememberPullRefreshState(
-        refreshing = state.isRefreshing,
+        refreshing = state.isRefreshing || state.isLoadingUpdate,
         onRefresh = {
             viewModel.onEvent(
                 BookInfoEvent.OnLoadUpdate(
@@ -161,7 +161,9 @@ fun BookInfoScreen(
                 isTopBarScrolled = null,
 
                 content1NavigationIcon = {
-                    GoBackButton(navigator = navigator, enabled = !state.isRefreshing)
+                    GoBackButton(navigator = navigator, enabled = !state.isRefreshing) {
+                        viewModel.onEvent(BookInfoEvent.OnCancelUpdate)
+                    }
                 },
                 content1Title = {
                     DefaultTransition(visible = firstVisibleItemIndex > 0) {
@@ -179,7 +181,7 @@ fun BookInfoScreen(
                         icon = Icons.Default.Refresh,
                         contentDescription = R.string.refresh_book_content_desc,
                         disableOnClick = false,
-                        enabled = !state.isRefreshing
+                        enabled = !state.isRefreshing && !state.isLoadingUpdate
                     ) {
                         viewModel.onEvent(
                             BookInfoEvent.OnLoadUpdate(
@@ -319,7 +321,7 @@ fun BookInfoScreen(
             )
 
             PullRefreshIndicator(
-                state.isRefreshing,
+                state.isRefreshing || state.isLoadingUpdate,
                 refreshState,
                 Modifier
                     .align(Alignment.TopCenter)
@@ -332,6 +334,7 @@ fun BookInfoScreen(
 
     BackHandler {
         if (!state.isRefreshing) {
+            viewModel.onEvent(BookInfoEvent.OnCancelUpdate)
             navigator.navigateBack()
         }
     }

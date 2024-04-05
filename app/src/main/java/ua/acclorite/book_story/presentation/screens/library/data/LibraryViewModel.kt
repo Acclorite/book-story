@@ -347,6 +347,7 @@ class LibraryViewModel @Inject constructor(
         query: String = if (_state.value.showSearch) _state.value.searchQuery else ""
     ) {
         val books = getBooks.execute(query).map { book -> Pair(book, false) }
+
         val categorizedBooks = books.groupBy {
             it.first.category
         }.toList().map {

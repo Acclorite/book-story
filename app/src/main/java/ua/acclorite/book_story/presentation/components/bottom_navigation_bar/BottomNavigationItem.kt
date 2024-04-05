@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.model.NavigationItem
+import ua.acclorite.book_story.presentation.components.CustomTooltip
 
 /**
  * Bottom Navigation Bar Item, uses default [NavigationBarItem].
@@ -19,6 +20,7 @@ import ua.acclorite.book_story.domain.model.NavigationItem
 fun RowScope.BottomNavigationBarItem(
     modifier: Modifier = Modifier,
     item: NavigationItem,
+    tooltipText: String,
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
@@ -27,22 +29,33 @@ fun RowScope.BottomNavigationBarItem(
         else item.unselectedIcon
     }
 
+
     NavigationBarItem(
         label = {
-            Text(
-                text = item.title,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            CustomTooltip(
+                text = tooltipText,
+                padding = 64.dp
+            ) {
+                Text(
+                    text = item.title,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         },
         selected = isSelected,
         onClick = { onClick() },
         icon = {
-            Icon(
-                painter = icon,
-                contentDescription = null,
-                modifier = Modifier.size(24.dp)
-            )
+            CustomTooltip(
+                text = tooltipText,
+                padding = 32.dp
+            ) {
+                Icon(
+                    painter = icon,
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
         },
         modifier = modifier
     )

@@ -89,7 +89,11 @@ fun ReaderScreen(
     val listState = rememberLazyListState()
 
     val state by viewModel.state.collectAsState()
-    val canScrollForward by remember { derivedStateOf { listState.canScrollForward } }
+    val canScroll by remember {
+        derivedStateOf {
+            listState.canScrollBackward && listState.canScrollForward
+        }
+    }
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
             override fun onPostScroll(
@@ -129,8 +133,8 @@ fun ReaderScreen(
             }
         )
     }
-    LaunchedEffect(canScrollForward) {
-        if (!canScrollForward && !state.showMenu && !loading) {
+    LaunchedEffect(canScroll) {
+        if (!canScroll && !state.showMenu && !loading) {
             viewModel.onEvent(ReaderEvent.OnShowHideMenu(context = context))
         }
     }

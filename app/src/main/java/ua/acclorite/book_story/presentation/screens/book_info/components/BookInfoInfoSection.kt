@@ -126,7 +126,7 @@ fun BookInfoInfoSection(viewModel: BookInfoViewModel, book: Book) {
                         fontFamily = MaterialTheme.typography.headlineSmall.fontFamily
                     ),
                     onValueChange = {
-                        if (it.length < 80) {
+                        if (it.length < 100 || it.length < state.titleValue.length) {
                             viewModel.onEvent(BookInfoEvent.OnTitleValueChange(it))
                         }
                     },

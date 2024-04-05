@@ -45,11 +45,17 @@ import ua.acclorite.book_story.presentation.ui.animatedColorScheme
 fun AppearanceSettingsThemeSwitcherItem(
     theme: Pair<Theme, UIText>,
     darkTheme: Boolean,
+    isPureDark: Boolean,
     themeContrast: ThemeContrast,
     selected: Boolean,
     onClick: () -> Unit
 ) {
-    val colorScheme = animatedColorScheme(theme.first, darkTheme, themeContrast)
+    val colorScheme = animatedColorScheme(
+        theme.first,
+        darkTheme,
+        isPureDark,
+        themeContrast
+    )
 
     Column(
         modifier = Modifier.fillMaxWidth(),

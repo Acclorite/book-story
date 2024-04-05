@@ -9,6 +9,7 @@ import ua.acclorite.book_story.domain.util.Constants
 data class BookInfoState(
     val book: Book = Constants.EMPTY_BOOK,
 
+    val isLoadingUpdate: Boolean = false,
     val isRefreshing: Boolean = false,
     val showConfirmUpdateDialog: Boolean = false,
     val updatedBook: Book? = null,

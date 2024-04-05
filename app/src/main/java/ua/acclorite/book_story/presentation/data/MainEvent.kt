@@ -4,6 +4,7 @@ sealed class MainEvent {
     data class OnChangeLanguage(val lang: String) : MainEvent()
     data class OnChangeTheme(val theme: String) : MainEvent()
     data class OnChangeDarkTheme(val darkTheme: String) : MainEvent()
+    data class OnChangePureDark(val pureDark: String) : MainEvent()
     data class OnChangeThemeContrast(val themeContrast: String) : MainEvent()
     data class OnChangeFontFamily(val fontFamily: String) : MainEvent()
     data class OnChangeFontStyle(val fontStyle: Boolean) : MainEvent()

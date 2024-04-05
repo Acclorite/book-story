@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.platform.LocalContext
 import ua.acclorite.book_story.presentation.ui.theme.aquaTheme
+import ua.acclorite.book_story.presentation.ui.theme.blackTheme
 import ua.acclorite.book_story.presentation.ui.theme.blueTheme
 import ua.acclorite.book_story.presentation.ui.theme.greenTheme
 import ua.acclorite.book_story.presentation.ui.theme.pinkTheme
@@ -43,49 +44,61 @@ fun String.toTheme(): Theme {
  */
 @SuppressLint("NewApi")
 @Composable
-fun colorScheme(theme: Theme, darkTheme: Boolean, themeContrast: ThemeContrast): ColorScheme {
-    when (theme) {
+fun colorScheme(
+    theme: Theme,
+    darkTheme: Boolean,
+    isPureDark: Boolean,
+    themeContrast: ThemeContrast
+): ColorScheme {
+    val colorScheme = when (theme) {
         Theme.DYNAMIC -> {
             /* Dynamic Theme */
-            return if (darkTheme)
+            if (darkTheme) {
                 dynamicDarkColorScheme(LocalContext.current)
-            else
+            } else {
                 dynamicLightColorScheme(LocalContext.current)
+            }
         }
 
         Theme.BLUE -> {
             /* Blue Theme */
-            return blueTheme(isDark = darkTheme, themeContrast = themeContrast)
+            blueTheme(isDark = darkTheme, themeContrast = themeContrast)
         }
 
         Theme.PURPLE -> {
             /* Purple Theme */
-            return purpleTheme(isDark = darkTheme, themeContrast = themeContrast)
+            purpleTheme(isDark = darkTheme, themeContrast = themeContrast)
         }
 
         Theme.GREEN -> {
             /* Green Theme */
-            return greenTheme(isDark = darkTheme, themeContrast = themeContrast)
+            greenTheme(isDark = darkTheme, themeContrast = themeContrast)
         }
 
         Theme.PINK -> {
             /* Pink Theme */
-            return pinkTheme(isDark = darkTheme, themeContrast = themeContrast)
+            pinkTheme(isDark = darkTheme, themeContrast = themeContrast)
         }
 
         Theme.YELLOW -> {
             /* Yellow Theme */
-            return yellowTheme(isDark = darkTheme, themeContrast = themeContrast)
+            yellowTheme(isDark = darkTheme, themeContrast = themeContrast)
         }
 
         Theme.RED -> {
             /* Red Theme */
-            return redTheme(isDark = darkTheme, themeContrast = themeContrast)
+            redTheme(isDark = darkTheme, themeContrast = themeContrast)
         }
 
         Theme.AQUA -> {
             /* Aqua Theme */
-            return aquaTheme(isDark = darkTheme, themeContrast = themeContrast)
+            aquaTheme(isDark = darkTheme, themeContrast = themeContrast)
         }
+    }
+
+    return if (isPureDark && darkTheme) {
+        blackTheme(initialTheme = colorScheme)
+    } else {
+        colorScheme
     }
 }

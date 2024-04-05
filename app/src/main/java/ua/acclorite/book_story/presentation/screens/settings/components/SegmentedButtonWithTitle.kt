@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
@@ -19,12 +18,12 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SegmentedButtonWithTitle(
+    modifier: Modifier = Modifier,
     title: String,
     buttons: List<ButtonItem>,
-    enabled: Boolean,
+    locked: Boolean,
     horizontalPadding: Dp = 18.dp,
     verticalPadding: Dp = 8.dp,
     onClick: (ButtonItem) -> Unit
@@ -32,7 +31,7 @@ fun SegmentedButtonWithTitle(
     val colors = SegmentedButtonDefaults.colors()
 
     Column(
-        Modifier
+        modifier
             .fillMaxWidth()
             .padding(horizontal = horizontalPadding, vertical = verticalPadding)
     ) {
@@ -43,7 +42,7 @@ fun SegmentedButtonWithTitle(
         SingleChoiceSegmentedButtonRow {
             buttons.forEachIndexed { index, buttonItem ->
                 SegmentedButton(
-                    enabled = enabled,
+                    enabled = locked,
                     selected = buttonItem.selected,
                     onClick = { onClick(buttonItem) },
                     shape = when (index) {
@@ -60,9 +59,12 @@ fun SegmentedButtonWithTitle(
                         else -> RoundedCornerShape(0)
                     },
                     colors = SegmentedButtonDefaults.colors(
-                        disabledInactiveBorderColor = colors.disabledActiveBorderColor,
-                        disabledInactiveContentColor = colors.disabledActiveContentColor,
-                        disabledActiveContainerColor = colors.activeContainerColor.copy(0.12f),
+                        disabledInactiveBorderColor = colors.activeBorderColor,
+                        disabledInactiveContentColor = colors.inactiveContentColor,
+                        disabledActiveContainerColor = colors.activeContainerColor,
+                        disabledActiveContentColor = colors.activeContentColor,
+                        disabledInactiveContainerColor = colors.inactiveContainerColor,
+                        disabledActiveBorderColor = colors.activeBorderColor,
                     ),
                     label = {
                         Text(

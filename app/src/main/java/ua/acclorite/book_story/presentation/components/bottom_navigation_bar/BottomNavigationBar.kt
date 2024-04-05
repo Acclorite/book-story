@@ -34,32 +34,38 @@ fun BottomNavigationBar(
     }
 
     NavigationBar {
+
         BottomNavigationBarItem(
             item = NavigationItem(
                 stringResource(id = R.string.library_screen),
                 selectedIcon = painterResource(id = R.drawable.library_screen_filled),
                 unselectedIcon = painterResource(id = R.drawable.library_screen_outlined)
             ),
+            tooltipText = stringResource(id = R.string.library_content_desc),
             isSelected = currentScreen == Screen.LIBRARY
         ) {
             navigator.navigate(Screen.LIBRARY, false)
         }
+
         BottomNavigationBarItem(
             item = NavigationItem(
                 stringResource(id = R.string.history_screen),
                 selectedIcon = painterResource(id = R.drawable.history_screen_filled),
                 unselectedIcon = painterResource(id = R.drawable.history_screen_outlined)
             ),
+            tooltipText = stringResource(id = R.string.history_content_desc),
             isSelected = currentScreen == Screen.HISTORY
         ) {
             navigator.navigate(Screen.HISTORY, false)
         }
+
         BottomNavigationBarItem(
             item = NavigationItem(
                 stringResource(id = R.string.browse_screen),
                 selectedIcon = painterResource(id = R.drawable.browse_screen_filled),
                 unselectedIcon = painterResource(id = R.drawable.browse_screen_outlined)
             ),
+            tooltipText = stringResource(id = R.string.browse_content_desc),
             isSelected = currentScreen == Screen.BROWSE
         ) {
             navigator.navigate(Screen.BROWSE, false)

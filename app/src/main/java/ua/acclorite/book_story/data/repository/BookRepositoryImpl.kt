@@ -6,9 +6,14 @@ import android.net.Uri
 import android.os.Environment
 import android.util.Log
 import androidx.datastore.preferences.core.Preferences
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.local.data_store.DataStore
@@ -26,7 +31,7 @@ import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.CoverImage
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
-import ua.acclorite.book_story.presentation.data.calculateFamiliarity
+import ua.acclorite.book_story.presentation.data.MainState
 import java.io.File
 import java.io.FileOutputStream
 import java.util.UUID
@@ -380,6 +385,32 @@ class BookRepositoryImpl @Inject constructor(
         dataStore.putData(key, value)
     }
 
+    override suspend fun getAllSettings(scope: CoroutineScope): MainState {
+        val result = CompletableDeferred<MainState>()
+
+        scope.launch {
+            val keys = dataStore.getAllData()
+            val data = mutableMapOf<String, Any>()
+
+            val jobs = keys?.map { key ->
+                async {
+                    val nullableData = dataStore.getNullableData(key)
+
+                    if (nullableData == null) {
+                        data.remove(key.name)
+                    } else {
+                        data[key.name] = nullableData
+                    }
+                }
+            }
+            jobs?.awaitAll()
+
+            result.complete(MainState.initialize(data))
+        }
+
+        return result.await()
+    }
+
     override suspend fun getFilesFromDevice(query: String): Flow<Resource<List<File>>> {
         fun getAllFilesInDirectory(directory: File): List<File> {
             val filesList = mutableListOf<File>()
@@ -437,7 +468,7 @@ class BookRepositoryImpl @Inject constructor(
                     return@filter false
                 }
 
-                val isQuery = if (query.isEmpty()) true else file.name.lowercase()
+                val isQuery = if (query.isEmpty()) true else file.name.trim().lowercase()
                     .contains(query.trim().lowercase())
 
                 if (!isQuery) {
@@ -451,18 +482,9 @@ class BookRepositoryImpl @Inject constructor(
                 )
             }
 
-            filteredFiles = if (query.trim().isNotEmpty()) {
-                filteredFiles.sortedByDescending {
-                    calculateFamiliarity(
-                        query,
-                        it.name.lowercase().trim()
-                    )
-                }.toMutableList()
-            } else {
-                filteredFiles.sortedByDescending {
-                    it.lastModified()
-                }.toMutableList()
-            }
+            filteredFiles = filteredFiles.sortedByDescending {
+                it.lastModified()
+            }.toMutableList()
 
             emit(
                 Resource.Success(

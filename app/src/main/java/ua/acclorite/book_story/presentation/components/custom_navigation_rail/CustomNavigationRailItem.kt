@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.model.NavigationItem
+import ua.acclorite.book_story.presentation.components.CustomTooltip
 
 /**
  * Custom Navigation Rail item.
@@ -18,6 +19,7 @@ import ua.acclorite.book_story.domain.model.NavigationItem
 fun CustomNavigationRailItem(
     modifier: Modifier = Modifier,
     item: NavigationItem,
+    tooltipText: String,
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
@@ -28,20 +30,30 @@ fun CustomNavigationRailItem(
 
     NavigationRailItem(
         label = {
-            Text(
-                text = item.title,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            CustomTooltip(
+                text = tooltipText,
+                padding = 48.dp
+            ) {
+                Text(
+                    text = item.title,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         },
         selected = isSelected,
         onClick = { onClick() },
         icon = {
-            Icon(
-                painter = icon,
-                contentDescription = null,
-                modifier = Modifier.size(24.dp)
-            )
+            CustomTooltip(
+                text = tooltipText,
+                padding = 16.dp
+            ) {
+                Icon(
+                    painter = icon,
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
         },
         modifier = modifier
     )

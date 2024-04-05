@@ -1,79 +1,69 @@
 package ua.acclorite.book_story.presentation.screens.help.components
 
-import android.widget.Toast
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyItemScope
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.CustomTooltip
+import ua.acclorite.book_story.presentation.ui.SlidingTransition
 
-@OptIn(ExperimentalLayoutApi::class)
+/**
+ * When clicked returns a Tag from [tags] (if present in [text])
+ */
 @Composable
-fun HelpClickableNote() {
-    val context = LocalContext.current
-
-    Column {
-        Icon(
-            imageVector = Icons.Outlined.Info,
-            contentDescription = stringResource(id = R.string.note_content_desc),
-            modifier = Modifier
-                .size(20.dp),
-            tint = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        FlowRow(verticalArrangement = Arrangement.spacedBy(1.dp)) {
-            Text(
-                stringResource(id = R.string.clickable_note_1) + " ",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.align(Alignment.CenterVertically)
-            )
-            Text(
-                stringResource(id = R.string.clickable_note_2) + " ",
-                style = MaterialTheme.typography.bodySmall,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.tertiary,
+fun LazyItemScope.HelpClickableNote(
+    text: AnnotatedString,
+    tags: List<String> = emptyList(),
+    isNoteFullyShown: Boolean,
+    onIconClick: () -> Unit,
+    onTagClick: (String) -> Unit
+) {
+    Column(Modifier.animateItem()) {
+        CustomTooltip(text = stringResource(R.string.note_content_desc)) {
+            Icon(
+                imageVector = Icons.Outlined.Info,
                 modifier = Modifier
-                    .align(Alignment.CenterVertically)
-                    .clickable(
-                        interactionSource = null,
-                        indication = null,
-                        onClick = {
-                            Toast
-                                .makeText(
-                                    context,
-                                    context.getString(R.string.clickable_note_action),
-                                    Toast.LENGTH_SHORT
-                                )
-                                .show()
-                        }
-                    )
-            )
-            Text(
-                stringResource(id = R.string.clickable_note_3),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.align(Alignment.CenterVertically)
+                    .size(20.dp)
+                    .clickable(interactionSource = null, indication = null) {
+                        onIconClick()
+                    },
+                contentDescription = stringResource(R.string.note_content_desc),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
-    }
 
+        SlidingTransition(visible = isNoteFullyShown) {
+            Column {
+                Spacer(modifier = Modifier.height(8.dp))
+                ClickableText(
+                    text = text,
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                ) { offset ->
+                    tags.forEach { tag ->
+                        text.getStringAnnotations(tag = tag, start = offset, end = offset)
+                            .firstOrNull()?.let {
+                                onTagClick(tag)
+                            }
+                    }
+                }
+            }
+        }
+    }
 }
 
 

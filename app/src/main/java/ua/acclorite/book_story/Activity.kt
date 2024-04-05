@@ -9,19 +9,25 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -49,9 +55,10 @@ import ua.acclorite.book_story.presentation.screens.settings.SettingsScreen
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.AppearanceSettings
 import ua.acclorite.book_story.presentation.screens.settings.nested.general.GeneralSettings
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.ReaderSettings
-import ua.acclorite.book_story.presentation.ui.BooksHistoryResurrectionTheme
+import ua.acclorite.book_story.presentation.ui.BookStoryTheme
 import ua.acclorite.book_story.presentation.ui.Transitions
 import ua.acclorite.book_story.presentation.ui.isDark
+import ua.acclorite.book_story.presentation.ui.isPureDark
 import java.lang.reflect.Field
 
 
@@ -109,10 +116,25 @@ class Activity : AppCompatActivity() {
                 }
             }
 
+            val density = LocalDensity.current
+            val imeInsets = WindowInsets.ime
+            val focusManager = LocalFocusManager.current
+            val isKeyboardVisible by remember {
+                derivedStateOf {
+                    imeInsets.getBottom(density) > 0
+                }
+            }
+            LaunchedEffect(isKeyboardVisible) {
+                if (!isKeyboardVisible) {
+                    focusManager.clearFocus()
+                }
+            }
+
             if (isLoaded) {
-                BooksHistoryResurrectionTheme(
+                BookStoryTheme(
                     theme = state.theme!!,
                     isDark = state.darkTheme!!.isDark(),
+                    isPureDark = state.pureDark!!.isPureDark(this),
                     themeContrast = state.themeContrast!!
                 ) {
                     NavigationHost(startScreen = Screen.LIBRARY) {

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.DisplaySettings
@@ -26,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.GoBackButton
+import ua.acclorite.book_story.presentation.components.collapsibleScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.settings.components.SettingsCategoryItem
@@ -35,17 +35,12 @@ import ua.acclorite.book_story.presentation.screens.settings.components.Settings
 fun SettingsScreen(
     navigator: Navigator
 ) {
-    val listState = rememberLazyListState()
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
-        canScroll = {
-            listState.canScrollForward || listState.canScrollBackward
-        }
-    )
+    val scrollState = TopAppBarDefaults.collapsibleScrollBehaviorWithLazyListState()
 
     Scaffold(
         Modifier
             .fillMaxSize()
-            .nestedScroll(scrollBehavior.nestedScrollConnection)
+            .nestedScroll(scrollState.first.nestedScrollConnection)
             .windowInsetsPadding(WindowInsets.navigationBars),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
@@ -56,7 +51,7 @@ fun SettingsScreen(
                 navigationIcon = {
                     GoBackButton(navigator = navigator)
                 },
-                scrollBehavior = scrollBehavior,
+                scrollBehavior = scrollState.first,
                 colors = TopAppBarDefaults.largeTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -68,7 +63,7 @@ fun SettingsScreen(
             Modifier
                 .fillMaxSize()
                 .padding(top = paddingValues.calculateTopPadding()),
-            state = listState
+            state = scrollState.second
         ) {
             item {
                 Spacer(modifier = Modifier.height(16.dp))

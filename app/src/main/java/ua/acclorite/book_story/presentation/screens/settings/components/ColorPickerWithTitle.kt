@@ -32,6 +32,7 @@ import ua.acclorite.book_story.presentation.components.CustomIconButton
  */
 @Composable
 fun ColorPickerWithTitle(
+    modifier: Modifier = Modifier,
     value: Color,
     title: String,
     horizontalPadding: Dp = 18.dp,
@@ -42,7 +43,7 @@ fun ColorPickerWithTitle(
     var color by remember { mutableStateOf(value) }
 
     Column(
-        Modifier
+        modifier
             .fillMaxWidth()
             .padding(vertical = verticalPadding, horizontal = horizontalPadding)
     ) {

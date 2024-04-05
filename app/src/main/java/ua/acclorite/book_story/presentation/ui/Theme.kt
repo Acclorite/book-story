@@ -1,7 +1,9 @@
 package ua.acclorite.book_story.presentation.ui
 
 import android.app.Activity
+import android.content.Context
 import android.os.Build
+import android.os.PowerManager
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -15,6 +17,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+
+@Immutable
+enum class PureDark {
+    OFF,
+    ON,
+    SAVER
+}
 
 @Immutable
 enum class ThemeContrast {
@@ -34,6 +43,10 @@ fun String.toDarkTheme(): DarkTheme {
     return DarkTheme.valueOf(this)
 }
 
+fun String.toPureDark(): PureDark {
+    return PureDark.valueOf(this)
+}
+
 fun String.toThemeContrast(): ThemeContrast {
     return ThemeContrast.valueOf(this)
 }
@@ -48,9 +61,21 @@ fun DarkTheme.isDark(): Boolean {
 }
 
 @Composable
-fun BooksHistoryResurrectionTheme(
+fun PureDark.isPureDark(context: Context): Boolean {
+    val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+
+    return when (this) {
+        PureDark.OFF -> false
+        PureDark.ON -> true
+        PureDark.SAVER -> powerManager.isPowerSaveMode
+    }
+}
+
+@Composable
+fun BookStoryTheme(
     theme: Theme,
     isDark: Boolean,
+    isPureDark: Boolean,
     themeContrast: ThemeContrast,
     content: @Composable () -> Unit
 ) {
@@ -76,6 +101,7 @@ fun BooksHistoryResurrectionTheme(
         theme = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) theme
         else if (theme != Theme.DYNAMIC) theme else Theme.BLUE,
         darkTheme = isDark,
+        isPureDark = isPureDark,
         themeContrast = themeContrast
     )
     val animatedColorScheme = animateColorScheme(targetColorScheme = colorScheme)
@@ -143,11 +169,13 @@ private fun animateColorScheme(targetColorScheme: ColorScheme): ColorScheme {
 fun animatedColorScheme(
     theme: Theme,
     isDark: Boolean,
+    isPureDark: Boolean,
     themeContrast: ThemeContrast
 ): ColorScheme {
     val colorScheme = colorScheme(
         theme = theme,
         darkTheme = isDark,
+        isPureDark = isPureDark,
         themeContrast = themeContrast
     )
 

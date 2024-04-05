@@ -6,7 +6,6 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -71,7 +70,6 @@ import ua.acclorite.book_story.presentation.ui.Transitions
 @OptIn(
     ExperimentalMaterial3Api::class,
     ExperimentalPermissionsApi::class,
-    ExperimentalFoundationApi::class,
     ExperimentalMaterialApi::class
 )
 @Composable
@@ -249,7 +247,7 @@ fun BrowseScreen(
                     ) { selectableFile ->
                         BrowseFileItem(
                             file = selectableFile,
-                            modifier = Modifier.animateItemPlacement(),
+                            modifier = Modifier.animateItem(),
                             hasSelectedFiles = state.selectableFiles.any { it.second },
                             onLongClick = {
                                 Toast.makeText(

@@ -1,7 +1,9 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="InconsistentArrays">
     <!-- Basic Strings -->
-    <string name="app_version" translatable="false">0.9.6</string>
+    <string name="app_version" translatable="false">0.9.7</string>
     <string name="app_name">Book\'s Story</string>
+
+    <!-- About sites -->
     <string name="releases_page" translatable="false">
         https://github.com/Acclorite/book-story/releases/latest
     </string>
@@ -17,6 +19,13 @@
     <string name="support_page" translatable="false">
         https://www.buymeacoffee.com/acclorite
     </string>
+
+    <!-- Book sources -->
+    <string-array name="book_sites">
+        <item>Anna\'s Archive|https://annas-archive.org</item>
+        <item>Project Gutenberg|https://www.gutenberg.org</item>
+        <item>Standard Ebooks|https://standardebooks.org</item>
+    </string-array>
 
     <!-- Screens -->
     <string name="library_screen">Library</string>
@@ -123,7 +132,7 @@
     <string name="continue_read">Continue</string>
     <string name="never">Never</string>
     <string name="go_back">Go back</string>
-    <string name="move_to_read">Move this book to \"Already Read\"</string>
+    <string name="move_to_read">Move this book to «Already Read»</string>
     <string name="back_to_library">Back to Library</string>
     <string name="undo">Undo</string>
     <string name="copy">Copy</string>
@@ -175,6 +184,7 @@
     <!-- Settings options -->
     <string name="language_option">App language</string>
     <string name="dark_theme_option">Dark theme</string>
+    <string name="pure_dark_option">Pure dark (OLED)</string>
     <string name="theme_contrast_option">Theme contrast</string>
     <string name="app_theme_option">App theme</string>
     <string name="font_family_option">Font family</string>
@@ -195,6 +205,11 @@
     <string name="dark_theme_off">Disabled</string>
     <string name="dark_theme_on">Enabled</string>
     <string name="dark_theme_follow_system">System</string>
+
+    <!-- Pure Dark properties -->
+    <string name="pure_dark_off">Disabled</string>
+    <string name="pure_dark_on">Enabled</string>
+    <string name="pure_dark_power_saver">Saver</string>
 
     <!-- Theme Contrast properties -->
     <string name="theme_contrast_standard">Standard</string>
@@ -272,10 +287,105 @@
     <string name="slava_ukraini_option_desc">Heroyam Slava! 🐉</string>
 
     <!-- Help -->
-    <string name="clickable_note_1">Please note, that</string>
-    <string name="clickable_note_2">such highlighted text</string>
-    <string name="clickable_note_3">can be clicked.</string>
-    <string name="clickable_note_action">I\'m clickable!</string>
+    <string name="help_clickable_note_1">Please note, that</string>
+    <string name="help_clickable_note_2">such highlighted text</string>
+    <string name="help_clickable_note_3">
+        can be clicked.
+        Also you can hide this note by clicking the icon, try it out!
+    </string>
+    <string name="help_clickable_note_action">I\'m clickable!</string>
+
+    <string name="help_title_how_to_find_books">How do I find and download books?</string>
+    <string name="help_desc_how_to_find_books">
+        You can try to find desired books using sites from provided note
+        or you can use text field to search for books online.
+    </string>
+    <string name="help_field_placeholder">Book\'s name</string>
+    <string name="help_field_support">Useful sites with books:</string>
+    <string name="help_field_error">Book\'s name should not be empty</string>
+
+    <string name="help_title_how_to_add_books">How do I add books to the Library?</string>
+    <string name="help_desc_how_to_add_books_1">Go to the</string>
+    <string name="help_desc_how_to_add_books_2">Browse</string>
+    <string name="help_desc_how_to_add_books_3">
+        If you don\'t see downloaded books try to refresh list by pulling it down.
+        Make sure your books has supported file format.
+        Then click the book to select it or hold to show it\'s location.
+        After you selected all books you want, click the checkmark icon in the upper right corner,
+        wait for all books to load and click «Add».
+        Now you should see all books you have added in the
+    </string>
+    <string name="help_desc_how_to_add_books_4">Library</string>
+
+    <string name="help_title_how_to_customize_app">How do I customize the app?</string>
+    <string name="help_desc_how_to_customize_app_1">Go to the</string>
+    <string name="help_desc_how_to_customize_app_2">Settings</string>
+    <string name="help_desc_how_to_customize_app_3">
+        You can do this from the Library, History and Browse screens
+        by clicking three dots in the upper right corner
+        and selecting «Settings» from the drop-down menu.
+        Then you will see all available settings for this app.
+        Feel free to experiment with those!
+    </string>
+
+    <string name="help_title_how_to_move_or_delete_books">How do I move or delete books?</string>
+    <string name="help_desc_how_to_move_or_delete_books_1">Go to the</string>
+    <string name="help_desc_how_to_move_or_delete_books_2">Library</string>
+    <string name="help_desc_how_to_move_or_delete_books_3">
+        Hold down the first book\'s cover image until it is selected,
+        now you can simply click all cover images of books you want to select.
+        You can also select books in multiple categories.
+        After you have chosen all desired books, you can click the arrow icon to move
+        and trash bin icon to delete books.
+    </string>
+
+    <string name="help_title_how_to_edit_book">How do I edit a book?</string>
+    <string name="help_desc_how_to_edit_book_1">Go to the</string>
+    <string name="help_desc_how_to_edit_book_2">Library</string>
+    <string name="help_desc_how_to_edit_book_3">
+        and click the book\'s cover image to see book\'s details.
+        Now you can hold down the book\'s title to edit title
+        or cover image to change or delete cover image.
+    </string>
+
+    <string name="help_title_how_to_read_book">How do I read a book?</string>
+    <string name="help_desc_how_to_read_book_1">Go to the</string>
+    <string name="help_desc_how_to_read_book_2">Library</string>
+    <string name="help_desc_how_to_read_book_3">
+        To start reading the book click the button in the bottom right corner of the book you want to read.
+        Also you can start reading the book by clicking it\'s cover image
+        to see book\'s details and then click the button in the bottom right corner.
+        The progress will be saved and restored automatically.
+        You can bring top and bottom bars by clicking anywhere on the screen.
+        By clicking the title of the book you will be transferred to the book\'s details.
+        By clicking the gear icon you will see Reader settings.
+        You can use bottom bar\'s slider to change progress.
+    </string>
+
+    <string name="help_title_how_to_customize_reader">How do I customize the Reader?</string>
+    <string name="help_desc_how_to_customize_reader_1">
+        Start reading the book(see: How do I read a book?),
+        after that bring top and bottom bars by clicking anywhere on the screen.
+        Then click the gear icon in the upper right corner.
+        This will show all Reader settings.
+        Second way is to go to the
+    </string>
+    <string name="help_desc_how_to_customize_reader_2">
+        Settings
+    </string>
+    <string name="help_desc_how_to_customize_reader_3">
+        and select Reader category to customize General settings,
+        or Appearance category to customize Colors settings.
+    </string>
+
+    <string name="help_title_how_to_update_book">How do I update a book?</string>
+    <string name="help_desc_how_to_update_book_1">Go to the</string>
+    <string name="help_desc_how_to_update_book_2">Library</string>
+    <string name="help_desc_how_to_update_book_3">
+        and click the book\'s cover image to see book\'s details.
+        Pull down the screen or click the refresh icon in the upper right corner to update the book.
+        If book\'s file changed you may confirm and update the book or cancel update.
+    </string>
 
     <!-- Font families -->
     <string name="default_font">Default</string>
@@ -309,5 +419,10 @@
     <string name="app_icon_content_desc">App icon</string>
     <string name="note_content_desc">Note</string>
     <string name="delete_history_element_content_desc">Delete history element</string>
+    <string name="library_content_desc">Your library</string>
+    <string name="history_content_desc">Reading history</string>
+    <string name="browse_content_desc">Add books</string>
+    <string name="arrow_content_desc">Arrow</string>
+    <string name="arrow_anim_content_desc">Arrow animation</string>
 
 </resources>

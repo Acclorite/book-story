@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
@@ -29,6 +28,7 @@ import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.components.GoBackButton
+import ua.acclorite.book_story.presentation.components.collapsibleScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Navigator
@@ -42,12 +42,7 @@ fun ReaderSettings(
     mainViewModel: MainViewModel,
     navigator: Navigator
 ) {
-    val listState = rememberLazyListState()
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
-        canScroll = {
-            listState.canScrollForward || listState.canScrollBackward
-        }
-    )
+    val scrollState = TopAppBarDefaults.collapsibleScrollBehaviorWithLazyListState()
 
     val state by mainViewModel.state.collectAsState()
     val fontFamily = remember(state.fontFamily) {
@@ -59,7 +54,7 @@ fun ReaderSettings(
     Scaffold(
         Modifier
             .fillMaxSize()
-            .nestedScroll(scrollBehavior.nestedScrollConnection)
+            .nestedScroll(scrollState.first.nestedScrollConnection)
             .windowInsetsPadding(WindowInsets.navigationBars),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
@@ -70,7 +65,7 @@ fun ReaderSettings(
                 navigationIcon = {
                     GoBackButton(navigator = navigator)
                 },
-                scrollBehavior = scrollBehavior,
+                scrollBehavior = scrollState.first,
                 colors = TopAppBarDefaults.largeTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -82,7 +77,7 @@ fun ReaderSettings(
             Modifier
                 .fillMaxSize()
                 .padding(top = paddingValues.calculateTopPadding()),
-            state = listState
+            state = scrollState.second
         ) {
             item {
                 Spacer(modifier = Modifier.height(16.dp))

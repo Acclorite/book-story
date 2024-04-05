@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -31,6 +32,9 @@ fun CustomIconButton(
     CustomTooltip(text = stringResource(id = contentDescription)) {
         IconButton(
             enabled = enabled && !isClicked,
+            modifier = Modifier.focusProperties {
+                canFocus = false
+            },
             onClick = {
                 if (disableOnClick) {
                     isClicked = true

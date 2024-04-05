@@ -52,6 +52,7 @@ class BookInfoViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     private var job: Job? = null
+    private var job2: Job? = null
 
     fun onEvent(event: BookInfoEvent) {
         when (event) {
@@ -290,14 +291,17 @@ class BookInfoViewModel @Inject constructor(
             }
 
             is BookInfoEvent.OnLoadUpdate -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                onEvent(BookInfoEvent.OnCancelUpdate)
+
+                job2 = viewModelScope.launch(Dispatchers.IO) {
                     _state.update {
                         it.copy(
-                            isRefreshing = true,
+                            isLoadingUpdate = true,
                             editTitle = false
                         )
                     }
 
+                    yield()
                     if (_state.value.book.file == null) {
                         onEvent(
                             BookInfoEvent.OnShowSnackbar(
@@ -323,13 +327,15 @@ class BookInfoViewModel @Inject constructor(
                         delay(500)
                         _state.update {
                             it.copy(
-                                isRefreshing = false
+                                isLoadingUpdate = false
                             )
                         }
                         return@launch
                     }
 
+                    yield()
                     val nullableBook = getBookFromFile.execute(_state.value.book.file!!)
+                    yield()
                     if (nullableBook is NullableBook.Null) {
                         onEvent(
                             BookInfoEvent.OnShowSnackbar(
@@ -352,11 +358,12 @@ class BookInfoViewModel @Inject constructor(
                         delay(500)
                         _state.update {
                             it.copy(
-                                isRefreshing = false
+                                isLoadingUpdate = false
                             )
                         }
                         return@launch
                     }
+                    yield()
 
                     val updatedBook = nullableBook.book?.first ?: return@launch
                     val book = _state.value.book
@@ -383,6 +390,7 @@ class BookInfoViewModel @Inject constructor(
                         textUpdated = true
                     }
 
+                    yield()
                     if (!authorUpdated && !descriptionUpdated && !textUpdated) {
                         onEvent(
                             BookInfoEvent.OnShowSnackbar(
@@ -395,12 +403,13 @@ class BookInfoViewModel @Inject constructor(
                         delay(500)
                         _state.update {
                             it.copy(
-                                isRefreshing = false
+                                isLoadingUpdate = false
                             )
                         }
                         return@launch
                     }
 
+                    yield()
                     onEvent(
                         BookInfoEvent.OnShowConfirmUpdateDialog(
                             updatedBook = updatedBook,
@@ -412,7 +421,7 @@ class BookInfoViewModel @Inject constructor(
 
                     _state.update {
                         it.copy(
-                            isRefreshing = false
+                            isLoadingUpdate = false
                         )
                     }
                 }
@@ -585,8 +594,19 @@ class BookInfoViewModel @Inject constructor(
                 }
             }
 
+            is BookInfoEvent.OnCancelUpdate -> {
+                _state.update {
+                    job2?.cancel()
+                    it.copy(
+                        showConfirmUpdateDialog = false,
+                        isLoadingUpdate = false
+                    )
+                }
+            }
+
             is BookInfoEvent.OnNavigateToReaderScreen -> {
                 viewModelScope.launch {
+                    onEvent(BookInfoEvent.OnCancelUpdate)
                     _state.value.book.id.let {
                         insertHistory.execute(
                             listOf(

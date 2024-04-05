@@ -15,7 +15,7 @@ android {
         minSdk = 26
         targetSdk = 34
         versionCode = 1
-        versionName = "0.9.6"
+        versionName = "0.9.7"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -66,7 +66,7 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.8.2")
 
     // Compose BOM libraries
-    implementation(platform("androidx.compose:compose-bom:2024.03.00"))
+    implementation(platform("androidx.compose:compose-bom:2024.04.00"))
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.animation:animation")
     implementation("androidx.compose.animation:animation-core")
@@ -90,7 +90,7 @@ dependencies {
     testImplementation("androidx.test.ext:truth:1.5.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:latest.release")
     testImplementation("io.mockk:mockk:latest.release")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.4")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.5")
 
     // Instrumentation tests
     androidTestImplementation("com.google.dagger:hilt-android-testing:latest.release")
@@ -109,7 +109,7 @@ dependencies {
     implementation("com.google.accompanist:accompanist-swiperefresh:0.24.2-alpha")
 
     // Dagger - Hilt
-    implementation("com.google.dagger:hilt-android:2.51")
+    implementation("com.google.dagger:hilt-android:2.51.1")
     ksp("com.google.dagger:hilt-android-compiler:2.51")
     implementation("com.google.dagger:hilt-compiler:latest.release")
     ksp("androidx.hilt:hilt-compiler:latest.release")
