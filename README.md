@@ -1,14 +1,12 @@
 # <p align="center">Book's Story 📖</p>
 
+<div align="center">
+  
+  <a href="">[![Latest Stable Release](https://img.shields.io/github/release/Acclorit/book-story.svg?label=Release&logo=GitHub)](https://github.com/Acclorite/book-story/releases)</a>
+</div>
+
 <img src="https://github.com/Acclorite/book-story/blob/master/assets/readme/github_overview.png">
 Material3 Book Reader built with Jetpack Compose and Kotlin.
-
-## ⬇️ Download
-<div align="center"> </br>
-  
-  <a href="">[![Book's Story](https://img.shields.io/github/release/Acclorite/book-story.svg?label=Latest%20Stable&labelColor=06599d&color=043b69)](https://github.com/Acclorite/book-story/releases)</a>
-  <p align="center"><em>Requires Android 8.0 (API level 26) or higher.</em></p>
-</div>
 
 ## 🖌️ Screenshots
 <div>
