@@ -21,30 +21,58 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.GoBackButton
-import ua.acclorite.book_story.presentation.components.collapsibleScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.about.components.AboutItem
+import ua.acclorite.book_story.presentation.screens.about.components.AboutUpdateDialog
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
+import ua.acclorite.book_story.presentation.screens.about.data.AboutState
 import ua.acclorite.book_story.presentation.screens.about.data.AboutViewModel
+
+@Composable
+fun AboutScreenRoot() {
+    val navigator = LocalNavigator.current
+    val aboutViewModel: AboutViewModel = hiltViewModel()
+
+    val state = aboutViewModel.state.collectAsState()
+
+    AboutScreen(
+        state = state,
+        navigator = navigator,
+        onEvent = aboutViewModel::onEvent
+    )
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AboutScreen(
-    viewModel: AboutViewModel = hiltViewModel(),
-    navigator: Navigator
+private fun AboutScreen(
+    state: State<AboutState>,
+    navigator: Navigator,
+    onEvent: (AboutEvent) -> Unit
 ) {
     val context = LocalContext.current
-    val scrollState = TopAppBarDefaults.collapsibleScrollBehaviorWithLazyListState()
+    val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
+
+    if (state.value.showUpdateDialog) {
+        AboutUpdateDialog(
+            state = state,
+            onEvent = onEvent
+        )
+    }
 
     Scaffold(
         Modifier
@@ -104,36 +132,32 @@ fun AboutScreen(
             item {
                 AboutItem(
                     title = stringResource(id = R.string.app_version_option),
-                    description = stringResource(
-                        id = R.string.app_version_option_desc,
-                        stringResource(id = R.string.app_version)
-                    ),
-                    isOnClickEnabled = false
-                )
-            }
-
-            item {
-                AboutItem(
-                    title = stringResource(id = R.string.all_releases_option),
-                    description = stringResource(
-                        id = R.string.all_releases_option_desc
-                    )
+                    description = buildAnnotatedString {
+                        append(
+                            stringResource(
+                                id = R.string.app_version_option_desc_1,
+                                context.getString(R.string.app_version)
+                            )
+                        )
+                        append("\n")
+                        append(stringResource(id = R.string.app_version_option_desc_2))
+                    }
                 ) {
-                    Toast.makeText(
-                        context,
-                        "${context.getString(R.string.app_version_option)}:" +
-                                " ${context.getString(R.string.app_version)}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    viewModel.onEvent(
-                        AboutEvent.OnNavigateToBrowserPage(
-                            context.getString(R.string.releases_page),
-                            context,
-                            noAppsFound = {
+                    onEvent(
+                        AboutEvent.OnCheckForUpdates(
+                            context = context,
+                            noUpdatesFound = {
                                 Toast.makeText(
                                     context,
-                                    context.getString(R.string.error_no_browser),
-                                    Toast.LENGTH_SHORT
+                                    context.getString(R.string.no_updates),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            },
+                            error = {
+                                Toast.makeText(
+                                    context,
+                                    context.getString(R.string.error_check_internet),
+                                    Toast.LENGTH_LONG
                                 ).show()
                             }
                         )
@@ -143,12 +167,10 @@ fun AboutScreen(
 
             item {
                 AboutItem(
-                    title = stringResource(id = R.string.issues_option),
-                    description = stringResource(
-                        id = R.string.issues_option_desc
-                    )
+                    title = stringResource(id = R.string.report_bug_option),
+                    description = null
                 ) {
-                    viewModel.onEvent(
+                    onEvent(
                         AboutEvent.OnNavigateToBrowserPage(
                             context.getString(R.string.issues_page),
                             context,
@@ -167,11 +189,9 @@ fun AboutScreen(
             item {
                 AboutItem(
                     title = stringResource(id = R.string.project_page_option),
-                    description = stringResource(
-                        id = R.string.project_page_option_desc
-                    )
+                    description = null
                 ) {
-                    viewModel.onEvent(
+                    onEvent(
                         AboutEvent.OnNavigateToBrowserPage(
                             context.getString(R.string.project_page),
                             context,
@@ -189,35 +209,10 @@ fun AboutScreen(
 
             item {
                 AboutItem(
-                    title = stringResource(id = R.string.my_page_option),
-                    description = stringResource(
-                        id = R.string.my_page_option_desc
-                    )
-                ) {
-                    viewModel.onEvent(
-                        AboutEvent.OnNavigateToBrowserPage(
-                            context.getString(R.string.my_page),
-                            context,
-                            noAppsFound = {
-                                Toast.makeText(
-                                    context,
-                                    context.getString(R.string.error_no_browser),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        )
-                    )
-                }
-            }
-
-            item {
-                AboutItem(
                     title = stringResource(id = R.string.support_option),
-                    description = stringResource(
-                        id = R.string.support_option_desc
-                    )
+                    description = null
                 ) {
-                    viewModel.onEvent(
+                    onEvent(
                         AboutEvent.OnNavigateToBrowserPage(
                             context.getString(R.string.support_page),
                             context,

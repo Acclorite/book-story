@@ -23,8 +23,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,15 +32,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CustomCoverImage
-import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
+import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
 
 /**
  * Reader start item. Displays at the beginning of the book.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ReaderStartItem(viewModel: ReaderViewModel) {
-    val state by viewModel.state.collectAsState()
+fun ReaderStartItem(state: State<ReaderState>) {
 
     Column(
         modifier = Modifier
@@ -61,9 +59,9 @@ fun ReaderStartItem(viewModel: ReaderViewModel) {
                     .clip(RoundedCornerShape(10.dp))
                     .background(MaterialTheme.colorScheme.surfaceContainerLow)
             ) {
-                if (state.book.coverImage != null) {
+                if (state.value.book.coverImage != null) {
                     CustomCoverImage(
-                        uri = state.book.coverImage!!,
+                        uri = state.value.book.coverImage!!,
                         modifier = Modifier
                             .fillMaxSize()
                             .clip(RoundedCornerShape(10.dp))
@@ -85,7 +83,7 @@ fun ReaderStartItem(viewModel: ReaderViewModel) {
 
             Column(verticalArrangement = Arrangement.Center) {
                 Text(
-                    state.book.title,
+                    state.value.book.title,
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier

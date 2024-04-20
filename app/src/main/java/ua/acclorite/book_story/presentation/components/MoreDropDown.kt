@@ -17,14 +17,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Screen
 
 /**
  * More drop down. Navigates to Settings, About and Help screens.
  */
 @Composable
-fun MoreDropDown(navigator: Navigator) {
+fun MoreDropDown() {
+    val navigator = LocalNavigator.current
     var showDropDown by remember { mutableStateOf(false) }
 
     val startPadding = remember { 12.dp }

@@ -29,6 +29,9 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.ui.SlidingTransition
 
+/**
+ * Help Item. Can be Expanded or Collapsed.
+ */
 @Composable
 fun LazyItemScope.HelpItem(
     title: String,

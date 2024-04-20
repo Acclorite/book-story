@@ -15,7 +15,7 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -23,32 +23,30 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.removeDigits
 import ua.acclorite.book_story.presentation.data.removeTrailingZero
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
-import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
-import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
+import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
 
 /**
  * Reader bottom bar. Has a slider to change progress.
  */
 @Composable
 fun ReaderBottomBar(
-    viewModel: ReaderViewModel,
-    libraryViewModel: LibraryViewModel,
-    historyViewModel: HistoryViewModel,
+    state: State<ReaderState>,
+    onEvent: (ReaderEvent) -> Unit,
+    onLibraryUpdateEvent: (LibraryEvent.OnUpdateBook) -> Unit,
+    onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit,
     listState: LazyListState,
-    navigator: Navigator,
-    systemBarsColor: Color
+    containerColor: Color
 ) {
-    val state by viewModel.state.collectAsState()
-    val progress by remember(state.book.progress) {
+    val navigator = LocalNavigator.current
+    val progress by remember(state.value.book.progress) {
         derivedStateOf {
-            (state.book.progress * 100)
+            (state.value.book.progress * 100)
                 .toDouble()
                 .removeDigits(4)
                 .removeTrailingZero()
@@ -59,7 +57,7 @@ fun ReaderBottomBar(
     Column(
         Modifier
             .fillMaxWidth()
-            .background(systemBarsColor)
+            .background(containerColor)
             .clickable(
                 interactionSource = null,
                 indication = null,
@@ -78,20 +76,20 @@ fun ReaderBottomBar(
         )
         Spacer(modifier = Modifier.height(3.dp))
         Slider(
-            value = state.book.progress,
-            enabled = !state.lockMenu,
+            value = state.value.book.progress,
+            enabled = !state.value.lockMenu,
             onValueChange = {
                 if (listState.layoutInfo.totalItemsCount > 0) {
-                    viewModel.onEvent(ReaderEvent.OnScroll(listState, it))
-                    viewModel.onEvent(
+                    onEvent(ReaderEvent.OnScroll(listState, it))
+                    onEvent(
                         ReaderEvent.OnChangeProgress(
                             progress = it,
                             navigator = navigator,
                             firstVisibleItemIndex = listState.firstVisibleItemIndex,
                             firstVisibleItemOffset = 0,
                             refreshList = { book ->
-                                libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(book))
-                                historyViewModel.onEvent(HistoryEvent.OnUpdateBook(book))
+                                onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(book))
+                                onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(book))
                             }
                         )
                     )

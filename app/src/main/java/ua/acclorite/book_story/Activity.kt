@@ -7,30 +7,15 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.calculateStartPadding
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.ime
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
-import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.unit.LayoutDirection
-import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,22 +24,27 @@ import ua.acclorite.book_story.presentation.components.custom_navigation_rail.Cu
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.NavigationHost
 import ua.acclorite.book_story.presentation.data.Screen
-import ua.acclorite.book_story.presentation.screens.about.AboutScreen
-import ua.acclorite.book_story.presentation.screens.book_info.BookInfoScreen
+import ua.acclorite.book_story.presentation.screens.about.AboutScreenRoot
+import ua.acclorite.book_story.presentation.screens.about.data.AboutViewModel
+import ua.acclorite.book_story.presentation.screens.book_info.BookInfoScreenRoot
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
-import ua.acclorite.book_story.presentation.screens.browse.BrowseScreen
+import ua.acclorite.book_story.presentation.screens.browse.BrowseScreenRoot
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
-import ua.acclorite.book_story.presentation.screens.help.HelpScreen
-import ua.acclorite.book_story.presentation.screens.history.HistoryScreen
+import ua.acclorite.book_story.presentation.screens.help.HelpScreenRoot
+import ua.acclorite.book_story.presentation.screens.help.data.HelpViewModel
+import ua.acclorite.book_story.presentation.screens.history.HistoryScreenRoot
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
-import ua.acclorite.book_story.presentation.screens.library.LibraryScreen
+import ua.acclorite.book_story.presentation.screens.library.LibraryScreenRoot
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
-import ua.acclorite.book_story.presentation.screens.reader.ReaderScreen
+import ua.acclorite.book_story.presentation.screens.reader.ReaderScreenRoot
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
-import ua.acclorite.book_story.presentation.screens.settings.SettingsScreen
-import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.AppearanceSettings
-import ua.acclorite.book_story.presentation.screens.settings.nested.general.GeneralSettings
-import ua.acclorite.book_story.presentation.screens.settings.nested.reader.ReaderSettings
+import ua.acclorite.book_story.presentation.screens.settings.SettingsScreenRoot
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
+import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.AppearanceSettingsRoot
+import ua.acclorite.book_story.presentation.screens.settings.nested.general.GeneralSettingsRoot
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.ReaderSettingsRoot
+import ua.acclorite.book_story.presentation.screens.start.StartScreenRoot
+import ua.acclorite.book_story.presentation.screens.start.data.StartViewModel
 import ua.acclorite.book_story.presentation.ui.BookStoryTheme
 import ua.acclorite.book_story.presentation.ui.Transitions
 import ua.acclorite.book_story.presentation.ui.isDark
@@ -62,16 +52,21 @@ import ua.acclorite.book_story.presentation.ui.isPureDark
 import java.lang.reflect.Field
 
 
+@Suppress("unused")
 @SuppressLint("DiscouragedPrivateApi")
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @AndroidEntryPoint
 class Activity : AppCompatActivity() {
+    // Initializing all viewModels on app startup
     private val mainViewModel: MainViewModel by viewModels()
     private val libraryViewModel: LibraryViewModel by viewModels()
     private val historyViewModel: HistoryViewModel by viewModels()
     private val browseViewModel: BrowseViewModel by viewModels()
     private val bookInfoViewModel: BookInfoViewModel by viewModels()
     private val readerViewModel: ReaderViewModel by viewModels()
+    private val helpViewModel: HelpViewModel by viewModels()
+    private val aboutViewModel: AboutViewModel by viewModels()
+    private val settingsViewModel: SettingsViewModel by viewModels()
+    private val startViewModel: StartViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,19 +98,6 @@ class Activity : AppCompatActivity() {
             val isLoaded by mainViewModel.isReady.collectAsState()
             val state by mainViewModel.state.collectAsState()
 
-            val windowClass = calculateWindowSizeClass(activity = this)
-            val tabletUI = remember(windowClass) {
-                windowClass.widthSizeClass != WindowWidthSizeClass.Compact
-            }
-            val localLayoutDirection = LocalLayoutDirection.current
-            val layoutDirection = remember(localLayoutDirection) {
-                if (localLayoutDirection == LayoutDirection.Ltr) {
-                    LayoutDirection.Ltr
-                } else {
-                    LayoutDirection.Rtl
-                }
-            }
-
             val density = LocalDensity.current
             val imeInsets = WindowInsets.ime
             val focusManager = LocalFocusManager.current
@@ -124,6 +106,7 @@ class Activity : AppCompatActivity() {
                     imeInsets.getBottom(density) > 0
                 }
             }
+
             LaunchedEffect(isKeyboardVisible) {
                 if (!isKeyboardVisible) {
                     focusManager.clearFocus()
@@ -137,175 +120,90 @@ class Activity : AppCompatActivity() {
                     isPureDark = state.pureDark!!.isPureDark(this),
                     themeContrast = state.themeContrast!!
                 ) {
-                    NavigationHost(startScreen = Screen.LIBRARY) {
-                        val currentScreen by this.getCurrentScreen().collectAsState()
-
-                        AnimatedVisibility(
-                            visible = currentScreen == Screen.LIBRARY ||
-                                    currentScreen == Screen.HISTORY ||
-                                    currentScreen == Screen.BROWSE,
-                            enter = Transitions.BackSlidingTransitionIn,
-                            exit = Transitions.SlidingTransitionOut
+                    NavigationHost(
+                        startScreen = if (state.showStartScreen!!) Screen.START
+                        else Screen.LIBRARY
+                    ) {
+                        navigation(
+                            screens = arrayOf(Screen.LIBRARY, Screen.HISTORY, Screen.BROWSE),
+                            bottomBar = {
+                                BottomNavigationBar()
+                            },
+                            navigationRail = {
+                                CustomNavigationRail()
+                            }
                         ) {
-                            Scaffold(
-                                bottomBar = {
-                                    if (!tabletUI) {
-                                        BottomNavigationBar(navigator = this@NavigationHost)
-                                    }
-                                },
-                                containerColor = MaterialTheme.colorScheme.surface
+                            // Library
+                            composable(
+                                screen = Screen.LIBRARY,
+                                enterAnim = Transitions.FadeTransitionIn,
+                                exitAnim = Transitions.FadeTransitionOut
                             ) {
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                ) {
-                                    Box(
-                                        modifier = Modifier
-                                            .fillMaxSize()
-                                            .padding(
-                                                end = it.calculateEndPadding(
-                                                    layoutDirection
-                                                ),
-                                                bottom = it.calculateBottomPadding(),
-                                                start = if (tabletUI) {
-                                                    80.dp + it.calculateStartPadding(
-                                                        layoutDirection
-                                                    )
-                                                } else {
-                                                    it.calculateStartPadding(
-                                                        layoutDirection
-                                                    )
-                                                },
-                                            )
-                                    ) {
-                                        composable(screen = Screen.LIBRARY) {
-                                            LibraryScreen(
-                                                viewModel = libraryViewModel,
-                                                historyViewModel = historyViewModel,
-                                                browseViewModel = browseViewModel,
-                                                navigator = this@NavigationHost
-                                            )
-                                        }
+                                LibraryScreenRoot()
+                            }
 
-                                        composable(screen = Screen.HISTORY) {
-                                            HistoryScreen(
-                                                viewModel = historyViewModel,
-                                                libraryViewModel = libraryViewModel,
-                                                navigator = this@NavigationHost
-                                            )
-                                        }
+                            // History
+                            composable(
+                                screen = Screen.HISTORY,
+                                enterAnim = Transitions.FadeTransitionIn,
+                                exitAnim = Transitions.FadeTransitionOut
+                            ) {
+                                HistoryScreenRoot()
+                            }
 
-                                        composable(screen = Screen.BROWSE) {
-                                            BrowseScreen(
-                                                viewModel = browseViewModel,
-                                                libraryViewModel = libraryViewModel,
-                                                navigator = this@NavigationHost
-                                            )
-                                        }
-                                    }
-
-                                    if (tabletUI) {
-                                        CustomNavigationRail(
-                                            navigator = this@NavigationHost,
-                                            layoutDirection = layoutDirection
-                                        )
-                                    }
-                                }
+                            // Browse
+                            composable(
+                                screen = Screen.BROWSE,
+                                enterAnim = Transitions.FadeTransitionIn,
+                                exitAnim = Transitions.FadeTransitionOut
+                            ) {
+                                BrowseScreenRoot()
                             }
                         }
 
                         // Book Info
-                        composable(
-                            screen = Screen.BOOK_INFO,
-                            enterAnim = Transitions.SlidingTransitionIn,
-                            exitAnim = Transitions.SlidingTransitionOut
-                        ) {
-                            BookInfoScreen(
-                                viewModel = bookInfoViewModel,
-                                libraryViewModel = libraryViewModel,
-                                browseViewModel = browseViewModel,
-                                historyViewModel = historyViewModel,
-                                navigator = this@NavigationHost
-                            )
+                        composable(screen = Screen.BOOK_INFO) {
+                            BookInfoScreenRoot()
                         }
-                        composable(
-                            screen = Screen.READER,
-                            enterAnim = Transitions.SlidingTransitionIn,
-                            exitAnim = Transitions.SlidingTransitionOut
-                        ) {
-                            ReaderScreen(
-                                viewModel = readerViewModel,
-                                mainViewModel = mainViewModel,
-                                libraryViewModel = libraryViewModel,
-                                historyViewModel = historyViewModel,
-                                navigator = this@NavigationHost
-                            )
+
+                        // Reader
+                        composable(screen = Screen.READER) {
+                            ReaderScreenRoot()
                         }
 
                         // Settings
-                        composable(
-                            screen = Screen.SETTINGS,
-                            enterAnim = Transitions.SlidingTransitionIn,
-                            exitAnim = Transitions.SlidingTransitionOut
-                        ) {
-                            SettingsScreen(
-                                navigator = this@NavigationHost
-                            )
+                        composable(screen = Screen.SETTINGS) {
+                            SettingsScreenRoot()
                         }
 
-                        // Nested categories
-                        composable(
-                            screen = Screen.GENERAL_SETTINGS,
-                            enterAnim = Transitions.SlidingTransitionIn,
-                            exitAnim = Transitions.SlidingTransitionOut
-                        ) {
-                            GeneralSettings(
-                                mainViewModel = mainViewModel,
-                                navigator = this@NavigationHost
-                            )
+                        // Nested settings categories
+                        composable(screen = Screen.GENERAL_SETTINGS) {
+                            GeneralSettingsRoot()
                         }
-                        composable(
-                            screen = Screen.APPEARANCE_SETTINGS,
-                            enterAnim = Transitions.SlidingTransitionIn,
-                            exitAnim = Transitions.SlidingTransitionOut
-                        ) {
-                            AppearanceSettings(
-                                mainViewModel = mainViewModel,
-                                navigator = this@NavigationHost
-                            )
+                        composable(screen = Screen.APPEARANCE_SETTINGS) {
+                            AppearanceSettingsRoot()
                         }
-                        composable(
-                            screen = Screen.READER_SETTINGS,
-                            enterAnim = Transitions.SlidingTransitionIn,
-                            exitAnim = Transitions.SlidingTransitionOut
-                        ) {
-                            ReaderSettings(
-                                mainViewModel = mainViewModel,
-                                navigator = this@NavigationHost
-                            )
+                        composable(screen = Screen.READER_SETTINGS) {
+                            ReaderSettingsRoot()
                         }
 
                         // About screen
-                        composable(
-                            screen = Screen.ABOUT,
-                            enterAnim = Transitions.SlidingTransitionIn,
-                            exitAnim = Transitions.SlidingTransitionOut
-                        ) {
-                            AboutScreen(navigator = this@NavigationHost)
-                        }
-                        // Help screen
-                        composable(
-                            screen = Screen.HELP,
-                            enterAnim = Transitions.SlidingTransitionIn,
-                            exitAnim = Transitions.SlidingTransitionOut
-                        ) {
-                            HelpScreen(navigator = this@NavigationHost)
+                        composable(screen = Screen.ABOUT) {
+                            AboutScreenRoot()
                         }
 
-//                        Start screen (later)
-//                        composable(screen = Screen.START) {
-//                            StartScreen()
-//                        }
+                        // Help screen
+                        composable(screen = Screen.HELP) {
+                            HelpScreenRoot()
+                        }
+
+                        // Start screen
+                        composable(
+                            screen = Screen.START,
+                            enterAnim = Transitions.FadeTransitionIn
+                        ) {
+                            StartScreenRoot()
+                        }
                     }
                 }
             }

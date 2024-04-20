@@ -10,6 +10,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.SideEffect
@@ -109,7 +110,7 @@ fun BookStoryTheme(
     MaterialTheme(
         colorScheme = animatedColorScheme,
         shapes = Shapes(),
-        typography = Typography,
+        typography = Typography(),
         content = content
     )
 }

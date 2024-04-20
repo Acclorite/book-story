@@ -9,7 +9,7 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,14 +21,17 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CustomDropDownMenuItem
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
-import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
+import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 
 /**
  * Book info more dropdown. Has three options: Delete, Move and Details.
  */
 @Composable
-fun BookInfoMoreDropDown(viewModel: BookInfoViewModel, snackbarState: SnackbarHostState) {
-    val state by viewModel.state.collectAsState()
+fun BookInfoMoreDropDown(
+    state: State<BookInfoState>,
+    onEvent: (BookInfoEvent) -> Unit,
+    snackbarState: SnackbarHostState
+) {
     var showDropDown by remember { mutableStateOf(false) }
 
     Box {
@@ -37,7 +40,7 @@ fun BookInfoMoreDropDown(viewModel: BookInfoViewModel, snackbarState: SnackbarHo
             contentDescription = R.string.show_dropdown_content_desc,
             disableOnClick = false,
             enabled = !showDropDown &&
-                    !state.isRefreshing
+                    !state.value.isRefreshing
         ) {
             showDropDown = true
         }
@@ -53,14 +56,14 @@ fun BookInfoMoreDropDown(viewModel: BookInfoViewModel, snackbarState: SnackbarHo
                 leadingIcon = Icons.AutoMirrored.Outlined.DriveFileMove,
                 text = stringResource(id = R.string.move_this_book)
             ) {
-                viewModel.onEvent(BookInfoEvent.OnShowHideMoveDialog)
+                onEvent(BookInfoEvent.OnShowHideMoveDialog)
                 showDropDown = false
             }
             CustomDropDownMenuItem(
                 leadingIcon = Icons.Outlined.Delete,
                 text = stringResource(id = R.string.delete_this_book)
             ) {
-                viewModel.onEvent(BookInfoEvent.OnShowHideDeleteDialog)
+                onEvent(BookInfoEvent.OnShowHideDeleteDialog)
                 showDropDown = false
             }
             CustomDropDownMenuItem(
@@ -68,7 +71,7 @@ fun BookInfoMoreDropDown(viewModel: BookInfoViewModel, snackbarState: SnackbarHo
                 text = stringResource(id = R.string.details_book)
             ) {
                 snackbarState.currentSnackbarData?.dismiss()
-                viewModel.onEvent(BookInfoEvent.OnShowHideDetailsBottomSheet)
+                onEvent(BookInfoEvent.OnShowHideDetailsBottomSheet)
                 showDropDown = false
             }
         }

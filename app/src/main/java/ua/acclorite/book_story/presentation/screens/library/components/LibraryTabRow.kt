@@ -30,7 +30,6 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.CategorizedBooks
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 
 /**
  * Tab row, either scrollable or static, depends on screen width.
@@ -38,7 +37,7 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewMode
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LibraryTabRow(
-    viewModel: LibraryViewModel,
+    onEvent: (LibraryEvent) -> Unit,
     books: List<CategorizedBooks>,
     pagerState: PagerState
 ) {
@@ -99,7 +98,7 @@ fun LibraryTabRow(
                     modifier = Modifier,
                     selected = pagerState.currentPage == index,
                     onClick = {
-                        viewModel.onEvent(LibraryEvent.OnScrollToPage(index, pagerState))
+                        onEvent(LibraryEvent.OnScrollToPage(index, pagerState))
                     },
                     selectedContentColor = MaterialTheme.colorScheme.primary,
                     unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,

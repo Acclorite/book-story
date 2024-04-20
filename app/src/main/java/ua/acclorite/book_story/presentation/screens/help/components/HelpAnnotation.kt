@@ -7,6 +7,9 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 
+/**
+ * Help clickable annotation. Mainly used for highlighting screens.
+ */
 @Composable
 fun AnnotatedString.Builder.HelpAnnotation(
     tag: String,

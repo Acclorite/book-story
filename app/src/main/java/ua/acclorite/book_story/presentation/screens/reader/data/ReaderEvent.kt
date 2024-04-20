@@ -3,9 +3,11 @@ package ua.acclorite.book_story.presentation.screens.reader.data
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.presentation.data.Navigator
 
+@Immutable
 sealed class ReaderEvent {
     data class OnTextIsEmpty(val onLoaded: () -> Unit) : ReaderEvent()
     data class OnLoadText(

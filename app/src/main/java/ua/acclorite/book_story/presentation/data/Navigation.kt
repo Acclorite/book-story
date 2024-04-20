@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package ua.acclorite.book_story.presentation.data
 
 import android.annotation.SuppressLint
@@ -5,19 +7,33 @@ import android.os.Parcelable
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.viewModels
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -30,6 +46,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
+import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.ui.Transitions
 import java.io.Serializable
 
@@ -38,6 +55,10 @@ private const val CURRENT_SCREEN = "current_screen"
 private const val BACKSTACK = "back_stack"
 private const val USE_BACK_ANIM = "use_back_animation"
 private const val ARGUMENTS = "arguments"
+
+val LocalNavigator = compositionLocalOf<Navigator> {
+    error("Cannot initialize Navigator.")
+}
 
 /**
  * All screens are listed here, later each screen will be passed as a param for [Navigator.composable] function.
@@ -71,7 +92,7 @@ data class Argument<out T : Serializable>(
 ) : Parcelable
 
 /**
- * Navigator. Using for navigation between screens.
+ * Navigator. Using to navigate between screens.
  *
  * [Navigator.currentScreen] param represents current [Screen].
  * [Navigator.navigate] navigates to [Screen] passed as param.
@@ -134,7 +155,7 @@ class Navigator @AssistedInject constructor(
         useBackAnimation: Boolean,
         vararg args: Argument<Serializable>
     ) = viewModelScope.launch(Dispatchers.Default) {
-        if (backStack.value.last() == screen) {
+        if (backStack.value.lastOrNull() == screen) {
             backStack.value.removeLast()
         }
 
@@ -155,12 +176,20 @@ class Navigator @AssistedInject constructor(
             }
         }
 
+    fun clearBackStack() {
+        backStack.value.clear()
+    }
+
     fun canGoBack(): Boolean {
         return backStack.value.isNotEmpty()
     }
 
     fun getCurrentScreen(): StateFlow<Screen> {
         return currentScreen
+    }
+
+    fun getUseBackAnim(): StateFlow<Boolean> {
+        return useBackAnimation
     }
 
     /**
@@ -177,19 +206,91 @@ class Navigator @AssistedInject constructor(
     @Composable
     fun composable(
         screen: Screen,
-        enterAnim: EnterTransition = Transitions.FadeTransitionIn,
+        enterAnim: EnterTransition = Transitions.SlidingTransitionIn,
         backEnterAnim: EnterTransition = Transitions.BackSlidingTransitionIn,
-        exitAnim: ExitTransition = Transitions.FadeTransitionOut,
+        exitAnim: ExitTransition = Transitions.SlidingTransitionOut,
         backExitAnim: ExitTransition = Transitions.BackSlidingTransitionOut,
         content: @Composable () -> Unit
     ) {
-        AnimatedVisibility(
+        CustomAnimatedVisibility(
             visible = getCurrentScreen().collectAsState().value == screen,
             enter = if (!useBackAnimation.collectAsState().value) enterAnim else backEnterAnim,
-            exit = if (!useBackAnimation.collectAsState().value) exitAnim else backExitAnim,
-            label = ""
+            exit = if (!useBackAnimation.collectAsState().value) exitAnim else backExitAnim
         ) {
             content()
+        }
+    }
+
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+    @SuppressLint("ComposableNaming")
+    @Composable
+    fun navigation(
+        vararg screens: Screen,
+        bottomBar: @Composable () -> Unit,
+        navigationRail: @Composable BoxScope.() -> Unit,
+        content: @Composable () -> Unit
+    ) {
+        val activity = LocalContext.current as ComponentActivity
+        val currentScreen by getCurrentScreen().collectAsState()
+        val useBackAnimation by getUseBackAnim().collectAsState()
+        val shouldShow by remember(currentScreen) {
+            derivedStateOf {
+                screens.any { it == currentScreen }
+            }
+        }
+
+        val windowClass = calculateWindowSizeClass(activity = activity)
+        val tabletUI = remember(windowClass) {
+            windowClass.widthSizeClass != WindowWidthSizeClass.Compact
+        }
+        val layoutDirection = LocalLayoutDirection.current
+
+        CustomAnimatedVisibility(
+            visible = shouldShow,
+            enter = if (useBackAnimation) Transitions.BackSlidingTransitionIn
+            else Transitions.SlidingTransitionIn,
+            exit = if (useBackAnimation) Transitions.BackSlidingTransitionOut
+            else Transitions.SlidingTransitionOut
+        ) {
+            Scaffold(
+                bottomBar = {
+                    if (!tabletUI) {
+                        bottomBar()
+                    }
+                },
+                containerColor = MaterialTheme.colorScheme.surface
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(
+                                end = it.calculateEndPadding(
+                                    layoutDirection
+                                ),
+                                bottom = it.calculateBottomPadding(),
+                                start = if (tabletUI) {
+                                    80.dp + it.calculateStartPadding(
+                                        layoutDirection
+                                    )
+                                } else {
+                                    it.calculateStartPadding(
+                                        layoutDirection
+                                    )
+                                },
+                            )
+                    ) {
+                        content()
+                    }
+
+                    if (tabletUI) {
+                        navigationRail()
+                    }
+                }
+            }
         }
     }
 
@@ -214,7 +315,6 @@ fun NavigationHost(
     content: @Composable Navigator.() -> Unit
 ) {
     val activity = LocalContext.current as ComponentActivity
-
     val navigator by activity.viewModels<Navigator>(
         extrasProducer = {
             activity
@@ -234,10 +334,12 @@ fun NavigationHost(
     }
 
     Box(
-        modifier = Modifier
+        Modifier
             .fillMaxSize()
             .background(colorBetweenAnimations)
     )
 
-    content(navigator)
+    CompositionLocalProvider(LocalNavigator provides navigator) {
+        content(navigator)
+    }
 }

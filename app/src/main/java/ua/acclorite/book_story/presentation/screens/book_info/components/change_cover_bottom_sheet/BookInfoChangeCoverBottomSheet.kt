@@ -18,19 +18,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
-import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
+import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
-import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 
 /**
  * Change cover bottom sheet. Lets user select photo from the gallery and replaces old one.
@@ -38,26 +35,25 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewMode
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookInfoChangeCoverBottomSheet(
-    libraryViewModel: LibraryViewModel,
-    historyViewModel: HistoryViewModel,
-    viewModel: BookInfoViewModel
+    state: State<BookInfoState>,
+    onEvent: (BookInfoEvent) -> Unit,
+    onLibraryUpdateEvent: (LibraryEvent.OnUpdateBook) -> Unit,
+    onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit
 ) {
-    val state by viewModel.state.collectAsState()
     val context = LocalContext.current
     val navigationBarPadding =
         WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
-
     val photoPicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = { uri ->
             if (uri != null) {
-                viewModel.onEvent(
+                onEvent(
                     BookInfoEvent.OnChangeCover(
                         uri,
                         context,
                         refreshList = {
-                            libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
-                            historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
+                            onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
+                            onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
                         }
                     )
                 )
@@ -73,7 +69,7 @@ fun BookInfoChangeCoverBottomSheet(
     ModalBottomSheet(
         modifier = Modifier.fillMaxWidth(),
         onDismissRequest = {
-            viewModel.onEvent(BookInfoEvent.OnShowHideChangeCoverBottomSheet)
+            onEvent(BookInfoEvent.OnShowHideChangeCoverBottomSheet)
         },
         sheetState = rememberModalBottomSheetState(true),
         windowInsets = WindowInsets(0, 0, 0, 0),
@@ -90,17 +86,17 @@ fun BookInfoChangeCoverBottomSheet(
             )
         }
 
-        if (state.book.coverImage != null) {
+        if (state.value.book.coverImage != null) {
             BookInfoChangeCoverBottomSheetItem(
                 icon = Icons.Default.HideImage,
                 text = stringResource(id = R.string.delete_cover),
                 description = stringResource(id = R.string.delete_cover_desc)
             ) {
-                viewModel.onEvent(
+                onEvent(
                     BookInfoEvent.OnDeleteCover(
                         refreshList = {
-                            libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
-                            historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
+                            onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
+                            onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
                         }
                     )
                 )

@@ -154,6 +154,12 @@ class LibraryViewModel @Inject constructor(
                 job = viewModelScope.launch(Dispatchers.IO) {
                     delay(500)
                     yield()
+                    onEvent(LibraryEvent.OnSearch)
+                }
+            }
+
+            is LibraryEvent.OnSearch -> {
+                viewModelScope.launch(Dispatchers.IO) {
                     getBooksFromDatabase()
                 }
             }
@@ -237,7 +243,20 @@ class LibraryViewModel @Inject constructor(
                     }.map { it.first.copy(category = _state.value.selectedCategory) }
                     updateBooks.execute(books)
 
-                    getBooksFromDatabase()
+                    _state.update {
+                        it.copy(
+                            books = it.books.map { book ->
+                                if (book.second) {
+                                    book.copy(
+                                        first = book.first.copy(category = _state.value.selectedCategory)
+                                    )
+                                } else {
+                                    book
+                                }
+                            }
+                        )
+                    }
+                    onEvent(LibraryEvent.OnRecalculateCategories(_state.value.books))
                     event.refreshList()
 
                     onEvent(LibraryEvent.OnClearSelectedBooks)
@@ -264,8 +283,7 @@ class LibraryViewModel @Inject constructor(
                 viewModelScope.launch {
                     _state.update {
                         it.copy(
-                            showDeleteDialog = false,
-                            isLoading = true
+                            showDeleteDialog = false
                         )
                     }
 
@@ -274,7 +292,12 @@ class LibraryViewModel @Inject constructor(
                     }.map { it.first }
                     deleteBooks.execute(books)
 
-                    getBooksFromDatabase()
+                    _state.update {
+                        it.copy(
+                            books = it.books.filter { book -> !book.second }
+                        )
+                    }
+                    onEvent(LibraryEvent.OnRecalculateCategories(_state.value.books))
                     event.refreshList()
 
                     onEvent(LibraryEvent.OnClearSelectedBooks)

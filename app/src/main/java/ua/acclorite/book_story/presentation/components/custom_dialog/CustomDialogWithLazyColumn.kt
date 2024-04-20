@@ -49,7 +49,8 @@ import ua.acclorite.book_story.R
  * @param title The title of the dialog.
  * @param description The description of the dialog.
  * @param actionText The action text of the dialog.
- * @param isActionEnabled Whether action is enabled or not,
+ * @param disableOnClick Whether should all actions be disabled after clicking it.
+ * @param isActionEnabled Whether action is enabled or not.
  * @param onDismiss Code to execute when the dialog is dismissed.
  * @param onAction Code to execute when action is clicked.
  * @param withDivider Should divider be shown or not.
@@ -65,6 +66,7 @@ fun CustomDialogWithLazyColumn(
     title: String,
     description: String?,
     actionText: String?,
+    disableOnClick: Boolean = true,
     isActionEnabled: Boolean?,
     onDismiss: () -> Unit,
     onAction: () -> Unit,
@@ -162,7 +164,9 @@ fun CustomDialogWithLazyColumn(
                         ) {
                             TextButton(
                                 onClick = {
-                                    actionClicked = true
+                                    if (disableOnClick) {
+                                        actionClicked = true
+                                    }
                                     onDismiss()
                                 },
                                 enabled = !actionClicked
@@ -177,7 +181,9 @@ fun CustomDialogWithLazyColumn(
                                 Spacer(modifier = Modifier.width(4.dp))
                                 TextButton(
                                     onClick = {
-                                        actionClicked = true
+                                        if (disableOnClick) {
+                                            actionClicked = true
+                                        }
                                         onAction()
                                     },
                                     enabled = isActionEnabled == true && !actionClicked

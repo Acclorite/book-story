@@ -3,6 +3,7 @@
 package ua.acclorite.book_story.presentation.screens.browse.data
 
 import androidx.activity.ComponentActivity
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.focus.FocusRequester
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
@@ -11,13 +12,12 @@ import ua.acclorite.book_story.domain.util.Selected
 import ua.acclorite.book_story.presentation.data.Navigator
 import java.io.File
 
+@Immutable
 sealed class BrowseEvent {
     data class OnStoragePermissionRequest(
-        val activity: ComponentActivity, val hideErrorMessage: () -> Unit
-    ) : BrowseEvent()
-
-    data class OnLegacyStoragePermissionRequest(
-        val permissionState: PermissionState, val hideErrorMessage: () -> Unit
+        val activity: ComponentActivity,
+        val storagePermissionState: PermissionState,
+        val hideErrorMessage: () -> Unit
     ) : BrowseEvent()
 
     data class OnStoragePermissionDismiss(
@@ -36,6 +36,7 @@ sealed class BrowseEvent {
     data class OnRequestFocus(val focusRequester: FocusRequester) : BrowseEvent()
     data object OnClearSelectedFiles : BrowseEvent()
     data class OnSearchQueryChange(val query: String) : BrowseEvent()
+    data object OnSearch : BrowseEvent()
     data object OnAddingDialogRequest : BrowseEvent()
     data object OnAddingDialogDismiss : BrowseEvent()
     data object OnGetBooksFromFiles : BrowseEvent()

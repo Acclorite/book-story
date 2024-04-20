@@ -10,6 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+/**
+ * Custom Tooltip.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomTooltip(text: String, padding: Dp = 14.dp, content: @Composable () -> Unit) {

@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.components
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -82,7 +81,7 @@ fun CustomSnackbar(modifier: Modifier = Modifier, snackbarState: SnackbarHostSta
         showSnackbar = true
     }
 
-    AnimatedVisibility(
+    CustomAnimatedVisibility(
         visible = showSnackbar,
         enter = slideInVertically(tween(350)) { it } + fadeIn(tween(350)),
         exit = slideOutVertically(tween(200)) { it } + fadeOut(tween(100))

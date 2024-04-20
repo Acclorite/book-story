@@ -15,18 +15,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /**
  * Selectable dialog item. Perfectly combines with [CustomDialogWithLazyColumn].
  */
 @Composable
-fun SelectableDialogItem(selected: Boolean, title: String, onClick: () -> Unit) {
+fun SelectableDialogItem(
+    selected: Boolean,
+    title: String,
+    horizontalPadding: Dp = 24.dp,
+    onClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(enabled = !selected) { onClick() }
-            .padding(horizontal = 24.dp, vertical = 12.dp),
+            .padding(horizontal = horizontalPadding, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         RadioButton(

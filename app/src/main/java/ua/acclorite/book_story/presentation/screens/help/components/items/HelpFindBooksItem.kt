@@ -16,8 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
@@ -31,12 +30,14 @@ import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.screens.help.components.HelpAnnotation
 import ua.acclorite.book_story.presentation.screens.help.components.HelpItem
 import ua.acclorite.book_story.presentation.screens.help.data.HelpEvent
-import ua.acclorite.book_story.presentation.screens.help.data.HelpViewModel
+import ua.acclorite.book_story.presentation.screens.help.data.HelpState
 import ua.acclorite.book_story.presentation.ui.SlidingTransition
 
 @Composable
-fun LazyItemScope.HelpFindBooksItem(viewModel: HelpViewModel) {
-    val state by viewModel.state.collectAsState()
+fun LazyItemScope.HelpFindBooksItem(
+    state: State<HelpState>,
+    onEvent: (HelpEvent) -> Unit
+) {
     val context = LocalContext.current
 
     val sites = stringArrayResource(id = R.array.book_sites)
@@ -60,34 +61,38 @@ fun LazyItemScope.HelpFindBooksItem(viewModel: HelpViewModel) {
             append(stringResource(id = R.string.help_desc_how_to_find_books))
         },
         tags = emptyList(),
-        shouldShowDescription = state.showHelpItem1,
+        shouldShowDescription = state.value.showHelpItem1,
         onTitleClick = {
-            viewModel.onUpdate {
-                it.copy(
-                    showHelpItem1 = !it.showHelpItem1
-                )
-            }
+            onEvent(
+                HelpEvent.OnUpdateState {
+                    it.copy(
+                        showHelpItem1 = !it.showHelpItem1
+                    )
+                }
+            )
         },
         customContent = {
             Spacer(modifier = Modifier.height(4.dp))
             OutlinedTextField(
-                value = state.textFieldValue,
+                value = state.value.textFieldValue,
                 modifier = Modifier
                     .fillMaxWidth(),
                 onValueChange = { value ->
-                    viewModel.onUpdate {
-                        it.copy(
-                            textFieldValue = value,
-                            showError = false
-                        )
-                    }
+                    onEvent(
+                        HelpEvent.OnUpdateState {
+                            it.copy(
+                                textFieldValue = value,
+                                showError = false
+                            )
+                        }
+                    )
                 },
                 label = {
                     Text(text = stringResource(id = R.string.help_field_placeholder))
                 },
                 keyboardActions = KeyboardActions(
                     onSearch = {
-                        viewModel.onEvent(
+                        onEvent(
                             HelpEvent.OnSearchInWeb(
                                 context = context,
                                 noAppsFound = {
@@ -110,14 +115,14 @@ fun LazyItemScope.HelpFindBooksItem(viewModel: HelpViewModel) {
                         icon = Icons.Default.Search,
                         contentDescription = R.string.search_content_desc,
                         disableOnClick = false,
-                        enabled = !state.showError,
-                        color = if (state.showError) {
+                        enabled = !state.value.showError,
+                        color = if (state.value.showError) {
                             MaterialTheme.colorScheme.outline
                         } else {
                             MaterialTheme.colorScheme.primary
                         }
                     ) {
-                        viewModel.onEvent(
+                        onEvent(
                             HelpEvent.OnSearchInWeb(
                                 context = context,
                                 noAppsFound = {
@@ -135,14 +140,14 @@ fun LazyItemScope.HelpFindBooksItem(viewModel: HelpViewModel) {
                     Column {
                         Spacer(modifier = Modifier.height(2.dp))
                         Box {
-                            SlidingTransition(visible = state.showError) {
+                            SlidingTransition(visible = state.value.showError) {
                                 Text(
                                     text = stringResource(id = R.string.help_field_error),
                                     color = MaterialTheme.colorScheme.error,
                                     style = MaterialTheme.typography.bodySmall
                                 )
                             }
-                            SlidingTransition(visible = !state.showError) {
+                            SlidingTransition(visible = !state.value.showError) {
                                 ClickableText(
                                     text = text,
                                     style = MaterialTheme.typography.bodySmall.copy(
@@ -155,7 +160,7 @@ fun LazyItemScope.HelpFindBooksItem(viewModel: HelpViewModel) {
                                             start = offset,
                                             end = offset
                                         ).firstOrNull()?.let {
-                                            viewModel.onEvent(
+                                            onEvent(
                                                 HelpEvent.OnNavigateToBrowserPage(
                                                     page = tag.substringAfterLast("|"),
                                                     context = context,

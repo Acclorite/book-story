@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ua.acclorite.book_story.data.local.data_store.DataStore
 import ua.acclorite.book_story.data.local.data_store.DataStoreImpl
+import ua.acclorite.book_story.data.local.notification.UpdatesNotificationService
+import ua.acclorite.book_story.data.local.notification.UpdatesNotificationServiceImpl
 import ua.acclorite.book_story.data.mapper.book.BookMapper
 import ua.acclorite.book_story.data.mapper.book.BookMapperImpl
 import ua.acclorite.book_story.data.mapper.history.HistoryMapper
@@ -56,4 +58,10 @@ abstract class RepositoryModule {
     abstract fun bindTextParser(
         textParserImpl: TextParserImpl
     ): TextParser
+
+    @Binds
+    @Singleton
+    abstract fun bindNotificationService(
+        updatesNotificationServiceImpl: UpdatesNotificationServiceImpl
+    ): UpdatesNotificationService
 }

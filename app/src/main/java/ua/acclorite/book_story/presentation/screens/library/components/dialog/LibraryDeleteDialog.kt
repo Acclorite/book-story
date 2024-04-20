@@ -4,29 +4,26 @@ import android.widget.Toast
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DeleteOutline
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithContent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
-import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
-import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryState
 
 /**
  * Delete dialog. Deletes all selected books.
  */
 @Composable
 fun LibraryDeleteDialog(
-    viewModel: LibraryViewModel,
-    browseViewModel: BrowseViewModel,
-    historyViewModel: HistoryViewModel
+    state: State<LibraryState>,
+    onEvent: (LibraryEvent) -> Unit,
+    onBrowseLoadEvent: (BrowseEvent.OnLoadList) -> Unit,
+    onHistoryLoadEvent: (HistoryEvent.OnLoadList) -> Unit
 ) {
-    val state by viewModel.state.collectAsState()
     val context = LocalContext.current
 
     CustomDialogWithContent(
@@ -34,17 +31,17 @@ fun LibraryDeleteDialog(
         imageVectorIcon = Icons.Outlined.DeleteOutline,
         description = stringResource(
             id = R.string.delete_books_description,
-            state.books.filter { it.second }.size
+            state.value.books.filter { it.second }.size
         ),
         actionText = stringResource(id = R.string.delete),
-        onDismiss = { viewModel.onEvent(LibraryEvent.OnShowHideDeleteDialog) },
+        onDismiss = { onEvent(LibraryEvent.OnShowHideDeleteDialog) },
         withDivider = false,
         isActionEnabled = true,
         onAction = {
-            viewModel.onEvent(
+            onEvent(
                 LibraryEvent.OnDeleteBooks {
-                    browseViewModel.onEvent(BrowseEvent.OnLoadList)
-                    historyViewModel.onEvent(HistoryEvent.OnLoadList)
+                    onBrowseLoadEvent(BrowseEvent.OnLoadList)
+                    onHistoryLoadEvent(HistoryEvent.OnLoadList)
                 }
             )
             Toast.makeText(

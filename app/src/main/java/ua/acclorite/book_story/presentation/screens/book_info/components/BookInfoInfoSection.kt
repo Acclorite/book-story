@@ -24,8 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,23 +34,23 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.presentation.components.CustomCoverImage
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
-import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
+import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 
 /**
  * Info section.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun BookInfoInfoSection(viewModel: BookInfoViewModel, book: Book) {
-    val state by viewModel.state.collectAsState()
+fun BookInfoInfoSection(
+    state: State<BookInfoState>,
+    onEvent: (BookInfoEvent) -> Unit
+) {
     val focusRequester = remember { FocusRequester() }
 
     Row(
@@ -70,13 +69,13 @@ fun BookInfoInfoSection(viewModel: BookInfoViewModel, book: Book) {
                     indication = null,
                     onClick = {},
                     onLongClick = {
-                        viewModel.onEvent(BookInfoEvent.OnShowHideChangeCoverBottomSheet)
+                        onEvent(BookInfoEvent.OnShowHideChangeCoverBottomSheet)
                     }
                 )
         ) {
-            if (book.coverImage != null) {
+            if (state.value.book.coverImage != null) {
                 CustomCoverImage(
-                    uri = book.coverImage,
+                    uri = state.value.book.coverImage!!,
                     modifier = Modifier
                         .fillMaxSize()
                         .clip(MaterialTheme.shapes.medium)
@@ -97,9 +96,9 @@ fun BookInfoInfoSection(viewModel: BookInfoViewModel, book: Book) {
         Spacer(modifier = Modifier.width(12.dp))
 
         Column(verticalArrangement = Arrangement.Center) {
-            if (!state.editTitle) {
+            if (!state.value.editTitle) {
                 Text(
-                    book.title,
+                    state.value.book.title,
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.headlineSmall,
                     modifier = Modifier
@@ -109,7 +108,7 @@ fun BookInfoInfoSection(viewModel: BookInfoViewModel, book: Book) {
                             indication = null,
                             onClick = {},
                             onLongClick = {
-                                viewModel.onEvent(BookInfoEvent.OnShowHideEditTitle)
+                                onEvent(BookInfoEvent.OnShowHideEditTitle)
                             }
                         ),
                     maxLines = 4,
@@ -118,22 +117,19 @@ fun BookInfoInfoSection(viewModel: BookInfoViewModel, book: Book) {
             } else {
                 BasicTextField(
                     maxLines = 4,
-                    value = state.titleValue,
-                    textStyle = TextStyle(
-                        color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = MaterialTheme.typography.headlineSmall.fontSize,
-                        lineHeight = MaterialTheme.typography.headlineSmall.lineHeight,
-                        fontFamily = MaterialTheme.typography.headlineSmall.fontFamily
+                    value = state.value.titleValue,
+                    textStyle = MaterialTheme.typography.headlineSmall.copy(
+                        color = MaterialTheme.colorScheme.onSurface
                     ),
                     onValueChange = {
-                        if (it.length < 100 || it.length < state.titleValue.length) {
-                            viewModel.onEvent(BookInfoEvent.OnTitleValueChange(it))
+                        if (it.length < 100 || it.length < state.value.titleValue.length) {
+                            onEvent(BookInfoEvent.OnTitleValueChange(it))
                         }
                     },
                     modifier = Modifier
                         .focusRequester(focusRequester)
                         .onGloballyPositioned {
-                            viewModel.onEvent(BookInfoEvent.OnRequestFocus(focusRequester))
+                            onEvent(BookInfoEvent.OnRequestFocus(focusRequester))
                         },
                     keyboardOptions = KeyboardOptions(KeyboardCapitalization.Words),
                     cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurfaceVariant)
@@ -149,7 +145,7 @@ fun BookInfoInfoSection(viewModel: BookInfoViewModel, book: Book) {
             Spacer(modifier = Modifier.height(4.dp))
             SelectionContainer {
                 Text(
-                    book.author.asString(),
+                    state.value.book.author.asString(),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier

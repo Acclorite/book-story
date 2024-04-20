@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.domain.use_case.ChangeLanguage
+import ua.acclorite.book_story.domain.use_case.CheckForUpdates
 import ua.acclorite.book_story.domain.use_case.GetAllSettings
 import ua.acclorite.book_story.domain.use_case.SetDatastore
 import ua.acclorite.book_story.domain.util.Constants
@@ -33,6 +34,7 @@ class MainViewModel @Inject constructor(
 
     private val setDatastore: SetDatastore,
     private val changeLanguage: ChangeLanguage,
+    private val checkForUpdates: CheckForUpdates,
     private val getAllSettings: GetAllSettings
 ) : ViewModel() {
 
@@ -42,8 +44,8 @@ class MainViewModel @Inject constructor(
     private val isSettingsReady = MutableStateFlow(false)
     private val isViewModelReady = MutableStateFlow(false)
 
-    private val _state: MutableStateFlow<MainState> = MutableStateFlow(
-        stateHandle[Constants.MAIN_STATE] ?: MainState()
+    private val _state: MutableStateFlow<MainSettingsState> = MutableStateFlow(
+        stateHandle[Constants.MAIN_STATE] ?: MainSettingsState()
     )
     val state = _state.asStateFlow()
 
@@ -203,17 +205,36 @@ class MainViewModel @Inject constructor(
                     }
                 }
             }
+
+            is MainEvent.OnChangeCheckForUpdates -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.CHECK_FOR_UPDATES, event.bool)
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            checkForUpdates = event.bool
+                        )
+                    }
+                }
+            }
         }
     }
 
     fun init(
-        libraryViewModel: LibraryViewModel,
+        libraryViewModel: LibraryViewModel
     ) {
         viewModelScope.launch(Dispatchers.Main) {
             val settings = getAllSettings.execute(viewModelScope)
 
             // All additional execution
             changeLanguage.execute(settings.language!!)
+
+            if (settings.checkForUpdates == true) {
+                viewModelScope.launch(Dispatchers.IO) {
+                    checkForUpdates.execute(
+                        postNotification = true
+                    )
+                }
+            }
 
             updateStateWithSavedHandle {
                 settings
@@ -249,10 +270,10 @@ class MainViewModel @Inject constructor(
     }
 
     /**
-     * Updates [MainState] along with [SavedStateHandle].
+     * Updates [MainSettingsState] along with [SavedStateHandle].
      */
     private fun updateStateWithSavedHandle(
-        function: (MainState) -> MainState
+        function: (MainSettingsState) -> MainSettingsState
     ) {
         _state.update {
             stateHandle[Constants.MAIN_STATE] = function(it)

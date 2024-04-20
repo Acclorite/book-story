@@ -23,7 +23,7 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -39,9 +39,8 @@ import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainViewModel
+import ua.acclorite.book_story.presentation.data.MainSettingsState
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
-import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 import ua.acclorite.book_story.presentation.screens.settings.components.CheckboxWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.ColorPickerWithTitle
@@ -54,7 +53,11 @@ import ua.acclorite.book_story.presentation.screens.settings.components.SliderWi
     ExperimentalMaterial3Api::class
 )
 @Composable
-fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderViewModel) {
+fun ReaderSettingsBottomSheet(
+    mainState: State<MainSettingsState>,
+    onEvent: (ReaderEvent) -> Unit,
+    onMainEvent: (MainEvent) -> Unit
+) {
     val pagerState = rememberPagerState { 2 }
     val currentPage by remember { derivedStateOf { pagerState.currentPage } }
     val context = LocalContext.current
@@ -62,11 +65,9 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
     val navigationBarPadding =
         WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
-    val state by mainViewModel.state.collectAsState()
-
-    val fontFamily = remember(state.fontFamily) {
+    val fontFamily = remember(mainState.value.fontFamily) {
         Constants.FONTS.find {
-            it.id == state.fontFamily
+            it.id == mainState.value.fontFamily
         } ?: Constants.FONTS[0]
     }
 
@@ -89,7 +90,7 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
     )
 
     LaunchedEffect(currentPage) {
-        viewModel.onEvent(
+        onEvent(
             ReaderEvent.OnShowHideMenu(
                 currentPage != 1,
                 context as ComponentActivity
@@ -106,13 +107,16 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                 .fillMaxWidth()
                 .fillMaxHeight(animatedHeight),
             onDismissRequest = {
-                viewModel.onEvent(ReaderEvent.OnShowHideSettingsBottomSheet)
+                onEvent(ReaderEvent.OnShowHideSettingsBottomSheet)
             },
             sheetState = rememberModalBottomSheetState(true),
             windowInsets = WindowInsets(0, 0, 0, 0),
             containerColor = MaterialTheme.colorScheme.surfaceContainerLow
         ) {
-            ReaderSettingsBottomSheetTabRow(viewModel = viewModel, pagerState = pagerState)
+            ReaderSettingsBottomSheetTabRow(
+                onEvent = onEvent,
+                pagerState = pagerState
+            )
 
             HorizontalPager(state = pagerState) { page ->
                 LazyColumn {
@@ -144,7 +148,7 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                                         )
                                     },
                                 onClick = {
-                                    mainViewModel.onEvent(MainEvent.OnChangeFontFamily(it.id))
+                                    onMainEvent(MainEvent.OnChangeFontFamily(it.id))
                                 }
                             )
                         }
@@ -159,7 +163,7 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                                             fontFamily = fontFamily.font,
                                             fontStyle = FontStyle.Normal
                                         ),
-                                        !state.isItalic!!
+                                        !mainState.value.isItalic!!
                                     ),
                                     ButtonItem(
                                         "italic",
@@ -168,11 +172,11 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                                             fontFamily = fontFamily.font,
                                             fontStyle = FontStyle.Italic
                                         ),
-                                        state.isItalic!!
+                                        mainState.value.isItalic!!
                                     ),
                                 ),
                                 onClick = {
-                                    mainViewModel.onEvent(
+                                    onMainEvent(
                                         MainEvent.OnChangeFontStyle(
                                             when (it.id) {
                                                 "italic" -> true
@@ -185,12 +189,12 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                         }
                         item {
                             SliderWithTitle(
-                                value = state.fontSize!! to "pt",
+                                value = mainState.value.fontSize!! to "pt",
                                 fromValue = 10,
                                 toValue = 35,
                                 title = stringResource(id = R.string.font_size_option),
                                 onValueChange = {
-                                    mainViewModel.onEvent(
+                                    onMainEvent(
                                         MainEvent.OnChangeFontSize(it)
                                     )
                                 }
@@ -210,12 +214,12 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                         }
                         item {
                             SliderWithTitle(
-                                value = state.lineHeight!! to "pt",
+                                value = mainState.value.lineHeight!! to "pt",
                                 fromValue = 1,
                                 toValue = 16,
                                 title = stringResource(id = R.string.line_height_option),
                                 onValueChange = {
-                                    mainViewModel.onEvent(
+                                    onMainEvent(
                                         MainEvent.OnChangeLineHeight(it)
                                     )
                                 }
@@ -223,12 +227,12 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                         }
                         item {
                             SliderWithTitle(
-                                value = state.paragraphHeight!! to "pt",
+                                value = mainState.value.paragraphHeight!! to "pt",
                                 fromValue = 0,
                                 toValue = 24,
                                 title = stringResource(id = R.string.paragraph_height_option),
                                 onValueChange = {
-                                    mainViewModel.onEvent(
+                                    onMainEvent(
                                         MainEvent.OnChangeParagraphHeight(it)
                                     )
                                 }
@@ -236,11 +240,11 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                         }
                         item {
                             CheckboxWithTitle(
-                                selected = state.paragraphIndentation!!,
+                                selected = mainState.value.paragraphIndentation!!,
                                 title = stringResource(id = R.string.paragraph_indentation_option)
                             ) {
-                                mainViewModel.onEvent(
-                                    MainEvent.OnChangeParagraphIndentation(!state.paragraphIndentation!!)
+                                onMainEvent(
+                                    MainEvent.OnChangeParagraphIndentation(!mainState.value.paragraphIndentation!!)
                                 )
                             }
                         }
@@ -252,10 +256,10 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                         }
                         item {
                             ColorPickerWithTitle(
-                                value = Color(state.backgroundColor!!.toULong()),
+                                value = Color(mainState.value.backgroundColor!!.toULong()),
                                 title = stringResource(id = R.string.background_color_option),
                                 onValueChange = {
-                                    mainViewModel.onEvent(
+                                    onMainEvent(
                                         MainEvent.OnChangeBackgroundColor(
                                             it.value.toLong()
                                         )
@@ -265,10 +269,10 @@ fun ReaderSettingsBottomSheet(mainViewModel: MainViewModel, viewModel: ReaderVie
                         }
                         item {
                             ColorPickerWithTitle(
-                                value = Color(state.fontColor!!.toULong()),
+                                value = Color(mainState.value.fontColor!!.toULong()),
                                 title = stringResource(id = R.string.font_color_option),
                                 onValueChange = {
-                                    mainViewModel.onEvent(
+                                    onMainEvent(
                                         MainEvent.OnChangeFontColor(
                                             it.value.toLong()
                                         )

@@ -21,24 +21,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.NavigationItem
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Screen
 
 /**
  * Custom Navigation Rail. It is used to be shown on Tablets.
  */
 @Composable
-fun BoxScope.CustomNavigationRail(
-    navigator: Navigator,
-    layoutDirection: LayoutDirection
-) {
+fun BoxScope.CustomNavigationRail() {
     var currentScreen: Screen? by remember { mutableStateOf(null) }
+    val navigator = LocalNavigator.current
+    val layoutDirection = LocalLayoutDirection.current
 
     LaunchedEffect(Unit) {
         navigator.getCurrentScreen().collect {

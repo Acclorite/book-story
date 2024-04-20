@@ -13,14 +13,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
-import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 
 /**
  * Settings bottom sheet tab row. It is used to switch between categories.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReaderSettingsBottomSheetTabRow(viewModel: ReaderViewModel, pagerState: PagerState) {
+fun ReaderSettingsBottomSheetTabRow(
+    onEvent: (ReaderEvent) -> Unit,
+    pagerState: PagerState
+) {
     val tabItems = listOf(
         stringResource(id = R.string.general_tab),
         stringResource(id = R.string.color_tab)
@@ -37,7 +39,7 @@ fun ReaderSettingsBottomSheetTabRow(viewModel: ReaderViewModel, pagerState: Page
                 modifier = Modifier,
                 selected = pagerState.currentPage == index,
                 onClick = {
-                    viewModel.onEvent(ReaderEvent.OnScrollToSettingsPage(index, pagerState))
+                    onEvent(ReaderEvent.OnScrollToSettingsPage(index, pagerState))
                 },
                 selectedContentColor = MaterialTheme.colorScheme.primary,
                 unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,

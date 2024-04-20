@@ -17,11 +17,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.local.data_store.DataStore
+import ua.acclorite.book_story.data.local.notification.UpdatesNotificationService
 import ua.acclorite.book_story.data.local.room.BookDao
 import ua.acclorite.book_story.data.mapper.book.BookMapper
 import ua.acclorite.book_story.data.mapper.history.HistoryMapper
 import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.data.parser.TextParser
+import ua.acclorite.book_story.data.remote.GithubAPI
+import ua.acclorite.book_story.data.remote.dto.ReleaseResponse
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
@@ -31,7 +34,7 @@ import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.CoverImage
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
-import ua.acclorite.book_story.presentation.data.MainState
+import ua.acclorite.book_story.presentation.data.MainSettingsState
 import java.io.File
 import java.io.FileOutputStream
 import java.util.UUID
@@ -43,6 +46,9 @@ class BookRepositoryImpl @Inject constructor(
     private val application: Application,
     private val database: BookDao,
     private val dataStore: DataStore,
+
+    private val githubAPI: GithubAPI,
+    private val updatesNotificationService: UpdatesNotificationService,
 
     private val bookMapper: BookMapper,
     private val historyMapper: HistoryMapper,
@@ -385,8 +391,8 @@ class BookRepositoryImpl @Inject constructor(
         dataStore.putData(key, value)
     }
 
-    override suspend fun getAllSettings(scope: CoroutineScope): MainState {
-        val result = CompletableDeferred<MainState>()
+    override suspend fun getAllSettings(scope: CoroutineScope): MainSettingsState {
+        val result = CompletableDeferred<MainSettingsState>()
 
         scope.launch {
             val keys = dataStore.getAllData()
@@ -405,7 +411,7 @@ class BookRepositoryImpl @Inject constructor(
             }
             jobs?.awaitAll()
 
-            result.complete(MainState.initialize(data))
+            result.complete(MainSettingsState.initialize(data))
         }
 
         return result.await()
@@ -600,6 +606,28 @@ class BookRepositoryImpl @Inject constructor(
 
     override suspend fun deleteHistory(history: List<History>) {
         database.deleteHistory(history.map { historyMapper.toHistoryEntity(it) })
+    }
+
+    override suspend fun checkForUpdates(postNotification: Boolean): ReleaseResponse? {
+        return withContext(Dispatchers.IO) {
+            try {
+                val result = githubAPI.getLatestRelease()
+
+                val version = result.tag_name.substringAfterLast("v")
+                val currentVersion = application.getString(R.string.app_version)
+
+                if (version != currentVersion && postNotification) {
+                    updatesNotificationService.postNotification(
+                        result
+                    )
+                }
+
+                result
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
+        }
     }
 }
 

@@ -15,7 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -28,16 +28,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CustomIconButton
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.data.removeDigits
 import ua.acclorite.book_story.presentation.data.removeTrailingZero
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
-import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
-import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
+import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
 
 /**
  * Reader top bar. Displays title of the book.
@@ -45,19 +43,19 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReaderTopBar(
-    viewModel: ReaderViewModel,
-    libraryViewModel: LibraryViewModel,
-    historyViewModel: HistoryViewModel,
+    state: State<ReaderState>,
+    onEvent: (ReaderEvent) -> Unit,
+    onLibraryUpdateEvent: (LibraryEvent.OnUpdateBook) -> Unit,
+    onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit,
     listState: LazyListState,
-    navigator: Navigator,
     containerColor: Color
 ) {
+    val navigator = LocalNavigator.current
     val context = LocalContext.current as ComponentActivity
-    val state by viewModel.state.collectAsState()
 
-    val progress by remember(state.book.progress) {
+    val progress by remember(state.value.book.progress) {
         derivedStateOf {
-            (state.book.progress * 100)
+            (state.value.book.progress * 100)
                 .toDouble()
                 .removeDigits(2)
                 .removeTrailingZero()
@@ -72,13 +70,13 @@ fun ReaderTopBar(
                 contentDescription = R.string.go_back_content_desc,
                 disableOnClick = true
             ) {
-                viewModel.onEvent(
+                onEvent(
                     ReaderEvent.OnGoBack(
                         context,
                         navigator,
                         refreshList = {
-                            libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
-                            historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
+                            onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
+                            onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
                         },
                         listState = listState,
                         navigate = {
@@ -91,7 +89,7 @@ fun ReaderTopBar(
         title = {
             Column(verticalArrangement = Arrangement.Center) {
                 Text(
-                    state.book.title,
+                    state.value.book.title,
                     fontFamily = FontFamily.Default,
                     fontWeight = FontWeight.Normal,
                     fontSize = 20.sp,
@@ -99,17 +97,17 @@ fun ReaderTopBar(
                     maxLines = 1,
                     modifier = Modifier
                         .clickable(
-                            enabled = !state.lockMenu,
+                            enabled = !state.value.lockMenu,
                             interactionSource = null,
                             indication = null,
                             onClick = {
-                                viewModel.onEvent(
+                                onEvent(
                                     ReaderEvent.OnGoBack(
                                         context,
                                         navigator,
                                         refreshList = {
-                                            libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
-                                            historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
+                                            onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
+                                            onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
                                         },
                                         listState = listState,
                                         navigate = {
@@ -141,9 +139,9 @@ fun ReaderTopBar(
                 icon = Icons.Default.Settings,
                 contentDescription = R.string.open_reader_settings_content_desc,
                 disableOnClick = false,
-                enabled = !state.lockMenu
+                enabled = !state.value.lockMenu
             ) {
-                viewModel.onEvent(ReaderEvent.OnShowHideSettingsBottomSheet)
+                onEvent(ReaderEvent.OnShowHideSettingsBottomSheet)
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(

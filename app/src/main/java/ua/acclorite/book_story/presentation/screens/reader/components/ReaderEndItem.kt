@@ -19,8 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,14 +31,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
-import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
-import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
+import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
 
 /**
  * Reader end item. Displays at the end of the book.
@@ -47,18 +44,18 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ReaderEndItem(
-    libraryViewModel: LibraryViewModel,
-    historyViewModel: HistoryViewModel,
-    viewModel: ReaderViewModel,
+    state: State<ReaderState>,
+    onEvent: (ReaderEvent) -> Unit,
+    onLibraryEvent: (LibraryEvent) -> Unit,
+    onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit,
     listState: LazyListState,
-    navigator: Navigator
 ) {
-    val state by viewModel.state.collectAsState()
+    val navigator = LocalNavigator.current
     val context = LocalContext.current as ComponentActivity
 
     val buttonText = remember {
         context.getString(
-            if (state.book.category != Category.ALREADY_READ) R.string.move_to_read
+            if (state.value.book.category != Category.ALREADY_READ) R.string.move_to_read
             else R.string.back_to_library
         )
     }
@@ -76,7 +73,7 @@ fun ReaderEndItem(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            stringResource(id = R.string.thanks_for_reading, state.book.title),
+            stringResource(id = R.string.thanks_for_reading, state.value.book.title),
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleLarge,
             textAlign = TextAlign.Center,
@@ -86,8 +83,8 @@ fun ReaderEndItem(
         Text(
             stringResource(
                 id = R.string.letters_and_words,
-                state.book.letters,
-                state.book.words
+                state.value.book.letters,
+                state.value.book.words
             ),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             style = MaterialTheme.typography.bodyLarge,
@@ -96,15 +93,15 @@ fun ReaderEndItem(
         Spacer(modifier = Modifier.height(12.dp))
         TextButton(
             onClick = {
-                if (state.book.category != Category.ALREADY_READ) {
-                    viewModel.onEvent(
+                if (state.value.book.category != Category.ALREADY_READ) {
+                    onEvent(
                         ReaderEvent.OnMoveBookToAlreadyRead(
                             onUpdateCategories = {
-                                libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
-                                historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
+                                onLibraryEvent(LibraryEvent.OnUpdateBook(it))
+                                onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
                             },
                             updatePage = {
-                                libraryViewModel.onEvent(LibraryEvent.OnUpdateCurrentPage(it))
+                                onLibraryEvent(LibraryEvent.OnUpdateCurrentPage(it))
                             },
                             navigator = navigator,
                             listState = listState,
@@ -118,13 +115,13 @@ fun ReaderEndItem(
                         Toast.LENGTH_LONG
                     ).show()
                 } else {
-                    viewModel.onEvent(
+                    onEvent(
                         ReaderEvent.OnGoBack(
                             context,
                             navigator,
                             refreshList = {
-                                libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
-                                historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
+                                onLibraryEvent(LibraryEvent.OnUpdateBook(it))
+                                onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
                             },
                             listState = listState,
                             navigate = {

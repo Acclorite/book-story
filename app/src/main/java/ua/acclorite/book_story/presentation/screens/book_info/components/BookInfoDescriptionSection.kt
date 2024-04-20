@@ -7,21 +7,22 @@ import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.Book
+import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 
 /**
  * Description section.
  */
 @Composable
-fun BookInfoDescriptionSection(book: Book) {
+fun BookInfoDescriptionSection(state: State<BookInfoState>) {
     SelectionContainer {
         Text(
-            if (book.description?.isNotBlank() == true) book.description
+            if (state.value.book.description?.isNotBlank() == true) state.value.book.description!!
             else stringResource(id = R.string.error_no_description),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface,

@@ -11,19 +11,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.NavigationItem
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Screen
 
 /**
  * Bottom navigation bar, uses default [NavigationBar].
  *
- * @param navigator Navigator.
  */
 @Composable
-fun BottomNavigationBar(
-    navigator: Navigator
-) {
+fun BottomNavigationBar() {
     var currentScreen: Screen? by remember { mutableStateOf(null) }
+    val navigator = LocalNavigator.current
 
     LaunchedEffect(Unit) {
         navigator.getCurrentScreen().collect {

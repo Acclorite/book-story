@@ -11,8 +11,7 @@ import androidx.compose.material.icons.filled.AddChart
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
@@ -22,39 +21,38 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithLazyColumn
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
-import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
+import ua.acclorite.book_story.presentation.screens.browse.data.BrowseState
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 
 /**
  * Adding dialog. Adds all selected books to the Library.
  */
 @Composable
 fun BrowseAddingDialog(
-    libraryViewModel: LibraryViewModel,
-    viewModel: BrowseViewModel,
-    navigator: Navigator
+    state: State<BrowseState>,
+    onEvent: (BrowseEvent) -> Unit,
+    onLibraryEvent: (LibraryEvent) -> Unit
 ) {
-    val state by viewModel.state.collectAsState()
     val context = LocalContext.current
+    val navigator = LocalNavigator.current
 
     CustomDialogWithLazyColumn(
         title = stringResource(id = R.string.add_books),
         imageVectorIcon = Icons.Default.AddChart,
         description = stringResource(id = R.string.add_books_description),
         actionText = stringResource(id = R.string.add),
-        isActionEnabled = !state.isBooksLoading &&
-                state.selectedBooks.any { it.first is NullableBook.NotNull },
-        onDismiss = { viewModel.onEvent(BrowseEvent.OnAddingDialogDismiss) },
+        isActionEnabled = !state.value.isBooksLoading &&
+                state.value.selectedBooks.any { it.first is NullableBook.NotNull },
+        onDismiss = { onEvent(BrowseEvent.OnAddingDialogDismiss) },
         onAction = {
-            viewModel.onEvent(
+            onEvent(
                 BrowseEvent.OnAddBooks(
                     navigator,
                     resetScroll = {
-                        libraryViewModel.onEvent(LibraryEvent.OnUpdateCurrentPage(0))
-                        libraryViewModel.onEvent(LibraryEvent.OnLoadList)
+                        onLibraryEvent(LibraryEvent.OnUpdateCurrentPage(0))
+                        onLibraryEvent(LibraryEvent.OnLoadList)
                     },
                     onFailed = {
                         Toast.makeText(
@@ -75,7 +73,7 @@ fun BrowseAddingDialog(
         },
         withDivider = true,
         items = {
-            if (state.isBooksLoading) {
+            if (state.value.isBooksLoading) {
                 item {
                     Box(
                         modifier = Modifier
@@ -92,12 +90,12 @@ fun BrowseAddingDialog(
                     }
                 }
             } else {
-                items(state.selectedBooks) { book ->
+                items(state.value.selectedBooks) { book ->
                     BrowseAddingDialogItem(
                         result = book
                     ) {
                         if (it) {
-                            viewModel.onEvent(BrowseEvent.OnSelectBook(book))
+                            onEvent(BrowseEvent.OnSelectBook(book))
                         } else {
                             Toast.makeText(
                                 context,

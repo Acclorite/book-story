@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.browse.components
 
-import android.os.Build
 import androidx.activity.ComponentActivity
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.SdStorage
@@ -12,7 +11,6 @@ import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithContent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
-import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 
 /**
  * Storage permission dialog.
@@ -20,7 +18,7 @@ import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun BrowseStoragePermissionDialog(
-    viewModel: BrowseViewModel,
+    onEvent: (BrowseEvent) -> Unit,
     permissionState: PermissionState,
     showErrorMessage: (Boolean) -> Unit
 ) {
@@ -32,7 +30,7 @@ fun BrowseStoragePermissionDialog(
         actionText = stringResource(id = R.string.grant),
         imageVectorIcon = Icons.Default.SdStorage,
         onDismiss = {
-            viewModel.onEvent(
+            onEvent(
                 BrowseEvent.OnStoragePermissionDismiss(
                     permissionState,
                     showErrorMessage = { showErrorMessage(true) }
@@ -41,19 +39,14 @@ fun BrowseStoragePermissionDialog(
         },
         isActionEnabled = true,
         withDivider = false,
+        disableOnClick = false,
         onAction = {
-            viewModel.onEvent(
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    BrowseEvent.OnStoragePermissionRequest(
-                        activity,
-                        hideErrorMessage = { showErrorMessage(false) }
-                    )
-                } else {
-                    BrowseEvent.OnLegacyStoragePermissionRequest(
-                        permissionState,
-                        hideErrorMessage = { showErrorMessage(false) }
-                    )
-                }
+            onEvent(
+                BrowseEvent.OnStoragePermissionRequest(
+                    activity,
+                    storagePermissionState = permissionState,
+                    hideErrorMessage = { showErrorMessage(false) }
+                )
             )
         }
     )

@@ -1,5 +1,8 @@
 package ua.acclorite.book_story.presentation.screens.settings.nested.general
 
+import android.Manifest
+import android.annotation.SuppressLint
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,30 +18,62 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberPermissionState
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.GoBackButton
-import ua.acclorite.book_story.presentation.components.collapsibleScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
+import ua.acclorite.book_story.presentation.data.MainSettingsState
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.screens.settings.components.CheckboxWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GeneralSettings(
-    mainViewModel: MainViewModel,
-    navigator: Navigator
+fun GeneralSettingsRoot() {
+    val navigator = LocalNavigator.current
+    val settingsViewModel: SettingsViewModel = hiltViewModel()
+    val mainViewModel: MainViewModel = hiltViewModel()
+
+    val state = mainViewModel.state.collectAsState()
+
+    GeneralSettings(
+        state = state,
+        navigator = navigator,
+        onSettingsEvent = settingsViewModel::onEvent,
+        onMainEvent = mainViewModel::onEvent
+    )
+}
+
+@SuppressLint("InlinedApi")
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
+@Composable
+private fun GeneralSettings(
+    state: State<MainSettingsState>,
+    navigator: Navigator,
+    onSettingsEvent: (SettingsEvent) -> Unit,
+    onMainEvent: (MainEvent) -> Unit
 ) {
-    val scrollState = TopAppBarDefaults.collapsibleScrollBehaviorWithLazyListState()
-    val state by mainViewModel.state.collectAsState()
+    val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
+    val activity = LocalContext.current as ComponentActivity
+
+    val notificationsPermissionState = rememberPermissionState(
+        permission = Manifest.permission.POST_NOTIFICATIONS
+    )
 
     Scaffold(
         Modifier
@@ -79,13 +114,36 @@ fun GeneralSettings(
                             it.first,
                             it.second,
                             MaterialTheme.typography.labelLarge,
-                            it.first == state.language
+                            it.first == state.value.language
                         )
                     }.sortedBy { it.title }
                 ) {
-                    mainViewModel.onEvent(
+                    onMainEvent(
                         MainEvent.OnChangeLanguage(
                             it.id
+                        )
+                    )
+                }
+            }
+
+            item {
+                CheckboxWithTitle(
+                    selected = state.value.checkForUpdates!!,
+                    title = stringResource(id = R.string.check_for_updates_option),
+                    description = stringResource(id = R.string.check_for_updates_option_desc)
+                ) {
+                    onSettingsEvent(
+                        SettingsEvent.OnGeneralChangeCheckForUpdates(
+                            enable = !state.value.checkForUpdates!!,
+                            activity = activity,
+                            notificationsPermissionState = notificationsPermissionState,
+                            onChangeCheckForUpdates = {
+                                onMainEvent(
+                                    MainEvent.OnChangeCheckForUpdates(
+                                        it
+                                    )
+                                )
+                            }
                         )
                     )
                 }

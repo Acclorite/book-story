@@ -3,17 +3,14 @@ package ua.acclorite.book_story.presentation.screens.library
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -25,8 +22,6 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -43,6 +38,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -54,16 +50,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.R
@@ -71,69 +65,95 @@ import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.util.Selected
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
+import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomIconButton
+import ua.acclorite.book_story.presentation.components.CustomSearchTextField
 import ua.acclorite.book_story.presentation.components.MoreDropDown
 import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
 import ua.acclorite.book_story.presentation.data.Argument
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.components.LibraryBookItem
 import ua.acclorite.book_story.presentation.screens.library.components.LibraryTabRow
 import ua.acclorite.book_story.presentation.screens.library.components.dialog.LibraryDeleteDialog
 import ua.acclorite.book_story.presentation.screens.library.components.dialog.LibraryMoveDialog
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryState
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.Transitions
 
+@Composable
+fun LibraryScreenRoot() {
+    val navigator = LocalNavigator.current
+    val viewModel: LibraryViewModel = hiltViewModel()
+    val browseViewModel: BrowseViewModel = hiltViewModel()
+    val historyViewModel: HistoryViewModel = hiltViewModel()
+
+    val state = viewModel.state.collectAsState()
+
+    LibraryScreen(
+        state = state,
+        navigator = navigator,
+        onEvent = viewModel::onEvent,
+        onBrowseEvent = browseViewModel::onEvent,
+        onHistoryEvent = historyViewModel::onEvent
+    )
+}
+
 @OptIn(
-    ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class,
+    ExperimentalMaterial3Api::class,
     ExperimentalMaterialApi::class
 )
 @Composable
-fun LibraryScreen(
-    viewModel: LibraryViewModel,
-    browseViewModel: BrowseViewModel,
-    historyViewModel: HistoryViewModel,
-    navigator: Navigator
+private fun LibraryScreen(
+    state: State<LibraryState>,
+    navigator: Navigator,
+    onEvent: (LibraryEvent) -> Unit,
+    onHistoryEvent: (HistoryEvent) -> Unit,
+    onBrowseEvent: (BrowseEvent) -> Unit
 ) {
-    val state by viewModel.state.collectAsState()
     val pagerState = rememberPagerState(
-        initialPage = state.currentPage,
+        initialPage = state.value.currentPage,
         pageCount = { Category.entries.size }
     )
     var isScrollInProgress by remember { mutableStateOf(false) }
     val refreshState = rememberPullRefreshState(
-        refreshing = state.isRefreshing,
+        refreshing = state.value.isRefreshing,
         onRefresh = {
-            viewModel.onEvent(LibraryEvent.OnRefreshList)
+            onEvent(LibraryEvent.OnRefreshList)
         }
     )
     val focusRequester = remember { FocusRequester() }
 
     LaunchedEffect(Unit) {
-        viewModel.onEvent(LibraryEvent.OnScrollToPage(state.currentPage, pagerState))
+        onEvent(LibraryEvent.OnScrollToPage(state.value.currentPage, pagerState))
     }
     LaunchedEffect(pagerState.currentPage) {
-        if (pagerState.currentPage != state.currentPage) {
-            viewModel.onEvent(LibraryEvent.OnUpdateCurrentPage(pagerState.currentPage))
+        if (pagerState.currentPage != state.value.currentPage) {
+            onEvent(LibraryEvent.OnUpdateCurrentPage(pagerState.currentPage))
         }
     }
 
-    if (state.showMoveDialog) {
+    if (state.value.showMoveDialog) {
         LibraryMoveDialog(
-            viewModel = viewModel,
-            historyViewModel = historyViewModel,
+            state = state,
+            onEvent = onEvent,
+            onHistoryLoadEvent = onHistoryEvent,
             pagerState = pagerState
         )
     }
-    if (state.showDeleteDialog) {
+    if (state.value.showDeleteDialog) {
         LibraryDeleteDialog(
-            viewModel = viewModel,
-            browseViewModel = browseViewModel,
-            historyViewModel = historyViewModel
+            state = state,
+            onEvent = onEvent,
+            onBrowseLoadEvent = onBrowseEvent,
+            onHistoryLoadEvent = onHistoryEvent
         )
     }
 
@@ -146,16 +166,16 @@ fun LibraryScreen(
             Column(Modifier.fillMaxWidth()) {
                 AnimatedTopAppBar(
                     scrollBehavior = null,
-                    isTopBarScrolled = state.hasSelectedItems,
+                    isTopBarScrolled = state.value.hasSelectedItems,
 
-                    content1Visibility = !state.hasSelectedItems && !state.showSearch,
+                    content1Visibility = !state.value.hasSelectedItems && !state.value.showSearch,
                     content1NavigationIcon = {},
                     content1Title = {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(stringResource(id = R.string.library_screen))
                             Spacer(modifier = Modifier.width(6.dp))
                             Text(
-                                text = state.books.size.toString(),
+                                text = state.value.books.size.toString(),
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(14.dp))
                                     .background(MaterialTheme.colorScheme.surfaceContainer)
@@ -171,26 +191,26 @@ fun LibraryScreen(
                             contentDescription = R.string.search_content_desc,
                             disableOnClick = true,
                         ) {
-                            viewModel.onEvent(LibraryEvent.OnSearchShowHide)
+                            onEvent(LibraryEvent.OnSearchShowHide)
                         }
-                        MoreDropDown(navigator = navigator)
+                        MoreDropDown()
                     },
 
-                    content2Visibility = state.hasSelectedItems,
+                    content2Visibility = state.value.hasSelectedItems,
                     content2NavigationIcon = {
                         CustomIconButton(
                             icon = Icons.Default.Clear,
                             contentDescription = R.string.clear_selected_items_content_desc,
                             disableOnClick = true
                         ) {
-                            viewModel.onEvent(LibraryEvent.OnClearSelectedBooks)
+                            onEvent(LibraryEvent.OnClearSelectedBooks)
                         }
                     },
                     content2Title = {
                         Text(
                             stringResource(
                                 id = R.string.selected_items_count_query,
-                                state.selectedItemsCount.coerceAtLeast(1)
+                                state.value.selectedItemsCount.coerceAtLeast(1)
                             ),
                             overflow = TextOverflow.Ellipsis,
                             maxLines = 1
@@ -200,86 +220,65 @@ fun LibraryScreen(
                         CustomIconButton(
                             icon = Icons.AutoMirrored.Outlined.DriveFileMove,
                             contentDescription = R.string.move_books_content_desc,
-                            enabled = !state.isLoading
-                                    && !state.isRefreshing
-                                    && !state.showMoveDialog,
+                            enabled = !state.value.isLoading
+                                    && !state.value.isRefreshing
+                                    && !state.value.showMoveDialog,
                             disableOnClick = false,
 
                             ) {
-                            viewModel.onEvent(LibraryEvent.OnShowHideMoveDialog)
+                            onEvent(LibraryEvent.OnShowHideMoveDialog)
                         }
                         CustomIconButton(
                             icon = Icons.Outlined.Delete,
                             contentDescription = R.string.delete_books_content_desc,
-                            enabled = !state.isLoading
-                                    && !state.isRefreshing
-                                    && !state.showDeleteDialog,
+                            enabled = !state.value.isLoading
+                                    && !state.value.isRefreshing
+                                    && !state.value.showDeleteDialog,
                             disableOnClick = false
                         ) {
-                            viewModel.onEvent(LibraryEvent.OnShowHideDeleteDialog)
+                            onEvent(LibraryEvent.OnShowHideDeleteDialog)
                         }
                     },
 
-                    content3Visibility = state.showSearch && !state.hasSelectedItems,
+                    content3Visibility = state.value.showSearch && !state.value.hasSelectedItems,
                     content3NavigationIcon = {
                         CustomIconButton(
                             icon = Icons.AutoMirrored.Default.ArrowBack,
                             contentDescription = R.string.exit_search_content_desc,
                             disableOnClick = true
                         ) {
-                            viewModel.onEvent(
+                            onEvent(
                                 LibraryEvent.OnSearchShowHide
                             )
                         }
                     },
                     content3Title = {
-                        BasicTextField(
-                            value = state.searchQuery,
-                            singleLine = true,
-                            textStyle = TextStyle(
-                                color = MaterialTheme.colorScheme.onSurface,
-                                fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                                lineHeight = MaterialTheme.typography.titleLarge.lineHeight,
-                                fontFamily = MaterialTheme.typography.titleLarge.fontFamily
-                            ),
+                        CustomSearchTextField(
                             modifier = Modifier
                                 .focusRequester(focusRequester)
                                 .onGloballyPositioned {
-                                    viewModel.onEvent(LibraryEvent.OnRequestFocus(focusRequester))
+                                    onEvent(LibraryEvent.OnRequestFocus(focusRequester))
                                 },
-                            onValueChange = {
-                                viewModel.onEvent(LibraryEvent.OnSearchQueryChange(it))
+                            query = state.value.searchQuery,
+                            onQueryChange = {
+                                onEvent(LibraryEvent.OnSearchQueryChange(it))
                             },
-                            keyboardOptions = KeyboardOptions(KeyboardCapitalization.Words),
-                            cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurfaceVariant)
-                        ) { innerText ->
-                            Box(
-                                modifier = Modifier.fillMaxHeight(),
-                                contentAlignment = Alignment.CenterStart
-                            ) {
-                                if (state.searchQuery.isEmpty()) {
-                                    Text(
-                                        stringResource(
-                                            id = R.string.search_query,
-                                            stringResource(id = R.string.books)
-                                        ),
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        style = MaterialTheme.typography.titleLarge,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis,
-                                    )
-                                }
-                                innerText()
-                            }
-                        }
+                            onSearch = {
+                                onEvent(LibraryEvent.OnSearch)
+                            },
+                            placeholder = stringResource(
+                                id = R.string.search_query,
+                                stringResource(id = R.string.books)
+                            )
+                        )
                     },
                     content3Actions = {
-                        MoreDropDown(navigator = navigator)
+                        MoreDropDown()
                     }
                 )
                 LibraryTabRow(
-                    viewModel = viewModel,
-                    books = state.categorizedBooks,
+                    onEvent = onEvent,
+                    books = state.value.categorizedBooks,
                     pagerState = pagerState
                 )
             }
@@ -295,8 +294,8 @@ fun LibraryScreen(
                 userScrollEnabled = !isScrollInProgress
             ) { index ->
                 val category = remember { Category.entries[index] }
-                val books = remember(state.categorizedBooks) {
-                    state.categorizedBooks.find {
+                val books = remember(state.value.categorizedBooks) {
+                    state.value.categorizedBooks.find {
                         it.category == category
                     }?.books?.sortedWith(
                         compareByDescending<Pair<Book, Selected>> { it.first.lastOpened }
@@ -307,14 +306,14 @@ fun LibraryScreen(
 
                 LaunchedEffect(listState.isScrollInProgress, pagerState.currentPage) {
                     if (listState.isScrollInProgress != isScrollInProgress
-                        && pagerState.currentPage == state.currentPage
+                        && pagerState.currentPage == state.value.currentPage
                     ) {
                         isScrollInProgress = listState.isScrollInProgress
                     }
                 }
 
                 Box(modifier = Modifier.fillMaxSize()) {
-                    DefaultTransition(visible = !state.isLoading) {
+                    DefaultTransition(visible = !state.value.isLoading) {
                         LazyVerticalGrid(
                             columns = GridCells.Adaptive(120.dp),
                             modifier = Modifier.fillMaxSize(),
@@ -327,10 +326,13 @@ fun LibraryScreen(
                             ) {
                                 LibraryBookItem(
                                     book = it,
-                                    modifier = Modifier.animateItemPlacement(),
+                                    modifier = Modifier.animateItem(
+                                        fadeInSpec = null,
+                                        fadeOutSpec = null
+                                    ),
                                     onCoverImageClick = {
-                                        if (state.hasSelectedItems) {
-                                            viewModel.onEvent(LibraryEvent.OnSelectBook(it))
+                                        if (state.value.hasSelectedItems) {
+                                            onEvent(LibraryEvent.OnSelectBook(it))
                                         } else {
                                             navigator.navigate(
                                                 Screen.BOOK_INFO,
@@ -341,11 +343,11 @@ fun LibraryScreen(
                                     },
                                     onLongClick = {
                                         if (!it.second) {
-                                            viewModel.onEvent(LibraryEvent.OnSelectBook(it, true))
+                                            onEvent(LibraryEvent.OnSelectBook(it, true))
                                         }
                                     },
                                     onButtonClick = {
-                                        viewModel.onEvent(
+                                        onEvent(
                                             LibraryEvent.OnNavigateToReaderScreen(
                                                 navigator,
                                                 it.first
@@ -357,9 +359,9 @@ fun LibraryScreen(
                         }
                     }
 
-                    AnimatedVisibility(
-                        visible = !state.isLoading
-                                && !state.isRefreshing
+                    CustomAnimatedVisibility(
+                        visible = !state.value.isLoading
+                                && !state.value.isRefreshing
                                 && books.isEmpty(),
                         modifier = Modifier.align(Alignment.Center),
                         enter = Transitions.DefaultTransitionIn,
@@ -378,7 +380,7 @@ fun LibraryScreen(
             }
 
             PullRefreshIndicator(
-                state.isRefreshing,
+                state.value.isRefreshing,
                 refreshState,
                 Modifier.align(Alignment.TopCenter),
                 backgroundColor = MaterialTheme.colorScheme.inverseSurface,
@@ -391,18 +393,18 @@ fun LibraryScreen(
     val scope = rememberCoroutineScope()
     var shouldExit = remember { false }
     BackHandler {
-        if (state.hasSelectedItems) {
-            viewModel.onEvent(LibraryEvent.OnClearSelectedBooks)
+        if (state.value.hasSelectedItems) {
+            onEvent(LibraryEvent.OnClearSelectedBooks)
             return@BackHandler
         }
 
-        if (state.showSearch) {
-            viewModel.onEvent(LibraryEvent.OnSearchShowHide)
+        if (state.value.showSearch) {
+            onEvent(LibraryEvent.OnSearchShowHide)
             return@BackHandler
         }
 
-        if (state.currentPage > 0) {
-            viewModel.onEvent(LibraryEvent.OnScrollToPage(0, pagerState))
+        if (state.value.currentPage > 0) {
+            onEvent(LibraryEvent.OnScrollToPage(0, pagerState))
             return@BackHandler
         }
 

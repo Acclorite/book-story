@@ -25,17 +25,25 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.GoBackButton
-import ua.acclorite.book_story.presentation.components.collapsibleScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.settings.components.SettingsCategoryItem
 
+@Composable
+fun SettingsScreenRoot() {
+    val navigator = LocalNavigator.current
+
+    SettingsScreen(navigator = navigator)
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(
+private fun SettingsScreen(
     navigator: Navigator
 ) {
-    val scrollState = TopAppBarDefaults.collapsibleScrollBehaviorWithLazyListState()
+    val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
 
     Scaffold(
         Modifier

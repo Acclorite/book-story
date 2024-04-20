@@ -20,4 +20,5 @@ object DataStoreConstants {
     val LINE_HEIGHT = intPreferencesKey("line_height")
     val PARAGRAPH_HEIGHT = intPreferencesKey("paragraph_height")
     val PARAGRAPH_INDENTATION = booleanPreferencesKey("paragraph_indentation")
+    val CHECK_FOR_UPDATES = booleanPreferencesKey("check_for_updates")
 }

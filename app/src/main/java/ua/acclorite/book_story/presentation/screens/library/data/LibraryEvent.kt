@@ -1,12 +1,14 @@
 package ua.acclorite.book_story.presentation.screens.library.data
 
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.util.Selected
 import ua.acclorite.book_story.presentation.data.Navigator
 
+@Immutable
 sealed class LibraryEvent {
     data object OnRefreshList : LibraryEvent()
     data object OnLoadList : LibraryEvent()
@@ -16,6 +18,7 @@ sealed class LibraryEvent {
     data object OnSearchShowHide : LibraryEvent()
     data class OnRequestFocus(val focusRequester: FocusRequester) : LibraryEvent()
     data class OnSearchQueryChange(val query: String) : LibraryEvent()
+    data object OnSearch : LibraryEvent()
     data class OnSelectBook(val book: Pair<Book, Selected>, val select: Boolean? = null) :
         LibraryEvent()
 

@@ -3,13 +3,14 @@ package ua.acclorite.book_story.domain.repository
 import androidx.datastore.preferences.core.Preferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import ua.acclorite.book_story.data.remote.dto.ReleaseResponse
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.model.StringWithId
 import ua.acclorite.book_story.domain.util.CoverImage
 import ua.acclorite.book_story.domain.util.Resource
-import ua.acclorite.book_story.presentation.data.MainState
+import ua.acclorite.book_story.presentation.data.MainSettingsState
 import java.io.File
 
 interface BookRepository {
@@ -57,7 +58,7 @@ interface BookRepository {
         value: T
     )
 
-    suspend fun getAllSettings(scope: CoroutineScope): MainState
+    suspend fun getAllSettings(scope: CoroutineScope): MainSettingsState
 
     suspend fun getFilesFromDevice(query: String = ""): Flow<Resource<List<File>>>
 
@@ -76,4 +77,6 @@ interface BookRepository {
     suspend fun deleteHistory(
         history: List<History>
     )
+
+    suspend fun checkForUpdates(postNotification: Boolean): ReleaseResponse?
 }

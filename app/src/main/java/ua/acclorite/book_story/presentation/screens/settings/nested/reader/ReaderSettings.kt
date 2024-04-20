@@ -15,39 +15,56 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.components.GoBackButton
-import ua.acclorite.book_story.presentation.components.collapsibleScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
+import ua.acclorite.book_story.presentation.data.MainSettingsState
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.settings.components.CheckboxWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.SliderWithTitle
 
+@Composable
+fun ReaderSettingsRoot() {
+    val navigator = LocalNavigator.current
+    val mainViewModel: MainViewModel = hiltViewModel()
+
+    val state = mainViewModel.state.collectAsState()
+
+    ReaderSettings(
+        state = state,
+        navigator = navigator,
+        onMainEvent = mainViewModel::onEvent
+    )
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReaderSettings(
-    mainViewModel: MainViewModel,
-    navigator: Navigator
+private fun ReaderSettings(
+    state: State<MainSettingsState>,
+    navigator: Navigator,
+    onMainEvent: (MainEvent) -> Unit
 ) {
-    val scrollState = TopAppBarDefaults.collapsibleScrollBehaviorWithLazyListState()
+    val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
 
-    val state by mainViewModel.state.collectAsState()
-    val fontFamily = remember(state.fontFamily) {
+    val fontFamily = remember(state.value.fontFamily) {
         Constants.FONTS.find {
-            it.id == state.fontFamily
+            it.id == state.value.fontFamily
         } ?: Constants.FONTS[0]
     }
 
@@ -106,7 +123,7 @@ fun ReaderSettings(
                             )
                         },
                     onClick = {
-                        mainViewModel.onEvent(MainEvent.OnChangeFontFamily(it.id))
+                        onMainEvent(MainEvent.OnChangeFontFamily(it.id))
                     }
                 )
             }
@@ -121,7 +138,7 @@ fun ReaderSettings(
                                 fontFamily = fontFamily.font,
                                 fontStyle = FontStyle.Normal
                             ),
-                            !state.isItalic!!
+                            !state.value.isItalic!!
                         ),
                         ButtonItem(
                             "italic",
@@ -130,11 +147,11 @@ fun ReaderSettings(
                                 fontFamily = fontFamily.font,
                                 fontStyle = FontStyle.Italic
                             ),
-                            state.isItalic!!
+                            state.value.isItalic!!
                         ),
                     ),
                     onClick = {
-                        mainViewModel.onEvent(
+                        onMainEvent(
                             MainEvent.OnChangeFontStyle(
                                 when (it.id) {
                                     "italic" -> true
@@ -147,12 +164,12 @@ fun ReaderSettings(
             }
             item {
                 SliderWithTitle(
-                    value = state.fontSize!! to "pt",
+                    value = state.value.fontSize!! to "pt",
                     fromValue = 10,
                     toValue = 35,
                     title = stringResource(id = R.string.font_size_option),
                     onValueChange = {
-                        mainViewModel.onEvent(
+                        onMainEvent(
                             MainEvent.OnChangeFontSize(it)
                         )
                     }
@@ -172,12 +189,12 @@ fun ReaderSettings(
             }
             item {
                 SliderWithTitle(
-                    value = state.lineHeight!! to "pt",
+                    value = state.value.lineHeight!! to "pt",
                     fromValue = 1,
                     toValue = 16,
                     title = stringResource(id = R.string.line_height_option),
                     onValueChange = {
-                        mainViewModel.onEvent(
+                        onMainEvent(
                             MainEvent.OnChangeLineHeight(it)
                         )
                     }
@@ -185,12 +202,12 @@ fun ReaderSettings(
             }
             item {
                 SliderWithTitle(
-                    value = state.paragraphHeight!! to "pt",
+                    value = state.value.paragraphHeight!! to "pt",
                     fromValue = 0,
                     toValue = 24,
                     title = stringResource(id = R.string.paragraph_height_option),
                     onValueChange = {
-                        mainViewModel.onEvent(
+                        onMainEvent(
                             MainEvent.OnChangeParagraphHeight(it)
                         )
                     }
@@ -198,11 +215,11 @@ fun ReaderSettings(
             }
             item {
                 CheckboxWithTitle(
-                    selected = state.paragraphIndentation!!,
+                    selected = state.value.paragraphIndentation!!,
                     title = stringResource(id = R.string.paragraph_indentation_option)
                 ) {
-                    mainViewModel.onEvent(
-                        MainEvent.OnChangeParagraphIndentation(!state.paragraphIndentation!!)
+                    onMainEvent(
+                        MainEvent.OnChangeParagraphIndentation(!state.value.paragraphIndentation!!)
                     )
                 }
             }

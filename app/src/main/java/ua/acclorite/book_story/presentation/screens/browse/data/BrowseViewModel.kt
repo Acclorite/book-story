@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.shouldShowRationale
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -41,6 +42,7 @@ class BrowseViewModel @Inject constructor(
     private var job: Job? = null
     private var job2: Job? = null
     private var job3: Job? = null
+    private var storagePermissionJob: Job? = null
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -55,15 +57,72 @@ class BrowseViewModel @Inject constructor(
 
     fun onEvent(event: BrowseEvent) {
         when (event) {
-            is BrowseEvent.OnLegacyStoragePermissionRequest -> {
-                event.permissionState.launchPermissionRequest()
+            is BrowseEvent.OnStoragePermissionRequest -> {
+                val legacyStoragePermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
 
-                viewModelScope.launch {
-                    for (i in 0 until 100) {
-                        if (!event.permissionState.status.isGranted) {
-                            delay(100)
+                val isPermissionGranted = if (legacyStoragePermission) {
+                    event.storagePermissionState.status.isGranted
+                } else {
+                    Environment.isExternalStorageManager()
+                }
+
+                if (isPermissionGranted) {
+                    _state.update {
+                        it.copy(
+                            requestPermissionDialog = false
+                        )
+                    }
+                    event.hideErrorMessage()
+                    onEvent(BrowseEvent.OnRefreshList)
+                    return
+                }
+
+                if (legacyStoragePermission) {
+                    if (event.storagePermissionState.status.shouldShowRationale) {
+                        event.storagePermissionState.launchPermissionRequest()
+                    } else {
+                        val uri = Uri.parse("package:${event.activity.packageName}")
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri)
+
+                        if (intent.resolveActivity(event.activity.packageManager) != null) {
+                            event.activity.startActivity(intent)
+                        } else {
+                            return
+                        }
+                    }
+                }
+
+                if (!legacyStoragePermission) {
+                    val uri = Uri.parse("package:${event.activity.packageName}")
+                    val intent = Intent(
+                        Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
+                        uri
+                    )
+
+                    if (intent.resolveActivity(event.activity.packageManager) != null) {
+                        event.activity.startActivity(intent)
+                    } else {
+                        return
+                    }
+                }
+
+                storagePermissionJob?.cancel()
+                storagePermissionJob = viewModelScope.launch {
+                    while (true) {
+                        val granted = if (legacyStoragePermission) {
+                            event.storagePermissionState.status.isGranted
+                        } else {
+                            Environment.isExternalStorageManager()
+                        }
+
+                        if (!granted) {
+                            delay(1000)
+                            yield()
                             continue
                         }
+
+                        yield()
+
                         _state.update {
                             it.copy(
                                 requestPermissionDialog = false
@@ -76,41 +135,13 @@ class BrowseViewModel @Inject constructor(
                 }
             }
 
-            is BrowseEvent.OnStoragePermissionRequest -> {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-
-                    val uri = Uri.parse("package:${event.activity.packageName}")
-                    val intent = Intent(
-                        Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-                        uri
-                    )
-                    event.activity.startActivity(intent)
-
-                    viewModelScope.launch {
-                        for (i in 0 until 20) {
-                            if (!Environment.isExternalStorageManager()) {
-                                delay(1000)
-                                continue
-                            }
-                            _state.update {
-                                it.copy(
-                                    requestPermissionDialog = false
-                                )
-                            }
-                            event.hideErrorMessage()
-                            onEvent(BrowseEvent.OnRefreshList)
-                            break
-                        }
-                    }
-                }
-            }
-
             is BrowseEvent.OnStoragePermissionDismiss -> {
                 val legacyPermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
                 val isPermissionGranted =
                     if (!legacyPermission) Environment.isExternalStorageManager()
                     else event.permissionState.status.isGranted
 
+                storagePermissionJob?.cancel()
                 _state.update {
                     it.copy(
                         requestPermissionDialog = false
@@ -270,6 +301,12 @@ class BrowseViewModel @Inject constructor(
                 job = viewModelScope.launch(Dispatchers.IO) {
                     delay(500)
                     yield()
+                    onEvent(BrowseEvent.OnSearch)
+                }
+            }
+
+            is BrowseEvent.OnSearch -> {
+                viewModelScope.launch(Dispatchers.IO) {
                     getFilesFromDownloads()
                 }
             }

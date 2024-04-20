@@ -14,9 +14,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import kotlinx.coroutines.flow.collectLatest
 
+/**
+ * Collapsible Scroll Behavior with Lazy List State.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarDefaults.collapsibleScrollBehaviorWithLazyListState(
+fun TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState(
 
 ): Pair<TopAppBarScrollBehavior, LazyListState> {
     val listState = rememberLazyListState()

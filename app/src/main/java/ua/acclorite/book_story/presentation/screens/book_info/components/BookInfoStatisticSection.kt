@@ -9,6 +9,7 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
@@ -16,26 +17,26 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.presentation.data.removeDigits
 import ua.acclorite.book_story.presentation.data.removeTrailingZero
+import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 
 /**
  * Statistic section.
  */
 @Composable
-fun BookInfoStatisticSection(book: Book) {
-    val progress = remember(book) {
+fun BookInfoStatisticSection(state: State<BookInfoState>) {
+    val progress = remember(state.value.book) {
         "${
-            (book.progress * 100)
+            (state.value.book.progress * 100)
                 .toDouble()
                 .removeDigits(1)
                 .removeTrailingZero()
         }%"
     }
     val description = stringResource(
-        if (book.progress == 1f) R.string.read_done
-        else if (book.progress > 0.2f) R.string.read_keep
+        if (state.value.book.progress == 1f) R.string.read_done
+        else if (state.value.book.progress > 0.2f) R.string.read_keep
         else R.string.read_more
     )
 
@@ -53,7 +54,7 @@ fun BookInfoStatisticSection(book: Book) {
         Spacer(modifier = Modifier.height(6.dp))
 
         LinearProgressIndicator(
-            progress = { book.progress.coerceAtLeast(0.01f) },
+            progress = { state.value.book.progress.coerceAtLeast(0.01f) },
             modifier = Modifier
                 .fillMaxWidth(),
             color = MaterialTheme.colorScheme.primary,

@@ -1,20 +1,16 @@
 package ua.acclorite.book_story.presentation.screens.history
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -30,68 +26,88 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.KeyboardCapitalization
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
 import ua.acclorite.book_story.presentation.components.CategoryTitle
+import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomIconButton
+import ua.acclorite.book_story.presentation.components.CustomSearchTextField
 import ua.acclorite.book_story.presentation.components.CustomSnackbar
 import ua.acclorite.book_story.presentation.components.MoreDropDown
 import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
 import ua.acclorite.book_story.presentation.data.Argument
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.history.components.HistoryDeleteWholeHistoryDialog
 import ua.acclorite.book_story.presentation.screens.history.components.HistoryItem
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryState
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.Transitions
 
+@Composable
+fun HistoryScreenRoot() {
+    val navigator = LocalNavigator.current
+    val viewModel: HistoryViewModel = hiltViewModel()
+    val libraryViewModel: LibraryViewModel = hiltViewModel()
+
+    val state = viewModel.state.collectAsState()
+
+    HistoryScreen(
+        state = state,
+        navigator = navigator,
+        onEvent = viewModel::onEvent,
+        onLibraryEvent = libraryViewModel::onEvent
+    )
+}
+
 @OptIn(
     ExperimentalMaterial3Api::class,
     ExperimentalMaterialApi::class
 )
 @Composable
-fun HistoryScreen(
-    viewModel: HistoryViewModel,
-    libraryViewModel: LibraryViewModel,
-    navigator: Navigator
+private fun HistoryScreen(
+    state: State<HistoryState>,
+    navigator: Navigator,
+    onEvent: (HistoryEvent) -> Unit,
+    onLibraryEvent: (LibraryEvent) -> Unit
 ) {
     val context = LocalContext.current
-    val state by viewModel.state.collectAsState()
     val refreshState = rememberPullRefreshState(
-        refreshing = state.isRefreshing,
+        refreshing = state.value.isRefreshing,
         onRefresh = {
-            viewModel.onEvent(HistoryEvent.OnRefreshList)
+            onEvent(HistoryEvent.OnRefreshList)
         }
     )
     val focusRequester = remember { FocusRequester() }
     val snackbarState = remember { SnackbarHostState() }
 
     LaunchedEffect(Unit) {
-        viewModel.onEvent(HistoryEvent.OnUpdateScrollOffset)
+        onEvent(HistoryEvent.OnUpdateScrollOffset)
     }
 
-    if (state.showDeleteWholeHistoryDialog) {
-        HistoryDeleteWholeHistoryDialog(viewModel = viewModel, libraryViewModel = libraryViewModel)
+    if (state.value.showDeleteWholeHistoryDialog) {
+        HistoryDeleteWholeHistoryDialog(
+            onEvent = onEvent,
+            onLibraryLoadEvent = onLibraryEvent
+        )
     }
 
     Scaffold(
@@ -102,9 +118,9 @@ fun HistoryScreen(
         topBar = {
             AnimatedTopAppBar(
                 scrollBehavior = null,
-                isTopBarScrolled = state.listState.canScrollBackward,
+                isTopBarScrolled = state.value.listState.canScrollBackward,
 
-                content1Visibility = !state.showSearch,
+                content1Visibility = !state.value.showSearch,
                 content1NavigationIcon = {},
                 content1Title = {
                     Text(
@@ -117,75 +133,54 @@ fun HistoryScreen(
                         contentDescription = R.string.search_content_desc,
                         disableOnClick = true,
                     ) {
-                        viewModel.onEvent(HistoryEvent.OnSearchShowHide)
+                        onEvent(HistoryEvent.OnSearchShowHide)
                     }
                     CustomIconButton(
                         icon = Icons.Outlined.DeleteSweep,
                         contentDescription = R.string.delete_whole_history_content_desc,
                         disableOnClick = false,
-                        enabled = !state.isLoading
-                                && !state.isRefreshing
-                                && state.history.isNotEmpty()
-                                && !state.showDeleteWholeHistoryDialog
+                        enabled = !state.value.isLoading
+                                && !state.value.isRefreshing
+                                && state.value.history.isNotEmpty()
+                                && !state.value.showDeleteWholeHistoryDialog
                     ) {
-                        viewModel.onEvent(HistoryEvent.OnShowHideDeleteWholeHistoryDialog)
+                        onEvent(HistoryEvent.OnShowHideDeleteWholeHistoryDialog)
                     }
-                    MoreDropDown(navigator = navigator)
+                    MoreDropDown()
                 },
 
-                content2Visibility = state.showSearch,
+                content2Visibility = state.value.showSearch,
                 content2NavigationIcon = {
                     CustomIconButton(
                         icon = Icons.AutoMirrored.Default.ArrowBack,
                         contentDescription = R.string.exit_search_content_desc,
                         disableOnClick = true
                     ) {
-                        viewModel.onEvent(HistoryEvent.OnSearchShowHide)
+                        onEvent(HistoryEvent.OnSearchShowHide)
                     }
                 },
                 content2Title = {
-                    BasicTextField(
-                        value = state.searchQuery,
-                        singleLine = true,
-                        textStyle = TextStyle(
-                            color = MaterialTheme.colorScheme.onSurface,
-                            fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                            lineHeight = MaterialTheme.typography.titleLarge.lineHeight,
-                            fontFamily = MaterialTheme.typography.titleLarge.fontFamily
-                        ),
+                    CustomSearchTextField(
                         modifier = Modifier
                             .focusRequester(focusRequester)
                             .onGloballyPositioned {
-                                viewModel.onEvent(HistoryEvent.OnRequestFocus(focusRequester))
+                                onEvent(HistoryEvent.OnRequestFocus(focusRequester))
                             },
-                        onValueChange = {
-                            viewModel.onEvent(HistoryEvent.OnSearchQueryChange(it))
+                        query = state.value.searchQuery,
+                        onQueryChange = {
+                            onEvent(HistoryEvent.OnSearchQueryChange(it))
                         },
-                        keyboardOptions = KeyboardOptions(KeyboardCapitalization.Words),
-                        cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurfaceVariant)
-                    ) { innerText ->
-                        Box(
-                            modifier = Modifier.fillMaxHeight(),
-                            contentAlignment = Alignment.CenterStart
-                        ) {
-                            if (state.searchQuery.isEmpty()) {
-                                Text(
-                                    stringResource(
-                                        id = R.string.search_query,
-                                        stringResource(id = R.string.history)
-                                    ),
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    style = MaterialTheme.typography.titleLarge,
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
-                                )
-                            }
-                            innerText()
-                        }
-                    }
+                        onSearch = {
+                            onEvent(HistoryEvent.OnSearch)
+                        },
+                        placeholder = stringResource(
+                            id = R.string.search_query,
+                            stringResource(id = R.string.history)
+                        )
+                    )
                 },
                 content2Actions = {
-                    MoreDropDown(navigator = navigator)
+                    MoreDropDown()
                 },
                 content3Visibility = false
             )
@@ -199,14 +194,14 @@ fun HistoryScreen(
                 .fillMaxSize()
                 .padding(top = paddingValues.calculateTopPadding())
         ) {
-            DefaultTransition(visible = !state.isLoading) {
+            DefaultTransition(visible = !state.value.isLoading) {
                 LazyColumn(
                     Modifier
                         .fillMaxSize(),
-                    state = state.listState,
+                    state = state.value.listState,
                     contentPadding = PaddingValues(vertical = 12.dp)
                 ) {
-                    state.history.forEachIndexed { index, groupedHistory ->
+                    state.value.history.forEachIndexed { index, groupedHistory ->
                         item(key = groupedHistory.title) {
                             if (index > 0) {
                                 Spacer(modifier = Modifier.height(8.dp))
@@ -231,7 +226,7 @@ fun HistoryScreen(
                             HistoryItem(
                                 modifier = Modifier.animateItem(),
                                 history = it,
-                                isOnClickEnabled = !state.isRefreshing,
+                                isOnClickEnabled = !state.value.isRefreshing,
                                 onBodyClick = {
                                     navigator.navigate(
                                         Screen.BOOK_INFO,
@@ -240,22 +235,22 @@ fun HistoryScreen(
                                     )
                                 },
                                 onTitleClick = {
-                                    viewModel.onEvent(
+                                    onEvent(
                                         HistoryEvent.OnNavigateToReaderScreen(
                                             navigator,
                                             it.book!!
                                         )
                                     )
                                 },
-                                isDeleteEnabled = !state.isRefreshing,
+                                isDeleteEnabled = !state.value.isRefreshing,
                                 onDeleteClick = {
-                                    viewModel.onEvent(
+                                    onEvent(
                                         HistoryEvent.OnDeleteHistoryElement(
                                             historyToDelete = it,
                                             snackbarState = snackbarState,
                                             context = context,
                                             refreshList = {
-                                                libraryViewModel.onEvent(
+                                                onLibraryEvent(
                                                     LibraryEvent.OnLoadList
                                                 )
                                             }
@@ -268,10 +263,10 @@ fun HistoryScreen(
                 }
             }
 
-            AnimatedVisibility(
-                visible = !state.isLoading
-                        && state.history.isEmpty()
-                        && !state.isRefreshing,
+            CustomAnimatedVisibility(
+                visible = !state.value.isLoading
+                        && state.value.history.isEmpty()
+                        && !state.value.isRefreshing,
                 modifier = Modifier.align(Alignment.Center),
                 enter = Transitions.DefaultTransitionIn,
                 exit = fadeOut(tween(0))
@@ -284,7 +279,7 @@ fun HistoryScreen(
             }
 
             PullRefreshIndicator(
-                state.isRefreshing,
+                state.value.isRefreshing,
                 refreshState,
                 Modifier.align(Alignment.TopCenter),
                 backgroundColor = MaterialTheme.colorScheme.inverseSurface,
@@ -294,8 +289,8 @@ fun HistoryScreen(
     }
 
     BackHandler {
-        if (state.showSearch) {
-            viewModel.onEvent(HistoryEvent.OnSearchShowHide)
+        if (state.value.showSearch) {
+            onEvent(HistoryEvent.OnSearchShowHide)
             return@BackHandler
         }
 

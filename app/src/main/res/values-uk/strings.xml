@@ -2,6 +2,17 @@
     <!-- Basic Strings -->
     <string name="app_name">Історія Книги</string>
 
+    <!-- Notifications -->
+    <string name="updates_notification_channel">Нові оновлення</string>
+    <string name="updates_notification_title">Нове оновлення Історії Книги!</string>
+    <string name="updates_notification_desc">
+        Оновлення %1$s вийшло!
+        Натиснувши на це сповіщення, ви завантажете останню версію застосунку.
+    </string>
+    <string name="updates_notification_action">
+        Подробиці
+    </string>
+
     <!-- Book sources -->
     <string-array name="book_sites" tools:ignore="InconsistentArrays">
         <item>Укрліб|https://www.ukrlib.com.ua</item>
@@ -53,11 +64,18 @@
     </string>
     <string name="delete_history_description">
         Це видалить всю історію з бази даних.
+        Після видалення всієї історії порядок книг буде скинутий.
     </string>
     <string name="confirm_update_description">
         При підтвердженні ця книга буде оновлена.
         Будь ласка, запам\'ятайте де ви зупинилися перед оновленням тексту.
         Наступне буде оновлено:
+    </string>
+    <string name="update_app_description">
+        Нова версія Історії Книги була знайдена.
+        Чи бажаєте завантажити її?
+        Натиснувши на кнопку «Завантажити», ви перейдете в ваш браузер
+        та завантажете останнє оновлення автоматично.
     </string>
 
     <!-- Errors -->
@@ -81,6 +99,10 @@
     <string name="error_no_text">
         Вміст книги пустий. Будь ласка, перевірте вміст книги та оновіть її.
     </string>
+    <string name="error_check_internet">
+        Щось пішло не так.
+        Будь ласка, перевірте ваше підключення до інтернету та спробуйте ще раз.
+    </string>
 
     <!-- Is Empty messages -->
     <string name="browse_empty">
@@ -99,6 +121,7 @@
     <string name="search_query">Знайти %1$s…</string>
     <string name="read_query">%1$s прочитано</string>
     <string name="file_path_query">Шлях до файлу: %1$s</string>
+    <string name="update_query">Оновлення %1$s</string>
 
     <!-- Action Texts -->
     <string name="cancel">Відмінити</string>
@@ -121,6 +144,11 @@
     <string name="dictionary">Словник</string>
     <string name="retry">Ще раз</string>
     <string name="confirm">Підтвердити</string>
+    <string name="next">Далі</string>
+    <string name="yes_go_to_help">Так, перейти в Допомога</string>
+    <string name="no">Ні</string>
+    <string name="download">Завантажити</string>
+    <string name="done">Готово</string>
 
     <!-- Items -->
     <string name="files">файли</string>
@@ -176,6 +204,8 @@
     <string name="paragraph_indentation_option">Абзацний відступ</string>
     <string name="background_color_option">Колір фона</string>
     <string name="font_color_option">Колір шрифта</string>
+    <string name="check_for_updates_option">Перевіряти на оновлення</string>
+    <string name="check_for_updates_option_desc">Перевіряти на новішу версію застосунку при запуску</string>
 
     <!-- Colors -->
     <string name="red_color">Червоний</string>
@@ -223,6 +253,7 @@
     <string name="book_moved">Ця книга була успішно переміщена.</string>
     <string name="copied">Скопійовано</string>
     <string name="history_deleted">Історія була успішно видалена.</string>
+    <string name="no_updates">Остання версія застосунку вже встановлена.</string>
 
     <!-- Snackbar messages -->
     <string name="history_element_deleted">Елемент історії був успішно видалений.</string>
@@ -253,17 +284,11 @@
 
     <!-- About -->
     <string name="app_version_option">Версія застосунку</string>
-    <string name="app_version_option_desc">Версія %1$s</string>
-    <string name="all_releases_option">Всі релізи</string>
-    <string name="all_releases_option_desc">Перевірити на нову версію</string>
-    <string name="issues_option">Знайшли помилку?</string>
-    <string name="issues_option_desc">Розкажіть мені!</string>
+    <string name="app_version_option_desc_1">Версія v%1$s</string>
+    <string name="app_version_option_desc_2">Натисніть, щоб перевірити на оновлення</string>
+    <string name="report_bug_option">Повідомити про помилку</string>
     <string name="project_page_option">Сторінка проєкту</string>
-    <string name="project_page_option_desc">Головна сторінка застосунку</string>
-    <string name="my_page_option">Сподобався застосунок?</string>
-    <string name="my_page_option_desc">Перевірте мій профіль!</string>
-    <string name="support_option">Хочете підтримати мою роботу?</string>
-    <string name="support_option_desc">Купіть мені каву ♥</string>
+    <string name="support_option">Підтримати мою роботу</string>
     <string name="slava_ukraini_option">Слава Україні! 🇺🇦</string>
     <string name="slava_ukraini_option_desc">Героям Слава! 🐉</string>
 
@@ -368,6 +393,36 @@
         Якщо файл книги змінився, ви можете підтвердити і оновити книгу або скасувати оновлення.
     </string>
 
+    <string name="help_title_how_to_manage_history">Як керувати історією?</string>
+    <string name="help_desc_how_to_manage_history_1">Перейдіть в</string>
+    <string name="help_desc_how_to_manage_history_2">Історію</string>
+    <string name="help_desc_how_to_manage_history_3">
+        Якщо натиснути кнопку видалення праворуч від елемента історії, його буде видалено.
+        Історія впливає на порядок книг в Бібліотеці,
+        видалення елемента історії призведе до зміни порядку книг.
+        Остання відкрита книга завжди є першою в Бібліотеці та Історії.
+    </string>
+
+
+    <!-- Start -->
+    <string name="start_welcome">Вітаємо в Історія Книги!</string>
+    <string name="start_welcome_desc">
+        У світ, де слова чарують, вчать та ведуть у неймовірні пригоди!
+        Давайте дещо налаштуємо!
+    </string>
+    <string name="start_language_preferences">Налаштування мови</string>
+    <string name="start_theme_preferences">Налаштування теми</string>
+    <string name="start_permissions_preferences">Дозволи</string>
+    <string name="start_permissions_granted">Надано</string>
+    <string name="start_permissions_storage">Дозвіл на сховище</string>
+    <string name="start_permissions_storage_desc">Потрібний, щоб просканувати ваш пристрій та знайти книги</string>
+    <string name="start_permissions_notifications">Дозвіл на сповіщення</string>
+    <string name="start_permissions_notifications_desc">Потрібний, щоб перевірити застосунок на нову версію</string>
+    <string name="start_done">Все готово!</string>
+    <string name="start_done_desc">
+        Ви успішно закінчили базове налаштовування застосунку.
+        Бажаєте дізнатися, як користуватися застосунком, прочитавши екран Допомоги?
+    </string>
 
     <!-- Font families -->
     <string name="default_font">За замовчуванням</string>
@@ -406,6 +461,9 @@
     <string name="browse_content_desc">Додавайте книги</string>
     <string name="arrow_content_desc">Стрілка</string>
     <string name="arrow_anim_content_desc">Анімація стрілки</string>
+    <string name="required_content_desc">Необхідно</string>
+    <string name="reset_start_content_desc">Скинути початковий посібник</string>
+    <string name="hide_edit_title_content_desc">Вийти з редагування назви</string>
 
 
 </resources>

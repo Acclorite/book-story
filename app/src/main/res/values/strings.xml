@@ -1,9 +1,23 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="InconsistentArrays">
     <!-- Basic Strings -->
-    <string name="app_version" translatable="false">0.9.7</string>
+    <string name="app_version" translatable="false">0.9.8</string>
     <string name="app_name">Book\'s Story</string>
 
+    <!-- Notifications -->
+    <string name="updates_notification_channel">New updates</string>
+    <string name="updates_notification_title">New update of Book\'s Story!</string>
+    <string name="updates_notification_desc">
+        Update %1$s just released!
+        By clicking this notification you will download the latest version of the app.
+    </string>
+    <string name="updates_notification_action">
+        Details
+    </string>
+
     <!-- About sites -->
+    <string name="download_latest_release_page" translatable="false">
+        https://github.com/Acclorite/book-story/releases/latest/download/book-story.apk
+    </string>
     <string name="releases_page" translatable="false">
         https://github.com/Acclorite/book-story/releases/latest
     </string>
@@ -12,9 +26,6 @@
     </string>
     <string name="project_page" translatable="false">
         https://github.com/Acclorite/book-story
-    </string>
-    <string name="my_page" translatable="false">
-        https://github.com/Acclorite
     </string>
     <string name="support_page" translatable="false">
         https://www.buymeacoffee.com/acclorite
@@ -73,11 +84,18 @@
     </string>
     <string name="delete_history_description">
         It will delete the whole history from the database.
+        After deleting the whole history, the order of the books will be reset.
     </string>
     <string name="confirm_update_description">
         By confirming this book will be updated.
         Please remember where you left before updating text.
         Following will be updated:
+    </string>
+    <string name="update_app_description">
+        New version of Book\'s Story was found.
+        Do you want to download it?
+        By clicking the «Download» button you will be transferred
+        to your browser and download the latest update automatically.
     </string>
 
     <!-- Errors -->
@@ -101,6 +119,10 @@
     <string name="error_no_text">
         The book content is empty. Please, make sure that the book content is not empty and update it.
     </string>
+    <string name="error_check_internet">
+        Something went wrong.
+        Please check your internet connection and try again.
+    </string>
 
     <!-- Is Empty messages -->
     <string name="browse_empty">
@@ -118,6 +140,7 @@
     <string name="search_query">Search %1$s…</string>
     <string name="read_query">%1$s read</string>
     <string name="file_path_query">File path: %1$s</string>
+    <string name="update_query">Update %1$s</string>
 
     <!-- Action Texts -->
     <string name="cancel">Cancel</string>
@@ -140,6 +163,11 @@
     <string name="dictionary">Dictionary</string>
     <string name="retry">Retry</string>
     <string name="confirm">Confirm</string>
+    <string name="next">Next</string>
+    <string name="yes_go_to_help">Yes, go to Help</string>
+    <string name="no">No</string>
+    <string name="download">Download</string>
+    <string name="done">Done</string>
 
     <!-- Items -->
     <string name="files">files</string>
@@ -195,6 +223,8 @@
     <string name="paragraph_indentation_option">Paragraph indentation</string>
     <string name="background_color_option">Background color</string>
     <string name="font_color_option">Font color</string>
+    <string name="check_for_updates_option">Check for updates</string>
+    <string name="check_for_updates_option_desc">Check for newer app version on startup</string>
 
     <!-- Colors -->
     <string name="red_color">Red</string>
@@ -242,6 +272,7 @@
     <string name="book_moved">This book was successfully moved.</string>
     <string name="copied">Copied</string>
     <string name="history_deleted">History was successfully deleted.</string>
+    <string name="no_updates">The latest version of the app is already installed.</string>
 
     <!-- Snackbar messages -->
     <string name="history_element_deleted">History element was successfully deleted.</string>
@@ -272,17 +303,11 @@
 
     <!-- About -->
     <string name="app_version_option">App version</string>
-    <string name="app_version_option_desc">Version %1$s</string>
-    <string name="all_releases_option">All releases</string>
-    <string name="all_releases_option_desc">Check for newer version</string>
-    <string name="issues_option">Found a bug?</string>
-    <string name="issues_option_desc">Tell me!</string>
+    <string name="app_version_option_desc_1">Version v%1$s</string>
+    <string name="app_version_option_desc_2">Click to check for updates</string>
+    <string name="report_bug_option">Report a bug</string>
     <string name="project_page_option">Project\'s page</string>
-    <string name="project_page_option_desc">General app\'s page</string>
-    <string name="my_page_option">Like the app?</string>
-    <string name="my_page_option_desc">Check my profile!</string>
-    <string name="support_option">Want to support my work?</string>
-    <string name="support_option_desc">Buy me a coffee ♥</string>
+    <string name="support_option">Support my work</string>
     <string name="slava_ukraini_option">Slava Ukraini! 🇺🇦</string>
     <string name="slava_ukraini_option_desc">Heroyam Slava! 🐉</string>
 
@@ -387,6 +412,38 @@
         If book\'s file changed you may confirm and update the book or cancel update.
     </string>
 
+    <string name="help_title_how_to_manage_history">How do I manage history?</string>
+    <string name="help_desc_how_to_manage_history_1">Go to the</string>
+    <string name="help_desc_how_to_manage_history_2">History</string>
+    <string name="help_desc_how_to_manage_history_3">
+        By clicking the delete button to the right of the history element, it will be deleted.
+        History affects books order in Library,
+        by deleting history element it will also reorder a book.
+        Last opened book is always the first in Library and History.
+    </string>
+
+
+    <!-- Start -->
+    <string name="start_welcome">Welcome to Book\'s Story!</string>
+    <string name="start_welcome_desc">
+        To a world where words charm,
+        teach and lead on incredible adventures!
+        Let\'s set some things up!
+    </string>
+    <string name="start_language_preferences">Language preferences</string>
+    <string name="start_theme_preferences">Theme preferences</string>
+    <string name="start_permissions_preferences">Permissions</string>
+    <string name="start_permissions_granted">Granted</string>
+    <string name="start_permissions_storage">Storage permission</string>
+    <string name="start_permissions_storage_desc">Required to scan your device and find books</string>
+    <string name="start_permissions_notifications">Notifications permission</string>
+    <string name="start_permissions_notifications_desc">Required to check for newer app version</string>
+    <string name="start_done">Everything\'s done!</string>
+    <string name="start_done_desc">
+        You\'re successfully done basic setting of the app.
+        Would you like to learn how to use the app by reading Help screen?
+    </string>
+
     <!-- Font families -->
     <string name="default_font">Default</string>
 
@@ -424,5 +481,8 @@
     <string name="browse_content_desc">Add books</string>
     <string name="arrow_content_desc">Arrow</string>
     <string name="arrow_anim_content_desc">Arrow animation</string>
+    <string name="required_content_desc">Required</string>
+    <string name="reset_start_content_desc">Reset start guide</string>
+    <string name="hide_edit_title_content_desc">Exit title editing</string>
 
 </resources>

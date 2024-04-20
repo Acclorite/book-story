@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.theme_switcher
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -34,6 +33,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.ui.Theme
 import ua.acclorite.book_story.presentation.ui.ThemeContrast
 import ua.acclorite.book_story.presentation.ui.animatedColorScheme
@@ -94,7 +94,7 @@ fun AppearanceSettingsThemeSwitcherItem(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
 
-                AnimatedVisibility(
+                CustomAnimatedVisibility(
                     visible = selected,
                     enter = scaleIn(tween(300), initialScale = 0.5f) +
                             fadeIn(tween(300)),

@@ -1,6 +1,11 @@
 package ua.acclorite.book_story.presentation.screens.help.data
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class HelpState(
+    val fromStart: Boolean = false,
+
     val showNote1: Boolean = true,
 
     val showHelpItem1: Boolean = false,
@@ -14,4 +19,5 @@ data class HelpState(
     val showHelpItem6: Boolean = false,
     val showHelpItem7: Boolean = false,
     val showHelpItem8: Boolean = false,
+    val showHelpItem9: Boolean = false,
 )

@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.components
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -95,7 +94,7 @@ fun AnimatedTopAppBar(
             label = stringResource(id = R.string.top_app_bar_anim_content_desc)
         )
 
-        AnimatedVisibility(
+        CustomAnimatedVisibility(
             visible = content1Visibility ?: true,
             enter = fadeIn(spring(stiffness = Spring.StiffnessMediumLow)),
             exit = fadeOut(spring(stiffness = Spring.StiffnessMediumLow))
@@ -115,7 +114,7 @@ fun AnimatedTopAppBar(
         }
 
         if (content2Visibility != null) {
-            AnimatedVisibility(
+            CustomAnimatedVisibility(
                 visible = content2Visibility,
                 enter = fadeIn(spring(stiffness = Spring.StiffnessMediumLow)),
                 exit = fadeOut(spring(stiffness = Spring.StiffnessMediumLow))
@@ -136,7 +135,7 @@ fun AnimatedTopAppBar(
         }
 
         if (content3Visibility != null) {
-            AnimatedVisibility(
+            CustomAnimatedVisibility(
                 visible = content3Visibility,
                 enter = fadeIn(spring(stiffness = Spring.StiffnessMediumLow)),
                 exit = fadeOut(spring(stiffness = Spring.StiffnessMediumLow))

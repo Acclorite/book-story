@@ -10,6 +10,9 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import ua.acclorite.book_story.R
 
+/**
+ * Custom Cover Image. Has smooth appearing.
+ */
 @Composable
 fun CustomCoverImage(
     uri: Uri,

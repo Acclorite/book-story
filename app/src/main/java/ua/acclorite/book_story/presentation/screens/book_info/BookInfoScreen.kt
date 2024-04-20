@@ -2,9 +2,11 @@ package ua.acclorite.book_story.presentation.screens.book_info
 
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,6 +24,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
@@ -39,6 +42,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -51,11 +55,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
+import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.CustomSnackbar
 import ua.acclorite.book_story.presentation.components.GoBackButton
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoBackground
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoDescriptionSection
@@ -68,7 +75,9 @@ import ua.acclorite.book_story.presentation.screens.book_info.components.details
 import ua.acclorite.book_story.presentation.screens.book_info.components.dialog.BookInfoDeleteDialog
 import ua.acclorite.book_story.presentation.screens.book_info.components.dialog.BookInfoMoveDialog
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
+import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
+import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
@@ -77,25 +86,51 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewMode
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.Transitions
 
+@Composable
+fun BookInfoScreenRoot() {
+    val navigator = LocalNavigator.current
+
+    val viewModel: BookInfoViewModel = hiltViewModel()
+    val libraryViewModel: LibraryViewModel = hiltViewModel()
+    val historyViewModel: HistoryViewModel = hiltViewModel()
+    val browseViewModel: BrowseViewModel = hiltViewModel()
+
+    val state = viewModel.state.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.init(
+            navigator
+        )
+    }
+
+    BookInfoScreen(
+        state = state,
+        navigator = navigator,
+        onEvent = viewModel::onEvent,
+        onLibraryEvent = libraryViewModel::onEvent,
+        onBrowseEvent = browseViewModel::onEvent,
+        onHistoryEvent = historyViewModel::onEvent
+    )
+}
+
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
-fun BookInfoScreen(
-    viewModel: BookInfoViewModel,
-    libraryViewModel: LibraryViewModel,
-    browseViewModel: BrowseViewModel,
-    historyViewModel: HistoryViewModel,
-    navigator: Navigator
+private fun BookInfoScreen(
+    state: State<BookInfoState>,
+    navigator: Navigator,
+    onEvent: (BookInfoEvent) -> Unit,
+    onLibraryEvent: (LibraryEvent) -> Unit,
+    onBrowseEvent: (BrowseEvent) -> Unit,
+    onHistoryEvent: (HistoryEvent) -> Unit
 ) {
     val context = LocalContext.current
-
-    val state by viewModel.state.collectAsState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val listState = rememberLazyListState()
     val snackbarState = remember { SnackbarHostState() }
     val refreshState = rememberPullRefreshState(
-        refreshing = state.isRefreshing || state.isLoadingUpdate,
+        refreshing = state.value.isRefreshing || state.value.isLoadingUpdate,
         onRefresh = {
-            viewModel.onEvent(
+            onEvent(
                 BookInfoEvent.OnLoadUpdate(
                     snackbarState,
                     context
@@ -105,45 +140,43 @@ fun BookInfoScreen(
     )
     val firstVisibleItemIndex by remember { derivedStateOf { listState.firstVisibleItemIndex } }
 
-    LaunchedEffect(Unit) {
-        viewModel.init(
-            navigator
-        )
-    }
-
-    if (state.showChangeCoverBottomSheet) {
+    if (state.value.showChangeCoverBottomSheet) {
         BookInfoChangeCoverBottomSheet(
-            libraryViewModel = libraryViewModel,
-            historyViewModel = historyViewModel,
-            viewModel = viewModel
+            state = state,
+            onEvent = onEvent,
+            onLibraryUpdateEvent = onLibraryEvent,
+            onHistoryUpdateEvent = onHistoryEvent
         )
     }
-    if (state.showDetailsBottomSheet) {
-        BookInfoDetailsBottomSheet(viewModel = viewModel)
+    if (state.value.showDetailsBottomSheet) {
+        BookInfoDetailsBottomSheet(
+            state = state,
+            onEvent = onEvent
+        )
     }
-    if (state.showDeleteDialog) {
+    if (state.value.showDeleteDialog) {
         BookInfoDeleteDialog(
-            libraryViewModel = libraryViewModel,
-            browseViewModel = browseViewModel,
-            historyViewModel = historyViewModel,
-            viewModel = viewModel,
-            navigator = navigator
+            onEvent = onEvent,
+            onLibraryLoadEvent = onLibraryEvent,
+            onHistoryLoadEvent = onHistoryEvent,
+            onBrowseLoadEvent = onBrowseEvent
         )
     }
-    if (state.showMoveDialog) {
+    if (state.value.showMoveDialog) {
         BookInfoMoveDialog(
-            libraryViewModel = libraryViewModel,
-            historyViewModel = historyViewModel,
-            viewModel = viewModel,
-            navigator = navigator
+            state = state,
+            onEvent = onEvent,
+            onLibraryEvent = onLibraryEvent,
+            onHistoryUpdateEvent = onHistoryEvent
         )
     }
-    if (state.showConfirmUpdateDialog) {
+    if (state.value.showConfirmUpdateDialog) {
         BookInfoConfirmUpdateDialog(
-            libraryViewModel = libraryViewModel,
-            historyViewModel = historyViewModel,
-            viewModel = viewModel,
-            snackbarHostState = snackbarState
+            state = state,
+            snackbarHostState = snackbarState,
+            onEvent = onEvent,
+            onLibraryUpdateEvent = onLibraryEvent,
+            onHistoryUpdateEvent = onHistoryEvent
         )
     }
 
@@ -161,14 +194,24 @@ fun BookInfoScreen(
                 isTopBarScrolled = null,
 
                 content1NavigationIcon = {
-                    GoBackButton(navigator = navigator, enabled = !state.isRefreshing) {
-                        viewModel.onEvent(BookInfoEvent.OnCancelUpdate)
+                    if (state.value.editTitle) {
+                        CustomIconButton(
+                            icon = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = R.string.hide_edit_title_content_desc,
+                            disableOnClick = true
+                        ) {
+                            onEvent(BookInfoEvent.OnShowHideEditTitle)
+                        }
+                    } else {
+                        GoBackButton(navigator = navigator, enabled = !state.value.isRefreshing) {
+                            onEvent(BookInfoEvent.OnCancelUpdate)
+                        }
                     }
                 },
                 content1Title = {
                     DefaultTransition(visible = firstVisibleItemIndex > 0) {
                         Text(
-                            state.book.title,
+                            state.value.book.title,
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.onSurface,
                             overflow = TextOverflow.Ellipsis,
@@ -181,9 +224,9 @@ fun BookInfoScreen(
                         icon = Icons.Default.Refresh,
                         contentDescription = R.string.refresh_book_content_desc,
                         disableOnClick = false,
-                        enabled = !state.isRefreshing && !state.isLoadingUpdate
+                        enabled = !state.value.isRefreshing && !state.value.isLoadingUpdate
                     ) {
-                        viewModel.onEvent(
+                        onEvent(
                             BookInfoEvent.OnLoadUpdate(
                                 snackbarState,
                                 context
@@ -193,15 +236,16 @@ fun BookInfoScreen(
 
                     Box {
                         DefaultTransition(
-                            visible = !state.editTitle
+                            visible = !state.value.editTitle
                         ) {
                             BookInfoMoreDropDown(
-                                viewModel = viewModel,
+                                state = state,
+                                onEvent = onEvent,
                                 snackbarState = snackbarState
                             )
                         }
-                        androidx.compose.animation.AnimatedVisibility(
-                            visible = state.editTitle,
+                        CustomAnimatedVisibility(
+                            visible = state.value.editTitle,
                             enter = Transitions.DefaultTransitionIn,
                             exit = fadeOut(tween(200))
                         ) {
@@ -209,21 +253,22 @@ fun BookInfoScreen(
                                 icon = Icons.Default.Done,
                                 contentDescription = R.string.apply_changes_content_desc,
                                 disableOnClick = true,
-                                enabled = !state.isRefreshing &&
-                                        state.titleValue.isNotBlank() &&
-                                        state.titleValue.trim() !=
-                                        state.book.title.trim(),
-                                color = if (state.titleValue.isNotBlank()
-                                    && state.titleValue != state.book.title
+                                enabled = !state.value.isRefreshing &&
+                                        state.value.titleValue.isNotBlank() &&
+                                        state.value.titleValue.trim() !=
+                                        state.value.book.title.trim(),
+                                color = if (state.value.titleValue.isNotBlank()
+                                    && state.value.titleValue != state.value.book.title
                                 ) MaterialTheme.colorScheme.onSurface
                                 else MaterialTheme.colorScheme.onSurfaceVariant
                             ) {
-                                viewModel.onEvent(BookInfoEvent.OnUpdateTitle(
-                                    refreshList = {
-                                        libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
-                                        historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
-                                    }
-                                ))
+                                onEvent(
+                                    BookInfoEvent.OnUpdateTitle(
+                                        refreshList = {
+                                            onLibraryEvent(LibraryEvent.OnUpdateBook(it))
+                                            onHistoryEvent(HistoryEvent.OnUpdateBook(it))
+                                        }
+                                    ))
                                 Toast.makeText(
                                     context,
                                     context.getString(R.string.title_changed),
@@ -253,17 +298,17 @@ fun BookInfoScreen(
             ) {
                 item {
                     Box(modifier = Modifier.fillMaxWidth()) {
-                        if (state.book.coverImage != null) {
+                        if (state.value.book.coverImage != null) {
                             BookInfoBackground(
                                 height = paddingValues.calculateTopPadding() + 12.dp + 195.dp,
-                                image = state.book.coverImage!!
+                                image = state.value.book.coverImage!!
                             )
                         }
 
                         Column(Modifier.fillMaxWidth()) {
                             Spacer(modifier = Modifier.height(paddingValues.calculateTopPadding() + 12.dp))
                             // Info
-                            BookInfoInfoSection(viewModel = viewModel, book = state.book)
+                            BookInfoInfoSection(state = state, onEvent = onEvent)
                         }
                     }
                 }
@@ -271,20 +316,20 @@ fun BookInfoScreen(
                 item {
                     Spacer(modifier = Modifier.height(24.dp))
                     // Statistic
-                    BookInfoStatisticSection(book = state.book)
+                    BookInfoStatisticSection(state = state)
                 }
 
                 item {
                     Spacer(modifier = Modifier.height(24.dp))
                     // Description
-                    BookInfoDescriptionSection(book = state.book)
+                    BookInfoDescriptionSection(state = state)
                 }
             }
 
             FloatingActionButton(
                 onClick = {
-                    if (!state.isRefreshing) {
-                        viewModel.onEvent(BookInfoEvent.OnNavigateToReaderScreen(navigator))
+                    if (!state.value.isRefreshing) {
+                        onEvent(BookInfoEvent.OnNavigateToReaderScreen(navigator))
                     }
                 },
                 shape = MaterialTheme.shapes.large,
@@ -302,12 +347,14 @@ fun BookInfoScreen(
                             contentDescription = stringResource(id = R.string.continue_reading_content_desc),
                             Modifier.size(24.dp)
                         )
-                        AnimatedVisibility(
-                            visible = !listState.canScrollBackward
+                        CustomAnimatedVisibility(
+                            visible = !listState.canScrollBackward,
+                            enter = fadeIn() + expandHorizontally(),
+                            exit = fadeOut() + shrinkHorizontally()
                         ) {
                             Text(
                                 text = stringResource(
-                                    if (state.book.progress == 0f) R.string.start
+                                    if (state.value.book.progress == 0f) R.string.start
                                     else R.string.continue_read
                                 ),
                                 style = MaterialTheme.typography.labelLarge,
@@ -321,7 +368,7 @@ fun BookInfoScreen(
             )
 
             PullRefreshIndicator(
-                state.isRefreshing || state.isLoadingUpdate,
+                state.value.isRefreshing || state.value.isLoadingUpdate,
                 refreshState,
                 Modifier
                     .align(Alignment.TopCenter)
@@ -333,8 +380,13 @@ fun BookInfoScreen(
     }
 
     BackHandler {
-        if (!state.isRefreshing) {
-            viewModel.onEvent(BookInfoEvent.OnCancelUpdate)
+        if (state.value.editTitle) {
+            onEvent(BookInfoEvent.OnShowHideEditTitle)
+            return@BackHandler
+        }
+
+        if (!state.value.isRefreshing) {
+            onEvent(BookInfoEvent.OnCancelUpdate)
             navigator.navigateBack()
         }
     }

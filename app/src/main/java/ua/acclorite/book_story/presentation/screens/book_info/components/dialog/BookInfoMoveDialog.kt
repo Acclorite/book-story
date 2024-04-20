@@ -6,8 +6,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.DriveFileMove
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -15,33 +14,31 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithLazyColumn
 import ua.acclorite.book_story.presentation.components.custom_dialog.SelectableDialogItem
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
-import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
+import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
-import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 
 /**
  * Move dialog. Moves current book to the selected category.
  */
 @Composable
 fun BookInfoMoveDialog(
-    libraryViewModel: LibraryViewModel,
-    historyViewModel: HistoryViewModel,
-    viewModel: BookInfoViewModel,
-    navigator: Navigator
+    state: State<BookInfoState>,
+    onEvent: (BookInfoEvent) -> Unit,
+    onLibraryEvent: (LibraryEvent) -> Unit,
+    onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit
 ) {
-    val state by viewModel.state.collectAsState()
+    val navigator = LocalNavigator.current
     val context = LocalContext.current
 
     val categories = remember {
-        Category.entries.filter { state.book.category != it }
+        Category.entries.filter { state.value.book.category != it }
     }
 
     LaunchedEffect(Unit) {
-        viewModel.onEvent(BookInfoEvent.OnSelectCategory(categories[0]))
+        onEvent(BookInfoEvent.OnSelectCategory(categories[0]))
     }
 
     CustomDialogWithLazyColumn(
@@ -52,16 +49,16 @@ fun BookInfoMoveDialog(
         ),
         actionText = stringResource(id = R.string.move),
         isActionEnabled = true,
-        onDismiss = { viewModel.onEvent(BookInfoEvent.OnShowHideMoveDialog) },
+        onDismiss = { onEvent(BookInfoEvent.OnShowHideMoveDialog) },
         onAction = {
-            viewModel.onEvent(
+            onEvent(
                 BookInfoEvent.OnMoveBook(
                     refreshList = {
-                        libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
-                        historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
+                        onLibraryEvent(LibraryEvent.OnUpdateBook(it))
+                        onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
                     },
                     updatePage = {
-                        libraryViewModel.onEvent(LibraryEvent.OnUpdateCurrentPage(it))
+                        onLibraryEvent(LibraryEvent.OnUpdateCurrentPage(it))
                     },
                     navigator = navigator
                 )
@@ -82,8 +79,11 @@ fun BookInfoMoveDialog(
                     Category.DROPPED -> stringResource(id = R.string.dropped_tab)
                 }
 
-                SelectableDialogItem(selected = it == state.selectedCategory, title = category) {
-                    viewModel.onEvent(BookInfoEvent.OnSelectCategory(it))
+                SelectableDialogItem(
+                    selected = it == state.value.selectedCategory,
+                    title = category
+                ) {
+                    onEvent(BookInfoEvent.OnSelectCategory(it))
                 }
             }
         }

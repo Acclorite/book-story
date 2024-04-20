@@ -208,6 +208,12 @@ class HistoryViewModel @Inject constructor(
                 job = viewModelScope.launch(Dispatchers.IO) {
                     delay(500)
                     yield()
+                    onEvent(HistoryEvent.OnSearch)
+                }
+            }
+
+            is HistoryEvent.OnSearch -> {
+                viewModelScope.launch(Dispatchers.IO) {
                     getHistoryFromDatabase()
                 }
             }

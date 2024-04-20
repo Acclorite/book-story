@@ -16,23 +16,25 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.components.GoBackButton
-import ua.acclorite.book_story.presentation.components.collapsibleScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
+import ua.acclorite.book_story.presentation.data.MainSettingsState
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.settings.components.ColorPickerWithTitle
@@ -47,20 +49,33 @@ import ua.acclorite.book_story.presentation.ui.ThemeContrast
 import ua.acclorite.book_story.presentation.ui.isDark
 import ua.acclorite.book_story.presentation.ui.isPureDark
 
+@Composable
+fun AppearanceSettingsRoot() {
+    val navigator = LocalNavigator.current
+    val mainViewModel: MainViewModel = hiltViewModel()
+
+    val state = mainViewModel.state.collectAsState()
+
+    AppearanceSettings(
+        state = state,
+        navigator = navigator,
+        onMainEvent = mainViewModel::onEvent
+    )
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppearanceSettings(
-    mainViewModel: MainViewModel,
-    navigator: Navigator
+private fun AppearanceSettings(
+    state: State<MainSettingsState>,
+    navigator: Navigator,
+    onMainEvent: (MainEvent) -> Unit
 ) {
-    val scrollState = TopAppBarDefaults.collapsibleScrollBehaviorWithLazyListState()
+    val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
+    val themeContrastTheme = remember { mutableStateOf(state.value.theme!!) }
 
-    val state by mainViewModel.state.collectAsState()
-    var themeContrastTheme by remember { mutableStateOf(state.theme!!) }
-
-    LaunchedEffect(state.theme) {
-        if (themeContrastTheme != state.theme && state.theme != Theme.DYNAMIC) {
-            themeContrastTheme = state.theme!!
+    LaunchedEffect(state.value.theme) {
+        if (themeContrastTheme.value != state.value.theme && state.value.theme != Theme.DYNAMIC) {
+            themeContrastTheme.value = state.value.theme!!
         }
     }
 
@@ -128,11 +143,11 @@ fun AppearanceSettings(
                                 DarkTheme.FOLLOW_SYSTEM -> stringResource(id = R.string.dark_theme_follow_system)
                             },
                             MaterialTheme.typography.labelLarge,
-                            it == state.darkTheme
+                            it == state.value.darkTheme
                         )
                     }
                 ) {
-                    mainViewModel.onEvent(
+                    onMainEvent(
                         MainEvent.OnChangeDarkTheme(
                             it.id
                         )
@@ -143,27 +158,28 @@ fun AppearanceSettings(
             item {
                 AppearanceSettingsThemeSwitcher(
                     modifier = Modifier.animateItem(),
-                    mainViewModel = mainViewModel
+                    state = state,
+                    onMainEvent = onMainEvent
                 )
             }
 
             item {
                 BookStoryTheme(
-                    theme = themeContrastTheme,
-                    isDark = state.darkTheme!!.isDark(),
-                    isPureDark = state.pureDark!!.isPureDark(context = LocalContext.current),
-                    themeContrast = state.themeContrast!!
+                    theme = themeContrastTheme.value,
+                    isDark = state.value.darkTheme!!.isDark(),
+                    isPureDark = state.value.pureDark!!.isPureDark(context = LocalContext.current),
+                    themeContrast = state.value.themeContrast!!
                 ) {
                     SlidingTransition(
                         modifier = Modifier.animateItem(
                             fadeInSpec = null,
                             fadeOutSpec = null
                         ),
-                        visible = state.theme != Theme.DYNAMIC,
+                        visible = state.value.theme != Theme.DYNAMIC,
                     ) {
                         SegmentedButtonWithTitle(
                             title = stringResource(id = R.string.theme_contrast_option),
-                            locked = state.theme != Theme.DYNAMIC,
+                            locked = state.value.theme != Theme.DYNAMIC,
                             buttons = ThemeContrast.entries.map {
                                 ButtonItem(
                                     it.toString(),
@@ -173,11 +189,11 @@ fun AppearanceSettings(
                                         ThemeContrast.HIGH -> stringResource(id = R.string.theme_contrast_high)
                                     },
                                     MaterialTheme.typography.labelLarge,
-                                    it == state.themeContrast
+                                    it == state.value.themeContrast
                                 )
                             }
                         ) {
-                            mainViewModel.onEvent(
+                            onMainEvent(
                                 MainEvent.OnChangeThemeContrast(
                                     it.id
                                 )
@@ -193,7 +209,7 @@ fun AppearanceSettings(
                         fadeInSpec = null,
                         fadeOutSpec = null
                     ),
-                    visible = state.darkTheme!!.isDark(),
+                    visible = state.value.darkTheme!!.isDark(),
                 ) {
                     SegmentedButtonWithTitle(
                         title = stringResource(id = R.string.pure_dark_option),
@@ -207,11 +223,11 @@ fun AppearanceSettings(
                                     PureDark.SAVER -> stringResource(id = R.string.pure_dark_power_saver)
                                 },
                                 MaterialTheme.typography.labelLarge,
-                                it == state.pureDark
+                                it == state.value.pureDark
                             )
                         }
                     ) {
-                        mainViewModel.onEvent(
+                        onMainEvent(
                             MainEvent.OnChangePureDark(
                                 it.id
                             )
@@ -241,10 +257,10 @@ fun AppearanceSettings(
             item {
                 ColorPickerWithTitle(
                     modifier = Modifier.animateItem(),
-                    value = Color(state.backgroundColor!!.toULong()),
+                    value = Color(state.value.backgroundColor!!.toULong()),
                     title = stringResource(id = R.string.background_color_option),
                     onValueChange = {
-                        mainViewModel.onEvent(
+                        onMainEvent(
                             MainEvent.OnChangeBackgroundColor(
                                 it.value.toLong()
                             )
@@ -255,10 +271,10 @@ fun AppearanceSettings(
             item {
                 ColorPickerWithTitle(
                     modifier = Modifier.animateItem(),
-                    value = Color(state.fontColor!!.toULong()),
+                    value = Color(state.value.fontColor!!.toULong()),
                     title = stringResource(id = R.string.font_color_option),
                     onValueChange = {
-                        mainViewModel.onEvent(
+                        onMainEvent(
                             MainEvent.OnChangeFontColor(
                                 it.value.toLong()
                             )

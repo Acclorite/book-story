@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ua.acclorite.book_story.presentation.data.Navigator
 import javax.inject.Inject
 
 @HiltViewModel
@@ -65,12 +66,24 @@ class HelpViewModel @Inject constructor(
                     event.noAppsFound()
                 }
             }
+
+            is HelpEvent.OnUpdateState -> {
+                _state.update {
+                    event.block(it)
+                }
+            }
         }
     }
 
-    fun onUpdate(calculation: (HelpState) -> HelpState) {
-        _state.update {
-            calculation(it)
+    fun init(navigator: Navigator) {
+        viewModelScope.launch {
+            val isFromStart = navigator.retrieveArgument("from_start") as? Boolean ?: false
+
+            _state.update {
+                it.copy(
+                    fromStart = isFromStart
+                )
+            }
         }
     }
 }

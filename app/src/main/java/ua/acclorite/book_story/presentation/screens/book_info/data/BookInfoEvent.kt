@@ -3,11 +3,13 @@ package ua.acclorite.book_story.presentation.screens.book_info.data
 import android.content.Context
 import android.net.Uri
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.presentation.data.Navigator
 
+@Immutable
 sealed class BookInfoEvent {
     data object OnShowHideChangeCoverBottomSheet : BookInfoEvent()
     data object OnShowHideDetailsBottomSheet : BookInfoEvent()

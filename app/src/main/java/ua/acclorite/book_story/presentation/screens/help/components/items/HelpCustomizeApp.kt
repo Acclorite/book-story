@@ -2,20 +2,23 @@ package ua.acclorite.book_story.presentation.screens.help.components.items
 
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.buildAnnotatedString
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.help.components.HelpAnnotation
 import ua.acclorite.book_story.presentation.screens.help.components.HelpItem
-import ua.acclorite.book_story.presentation.screens.help.data.HelpViewModel
+import ua.acclorite.book_story.presentation.screens.help.data.HelpEvent
+import ua.acclorite.book_story.presentation.screens.help.data.HelpState
 
 @Composable
-fun LazyItemScope.HelpCustomizeApp(viewModel: HelpViewModel, navigator: Navigator) {
-    val state by viewModel.state.collectAsState()
+fun LazyItemScope.HelpCustomizeApp(
+    state: State<HelpState>,
+    onEvent: (HelpEvent) -> Unit
+) {
+    val navigator = LocalNavigator.current
 
     HelpItem(
         title = stringResource(id = R.string.help_title_how_to_customize_app),
@@ -30,13 +33,15 @@ fun LazyItemScope.HelpCustomizeApp(viewModel: HelpViewModel, navigator: Navigato
             append(stringResource(id = R.string.help_desc_how_to_customize_app_3))
         },
         tags = listOf("settings"),
-        shouldShowDescription = state.showHelpItem3,
+        shouldShowDescription = state.value.showHelpItem3,
         onTitleClick = {
-            viewModel.onUpdate {
-                it.copy(
-                    showHelpItem3 = !it.showHelpItem3
-                )
-            }
+            onEvent(
+                HelpEvent.OnUpdateState {
+                    it.copy(
+                        showHelpItem3 = !it.showHelpItem3
+                    )
+                }
+            )
         },
         onTagClick = { tag ->
             when (tag) {

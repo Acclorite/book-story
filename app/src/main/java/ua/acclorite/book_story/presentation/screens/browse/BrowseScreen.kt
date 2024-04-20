@@ -3,18 +3,14 @@ package ua.acclorite.book_story.presentation.screens.browse
 import android.Manifest
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -30,6 +26,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,33 +36,52 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
+import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomIconButton
+import ua.acclorite.book_story.presentation.components.CustomSearchTextField
 import ua.acclorite.book_story.presentation.components.MoreDropDown
 import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
 import ua.acclorite.book_story.presentation.components.is_messages.IsError
+import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.browse.components.BrowseFileItem
 import ua.acclorite.book_story.presentation.screens.browse.components.BrowseStoragePermissionDialog
 import ua.acclorite.book_story.presentation.screens.browse.components.adding_dialog.BrowseAddingDialog
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
+import ua.acclorite.book_story.presentation.screens.browse.data.BrowseState
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.Transitions
+
+@Composable
+fun BrowseScreenRoot() {
+    val navigator = LocalNavigator.current
+    val viewModel: BrowseViewModel = hiltViewModel()
+    val libraryViewModel: LibraryViewModel = hiltViewModel()
+
+    val state = viewModel.state.collectAsState()
+
+    BrowseScreen(
+        state = state,
+        navigator = navigator,
+        onEvent = viewModel::onEvent,
+        onLibraryEvent = libraryViewModel::onEvent
+    )
+}
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -73,28 +89,28 @@ import ua.acclorite.book_story.presentation.ui.Transitions
     ExperimentalMaterialApi::class
 )
 @Composable
-fun BrowseScreen(
-    viewModel: BrowseViewModel,
-    libraryViewModel: LibraryViewModel,
-    navigator: Navigator
+private fun BrowseScreen(
+    state: State<BrowseState>,
+    navigator: Navigator,
+    onEvent: (BrowseEvent) -> Unit,
+    onLibraryEvent: (LibraryEvent) -> Unit
 ) {
     val context = LocalContext.current
     val permissionState = rememberPermissionState(
         permission = Manifest.permission.READ_EXTERNAL_STORAGE
     )
-    val state by viewModel.state.collectAsState()
     val refreshState = rememberPullRefreshState(
-        refreshing = state.isRefreshing,
+        refreshing = state.value.isRefreshing,
         onRefresh = {
-            viewModel.onEvent(BrowseEvent.OnRefreshList)
+            onEvent(BrowseEvent.OnRefreshList)
         }
     )
     val focusRequester = remember { FocusRequester() }
     var showErrorMessage by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        viewModel.onEvent(BrowseEvent.OnUpdateScrollOffset)
-        viewModel.onEvent(
+        onEvent(BrowseEvent.OnUpdateScrollOffset)
+        onEvent(
             BrowseEvent.OnPermissionCheck(
                 permissionState,
                 hideErrorMessage = { showErrorMessage = false }
@@ -102,16 +118,16 @@ fun BrowseScreen(
         )
     }
 
-    if (state.requestPermissionDialog) {
-        BrowseStoragePermissionDialog(viewModel, permissionState) {
+    if (state.value.requestPermissionDialog) {
+        BrowseStoragePermissionDialog(onEvent, permissionState) {
             showErrorMessage = it
         }
     }
-    if (state.showAddingDialog) {
+    if (state.value.showAddingDialog) {
         BrowseAddingDialog(
-            viewModel = viewModel,
-            navigator = navigator,
-            libraryViewModel = libraryViewModel
+            state = state,
+            onEvent = onEvent,
+            onLibraryEvent = onLibraryEvent
         )
     }
 
@@ -123,9 +139,9 @@ fun BrowseScreen(
         topBar = {
             AnimatedTopAppBar(
                 scrollBehavior = null,
-                isTopBarScrolled = state.hasSelectedItems || state.listState.canScrollBackward,
+                isTopBarScrolled = state.value.hasSelectedItems || state.value.listState.canScrollBackward,
 
-                content1Visibility = !state.hasSelectedItems && !state.showSearch,
+                content1Visibility = !state.value.hasSelectedItems && !state.value.showSearch,
                 content1NavigationIcon = {},
                 content1Title = {
                     Text(stringResource(id = R.string.browse_screen))
@@ -136,26 +152,26 @@ fun BrowseScreen(
                         contentDescription = R.string.search_content_desc,
                         disableOnClick = true
                     ) {
-                        viewModel.onEvent(BrowseEvent.OnSearchShowHide)
+                        onEvent(BrowseEvent.OnSearchShowHide)
                     }
-                    MoreDropDown(navigator = navigator)
+                    MoreDropDown()
                 },
 
-                content2Visibility = state.hasSelectedItems,
+                content2Visibility = state.value.hasSelectedItems,
                 content2NavigationIcon = {
                     CustomIconButton(
                         icon = Icons.Default.Clear,
                         contentDescription = R.string.clear_selected_items_content_desc,
                         disableOnClick = true
                     ) {
-                        viewModel.onEvent(BrowseEvent.OnClearSelectedFiles)
+                        onEvent(BrowseEvent.OnClearSelectedFiles)
                     }
                 },
                 content2Title = {
                     Text(
                         stringResource(
                             id = R.string.selected_items_count_query,
-                            state.selectedItemsCount.coerceAtLeast(1)
+                            state.value.selectedItemsCount.coerceAtLeast(1)
                         ),
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1
@@ -166,65 +182,44 @@ fun BrowseScreen(
                         icon = Icons.Default.Check,
                         contentDescription = R.string.add_files_content_desc,
                         disableOnClick = false,
-                        enabled = !state.showAddingDialog
+                        enabled = !state.value.showAddingDialog
                     ) {
-                        viewModel.onEvent(BrowseEvent.OnAddingDialogRequest)
+                        onEvent(BrowseEvent.OnAddingDialogRequest)
                     }
                 },
 
-                content3Visibility = state.showSearch && !state.hasSelectedItems,
+                content3Visibility = state.value.showSearch && !state.value.hasSelectedItems,
                 content3NavigationIcon = {
                     CustomIconButton(
                         icon = Icons.AutoMirrored.Default.ArrowBack,
                         contentDescription = R.string.exit_search_content_desc,
                         disableOnClick = true
                     ) {
-                        viewModel.onEvent(BrowseEvent.OnSearchShowHide)
+                        onEvent(BrowseEvent.OnSearchShowHide)
                     }
                 },
                 content3Title = {
-                    BasicTextField(
-                        value = state.searchQuery,
-                        singleLine = true,
-                        textStyle = TextStyle(
-                            color = MaterialTheme.colorScheme.onSurface,
-                            fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                            lineHeight = MaterialTheme.typography.titleLarge.lineHeight,
-                            fontFamily = MaterialTheme.typography.titleLarge.fontFamily
-                        ),
+                    CustomSearchTextField(
                         modifier = Modifier
                             .focusRequester(focusRequester)
                             .onGloballyPositioned {
-                                viewModel.onEvent(BrowseEvent.OnRequestFocus(focusRequester))
+                                onEvent(BrowseEvent.OnRequestFocus(focusRequester))
                             },
-                        onValueChange = {
-                            viewModel.onEvent(BrowseEvent.OnSearchQueryChange(it))
+                        query = state.value.searchQuery,
+                        onQueryChange = {
+                            onEvent(BrowseEvent.OnSearchQueryChange(it))
                         },
-                        keyboardOptions = KeyboardOptions(KeyboardCapitalization.Words),
-                        cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurfaceVariant)
-                    ) { innerText ->
-                        Box(
-                            modifier = Modifier.fillMaxHeight(),
-                            contentAlignment = Alignment.CenterStart
-                        ) {
-                            if (state.searchQuery.isEmpty()) {
-                                Text(
-                                    stringResource(
-                                        id = R.string.search_query,
-                                        stringResource(id = R.string.files)
-                                    ),
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    style = MaterialTheme.typography.titleLarge,
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
-                                )
-                            }
-                            innerText()
-                        }
-                    }
+                        onSearch = {
+                            onEvent(BrowseEvent.OnSearch)
+                        },
+                        placeholder = stringResource(
+                            id = R.string.search_query,
+                            stringResource(id = R.string.files)
+                        )
+                    )
                 },
                 content3Actions = {
-                    MoreDropDown(navigator = navigator)
+                    MoreDropDown()
                 }
             )
         }
@@ -234,21 +229,21 @@ fun BrowseScreen(
                 .fillMaxSize()
                 .padding(top = padding.calculateTopPadding())
         ) {
-            DefaultTransition(visible = !state.isLoading) {
+            DefaultTransition(visible = !state.value.isLoading) {
                 LazyColumn(
-                    state = state.listState,
+                    state = state.value.listState,
                     modifier = Modifier
                         .fillMaxSize(),
                     contentPadding = PaddingValues(vertical = 8.dp)
                 ) {
                     items(
-                        state.selectableFiles,
+                        state.value.selectableFiles,
                         key = { it.first.path }
                     ) { selectableFile ->
                         BrowseFileItem(
                             file = selectableFile,
                             modifier = Modifier.animateItem(),
-                            hasSelectedFiles = state.selectableFiles.any { it.second },
+                            hasSelectedFiles = state.value.selectableFiles.any { it.second },
                             onLongClick = {
                                 Toast.makeText(
                                     context,
@@ -260,14 +255,14 @@ fun BrowseScreen(
                                 ).show()
                             },
                             onClick = {
-                                viewModel.onEvent(BrowseEvent.OnSelectFile(selectableFile))
+                                onEvent(BrowseEvent.OnSelectFile(selectableFile))
                             }
                         )
                     }
                 }
             }
 
-            AnimatedVisibility(
+            CustomAnimatedVisibility(
                 visible = showErrorMessage,
                 modifier = Modifier.align(Alignment.Center),
                 enter = Transitions.DefaultTransitionIn,
@@ -279,7 +274,7 @@ fun BrowseScreen(
                     icon = painterResource(id = R.drawable.error),
                     actionTitle = stringResource(id = R.string.grant_permission)
                 ) {
-                    viewModel.onEvent(
+                    onEvent(
                         BrowseEvent.OnPermissionCheck(
                             permissionState,
                             hideErrorMessage = { showErrorMessage = false }
@@ -288,10 +283,10 @@ fun BrowseScreen(
                 }
             }
 
-            AnimatedVisibility(
-                visible = !state.isLoading && state.selectableFiles.isEmpty()
-                        && !showErrorMessage && !state.requestPermissionDialog
-                        && !state.isRefreshing,
+            CustomAnimatedVisibility(
+                visible = !state.value.isLoading && state.value.selectableFiles.isEmpty()
+                        && !showErrorMessage && !state.value.requestPermissionDialog
+                        && !state.value.isRefreshing,
                 modifier = Modifier.align(Alignment.Center),
                 enter = Transitions.DefaultTransitionIn,
                 exit = fadeOut(tween(0))
@@ -305,7 +300,7 @@ fun BrowseScreen(
             }
 
             PullRefreshIndicator(
-                state.isRefreshing,
+                state.value.isRefreshing,
                 refreshState,
                 Modifier.align(Alignment.TopCenter),
                 backgroundColor = MaterialTheme.colorScheme.inverseSurface,
@@ -315,13 +310,13 @@ fun BrowseScreen(
     }
 
     BackHandler {
-        if (state.hasSelectedItems) {
-            viewModel.onEvent(BrowseEvent.OnClearSelectedFiles)
+        if (state.value.hasSelectedItems) {
+            onEvent(BrowseEvent.OnClearSelectedFiles)
             return@BackHandler
         }
 
-        if (state.showSearch) {
-            viewModel.onEvent(BrowseEvent.OnSearchShowHide)
+        if (state.value.showSearch) {
+            onEvent(BrowseEvent.OnSearchShowHide)
             return@BackHandler
         }
 

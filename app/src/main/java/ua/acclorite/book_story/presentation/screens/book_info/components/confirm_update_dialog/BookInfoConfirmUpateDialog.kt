@@ -4,28 +4,28 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Update
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithLazyColumn
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
-import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
+import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
-import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 
+/**
+ * Confirm update dialog. Updates book if action clicked.
+ */
 @Composable
 fun BookInfoConfirmUpdateDialog(
-    libraryViewModel: LibraryViewModel,
-    historyViewModel: HistoryViewModel,
-    viewModel: BookInfoViewModel,
-    snackbarHostState: SnackbarHostState
+    state: State<BookInfoState>,
+    snackbarHostState: SnackbarHostState,
+    onEvent: (BookInfoEvent) -> Unit,
+    onLibraryUpdateEvent: (LibraryEvent.OnUpdateBook) -> Unit,
+    onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit,
 ) {
     val context = LocalContext.current
-    val state by viewModel.state.collectAsState()
 
     CustomDialogWithLazyColumn(
         title = stringResource(id = R.string.confirm_update),
@@ -35,32 +35,32 @@ fun BookInfoConfirmUpdateDialog(
         ),
         actionText = stringResource(id = R.string.confirm),
         isActionEnabled = true,
-        onDismiss = { viewModel.onEvent(BookInfoEvent.OnDismissConfirmUpdateDialog) },
+        onDismiss = { onEvent(BookInfoEvent.OnDismissConfirmUpdateDialog) },
         onAction = {
-            viewModel.onEvent(
+            onEvent(
                 BookInfoEvent.OnConfirmUpdate(
                     snackbarState = snackbarHostState,
                     context = context,
                     refreshList = {
-                        libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
-                        historyViewModel.onEvent(HistoryEvent.OnUpdateBook(it))
+                        onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
+                        onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
                     }
                 )
             )
         },
         withDivider = false,
         items = {
-            if (state.authorChanged) {
+            if (state.value.authorChanged) {
                 item {
                     BookInfoConfirmUpdateDialogItem(title = stringResource(id = R.string.author))
                 }
             }
-            if (state.descriptionChanged) {
+            if (state.value.descriptionChanged) {
                 item {
                     BookInfoConfirmUpdateDialogItem(title = stringResource(id = R.string.description))
                 }
             }
-            if (state.textChanged) {
+            if (state.value.textChanged) {
                 item {
                     BookInfoConfirmUpdateDialogItem(title = stringResource(id = R.string.text))
                 }
