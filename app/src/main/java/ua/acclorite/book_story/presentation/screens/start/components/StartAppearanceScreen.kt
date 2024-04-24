@@ -13,7 +13,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainSettingsState
+import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.components.SegmentedButtonWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.theme_switcher.AppearanceSettingsThemeSwitcher
 import ua.acclorite.book_story.presentation.ui.BookStoryTheme
@@ -29,7 +29,7 @@ import ua.acclorite.book_story.presentation.ui.isPureDark
  * Appearance settings.
  */
 fun LazyListScope.startAppearanceScreen(
-    mainState: State<MainSettingsState>,
+    mainState: State<MainState>,
     onMainEvent: (MainEvent) -> Unit,
     themeContrastTheme: State<Theme>
 ) {

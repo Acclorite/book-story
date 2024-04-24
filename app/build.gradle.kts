@@ -16,7 +16,7 @@ android {
         minSdk = 26
         targetSdk = 34
         versionCode = 1
-        versionName = "0.9.8"
+        versionName = "0.9.9"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -52,11 +52,22 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
-            excludes += "/META-INF/LICENSE.md"
-            excludes += "/META-INF/LICENSE-notice.md"
             excludes += "/META-INF/gradle/incremental.annotation.processors"
         }
     }
+}
+
+aboutLibraries {
+    registerAndroidTasks = true
+    outputFileName = "aboutlibraries.json"
+    offlineMode = false
+    fetchRemoteLicense = true
+    fetchRemoteFunding = true
+    includePlatform = true
+    duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
+    duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
+    prettyPrint = false
+    filterVariants = arrayOf("debug", "release")
 }
 
 dependencies {
@@ -137,5 +148,5 @@ dependencies {
 
     // About open source libraries
     implementation("com.mikepenz:aboutlibraries-core:latest.release")
-    implementation("com.mikepenz:aboutlibraries-compose:latest.release")
+    implementation("com.mikepenz:aboutlibraries-compose-m3:latest.release")
 }

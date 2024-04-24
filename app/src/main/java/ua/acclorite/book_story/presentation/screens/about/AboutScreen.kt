@@ -37,6 +37,7 @@ import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.about.components.AboutItem
 import ua.acclorite.book_story.presentation.screens.about.components.AboutUpdateDialog
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
@@ -204,6 +205,24 @@ private fun AboutScreen(
                             }
                         )
                     )
+                }
+            }
+
+            item {
+                AboutItem(
+                    title = stringResource(id = R.string.licenses_option),
+                    description = null
+                ) {
+                    navigator.navigate(Screen.LICENSES, false)
+                }
+            }
+
+            item {
+                AboutItem(
+                    title = stringResource(id = R.string.credits_option),
+                    description = null
+                ) {
+                    navigator.navigate(Screen.CREDITS, false)
                 }
             }
 

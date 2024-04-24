@@ -44,8 +44,8 @@ class MainViewModel @Inject constructor(
     private val isSettingsReady = MutableStateFlow(false)
     private val isViewModelReady = MutableStateFlow(false)
 
-    private val _state: MutableStateFlow<MainSettingsState> = MutableStateFlow(
-        stateHandle[Constants.MAIN_STATE] ?: MainSettingsState()
+    private val _state: MutableStateFlow<MainState> = MutableStateFlow(
+        stateHandle[Constants.MAIN_STATE] ?: MainState()
     )
     val state = _state.asStateFlow()
 
@@ -216,6 +216,17 @@ class MainViewModel @Inject constructor(
                     }
                 }
             }
+
+            is MainEvent.OnChangeSidePadding -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.SIDE_PADDING, event.sidePadding)
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            sidePadding = event.sidePadding
+                        )
+                    }
+                }
+            }
         }
     }
 
@@ -270,10 +281,10 @@ class MainViewModel @Inject constructor(
     }
 
     /**
-     * Updates [MainSettingsState] along with [SavedStateHandle].
+     * Updates [MainState] along with [SavedStateHandle].
      */
     private fun updateStateWithSavedHandle(
-        function: (MainSettingsState) -> MainSettingsState
+        function: (MainState) -> MainState
     ) {
         _state.update {
             stateHandle[Constants.MAIN_STATE] = function(it)

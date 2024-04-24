@@ -34,7 +34,7 @@ import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.CoverImage
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
-import ua.acclorite.book_story.presentation.data.MainSettingsState
+import ua.acclorite.book_story.presentation.data.MainState
 import java.io.File
 import java.io.FileOutputStream
 import java.util.UUID
@@ -391,8 +391,8 @@ class BookRepositoryImpl @Inject constructor(
         dataStore.putData(key, value)
     }
 
-    override suspend fun getAllSettings(scope: CoroutineScope): MainSettingsState {
-        val result = CompletableDeferred<MainSettingsState>()
+    override suspend fun getAllSettings(scope: CoroutineScope): MainState {
+        val result = CompletableDeferred<MainState>()
 
         scope.launch {
             val keys = dataStore.getAllData()
@@ -411,7 +411,7 @@ class BookRepositoryImpl @Inject constructor(
             }
             jobs?.awaitAll()
 
-            result.complete(MainSettingsState.initialize(data))
+            result.complete(MainState.initialize(data))
         }
 
         return result.await()
@@ -613,7 +613,7 @@ class BookRepositoryImpl @Inject constructor(
             try {
                 val result = githubAPI.getLatestRelease()
 
-                val version = result.tag_name.substringAfterLast("v")
+                val version = result.tagName.substringAfterLast("v")
                 val currentVersion = application.getString(R.string.app_version)
 
                 if (version != currentVersion && postNotification) {

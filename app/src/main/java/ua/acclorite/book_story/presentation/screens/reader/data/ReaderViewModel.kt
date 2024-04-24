@@ -111,7 +111,13 @@ class ReaderViewModel @Inject constructor(
                     updateBooks.execute(
                         listOf(_state.value.book)
                     )
-                    event.refreshList(_state.value.book)
+                    event.refreshList(
+                        _state.value.book.copy(
+                            text = emptyList(),
+                            letters = 0,
+                            words = 0
+                        )
+                    )
 
                     viewModelScope.launch {
                         snapshotFlow {
@@ -231,7 +237,13 @@ class ReaderViewModel @Inject constructor(
                     event.navigator.putArgument(
                         Argument("book", _state.value.book.id)
                     )
-                    event.refreshList(_state.value.book)
+                    event.refreshList(
+                        _state.value.book.copy(
+                            text = emptyList(),
+                            letters = 0,
+                            words = 0
+                        )
+                    )
 
                     insetsController.show(WindowInsetsCompat.Type.systemBars())
                     event.navigate(event.navigator)
@@ -269,7 +281,13 @@ class ReaderViewModel @Inject constructor(
                             _state.value.book.id
                         )
                     )
-                    event.refreshList(_state.value.book)
+                    event.refreshList(
+                        _state.value.book.copy(
+                            text = emptyList(),
+                            letters = 0,
+                            words = 0
+                        )
+                    )
                 }
             }
 
@@ -317,7 +335,13 @@ class ReaderViewModel @Inject constructor(
                     }
                     updateBooks.execute(listOf(_state.value.book))
 
-                    event.onUpdateCategories(_state.value.book)
+                    event.onUpdateCategories(
+                        _state.value.book.copy(
+                            text = emptyList(),
+                            letters = 0,
+                            words = 0
+                        )
+                    )
                     event.updatePage(
                         Category.entries.dropLastWhile {
                             it != Category.ALREADY_READ
@@ -396,19 +420,25 @@ class ReaderViewModel @Inject constructor(
                 return@launch
             }
 
-            val book = getBooksById.execute(listOf(bookId))
+            if (_state.value.book.id != bookId) {
+                val book = getBooksById.execute(listOf(bookId))
 
-            if (book.isEmpty()) {
-                navigator.navigateBack()
-                return@launch
+                if (book.isEmpty()) {
+                    navigator.navigateBack()
+                    return@launch
+                }
+
+                _state.update {
+                    ReaderState(book = book.first())
+                }
+            } else {
+                _state.update {
+                    ReaderState(book = it.book)
+                }
             }
 
             viewModelScope.launch {
                 onEvent(ReaderEvent.OnShowHideMenu(false, context))
-            }
-
-            _state.update {
-                ReaderState(book = book.first())
             }
 
             onEvent(

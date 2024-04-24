@@ -1,10 +1,14 @@
 package ua.acclorite.book_story.data.remote.dto
 
+import androidx.annotation.Keep
 import androidx.compose.runtime.Immutable
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-@Suppress("PropertyName")
+@Keep
+@JsonClass(generateAdapter = true)
 @Immutable
 data class ReleaseResponse(
-    val name: String,
-    val tag_name: String
+    @Json(name = "name") val name: String,
+    @Json(name = "tag_name") val tagName: String
 )

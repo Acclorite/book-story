@@ -16,4 +16,5 @@ sealed class MainEvent {
     data class OnChangeFontColor(val color: Long) : MainEvent()
     data class OnChangeShowStartScreen(val bool: Boolean) : MainEvent()
     data class OnChangeCheckForUpdates(val bool: Boolean) : MainEvent()
+    data class OnChangeSidePadding(val sidePadding: Int) : MainEvent()
 }

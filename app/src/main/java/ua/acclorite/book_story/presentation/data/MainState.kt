@@ -21,7 +21,7 @@ import java.util.Locale
  * Main State. All app's settings are here. Wrapped in SavedStateHandle, so it won't reset.
  */
 @Immutable
-data class MainSettingsState(
+data class MainState(
     val language: String? = null,
     val theme: Theme? = null,
     val darkTheme: DarkTheme? = null,
@@ -37,6 +37,7 @@ data class MainSettingsState(
     val fontColor: Long? = null,
     val showStartScreen: Boolean? = null,
     val checkForUpdates: Boolean? = null,
+    val sidePadding: Int? = null,
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         // String
@@ -72,6 +73,8 @@ data class MainSettingsState(
         // Boolean
         checkForUpdates = if (parcel.readByte().toInt() != 0) parcel.readByte()
             .toInt() == 1 else null,
+        // Int
+        sidePadding = if (parcel.readByte().toInt() != 0) parcel.readInt() else null,
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -114,25 +117,28 @@ data class MainSettingsState(
         // Check For Updates
         parcel.writeByte((if (checkForUpdates != null) 1 else 0).toByte())
         checkForUpdates?.let { parcel.writeByte(if (it) 1 else 0) }
+        // Side padding
+        parcel.writeByte((if (sidePadding != null) 1 else 0).toByte())
+        sidePadding?.let { parcel.writeInt(it) }
     }
 
     override fun describeContents(): Int {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<MainSettingsState> {
-        override fun createFromParcel(parcel: Parcel): MainSettingsState {
-            return MainSettingsState(parcel)
+    companion object CREATOR : Parcelable.Creator<MainState> {
+        override fun createFromParcel(parcel: Parcel): MainState {
+            return MainState(parcel)
         }
 
-        override fun newArray(size: Int): Array<MainSettingsState?> {
+        override fun newArray(size: Int): Array<MainState?> {
             return arrayOfNulls(size)
         }
 
         /**
-         * Initializes [MainSettingsState] by given [Map].
+         * Initializes [MainState] by given [Map].
          */
-        fun initialize(data: Map<String, Any>): MainSettingsState {
+        fun initialize(data: Map<String, Any>): MainState {
             DataStoreConstants.apply {
 
                 val language: String = data[LANGUAGE.name] as? String ?: if (
@@ -186,7 +192,10 @@ data class MainSettingsState(
                 val checkForUpdates: Boolean = data[CHECK_FOR_UPDATES.name] as? Boolean
                     ?: false
 
-                return MainSettingsState(
+                val sidePadding: Int = data[SIDE_PADDING.name] as? Int
+                    ?: 6
+
+                return MainState(
                     language = language,
                     theme = theme.toTheme(),
                     darkTheme = darkTheme.toDarkTheme(),
@@ -201,7 +210,8 @@ data class MainSettingsState(
                     lineHeight = lineHeight,
                     paragraphHeight = paragraphHeight,
                     paragraphIndentation = paragraphIndentation,
-                    checkForUpdates = checkForUpdates
+                    checkForUpdates = checkForUpdates,
+                    sidePadding = sidePadding
                 )
             }
         }

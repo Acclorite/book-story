@@ -62,7 +62,7 @@ import ua.acclorite.book_story.presentation.components.CustomSelectionContainer
 import ua.acclorite.book_story.presentation.components.is_messages.IsError
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainSettingsState
+import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
@@ -127,7 +127,7 @@ fun ReaderScreenRoot() {
 @Composable
 private fun ReaderScreen(
     state: State<ReaderState>,
-    mainState: State<MainSettingsState>,
+    mainState: State<MainState>,
     listState: LazyListState,
     loading: State<Boolean>,
     navigator: Navigator,
@@ -167,6 +167,29 @@ private fun ReaderScreen(
             it.id == mainState.value.fontFamily
         } ?: Constants.FONTS[0]
     }
+    val fontColor = remember(mainState.value.fontColor) {
+        Color(mainState.value.fontColor!!.toULong())
+    }
+    val backgroundColor = remember(mainState.value.backgroundColor) {
+        Color(mainState.value.backgroundColor!!.toULong())
+    }
+    val lineHeight =
+        remember(mainState.value.fontSize, mainState.value.lineHeight) {
+            (mainState.value.fontSize!! + mainState.value.lineHeight!!).sp
+        }
+    val sidePadding = remember(mainState.value.sidePadding) {
+        (mainState.value.sidePadding!! * 3).dp
+    }
+    val paragraphHeight = remember(mainState.value.paragraphHeight) {
+        (mainState.value.paragraphHeight!! * 3).dp
+    }
+    val fontStyle = remember(mainState.value.isItalic) {
+        when (mainState.value.isItalic!!) {
+            true -> FontStyle.Italic
+            false -> FontStyle.Normal
+        }
+    }
+
 
     LaunchedEffect(canScroll) {
         if (!canScroll && !state.value.showMenu && !loading.value) {
@@ -329,16 +352,6 @@ private fun ReaderScreen(
                     val text = remember(mainState.value.paragraphIndentation) {
                         "${if (mainState.value.paragraphIndentation!!) "  " else ""}${line.line}"
                     }
-                    val fontColor = remember(mainState.value.fontColor) {
-                        Color(mainState.value.fontColor!!.toULong())
-                    }
-                    val backgroundColor = remember(mainState.value.backgroundColor) {
-                        Color(mainState.value.backgroundColor!!.toULong())
-                    }
-                    val lineHeight =
-                        remember(mainState.value.fontSize, mainState.value.lineHeight) {
-                            (mainState.value.fontSize!! + mainState.value.lineHeight!!).sp
-                        }
 
                     Column(
                         Modifier
@@ -346,23 +359,18 @@ private fun ReaderScreen(
                             .fillMaxWidth()
                             .padding(
                                 top = if (index == 0) 18.dp else 0.dp,
-                                start = 18.dp,
-                                end = 18.dp,
+                                start = sidePadding,
+                                end = sidePadding,
                                 bottom = if (index == state.value.book.text.lastIndex) 18.dp
-                                else (mainState.value.paragraphHeight!! * 3).dp
+                                else paragraphHeight
                             )
                     ) {
                         Text(
                             text = text,
                             color = fontColor,
-                            style = TextStyle(
-                                lineBreak = LineBreak.Paragraph
-                            ),
+                            style = TextStyle(lineBreak = LineBreak.Paragraph),
                             fontFamily = fontFamily.font,
-                            fontStyle = when (mainState.value.isItalic!!) {
-                                true -> FontStyle.Italic
-                                false -> FontStyle.Normal
-                            },
+                            fontStyle = fontStyle,
                             fontSize = mainState.value.fontSize!!.sp,
                             lineHeight = lineHeight
                         )

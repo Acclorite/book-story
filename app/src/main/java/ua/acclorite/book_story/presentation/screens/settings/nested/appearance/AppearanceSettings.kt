@@ -34,7 +34,7 @@ import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainSettingsState
+import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.settings.components.ColorPickerWithTitle
@@ -66,7 +66,7 @@ fun AppearanceSettingsRoot() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AppearanceSettings(
-    state: State<MainSettingsState>,
+    state: State<MainState>,
     navigator: Navigator,
     onMainEvent: (MainEvent) -> Unit
 ) {

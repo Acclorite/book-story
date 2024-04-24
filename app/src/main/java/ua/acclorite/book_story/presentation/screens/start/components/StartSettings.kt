@@ -35,7 +35,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainSettingsState
+import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.start.components.permissions.startPermissionsScreen
 import ua.acclorite.book_story.presentation.screens.start.data.StartEvent
 import ua.acclorite.book_story.presentation.screens.start.data.StartNavigationScreen
@@ -49,7 +49,7 @@ import ua.acclorite.book_story.presentation.ui.Theme
 @Composable
 fun StartSettings(
     state: State<StartState>,
-    mainState: State<MainSettingsState>,
+    mainState: State<MainState>,
     onEvent: (StartEvent) -> Unit,
     onMainEvent: (MainEvent) -> Unit,
     storagePermissionState: PermissionState,

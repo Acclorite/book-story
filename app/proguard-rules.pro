@@ -1,14 +1,7 @@
 # Proguard-rules
 -dontwarn org.xmlpull.v1.**
--dontwarn org.kxml2.io.**
--dontwarn android.content.res.**
--dontwarn org.slf4j.impl.StaticLoggerBinder
 -dontwarn com.gemalto.jp2.JP2Decoder
 -dontwarn com.google.auto.service.AutoService
--dontwarn javax.annotation.processing.AbstractProcessor
--dontwarn javax.annotation.processing.Filer
--dontwarn javax.annotation.processing.Messager
--dontwarn javax.annotation.processing.ProcessingEnvironment
 -dontwarn javax.lang.model.SourceVersion
 -dontwarn javax.lang.model.element.AnnotationMirror
 -dontwarn javax.lang.model.element.AnnotationValue
@@ -38,6 +31,11 @@
 -dontwarn javax.lang.model.util.SimpleTypeVisitor8
 -dontwarn javax.lang.model.util.Types
 -dontwarn javax.tools.Diagnostic$Kind
+-dontwarn org.kxml2.io.**
 
+-keep class com.mikepenz.aboutlibraries.** { *; }
 -keep class org.xmlpull.** { *; }
 -keepclassmembers class org.xmlpull.** { *; }
+
+# Debug rule
+#-keepnames class ** { *; }

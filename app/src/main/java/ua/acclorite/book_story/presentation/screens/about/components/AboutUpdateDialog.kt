@@ -28,7 +28,7 @@ fun AboutUpdateDialog(
     }
 
     CustomDialogWithContent(
-        title = stringResource(id = R.string.update_query, update.tag_name),
+        title = stringResource(id = R.string.update_query, update.tagName),
         imageVectorIcon = Icons.Default.Update,
         description = stringResource(
             id = R.string.update_app_description

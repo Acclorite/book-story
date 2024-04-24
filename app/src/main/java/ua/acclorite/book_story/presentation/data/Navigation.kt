@@ -77,6 +77,10 @@ enum class Screen {
     READER_SETTINGS,
 
     ABOUT,
+    LICENSES,
+    LICENSES_INFO,
+    CREDITS,
+
     HELP,
     START
 }

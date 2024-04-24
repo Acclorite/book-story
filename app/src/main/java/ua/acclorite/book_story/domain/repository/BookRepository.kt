@@ -10,7 +10,7 @@ import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.model.StringWithId
 import ua.acclorite.book_story.domain.util.CoverImage
 import ua.acclorite.book_story.domain.util.Resource
-import ua.acclorite.book_story.presentation.data.MainSettingsState
+import ua.acclorite.book_story.presentation.data.MainState
 import java.io.File
 
 interface BookRepository {
@@ -58,7 +58,7 @@ interface BookRepository {
         value: T
     )
 
-    suspend fun getAllSettings(scope: CoroutineScope): MainSettingsState
+    suspend fun getAllSettings(scope: CoroutineScope): MainState
 
     suspend fun getFilesFromDevice(query: String = ""): Flow<Resource<List<File>>>
 

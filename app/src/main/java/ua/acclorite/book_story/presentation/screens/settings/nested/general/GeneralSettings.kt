@@ -35,7 +35,7 @@ import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainSettingsState
+import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.settings.components.CheckboxWithTitle
@@ -63,7 +63,7 @@ fun GeneralSettingsRoot() {
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
 private fun GeneralSettings(
-    state: State<MainSettingsState>,
+    state: State<MainState>,
     navigator: Navigator,
     onSettingsEvent: (SettingsEvent) -> Unit,
     onMainEvent: (MainEvent) -> Unit

@@ -38,8 +38,8 @@ fun AboutItem(
     ) {
         Text(
             title,
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 18.sp
         )
         description?.let {

@@ -48,7 +48,7 @@ class AboutViewModel @Inject constructor(
                         return@launch
                     }
 
-                    val version = result.tag_name.substringAfterLast("v")
+                    val version = result.tagName.substringAfterLast("v")
                     val currentVersion = event.context.getString(R.string.app_version)
 
                     if (version == currentVersion) {

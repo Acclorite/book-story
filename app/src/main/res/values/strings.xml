@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="InconsistentArrays">
     <!-- Basic Strings -->
-    <string name="app_version" translatable="false">0.9.8</string>
+    <string name="app_version" translatable="false">0.9.9</string>
     <string name="app_name">Book\'s Story</string>
 
     <!-- Notifications -->
@@ -225,6 +225,7 @@
     <string name="font_color_option">Font color</string>
     <string name="check_for_updates_option">Check for updates</string>
     <string name="check_for_updates_option_desc">Check for newer app version on startup</string>
+    <string name="side_padding_option">Side padding</string>
 
     <!-- Colors -->
     <string name="red_color">Red</string>
@@ -308,8 +309,15 @@
     <string name="report_bug_option">Report a bug</string>
     <string name="project_page_option">Project\'s page</string>
     <string name="support_option">Support my work</string>
+    <string name="licenses_option">Open source licenses</string>
+    <string name="credits_option">Credits</string>
     <string name="slava_ukraini_option">Slava Ukraini! 🇺🇦</string>
     <string name="slava_ukraini_option_desc">Heroyam Slava! 🐉</string>
+
+    <!-- Credits -->
+    <string name="credits_design">Design</string>
+    <string name="credits_icon">Icons</string>
+    <string name="credits_updates">New updates managing</string>
 
     <!-- Help -->
     <string name="help_clickable_note_1">Please note, that</string>
@@ -484,5 +492,6 @@
     <string name="required_content_desc">Required</string>
     <string name="reset_start_content_desc">Reset start guide</string>
     <string name="hide_edit_title_content_desc">Exit title editing</string>
+    <string name="open_in_web_content_desc">Open in web</string>
 
 </resources>

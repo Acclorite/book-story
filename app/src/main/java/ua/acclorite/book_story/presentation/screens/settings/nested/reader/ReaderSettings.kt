@@ -32,7 +32,7 @@ import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainSettingsState
+import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.settings.components.CheckboxWithTitle
@@ -56,7 +56,7 @@ fun ReaderSettingsRoot() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ReaderSettings(
-    state: State<MainSettingsState>,
+    state: State<MainState>,
     navigator: Navigator,
     onMainEvent: (MainEvent) -> Unit
 ) {
@@ -186,6 +186,19 @@ private fun ReaderSettings(
             }
             item {
                 Spacer(modifier = Modifier.height(8.dp))
+            }
+            item {
+                SliderWithTitle(
+                    value = state.value.sidePadding!! to "pt",
+                    fromValue = 1,
+                    toValue = 20,
+                    title = stringResource(id = R.string.side_padding_option),
+                    onValueChange = {
+                        onMainEvent(
+                            MainEvent.OnChangeSidePadding(it)
+                        )
+                    }
+                )
             }
             item {
                 SliderWithTitle(

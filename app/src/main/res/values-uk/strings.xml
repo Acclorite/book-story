@@ -206,6 +206,7 @@
     <string name="font_color_option">Колір шрифта</string>
     <string name="check_for_updates_option">Перевіряти на оновлення</string>
     <string name="check_for_updates_option_desc">Перевіряти на новішу версію застосунку при запуску</string>
+    <string name="side_padding_option">Бокові відступи</string>
 
     <!-- Colors -->
     <string name="red_color">Червоний</string>
@@ -289,8 +290,15 @@
     <string name="report_bug_option">Повідомити про помилку</string>
     <string name="project_page_option">Сторінка проєкту</string>
     <string name="support_option">Підтримати мою роботу</string>
+    <string name="licenses_option">Ліцензії з відкритим кодом</string>
+    <string name="credits_option">Заслуги</string>
     <string name="slava_ukraini_option">Слава Україні! 🇺🇦</string>
     <string name="slava_ukraini_option_desc">Героям Слава! 🐉</string>
+
+    <!-- Credits -->
+    <string name="credits_design">Дизайн</string>
+    <string name="credits_icon">Іконки</string>
+    <string name="credits_updates">Керування новими оновленнями</string>
 
     <!-- Help -->
     <string name="help_clickable_note_1">Будь ласка, зверніть увагу, що на</string>
@@ -464,6 +472,7 @@
     <string name="required_content_desc">Необхідно</string>
     <string name="reset_start_content_desc">Скинути початковий посібник</string>
     <string name="hide_edit_title_content_desc">Вийти з редагування назви</string>
+    <string name="open_in_web_content_desc">Відкрити в браузері</string>
 
 
 </resources>

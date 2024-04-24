@@ -21,7 +21,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainSettingsState
+import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.ui.Theme
 import ua.acclorite.book_story.presentation.ui.isDark
 import ua.acclorite.book_story.presentation.ui.isPureDark
@@ -32,7 +32,7 @@ import ua.acclorite.book_story.presentation.ui.isPureDark
 @Composable
 fun AppearanceSettingsThemeSwitcher(
     modifier: Modifier = Modifier,
-    state: State<MainSettingsState>,
+    state: State<MainState>,
     onMainEvent: (MainEvent) -> Unit,
     verticalPadding: Dp = 8.dp
 ) {

@@ -39,7 +39,7 @@ import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainSettingsState
+import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.settings.components.CheckboxWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
@@ -54,7 +54,7 @@ import ua.acclorite.book_story.presentation.screens.settings.components.SliderWi
 )
 @Composable
 fun ReaderSettingsBottomSheet(
-    mainState: State<MainSettingsState>,
+    mainState: State<MainState>,
     onEvent: (ReaderEvent) -> Unit,
     onMainEvent: (MainEvent) -> Unit
 ) {
@@ -211,6 +211,19 @@ fun ReaderSettingsBottomSheet(
                         }
                         item {
                             Spacer(modifier = Modifier.height(8.dp))
+                        }
+                        item {
+                            SliderWithTitle(
+                                value = mainState.value.sidePadding!! to "pt",
+                                fromValue = 1,
+                                toValue = 20,
+                                title = stringResource(id = R.string.side_padding_option),
+                                onValueChange = {
+                                    onMainEvent(
+                                        MainEvent.OnChangeSidePadding(it)
+                                    )
+                                }
+                            )
                         }
                         item {
                             SliderWithTitle(

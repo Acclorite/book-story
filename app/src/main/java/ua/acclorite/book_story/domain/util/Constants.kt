@@ -7,6 +7,7 @@ import androidx.compose.ui.text.font.FontWeight
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
+import ua.acclorite.book_story.domain.model.Credit
 import ua.acclorite.book_story.domain.model.FontWithName
 import ua.acclorite.book_story.presentation.ui.Theme
 
@@ -34,6 +35,83 @@ object Constants {
         Pair(Theme.PINK, UIText.StringResource(R.string.pink_theme)),
         Pair(Theme.YELLOW, UIText.StringResource(R.string.yellow_theme)),
         Pair(Theme.AQUA, UIText.StringResource(R.string.aqua_theme)),
+    )
+
+    // Credits
+    val CREDITS = listOf(
+        Credit(
+            name = "Tachiyomi (Mihon)",
+            source = "GitHub",
+            credits = listOf(
+                UIText.StringResource(R.string.credits_design),
+                UIText.StringValue("Readme")
+            ),
+            website = "https://github.com/mihonapp/mihon"
+        ),
+        Credit(
+            name = "Libre-Sudoku",
+            source = "GitHub",
+            credits = listOf(
+                UIText.StringValue("Readme")
+            ),
+            website = "https://github.com/kaajjo/Libre-Sudoku"
+        ),
+        Credit(
+            name = "Kitsune",
+            source = "GitHub",
+            credits = listOf(
+                UIText.StringResource(R.string.credits_updates)
+            ),
+            website = "https://github.com/Drumber/Kitsune"
+        ),
+        Credit(
+            name = "Freepik",
+            source = "Flaticon",
+            credits = listOf(
+                UIText.StringResource(R.string.credits_icon)
+            ),
+            website = "https://www.flaticon.com/authors/freepik"
+        ),
+        Credit(
+            name = "Anggara",
+            source = "Flaticon",
+            credits = listOf(
+                UIText.StringResource(R.string.credits_icon)
+            ),
+            website = "https://www.flaticon.com/authors/anggara"
+        ),
+        Credit(
+            name = "Google",
+            source = "Flaticon",
+            credits = listOf(
+                UIText.StringResource(R.string.credits_icon)
+            ),
+            website = "https://www.flaticon.com/authors/google"
+        ),
+        Credit(
+            name = "Creative Stall Premium",
+            source = "Flaticon",
+            credits = listOf(
+                UIText.StringResource(R.string.credits_icon)
+            ),
+            website = "https://www.flaticon.com/authors/creative-stall-premium"
+        ),
+        Credit(
+            name = "Gajah Mada",
+            source = "Flaticon",
+            credits = listOf(
+                UIText.StringResource(R.string.credits_icon)
+            ),
+            website = "https://www.flaticon.com/authors/gajah-mada"
+        ),
+        Credit(
+            name = "mavadee",
+            source = "Flaticon",
+            credits = listOf(
+                UIText.StringResource(R.string.credits_icon)
+            ),
+            website = "https://www.flaticon.com/authors/mavadee"
+        ),
     )
 
     // Fonts for Reader

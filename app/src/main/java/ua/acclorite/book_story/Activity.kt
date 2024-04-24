@@ -26,6 +26,10 @@ import ua.acclorite.book_story.presentation.data.NavigationHost
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.about.AboutScreenRoot
 import ua.acclorite.book_story.presentation.screens.about.data.AboutViewModel
+import ua.acclorite.book_story.presentation.screens.about.nested.credits.CreditsScreenRoot
+import ua.acclorite.book_story.presentation.screens.about.nested.license_info.LicenseInfoScreenRoot
+import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoViewModel
+import ua.acclorite.book_story.presentation.screens.about.nested.licenses.LicensesScreenRoot
 import ua.acclorite.book_story.presentation.screens.book_info.BookInfoScreenRoot
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
 import ua.acclorite.book_story.presentation.screens.browse.BrowseScreenRoot
@@ -65,6 +69,7 @@ class Activity : AppCompatActivity() {
     private val readerViewModel: ReaderViewModel by viewModels()
     private val helpViewModel: HelpViewModel by viewModels()
     private val aboutViewModel: AboutViewModel by viewModels()
+    private val licenseInfoViewModel: LicenseInfoViewModel by viewModels()
     private val settingsViewModel: SettingsViewModel by viewModels()
     private val startViewModel: StartViewModel by viewModels()
 
@@ -190,6 +195,17 @@ class Activity : AppCompatActivity() {
                         // About screen
                         composable(screen = Screen.ABOUT) {
                             AboutScreenRoot()
+                        }
+
+                        // Nested about categories
+                        composable(screen = Screen.LICENSES) {
+                            LicensesScreenRoot()
+                        }
+                        composable(screen = Screen.LICENSES_INFO) {
+                            LicenseInfoScreenRoot()
+                        }
+                        composable(screen = Screen.CREDITS) {
+                            CreditsScreenRoot()
                         }
 
                         // Help screen

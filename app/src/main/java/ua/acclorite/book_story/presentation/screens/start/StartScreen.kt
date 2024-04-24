@@ -16,7 +16,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.rememberPermissionState
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainSettingsState
+import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
@@ -69,7 +69,7 @@ fun StartScreenRoot() {
 @Composable
 private fun StartScreen(
     state: State<StartState>,
-    mainState: State<MainSettingsState>,
+    mainState: State<MainState>,
     storagePermissionState: PermissionState,
     notificationsPermissionState: PermissionState,
     onEvent: (StartEvent) -> Unit,
