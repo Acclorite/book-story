@@ -4,13 +4,11 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -47,6 +45,7 @@ import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.CustomSearchTextField
 import ua.acclorite.book_story.presentation.components.CustomSnackbar
 import ua.acclorite.book_story.presentation.components.MoreDropDown
+import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
 import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.LocalNavigator
@@ -199,8 +198,11 @@ private fun HistoryScreen(
                     Modifier
                         .fillMaxSize(),
                     state = state.value.listState,
-                    contentPadding = PaddingValues(vertical = 12.dp)
                 ) {
+                    item {
+                        Spacer(modifier = Modifier.height(12.dp))
+                    }
+
                     state.value.history.forEachIndexed { index, groupedHistory ->
                         item(key = groupedHistory.title) {
                             if (index > 0) {
@@ -220,7 +222,7 @@ private fun HistoryScreen(
                             Spacer(modifier = Modifier.height(8.dp))
                         }
 
-                        items(
+                        customItems(
                             groupedHistory.history, key = { it.id }
                         ) {
                             HistoryItem(
@@ -259,6 +261,10 @@ private fun HistoryScreen(
                                 }
                             )
                         }
+                    }
+
+                    item {
+                        Spacer(modifier = Modifier.height(12.dp))
                     }
                 }
             }

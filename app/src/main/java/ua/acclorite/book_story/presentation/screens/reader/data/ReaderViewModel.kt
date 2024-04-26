@@ -420,21 +420,15 @@ class ReaderViewModel @Inject constructor(
                 return@launch
             }
 
-            if (_state.value.book.id != bookId) {
-                val book = getBooksById.execute(listOf(bookId))
+            val book = getBooksById.execute(listOf(bookId))
 
-                if (book.isEmpty()) {
-                    navigator.navigateBack()
-                    return@launch
-                }
+            if (book.isEmpty()) {
+                navigator.navigateBack()
+                return@launch
+            }
 
-                _state.update {
-                    ReaderState(book = book.first())
-                }
-            } else {
-                _state.update {
-                    ReaderState(book = it.book)
-                }
+            _state.update {
+                ReaderState(book = book.first())
             }
 
             viewModelScope.launch {

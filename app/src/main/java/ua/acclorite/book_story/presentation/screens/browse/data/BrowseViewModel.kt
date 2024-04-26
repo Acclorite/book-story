@@ -78,7 +78,7 @@ class BrowseViewModel @Inject constructor(
                 }
 
                 if (legacyStoragePermission) {
-                    if (event.storagePermissionState.status.shouldShowRationale) {
+                    if (!event.storagePermissionState.status.shouldShowRationale) {
                         event.storagePermissionState.launchPermissionRequest()
                     } else {
                         val uri = Uri.parse("package:${event.activity.packageName}")

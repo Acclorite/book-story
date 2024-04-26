@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddChart
 import androidx.compose.material3.CircularProgressIndicator
@@ -20,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.NullableBook
+import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithLazyColumn
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
@@ -90,7 +90,7 @@ fun BrowseAddingDialog(
                     }
                 }
             } else {
-                items(state.value.selectedBooks) { book ->
+                customItems(state.value.selectedBooks, key = { it.first.fileName }) { book ->
                     BrowseAddingDialogItem(
                         result = book
                     ) {

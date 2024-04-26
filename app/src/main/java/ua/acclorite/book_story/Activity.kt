@@ -30,6 +30,7 @@ import ua.acclorite.book_story.presentation.screens.about.nested.credits.Credits
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.LicenseInfoScreenRoot
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoViewModel
 import ua.acclorite.book_story.presentation.screens.about.nested.licenses.LicensesScreenRoot
+import ua.acclorite.book_story.presentation.screens.about.nested.licenses.data.LicensesViewModel
 import ua.acclorite.book_story.presentation.screens.book_info.BookInfoScreenRoot
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
 import ua.acclorite.book_story.presentation.screens.browse.BrowseScreenRoot
@@ -70,6 +71,7 @@ class Activity : AppCompatActivity() {
     private val helpViewModel: HelpViewModel by viewModels()
     private val aboutViewModel: AboutViewModel by viewModels()
     private val licenseInfoViewModel: LicenseInfoViewModel by viewModels()
+    private val licensesViewModel: LicensesViewModel by viewModels()
     private val settingsViewModel: SettingsViewModel by viewModels()
     private val startViewModel: StartViewModel by viewModels()
 

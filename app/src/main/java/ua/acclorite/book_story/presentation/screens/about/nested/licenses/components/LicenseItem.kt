@@ -25,6 +25,9 @@ import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.m3.util.author
 
+/**
+ * License Item.
+ */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun LicenseItem(

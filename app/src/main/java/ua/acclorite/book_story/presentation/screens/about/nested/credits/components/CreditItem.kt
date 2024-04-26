@@ -21,6 +21,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.model.Credit
 
+/**
+ * Credit Item.
+ */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CreditItem(

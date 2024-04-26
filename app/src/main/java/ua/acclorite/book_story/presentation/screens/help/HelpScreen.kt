@@ -41,6 +41,8 @@ import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
+import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.help.components.items.HelpAddBooksItem
 import ua.acclorite.book_story.presentation.screens.help.components.items.HelpClickMeNoteItem
 import ua.acclorite.book_story.presentation.screens.help.components.items.HelpCustomizeApp
@@ -61,6 +63,7 @@ import ua.acclorite.book_story.presentation.screens.start.data.StartViewModel
 fun HelpScreenRoot() {
     val navigator = LocalNavigator.current
     val helpViewModel: HelpViewModel = hiltViewModel()
+    val browseViewModel: BrowseViewModel = hiltViewModel()
     val mainViewModel: MainViewModel = hiltViewModel()
     val startViewModel: StartViewModel = hiltViewModel()
 
@@ -75,6 +78,7 @@ fun HelpScreenRoot() {
         navigator = navigator,
         onEvent = helpViewModel::onEvent,
         onMainEvent = mainViewModel::onEvent,
+        onBrowseEvent = browseViewModel::onEvent,
         onStartEvent = startViewModel::onEvent
     )
 }
@@ -88,6 +92,7 @@ private fun HelpScreen(
     navigator: Navigator,
     onEvent: (HelpEvent) -> Unit,
     onMainEvent: (MainEvent) -> Unit,
+    onBrowseEvent: (BrowseEvent) -> Unit,
     onStartEvent: (StartEvent) -> Unit
 ) {
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
@@ -117,6 +122,7 @@ private fun HelpScreen(
                         ) {
                             onStartEvent(StartEvent.OnResetStartScreen)
                             onMainEvent(MainEvent.OnChangeShowStartScreen(true))
+                            onBrowseEvent(BrowseEvent.OnLoadList)
                             navigator.navigateWithoutBackStack(Screen.START, false)
                             navigator.clearBackStack()
                         }
@@ -142,6 +148,7 @@ private fun HelpScreen(
                         shape = RoundedCornerShape(100),
                         onClick = {
                             navigator.clearArgument("from_start")
+
                             onMainEvent(MainEvent.OnChangeShowStartScreen(false))
                             navigator.navigateWithoutBackStack(Screen.BROWSE, false)
                         }

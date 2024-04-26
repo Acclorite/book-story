@@ -46,7 +46,9 @@ fun LazyItemScope.HelpCustomizeReader(
         onTagClick = { tag ->
             when (tag) {
                 "settings" -> {
-                    navigator.navigate(Screen.SETTINGS, true)
+                    if (!state.value.fromStart) {
+                        navigator.navigate(Screen.SETTINGS, true)
+                    }
                 }
             }
         }

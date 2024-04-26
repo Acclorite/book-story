@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
@@ -20,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.CategoryTitle
+import ua.acclorite.book_story.presentation.components.customItemsIndexed
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.ui.Theme
@@ -54,7 +54,7 @@ fun AppearanceSettingsThemeSwitcher(
             Modifier
                 .fillMaxWidth(),
         ) {
-            itemsIndexed(themes) { index, themeEntry ->
+            customItemsIndexed(themes, key = { it.first.name }) { index, themeEntry ->
                 if (index == 0) {
                     Spacer(modifier = Modifier.width(18.dp))
                 } else {

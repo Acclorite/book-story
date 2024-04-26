@@ -13,11 +13,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -69,6 +69,8 @@ import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.CustomSearchTextField
 import ua.acclorite.book_story.presentation.components.MoreDropDown
+import ua.acclorite.book_story.presentation.components.customItems
+import ua.acclorite.book_story.presentation.components.header
 import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
 import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.LocalNavigator
@@ -318,12 +320,13 @@ private fun LibraryScreen(
                             columns = GridCells.Adaptive(120.dp),
                             modifier = Modifier.fillMaxSize(),
                             state = listState,
-                            contentPadding = PaddingValues(8.dp)
+                            contentPadding = PaddingValues(horizontal = 8.dp)
                         ) {
-                            items(
-                                books,
-                                key = { it.first.id }
-                            ) {
+                            header {
+                                Spacer(modifier = Modifier.height(8.dp))
+                            }
+
+                            customItems(books, key = { it.first.id }) {
                                 LibraryBookItem(
                                     book = it,
                                     modifier = Modifier.animateItem(
@@ -355,6 +358,10 @@ private fun LibraryScreen(
                                         )
                                     }
                                 )
+                            }
+
+                            header {
+                                Spacer(modifier = Modifier.height(8.dp))
                             }
                         }
                     }

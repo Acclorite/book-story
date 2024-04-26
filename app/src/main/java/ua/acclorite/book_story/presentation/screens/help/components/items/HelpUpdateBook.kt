@@ -46,7 +46,9 @@ fun LazyItemScope.HelpUpdateBook(
         onTagClick = { tag ->
             when (tag) {
                 "library" -> {
-                    navigator.navigate(Screen.LIBRARY, true)
+                    if (!state.value.fromStart) {
+                        navigator.navigate(Screen.LIBRARY, true)
+                    }
                 }
             }
         }

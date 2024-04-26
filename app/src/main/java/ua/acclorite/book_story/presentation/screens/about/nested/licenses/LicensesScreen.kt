@@ -3,14 +3,14 @@ package ua.acclorite.book_story.presentation.screens.about.nested.licenses
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
@@ -31,6 +31,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Navigator
@@ -96,10 +97,13 @@ private fun LicensesScreen(
                 Modifier
                     .fillMaxSize()
                     .padding(top = paddingValues.calculateTopPadding()),
-                state = scrollState.second,
-                contentPadding = PaddingValues(vertical = 12.dp)
+                state = scrollState.second
             ) {
-                items(state.value.licenses, key = { it.uniqueId }) {
+                item {
+                    Spacer(modifier = Modifier.height(12.dp))
+                }
+
+                customItems(state.value.licenses, key = { it.uniqueId }) {
                     LicenseItem(library = it) {
                         navigator.navigate(
                             Screen.LICENSES_INFO,
@@ -107,6 +111,10 @@ private fun LicensesScreen(
                             Argument("license", it.uniqueId)
                         )
                     }
+                }
+
+                item {
+                    Spacer(modifier = Modifier.height(12.dp))
                 }
             }
         }

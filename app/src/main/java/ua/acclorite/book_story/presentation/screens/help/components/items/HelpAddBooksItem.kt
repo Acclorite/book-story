@@ -51,11 +51,15 @@ fun LazyItemScope.HelpAddBooksItem(
         onTagClick = { tag ->
             when (tag) {
                 "browse" -> {
-                    navigator.navigate(Screen.BROWSE, true)
+                    if (!state.value.fromStart) {
+                        navigator.navigate(Screen.BROWSE, true)
+                    }
                 }
 
                 "library" -> {
-                    navigator.navigate(Screen.LIBRARY, true)
+                    if (!state.value.fromStart) {
+                        navigator.navigate(Screen.LIBRARY, true)
+                    }
                 }
             }
         }

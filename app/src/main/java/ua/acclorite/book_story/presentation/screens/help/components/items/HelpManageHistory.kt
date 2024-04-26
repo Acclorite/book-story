@@ -46,7 +46,9 @@ fun LazyItemScope.HelpManageHistory(
         onTagClick = { tag ->
             when (tag) {
                 "history" -> {
-                    navigator.navigate(Screen.HISTORY, true)
+                    if (!state.value.fromStart) {
+                        navigator.navigate(Screen.HISTORY, true)
+                    }
                 }
             }
         }

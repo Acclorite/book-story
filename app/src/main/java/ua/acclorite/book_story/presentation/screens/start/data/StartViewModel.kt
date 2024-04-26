@@ -132,7 +132,7 @@ class StartViewModel @Inject constructor(
                 }
 
                 if (legacyStoragePermission) {
-                    if (event.legacyStoragePermissionState.status.shouldShowRationale) {
+                    if (!event.legacyStoragePermissionState.status.shouldShowRationale) {
                         event.legacyStoragePermissionState.launchPermissionRequest()
                     } else {
                         val uri = Uri.parse("package:${event.activity.packageName}")
@@ -198,7 +198,7 @@ class StartViewModel @Inject constructor(
                     return
                 }
 
-                if (event.notificationsPermissionState.status.shouldShowRationale) {
+                if (!event.notificationsPermissionState.status.shouldShowRationale) {
                     event.notificationsPermissionState.launchPermissionRequest()
                 } else {
                     val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)

@@ -42,7 +42,7 @@ class SettingsViewModel @Inject constructor(
                     return
                 }
 
-                if (event.notificationsPermissionState.status.shouldShowRationale) {
+                if (!event.notificationsPermissionState.status.shouldShowRationale) {
                     event.notificationsPermissionState.launchPermissionRequest()
                 } else {
                     val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)

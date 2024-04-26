@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Language
@@ -52,6 +51,7 @@ import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoEvent
@@ -154,10 +154,14 @@ private fun LicenseInfoScreen(
                     .fillMaxSize()
                     .padding(top = paddingValues.calculateTopPadding()),
                 state = scrollState.second,
-                contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
+                contentPadding = PaddingValues(horizontal = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(licenses, key = { it.name }) { license ->
+                item {
+                    Spacer(modifier = Modifier.height(12.dp))
+                }
+
+                customItems(licenses, key = { it.name }) { license ->
                     val showed = remember {
                         mutableStateOf(licenses.size == 1)
                     }
@@ -205,6 +209,10 @@ private fun LicenseInfoScreen(
                             }
                         }
                     }
+                }
+
+                item {
+                    Spacer(modifier = Modifier.height(12.dp))
                 }
             }
         }

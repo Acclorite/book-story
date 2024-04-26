@@ -16,7 +16,6 @@ import ua.acclorite.book_story.presentation.data.Screen
 
 /**
  * Bottom navigation bar, uses default [NavigationBar].
- *
  */
 @Composable
 fun BottomNavigationBar() {

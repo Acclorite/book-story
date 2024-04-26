@@ -6,11 +6,11 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -51,6 +51,7 @@ import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.CustomSearchTextField
 import ua.acclorite.book_story.presentation.components.MoreDropDown
+import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
 import ua.acclorite.book_story.presentation.components.is_messages.IsError
 import ua.acclorite.book_story.presentation.data.LocalNavigator
@@ -233,10 +234,13 @@ private fun BrowseScreen(
                 LazyColumn(
                     state = state.value.listState,
                     modifier = Modifier
-                        .fillMaxSize(),
-                    contentPadding = PaddingValues(vertical = 8.dp)
+                        .fillMaxSize()
                 ) {
-                    items(
+                    item {
+                        Spacer(modifier = Modifier.height(8.dp))
+                    }
+
+                    customItems(
                         state.value.selectableFiles,
                         key = { it.first.path }
                     ) { selectableFile ->
@@ -258,6 +262,10 @@ private fun BrowseScreen(
                                 onEvent(BrowseEvent.OnSelectFile(selectableFile))
                             }
                         )
+                    }
+
+                    item {
+                        Spacer(modifier = Modifier.height(8.dp))
                     }
                 }
             }

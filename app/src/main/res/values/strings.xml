@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="InconsistentArrays">
     <!-- Basic Strings -->
-    <string name="app_version" translatable="false">0.9.9</string>
+    <string name="app_version" translatable="false">1.0.0</string>
     <string name="app_name">Book\'s Story</string>
 
     <!-- Notifications -->
@@ -121,7 +121,7 @@
     </string>
     <string name="error_check_internet">
         Something went wrong.
-        Please check your internet connection and try again.
+        Try again later.
     </string>
 
     <!-- Is Empty messages -->
@@ -311,8 +311,8 @@
     <string name="support_option">Support my work</string>
     <string name="licenses_option">Open source licenses</string>
     <string name="credits_option">Credits</string>
-    <string name="slava_ukraini_option">Slava Ukraini! 🇺🇦</string>
-    <string name="slava_ukraini_option_desc">Heroyam Slava! 🐉</string>
+    <string name="slava_ukraini_option">Slava Ukraini!</string>
+    <string name="slava_ukraini_option_desc">Heroyam Slava! 🇺🇦🐉</string>
 
     <!-- Credits -->
     <string name="credits_design">Design</string>

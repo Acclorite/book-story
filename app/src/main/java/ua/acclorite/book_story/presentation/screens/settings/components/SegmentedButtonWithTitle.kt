@@ -18,6 +18,9 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 
+/**
+ * Segmented Button with Title. Contains [buttons].
+ */
 @Composable
 fun SegmentedButtonWithTitle(
     modifier: Modifier = Modifier,

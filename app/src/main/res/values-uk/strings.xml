@@ -101,7 +101,7 @@
     </string>
     <string name="error_check_internet">
         Щось пішло не так.
-        Будь ласка, перевірте ваше підключення до інтернету та спробуйте ще раз.
+        Спробуйте пізніше.
     </string>
 
     <!-- Is Empty messages -->
@@ -292,8 +292,8 @@
     <string name="support_option">Підтримати мою роботу</string>
     <string name="licenses_option">Ліцензії з відкритим кодом</string>
     <string name="credits_option">Заслуги</string>
-    <string name="slava_ukraini_option">Слава Україні! 🇺🇦</string>
-    <string name="slava_ukraini_option_desc">Героям Слава! 🐉</string>
+    <string name="slava_ukraini_option">Слава Україні!</string>
+    <string name="slava_ukraini_option_desc">Героям Слава! 🇺🇦🐉</string>
 
     <!-- Credits -->
     <string name="credits_design">Дизайн</string>

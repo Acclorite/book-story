@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.selection.DisableSelection
 import androidx.compose.material3.LinearProgressIndicator
@@ -59,6 +58,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomSelectionContainer
+import ua.acclorite.book_story.presentation.components.customItemsIndexed
 import ua.acclorite.book_story.presentation.components.is_messages.IsError
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
@@ -346,8 +346,8 @@ private fun ReaderScreen(
                     }
                 }
 
-                itemsIndexed(
-                    state.value.book.text, key = { _, key -> key.id }
+                customItemsIndexed(
+                    state.value.book.text, key = { key -> key.id }
                 ) { index, line ->
                     val text = remember(mainState.value.paragraphIndentation) {
                         "${if (mainState.value.paragraphIndentation!!) "  " else ""}${line.line}"
