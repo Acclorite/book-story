@@ -2,7 +2,8 @@
 
 <div align="center">
   
-  <a href="">[![Latest Stable Release](https://img.shields.io/github/release/Acclorit/book-story.svg?label=Release&logo=GitHub)](https://github.com/Acclorite/book-story/releases)</a>
+  <a href="">[![Latest Stable Release](https://img.shields.io/github/release/Acclorite/book-story.svg?label=Release&logo=GitHub)](https://github.com/Acclorite/book-story/releases)</a>
+  <a href="">[![Downloads](https://img.shields.io/github/downloads/Acclorite/book-story/total?color=0273b3&label=Downloads&logo=GitHub)]()</a>
 </div>
 
 <img src="https://github.com/Acclorite/book-story/blob/master/assets/readme/github_overview.png">
@@ -43,8 +44,16 @@ Material3 Book Reader built with Jetpack Compose and Kotlin.
 - Ukrainian (Default)
 
 ## 🤗 Credits
-- Tachiyomi (Design template, no code is taken)
-- [Libre-Sudoku](https://github.com/kaajjo/Libre-Sudoku) (Readme template, no code is taken)
+- [Tachiyomi (Mihon)](https://github.com/mihonapp/mihon) (Github)
+- [Libre-Sudoku](https://github.com/kaajjo/Libre-Sudoku) (Github)
+- [Kitsune](https://github.com/Drumber/Kitsune) (Github)
+- [Freepik](https://www.flaticon.com/authors/freepik) (Flaticon)
+- [Anggara](https://www.flaticon.com/authors/anggara) (Flaticon)
+- [Google](https://www.flaticon.com/authors/google) (Flaticon)
+- [Creative Stall Premium](https://www.flaticon.com/authors/creative-stall-premium) (Flaticon)
+- [Gajah Mada](https://www.flaticon.com/authors/gajah-mada) (Flaticon)
+- [mavadee](https://www.flaticon.com/authors/mavadee) (Flaticon)
+- Also listed in About > Credits.
 
 ## 🧾 License
 <div align="center">
