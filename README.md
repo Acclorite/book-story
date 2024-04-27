@@ -29,6 +29,7 @@ Material3 Book Reader built with Jetpack Compose and Kotlin.
 - Check for app updates on app startup
 - Anti error protection(you cannot add/update a book if it is not valid)
 - Highly customizable Reader
+- Translate and Dictionary options when text is selected in Reader
 - Material3 latest design guidelines
 - 7 unique themes
 - MaterialYou Dynamic Theme support
