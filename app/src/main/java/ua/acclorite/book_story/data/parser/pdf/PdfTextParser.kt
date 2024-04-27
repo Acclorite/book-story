@@ -46,12 +46,62 @@ class PdfTextParser @Inject constructor(private val application: Application) : 
 
             val lines = mutableListOf<String>()
             unformattedLines.forEachIndexed { index, string ->
-                if (string.trim().first().isLowerCase() && index > 0) {
-                    lines[lines.lastIndex] += " ${string.trim()}"
-                } else {
-                    lines.add(string.trim())
+                try {
+                    val line = string.trim()
+
+                    if (index == 0) {
+                        lines.add(line)
+                        return@forEachIndexed
+                    }
+
+                    if (
+                        line.all {
+                            if (it == ' ') {
+                                true
+                            } else if (it.isUpperCase() || it.isDigit()) {
+                                true
+                            } else {
+                                false
+                            }
+                        }
+                    ) {
+                        return@forEachIndexed
+                    }
+
+                    if (line.all { it.isDigit() }) {
+                        return@forEachIndexed
+                    }
+
+                    if (line.first().isLowerCase()) {
+                        val currentLine = lines[lines.lastIndex]
+
+                        if (currentLine.last() == '-') {
+                            if (currentLine[currentLine.lastIndex - 1].isLowerCase()) {
+                                lines[lines.lastIndex] = currentLine.dropLast(1) + line
+                                return@forEachIndexed
+                            }
+                        }
+
+                        lines[lines.lastIndex] += " $line"
+                        return@forEachIndexed
+                    }
+
+                    if (line.first().isUpperCase() || line.first().isDigit()) {
+                        lines.add(line)
+                        return@forEachIndexed
+                    }
+
+                    if (line.first().isLetter()) {
+                        lines[lines.lastIndex] += " $line"
+                        return@forEachIndexed
+                    }
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    return@forEachIndexed
                 }
             }
+
             lines.forEach { line ->
                 stringWithIds.add(StringWithId(line.trim()))
             }
@@ -62,6 +112,7 @@ class PdfTextParser @Inject constructor(private val application: Application) : 
 
             return Resource.Success(stringWithIds)
         } catch (e: Exception) {
+            e.printStackTrace()
             return Resource.Error(
                 UIText.StringResource(
                     R.string.error_query,

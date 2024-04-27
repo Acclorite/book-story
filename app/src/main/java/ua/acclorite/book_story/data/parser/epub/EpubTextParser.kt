@@ -4,6 +4,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import nl.siegmann.epublib.epub.EpubReader
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Document.OutputSettings
+import org.jsoup.safety.Safelist
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.domain.model.StringWithId
@@ -15,6 +17,7 @@ import java.io.FileInputStream
 import java.io.InputStreamReader
 import java.nio.charset.Charset
 import javax.inject.Inject
+
 
 class EpubTextParser @Inject constructor() : TextParser {
 
@@ -44,9 +47,8 @@ class EpubTextParser @Inject constructor() : TextParser {
                     inputStream.close()
                 }
 
-                while (withContext(Dispatchers.IO) {
-                        reader.readLine()
-                    }.also { line = it } != null) {
+                while (withContext(Dispatchers.IO) { reader.readLine() }
+                        .also { line = it } != null) {
                     unformattedText.append(line).append("\n")
                 }
 
@@ -57,11 +59,28 @@ class EpubTextParser @Inject constructor() : TextParser {
 
             val stringWithIds = mutableListOf<StringWithId>()
 
-            Jsoup.parse(unformattedText.toString()).wholeText().split("\n").forEach {
-                if (it.isNotBlank()) {
-                    stringWithIds.add(StringWithId(it.trim()))
+            val parsedText = Jsoup.parse(unformattedText.toString())
+            parsedText.outputSettings(OutputSettings().prettyPrint(false))
+            parsedText.select("br").append("\n")
+            parsedText.select("p").prepend("\n")
+            parsedText.select("em").append(" ").prepend("")
+
+            val formattedText = Jsoup.clean(
+                parsedText.html(),
+                "",
+                Safelist.none(),
+                OutputSettings().prettyPrint(false)
+            )
+
+            formattedText
+                .replace("&nbsp;", "")
+                .replace("\u00a0", "")
+                .split("\n")
+                .forEach {
+                    if (it.isNotBlank()) {
+                        stringWithIds.add(StringWithId(it.trim()))
+                    }
                 }
-            }
 
             if (stringWithIds.isEmpty()) {
                 return Resource.Error(UIText.StringResource(R.string.error_file_empty))
