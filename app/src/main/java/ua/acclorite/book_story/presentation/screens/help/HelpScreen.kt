@@ -122,7 +122,6 @@ private fun HelpScreen(
                         ) {
                             onStartEvent(StartEvent.OnResetStartScreen)
                             onMainEvent(MainEvent.OnChangeShowStartScreen(true))
-                            onBrowseEvent(BrowseEvent.OnLoadList)
                             navigator.navigateWithoutBackStack(Screen.START, false)
                             navigator.clearBackStack()
                         }
@@ -149,6 +148,7 @@ private fun HelpScreen(
                         onClick = {
                             navigator.clearArgument("from_start")
 
+                            onBrowseEvent(BrowseEvent.OnLoadList)
                             onMainEvent(MainEvent.OnChangeShowStartScreen(false))
                             navigator.navigateWithoutBackStack(Screen.BROWSE, false)
                         }
