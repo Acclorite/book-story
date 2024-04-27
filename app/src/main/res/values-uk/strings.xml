@@ -2,6 +2,12 @@
     <!-- Basic Strings -->
     <string name="app_name">Історія Книги</string>
 
+    <!-- Book sources -->
+    <string-array name="book_sites" tools:ignore="InconsistentArrays">
+        <item>Архів Анни|https://uk.annas-archive.org</item>
+        <item>Укрліб|https://www.ukrlib.com.ua</item>
+    </string-array>
+
     <!-- Notifications -->
     <string name="updates_notification_channel">Нові оновлення</string>
     <string name="updates_notification_title">Нове оновлення Історії Книги!</string>
@@ -12,11 +18,6 @@
     <string name="updates_notification_action">
         Подробиці
     </string>
-
-    <!-- Book sources -->
-    <string-array name="book_sites" tools:ignore="InconsistentArrays">
-        <item>Укрліб|https://www.ukrlib.com.ua</item>
-    </string-array>
 
     <!-- Screens -->
     <string name="library_screen">Бібліотека</string>

@@ -3,16 +3,12 @@
     <string name="app_version" translatable="false">1.0.0</string>
     <string name="app_name">Book\'s Story</string>
 
-    <!-- Notifications -->
-    <string name="updates_notification_channel">New updates</string>
-    <string name="updates_notification_title">New update of Book\'s Story!</string>
-    <string name="updates_notification_desc">
-        Update %1$s just released!
-        By clicking this notification you will download the latest version of the app.
-    </string>
-    <string name="updates_notification_action">
-        Details
-    </string>
+    <!-- Book sources -->
+    <string-array name="book_sites">
+        <item>Anna\'s Archive|https://annas-archive.org</item>
+        <item>Project Gutenberg|https://www.gutenberg.org</item>
+        <item>Standard Ebooks|https://standardebooks.org</item>
+    </string-array>
 
     <!-- About sites -->
     <string name="download_latest_release_page" translatable="false">
@@ -31,12 +27,16 @@
         https://www.buymeacoffee.com/acclorite
     </string>
 
-    <!-- Book sources -->
-    <string-array name="book_sites">
-        <item>Anna\'s Archive|https://annas-archive.org</item>
-        <item>Project Gutenberg|https://www.gutenberg.org</item>
-        <item>Standard Ebooks|https://standardebooks.org</item>
-    </string-array>
+    <!-- Notifications -->
+    <string name="updates_notification_channel">New updates</string>
+    <string name="updates_notification_title">New update of Book\'s Story!</string>
+    <string name="updates_notification_desc">
+        Update %1$s just released!
+        By clicking this notification you will download the latest version of the app.
+    </string>
+    <string name="updates_notification_action">
+        Details
+    </string>
 
     <!-- Screens -->
     <string name="library_screen">Library</string>
