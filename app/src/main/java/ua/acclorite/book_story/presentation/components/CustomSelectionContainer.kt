@@ -42,13 +42,13 @@ private class CustomTextActionModeCallback(
         requireNotNull(menu)
         requireNotNull(mode)
 
-        onCopyRequested?.let {
-            menu.add(0, MENU_ITEM_COPY, 0, context.getString(R.string.copy))
+        onTranslateRequested?.let {
+            menu.add(0, MENU_ITEM_TRANSLATE, 0, context.getString(R.string.translate))
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
         }
 
-        onTranslateRequested?.let {
-            menu.add(0, MENU_ITEM_TRANSLATE, 1, context.getString(R.string.translate))
+        onCopyRequested?.let {
+            menu.add(0, MENU_ITEM_COPY, 1, context.getString(R.string.copy))
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
         }
 
