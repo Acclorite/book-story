@@ -70,10 +70,10 @@ import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewMode
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderEndItem
-import ua.acclorite.book_story.presentation.screens.reader.components.ReaderStartItem
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderBottomBar
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderTopBar
 import ua.acclorite.book_story.presentation.screens.reader.components.settings_bottom_sheet.ReaderSettingsBottomSheet
+import ua.acclorite.book_story.presentation.screens.reader.components.start_item.ReaderStartItem
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
