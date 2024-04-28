@@ -3,16 +3,13 @@ package ua.acclorite.book_story.presentation.components
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
-import kotlinx.coroutines.flow.first
 
 /**
- * Custom [AnimatedVisibility]. Prevents bug that animation freezes halfway.
+ * Custom [AnimatedVisibility].
+ * Prevents bug that animation freezes halfway.
+ * FIXED: This bug was fixed. I preserved initial code, if the bug happens again.
  */
 @Composable
 fun CustomAnimatedVisibility(
@@ -22,32 +19,32 @@ fun CustomAnimatedVisibility(
     exit: ExitTransition,
     content: @Composable () -> Unit
 ) {
-    val visibleState = remember {
-        MutableTransitionState(visible)
-    }
-
-    LaunchedEffect(visible) {
-        if (visible == visibleState.targetState) {
-            return@LaunchedEffect
-        }
-
-        if (visibleState.isIdle) {
-            visibleState.targetState = visible
-            return@LaunchedEffect
-        }
-
-        snapshotFlow {
-            visibleState.isIdle
-        }.first {
-            if (it) {
-                visibleState.targetState = visible
-            }
-            it
-        }
-    }
+//    val visibleState = remember {
+//        MutableTransitionState(visible)
+//    }
+//
+//    LaunchedEffect(visible) {
+//        if (visible == visibleState.targetState) {
+//            return@LaunchedEffect
+//        }
+//
+//        if (visibleState.isIdle) {
+//            visibleState.targetState = visible
+//            return@LaunchedEffect
+//        }
+//
+//        snapshotFlow {
+//            visibleState.isIdle
+//        }.first {
+//            if (it) {
+//                visibleState.targetState = visible
+//            }
+//            it
+//        }
+//    }
 
     AnimatedVisibility(
-        visibleState = visibleState,
+        visible = visible,
         modifier = modifier,
         enter = enter,
         exit = exit,

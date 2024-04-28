@@ -310,7 +310,7 @@ class ReaderViewModel @Inject constructor(
                     updateBooks.execute(listOf(_state.value.book))
 
                     event.onUpdateCategories(
-                        _state.value.book.copy()
+                        _state.value.book
                     )
                     event.updatePage(
                         Category.entries.dropLastWhile {
