@@ -5,7 +5,6 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.local.dto.BookEntity
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.util.UIText
-import java.io.File
 import javax.inject.Inject
 
 class BookMapperImpl @Inject constructor() : BookMapper {
@@ -26,8 +25,6 @@ class BookMapperImpl @Inject constructor() : BookMapper {
     }
 
     override suspend fun toBook(bookEntity: BookEntity): Book {
-        val file = File(bookEntity.filePath)
-
         return Book(
             id = bookEntity.id,
             title = bookEntity.title,
@@ -38,11 +35,7 @@ class BookMapperImpl @Inject constructor() : BookMapper {
             scrollIndex = bookEntity.scrollIndex,
             scrollOffset = bookEntity.scrollOffset,
             progress = bookEntity.progress,
-            file = if (file.exists()) file else null,
             textPath = bookEntity.textPath,
-            text = emptyList(),
-            letters = 0,
-            words = 0,
             filePath = bookEntity.filePath,
             lastOpened = null,
             category = bookEntity.category,

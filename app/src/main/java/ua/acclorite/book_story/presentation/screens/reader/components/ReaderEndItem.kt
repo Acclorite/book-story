@@ -83,8 +83,8 @@ fun ReaderEndItem(
         Text(
             stringResource(
                 id = R.string.letters_and_words,
-                state.value.book.letters,
-                state.value.book.words
+                state.value.letters,
+                state.value.words
             ),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             style = MaterialTheme.typography.bodyLarge,

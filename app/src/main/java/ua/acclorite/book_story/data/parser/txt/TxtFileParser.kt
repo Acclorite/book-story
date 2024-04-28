@@ -12,7 +12,7 @@ import javax.inject.Inject
 class TxtFileParser @Inject constructor() : FileParser {
 
     override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
-        if (!file.name.endsWith(".txt")) {
+        if (!file.name.endsWith(".txt") || !file.exists()) {
             return null
         }
 
@@ -25,13 +25,9 @@ class TxtFileParser @Inject constructor() : FileParser {
                 author = author,
                 description = null,
                 textPath = "",
-                text = emptyList(),
-                letters = 0,
-                words = 0,
                 scrollIndex = 0,
                 scrollOffset = 0,
                 progress = 0f,
-                file = file,
                 filePath = file.path,
                 lastOpened = null,
                 category = Category.entries[0],

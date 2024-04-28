@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -46,7 +47,10 @@ fun BookInfoDetailsBottomSheet(
     }
 
     val sizeBytes = remember {
-        state.value.book.file?.length() ?: 0
+        val file = File(state.value.book.filePath)
+        if (file.exists()) {
+            file.length()
+        } else 0
     }
 
     val fileSizeKB = remember {

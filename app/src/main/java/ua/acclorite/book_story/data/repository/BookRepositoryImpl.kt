@@ -88,7 +88,7 @@ class BookRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getBookTextById(textPath: String): List<StringWithId> {
+    override suspend fun getBookText(textPath: String): List<StringWithId> {
         val textFile = File(textPath)
 
         if (textPath.isBlank() || !textFile.exists()) {
@@ -105,8 +105,10 @@ class BookRepositoryImpl @Inject constructor(
         return text.data
     }
 
-    override suspend fun insertBooks(
-        books: List<Pair<Book, CoverImage?>>
+    override suspend fun insertBook(
+        book: Book,
+        coverImage: CoverImage?,
+        text: List<StringWithId>
     ): Boolean {
         val filesDir = application.filesDir
         val coversDir = File(filesDir, "covers")
@@ -119,67 +121,64 @@ class BookRepositoryImpl @Inject constructor(
             booksDir.mkdirs()
         }
 
-        val booksWithCoverAndText = books.map {
-            var coverUri = ""
-            val textUri: String
+        var coverUri = ""
+        val textUri: String
 
-            if (it.first.text.isEmpty()) {
-                return false
+        if (text.isEmpty()) {
+            return false
+        }
+
+        try {
+            textUri = "${UUID.randomUUID()}.txt"
+            val textPath = File(booksDir, textUri)
+
+            withContext(Dispatchers.IO) {
+                FileOutputStream(textPath).use { stream ->
+                    text.forEach { line ->
+                        stream.write(line.line.toByteArray())
+                        stream.write(System.lineSeparator().toByteArray())
+                    }
+                }
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
 
+        if (coverImage != null) {
             try {
-                textUri = "${UUID.randomUUID()}.txt"
-                val text = File(booksDir, textUri)
+                coverUri = "${UUID.randomUUID()}.webp"
+                val cover = File(coversDir, coverUri)
 
                 withContext(Dispatchers.IO) {
-                    FileOutputStream(text).use { stream ->
-                        it.first.text.forEach { line ->
-                            stream.write(line.line.toByteArray())
-                            stream.write(System.lineSeparator().toByteArray())
+                    FileOutputStream(cover).use { stream ->
+                        if (
+                            !coverImage.copy(Bitmap.Config.RGB_565, false).compress(
+                                Bitmap.CompressFormat.WEBP,
+                                20,
+                                stream
+                            )
+                        ) {
+                            throw Exception("Couldn't save cover image")
                         }
                     }
                 }
             } catch (e: Exception) {
+                coverUri = ""
                 e.printStackTrace()
-                return false
             }
-
-            if (it.second != null) {
-                try {
-                    coverUri = "${UUID.randomUUID()}.webp"
-                    val cover = File(coversDir, coverUri)
-
-                    withContext(Dispatchers.IO) {
-                        FileOutputStream(cover).use { stream ->
-                            if (
-                                !it.second!!.copy(Bitmap.Config.RGB_565, false).compress(
-                                    Bitmap.CompressFormat.WEBP,
-                                    20,
-                                    stream
-                                )
-                            ) {
-                                throw Exception("Couldn't save cover image")
-                            }
-                        }
-                    }
-                } catch (e: Exception) {
-                    coverUri = ""
-                    e.printStackTrace()
-                }
-            }
-
-
-            val book = it.first.copy(
-                textPath = "$booksDir/$textUri",
-                coverImage = if (coverUri.isNotBlank()) {
-                    Uri.fromFile(File("$coversDir/$coverUri"))
-                } else null
-            )
-
-            bookMapper.toBookEntity(book)
         }
 
-        database.insertBooks(booksWithCoverAndText)
+
+        val updatedBook = book.copy(
+            textPath = "$booksDir/$textUri",
+            coverImage = if (coverUri.isNotBlank()) {
+                Uri.fromFile(File("$coversDir/$coverUri"))
+            } else null
+        )
+
+        val bookToInsert = bookMapper.toBookEntity(updatedBook)
+        database.insertBooks(listOf(bookToInsert))
         return true
     }
 
@@ -198,7 +197,7 @@ class BookRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun updateBooksWithText(books: List<Book>): Boolean {
+    override suspend fun updateBookWithText(book: Book, text: List<StringWithId>): Boolean {
         // without cover image
         val filesDir = application.filesDir
         val booksDir = File(filesDir, "books")
@@ -207,55 +206,53 @@ class BookRepositoryImpl @Inject constructor(
             booksDir.mkdirs()
         }
 
-        val booksWithText = books.map {
-            val textUri: String
-            val bookEntity = database.findBookById(it.id)
+        val textUri: String
+        val bookEntity = database.findBookById(book.id)
 
-            if (it.text.isEmpty()) {
-                return false
-            }
+        if (text.isEmpty()) {
+            return false
+        }
 
-            try {
-                textUri = "${UUID.randomUUID()}.txt"
-                val text = File(booksDir, textUri)
+        try {
+            textUri = "${UUID.randomUUID()}.txt"
+            val textPath = File(booksDir, textUri)
 
-                withContext(Dispatchers.IO) {
-                    FileOutputStream(text).use { stream ->
-                        it.text.forEach { line ->
-                            stream.write(line.line.toByteArray())
-                            stream.write(System.lineSeparator().toByteArray())
-                        }
+            withContext(Dispatchers.IO) {
+                FileOutputStream(textPath).use { stream ->
+                    text.forEach { line ->
+                        stream.write(line.line.toByteArray())
+                        stream.write(System.lineSeparator().toByteArray())
                     }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+
+        if (book.textPath.isNotBlank()) {
+            try {
+                val fileToDelete = File(
+                    book.textPath
+                )
+
+                if (fileToDelete.exists()) {
+                    fileToDelete.delete()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                return false
             }
-
-            if (it.textPath.isNotBlank()) {
-                try {
-                    val fileToDelete = File(
-                        it.textPath
-                    )
-
-                    if (fileToDelete.exists()) {
-                        fileToDelete.delete()
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-
-            bookMapper.toBookEntity(
-                it.copy(
-                    textPath = "$booksDir/$textUri",
-                    coverImage = if (bookEntity.image != null) Uri.parse(bookEntity.image) else null
-                )
-            )
         }
 
+        val updatedBook = bookMapper.toBookEntity(
+            book.copy(
+                textPath = "$booksDir/$textUri",
+                coverImage = if (bookEntity.image != null) Uri.parse(bookEntity.image) else null
+            )
+        )
+
         database.updateBooks(
-            booksWithText
+            listOf(updatedBook)
         )
         return true
     }
@@ -560,10 +557,9 @@ class BookRepositoryImpl @Inject constructor(
 
             books.add(
                 NullableBook.NotNull(
-                    Pair(
-                        parsedBook.first.copy(text = parsedText.data),
-                        parsedBook.second
-                    )
+                    book = parsedBook.first,
+                    coverImage = parsedBook.second,
+                    text = parsedText.data
                 )
             )
         }
@@ -613,7 +609,7 @@ class BookRepositoryImpl @Inject constructor(
             try {
                 val result = githubAPI.getLatestRelease()
 
-                val version = result.tagName.substringAfterLast("v")
+                val version = result.tagName.substringAfter("v")
                 val currentVersion = application.getString(R.string.app_version)
 
                 if (version != currentVersion && postNotification) {

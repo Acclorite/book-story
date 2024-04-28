@@ -15,7 +15,7 @@ import javax.inject.Inject
 class PdfFileParser @Inject constructor(private val application: Application) : FileParser {
 
     override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
-        if (!file.name.endsWith(".pdf")) {
+        if (!file.name.endsWith(".pdf") || !file.exists()) {
             return null
         }
 
@@ -37,13 +37,9 @@ class PdfFileParser @Inject constructor(private val application: Application) : 
                 author = author,
                 description = description,
                 textPath = "",
-                text = emptyList(),
-                letters = 0,
-                words = 0,
                 scrollIndex = 0,
                 scrollOffset = 0,
                 progress = 0f,
-                file = file,
                 filePath = file.path,
                 lastOpened = null,
                 category = Category.entries[0],

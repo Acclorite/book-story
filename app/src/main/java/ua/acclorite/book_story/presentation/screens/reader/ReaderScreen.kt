@@ -201,14 +201,14 @@ private fun ReaderScreen(
         snapshotFlow {
             listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
         }.debounce(500).collectLatest { items ->
-            if (!loading.value && state.value.book.text.isNotEmpty() && listState.layoutInfo.totalItemsCount > 0) {
+            if (!loading.value && state.value.text.isNotEmpty() && listState.layoutInfo.totalItemsCount > 0) {
                 val lastVisibleItemIndex = listState.layoutInfo.visibleItemsInfo.last().index
 
                 val progress = if (items.first > 0) {
                     if (lastVisibleItemIndex >= (listState.layoutInfo.totalItemsCount - 1)) {
                         1f
                     } else {
-                        (items.first.toFloat() / (state.value.book.text.lastIndex).toFloat())
+                        (items.first.toFloat() / (state.value.text.lastIndex).toFloat())
                     }
                 } else {
                     0f
@@ -338,7 +338,7 @@ private fun ReaderScreen(
                         }
                     )
             ) {
-                if (state.value.book.text.isNotEmpty()) {
+                if (state.value.text.isNotEmpty()) {
                     item {
                         DisableSelection {
                             ReaderStartItem(state = state)
@@ -347,9 +347,9 @@ private fun ReaderScreen(
                 }
 
                 customItemsIndexed(
-                    state.value.book.text, key = { key -> key.id }
+                    state.value.text, key = { key -> key.id }
                 ) { index, line ->
-                    val text = remember(mainState.value.paragraphIndentation) {
+                    val text = remember(mainState.value.paragraphIndentation, line) {
                         "${if (mainState.value.paragraphIndentation!!) "  " else ""}${line.line}"
                     }
 
@@ -361,7 +361,7 @@ private fun ReaderScreen(
                                 top = if (index == 0) 18.dp else 0.dp,
                                 start = sidePadding,
                                 end = sidePadding,
-                                bottom = if (index == state.value.book.text.lastIndex) 18.dp
+                                bottom = if (index == state.value.text.lastIndex) 18.dp
                                 else paragraphHeight
                             )
                     ) {
@@ -377,7 +377,7 @@ private fun ReaderScreen(
                     }
                 }
 
-                if (state.value.book.text.isNotEmpty()) {
+                if (state.value.text.isNotEmpty()) {
                     item {
                         DisableSelection {
                             ReaderEndItem(

@@ -244,21 +244,17 @@ object Constants {
     )
 
     val EMPTY_BOOK = Book(
-        -1,
-        "",
-        UIText.StringValue(""),
-        null,
-        "",
-        emptyList(),
-        0,
-        0,
-        0,
-        0,
-        0f,
-        null,
-        "",
-        null,
-        Category.READING,
-        null
+        id = -1,
+        title = "",
+        author = UIText.StringValue(""),
+        description = null,
+        textPath = "",
+        filePath = "",
+        coverImage = null,
+        scrollIndex = 0,
+        scrollOffset = 0,
+        progress = 0f,
+        lastOpened = null,
+        category = Category.READING
     )
 }

@@ -57,41 +57,33 @@ class ReaderViewModel @Inject constructor(
 
             is ReaderEvent.OnLoadText -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    if (
-                        _state.value.book.text.isEmpty() ||
-                        _state.value.book.letters < 1 ||
-                        _state.value.book.words < 1
-                    ) {
-                        val text = getText.execute(_state.value.book.textPath)
+                    val text = getText.execute(_state.value.book.textPath)
 
-                        if (text.isEmpty()) {
-                            event.onTextIsEmpty()
+                    if (text.isEmpty()) {
+                        event.onTextIsEmpty()
+                    }
+
+                    val textAsLine = text.joinToString(
+                        separator = "\n",
+                        transform = {
+                            it.line
                         }
+                    )
 
-                        val textAsLine = text.joinToString(
-                            separator = "\n",
-                            transform = {
-                                it.line
-                            }
+                    val letters = textAsLine
+                        .replace("\n", "")
+                        .length
+                    val words = textAsLine
+                        .replace("\n", " ")
+                        .split("\\s+".toRegex())
+                        .size
+
+                    _state.update {
+                        it.copy(
+                            text = text,
+                            letters = letters,
+                            words = words
                         )
-
-                        val letters = textAsLine
-                            .replace("\n", "")
-                            .length
-                        val words = textAsLine
-                            .replace("\n", " ")
-                            .split("\\s+".toRegex())
-                            .size
-
-                        _state.update {
-                            it.copy(
-                                book = it.book.copy(
-                                    text = text,
-                                    letters = letters,
-                                    words = words
-                                )
-                            )
-                        }
                     }
 
                     val history = _state.value.book.id.let {
@@ -111,13 +103,7 @@ class ReaderViewModel @Inject constructor(
                     updateBooks.execute(
                         listOf(_state.value.book)
                     )
-                    event.refreshList(
-                        _state.value.book.copy(
-                            text = emptyList(),
-                            letters = 0,
-                            words = 0
-                        )
-                    )
+                    event.refreshList(_state.value.book)
 
                     viewModelScope.launch {
                         snapshotFlow {
@@ -126,7 +112,7 @@ class ReaderViewModel @Inject constructor(
                             val index = _state.value.book.scrollIndex
                             val offset = _state.value.book.scrollOffset
 
-                            if (itemsCount >= _state.value.book.text.size) {
+                            if (itemsCount >= _state.value.text.size) {
                                 if (index > 0 || offset > 0) {
                                     var loaded = false
                                     for (i in 1..100) {
@@ -213,7 +199,7 @@ class ReaderViewModel @Inject constructor(
                             if (lastVisibleItemIndex >= (event.listState.layoutInfo.totalItemsCount - 1)) {
                                 1f
                             } else {
-                                (firstVisibleItemIndex.toFloat() / (_state.value.book.text.lastIndex)
+                                (firstVisibleItemIndex.toFloat() / (_state.value.text.lastIndex)
                                     .toFloat())
                             }
                         } else {
@@ -237,13 +223,7 @@ class ReaderViewModel @Inject constructor(
                     event.navigator.putArgument(
                         Argument("book", _state.value.book.id)
                     )
-                    event.refreshList(
-                        _state.value.book.copy(
-                            text = emptyList(),
-                            letters = 0,
-                            words = 0
-                        )
-                    )
+                    event.refreshList(_state.value.book)
 
                     insetsController.show(WindowInsetsCompat.Type.systemBars())
                     event.navigate(event.navigator)
@@ -252,7 +232,7 @@ class ReaderViewModel @Inject constructor(
 
             is ReaderEvent.OnScroll -> {
                 viewModelScope.launch {
-                    val scrollTo = (_state.value.book.text.size * event.progress).roundToInt()
+                    val scrollTo = (_state.value.text.size * event.progress).roundToInt()
 
                     event.listState.scrollToItem(
                         scrollTo
@@ -281,13 +261,7 @@ class ReaderViewModel @Inject constructor(
                             _state.value.book.id
                         )
                     )
-                    event.refreshList(
-                        _state.value.book.copy(
-                            text = emptyList(),
-                            letters = 0,
-                            words = 0
-                        )
-                    )
+                    event.refreshList(_state.value.book)
                 }
             }
 
@@ -336,11 +310,7 @@ class ReaderViewModel @Inject constructor(
                     updateBooks.execute(listOf(_state.value.book))
 
                     event.onUpdateCategories(
-                        _state.value.book.copy(
-                            text = emptyList(),
-                            letters = 0,
-                            words = 0
-                        )
+                        _state.value.book.copy()
                     )
                     event.updatePage(
                         Category.entries.dropLastWhile {

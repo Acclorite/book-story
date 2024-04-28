@@ -23,7 +23,7 @@ import kotlinx.coroutines.yield
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.use_case.GetBooksFromFiles
 import ua.acclorite.book_story.domain.use_case.GetFilesFromDevice
-import ua.acclorite.book_story.domain.use_case.InsertBooks
+import ua.acclorite.book_story.domain.use_case.InsertBook
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.presentation.data.Screen
 import javax.inject.Inject
@@ -33,7 +33,7 @@ import javax.inject.Inject
 class BrowseViewModel @Inject constructor(
     private val getBooksFromFiles: GetBooksFromFiles,
     private val getFilesFromDevice: GetFilesFromDevice,
-    private val insertBooks: InsertBooks
+    private val insertBook: InsertBook
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(BrowseState())
@@ -369,13 +369,28 @@ class BrowseViewModel @Inject constructor(
                     val booksToInsert = _state.value.selectedBooks
                         .filter { it.first is NullableBook.NotNull }
                         .filter { it.second }
-                        .map { it.first.book!! }
+                        .map { it.first }
 
                     if (booksToInsert.isEmpty()) {
                         return@launch
                     }
 
-                    if (!insertBooks.execute(booksToInsert)) {
+                    val failed = booksToInsert.any {
+                        !insertBook.execute(
+                            it.book!!,
+                            it.coverImage,
+                            it.text
+                        )
+                    }
+
+                    if (failed) {
+                        _state.update {
+                            it.copy(
+                                showAddingDialog = false
+                            )
+                        }
+                        onEvent(BrowseEvent.OnLoadList)
+                        onEvent(BrowseEvent.OnClearSelectedFiles)
                         event.onFailed()
                         return@launch
                     }

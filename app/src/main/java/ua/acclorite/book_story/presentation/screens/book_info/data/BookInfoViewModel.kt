@@ -26,12 +26,13 @@ import ua.acclorite.book_story.domain.use_case.GetBookFromFile
 import ua.acclorite.book_story.domain.use_case.GetBooksById
 import ua.acclorite.book_story.domain.use_case.GetText
 import ua.acclorite.book_story.domain.use_case.InsertHistory
+import ua.acclorite.book_story.domain.use_case.UpdateBookWithText
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
-import ua.acclorite.book_story.domain.use_case.UpdateBooksWithText
 import ua.acclorite.book_story.domain.use_case.UpdateCoverImageOfBook
 import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
+import java.io.File
 import java.util.Date
 import javax.inject.Inject
 
@@ -39,7 +40,7 @@ import javax.inject.Inject
 @HiltViewModel
 class BookInfoViewModel @Inject constructor(
     private val updateBooks: UpdateBooks,
-    private val updateBooksWithText: UpdateBooksWithText,
+    private val updateBookWithText: UpdateBookWithText,
     private val updateCoverImageOfBook: UpdateCoverImageOfBook,
     private val insertHistory: InsertHistory,
     private val deleteBooks: DeleteBooks,
@@ -302,7 +303,7 @@ class BookInfoViewModel @Inject constructor(
                     }
 
                     yield()
-                    if (_state.value.book.file == null) {
+                    if (!File(_state.value.book.filePath).exists()) {
                         onEvent(
                             BookInfoEvent.OnShowSnackbar(
                                 text = event.context.getString(
@@ -334,12 +335,13 @@ class BookInfoViewModel @Inject constructor(
                     }
 
                     yield()
-                    val nullableBook = getBookFromFile.execute(_state.value.book.file!!)
+                    val updatedBook = getBookFromFile.execute(File(_state.value.book.filePath))
                     yield()
-                    if (nullableBook is NullableBook.Null) {
+
+                    if (updatedBook is NullableBook.Null) {
                         onEvent(
                             BookInfoEvent.OnShowSnackbar(
-                                text = nullableBook.message?.asString(event.context)
+                                text = updatedBook.message?.asString(event.context)
                                     ?: event.context.getString(R.string.error_something_went_wrong_with_file),
                                 action = event.context.getString(R.string.retry),
                                 onAction = {
@@ -365,7 +367,6 @@ class BookInfoViewModel @Inject constructor(
                     }
                     yield()
 
-                    val updatedBook = nullableBook.book?.first ?: return@launch
                     val book = _state.value.book
 
                     var authorUpdated = false
@@ -373,20 +374,19 @@ class BookInfoViewModel @Inject constructor(
                     var textUpdated = false
 
                     if (
-                        updatedBook.author.asString(event.context) !=
+                        updatedBook.book!!.author.asString(event.context) !=
                         book.author.asString(event.context)
                     ) {
                         authorUpdated = true
                     }
-                    if (updatedBook.description != book.description) {
+                    if (updatedBook.book.description != book.description) {
                         descriptionUpdated = true
                     }
-                    if (
-                        updatedBook.text.map { it.line } !=
-                        book.text.ifEmpty {
-                            getText.execute(book.textPath)
-                        }.map { it.line }
-                    ) {
+
+                    val updatedText = updatedBook.text
+                    val text = getText.execute(book.textPath)
+
+                    if (updatedText.map { it.line } != text.map { it.line }) {
                         textUpdated = true
                     }
 
@@ -412,7 +412,7 @@ class BookInfoViewModel @Inject constructor(
                     yield()
                     onEvent(
                         BookInfoEvent.OnShowConfirmUpdateDialog(
-                            updatedBook = updatedBook,
+                            updatedBook = updatedBook.book to updatedBook.text,
                             authorUpdated = authorUpdated,
                             descriptionUpdated = descriptionUpdated,
                             textUpdated = textUpdated
@@ -492,36 +492,29 @@ class BookInfoViewModel @Inject constructor(
                     val updatedBook = _state.value.updatedBook ?: return@launch
 
                     val author = if (_state.value.authorChanged) {
-                        updatedBook.author
+                        updatedBook.first.author
                     } else {
                         book.author
                     }
                     val description = if (_state.value.descriptionChanged) {
-                        updatedBook.description
+                        updatedBook.first.description
                     } else {
                         book.description
-                    }
-                    val text = if (_state.value.textChanged) {
-                        updatedBook.text
-                    } else {
-                        book.text
                     }
 
                     _state.update {
                         it.copy(
                             book = it.book.copy(
                                 author = author,
-                                description = description,
-                                text = text
+                                description = description
                             )
                         )
                     }
 
                     if (_state.value.textChanged) {
-                        val isSuccess = updateBooksWithText.execute(
-                            listOf(
-                                _state.value.book
-                            )
+                        val isSuccess = updateBookWithText.execute(
+                            book = _state.value.book,
+                            text = updatedBook.second
                         )
 
                         if (!isSuccess) {

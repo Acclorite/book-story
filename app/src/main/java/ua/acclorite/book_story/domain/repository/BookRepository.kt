@@ -23,20 +23,23 @@ interface BookRepository {
         ids: List<Int>
     ): List<Book>
 
-    suspend fun getBookTextById(
+    suspend fun getBookText(
         textPath: String
     ): List<StringWithId>
 
-    suspend fun insertBooks(
-        books: List<Pair<Book, CoverImage?>>
+    suspend fun insertBook(
+        book: Book,
+        coverImage: CoverImage?,
+        text: List<StringWithId>
     ): Boolean
 
     suspend fun updateBooks(
         books: List<Book>
     )
 
-    suspend fun updateBooksWithText(
-        books: List<Book>
+    suspend fun updateBookWithText(
+        book: Book,
+        text: List<StringWithId>
     ): Boolean
 
     suspend fun updateCoverImageOfBook(

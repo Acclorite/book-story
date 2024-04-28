@@ -7,6 +7,6 @@ import javax.inject.Inject
 class GetText @Inject constructor(private val repository: BookRepository) {
 
     suspend fun execute(textPath: String): List<StringWithId> {
-        return repository.getBookTextById(textPath = textPath)
+        return repository.getBookText(textPath = textPath)
     }
 }

@@ -16,7 +16,7 @@ import javax.inject.Inject
 class EpubFileParser @Inject constructor() : FileParser {
 
     override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
-        if (!file.name.endsWith(".epub")) {
+        if (!file.name.endsWith(".epub") || !file.exists()) {
             return null
         }
 
@@ -49,13 +49,9 @@ class EpubFileParser @Inject constructor() : FileParser {
                 author = author,
                 description = description?.toString(),
                 textPath = "",
-                text = emptyList(),
-                letters = 0,
-                words = 0,
                 scrollIndex = 0,
                 scrollOffset = 0,
                 progress = 0f,
-                file = file,
                 filePath = file.path,
                 lastOpened = null,
                 category = Category.entries[0],
