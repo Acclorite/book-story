@@ -47,7 +47,7 @@ fun ReaderStartItem(state: State<ReaderState>) {
         .calculateTopPadding()
 
     val itemsHeight = remember(statusBarHeight) {
-        statusBarHeight + 80.dp + 135.dp + 40.dp
+        statusBarHeight + 80.dp + 140.dp + 40.dp
     }
 
     Box(
@@ -74,8 +74,8 @@ fun ReaderStartItem(state: State<ReaderState>) {
             ) {
                 Box(
                     modifier = Modifier
-                        .height(135.dp)
-                        .width(90.dp)
+                        .height(150.dp)
+                        .width(100.dp)
                         .clip(RoundedCornerShape(10.dp))
                         .background(MaterialTheme.colorScheme.surfaceContainerLow)
                 ) {
@@ -111,7 +111,6 @@ fun ReaderStartItem(state: State<ReaderState>) {
                         maxLines = 4,
                         overflow = TextOverflow.Ellipsis
                     )
-                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         stringResource(id = R.string.happy_reading),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
