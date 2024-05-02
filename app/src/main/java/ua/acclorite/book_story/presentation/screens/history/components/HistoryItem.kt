@@ -120,7 +120,6 @@ fun HistoryItem(
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
-                Spacer(modifier = Modifier.height(2.dp))
                 Text(
                     pattern.format(date),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,

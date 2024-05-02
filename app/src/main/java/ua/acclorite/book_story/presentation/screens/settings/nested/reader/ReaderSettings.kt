@@ -35,9 +35,9 @@ import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Navigator
-import ua.acclorite.book_story.presentation.screens.settings.components.CheckboxWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.SliderWithTitle
+import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWithTitle
 
 @Composable
 fun ReaderSettingsRoot() {
@@ -227,7 +227,7 @@ private fun ReaderSettings(
                 )
             }
             item {
-                CheckboxWithTitle(
+                SwitchWithTitle(
                     selected = state.value.paragraphIndentation!!,
                     title = stringResource(id = R.string.paragraph_indentation_option)
                 ) {

@@ -72,7 +72,7 @@ fun BookInfoChangeCoverBottomSheet(
             onEvent(BookInfoEvent.OnShowHideChangeCoverBottomSheet)
         },
         sheetState = rememberModalBottomSheetState(true),
-        windowInsets = WindowInsets(0, 0, 0, 0),
+        contentWindowInsets = { WindowInsets(0, 0, 0, 0) },
         containerColor = MaterialTheme.colorScheme.surfaceContainerLow
     ) {
 

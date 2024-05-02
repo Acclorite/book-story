@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,9 +20,16 @@ import androidx.compose.ui.unit.dp
 
 /**
  * Checkbox with title.
+ *
+ * @param selected Whether [Switch] has checked state.
+ * @param title Title.
+ * @param description Optional description.
+ * @param horizontalPadding Horizontal padding.
+ * @param verticalPadding Vertical padding.
+ * @param onClick Triggers when user clicks anywhere on this composable.
  */
 @Composable
-fun CheckboxWithTitle(
+fun SwitchWithTitle(
     selected: Boolean,
     title: String,
     description: String? = null,
@@ -36,15 +44,12 @@ fun CheckboxWithTitle(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = title,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.titleMedium
-                )
-            }
+            Text(
+                text = title,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.titleMedium
+            )
             description?.let {
                 Text(
                     text = it,
@@ -55,27 +60,13 @@ fun CheckboxWithTitle(
         }
 
         Spacer(modifier = Modifier.width(8.dp))
-
         Switch(
             checked = selected,
-            onCheckedChange = null
+            onCheckedChange = null,
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = MaterialTheme.colorScheme.primary,
+                checkedTrackColor = MaterialTheme.colorScheme.secondaryContainer,
+            )
         )
     }
-//
-//    Row(
-//        Modifier
-//            .fillMaxWidth()
-//            .clickable {
-//                onClick()
-//            }
-//            .padding(horizontal = horizontalPadding, vertical = verticalPadding),
-//        verticalAlignment = Alignment.CenterVertically,
-//    ) {
-//        Checkbox(
-//            checked = selected,
-//            onCheckedChange = null,
-//        )
-//        Spacer(modifier = Modifier.width(24.dp))
-//        CategoryTitle(title = title, padding = 0.dp)
-//    }
 }

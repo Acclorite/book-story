@@ -41,10 +41,10 @@ import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
-import ua.acclorite.book_story.presentation.screens.settings.components.CheckboxWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.ColorPickerWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.SliderWithTitle
+import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWithTitle
 
 /**
  * Settings bottom sheet. Has General and Colors categories.
@@ -110,7 +110,7 @@ fun ReaderSettingsBottomSheet(
                 onEvent(ReaderEvent.OnShowHideSettingsBottomSheet)
             },
             sheetState = rememberModalBottomSheetState(true),
-            windowInsets = WindowInsets(0, 0, 0, 0),
+            contentWindowInsets = { WindowInsets(0, 0, 0, 0) },
             containerColor = MaterialTheme.colorScheme.surfaceContainerLow
         ) {
             ReaderSettingsBottomSheetTabRow(
@@ -252,7 +252,7 @@ fun ReaderSettingsBottomSheet(
                             )
                         }
                         item {
-                            CheckboxWithTitle(
+                            SwitchWithTitle(
                                 selected = mainState.value.paragraphIndentation!!,
                                 title = stringResource(id = R.string.paragraph_indentation_option)
                             ) {
@@ -306,7 +306,6 @@ fun ReaderSettingsBottomSheet(
             }
         }
     }
-
 }
 
 
