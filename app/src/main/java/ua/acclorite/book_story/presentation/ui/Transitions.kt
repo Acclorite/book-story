@@ -36,7 +36,23 @@ object Transitions {
 fun DefaultTransition(
     visible: Boolean,
     modifier: Modifier = Modifier,
-    content: @Composable (() -> Unit)
+    content: @Composable () -> Unit
+) {
+    CustomAnimatedVisibility(
+        visible = visible,
+        modifier = modifier,
+        enter = Transitions.DefaultTransitionIn,
+        exit = Transitions.DefaultTransitionOut
+    ) {
+        content()
+    }
+}
+
+@Composable
+fun <T> T.DefaultTransition(
+    visible: Boolean,
+    modifier: Modifier = Modifier,
+    content: @Composable T.() -> Unit
 ) {
     CustomAnimatedVisibility(
         visible = visible,
