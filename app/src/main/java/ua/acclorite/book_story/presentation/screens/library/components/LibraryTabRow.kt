@@ -9,10 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.PrimaryScrollableTabRow
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
@@ -33,8 +32,11 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 
 /**
  * Tab row, either scrollable or static, depends on screen width.
+ *
+ * @param onEvent Event used to Scroll to Page.
+ * @param books The list of all books.
+ * @param pagerState [PagerState].
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LibraryTabRow(
     onEvent: (LibraryEvent) -> Unit,
@@ -70,7 +72,7 @@ fun LibraryTabRow(
                 .fillMaxWidth(),
             color = MaterialTheme.colorScheme.surfaceContainerHighest
         )
-        PrimaryScrollableTabRow(
+        ScrollableTabRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 0.5.dp),
@@ -86,8 +88,7 @@ fun LibraryTabRow(
                     )
 
                     TabRowDefaults.PrimaryIndicator(
-                        Modifier
-                            .tabIndicatorOffset(tabPositions[pagerState.currentPage]),
+                        Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
                         width = width
                     )
                 }
@@ -95,7 +96,6 @@ fun LibraryTabRow(
         ) {
             tabItems.forEachIndexed { index, tabItem ->
                 Tab(
-                    modifier = Modifier,
                     selected = pagerState.currentPage == index,
                     onClick = {
                         onEvent(LibraryEvent.OnScrollToPage(index, pagerState))
