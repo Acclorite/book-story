@@ -1,7 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.browse.components.adding_dialog
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -27,6 +26,9 @@ import ua.acclorite.book_story.presentation.components.CustomCheckbox
 
 /**
  * Adding dialog item.
+ *
+ * @param result Result of the file parsing, can be Null or Not Null.
+ * @param onClick OnClick event(both error/not error).
  */
 @Composable
 fun BrowseAddingDialogItem(result: Pair<NullableBook, Selected>, onClick: (Boolean) -> Unit) {
@@ -41,7 +43,7 @@ fun BrowseAddingDialogItem(result: Pair<NullableBook, Selected>, onClick: (Boole
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
-                Modifier.weight(0.85f)
+                Modifier.weight(1f)
             ) {
                 Text(
                     text = result.first.book!!.title,
@@ -58,7 +60,8 @@ fun BrowseAddingDialogItem(result: Pair<NullableBook, Selected>, onClick: (Boole
                     overflow = TextOverflow.Ellipsis
                 )
             }
-            Box(modifier = Modifier.weight(0.15f), contentAlignment = Alignment.CenterEnd) {
+            Row {
+                Spacer(modifier = Modifier.width(24.dp))
                 CustomCheckbox(
                     selected = result.second,
                     MaterialTheme.colorScheme.surfaceContainerHigh
