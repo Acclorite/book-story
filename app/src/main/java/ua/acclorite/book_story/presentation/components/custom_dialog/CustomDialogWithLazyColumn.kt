@@ -1,5 +1,8 @@
 package ua.acclorite.book_story.presentation.components.custom_dialog
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -91,6 +94,7 @@ fun CustomDialogWithLazyColumn(
                 .statusBarsPadding()
                 .clip(MaterialTheme.shapes.extraLarge)
                 .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                .animateContentSize(animationSpec = spring(stiffness = Spring.StiffnessMediumLow))
                 .padding(top = 24.dp, bottom = 12.dp)
         ) {
             if (drawableIcon != null) {
@@ -155,7 +159,11 @@ fun CustomDialogWithLazyColumn(
                 items()
 
                 item {
-                    Column(modifier = Modifier.fillMaxWidth()) {
+                    Column(
+                        modifier = Modifier
+                            .animateItem()
+                            .fillMaxWidth()
+                    ) {
                         Spacer(modifier = Modifier.height(16.dp))
                         Row(
                             modifier = Modifier
