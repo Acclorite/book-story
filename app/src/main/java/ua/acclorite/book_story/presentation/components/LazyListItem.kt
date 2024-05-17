@@ -11,7 +11,7 @@ fun <T> LazyListScope.customItems(
     key: (T) -> Any?,
     content: @Composable LazyItemScope.(T) -> Unit
 ) {
-    items.forEach {
+    for (it in items) {
         item(key = key(it)) {
             content(it)
         }
@@ -23,7 +23,7 @@ fun <T> LazyListScope.customItemsIndexed(
     key: (T) -> Any?,
     content: @Composable LazyItemScope.(Int, T) -> Unit
 ) {
-    items.forEachIndexed { index, item ->
+    for ((index, item) in items.withIndex()) {
         item(key = key(item)) {
             content(index, item)
         }
@@ -35,7 +35,7 @@ fun <T> LazyGridScope.customItems(
     key: (T) -> Any?,
     content: @Composable LazyGridItemScope.(T) -> Unit
 ) {
-    items.forEach {
+    for (it in items) {
         item(key = key(it)) {
             content(it)
         }
