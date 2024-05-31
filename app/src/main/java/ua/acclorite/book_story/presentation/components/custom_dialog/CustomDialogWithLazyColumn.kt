@@ -1,10 +1,8 @@
 package ua.acclorite.book_story.presentation.components.custom_dialog
 
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -59,7 +57,7 @@ import ua.acclorite.book_story.R
  * @param withDivider Should divider be shown or not.
  * @param items The items of this dialog, use items(..) { .. } or item { .. }.
  */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun CustomDialogWithLazyColumn(
     modifier: Modifier = Modifier,
@@ -78,6 +76,16 @@ fun CustomDialogWithLazyColumn(
 ) {
     var actionClicked by remember { mutableStateOf(false) }
     BasicAlertDialog(
+        modifier = modifier
+            .fillMaxWidth()
+            .navigationBarsPadding()
+            .statusBarsPadding()
+            .clip(MaterialTheme.shapes.extraLarge)
+            .background(
+                MaterialTheme.colorScheme.surfaceContainerHigh,
+                MaterialTheme.shapes.extraLarge
+            )
+            .padding(top = 24.dp, bottom = 12.dp),
         onDismissRequest = { onDismiss() },
         properties = DialogProperties(
             dismissOnBackPress = !actionClicked,
@@ -87,16 +95,7 @@ fun CustomDialogWithLazyColumn(
         (LocalView.current.parent as DialogWindowProvider).window.setDimAmount(
             backgroundTransparency
         )
-        Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .navigationBarsPadding()
-                .statusBarsPadding()
-                .clip(MaterialTheme.shapes.extraLarge)
-                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-                .animateContentSize(animationSpec = spring(stiffness = Spring.StiffnessMediumLow))
-                .padding(top = 24.dp, bottom = 12.dp)
-        ) {
+        Column {
             if (drawableIcon != null) {
                 Icon(
                     painter = drawableIcon,
@@ -161,7 +160,6 @@ fun CustomDialogWithLazyColumn(
                 item {
                     Column(
                         modifier = Modifier
-                            .animateItem()
                             .fillMaxWidth()
                     ) {
                         Spacer(modifier = Modifier.height(16.dp))
