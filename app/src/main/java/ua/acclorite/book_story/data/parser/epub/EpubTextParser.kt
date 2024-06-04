@@ -8,7 +8,6 @@ import org.jsoup.nodes.Document.OutputSettings
 import org.jsoup.safety.Safelist
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.TextParser
-import ua.acclorite.book_story.domain.model.StringWithId
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
 import java.io.BufferedReader
@@ -21,7 +20,7 @@ import javax.inject.Inject
 
 class EpubTextParser @Inject constructor() : TextParser {
 
-    override suspend fun parse(file: File): Resource<List<StringWithId>> {
+    override suspend fun parse(file: File): Resource<List<String>> {
         if (!file.name.endsWith(".epub")) {
             return Resource.Error(UIText.StringResource(R.string.error_wrong_file_format))
         }
@@ -57,7 +56,7 @@ class EpubTextParser @Inject constructor() : TextParser {
                 }
             }
 
-            val stringWithIds = mutableListOf<StringWithId>()
+            val strings = mutableListOf<String>()
 
             val parsedText = Jsoup.parse(unformattedText.toString())
             parsedText.outputSettings(OutputSettings().prettyPrint(false))
@@ -78,15 +77,15 @@ class EpubTextParser @Inject constructor() : TextParser {
                 .split("\n")
                 .forEach {
                     if (it.isNotBlank()) {
-                        stringWithIds.add(StringWithId(it.trim()))
+                        strings.add(it.trim())
                     }
                 }
 
-            if (stringWithIds.isEmpty()) {
+            if (strings.isEmpty()) {
                 return Resource.Error(UIText.StringResource(R.string.error_file_empty))
             }
 
-            return Resource.Success(stringWithIds)
+            return Resource.Success(strings)
         } catch (e: Exception) {
             return Resource.Error(
                 UIText.StringResource(

@@ -15,10 +15,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.selection.DisableSelection
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -32,7 +29,6 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -42,24 +38,21 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.debounce
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomSelectionContainer
-import ua.acclorite.book_story.presentation.components.customItemsIndexed
+import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.components.is_messages.IsError
+import ua.acclorite.book_story.presentation.components.translator_language.TranslatorLanguageBottomSheet
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
@@ -72,8 +65,11 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewMode
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderEndItem
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderBottomBar
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderTopBar
+import ua.acclorite.book_story.presentation.screens.reader.components.download_language_dialog.ReaderDownloadLanguageDialog
 import ua.acclorite.book_story.presentation.screens.reader.components.settings_bottom_sheet.ReaderSettingsBottomSheet
 import ua.acclorite.book_story.presentation.screens.reader.components.start_item.ReaderStartItem
+import ua.acclorite.book_story.presentation.screens.reader.components.text.ReaderTextParagraph
+import ua.acclorite.book_story.presentation.screens.reader.components.translator_bottom_sheet.ReaderTranslatorBottomSheet
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
@@ -88,11 +84,26 @@ fun ReaderScreenRoot() {
     val libraryViewModel: LibraryViewModel = hiltViewModel()
     val historyViewModel: HistoryViewModel = hiltViewModel()
 
-    val listState = rememberLazyListState()
     val loading = remember { mutableStateOf(true) }
 
     val state = viewModel.state.collectAsState()
     val mainState = mainViewModel.state.collectAsState()
+
+    val canScroll by remember {
+        derivedStateOf {
+            state.value.listState.canScrollBackward && state.value.listState.canScrollForward
+        }
+    }
+    val firstVisibleItemIndex = remember {
+        derivedStateOf {
+            state.value.listState.firstVisibleItemIndex
+        }
+    }
+    val firstVisibleItemOffset = remember {
+        derivedStateOf {
+            state.value.listState.firstVisibleItemScrollOffset
+        }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.init(
@@ -102,17 +113,37 @@ fun ReaderScreenRoot() {
                 libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
                 historyViewModel.onEvent(HistoryEvent.OnLoadList)
             },
-            listState = listState,
+            onError = {
+                Toast.makeText(
+                    context,
+                    it.asString(context),
+                    Toast.LENGTH_LONG
+                ).show()
+            },
             onLoaded = {
                 loading.value = false
             }
+        )
+    }
+    LaunchedEffect(canScroll) {
+        if (!canScroll && !state.value.showMenu && !loading.value) {
+            viewModel.onEvent(ReaderEvent.OnShowHideMenu(context = context))
+        }
+    }
+    LaunchedEffect(firstVisibleItemIndex.value, firstVisibleItemOffset.value) {
+        viewModel.onUpdateProgress(
+            firstVisibleItemIndex = firstVisibleItemIndex.value,
+            firstVisibleItemOffset = firstVisibleItemOffset.value,
+            navigator = navigator,
+            isReaderLoading = loading.value,
+            onLibraryEvent = libraryViewModel::onEvent,
+            onHistoryEvent = historyViewModel::onEvent
         )
     }
 
     ReaderScreen(
         state = state,
         mainState = mainState,
-        listState = listState,
         loading = loading,
         navigator = navigator,
         onEvent = viewModel::onEvent,
@@ -122,13 +153,11 @@ fun ReaderScreenRoot() {
     )
 }
 
-@OptIn(FlowPreview::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 private fun ReaderScreen(
     state: State<ReaderState>,
     mainState: State<MainState>,
-    listState: LazyListState,
     loading: State<Boolean>,
     navigator: Navigator,
     onEvent: (ReaderEvent) -> Unit,
@@ -137,13 +166,9 @@ private fun ReaderScreen(
     onHistoryEvent: (HistoryEvent) -> Unit,
 ) {
     val context = LocalContext.current as ComponentActivity
-    val systemBarsColor = MaterialTheme.colorScheme.surfaceContainerHighest.copy(0.85f)
+    val density = LocalDensity.current
+    val systemBarsColor = MaterialTheme.colorScheme.surfaceContainerHighest.copy(0.94f)
 
-    val canScroll by remember {
-        derivedStateOf {
-            listState.canScrollBackward && listState.canScrollForward
-        }
-    }
     val nestedScrollConnection = remember(state) {
         object : NestedScrollConnection {
             override fun onPostScroll(
@@ -162,6 +187,9 @@ private fun ReaderScreen(
         }
     }
 
+    val text = remember(state.value.text) {
+        state.value.text.toList().sortedBy { it.first }
+    }
     val fontFamily = remember(mainState.value.fontFamily) {
         Constants.FONTS.find {
             it.id == mainState.value.fontFamily
@@ -190,51 +218,56 @@ private fun ReaderScreen(
         }
     }
 
-
-    LaunchedEffect(canScroll) {
-        if (!canScroll && !state.value.showMenu && !loading.value) {
-            onEvent(ReaderEvent.OnShowHideMenu(context = context))
-        }
+    if (state.value.showTranslatorBottomSheet) {
+        ReaderTranslatorBottomSheet(
+            state = state,
+            onEvent = onEvent
+        )
     }
+    if (state.value.showLanguageBottomSheet) {
+        TranslatorLanguageBottomSheet(
+            selectedLanguage = if (state.value.languageBottomSheetTranslateFrom) {
+                state.value.book.translateFrom
+            } else state.value.book.translateTo,
 
-    LaunchedEffect(listState) {
-        snapshotFlow {
-            listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
-        }.debounce(500).collectLatest { items ->
-            if (!loading.value && state.value.text.isNotEmpty() && listState.layoutInfo.totalItemsCount > 0) {
-                val lastVisibleItemIndex = listState.layoutInfo.visibleItemsInfo.last().index
+            unselectedLanguage = if (!state.value.languageBottomSheetTranslateFrom) {
+                state.value.book.translateFrom
+            } else state.value.book.translateTo,
 
-                val progress = if (items.first > 0) {
-                    if (lastVisibleItemIndex >= (listState.layoutInfo.totalItemsCount - 1)) {
-                        1f
-                    } else {
-                        (items.first.toFloat() / (state.value.text.lastIndex).toFloat())
-                    }
-                } else {
-                    0f
-                }
-
+            translateFromSelecting = state.value.languageBottomSheetTranslateFrom,
+            onSelect = { from, to ->
                 onEvent(
-                    ReaderEvent.OnChangeProgress(
-                        progress = progress,
-                        navigator = navigator,
-                        firstVisibleItemIndex = items.first,
-                        firstVisibleItemOffset = items.second,
-                        refreshList = { book ->
-                            onLibraryEvent(LibraryEvent.OnUpdateBook(book))
-                            onHistoryEvent(HistoryEvent.OnUpdateBook(book))
-                        }
+                    ReaderEvent.OnChangeTranslatorSettings(
+                        translateFrom = from,
+                        translateTo = to
+                    )
+                )
+                onEvent(
+                    ReaderEvent.OnShowHideLanguageBottomSheet(
+                        show = false
+                    )
+                )
+            },
+            onDismiss = {
+                onEvent(
+                    ReaderEvent.OnShowHideLanguageBottomSheet(
+                        show = false
                     )
                 )
             }
-        }
+        )
     }
-
     if (state.value.showSettingsBottomSheet) {
         ReaderSettingsBottomSheet(
             mainState = mainState,
             onEvent = onEvent,
             onMainEvent = onMainEvent
+        )
+    }
+    if (state.value.showDownloadLanguageDialog) {
+        ReaderDownloadLanguageDialog(
+            state = state,
+            onEvent = onEvent
         )
     }
 
@@ -254,13 +287,13 @@ private fun ReaderScreen(
                     onEvent = onEvent,
                     onLibraryUpdateEvent = onLibraryEvent,
                     onHistoryUpdateEvent = onHistoryEvent,
-                    listState = listState,
                     containerColor = systemBarsColor
                 )
             }
         },
         bottomBar = {
             CustomAnimatedVisibility(
+                modifier = Modifier.fillMaxWidth(),
                 visible = state.value.showMenu,
                 enter = slideInVertically { it },
                 exit = slideOutVertically { it }
@@ -270,7 +303,6 @@ private fun ReaderScreen(
                     onEvent = onEvent,
                     onLibraryUpdateEvent = onLibraryEvent,
                     onHistoryUpdateEvent = onHistoryEvent,
-                    listState = listState,
                     containerColor = systemBarsColor
                 )
             }
@@ -288,7 +320,7 @@ private fun ReaderScreen(
             },
             onTranslateRequested = { textToTranslate ->
                 onEvent(
-                    ReaderEvent.OnTranslateText(
+                    ReaderEvent.OnOpenTranslator(
                         textToTranslate,
                         context,
                         noAppsFound = {
@@ -318,9 +350,10 @@ private fun ReaderScreen(
             }
         ) { toolbarShowed ->
             LazyColumn(
-                state = listState,
+                state = state.value.listState,
                 modifier = Modifier
                     .fillMaxSize()
+                    .background(backgroundColor)
                     .then(
                         if (!loading.value && toolbarShowed) {
                             Modifier
@@ -336,56 +369,49 @@ private fun ReaderScreen(
                         } else {
                             Modifier
                         }
-                    )
+                    ),
+                verticalArrangement = Arrangement.spacedBy(paragraphHeight)
             ) {
                 if (state.value.text.isNotEmpty()) {
                     item {
                         DisableSelection {
                             ReaderStartItem(state = state)
                         }
+
+                        Spacer(modifier = Modifier.height(18.dp))
                     }
                 }
 
-                customItemsIndexed(
-                    state.value.text, key = { key -> key.id }
-                ) { index, line ->
-                    val text = remember(mainState.value.paragraphIndentation, line) {
-                        "${if (mainState.value.paragraphIndentation!!) "  " else ""}${line.line}"
-                    }
-
-                    Column(
-                        Modifier
-                            .background(backgroundColor)
-                            .fillMaxWidth()
-                            .padding(
-                                top = if (index == 0) 18.dp else 0.dp,
-                                start = sidePadding,
-                                end = sidePadding,
-                                bottom = if (index == state.value.text.lastIndex) 18.dp
-                                else paragraphHeight
-                            )
-                    ) {
-                        Text(
-                            text = text,
-                            color = fontColor,
-                            style = TextStyle(lineBreak = LineBreak.Paragraph),
-                            fontFamily = fontFamily.font,
-                            fontStyle = fontStyle,
-                            fontSize = mainState.value.fontSize!!.sp,
-                            lineHeight = lineHeight
-                        )
-                    }
+                customItems(
+                    text, key = { key -> key.first }
+                ) { line ->
+                    ReaderTextParagraph(
+                        state = state,
+                        id = line.first,
+                        line = line.second,
+                        context = context,
+                        density = density,
+                        fontFamily = fontFamily,
+                        fontColor = fontColor,
+                        lineHeight = lineHeight,
+                        fontStyle = fontStyle,
+                        fontSize = mainState.value.fontSize!!.sp,
+                        sidePadding = sidePadding,
+                        paragraphIndentation = mainState.value.paragraphIndentation!!,
+                        onEvent = onEvent
+                    )
                 }
 
                 if (state.value.text.isNotEmpty()) {
                     item {
+                        Spacer(modifier = Modifier.height(18.dp))
+
                         DisableSelection {
                             ReaderEndItem(
                                 state = state,
                                 onEvent = onEvent,
                                 onLibraryEvent = onLibraryEvent,
                                 onHistoryUpdateEvent = onHistoryEvent,
-                                listState = listState
                             )
                         }
                     }
@@ -417,7 +443,6 @@ private fun ReaderScreen(
                                     onLibraryEvent(LibraryEvent.OnUpdateBook(it))
                                     onHistoryEvent(HistoryEvent.OnUpdateBook(it))
                                 },
-                                listState = listState,
                                 navigate = {
                                     it.navigateBack()
                                 }
@@ -452,7 +477,6 @@ private fun ReaderScreen(
                     onLibraryEvent(LibraryEvent.OnUpdateBook(it))
                     onHistoryEvent(HistoryEvent.OnUpdateBook(it))
                 },
-                listState = listState,
                 navigate = {
                     it.navigateBack()
                 }

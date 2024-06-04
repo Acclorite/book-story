@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 
 object DataStoreConstants {
+    // App settings
     val LANGUAGE = stringPreferencesKey("language")
     val THEME = stringPreferencesKey("theme")
     val DARK_THEME = stringPreferencesKey("dark_theme")
@@ -22,4 +23,9 @@ object DataStoreConstants {
     val PARAGRAPH_INDENTATION = booleanPreferencesKey("paragraph_indentation")
     val CHECK_FOR_UPDATES = booleanPreferencesKey("check_for_updates")
     val SIDE_PADDING = intPreferencesKey("side_padding")
+    val ENABLE_TRANSLATOR = booleanPreferencesKey("enable_translator")
+    val TRANSLATE_FROM = stringPreferencesKey("translate_from")
+    val TRANSLATE_TO = stringPreferencesKey("translate_to")
+    val DOUBLE_CLICK_TRANSLATION = booleanPreferencesKey("double_click_translation")
+    val TRANSLATOR_LANGUAGE_HISTORY = stringPreferencesKey("translator_languages_history")
 }

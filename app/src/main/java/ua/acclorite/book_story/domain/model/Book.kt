@@ -22,4 +22,10 @@ data class Book(
 
     val lastOpened: Long?,
     val category: Category,
+
+    val enableTranslator: Boolean,
+    val translateFrom: String,
+    val translateTo: String,
+    val doubleClickTranslation: Boolean,
+    val translateWhenOpen: Boolean
 )

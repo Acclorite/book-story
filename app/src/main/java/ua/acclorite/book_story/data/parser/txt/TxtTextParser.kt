@@ -4,7 +4,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.TextParser
-import ua.acclorite.book_story.domain.model.StringWithId
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
 import java.io.BufferedReader
@@ -14,19 +13,19 @@ import javax.inject.Inject
 
 class TxtTextParser @Inject constructor() : TextParser {
 
-    override suspend fun parse(file: File): Resource<List<StringWithId>> {
+    override suspend fun parse(file: File): Resource<List<String>> {
         if (!file.name.endsWith(".txt")) {
             return Resource.Error(UIText.StringResource(R.string.error_wrong_file_format))
         }
 
         return try {
-            val formattedLines = mutableListOf<StringWithId>()
+            val formattedLines = mutableListOf<String>()
 
             withContext(Dispatchers.IO) {
                 BufferedReader(FileReader(file)).forEachLine { line ->
                     if (line.isNotBlank()) {
                         formattedLines.add(
-                            StringWithId(line)
+                            line.trim()
                         )
                     }
                 }

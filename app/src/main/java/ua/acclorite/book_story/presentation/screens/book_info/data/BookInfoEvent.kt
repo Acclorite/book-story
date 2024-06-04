@@ -7,7 +7,6 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.domain.model.StringWithId
 import ua.acclorite.book_story.presentation.data.Navigator
 
 @Immutable
@@ -58,7 +57,7 @@ sealed class BookInfoEvent {
     data object OnDismissConfirmUpdateDialog : BookInfoEvent()
 
     data class OnShowConfirmUpdateDialog(
-        val updatedBook: Pair<Book, List<StringWithId>>,
+        val updatedBook: Pair<Book, List<String>>,
         val authorUpdated: Boolean,
         val descriptionUpdated: Boolean,
         val textUpdated: Boolean,

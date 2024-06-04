@@ -25,31 +25,23 @@ import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.NavigationHost
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.about.AboutScreenRoot
-import ua.acclorite.book_story.presentation.screens.about.data.AboutViewModel
 import ua.acclorite.book_story.presentation.screens.about.nested.credits.CreditsScreenRoot
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.LicenseInfoScreenRoot
-import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoViewModel
 import ua.acclorite.book_story.presentation.screens.about.nested.licenses.LicensesScreenRoot
-import ua.acclorite.book_story.presentation.screens.about.nested.licenses.data.LicensesViewModel
 import ua.acclorite.book_story.presentation.screens.book_info.BookInfoScreenRoot
-import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
 import ua.acclorite.book_story.presentation.screens.browse.BrowseScreenRoot
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.help.HelpScreenRoot
-import ua.acclorite.book_story.presentation.screens.help.data.HelpViewModel
 import ua.acclorite.book_story.presentation.screens.history.HistoryScreenRoot
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.LibraryScreenRoot
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.reader.ReaderScreenRoot
-import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 import ua.acclorite.book_story.presentation.screens.settings.SettingsScreenRoot
-import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.AppearanceSettingsRoot
 import ua.acclorite.book_story.presentation.screens.settings.nested.general.GeneralSettingsRoot
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.ReaderSettingsRoot
 import ua.acclorite.book_story.presentation.screens.start.StartScreenRoot
-import ua.acclorite.book_story.presentation.screens.start.data.StartViewModel
 import ua.acclorite.book_story.presentation.ui.BookStoryTheme
 import ua.acclorite.book_story.presentation.ui.Transitions
 import ua.acclorite.book_story.presentation.ui.isDark
@@ -66,14 +58,6 @@ class Activity : AppCompatActivity() {
     private val libraryViewModel: LibraryViewModel by viewModels()
     private val historyViewModel: HistoryViewModel by viewModels()
     private val browseViewModel: BrowseViewModel by viewModels()
-    private val bookInfoViewModel: BookInfoViewModel by viewModels()
-    private val readerViewModel: ReaderViewModel by viewModels()
-    private val helpViewModel: HelpViewModel by viewModels()
-    private val aboutViewModel: AboutViewModel by viewModels()
-    private val licenseInfoViewModel: LicenseInfoViewModel by viewModels()
-    private val licensesViewModel: LicensesViewModel by viewModels()
-    private val settingsViewModel: SettingsViewModel by viewModels()
-    private val startViewModel: StartViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,8 +86,8 @@ class Activity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            val isLoaded by mainViewModel.isReady.collectAsState()
-            val state by mainViewModel.state.collectAsState()
+            val isLoaded = mainViewModel.isReady.collectAsState()
+            val state = mainViewModel.state.collectAsState()
 
             val density = LocalDensity.current
             val imeInsets = WindowInsets.ime
@@ -120,15 +104,15 @@ class Activity : AppCompatActivity() {
                 }
             }
 
-            if (isLoaded) {
+            if (isLoaded.value) {
                 BookStoryTheme(
-                    theme = state.theme!!,
-                    isDark = state.darkTheme!!.isDark(),
-                    isPureDark = state.pureDark!!.isPureDark(this),
-                    themeContrast = state.themeContrast!!
+                    theme = state.value.theme!!,
+                    isDark = state.value.darkTheme!!.isDark(),
+                    isPureDark = state.value.pureDark!!.isPureDark(this),
+                    themeContrast = state.value.themeContrast!!
                 ) {
                     NavigationHost(
-                        startScreen = if (state.showStartScreen!!) Screen.START
+                        startScreen = if (state.value.showStartScreen!!) Screen.START
                         else Screen.LIBRARY
                     ) {
                         navigation(

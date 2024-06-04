@@ -45,7 +45,10 @@ import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 
 /**
- * Info section.
+ * BookInfo's Info section.
+ *
+ * @param state [BookInfoState] instance.
+ * @param onEvent [BookInfoEvent] callback.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -65,7 +68,10 @@ fun BookInfoInfoSection(
                 .height(195.dp)
                 .width(130.dp)
                 .clip(MaterialTheme.shapes.medium)
-                .background(MaterialTheme.colorScheme.surfaceContainerLow)
+                .background(
+                    MaterialTheme.colorScheme.surfaceContainerLow,
+                    MaterialTheme.shapes.medium
+                )
                 .combinedClickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null,

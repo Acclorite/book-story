@@ -11,7 +11,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
@@ -20,14 +19,21 @@ import ua.acclorite.book_story.R
 
 /**
  * Custom Checkbox. Has a Circle shape.
+ *
+ * @param selected Whether checked or not.
+ * @param containerColor Container color.
+ * @param size Size of the checkbox icon(not the whole checkbox).
  */
 @Composable
-fun CustomCheckbox(selected: Boolean, containerColor: Color, size: Dp = 22.dp) {
+fun CustomCheckbox(
+    selected: Boolean,
+    containerColor: Color,
+    size: Dp = 22.dp
+) {
     Icon(
         imageVector = Icons.Default.Check,
         tint = if (selected) containerColor else Color.Transparent,
         modifier = Modifier
-            .clip(CircleShape)
             .border(
                 width = if (!selected) 1.dp else 0.dp,
                 if (!selected) MaterialTheme.colorScheme.outline else Color.Transparent,

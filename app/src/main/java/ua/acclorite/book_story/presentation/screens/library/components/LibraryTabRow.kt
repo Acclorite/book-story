@@ -21,7 +21,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -113,8 +112,10 @@ fun LibraryTabRow(
                             Text(
                                 text = tabItem.second.toString(),
                                 modifier = Modifier
-                                    .clip(MaterialTheme.shapes.medium)
-                                    .background(MaterialTheme.colorScheme.surfaceContainer)
+                                    .background(
+                                        MaterialTheme.colorScheme.surfaceContainer,
+                                        MaterialTheme.shapes.medium
+                                    )
                                     .padding(horizontal = 8.dp, vertical = 4.dp),
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 style = MaterialTheme.typography.bodyMedium

@@ -39,6 +39,12 @@ import ua.acclorite.book_story.presentation.data.removeTrailingZero
 
 /**
  * Library list element item.
+ *
+ * @param book [Pair] of [Book] and [Selected] (Boolean).
+ * @param modifier Modifier.
+ * @param onCoverImageClick OnCoverImageClick callback.
+ * @param onLongClick OnLongClick callback.
+ * @param onButtonClick OnButtonClick callback.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -86,7 +92,10 @@ fun LibraryBookItem(
                 .aspectRatio(1f / 1.5f)
                 .fillMaxWidth()
                 .clip(MaterialTheme.shapes.medium)
-                .background(MaterialTheme.colorScheme.surfaceContainerLow)
+                .background(
+                    MaterialTheme.colorScheme.surfaceContainerLow,
+                    MaterialTheme.shapes.medium
+                )
                 .combinedClickable(
                     onClick = {
                         onCoverImageClick()
@@ -124,7 +133,7 @@ fun LibraryBookItem(
                 modifier = Modifier
                     .padding(6.dp)
                     .clip(MaterialTheme.shapes.small)
-                    .background(MaterialTheme.colorScheme.primary)
+                    .background(MaterialTheme.colorScheme.primary, MaterialTheme.shapes.small)
                     .padding(horizontal = 8.dp, vertical = 4.dp),
                 style = MaterialTheme.typography.bodySmall
             )

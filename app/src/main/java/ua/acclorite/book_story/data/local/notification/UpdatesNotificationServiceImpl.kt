@@ -8,7 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.data.remote.dto.ReleaseResponse
+import ua.acclorite.book_story.data.remote.dto.LatestReleaseInfo
 import javax.inject.Inject
 
 class UpdatesNotificationServiceImpl @Inject constructor(
@@ -18,7 +18,7 @@ class UpdatesNotificationServiceImpl @Inject constructor(
     private val notificationManager = application.getSystemService(Context.NOTIFICATION_SERVICE)
             as NotificationManager
 
-    override fun postNotification(releaseInfo: ReleaseResponse) {
+    override fun postNotification(releaseInfo: LatestReleaseInfo) {
         val downloadLatestVersionIntent = Intent(
             Intent.ACTION_VIEW,
             Uri.parse(application.getString(R.string.download_latest_release_page))

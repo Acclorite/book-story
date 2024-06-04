@@ -9,11 +9,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsIgnoringVisibility
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -40,6 +39,11 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
 
 /**
  * Reader end item. Displays at the end of the book.
+ *
+ * @param state [ReaderState].
+ * @param onEvent [ReaderEvent] callback.
+ * @param onLibraryEvent [LibraryEvent] callback.
+ * @param onHistoryUpdateEvent [HistoryEvent] callback.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -48,7 +52,6 @@ fun ReaderEndItem(
     onEvent: (ReaderEvent) -> Unit,
     onLibraryEvent: (LibraryEvent) -> Unit,
     onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit,
-    listState: LazyListState,
 ) {
     val navigator = LocalNavigator.current
     val context = LocalContext.current as ComponentActivity
@@ -62,7 +65,7 @@ fun ReaderEndItem(
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .background(MaterialTheme.colorScheme.surface)
             .padding(
                 horizontal = 36.dp,
@@ -104,7 +107,6 @@ fun ReaderEndItem(
                                 onLibraryEvent(LibraryEvent.OnUpdateCurrentPage(it))
                             },
                             navigator = navigator,
-                            listState = listState,
                             context = context
                         )
                     )
@@ -123,7 +125,6 @@ fun ReaderEndItem(
                                 onLibraryEvent(LibraryEvent.OnUpdateBook(it))
                                 onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
                             },
-                            listState = listState,
                             navigate = {
                                 it.navigate(Screen.LIBRARY, true)
                             }

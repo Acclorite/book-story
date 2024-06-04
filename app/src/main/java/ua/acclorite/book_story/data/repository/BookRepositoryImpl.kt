@@ -6,6 +6,13 @@ import android.net.Uri
 import android.os.Environment
 import android.util.Log
 import androidx.datastore.preferences.core.Preferences
+import com.google.mlkit.common.model.DownloadConditions
+import com.google.mlkit.common.model.RemoteModelManager
+import com.google.mlkit.nl.languageid.LanguageIdentifier
+import com.google.mlkit.nl.translate.TranslateLanguage
+import com.google.mlkit.nl.translate.TranslateRemoteModel
+import com.google.mlkit.nl.translate.Translation
+import com.google.mlkit.nl.translate.TranslatorOptions
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,28 +31,35 @@ import ua.acclorite.book_story.data.mapper.history.HistoryMapper
 import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.data.remote.GithubAPI
-import ua.acclorite.book_story.data.remote.dto.ReleaseResponse
+import ua.acclorite.book_story.data.remote.dto.LatestReleaseInfo
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
-import ua.acclorite.book_story.domain.model.StringWithId
 import ua.acclorite.book_story.domain.repository.BookRepository
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.CoverImage
+import ua.acclorite.book_story.domain.util.DataStoreConstants
+import ua.acclorite.book_story.domain.util.LanguageCode
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.data.MainState
 import java.io.File
 import java.io.FileOutputStream
+import java.util.Locale
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
+@Suppress("DEPRECATION")
 @Singleton
 class BookRepositoryImpl @Inject constructor(
     private val application: Application,
     private val database: BookDao,
     private val dataStore: DataStore,
+    private val modelManager: RemoteModelManager,
+    private val languageIdentifier: LanguageIdentifier,
 
     private val githubAPI: GithubAPI,
     private val updatesNotificationService: UpdatesNotificationService,
@@ -88,7 +102,7 @@ class BookRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getBookText(textPath: String): List<StringWithId> {
+    override suspend fun getBookText(textPath: String): List<String> {
         val textFile = File(textPath)
 
         if (textPath.isBlank() || !textFile.exists()) {
@@ -108,7 +122,7 @@ class BookRepositoryImpl @Inject constructor(
     override suspend fun insertBook(
         book: Book,
         coverImage: CoverImage?,
-        text: List<StringWithId>
+        text: List<String>
     ): Boolean {
         val filesDir = application.filesDir
         val coversDir = File(filesDir, "covers")
@@ -135,7 +149,7 @@ class BookRepositoryImpl @Inject constructor(
             withContext(Dispatchers.IO) {
                 FileOutputStream(textPath).use { stream ->
                     text.forEach { line ->
-                        stream.write(line.line.toByteArray())
+                        stream.write(line.toByteArray())
                         stream.write(System.lineSeparator().toByteArray())
                     }
                 }
@@ -169,12 +183,34 @@ class BookRepositoryImpl @Inject constructor(
             }
         }
 
+        val enableTranslator = dataStore.getNullableData(DataStoreConstants.ENABLE_TRANSLATOR)
+            ?: false
+
+        val translateFrom = dataStore.getNullableData(DataStoreConstants.TRANSLATE_FROM)
+            ?: "auto"
+
+        val translateTo = dataStore.getNullableData(DataStoreConstants.TRANSLATE_TO) ?: if (
+            Constants.LANGUAGES.any { Locale.getDefault().language.take(2) == it.first }
+        ) {
+            Locale.getDefault().language.take(2)
+        } else {
+            "en"
+        }
+
+        val doubleClickTranslation = dataStore.getNullableData(
+            DataStoreConstants.DOUBLE_CLICK_TRANSLATION
+        ) ?: true
+
 
         val updatedBook = book.copy(
             textPath = "$booksDir/$textUri",
             coverImage = if (coverUri.isNotBlank()) {
                 Uri.fromFile(File("$coversDir/$coverUri"))
-            } else null
+            } else null,
+            enableTranslator = enableTranslator,
+            translateFrom = translateFrom,
+            translateTo = translateTo,
+            doubleClickTranslation = doubleClickTranslation
         )
 
         val bookToInsert = bookMapper.toBookEntity(updatedBook)
@@ -197,7 +233,7 @@ class BookRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun updateBookWithText(book: Book, text: List<StringWithId>): Boolean {
+    override suspend fun updateBookWithText(book: Book, text: List<String>): Boolean {
         // without cover image
         val filesDir = application.filesDir
         val booksDir = File(filesDir, "books")
@@ -220,7 +256,7 @@ class BookRepositoryImpl @Inject constructor(
             withContext(Dispatchers.IO) {
                 FileOutputStream(textPath).use { stream ->
                     text.forEach { line ->
-                        stream.write(line.line.toByteArray())
+                        stream.write(line.toByteArray())
                         stream.write(System.lineSeparator().toByteArray())
                     }
                 }
@@ -604,7 +640,7 @@ class BookRepositoryImpl @Inject constructor(
         database.deleteHistory(history.map { historyMapper.toHistoryEntity(it) })
     }
 
-    override suspend fun checkForUpdates(postNotification: Boolean): ReleaseResponse? {
+    override suspend fun checkForUpdates(postNotification: Boolean): LatestReleaseInfo? {
         return withContext(Dispatchers.IO) {
             try {
                 val result = githubAPI.getLatestRelease()
@@ -623,6 +659,155 @@ class BookRepositoryImpl @Inject constructor(
                 e.printStackTrace()
                 null
             }
+        }
+    }
+
+    override suspend fun isLanguageModelDownloaded(languageCode: String): Boolean {
+        val model = TranslateRemoteModel.Builder(languageCode).build()
+        return suspendCoroutine { continuation ->
+            modelManager.isModelDownloaded(model)
+                .addOnSuccessListener {
+                    continuation.resume(it)
+                }
+                .addOnFailureListener {
+                    continuation.resume(false)
+                }
+        }
+    }
+
+    override suspend fun downloadLanguageModel(
+        languageCode: String,
+        onCompleted: () -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
+        val isLanguageDownloaded = isLanguageModelDownloaded(languageCode)
+        if (isLanguageDownloaded) {
+            onCompleted()
+            return
+        }
+
+        return suspendCoroutine { continuation ->
+            val language = TranslateRemoteModel.Builder(languageCode).build()
+            val conditions = DownloadConditions.Builder().build()
+
+            modelManager.download(language, conditions)
+                .addOnSuccessListener {
+                    onCompleted()
+                    continuation.resume(Unit)
+                }
+                .addOnFailureListener {
+                    onFailure(it)
+                    onCompleted()
+                    continuation.resume(Unit)
+                }
+                .addOnCanceledListener {
+                    onCompleted()
+                    Log.i("TRANSLATOR", "Downloading Model: Canceled")
+                    continuation.resume(Unit)
+                }
+        }
+    }
+
+    override suspend fun deleteLanguageModel(languageCode: String): Boolean {
+        val isLanguageDownloaded = isLanguageModelDownloaded(languageCode)
+        if (!isLanguageDownloaded) {
+            return true
+        }
+
+        return suspendCoroutine { continuation ->
+            val language = TranslateRemoteModel.Builder(languageCode).build()
+
+            modelManager.deleteDownloadedModel(language)
+                .addOnSuccessListener {
+                    continuation.resume(true)
+                }
+                .addOnFailureListener {
+                    continuation.resume(false)
+                }
+        }
+    }
+
+    override suspend fun identifyLanguage(text: String): Resource<String> {
+        return suspendCoroutine { continuation ->
+            languageIdentifier.identifyLanguage(text)
+                .addOnSuccessListener {
+                    val languageCode = it.trim().lowercase().take(2)
+                    var identified = true
+
+                    if (languageCode == "ru") {
+                        identified = false
+                    }
+
+                    if (TranslateLanguage.fromLanguageTag(languageCode) == null) {
+                        identified = false
+                    }
+
+                    if (identified) {
+                        continuation.resume(
+                            Resource.Success(languageCode)
+                        )
+                        return@addOnSuccessListener
+                    }
+
+                    continuation.resume(
+                        Resource.Error(UIText.StringResource(R.string.error_language_not_identified))
+                    )
+                }
+                .addOnFailureListener {
+                    continuation.resume(
+                        Resource.Error(
+                            UIText.StringResource(
+                                R.string.error_query,
+                                it.message ?: ""
+                            )
+                        )
+                    )
+                }
+        }
+    }
+
+    override suspend fun translateText(
+        sourceLanguage: LanguageCode,
+        targetLanguage: LanguageCode,
+        text: String
+    ): Resource<String> {
+        return suspendCoroutine { continuation ->
+            val translatorOptions = TranslatorOptions.Builder()
+                .setSourceLanguage(sourceLanguage)
+                .setTargetLanguage(targetLanguage)
+                .build()
+            val translator = Translation.getClient(translatorOptions)
+
+            translator.translate(text)
+                .addOnSuccessListener {
+                    translator.close()
+                    continuation.resume(
+                        Resource.Success(
+                            it.trim()
+                        )
+                    )
+                }
+                .addOnFailureListener {
+                    translator.close()
+                    continuation.resume(
+                        Resource.Error(
+                            UIText.StringResource(
+                                R.string.error_query,
+                                it.message ?: ""
+                            )
+                        )
+                    )
+                }
+                .addOnCanceledListener {
+                    translator.close()
+                    continuation.resume(
+                        Resource.Error(
+                            UIText.StringResource(
+                                R.string.error_something_went_wrong
+                            )
+                        )
+                    )
+                }
         }
     }
 }

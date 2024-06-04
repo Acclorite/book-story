@@ -37,6 +37,8 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
 
 /**
  * Reader start item. Displays at the beginning of the book.
+ *
+ * @param state [ReaderState].
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -76,8 +78,10 @@ fun ReaderStartItem(state: State<ReaderState>) {
                     modifier = Modifier
                         .height(150.dp)
                         .width(100.dp)
-                        .clip(RoundedCornerShape(10.dp))
-                        .background(MaterialTheme.colorScheme.surfaceContainerLow)
+                        .background(
+                            MaterialTheme.colorScheme.surfaceContainerLow,
+                            RoundedCornerShape(10.dp)
+                        )
                 ) {
                     if (state.value.book.coverImage != null) {
                         CustomCoverImage(

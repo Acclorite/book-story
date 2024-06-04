@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package ua.acclorite.book_story.presentation.components
 
 import android.content.ClipData
@@ -7,6 +9,7 @@ import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -15,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalTextToolbar
@@ -42,13 +46,13 @@ private class CustomTextActionModeCallback(
         requireNotNull(menu)
         requireNotNull(mode)
 
-        onTranslateRequested?.let {
-            menu.add(0, MENU_ITEM_TRANSLATE, 0, context.getString(R.string.translate))
+        onCopyRequested?.let {
+            menu.add(0, MENU_ITEM_COPY, 0, context.getString(R.string.copy))
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
         }
 
-        onCopyRequested?.let {
-            menu.add(0, MENU_ITEM_COPY, 1, context.getString(R.string.copy))
+        onTranslateRequested?.let {
+            menu.add(0, MENU_ITEM_TRANSLATE, 1, context.getString(R.string.translate))
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
         }
 
@@ -233,7 +237,7 @@ fun CustomSelectionContainer(
     CompositionLocalProvider(
         LocalTextToolbar provides customSelectionToolbar
     ) {
-        SelectionContainer {
+        SelectionContainer(Modifier.fillMaxSize()) {
             content(isToolbarHidden.value)
         }
     }

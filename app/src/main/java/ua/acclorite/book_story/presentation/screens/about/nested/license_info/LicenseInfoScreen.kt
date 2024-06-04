@@ -183,7 +183,10 @@ private fun LicenseInfoScreen(
                                 .clickable(enabled = license.licenseContent?.isNotBlank() == true) {
                                     showed.value = !showed.value
                                 }
-                                .background(MaterialTheme.colorScheme.primary)
+                                .background(
+                                    MaterialTheme.colorScheme.primary,
+                                    RoundedCornerShape(100)
+                                )
                                 .padding(vertical = 6.dp, horizontal = 12.dp)
                         )
 

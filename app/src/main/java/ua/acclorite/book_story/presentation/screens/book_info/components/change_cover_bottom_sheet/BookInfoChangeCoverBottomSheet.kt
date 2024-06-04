@@ -5,18 +5,11 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.HideImage
 import androidx.compose.material.icons.filled.ImageSearch
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
@@ -24,6 +17,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.CustomBottomSheet
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
@@ -31,8 +25,12 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 
 /**
  * Change cover bottom sheet. Lets user select photo from the gallery and replaces old one.
+ *
+ * @param state [BookInfoState] instance.
+ * @param onEvent [BookInfoEvent] callback.
+ * @param onLibraryUpdateEvent [LibraryEvent] callback.
+ * @param onHistoryUpdateEvent [HistoryEvent] callback.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookInfoChangeCoverBottomSheet(
     state: State<BookInfoState>,
@@ -41,8 +39,6 @@ fun BookInfoChangeCoverBottomSheet(
     onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit
 ) {
     val context = LocalContext.current
-    val navigationBarPadding =
-        WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
     val photoPicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = { uri ->
@@ -66,16 +62,12 @@ fun BookInfoChangeCoverBottomSheet(
         }
     )
 
-    ModalBottomSheet(
+    CustomBottomSheet(
         modifier = Modifier.fillMaxWidth(),
         onDismissRequest = {
             onEvent(BookInfoEvent.OnShowHideChangeCoverBottomSheet)
-        },
-        sheetState = rememberModalBottomSheetState(true),
-        contentWindowInsets = { WindowInsets(0, 0, 0, 0) },
-        containerColor = MaterialTheme.colorScheme.surfaceContainerLow
-    ) {
-
+        }
+    ) { padding ->
         BookInfoChangeCoverBottomSheetItem(
             icon = Icons.Default.ImageSearch,
             text = stringResource(id = R.string.change_cover),
@@ -110,7 +102,7 @@ fun BookInfoChangeCoverBottomSheet(
 
         Spacer(
             modifier = Modifier.height(
-                8.dp + navigationBarPadding
+                8.dp + padding
             )
         )
     }

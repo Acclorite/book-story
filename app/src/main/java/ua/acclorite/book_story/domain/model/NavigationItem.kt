@@ -1,11 +1,15 @@
 package ua.acclorite.book_story.domain.model
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.graphics.painter.Painter
+import ua.acclorite.book_story.presentation.data.Screen
 
 @Immutable
 data class NavigationItem(
-    val title: String,
-    val selectedIcon: Painter,
-    val unselectedIcon: Painter
+    val screen: Screen,
+    @StringRes val title: Int,
+    @StringRes val tooltip: Int,
+    @DrawableRes val selectedIcon: Int,
+    @DrawableRes val unselectedIcon: Int
 )

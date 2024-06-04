@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
@@ -24,6 +23,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
@@ -78,7 +78,7 @@ private fun CreditsScreen(
                 .padding(top = paddingValues.calculateTopPadding()),
             state = scrollState.second
         ) {
-            items(Constants.CREDITS, key = { it.name }) {
+            customItems(Constants.CREDITS, key = { it.name }) {
                 CreditItem(credit = it) {
                     onAboutNavigateEvent(
                         AboutEvent.OnNavigateToBrowserPage(

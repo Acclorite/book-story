@@ -43,7 +43,14 @@ import ua.acclorite.book_story.presentation.screens.start.data.StartState
 import ua.acclorite.book_story.presentation.ui.Theme
 
 /**
- * Settings screen.
+ * Start Settings.
+ *
+ * @param state [StartState].
+ * @param mainState [MainState].
+ * @param onEvent [StartEvent] callback.
+ * @param onMainEvent [MainEvent] callback.
+ * @param storagePermissionState Storage [PermissionState].
+ * @param notificationsPermissionState Notifications [PermissionState].
  */
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -123,7 +130,10 @@ fun StartSettings(
             modifier = Modifier
                 .fillMaxSize()
                 .clip(MaterialTheme.shapes.large)
-                .background(MaterialTheme.colorScheme.surfaceContainerLow),
+                .background(
+                    MaterialTheme.colorScheme.surfaceContainerLow,
+                    MaterialTheme.shapes.large
+                ),
         ) {
             StartNavigationScreenItem(
                 state = state,

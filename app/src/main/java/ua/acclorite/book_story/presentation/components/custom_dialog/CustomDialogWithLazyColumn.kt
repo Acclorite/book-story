@@ -2,7 +2,6 @@ package ua.acclorite.book_story.presentation.components.custom_dialog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -57,7 +56,7 @@ import ua.acclorite.book_story.R
  * @param withDivider Should divider be shown or not.
  * @param items The items of this dialog, use items(..) { .. } or item { .. }.
  */
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomDialogWithLazyColumn(
     modifier: Modifier = Modifier,

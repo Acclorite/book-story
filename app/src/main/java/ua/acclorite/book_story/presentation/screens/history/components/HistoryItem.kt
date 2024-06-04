@@ -40,6 +40,14 @@ import java.util.Locale
 
 /**
  * History list element item.
+ *
+ * @param modifier Modifier.
+ * @param history [History] item.
+ * @param isOnClickEnabled Whether OnClick is enabled.
+ * @param onBodyClick OnBodyClick callback.
+ * @param onTitleClick OnTitleClick callback.
+ * @param isDeleteEnabled Whether Delete button is enabled.
+ * @param onDeleteClick OnDeleteClick callback.
  */
 @Composable
 fun HistoryItem(
@@ -73,8 +81,10 @@ fun HistoryItem(
                 modifier = Modifier
                     .height(90.dp)
                     .width(60.dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(MaterialTheme.colorScheme.surfaceContainerLow)
+                    .background(
+                        MaterialTheme.colorScheme.surfaceContainerLow,
+                        RoundedCornerShape(10.dp)
+                    )
             ) {
                 if (history.book?.coverImage != null) {
                     CustomCoverImage(

@@ -1,5 +1,7 @@
 package ua.acclorite.book_story.presentation.data
 
+import ua.acclorite.book_story.domain.model.LanguageHistory
+
 sealed class MainEvent {
     data class OnChangeLanguage(val lang: String) : MainEvent()
     data class OnChangeTheme(val theme: String) : MainEvent()
@@ -17,4 +19,9 @@ sealed class MainEvent {
     data class OnChangeShowStartScreen(val bool: Boolean) : MainEvent()
     data class OnChangeCheckForUpdates(val bool: Boolean) : MainEvent()
     data class OnChangeSidePadding(val sidePadding: Int) : MainEvent()
+    data class OnChangeEnableTranslator(val bool: Boolean) : MainEvent()
+    data class OnChangeTranslateFrom(val languageCode: String) : MainEvent()
+    data class OnChangeTranslateTo(val languageCode: String) : MainEvent()
+    data class OnChangeDoubleClickTranslation(val bool: Boolean) : MainEvent()
+    data class OnChangeTranslatorLanguageHistory(val history: List<LanguageHistory>) : MainEvent()
 }

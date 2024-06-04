@@ -55,7 +55,12 @@ class EpubFileParser @Inject constructor() : FileParser {
                 filePath = file.path,
                 lastOpened = null,
                 category = Category.entries[0],
-                coverImage = null
+                coverImage = null,
+                enableTranslator = false,
+                translateFrom = "",
+                translateTo = "",
+                doubleClickTranslation = false,
+                translateWhenOpen = false
             ) to coverImage
         } catch (e: Exception) {
             return null

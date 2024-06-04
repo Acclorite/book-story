@@ -4,3 +4,6 @@ import android.graphics.Bitmap
 
 typealias CoverImage = Bitmap
 typealias Selected = Boolean
+typealias ID = Int
+typealias LanguageCode = String
+typealias Route = String

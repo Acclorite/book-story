@@ -8,14 +8,14 @@ import ua.acclorite.book_story.domain.util.UIText
 sealed class NullableBook(
     val book: Book?,
     val coverImage: CoverImage? = null,
-    val text: List<StringWithId> = emptyList(),
+    val text: List<String> = emptyList(),
     val fileName: String?,
     val message: UIText?
 ) {
     class NotNull(
         book: Book,
         coverImage: CoverImage?,
-        text: List<StringWithId>
+        text: List<String>
     ) : NullableBook(
         book = book,
         text = text,

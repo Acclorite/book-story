@@ -7,10 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.NavigationItem
+import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Screen
 
@@ -31,41 +28,13 @@ fun BottomNavigationBar() {
     }
 
     NavigationBar {
-
-        BottomNavigationBarItem(
-            item = NavigationItem(
-                stringResource(id = R.string.library_screen),
-                selectedIcon = painterResource(id = R.drawable.library_screen_filled),
-                unselectedIcon = painterResource(id = R.drawable.library_screen_outlined)
-            ),
-            tooltipText = stringResource(id = R.string.library_content_desc),
-            isSelected = currentScreen == Screen.LIBRARY
-        ) {
-            navigator.navigate(Screen.LIBRARY, false)
-        }
-
-        BottomNavigationBarItem(
-            item = NavigationItem(
-                stringResource(id = R.string.history_screen),
-                selectedIcon = painterResource(id = R.drawable.history_screen_filled),
-                unselectedIcon = painterResource(id = R.drawable.history_screen_outlined)
-            ),
-            tooltipText = stringResource(id = R.string.history_content_desc),
-            isSelected = currentScreen == Screen.HISTORY
-        ) {
-            navigator.navigate(Screen.HISTORY, false)
-        }
-
-        BottomNavigationBarItem(
-            item = NavigationItem(
-                stringResource(id = R.string.browse_screen),
-                selectedIcon = painterResource(id = R.drawable.browse_screen_filled),
-                unselectedIcon = painterResource(id = R.drawable.browse_screen_outlined)
-            ),
-            tooltipText = stringResource(id = R.string.browse_content_desc),
-            isSelected = currentScreen == Screen.BROWSE
-        ) {
-            navigator.navigate(Screen.BROWSE, false)
+        Constants.NAVIGATION_ITEMS.forEach {
+            BottomNavigationBarItem(
+                item = it,
+                isSelected = currentScreen == it.screen
+            ) {
+                navigator.navigate(it.screen, false)
+            }
         }
     }
 }

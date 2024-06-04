@@ -5,11 +5,12 @@ import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Translate
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -39,6 +40,12 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
 
 /**
  * Reader top bar. Displays title of the book.
+ *
+ * @param state [ReaderState].
+ * @param onEvent [ReaderEvent] callback.
+ * @param onLibraryUpdateEvent [LibraryEvent] callback.
+ * @param onHistoryUpdateEvent [HistoryEvent] callback.
+ * @param containerColor Container color.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,7 +54,6 @@ fun ReaderTopBar(
     onEvent: (ReaderEvent) -> Unit,
     onLibraryUpdateEvent: (LibraryEvent.OnUpdateBook) -> Unit,
     onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit,
-    listState: LazyListState,
     containerColor: Color
 ) {
     val navigator = LocalNavigator.current
@@ -78,7 +84,6 @@ fun ReaderTopBar(
                             onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
                             onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
                         },
-                        listState = listState,
                         navigate = {
                             it.navigateBack()
                         }
@@ -93,6 +98,7 @@ fun ReaderTopBar(
                     fontFamily = FontFamily.Default,
                     fontWeight = FontWeight.Normal,
                     fontSize = 20.sp,
+                    lineHeight = 20.sp,
                     color = MaterialTheme.colorScheme.onSurface,
                     maxLines = 1,
                     modifier = Modifier
@@ -109,7 +115,6 @@ fun ReaderTopBar(
                                             onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
                                             onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
                                         },
-                                        listState = listState,
                                         navigate = {
                                             it.navigateWithoutBackStack(
                                                 Screen.BOOK_INFO,
@@ -121,7 +126,7 @@ fun ReaderTopBar(
                             }
                         )
                         .basicMarquee(
-                            delayMillis = 4000
+                            iterations = Int.MAX_VALUE
                         )
                 )
                 Text(
@@ -135,6 +140,17 @@ fun ReaderTopBar(
             }
         },
         actions = {
+            CustomIconButton(
+                icon = Icons.Default.Translate,
+                contentDescription = R.string.translator_content_desc,
+                disableOnClick = false,
+                enabled = !state.value.lockMenu,
+                color = if (state.value.book.enableTranslator) {
+                    MaterialTheme.colorScheme.primary
+                } else LocalContentColor.current
+            ) {
+                onEvent(ReaderEvent.OnShowHideTranslatorBottomSheet())
+            }
             CustomIconButton(
                 icon = Icons.Default.Settings,
                 contentDescription = R.string.open_reader_settings_content_desc,

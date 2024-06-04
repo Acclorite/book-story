@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
@@ -33,6 +32,12 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
 
 /**
  * Reader bottom bar. Has a slider to change progress.
+ *
+ * @param state [ReaderState].
+ * @param onEvent [ReaderEvent] callback.
+ * @param onLibraryUpdateEvent [LibraryEvent] callback.
+ * @param onHistoryUpdateEvent [HistoryEvent] callback.
+ * @param containerColor Container color.
  */
 @Composable
 fun ReaderBottomBar(
@@ -40,7 +45,6 @@ fun ReaderBottomBar(
     onEvent: (ReaderEvent) -> Unit,
     onLibraryUpdateEvent: (LibraryEvent.OnUpdateBook) -> Unit,
     onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit,
-    listState: LazyListState,
     containerColor: Color
 ) {
     val navigator = LocalNavigator.current
@@ -79,13 +83,13 @@ fun ReaderBottomBar(
             value = state.value.book.progress,
             enabled = !state.value.lockMenu,
             onValueChange = {
-                if (listState.layoutInfo.totalItemsCount > 0) {
-                    onEvent(ReaderEvent.OnScroll(listState, it))
+                if (state.value.listState.layoutInfo.totalItemsCount > 0) {
+                    onEvent(ReaderEvent.OnScroll(it))
                     onEvent(
                         ReaderEvent.OnChangeProgress(
                             progress = it,
                             navigator = navigator,
-                            firstVisibleItemIndex = listState.firstVisibleItemIndex,
+                            firstVisibleItemIndex = state.value.listState.firstVisibleItemIndex,
                             firstVisibleItemOffset = 0,
                             refreshList = { book ->
                                 onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(book))

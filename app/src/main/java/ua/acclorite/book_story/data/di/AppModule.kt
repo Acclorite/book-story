@@ -2,6 +2,10 @@ package ua.acclorite.book_story.data.di
 
 import android.app.Application
 import androidx.room.Room
+import com.google.mlkit.common.model.RemoteModelManager
+import com.google.mlkit.nl.languageid.LanguageIdentification
+import com.google.mlkit.nl.languageid.LanguageIdentificationOptions
+import com.google.mlkit.nl.languageid.LanguageIdentifier
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -40,5 +44,21 @@ object AppModule {
             BookDatabase::class.java,
             "book_db"
         ).allowMainThreadQueries().build().dao
+    }
+
+    @Provides
+    @Singleton
+    fun provideModelManager(): RemoteModelManager {
+        return RemoteModelManager.getInstance()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLanguageIdentifier(): LanguageIdentifier {
+        return LanguageIdentification.getClient(
+            LanguageIdentificationOptions.Builder()
+                .setConfidenceThreshold(0.2f)
+                .build()
+        )
     }
 }

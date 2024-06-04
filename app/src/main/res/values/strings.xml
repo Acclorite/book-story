@@ -55,6 +55,8 @@
     <string name="move_book">Move book?</string>
     <string name="delete_history">Delete reading history?</string>
     <string name="confirm_update">Confirm update?</string>
+    <string name="download_language">Download %1$s?</string>
+    <string name="download_languages">Download languages?</string>
 
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">
@@ -97,6 +99,17 @@
         By clicking the «Download» button you will be transferred
         to your browser and download the latest update automatically.
     </string>
+    <string name="download_language_description">
+        You need to download this language before using it.
+        After downloading, it will be available offline and will not require internet.
+        Each language is about ~30mb in size, it is recommended to use Wi-Fi to download it.
+    </string>
+    <string name="download_languages_description">
+        You need to download these languages before.
+        Each language is about ~30mb in size, it is recommended to use Wi-Fi to download it.
+        You can select which languages you want to download,
+        all unselected languages will not be translated.
+    </string>
 
     <!-- Errors -->
     <string name="error_permission">
@@ -123,6 +136,12 @@
         Something went wrong.
         Try again later.
     </string>
+    <string name="error_language_not_identified">Could not identify language.</string>
+    <string name="error_languages_not_identified">Could not identify any languages.</string>
+    <string name="error_cannot_select_language">Cannot select same language twice.</string>
+    <string name="error_wrong_language">Cannot select this language.</string>
+    <string name="error_could_not_download_language">Could not download language.</string>
+    <string name="error_could_not_download_languages">Could not download languages.</string>
 
     <!-- Is Empty messages -->
     <string name="browse_empty">
@@ -133,6 +152,9 @@
     </string>
     <string name="history_empty">
         Let your last book you read open the pages of a new great story of your reading journey
+    </string>
+    <string name="translator_languages_empty">
+        There is no such language with this name, or it is not supported
     </string>
 
     <!-- Query strings -->
@@ -168,11 +190,14 @@
     <string name="no">No</string>
     <string name="download">Download</string>
     <string name="done">Done</string>
+    <string name="undo_translation">Undo</string>
+    <string name="continue_download">Continue</string>
 
     <!-- Items -->
     <string name="files">files</string>
     <string name="books">books</string>
     <string name="history">history</string>
+    <string name="languages">languages</string>
 
     <!-- Book -->
     <string name="unknown_author">Unknown</string>
@@ -199,13 +224,14 @@
     <string name="general_settings">General</string>
     <string name="general_settings_desc">App language</string>
     <string name="appearance_settings">Appearance</string>
-    <string name="appearance_settings_desc">Theme preferences, colors</string>
+    <string name="appearance_settings_desc">Theme, colors</string>
     <string name="reader_settings">Reader</string>
-    <string name="reader_settings_desc">Font settings, text settings</string>
+    <string name="reader_settings_desc">Translator, font, text</string>
 
     <!-- Settings subcategories -->
     <string name="font_reader_settings">Font</string>
     <string name="text_reader_settings">Text</string>
+    <string name="translator_reader_settings">Translator</string>
     <string name="theme_appearance_settings">Theme preferences</string>
     <string name="colors_appearance_settings">Colors</string>
 
@@ -226,6 +252,13 @@
     <string name="check_for_updates_option">Check for updates</string>
     <string name="check_for_updates_option_desc">Check for newer app version on startup</string>
     <string name="side_padding_option">Side padding</string>
+    <string name="translator_language_option">Translator language</string>
+    <string name="translator_enable_default_option">Enable translator</string>
+    <string name="translator_enable_default_option_desc">Enable translator when adding a book by default</string>
+    <string name="translator_double_click_to_translate_option">Double click translation</string>
+    <string name="translator_double_click_to_translate_option_desc">Double click on paragraph to translate it</string>
+    <string name="translator_translate_on_start_option">Translate when open a book</string>
+    <string name="translator_translate_on_start_option_desc">Automatically translate the whole text when open a book</string>
 
     <!-- Colors -->
     <string name="red_color">Red</string>
@@ -274,6 +307,13 @@
     <string name="copied">Copied</string>
     <string name="history_deleted">History was successfully deleted.</string>
     <string name="no_updates">The latest version of the app is already installed.</string>
+    <string name="language_downloaded">Language was successfully downloaded and selected.</string>
+    <string name="languages_downloaded">
+        All required languages are downloaded. Translation will start soon.
+    </string>
+    <string name="translator_canceling">Translation is canceling. Please wait.</string>
+    <string name="translator_text_canceling">Translated text is canceling. Please wait.</string>
+    <string name="translator_starting">Translation will start soon. Please wait.</string>
 
     <!-- Snackbar messages -->
     <string name="history_element_deleted">History element was successfully deleted.</string>
@@ -301,6 +341,17 @@
         We hope you enjoyed this book!
     </string>
     <string name="letters_and_words">%1$s characters, %2$s words.</string>
+
+    <!-- Translator -->
+    <string name="translator_auto">Detect language</string>
+    <string name="translator_auto_short">Detect</string>
+    <string name="translator_query">Translate %1$s</string>
+    <string name="translator_from">from</string>
+    <string name="translator_to">to</string>
+    <string name="translator_all_languages">All languages</string>
+    <string name="translator_recent_languages">Recent languages</string>
+    <string name="translator_occurrences">%1$s paragraph(s)</string>
+    <string name="translator_show_original">Show original (%1$s to %2$s)</string>
 
     <!-- About -->
     <string name="app_version_option">App version</string>
@@ -493,5 +544,8 @@
     <string name="reset_start_content_desc">Reset start guide</string>
     <string name="hide_edit_title_content_desc">Exit title editing</string>
     <string name="open_in_web_content_desc">Open in web</string>
+    <string name="translator_content_desc">Translator</string>
+    <string name="translator_language_content_desc">Change language places</string>
+    <string name="downloaded_content_desc">Downloaded</string>
 
 </resources>

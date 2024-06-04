@@ -15,4 +15,9 @@ sealed class SettingsEvent {
         val notificationsPermissionState: PermissionState,
         val onChangeCheckForUpdates: (Boolean) -> Unit
     ) : SettingsEvent()
+
+    data class OnReaderShowHideTranslatorLanguageBottomSheet(
+        val show: Boolean? = null,
+        val translateFrom: Boolean? = null
+    ) : SettingsEvent()
 }

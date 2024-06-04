@@ -5,6 +5,12 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import com.google.mlkit.nl.translate.TranslateLanguage
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import ua.acclorite.book_story.domain.model.LanguageHistory
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.DataStoreConstants
 import ua.acclorite.book_story.presentation.ui.DarkTheme
@@ -17,8 +23,19 @@ import ua.acclorite.book_story.presentation.ui.toTheme
 import ua.acclorite.book_story.presentation.ui.toThemeContrast
 import java.util.Locale
 
+val translatorHistoryMoshi: JsonAdapter<List<LanguageHistory>> = Moshi
+    .Builder()
+    .add(KotlinJsonAdapterFactory())
+    .build()
+    .adapter(
+        Types.newParameterizedType(
+            List::class.java,
+            LanguageHistory::class.java
+        )
+    )
+
 /**
- * Main State. All app's settings are here. Wrapped in SavedStateHandle, so it won't reset.
+ * Main State. All app's settings/preferences/permanent-variables are here. Wrapped in SavedStateHandle, so it won't reset.
  */
 @Immutable
 data class MainState(
@@ -38,7 +55,13 @@ data class MainState(
     val showStartScreen: Boolean? = null,
     val checkForUpdates: Boolean? = null,
     val sidePadding: Int? = null,
+    val enableTranslator: Boolean? = null,
+    val translateFrom: String? = null,
+    val translateTo: String? = null,
+    val doubleClickTranslation: Boolean? = null,
+    val translatorLanguageHistory: List<LanguageHistory>? = null,
 ) : Parcelable {
+
     constructor(parcel: Parcel) : this(
         // String
         language = parcel.readString(),
@@ -75,6 +98,19 @@ data class MainState(
             .toInt() == 1 else null,
         // Int
         sidePadding = if (parcel.readByte().toInt() != 0) parcel.readInt() else null,
+        // Boolean
+        enableTranslator = if (parcel.readByte().toInt() != 0) parcel.readByte()
+            .toInt() == 1 else null,
+        // String
+        translateFrom = parcel.readString(),
+        // String
+        translateTo = parcel.readString(),
+        // Boolean
+        doubleClickTranslation = if (parcel.readByte().toInt() != 0) parcel.readByte()
+            .toInt() == 1 else null,
+        translatorLanguageHistory = parcel.readString()?.let {
+            translatorHistoryMoshi.fromJson(it)
+        }
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -117,9 +153,21 @@ data class MainState(
         // Check For Updates
         parcel.writeByte((if (checkForUpdates != null) 1 else 0).toByte())
         checkForUpdates?.let { parcel.writeByte(if (it) 1 else 0) }
-        // Side padding
+        // Side Padding
         parcel.writeByte((if (sidePadding != null) 1 else 0).toByte())
         sidePadding?.let { parcel.writeInt(it) }
+        // Enable Translator
+        parcel.writeByte((if (enableTranslator != null) 1 else 0).toByte())
+        enableTranslator?.let { parcel.writeByte(if (it) 1 else 0) }
+        // Translate From
+        parcel.writeString(translateFrom)
+        // Translate To
+        parcel.writeString(translateTo)
+        // Double Click Translation
+        parcel.writeByte((if (doubleClickTranslation != null) 1 else 0).toByte())
+        doubleClickTranslation?.let { parcel.writeByte(if (it) 1 else 0) }
+        // Translator Language History
+        parcel.writeString(translatorHistoryMoshi.toJson(translatorLanguageHistory))
     }
 
     override fun describeContents(): Int {
@@ -140,7 +188,6 @@ data class MainState(
          */
         fun initialize(data: Map<String, Any>): MainState {
             DataStoreConstants.apply {
-
                 val language: String = data[LANGUAGE.name] as? String ?: if (
                     Constants.LANGUAGES.any { Locale.getDefault().language.take(2) == it.first }
                 ) {
@@ -195,6 +242,30 @@ data class MainState(
                 val sidePadding: Int = data[SIDE_PADDING.name] as? Int
                     ?: 6
 
+                val enableTranslator: Boolean = data[ENABLE_TRANSLATOR.name] as? Boolean
+                    ?: false
+
+                val translateFrom: String = data[TRANSLATE_FROM.name] as? String
+                    ?: "auto"
+
+                val translateTo: String = data[TRANSLATE_TO.name] as? String ?: if (
+                    TranslateLanguage.getAllLanguages().any { it == language }
+                ) {
+                    language
+                } else {
+                    "en"
+                }
+
+                val doubleClickTranslation: Boolean =
+                    data[DOUBLE_CLICK_TRANSLATION.name] as? Boolean
+                        ?: true
+
+                val translatorLanguageHistory: List<LanguageHistory> =
+                    (data[TRANSLATOR_LANGUAGE_HISTORY.name] as? String)?.let {
+                        translatorHistoryMoshi.fromJson(it)
+                    } ?: emptyList()
+
+
                 return MainState(
                     language = language,
                     theme = theme.toTheme(),
@@ -211,7 +282,12 @@ data class MainState(
                     paragraphHeight = paragraphHeight,
                     paragraphIndentation = paragraphIndentation,
                     checkForUpdates = checkForUpdates,
-                    sidePadding = sidePadding
+                    sidePadding = sidePadding,
+                    enableTranslator = enableTranslator,
+                    translateFrom = translateFrom,
+                    translateTo = translateTo,
+                    doubleClickTranslation = doubleClickTranslation,
+                    translatorLanguageHistory = translatorLanguageHistory
                 )
             }
         }

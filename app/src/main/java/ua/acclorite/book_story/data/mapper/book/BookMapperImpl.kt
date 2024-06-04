@@ -20,7 +20,12 @@ class BookMapperImpl @Inject constructor() : BookMapper {
             textPath = book.textPath,
             description = book.description,
             image = if (book.coverImage != null) book.coverImage.toString() else null,
-            category = book.category
+            category = book.category,
+            enableTranslator = book.enableTranslator,
+            translateFrom = book.translateFrom,
+            translateTo = book.translateTo,
+            doubleClickTranslation = book.doubleClickTranslation,
+            translateWhenOpen = book.translateWhenOpen
         )
     }
 
@@ -39,7 +44,12 @@ class BookMapperImpl @Inject constructor() : BookMapper {
             filePath = bookEntity.filePath,
             lastOpened = null,
             category = bookEntity.category,
-            coverImage = if (bookEntity.image != null) Uri.parse(bookEntity.image) else null
+            coverImage = if (bookEntity.image != null) Uri.parse(bookEntity.image) else null,
+            enableTranslator = bookEntity.enableTranslator,
+            translateFrom = bookEntity.translateFrom,
+            translateTo = bookEntity.translateTo,
+            doubleClickTranslation = bookEntity.doubleClickTranslation,
+            translateWhenOpen = bookEntity.translateWhenOpen
         )
     }
 }

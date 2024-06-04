@@ -27,6 +27,11 @@ import com.mikepenz.aboutlibraries.ui.compose.m3.util.author
 
 /**
  * License Item.
+ *
+ * @param modifier Modifier.
+ * @param library [Library] item.
+ * @param horizontalPadding Horizontal item padding.
+ * @param verticalPadding Vertical item padding.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -85,7 +90,7 @@ fun LicenseItem(
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
                             .clip(RoundedCornerShape(100))
-                            .background(MaterialTheme.colorScheme.primary)
+                            .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(100))
                             .padding(vertical = 4.dp, horizontal = 8.dp)
                     )
                 }

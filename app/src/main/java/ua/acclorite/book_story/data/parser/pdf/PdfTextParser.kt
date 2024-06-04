@@ -6,7 +6,6 @@ import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.text.PDFTextStripper
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.TextParser
-import ua.acclorite.book_story.domain.model.StringWithId
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
 import java.io.File
@@ -14,7 +13,7 @@ import javax.inject.Inject
 
 class PdfTextParser @Inject constructor(private val application: Application) : TextParser {
 
-    override suspend fun parse(file: File): Resource<List<StringWithId>> {
+    override suspend fun parse(file: File): Resource<List<String>> {
         if (!file.name.endsWith(".pdf")) {
             return Resource.Error(UIText.StringResource(R.string.error_wrong_file_format))
         }
@@ -23,7 +22,7 @@ class PdfTextParser @Inject constructor(private val application: Application) : 
             PDFBoxResourceLoader.init(application)
 
             val document = PDDocument.load(file)
-            val stringWithIds = mutableListOf<StringWithId>()
+            val strings = mutableListOf<String>()
 
             val pdfStripper = PDFTextStripper()
             pdfStripper.paragraphStart = "</br>"
@@ -103,14 +102,14 @@ class PdfTextParser @Inject constructor(private val application: Application) : 
             }
 
             lines.forEach { line ->
-                stringWithIds.add(StringWithId(line.trim()))
+                strings.add(line.trim())
             }
 
-            if (stringWithIds.isEmpty()) {
+            if (strings.isEmpty()) {
                 return Resource.Error(UIText.StringResource(R.string.error_file_empty))
             }
 
-            return Resource.Success(stringWithIds)
+            return Resource.Success(strings)
         } catch (e: Exception) {
             e.printStackTrace()
             return Resource.Error(

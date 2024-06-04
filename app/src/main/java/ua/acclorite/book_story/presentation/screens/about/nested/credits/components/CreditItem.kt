@@ -23,6 +23,11 @@ import ua.acclorite.book_story.domain.model.Credit
 
 /**
  * Credit Item.
+ *
+ * @param credit [Credit] item.
+ * @param horizontalPadding Horizontal item padding.
+ * @param verticalPadding Vertical item padding.
+ * @param onClick OnClick callback.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -67,7 +72,7 @@ fun CreditItem(
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
                             .clip(RoundedCornerShape(100))
-                            .background(MaterialTheme.colorScheme.primary)
+                            .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(100))
                             .padding(vertical = 4.dp, horizontal = 8.dp)
                     )
                 }

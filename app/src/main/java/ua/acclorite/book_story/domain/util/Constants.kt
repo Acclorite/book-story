@@ -9,6 +9,8 @@ import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.model.Credit
 import ua.acclorite.book_story.domain.model.FontWithName
+import ua.acclorite.book_story.domain.model.NavigationItem
+import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.ui.Theme
 
 object Constants {
@@ -23,6 +25,31 @@ object Constants {
     val LANGUAGES = listOf(
         Pair("en", "English"),
         Pair("uk", "Українська"),
+    )
+
+    // Navigation items for NavigationBars.
+    val NAVIGATION_ITEMS = listOf(
+        NavigationItem(
+            screen = Screen.LIBRARY,
+            title = R.string.library_screen,
+            tooltip = R.string.library_content_desc,
+            selectedIcon = R.drawable.library_screen_filled,
+            unselectedIcon = R.drawable.library_screen_outlined
+        ),
+        NavigationItem(
+            screen = Screen.HISTORY,
+            title = R.string.history_screen,
+            tooltip = R.string.history_content_desc,
+            selectedIcon = R.drawable.history_screen_filled,
+            unselectedIcon = R.drawable.history_screen_outlined
+        ),
+        NavigationItem(
+            screen = Screen.BROWSE,
+            title = R.string.browse_screen,
+            tooltip = R.string.browse_content_desc,
+            selectedIcon = R.drawable.browse_screen_filled,
+            unselectedIcon = R.drawable.browse_screen_outlined
+        )
     )
 
     // Supported themes
@@ -255,6 +282,11 @@ object Constants {
         scrollOffset = 0,
         progress = 0f,
         lastOpened = null,
-        category = Category.READING
+        category = Category.READING,
+        enableTranslator = false,
+        translateFrom = "",
+        translateTo = "",
+        doubleClickTranslation = false,
+        translateWhenOpen = false
     )
 }

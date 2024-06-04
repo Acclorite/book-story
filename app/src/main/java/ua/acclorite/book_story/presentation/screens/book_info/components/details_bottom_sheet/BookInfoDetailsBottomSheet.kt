@@ -2,15 +2,8 @@ package ua.acclorite.book_story.presentation.screens.book_info.components.detail
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
@@ -19,6 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.CustomBottomSheet
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 import java.io.File
@@ -28,16 +22,16 @@ import java.util.Locale
 
 /**
  * Details bottom sheet. Displays name, path, last opened and size of the file.
+ *
+ * @param state [BookInfoState] instance.
+ * @param onEvent [BookInfoEvent] callback.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookInfoDetailsBottomSheet(
     state: State<BookInfoState>,
     onEvent: (BookInfoEvent) -> Unit
 ) {
     val context = LocalContext.current
-    val navigationBarPadding =
-        WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
     val pattern = remember {
         SimpleDateFormat("HH:mm dd MMM yyyy", Locale.getDefault())
@@ -66,14 +60,11 @@ fun BookInfoDetailsBottomSheet(
         else ""
     }
 
-    ModalBottomSheet(
+    CustomBottomSheet(
         modifier = Modifier.fillMaxWidth(),
         onDismissRequest = {
             onEvent(BookInfoEvent.OnShowHideDetailsBottomSheet)
-        },
-        sheetState = rememberModalBottomSheetState(true),
-        contentWindowInsets = { WindowInsets(0, 0, 0, 0) },
-        containerColor = MaterialTheme.colorScheme.surfaceContainerLow
+        }
     ) {
         BookInfoDetailsBottomSheetItem(
             title = stringResource(id = R.string.file_name),
@@ -151,7 +142,7 @@ fun BookInfoDetailsBottomSheet(
 
         Spacer(
             modifier = Modifier.height(
-                8.dp + navigationBarPadding
+                8.dp + it
             )
         )
     }

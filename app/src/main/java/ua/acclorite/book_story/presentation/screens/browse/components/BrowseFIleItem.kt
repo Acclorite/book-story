@@ -22,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,6 +42,12 @@ import java.util.Locale
 
 /**
  * Browse list element item. Can be selected.
+ *
+ * @param file [File].
+ * @param hasSelectedFiles Whether parent list has selected items.
+ * @param modifier Modifier.
+ * @param onClick OnClick callback.
+ * @param onLongClick OnLongClick callback.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -52,12 +59,12 @@ fun BrowseFileItem(
     onLongClick: () -> Unit
 ) {
     val pattern = remember { SimpleDateFormat("HH:mm dd MMM yyyy", Locale.getDefault()) }
-    val lastModified = remember { pattern.format(Date(file.first.lastModified())) }
-    val sizeBytes = remember { file.first.length() }
+    val lastModified = rememberSaveable { pattern.format(Date(file.first.lastModified())) }
+    val sizeBytes = rememberSaveable { file.first.length() }
 
-    val fileSizeKB = remember { if (sizeBytes > 0) sizeBytes.toDouble() / 1024.0 else 0.0 }
-    val fileSizeMB = remember { if (sizeBytes > 0) fileSizeKB / 1024.0 else 0.0 }
-    val fileSize = remember {
+    val fileSizeKB = rememberSaveable { if (sizeBytes > 0) sizeBytes.toDouble() / 1024.0 else 0.0 }
+    val fileSizeMB = rememberSaveable { if (sizeBytes > 0) fileSizeKB / 1024.0 else 0.0 }
+    val fileSize = rememberSaveable {
         if (fileSizeMB >= 1.0) "%.2f MB".format(fileSizeMB)
         else if (fileSizeMB > 0.0) "%.2f KB".format(fileSizeKB)
         else "0 KB"
@@ -74,7 +81,7 @@ fun BrowseFileItem(
             .fillMaxWidth()
             .padding(horizontal = 8.dp, vertical = 3.dp)
             .clip(RoundedCornerShape(10.dp))
-            .background(backgroundColor)
+            .background(backgroundColor, RoundedCornerShape(10.dp))
             .combinedClickable(
                 onLongClick = {
                     onLongClick()

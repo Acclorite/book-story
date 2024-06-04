@@ -1,14 +1,19 @@
 package ua.acclorite.book_story.domain.util
 
 import android.content.Context
+import android.os.Parcelable
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.res.stringResource
+import kotlinx.parcelize.Parcelize
+import java.io.Serializable
 
-
-sealed class UIText(val string: String?) {
+@Parcelize
+@Immutable
+sealed class UIText(val string: String?) : Parcelable {
     data class StringValue(val value: String) : UIText(value)
-    class StringResource(@StringRes val resId: Int, vararg val args: Any) : UIText(null)
+    class StringResource(@StringRes val resId: Int, vararg val args: Serializable) : UIText(null)
 
     @Composable
     fun asString(): String {

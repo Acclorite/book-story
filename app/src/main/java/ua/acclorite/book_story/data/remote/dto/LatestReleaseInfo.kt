@@ -8,7 +8,7 @@ import com.squareup.moshi.JsonClass
 @Keep
 @JsonClass(generateAdapter = true)
 @Immutable
-data class ReleaseResponse(
+data class LatestReleaseInfo(
     @Json(name = "name") val name: String,
     @Json(name = "tag_name") val tagName: String
 )

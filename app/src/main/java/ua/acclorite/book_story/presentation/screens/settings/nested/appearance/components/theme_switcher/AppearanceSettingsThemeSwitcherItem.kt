@@ -39,7 +39,14 @@ import ua.acclorite.book_story.presentation.ui.ThemeContrast
 import ua.acclorite.book_story.presentation.ui.animatedColorScheme
 
 /**
- * Theme switcher item.
+ * Theme switcher item. Used to change app theme.
+ *
+ * @param theme Target [Theme].
+ * @param darkTheme Whether should be shown in Dark Theme.
+ * @param isPureDark Whether should be shown in Pure Dark.
+ * @param themeContrast [ThemeContrast].
+ * @param selected True if this theme is currently selected.
+ * @param onClick OnClick callback.
  */
 @Composable
 fun AppearanceSettingsThemeSwitcherItem(
@@ -69,7 +76,8 @@ fun AppearanceSettingsThemeSwitcherItem(
                     onClick()
                 }
                 .background(
-                    colorScheme.surface
+                    colorScheme.surface,
+                    MaterialTheme.shapes.large
                 )
                 .border(
                     4.dp,
@@ -87,10 +95,9 @@ fun AppearanceSettingsThemeSwitcherItem(
             ) {
                 Box(
                     Modifier
-                        .clip(RoundedCornerShape(10.dp))
                         .height(20.dp)
                         .width(80.dp)
-                        .background(colorScheme.onSurface)
+                        .background(colorScheme.onSurface, RoundedCornerShape(10.dp))
                 )
                 Spacer(modifier = Modifier.width(8.dp))
 
@@ -117,9 +124,9 @@ fun AppearanceSettingsThemeSwitcherItem(
                     .padding(start = 8.dp)
                     .height(80.dp)
                     .width(70.dp)
-                    .clip(RoundedCornerShape(14.dp))
                     .background(
-                        colorScheme.surfaceContainer
+                        colorScheme.surfaceContainer,
+                        RoundedCornerShape(14.dp)
                     )
             )
             Spacer(modifier = Modifier.height(40.dp))
@@ -135,16 +142,14 @@ fun AppearanceSettingsThemeSwitcherItem(
             ) {
                 Box(
                     Modifier
-                        .clip(CircleShape)
                         .size(20.dp)
-                        .background(colorScheme.primary)
+                        .background(colorScheme.primary, CircleShape)
                 )
                 Box(
                     Modifier
-                        .clip(RoundedCornerShape(10.dp))
                         .height(20.dp)
                         .width(60.dp)
-                        .background(colorScheme.onSurfaceVariant)
+                        .background(colorScheme.onSurfaceVariant, RoundedCornerShape(10.dp))
                 )
 
             }

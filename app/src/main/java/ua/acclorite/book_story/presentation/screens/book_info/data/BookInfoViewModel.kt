@@ -386,7 +386,7 @@ class BookInfoViewModel @Inject constructor(
                     val updatedText = updatedBook.text
                     val text = getText.execute(book.textPath)
 
-                    if (updatedText.map { it.line } != text.map { it.line }) {
+                    if (updatedText != text.map { it.value.originalLine }) {
                         textUpdated = true
                     }
 

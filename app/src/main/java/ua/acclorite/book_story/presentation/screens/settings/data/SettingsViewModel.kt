@@ -11,6 +11,9 @@ import com.google.accompanist.permissions.shouldShowRationale
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
 import javax.inject.Inject
@@ -20,6 +23,9 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
 
 ) : ViewModel() {
+
+    private val _state = MutableStateFlow(SettingsState())
+    val state = _state.asStateFlow()
 
     private var notificationsPermissionJob: Job? = null
 
@@ -69,6 +75,17 @@ class SettingsViewModel @Inject constructor(
                         event.onChangeCheckForUpdates(true)
                         break
                     }
+                }
+            }
+
+            is SettingsEvent.OnReaderShowHideTranslatorLanguageBottomSheet -> {
+                _state.update {
+                    it.copy(
+                        showReaderTranslatorLanguageBottomSheet = event.show
+                            ?: !it.showReaderTranslatorLanguageBottomSheet,
+                        readerTranslatorLanguageBottomSheetTranslateFrom = event.translateFrom
+                            ?: false
+                    )
                 }
             }
         }

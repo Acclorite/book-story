@@ -20,6 +20,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
@@ -30,26 +31,36 @@ import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.components.translator_language.TranslatorLanguageBottomSheet
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.screens.reader.components.translator_bottom_sheet.ReaderTranslatorBottomSheetLanguageChooser
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.SliderWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWithTitle
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsState
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
+import java.util.Locale
 
 @Composable
 fun ReaderSettingsRoot() {
     val navigator = LocalNavigator.current
     val mainViewModel: MainViewModel = hiltViewModel()
+    val settingsViewModel: SettingsViewModel = hiltViewModel()
 
     val state = mainViewModel.state.collectAsState()
+    val settingsState = settingsViewModel.state.collectAsState()
 
     ReaderSettings(
         state = state,
+        settingsState = settingsState,
         navigator = navigator,
-        onMainEvent = mainViewModel::onEvent
+        onMainEvent = mainViewModel::onEvent,
+        onEvent = settingsViewModel::onEvent
     )
 }
 
@@ -57,15 +68,69 @@ fun ReaderSettingsRoot() {
 @Composable
 private fun ReaderSettings(
     state: State<MainState>,
+    settingsState: State<SettingsState>,
     navigator: Navigator,
-    onMainEvent: (MainEvent) -> Unit
+    onMainEvent: (MainEvent) -> Unit,
+    onEvent: (SettingsEvent) -> Unit
 ) {
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
+    val context = LocalContext.current
 
     val fontFamily = remember(state.value.fontFamily) {
         Constants.FONTS.find {
             it.id == state.value.fontFamily
         } ?: Constants.FONTS[0]
+    }
+    val translateFrom = remember(state.value.translateFrom) {
+        if (state.value.translateFrom!! == "auto") {
+            return@remember context.getString(R.string.translator_auto_short)
+        }
+
+        val locale = Locale(state.value.translateFrom!!)
+        locale.getDisplayName(locale).replaceFirstChar { char ->
+            char.uppercase()
+        }
+    }
+    val translateTo = remember(state.value.translateTo) {
+        val locale = Locale(state.value.translateTo!!)
+        locale.getDisplayName(locale).replaceFirstChar { char ->
+            char.uppercase()
+        }
+    }
+
+    if (settingsState.value.showReaderTranslatorLanguageBottomSheet) {
+        TranslatorLanguageBottomSheet(
+            selectedLanguage = if (
+                settingsState.value.readerTranslatorLanguageBottomSheetTranslateFrom
+            ) {
+                state.value.translateFrom!!
+            } else state.value.translateTo!!,
+
+            unselectedLanguage = if (
+                !settingsState.value.readerTranslatorLanguageBottomSheetTranslateFrom
+            ) {
+                state.value.translateFrom!!
+            } else state.value.translateTo!!,
+
+            translateFromSelecting = settingsState.value.readerTranslatorLanguageBottomSheetTranslateFrom,
+            onSelect = { from, to ->
+                onMainEvent(MainEvent.OnChangeTranslateFrom(from))
+                onMainEvent(MainEvent.OnChangeTranslateTo(to))
+
+                onEvent(
+                    SettingsEvent.OnReaderShowHideTranslatorLanguageBottomSheet(
+                        show = false
+                    )
+                )
+            },
+            onDismiss = {
+                onEvent(
+                    SettingsEvent.OnReaderShowHideTranslatorLanguageBottomSheet(
+                        show = false
+                    )
+                )
+            }
+        )
     }
 
     Scaffold(
@@ -101,6 +166,91 @@ private fun ReaderSettings(
             }
             item {
                 CategoryTitle(
+                    title = stringResource(id = R.string.translator_reader_settings),
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+
+            item {
+                SwitchWithTitle(
+                    selected = state.value.enableTranslator!!,
+                    title = stringResource(id = R.string.translator_enable_default_option),
+                    description = stringResource(id = R.string.translator_enable_default_option_desc),
+                    onClick = {
+                        onMainEvent(
+                            MainEvent.OnChangeEnableTranslator(
+                                !state.value.enableTranslator!!
+                            )
+                        )
+                    }
+                )
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+
+                CategoryTitle(
+                    title = stringResource(id = R.string.translator_language_option)
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                ReaderTranslatorBottomSheetLanguageChooser(
+                    fromLanguage = translateFrom,
+                    toLanguage = translateTo,
+                    onFromClick = {
+                        onEvent(
+                            SettingsEvent.OnReaderShowHideTranslatorLanguageBottomSheet(
+                                show = true,
+                                translateFrom = true
+                            )
+                        )
+                    },
+                    onToClick = {
+                        onEvent(
+                            SettingsEvent.OnReaderShowHideTranslatorLanguageBottomSheet(
+                                show = true,
+                                translateFrom = false
+                            )
+                        )
+                    },
+                    switchEnabled = state.value.translateFrom != "auto",
+                    onSwitchClick = {
+                        val from = state.value.translateFrom!!
+                        val to = state.value.translateTo!!
+
+                        onMainEvent(MainEvent.OnChangeTranslateFrom(to))
+                        onMainEvent(MainEvent.OnChangeTranslateTo(from))
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+
+
+            item {
+                SwitchWithTitle(
+                    selected = state.value.doubleClickTranslation!!,
+                    title = stringResource(id = R.string.translator_double_click_to_translate_option),
+                    description = stringResource(id = R.string.translator_double_click_to_translate_option_desc),
+                    onClick = {
+                        onMainEvent(
+                            MainEvent.OnChangeDoubleClickTranslation(
+                                !state.value.doubleClickTranslation!!
+                            )
+                        )
+                    }
+                )
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(22.dp))
+            }
+            item {
+                CategoryTitle(
                     title = stringResource(id = R.string.font_reader_settings),
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -108,6 +258,7 @@ private fun ReaderSettings(
             item {
                 Spacer(modifier = Modifier.height(8.dp))
             }
+
             item {
                 ChipsWithTitle(
                     title = stringResource(id = R.string.font_family_option),
