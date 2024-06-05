@@ -60,6 +60,7 @@ import java.util.Locale
  * @param fontSize Line's font size.
  * @param sidePadding Line's side padding.
  * @param paragraphIndentation Whether Paragraph Indentation is enabled for this line.
+ * @param toolbarHidden Whether selection toolbar is hidden.
  * @param onEvent [ReaderEvent] callback.
  */
 @OptIn(ExperimentalFoundationApi::class)
@@ -77,6 +78,7 @@ fun LazyItemScope.ReaderTextParagraph(
     fontSize: TextUnit,
     sidePadding: Dp,
     paragraphIndentation: Boolean,
+    toolbarHidden: Boolean,
     onEvent: (ReaderEvent) -> Unit
 ) {
     val text = remember(
@@ -167,7 +169,8 @@ fun LazyItemScope.ReaderTextParagraph(
                 .then(
                     if (
                         state.value.book.enableTranslator &&
-                        state.value.book.doubleClickTranslation
+                        state.value.book.doubleClickTranslation &&
+                        toolbarHidden
                     ) {
                         Modifier.combinedClickable(
                             interactionSource = null,

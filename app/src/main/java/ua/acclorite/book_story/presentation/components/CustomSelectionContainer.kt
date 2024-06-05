@@ -207,7 +207,7 @@ fun CustomSelectionContainer(
     onCopyRequested: (() -> Unit),
     onTranslateRequested: ((String) -> Unit),
     onDictionaryRequested: ((String) -> Unit),
-    content: @Composable (Boolean) -> Unit
+    content: @Composable (toolbarHidden: Boolean) -> Unit
 ) {
     val view = LocalView.current
     val context = LocalContext.current

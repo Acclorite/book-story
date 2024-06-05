@@ -348,14 +348,14 @@ private fun ReaderScreen(
                     )
                 )
             }
-        ) { toolbarShowed ->
+        ) { toolbarHidden ->
             LazyColumn(
                 state = state.value.listState,
                 modifier = Modifier
                     .fillMaxSize()
                     .background(backgroundColor)
                     .then(
-                        if (!loading.value && toolbarShowed) {
+                        if (!loading.value && toolbarHidden) {
                             Modifier
                                 .clickable(
                                     interactionSource = null,
@@ -398,6 +398,7 @@ private fun ReaderScreen(
                         fontSize = mainState.value.fontSize!!.sp,
                         sidePadding = sidePadding,
                         paragraphIndentation = mainState.value.paragraphIndentation!!,
+                        toolbarHidden = toolbarHidden,
                         onEvent = onEvent
                     )
                 }
