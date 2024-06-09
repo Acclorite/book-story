@@ -1279,7 +1279,7 @@ class ReaderViewModel @Inject constructor(
         snapshotFlow {
             firstVisibleItemIndex to firstVisibleItemOffset
         }
-            .debounce(200)
+            .debounce(300)
             .collectLatest { items ->
                 val listState = _state.value.listState
                 if (

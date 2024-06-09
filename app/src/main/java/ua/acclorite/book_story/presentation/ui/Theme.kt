@@ -115,6 +115,12 @@ fun BookStoryTheme(
     )
 }
 
+object Colors {
+    val readerSystemBarsColor: Color
+        @Composable
+        get() = MaterialTheme.colorScheme.surfaceContainerHighest.copy(0.94f)
+}
+
 @Composable
 private fun animateColor(targetColor: Color): Color {
     return animateColorAsState(

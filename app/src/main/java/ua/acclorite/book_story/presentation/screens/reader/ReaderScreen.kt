@@ -165,7 +165,6 @@ private fun ReaderScreen(
 ) {
     val context = LocalContext.current as ComponentActivity
     val density = LocalDensity.current
-    val systemBarsColor = MaterialTheme.colorScheme.surfaceContainerHighest.copy(0.94f)
 
     val nestedScrollConnection = remember(state) {
         object : NestedScrollConnection {
@@ -284,8 +283,7 @@ private fun ReaderScreen(
                     state = state,
                     onEvent = onEvent,
                     onLibraryUpdateEvent = onLibraryEvent,
-                    onHistoryUpdateEvent = onHistoryEvent,
-                    containerColor = systemBarsColor
+                    onHistoryUpdateEvent = onHistoryEvent
                 )
             }
         },
@@ -300,8 +298,7 @@ private fun ReaderScreen(
                     state = state,
                     onEvent = onEvent,
                     onLibraryUpdateEvent = onLibraryEvent,
-                    onHistoryUpdateEvent = onHistoryEvent,
-                    containerColor = systemBarsColor
+                    onHistoryUpdateEvent = onHistoryEvent
                 )
             }
         }

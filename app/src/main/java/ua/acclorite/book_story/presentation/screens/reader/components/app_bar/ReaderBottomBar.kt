@@ -20,7 +20,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.removeDigits
@@ -29,6 +28,7 @@ import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
+import ua.acclorite.book_story.presentation.ui.Colors
 
 /**
  * Reader bottom bar. Has a slider to change progress.
@@ -37,15 +37,13 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
  * @param onEvent [ReaderEvent] callback.
  * @param onLibraryUpdateEvent [LibraryEvent] callback.
  * @param onHistoryUpdateEvent [HistoryEvent] callback.
- * @param containerColor Container color.
  */
 @Composable
 fun ReaderBottomBar(
     state: State<ReaderState>,
     onEvent: (ReaderEvent) -> Unit,
     onLibraryUpdateEvent: (LibraryEvent.OnUpdateBook) -> Unit,
-    onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit,
-    containerColor: Color
+    onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit
 ) {
     val navigator = LocalNavigator.current
     val progress by remember(state.value.book.progress) {
@@ -61,7 +59,7 @@ fun ReaderBottomBar(
     Column(
         Modifier
             .fillMaxWidth()
-            .background(containerColor)
+            .background(Colors.readerSystemBarsColor)
             .clickable(
                 interactionSource = null,
                 indication = null,

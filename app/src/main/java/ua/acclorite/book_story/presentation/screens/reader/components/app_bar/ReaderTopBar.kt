@@ -21,7 +21,6 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -37,6 +36,7 @@ import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
+import ua.acclorite.book_story.presentation.ui.Colors
 
 /**
  * Reader top bar. Displays title of the book.
@@ -45,7 +45,6 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
  * @param onEvent [ReaderEvent] callback.
  * @param onLibraryUpdateEvent [LibraryEvent] callback.
  * @param onHistoryUpdateEvent [HistoryEvent] callback.
- * @param containerColor Container color.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,8 +52,7 @@ fun ReaderTopBar(
     state: State<ReaderState>,
     onEvent: (ReaderEvent) -> Unit,
     onLibraryUpdateEvent: (LibraryEvent.OnUpdateBook) -> Unit,
-    onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit,
-    containerColor: Color
+    onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit
 ) {
     val navigator = LocalNavigator.current
     val context = LocalContext.current as ComponentActivity
@@ -161,7 +159,7 @@ fun ReaderTopBar(
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = containerColor
+            containerColor = Colors.readerSystemBarsColor
         )
     )
 }
