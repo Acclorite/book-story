@@ -1,11 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.about.nested.license_info
 
 import android.widget.Toast
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -47,7 +42,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
@@ -57,6 +51,7 @@ import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoEvent
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoState
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoViewModel
+import ua.acclorite.book_story.presentation.ui.SlidingTransition
 
 @Composable
 fun LicenseInfoScreenRoot() {
@@ -190,12 +185,8 @@ private fun LicenseInfoScreen(
                                 .padding(vertical = 6.dp, horizontal = 12.dp)
                         )
 
-                        CustomAnimatedVisibility(
+                        SlidingTransition(
                             visible = showed.value && license.licenseContent?.isNotBlank() == true,
-                            enter = slideInVertically(tween(300)) { -50 } +
-                                    fadeIn(tween(300)),
-                            exit = slideOutVertically(tween(200)) { -30 } +
-                                    fadeOut(tween(150)),
                             modifier = Modifier.padding(horizontal = 8.dp)
                         ) {
                             Column {
