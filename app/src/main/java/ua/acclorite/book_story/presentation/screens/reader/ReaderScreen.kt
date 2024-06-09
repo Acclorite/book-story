@@ -22,12 +22,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -84,8 +84,6 @@ fun ReaderScreenRoot() {
     val libraryViewModel: LibraryViewModel = hiltViewModel()
     val historyViewModel: HistoryViewModel = hiltViewModel()
 
-    val loading = remember { mutableStateOf(true) }
-
     val state = viewModel.state.collectAsState()
     val mainState = mainViewModel.state.collectAsState()
 
@@ -119,14 +117,11 @@ fun ReaderScreenRoot() {
                     it.asString(context),
                     Toast.LENGTH_LONG
                 ).show()
-            },
-            onLoaded = {
-                loading.value = false
             }
         )
     }
     LaunchedEffect(canScroll) {
-        if (!canScroll && !state.value.showMenu && !loading.value) {
+        if (!canScroll && !state.value.showMenu && !state.value.loading) {
             viewModel.onEvent(ReaderEvent.OnShowHideMenu(context = context))
         }
     }
@@ -135,16 +130,20 @@ fun ReaderScreenRoot() {
             firstVisibleItemIndex = firstVisibleItemIndex.value,
             firstVisibleItemOffset = firstVisibleItemOffset.value,
             navigator = navigator,
-            isReaderLoading = loading.value,
             onLibraryEvent = libraryViewModel::onEvent,
             onHistoryEvent = historyViewModel::onEvent
         )
     }
 
+    DisposableEffect(Unit) {
+        onDispose {
+            viewModel.clearViewModel()
+        }
+    }
+
     ReaderScreen(
         state = state,
         mainState = mainState,
-        loading = loading,
         navigator = navigator,
         onEvent = viewModel::onEvent,
         onMainEvent = mainViewModel::onEvent,
@@ -158,7 +157,6 @@ fun ReaderScreenRoot() {
 private fun ReaderScreen(
     state: State<ReaderState>,
     mainState: State<MainState>,
-    loading: State<Boolean>,
     navigator: Navigator,
     onEvent: (ReaderEvent) -> Unit,
     onMainEvent: (MainEvent) -> Unit,
@@ -355,7 +353,7 @@ private fun ReaderScreen(
                     .fillMaxSize()
                     .background(backgroundColor)
                     .then(
-                        if (!loading.value && toolbarHidden) {
+                        if (!state.value.loading && toolbarHidden) {
                             Modifier
                                 .clickable(
                                     interactionSource = null,
@@ -372,14 +370,12 @@ private fun ReaderScreen(
                     ),
                 verticalArrangement = Arrangement.spacedBy(paragraphHeight)
             ) {
-                if (state.value.text.isNotEmpty()) {
-                    item {
-                        DisableSelection {
-                            ReaderStartItem(state = state)
-                        }
-
-                        Spacer(modifier = Modifier.height(18.dp))
+                item {
+                    DisableSelection {
+                        ReaderStartItem(state = state)
                     }
+
+                    Spacer(modifier = Modifier.height(18.dp))
                 }
 
                 customItems(
@@ -403,25 +399,23 @@ private fun ReaderScreen(
                     )
                 }
 
-                if (state.value.text.isNotEmpty()) {
-                    item {
-                        Spacer(modifier = Modifier.height(18.dp))
+                item {
+                    Spacer(modifier = Modifier.height(18.dp))
 
-                        DisableSelection {
-                            ReaderEndItem(
-                                state = state,
-                                onEvent = onEvent,
-                                onLibraryEvent = onLibraryEvent,
-                                onHistoryUpdateEvent = onHistoryEvent,
-                            )
-                        }
+                    DisableSelection {
+                        ReaderEndItem(
+                            state = state,
+                            onEvent = onEvent,
+                            onLibraryEvent = onLibraryEvent,
+                            onHistoryUpdateEvent = onHistoryEvent,
+                        )
                     }
                 }
             }
         }
     }
 
-    if (loading.value || state.value.errorMessage != null) {
+    if (state.value.loading || state.value.errorMessage != null) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -429,7 +423,7 @@ private fun ReaderScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (!loading.value) {
+            if (!state.value.loading) {
                 IsError(
                     errorMessage = state.value.errorMessage!!.asString(),
                     icon = painterResource(id = R.drawable.error),

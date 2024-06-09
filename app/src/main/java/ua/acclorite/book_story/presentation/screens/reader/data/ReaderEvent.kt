@@ -13,10 +13,9 @@ import ua.acclorite.book_story.presentation.data.Navigator
 
 @Immutable
 sealed class ReaderEvent {
-    data class OnTextIsEmpty(val onLoaded: () -> Unit) : ReaderEvent()
+    data object OnTextIsEmpty : ReaderEvent()
     data class OnLoadText(
         val refreshList: (Book) -> Unit,
-        val onLoaded: () -> Unit,
         val onError: (UIText) -> Unit,
         val onTextIsEmpty: () -> Unit
     ) : ReaderEvent()

@@ -22,6 +22,7 @@ data class ReaderState(
     val isTranslating: Boolean = false,
 
     val errorMessage: UIText? = null,
+    val loading: Boolean = true,
 
     val showMenu: Boolean = false,
     val lockMenu: Boolean = false,
