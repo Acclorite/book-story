@@ -20,4 +20,7 @@ data class HelpState(
     val showHelpItem7: Boolean = false,
     val showHelpItem8: Boolean = false,
     val showHelpItem9: Boolean = false,
+    val showHelpItem10: Boolean = false,
+    val showHelpItem11: Boolean = false,
+    val showHelpItem12: Boolean = false,
 )

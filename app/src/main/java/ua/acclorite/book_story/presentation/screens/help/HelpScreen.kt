@@ -52,7 +52,10 @@ import ua.acclorite.book_story.presentation.screens.help.components.items.HelpFi
 import ua.acclorite.book_story.presentation.screens.help.components.items.HelpManageHistory
 import ua.acclorite.book_story.presentation.screens.help.components.items.HelpMoveOrDeleteBooks
 import ua.acclorite.book_story.presentation.screens.help.components.items.HelpReadBook
+import ua.acclorite.book_story.presentation.screens.help.components.items.HelpSetUpTranslator
 import ua.acclorite.book_story.presentation.screens.help.components.items.HelpUpdateBook
+import ua.acclorite.book_story.presentation.screens.help.components.items.HelpUseTooltips
+import ua.acclorite.book_story.presentation.screens.help.components.items.HelpUseTranslator
 import ua.acclorite.book_story.presentation.screens.help.data.HelpEvent
 import ua.acclorite.book_story.presentation.screens.help.data.HelpState
 import ua.acclorite.book_story.presentation.screens.help.data.HelpViewModel
@@ -248,6 +251,27 @@ private fun HelpScreen(
 
             item {
                 HelpManageHistory(
+                    state = state,
+                    onEvent = onEvent
+                )
+            }
+
+            item {
+                HelpUseTooltips(
+                    state = state,
+                    onEvent = onEvent
+                )
+            }
+
+            item {
+                HelpSetUpTranslator(
+                    state = state,
+                    onEvent = onEvent
+                )
+            }
+
+            item {
+                HelpUseTranslator(
                     state = state,
                     onEvent = onEvent
                 )
