@@ -23,7 +23,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -82,19 +81,10 @@ fun LazyItemScope.ReaderTextParagraph(
     onEvent: (ReaderEvent) -> Unit
 ) {
     val text = remember(
-        paragraphIndentation,
-        line.originalLine,
-        line.translatedLine,
-        line.useTranslation,
-        line.translatingTo,
-        line.translatingFrom
+        line.useTranslation, line.translatedLine, line.originalLine
     ) {
-        derivedStateOf {
-            if (paragraphIndentation) "  "
-            else "" +
-                    if (line.useTranslation && line.translatedLine != null) line.translatedLine
-                    else line.originalLine
-        }
+        if (line.useTranslation && line.translatedLine != null) line.translatedLine
+        else line.originalLine
     }
 
     val translated = remember(line.useTranslation, line.translatedLine) {
@@ -158,7 +148,11 @@ fun LazyItemScope.ReaderTextParagraph(
 
         BasicText(
             text = buildAnnotatedString {
-                append(text.value)
+                if (paragraphIndentation) {
+                    append("  ")
+                }
+
+                append(text)
 
                 if (showTrailingContent) {
                     append(" ")
