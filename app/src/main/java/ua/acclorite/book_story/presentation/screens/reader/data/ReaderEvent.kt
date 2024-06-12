@@ -70,7 +70,6 @@ sealed class ReaderEvent {
 
     data class OnChangeProgress(
         val progress: Float,
-        val navigator: Navigator,
         val firstVisibleItemIndex: Int,
         val firstVisibleItemOffset: Int,
         val refreshList: (Book) -> Unit

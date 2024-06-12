@@ -1270,14 +1270,11 @@ class ReaderViewModel @Inject constructor(
 
     @OptIn(FlowPreview::class)
     suspend fun onUpdateProgress(
-        firstVisibleItemIndex: Int,
-        firstVisibleItemOffset: Int,
-        navigator: Navigator,
         onLibraryEvent: (LibraryEvent) -> Unit,
         onHistoryEvent: (HistoryEvent) -> Unit
     ) {
         snapshotFlow {
-            firstVisibleItemIndex to firstVisibleItemOffset
+            _state.value.listState.firstVisibleItemIndex to _state.value.listState.firstVisibleItemScrollOffset
         }
             .debounce(300)
             .collectLatest { items ->
@@ -1307,7 +1304,6 @@ class ReaderViewModel @Inject constructor(
                     onEvent(
                         ReaderEvent.OnChangeProgress(
                             progress = progress,
-                            navigator = navigator,
                             firstVisibleItemIndex = items.first,
                             firstVisibleItemOffset = items.second,
                             refreshList = { book ->

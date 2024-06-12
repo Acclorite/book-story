@@ -21,7 +21,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.removeDigits
 import ua.acclorite.book_story.presentation.data.removeTrailingZero
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
@@ -45,7 +44,6 @@ fun ReaderBottomBar(
     onLibraryUpdateEvent: (LibraryEvent.OnUpdateBook) -> Unit,
     onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit
 ) {
-    val navigator = LocalNavigator.current
     val progress by remember(state.value.book.progress) {
         derivedStateOf {
             (state.value.book.progress * 100)
@@ -86,7 +84,6 @@ fun ReaderBottomBar(
                     onEvent(
                         ReaderEvent.OnChangeProgress(
                             progress = it,
-                            navigator = navigator,
                             firstVisibleItemIndex = state.value.listState.firstVisibleItemIndex,
                             firstVisibleItemOffset = 0,
                             refreshList = { book ->

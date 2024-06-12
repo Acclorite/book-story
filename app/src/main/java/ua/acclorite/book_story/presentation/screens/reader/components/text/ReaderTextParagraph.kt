@@ -217,5 +217,4 @@ fun LazyItemScope.ReaderTextParagraph(
             )
         )
     }
-
 }

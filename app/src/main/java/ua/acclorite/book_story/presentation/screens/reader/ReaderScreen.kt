@@ -92,16 +92,6 @@ fun ReaderScreenRoot() {
             state.value.listState.canScrollBackward && state.value.listState.canScrollForward
         }
     }
-    val firstVisibleItemIndex = remember {
-        derivedStateOf {
-            state.value.listState.firstVisibleItemIndex
-        }
-    }
-    val firstVisibleItemOffset = remember {
-        derivedStateOf {
-            state.value.listState.firstVisibleItemScrollOffset
-        }
-    }
 
     LaunchedEffect(Unit) {
         viewModel.init(
@@ -119,20 +109,15 @@ fun ReaderScreenRoot() {
                 ).show()
             }
         )
+        viewModel.onUpdateProgress(
+            onLibraryEvent = libraryViewModel::onEvent,
+            onHistoryEvent = historyViewModel::onEvent
+        )
     }
     LaunchedEffect(canScroll) {
         if (!canScroll && !state.value.showMenu && !state.value.loading) {
             viewModel.onEvent(ReaderEvent.OnShowHideMenu(context = context))
         }
-    }
-    LaunchedEffect(firstVisibleItemIndex.value, firstVisibleItemOffset.value) {
-        viewModel.onUpdateProgress(
-            firstVisibleItemIndex = firstVisibleItemIndex.value,
-            firstVisibleItemOffset = firstVisibleItemOffset.value,
-            navigator = navigator,
-            onLibraryEvent = libraryViewModel::onEvent,
-            onHistoryEvent = historyViewModel::onEvent
-        )
     }
 
     DisposableEffect(Unit) {
