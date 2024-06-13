@@ -21,7 +21,7 @@ import javax.inject.Inject
 class EpubTextParser @Inject constructor() : TextParser {
 
     override suspend fun parse(file: File): Resource<List<String>> {
-        if (!file.name.endsWith(".epub") || !file.exists()) {
+        if (!file.name.endsWith(".epub", true) || !file.exists()) {
             return Resource.Error(UIText.StringResource(R.string.error_wrong_file_format))
         }
 

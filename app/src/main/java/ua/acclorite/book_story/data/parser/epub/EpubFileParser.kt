@@ -16,7 +16,7 @@ import javax.inject.Inject
 class EpubFileParser @Inject constructor() : FileParser {
 
     override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
-        if (!file.name.endsWith(".epub") || !file.exists()) {
+        if (!file.name.endsWith(".epub", true) || !file.exists()) {
             return null
         }
 

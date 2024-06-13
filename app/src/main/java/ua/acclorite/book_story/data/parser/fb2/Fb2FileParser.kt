@@ -17,7 +17,7 @@ import javax.xml.parsers.DocumentBuilderFactory
 class Fb2FileParser @Inject constructor() : FileParser {
 
     override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
-        if (!file.name.endsWith(".fb2") || !file.exists()) {
+        if (!file.name.endsWith(".fb2", true) || !file.exists()) {
             return null
         }
 

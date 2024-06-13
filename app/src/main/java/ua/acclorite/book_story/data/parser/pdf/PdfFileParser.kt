@@ -15,7 +15,7 @@ import javax.inject.Inject
 class PdfFileParser @Inject constructor(private val application: Application) : FileParser {
 
     override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
-        if (!file.name.endsWith(".pdf") || !file.exists()) {
+        if (!file.name.endsWith(".pdf", true) || !file.exists()) {
             return null
         }
 

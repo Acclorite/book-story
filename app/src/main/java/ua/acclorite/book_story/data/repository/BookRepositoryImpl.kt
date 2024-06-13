@@ -499,8 +499,8 @@ class BookRepositoryImpl @Inject constructor(
                 }
 
                 val isFileNotAdded = existingBooks.all {
-                    it.filePath.substringAfterLast("/") !=
-                            file.path.substringAfterLast("/")
+                    it.filePath.substringAfterLast("/").lowercase() !=
+                            file.path.substringAfterLast("/").lowercase()
                 }
 
                 if (!isFileNotAdded) {
@@ -537,7 +537,7 @@ class BookRepositoryImpl @Inject constructor(
         val books = mutableListOf<NullableBook>()
 
         for (file in files) {
-            val parsedBook = if (Constants.EXTENSIONS.any { file.name.endsWith(it) }) {
+            val parsedBook = if (Constants.EXTENSIONS.any { file.name.endsWith(it, true) }) {
                 fileParser.parse(file)
             } else {
                 books.add(
@@ -549,7 +549,7 @@ class BookRepositoryImpl @Inject constructor(
                 continue
             }
 
-            val parsedText = if (Constants.EXTENSIONS.any { file.name.endsWith(it) }) {
+            val parsedText = if (Constants.EXTENSIONS.any { file.name.endsWith(it, true) }) {
                 textParser.parse(file)
             } else {
                 books.add(

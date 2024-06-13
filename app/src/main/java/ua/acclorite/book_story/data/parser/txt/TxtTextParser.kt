@@ -14,7 +14,7 @@ import javax.inject.Inject
 class TxtTextParser @Inject constructor() : TextParser {
 
     override suspend fun parse(file: File): Resource<List<String>> {
-        if (!file.name.endsWith(".txt") || !file.exists()) {
+        if (!file.name.endsWith(".txt", true) || !file.exists()) {
             return Resource.Error(UIText.StringResource(R.string.error_wrong_file_format))
         }
 

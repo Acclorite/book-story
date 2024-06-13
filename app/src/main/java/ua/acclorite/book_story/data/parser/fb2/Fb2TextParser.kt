@@ -15,7 +15,7 @@ import javax.xml.parsers.DocumentBuilderFactory
 class Fb2TextParser @Inject constructor() : TextParser {
 
     override suspend fun parse(file: File): Resource<List<String>> {
-        if (!file.name.endsWith(".fb2") || !file.exists()) {
+        if (!file.name.endsWith(".fb2", true) || !file.exists()) {
             return Resource.Error(UIText.StringResource(R.string.error_wrong_file_format))
         }
 
