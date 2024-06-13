@@ -1,47 +1,52 @@
-package ua.acclorite.book_story.data.parser.pdf
+package ua.acclorite.book_story.data.parser.fb2
 
-import android.app.Application
-import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
-import com.tom_roush.pdfbox.pdmodel.PDDocument
-import com.tom_roush.pdfbox.text.PDFTextStripper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import org.w3c.dom.Element
+import org.w3c.dom.NodeList
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
 import java.io.File
 import javax.inject.Inject
+import javax.xml.parsers.DocumentBuilderFactory
 
-class PdfTextParser @Inject constructor(private val application: Application) : TextParser {
+class Fb2TextParser @Inject constructor() : TextParser {
 
     override suspend fun parse(file: File): Resource<List<String>> {
-        if (!file.name.endsWith(".pdf") || !file.exists()) {
+        if (!file.name.endsWith(".fb2") || !file.exists()) {
             return Resource.Error(UIText.StringResource(R.string.error_wrong_file_format))
         }
 
-        try {
-            PDFBoxResourceLoader.init(application)
-
-            val document = PDDocument.load(file)
-            val strings = mutableListOf<String>()
-
-            val pdfStripper = PDFTextStripper()
-            pdfStripper.paragraphStart = "</br>"
-
-            val oldText = pdfStripper.getText(document)
-                .replace("\r", "")
-
-            document.close()
-
-            val text = oldText.filterIndexed { index, c ->
-                if (c == ' ') {
-                    oldText[index - 1] != ' '
-                } else {
-                    true
-                }
+        return try {
+            val factory = DocumentBuilderFactory.newInstance()
+            val builder = factory.newDocumentBuilder()
+            val document = withContext(Dispatchers.IO) {
+                builder.parse(file)
             }
 
-            val unformattedLines = text.split("${pdfStripper.paragraphStart}|\\n".toRegex())
-                .filter { it.isNotBlank() }
+            val formattedLines = mutableListOf<String>()
+
+            val bodyNodes = document.getElementsByTagName("body")
+            if (bodyNodes.length == 0) {
+                return Resource.Error(
+                    UIText.StringResource(R.string.error_file_empty)
+                )
+            }
+
+            val unformattedLines = mutableListOf<String>()
+            val bodyNode = bodyNodes.item(0) as Element
+            val paragraphNodes = bodyNode.getElementsByTagName("p")
+            for (element in paragraphNodes.asList()) {
+                if (element.textContent.isBlank()) {
+                    continue
+                }
+
+                unformattedLines.add(
+                    element.textContent.trim()
+                )
+            }
 
             val lines = mutableListOf<String>()
             unformattedLines.forEachIndexed { index, string ->
@@ -102,17 +107,17 @@ class PdfTextParser @Inject constructor(private val application: Application) : 
             }
 
             lines.forEach { line ->
-                strings.add(line.trim())
+                formattedLines.add(line.trim())
             }
 
-            if (strings.isEmpty()) {
+            if (formattedLines.isEmpty()) {
                 return Resource.Error(UIText.StringResource(R.string.error_file_empty))
             }
 
-            return Resource.Success(strings)
+            Resource.Success(formattedLines)
         } catch (e: Exception) {
             e.printStackTrace()
-            return Resource.Error(
+            Resource.Error(
                 UIText.StringResource(
                     R.string.error_query,
                     e.message?.take(40)?.trim() ?: ""
@@ -120,20 +125,12 @@ class PdfTextParser @Inject constructor(private val application: Application) : 
             )
         }
     }
+
+    private fun NodeList.asList(): List<Element> {
+        val list = mutableListOf<Element>()
+        for (i in 0 until this.length) {
+            list.add(this.item(i) as Element)
+        }
+        return list
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

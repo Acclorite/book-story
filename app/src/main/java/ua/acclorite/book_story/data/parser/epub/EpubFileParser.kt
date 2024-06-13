@@ -63,6 +63,7 @@ class EpubFileParser @Inject constructor() : FileParser {
                 translateWhenOpen = false
             ) to coverImage
         } catch (e: Exception) {
+            e.printStackTrace()
             return null
         }
     }

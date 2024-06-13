@@ -51,6 +51,7 @@ class PdfFileParser @Inject constructor(private val application: Application) : 
                 translateWhenOpen = false
             ) to null
         } catch (e: Exception) {
+            e.printStackTrace()
             return null
         }
     }

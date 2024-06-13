@@ -39,6 +39,7 @@ class TxtFileParser @Inject constructor() : FileParser {
                 translateWhenOpen = false
             ) to null
         } catch (e: Exception) {
+            e.printStackTrace()
             return null
         }
     }

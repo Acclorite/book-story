@@ -141,6 +141,9 @@ dependencies {
     implementation("org.slf4j:slf4j-android:latest.release")
     implementation("org.jsoup:jsoup:latest.release")
 
+    // Fb2 parser
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:latest.release")
+
     // App Compat for Language Switcher
     implementation("androidx.appcompat:appcompat:latest.release")
     implementation("androidx.appcompat:appcompat-resources:latest.release")
