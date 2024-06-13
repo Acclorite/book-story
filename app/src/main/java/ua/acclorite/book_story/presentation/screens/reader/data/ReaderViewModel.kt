@@ -22,6 +22,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
@@ -1269,51 +1270,54 @@ class ReaderViewModel @Inject constructor(
     }
 
     @OptIn(FlowPreview::class)
-    suspend fun onUpdateProgress(
+    fun onUpdateProgress(
         onLibraryEvent: (LibraryEvent) -> Unit,
         onHistoryEvent: (HistoryEvent) -> Unit
     ) {
-        snapshotFlow {
-            _state.value.listState.firstVisibleItemIndex to _state.value.listState.firstVisibleItemScrollOffset
-        }
-            .debounce(300)
-            .collectLatest { items ->
-                val listState = _state.value.listState
-                if (
-                    !_state.value.loading &&
-                    _state.value.text.isNotEmpty() &&
-                    listState.layoutInfo.totalItemsCount > 0
-                ) {
-                    val lastVisibleItemIndex = listState
-                        .layoutInfo
-                        .visibleItemsInfo
-                        .last()
-                        .index
-                    val totalItemsCount = listState.layoutInfo.totalItemsCount - 1
-
-                    val progress = if (items.first > 0) {
-                        if (lastVisibleItemIndex >= totalItemsCount) {
-                            1f
-                        } else {
-                            items.first / (_state.value.text.size - 1).toFloat()
-                        }
-                    } else {
-                        0f
-                    }
-
-                    onEvent(
-                        ReaderEvent.OnChangeProgress(
-                            progress = progress,
-                            firstVisibleItemIndex = items.first,
-                            firstVisibleItemOffset = items.second,
-                            refreshList = { book ->
-                                onLibraryEvent(LibraryEvent.OnUpdateBook(book))
-                                onHistoryEvent(HistoryEvent.OnUpdateBook(book))
-                            }
-                        )
-                    )
-                }
+        viewModelScope.launch {
+            snapshotFlow {
+                _state.value.listState.firstVisibleItemIndex to _state.value.listState.firstVisibleItemScrollOffset
             }
+                .distinctUntilChanged()
+                .debounce(300)
+                .collectLatest { (firstVisibleItemIndex, firstVisibleItemScrollOffset) ->
+                    val listState = _state.value.listState
+                    if (
+                        !_state.value.loading &&
+                        _state.value.text.isNotEmpty() &&
+                        listState.layoutInfo.totalItemsCount > 0
+                    ) {
+                        val lastVisibleItemIndex = listState
+                            .layoutInfo
+                            .visibleItemsInfo
+                            .last()
+                            .index
+                        val totalItemsCount = listState.layoutInfo.totalItemsCount - 1
+
+                        val progress = if (firstVisibleItemIndex > 0) {
+                            if (lastVisibleItemIndex >= totalItemsCount) {
+                                1f
+                            } else {
+                                firstVisibleItemIndex / (_state.value.text.size - 1).toFloat()
+                            }
+                        } else {
+                            0f
+                        }
+
+                        onEvent(
+                            ReaderEvent.OnChangeProgress(
+                                progress = progress,
+                                firstVisibleItemIndex = firstVisibleItemIndex,
+                                firstVisibleItemOffset = firstVisibleItemScrollOffset,
+                                refreshList = { book ->
+                                    onLibraryEvent(LibraryEvent.OnUpdateBook(book))
+                                    onHistoryEvent(HistoryEvent.OnUpdateBook(book))
+                                }
+                            )
+                        )
+                    }
+                }
+        }
     }
 
     private fun calculateProgress(): Float {

@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.text.selection.DisableSelection
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -29,6 +30,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -87,6 +89,12 @@ fun ReaderScreenRoot() {
     val state = viewModel.state.collectAsState()
     val mainState = mainViewModel.state.collectAsState()
 
+    val lazyListState = rememberSaveable(
+        state.value.listState,
+        saver = LazyListState.Saver
+    ) {
+        state.value.listState
+    }
     val canScroll by remember {
         derivedStateOf {
             state.value.listState.canScrollBackward && state.value.listState.canScrollForward
@@ -109,15 +117,17 @@ fun ReaderScreenRoot() {
                 ).show()
             }
         )
-        viewModel.onUpdateProgress(
-            onLibraryEvent = libraryViewModel::onEvent,
-            onHistoryEvent = historyViewModel::onEvent
-        )
     }
     LaunchedEffect(canScroll) {
         if (!canScroll && !state.value.showMenu && !state.value.loading) {
             viewModel.onEvent(ReaderEvent.OnShowHideMenu(context = context))
         }
+    }
+    LaunchedEffect(lazyListState) {
+        viewModel.onUpdateProgress(
+            onLibraryEvent = libraryViewModel::onEvent,
+            onHistoryEvent = historyViewModel::onEvent
+        )
     }
 
     DisposableEffect(Unit) {
@@ -130,6 +140,7 @@ fun ReaderScreenRoot() {
         state = state,
         mainState = mainState,
         navigator = navigator,
+        lazyListState = lazyListState,
         onEvent = viewModel::onEvent,
         onMainEvent = mainViewModel::onEvent,
         onLibraryEvent = libraryViewModel::onEvent,
@@ -143,6 +154,7 @@ private fun ReaderScreen(
     state: State<ReaderState>,
     mainState: State<MainState>,
     navigator: Navigator,
+    lazyListState: LazyListState,
     onEvent: (ReaderEvent) -> Unit,
     onMainEvent: (MainEvent) -> Unit,
     onLibraryEvent: (LibraryEvent) -> Unit,
@@ -330,7 +342,7 @@ private fun ReaderScreen(
             }
         ) { toolbarHidden ->
             LazyColumn(
-                state = state.value.listState,
+                state = lazyListState,
                 modifier = Modifier
                     .fillMaxSize()
                     .background(backgroundColor)
