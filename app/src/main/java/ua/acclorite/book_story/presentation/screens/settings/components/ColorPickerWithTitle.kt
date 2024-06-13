@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,6 +30,13 @@ import ua.acclorite.book_story.presentation.components.CustomIconButton
 
 /**
  * Color picker with title.
+ *
+ * @param modifier Modifier.
+ * @param value Target [Color].
+ * @param title Title.
+ * @param horizontalPadding Horizontal item padding.
+ * @param verticalPadding Vertical item padding.
+ * @param onValueChange Callback when target color changes.
  */
 @Composable
 fun ColorPickerWithTitle(
@@ -39,7 +47,7 @@ fun ColorPickerWithTitle(
     verticalPadding: Dp = 8.dp,
     onValueChange: (Color) -> Unit
 ) {
-    val initialValue = remember { value }
+    val initialValue = rememberSaveable { value.value.toString() }
     var color by remember { mutableStateOf(value) }
 
     Column(
@@ -54,7 +62,7 @@ fun ColorPickerWithTitle(
         Spacer(modifier = Modifier.height(8.dp))
         RevertibleSlider(
             value = color.red to "",
-            initialValue = initialValue.red,
+            initialValue = Color(initialValue.toULong()).red,
             title = stringResource(id = R.string.red_color),
             onValueChange = {
                 color = color.copy(red = it)
@@ -63,7 +71,7 @@ fun ColorPickerWithTitle(
         )
         RevertibleSlider(
             value = color.green to "",
-            initialValue = initialValue.green,
+            initialValue = Color(initialValue.toULong()).green,
             title = stringResource(id = R.string.green_color),
             onValueChange = {
                 color = color.copy(green = it)
@@ -72,7 +80,7 @@ fun ColorPickerWithTitle(
         )
         RevertibleSlider(
             value = color.blue to "",
-            initialValue = initialValue.blue,
+            initialValue = Color(initialValue.toULong()).blue,
             title = stringResource(id = R.string.blue_color),
             onValueChange = {
                 color = color.copy(blue = it)
