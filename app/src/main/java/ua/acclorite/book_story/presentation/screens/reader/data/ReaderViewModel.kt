@@ -733,11 +733,10 @@ class ReaderViewModel @Inject constructor(
                                         languageCode = lang.languageCode,
                                         onCompleted = {
                                             launch(Dispatchers.IO) {
-                                                val modelDownloaded =
-                                                    isLanguageModelDownloaded.execute(
-                                                        lang.languageCode
-                                                    )
+                                                yield()
 
+                                                val modelDownloaded =
+                                                    isLanguageModelDownloaded.execute(lang.languageCode)
                                                 if (!modelDownloaded) {
                                                     onEvent(
                                                         ReaderEvent.OnUpdateLanguage(lang.languageCode) {

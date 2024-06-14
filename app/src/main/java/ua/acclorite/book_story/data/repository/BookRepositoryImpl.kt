@@ -21,6 +21,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.local.data_store.DataStore
@@ -664,7 +665,7 @@ class BookRepositoryImpl @Inject constructor(
 
     override suspend fun isLanguageModelDownloaded(languageCode: String): Boolean {
         val model = TranslateRemoteModel.Builder(languageCode).build()
-        return suspendCoroutine { continuation ->
+        return suspendCancellableCoroutine { continuation ->
             modelManager.isModelDownloaded(model)
                 .addOnSuccessListener {
                     continuation.resume(it)
@@ -686,7 +687,12 @@ class BookRepositoryImpl @Inject constructor(
             return
         }
 
-        return suspendCoroutine { continuation ->
+        return suspendCancellableCoroutine { continuation ->
+            continuation.invokeOnCancellation {
+                Log.i("TRANSLATOR", "Downloading Model: Coroutine Canceled")
+                onCompleted()
+            }
+
             val language = TranslateRemoteModel.Builder(languageCode).build()
             val conditions = DownloadConditions.Builder().build()
 
@@ -714,7 +720,7 @@ class BookRepositoryImpl @Inject constructor(
             return true
         }
 
-        return suspendCoroutine { continuation ->
+        return suspendCancellableCoroutine { continuation ->
             val language = TranslateRemoteModel.Builder(languageCode).build()
 
             modelManager.deleteDownloadedModel(language)
@@ -728,7 +734,7 @@ class BookRepositoryImpl @Inject constructor(
     }
 
     override suspend fun identifyLanguage(text: String): Resource<String> {
-        return suspendCoroutine { continuation ->
+        return suspendCancellableCoroutine { continuation ->
             languageIdentifier.identifyLanguage(text)
                 .addOnSuccessListener {
                     val languageCode = it.trim().lowercase().take(2)
