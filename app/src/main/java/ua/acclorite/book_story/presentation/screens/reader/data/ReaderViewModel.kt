@@ -809,8 +809,8 @@ class ReaderViewModel @Inject constructor(
                             _state.update {
                                 it.copy(
                                     languagesToTranslate = it.languagesToTranslate.filter { lang ->
-                                        lang.isDownloaded
-                                    },
+                                        isLanguageModelDownloaded.execute(lang.languageCode)
+                                    }.map { lang -> lang.copy(isDownloaded = true) },
                                     showDownloadLanguageDialog = false
                                 )
                             }
