@@ -21,10 +21,13 @@ Material3 Book Reader built with Jetpack Compose and Kotlin.
   <img src="https://github.com/Acclorite/book-story/blob/master/assets/Help.png" width="20%" />
   <img src="https://github.com/Acclorite/book-story/blob/master/assets/Settings.png" width="20%" />
   <img src="https://github.com/Acclorite/book-story/blob/master/assets/Reader Settings.png" width="20%" />
+  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Reader Translator.png" width="20%" />
+  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Translator Settings.png" width="20%" />
 </div>
 
 ## ✨ Features
-- 3 supported file formats(.pdf, .txt, .epub)
+- 4 supported file formats(.pdf, .txt, .epub, .fb2)
+- Built-in offline translator(only one time download per language)
 - Categories to organize your Library
 - Check for app updates on app startup
 - Anti error protection(you cannot add/update a book if it is not valid)
@@ -38,6 +41,8 @@ Material3 Book Reader built with Jetpack Compose and Kotlin.
 - More..
 
 ## 😵‍💫 Upcoming features
+- New file formats
+- Custom color presets for Reader
 - [You tell me!](https://github.com/Acclorite/book-story/labels/enhancement)
 
 ## 🌐 Translation
