@@ -22,15 +22,14 @@ import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.use_case.DeleteBooks
+import ua.acclorite.book_story.domain.use_case.GetBookById
 import ua.acclorite.book_story.domain.use_case.GetBookFromFile
-import ua.acclorite.book_story.domain.use_case.GetBooksById
 import ua.acclorite.book_story.domain.use_case.GetText
 import ua.acclorite.book_story.domain.use_case.InsertHistory
 import ua.acclorite.book_story.domain.use_case.UpdateBookWithText
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
 import ua.acclorite.book_story.domain.use_case.UpdateCoverImageOfBook
-import ua.acclorite.book_story.presentation.data.Argument
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.data.Screen
 import java.io.File
 import java.util.Date
@@ -45,7 +44,7 @@ class BookInfoViewModel @Inject constructor(
     private val insertHistory: InsertHistory,
     private val deleteBooks: DeleteBooks,
     private val getBookFromFile: GetBookFromFile,
-    private val getBookById: GetBooksById,
+    private val getBookById: GetBookById,
     private val getText: GetText
 ) : ViewModel() {
 
@@ -76,11 +75,8 @@ class BookInfoViewModel @Inject constructor(
                         image
                     )
 
-                    val newCoverImage = getBookById.execute(
-                        listOf(
-                            _state.value.book.id
-                        )
-                    ).first().coverImage
+                    val newCoverImage =
+                        getBookById.execute(_state.value.book.id)?.coverImage ?: return@launch
 
                     _state.update {
                         it.copy(
@@ -197,7 +193,9 @@ class BookInfoViewModel @Inject constructor(
                     deleteBooks.execute(listOf(_state.value.book))
                     event.refreshList()
 
-                    event.navigator.navigateBack()
+                    event.onNavigate {
+                        navigateBack()
+                    }
                 }
             }
 
@@ -240,7 +238,12 @@ class BookInfoViewModel @Inject constructor(
                             it != _state.value.selectedCategory
                         }.size - 1
                     )
-                    event.navigator.navigate(Screen.LIBRARY, true)
+                    event.onNavigate {
+                        navigate(
+                            Screen.Library,
+                            useBackAnimation = true
+                        )
+                    }
                 }
             }
 
@@ -553,9 +556,35 @@ class BookInfoViewModel @Inject constructor(
                     }
 
                     if (_state.value.textChanged) {
-                        val newBook = getBookById.execute(
-                            listOf(_state.value.book.id)
-                        ).first()
+                        val newBook = getBookById.execute(_state.value.book.id)
+
+                        if (newBook == null) {
+                            onEvent(
+                                BookInfoEvent.OnShowSnackbar(
+                                    text = event.context.getString(
+                                        R.string.error_something_went_wrong_with_file
+                                    ),
+                                    action = event.context.getString(R.string.retry),
+                                    onAction = {
+                                        onEvent(
+                                            BookInfoEvent.OnLoadUpdate(
+                                                snackbarState = event.snackbarState,
+                                                context = event.context
+                                            )
+                                        )
+                                    },
+                                    durationMillis = 4000L,
+                                    snackbarState = event.snackbarState
+                                )
+                            )
+                            delay(500)
+                            _state.update {
+                                it.copy(
+                                    isRefreshing = false
+                                )
+                            }
+                            return@launch
+                        }
 
                         _state.update {
                             it.copy(
@@ -611,36 +640,29 @@ class BookInfoViewModel @Inject constructor(
                             )
                         )
                     }
-                    event.navigator.navigate(
-                        Screen.READER,
-                        false,
-                        Argument(
-                            "book", _state.value.book.id
+                    event.onNavigate {
+                        navigate(
+                            Screen.Reader(_state.value.book.id)
                         )
-                    )
+                    }
                 }
             }
         }
     }
 
-    fun init(navigator: Navigator) {
+    fun init(screen: Screen.BookInfo, onNavigate: OnNavigate) {
         viewModelScope.launch {
-            val bookId = navigator.retrieveArgument("book") as? Int
+            val book = getBookById.execute(screen.bookId)
 
-            if (bookId == null) {
-                navigator.navigateBack()
-                return@launch
-            }
-
-            val book = getBookById.execute(listOf(bookId))
-
-            if (book.isEmpty()) {
-                navigator.navigateBack()
+            if (book == null) {
+                onNavigate {
+                    navigateBack()
+                }
                 return@launch
             }
 
             _state.update {
-                BookInfoState(book = book.first())
+                BookInfoState(book = book)
             }
         }
     }

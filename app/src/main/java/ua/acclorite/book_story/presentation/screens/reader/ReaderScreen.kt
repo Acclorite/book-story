@@ -50,6 +50,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.Constants
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomSelectionContainer
 import ua.acclorite.book_story.presentation.components.customItems
@@ -59,7 +60,7 @@ import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.MainViewModel
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
@@ -77,7 +78,7 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 
 @Composable
-fun ReaderScreenRoot() {
+fun ReaderScreenRoot(screen: Screen.Reader) {
     val navigator = LocalNavigator.current
     val context = LocalContext.current as ComponentActivity
 
@@ -103,8 +104,9 @@ fun ReaderScreenRoot() {
 
     LaunchedEffect(Unit) {
         viewModel.init(
-            navigator,
-            context,
+            screen = screen,
+            onNavigate = { navigator.it() },
+            context = context,
             refreshList = {
                 libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
                 historyViewModel.onEvent(HistoryEvent.OnLoadList)
@@ -139,8 +141,8 @@ fun ReaderScreenRoot() {
     ReaderScreen(
         state = state,
         mainState = mainState,
-        navigator = navigator,
         lazyListState = lazyListState,
+        onNavigate = { navigator.it() },
         onEvent = viewModel::onEvent,
         onMainEvent = mainViewModel::onEvent,
         onLibraryEvent = libraryViewModel::onEvent,
@@ -153,8 +155,8 @@ fun ReaderScreenRoot() {
 private fun ReaderScreen(
     state: State<ReaderState>,
     mainState: State<MainState>,
-    navigator: Navigator,
     lazyListState: LazyListState,
+    onNavigate: OnNavigate,
     onEvent: (ReaderEvent) -> Unit,
     onMainEvent: (MainEvent) -> Unit,
     onLibraryEvent: (LibraryEvent) -> Unit,
@@ -278,6 +280,7 @@ private fun ReaderScreen(
             ) {
                 ReaderTopBar(
                     state = state,
+                    onNavigate = onNavigate,
                     onEvent = onEvent,
                     onLibraryUpdateEvent = onLibraryEvent,
                     onHistoryUpdateEvent = onHistoryEvent
@@ -399,6 +402,7 @@ private fun ReaderScreen(
                     DisableSelection {
                         ReaderEndItem(
                             state = state,
+                            onNavigate = onNavigate,
                             onEvent = onEvent,
                             onLibraryEvent = onLibraryEvent,
                             onHistoryUpdateEvent = onHistoryEvent,
@@ -427,13 +431,14 @@ private fun ReaderScreen(
                         onEvent(
                             ReaderEvent.OnGoBack(
                                 context,
-                                navigator,
                                 refreshList = {
                                     onLibraryEvent(LibraryEvent.OnUpdateBook(it))
                                     onHistoryEvent(HistoryEvent.OnUpdateBook(it))
                                 },
                                 navigate = {
-                                    it.navigateBack()
+                                    onNavigate {
+                                        navigateBack()
+                                    }
                                 }
                             )
                         )
@@ -461,13 +466,14 @@ private fun ReaderScreen(
         onEvent(
             ReaderEvent.OnGoBack(
                 context,
-                navigator,
                 refreshList = {
                     onLibraryEvent(LibraryEvent.OnUpdateBook(it))
                     onHistoryEvent(HistoryEvent.OnUpdateBook(it))
                 },
                 navigate = {
-                    it.navigateBack()
+                    onNavigate {
+                        navigateBack()
+                    }
                 }
             )
         )

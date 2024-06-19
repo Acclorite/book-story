@@ -21,7 +21,8 @@ import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Screen
 
 /**
- * More drop down. Navigates to Settings, About and Help screens.
+ * More drop down.
+ * Navigates to Settings, About and Help screens.
  */
 @Composable
 fun MoreDropDown() {
@@ -55,7 +56,7 @@ fun MoreDropDown() {
                     )
                 },
                 onClick = {
-                    navigator.navigate(Screen.SETTINGS, false)
+                    navigator.navigate(Screen.Settings)
                 },
                 contentPadding = PaddingValues(start = startPadding, end = endPadding)
             )
@@ -68,7 +69,7 @@ fun MoreDropDown() {
                     )
                 },
                 onClick = {
-                    navigator.navigate(Screen.HELP, false)
+                    navigator.navigate(Screen.Help(false))
                 },
                 contentPadding = PaddingValues(start = startPadding, end = endPadding)
             )
@@ -81,7 +82,7 @@ fun MoreDropDown() {
                     )
                 },
                 onClick = {
-                    navigator.navigate(Screen.ABOUT, false)
+                    navigator.navigate(Screen.About)
                 },
                 contentPadding = PaddingValues(start = startPadding, end = endPadding)
             )

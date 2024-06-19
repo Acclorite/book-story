@@ -62,6 +62,7 @@ import kotlinx.coroutines.launch
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.Selected
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
@@ -71,9 +72,7 @@ import ua.acclorite.book_story.presentation.components.MoreDropDown
 import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.components.header
 import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
-import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.LocalNavigator
-import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
@@ -100,7 +99,7 @@ fun LibraryScreenRoot() {
 
     LibraryScreen(
         state = state,
-        navigator = navigator,
+        onNavigate = { navigator.it() },
         onEvent = viewModel::onEvent,
         onBrowseEvent = browseViewModel::onEvent,
         onHistoryEvent = historyViewModel::onEvent
@@ -114,7 +113,7 @@ fun LibraryScreenRoot() {
 @Composable
 private fun LibraryScreen(
     state: State<LibraryState>,
-    navigator: Navigator,
+    onNavigate: OnNavigate,
     onEvent: (LibraryEvent) -> Unit,
     onHistoryEvent: (HistoryEvent) -> Unit,
     onBrowseEvent: (BrowseEvent) -> Unit
@@ -338,11 +337,9 @@ private fun LibraryScreen(
                                         if (state.value.hasSelectedItems) {
                                             onEvent(LibraryEvent.OnSelectBook(it))
                                         } else {
-                                            navigator.navigate(
-                                                Screen.BOOK_INFO,
-                                                false,
-                                                Argument("book", it.first.id)
-                                            )
+                                            onNavigate {
+                                                navigate(Screen.BookInfo(it.first.id))
+                                            }
                                         }
                                     },
                                     onLongClick = {
@@ -353,8 +350,8 @@ private fun LibraryScreen(
                                     onButtonClick = {
                                         onEvent(
                                             LibraryEvent.OnNavigateToReaderScreen(
-                                                navigator,
-                                                it.first
+                                                onNavigate = onNavigate,
+                                                book = it.first
                                             )
                                         )
                                     }
@@ -381,7 +378,9 @@ private fun LibraryScreen(
                             modifier = Modifier.align(Alignment.Center),
                             actionTitle = stringResource(id = R.string.add_book)
                         ) {
-                            navigator.navigate(Screen.BROWSE, false)
+                            onNavigate {
+                                navigate(Screen.Browse)
+                            }
                         }
                     }
                 }

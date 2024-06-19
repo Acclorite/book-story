@@ -27,7 +27,12 @@ import ua.acclorite.book_story.presentation.screens.browse.data.BrowseState
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 
 /**
- * Adding dialog. Adds all selected books to the Library.
+ * Adding dialog.
+ * Adds all selected books to the Library.
+ *
+ * @param state [BrowseState].
+ * @param onEvent [BrowseEvent] callback.
+ * @param onLibraryEvent [LibraryEvent] callback.
  */
 @Composable
 fun BrowseAddingDialog(
@@ -49,7 +54,7 @@ fun BrowseAddingDialog(
         onAction = {
             onEvent(
                 BrowseEvent.OnAddBooks(
-                    navigator,
+                    onNavigate = { navigator.it() },
                     resetScroll = {
                         onLibraryEvent(LibraryEvent.OnUpdateCurrentPage(0))
                         onLibraryEvent(LibraryEvent.OnLoadList)

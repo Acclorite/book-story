@@ -24,22 +24,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.util.Constants
+import ua.acclorite.book_story.domain.util.Route
 import ua.acclorite.book_story.presentation.data.LocalNavigator
-import ua.acclorite.book_story.presentation.data.Screen
 
 /**
  * Custom Navigation Rail. It is used to be shown on Tablets.
  */
 @Composable
 fun BoxScope.CustomNavigationRail() {
-    var currentScreen: Screen? by remember { mutableStateOf(null) }
+    var currentScreen: Route? by remember { mutableStateOf(null) }
     val navigator = LocalNavigator.current
     val layoutDirection = LocalLayoutDirection.current
 
     LaunchedEffect(Unit) {
-        navigator.getCurrentScreen().collect {
-            if (it == Screen.LIBRARY || it == Screen.HISTORY || it == Screen.BROWSE) {
-                currentScreen = it
+        navigator.currentScreen.collect { route ->
+            if (
+                Constants.NAVIGATION_ITEMS.any {
+                    navigator.run { it.screen.getRoute() } == route
+                }
+            ) {
+                currentScreen = route
             }
         }
     }
@@ -69,7 +73,7 @@ fun BoxScope.CustomNavigationRail() {
             Constants.NAVIGATION_ITEMS.forEach {
                 CustomNavigationRailItem(
                     item = it,
-                    isSelected = currentScreen == it.screen
+                    isSelected = currentScreen == navigator.run { it.screen.getRoute() }
                 ) {
                     navigator.navigate(it.screen, false)
                 }

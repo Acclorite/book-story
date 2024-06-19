@@ -28,13 +28,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.components.customItems
-import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.LocalNavigator
-import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.about.nested.licenses.components.LicenseItem
 import ua.acclorite.book_story.presentation.screens.about.nested.licenses.data.LicensesState
@@ -54,7 +53,7 @@ fun LicensesScreenRoot() {
 
     LicensesScreen(
         state = state,
-        navigator = navigator
+        onNavigate = { navigator.it() }
     )
 }
 
@@ -62,7 +61,7 @@ fun LicensesScreenRoot() {
 @Composable
 private fun LicensesScreen(
     state: State<LicensesState>,
-    navigator: Navigator
+    onNavigate: OnNavigate
 ) {
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
 
@@ -78,7 +77,7 @@ private fun LicensesScreen(
                     Text(stringResource(id = R.string.licenses_option))
                 },
                 navigationIcon = {
-                    GoBackButton(navigator = navigator)
+                    GoBackButton(onNavigate = onNavigate)
                 },
                 scrollBehavior = scrollState.first,
                 colors = TopAppBarDefaults.largeTopAppBarColors(
@@ -105,11 +104,9 @@ private fun LicensesScreen(
 
                 customItems(state.value.licenses, key = { it.uniqueId }) {
                     LicenseItem(library = it) {
-                        navigator.navigate(
-                            Screen.LICENSES_INFO,
-                            false,
-                            Argument("license", it.uniqueId)
-                        )
+                        onNavigate {
+                            navigate(Screen.About.LicenseInfo(it.uniqueId))
+                        }
                     }
                 }
 

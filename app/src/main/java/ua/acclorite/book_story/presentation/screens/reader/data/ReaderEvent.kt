@@ -8,8 +8,8 @@ import ua.acclorite.book_story.domain.model.LineWithTranslation
 import ua.acclorite.book_story.domain.model.SelectableLanguage
 import ua.acclorite.book_story.domain.util.ID
 import ua.acclorite.book_story.domain.util.LanguageCode
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.UIText
-import ua.acclorite.book_story.presentation.data.Navigator
 
 @Immutable
 sealed class ReaderEvent {
@@ -20,8 +20,10 @@ sealed class ReaderEvent {
         val onTextIsEmpty: () -> Unit
     ) : ReaderEvent()
 
-    data class OnShowHideMenu(val show: Boolean? = null, val context: ComponentActivity) :
-        ReaderEvent()
+    data class OnShowHideMenu(
+        val show: Boolean? = null,
+        val context: ComponentActivity
+    ) : ReaderEvent()
 
     data class OnShowHideTranslatorBottomSheet(val show: Boolean? = null) : ReaderEvent()
 
@@ -63,9 +65,8 @@ sealed class ReaderEvent {
 
     data class OnGoBack(
         val context: ComponentActivity,
-        val navigator: Navigator,
-        val refreshList: (Book) -> Unit,
-        val navigate: (Navigator) -> Unit
+        val navigate: () -> Unit,
+        val refreshList: (Book) -> Unit
     ) : ReaderEvent()
 
     data class OnChangeProgress(
@@ -82,7 +83,7 @@ sealed class ReaderEvent {
         val context: ComponentActivity,
         val onUpdateCategories: (Book) -> Unit,
         val updatePage: (Int) -> Unit,
-        val navigator: Navigator
+        val onNavigate: OnNavigate
     ) : ReaderEvent()
 
     data class OnOpenTranslator(

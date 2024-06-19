@@ -28,6 +28,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.domain.util.Constants
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
@@ -36,7 +37,6 @@ import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.MainViewModel
-import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.reader.components.translator_bottom_sheet.ReaderTranslatorBottomSheetLanguageChooser
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.SliderWithTitle
@@ -58,7 +58,7 @@ fun ReaderSettingsRoot() {
     ReaderSettings(
         state = state,
         settingsState = settingsState,
-        navigator = navigator,
+        onNavigate = { navigator.it() },
         onMainEvent = mainViewModel::onEvent,
         onEvent = settingsViewModel::onEvent
     )
@@ -69,7 +69,7 @@ fun ReaderSettingsRoot() {
 private fun ReaderSettings(
     state: State<MainState>,
     settingsState: State<SettingsState>,
-    navigator: Navigator,
+    onNavigate: OnNavigate,
     onMainEvent: (MainEvent) -> Unit,
     onEvent: (SettingsEvent) -> Unit
 ) {
@@ -145,7 +145,7 @@ private fun ReaderSettings(
                     Text(stringResource(id = R.string.reader_settings))
                 },
                 navigationIcon = {
-                    GoBackButton(navigator = navigator)
+                    GoBackButton(onNavigate = onNavigate)
                 },
                 scrollBehavior = scrollState.first,
                 colors = TopAppBarDefaults.largeTopAppBarColors(

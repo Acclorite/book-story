@@ -33,10 +33,10 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.data.LocalNavigator
-import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.about.components.AboutItem
 import ua.acclorite.book_story.presentation.screens.about.components.AboutUpdateDialog
@@ -53,7 +53,7 @@ fun AboutScreenRoot() {
 
     AboutScreen(
         state = state,
-        navigator = navigator,
+        onNavigate = { navigator.it() },
         onEvent = aboutViewModel::onEvent
     )
 }
@@ -62,7 +62,7 @@ fun AboutScreenRoot() {
 @Composable
 private fun AboutScreen(
     state: State<AboutState>,
-    navigator: Navigator,
+    onNavigate: OnNavigate,
     onEvent: (AboutEvent) -> Unit
 ) {
     val context = LocalContext.current
@@ -87,7 +87,7 @@ private fun AboutScreen(
                     Text(stringResource(id = R.string.about_screen))
                 },
                 navigationIcon = {
-                    GoBackButton(navigator = navigator)
+                    GoBackButton(onNavigate = onNavigate)
                 },
                 scrollBehavior = scrollState.first,
                 colors = TopAppBarDefaults.largeTopAppBarColors(
@@ -213,7 +213,9 @@ private fun AboutScreen(
                     title = stringResource(id = R.string.licenses_option),
                     description = null
                 ) {
-                    navigator.navigate(Screen.LICENSES, false)
+                    onNavigate {
+                        navigate(Screen.About.Licenses)
+                    }
                 }
             }
 
@@ -222,7 +224,9 @@ private fun AboutScreen(
                     title = stringResource(id = R.string.credits_option),
                     description = null
                 ) {
-                    navigator.navigate(Screen.CREDITS, false)
+                    onNavigate {
+                        navigate(Screen.About.Credits)
+                    }
                 }
             }
 

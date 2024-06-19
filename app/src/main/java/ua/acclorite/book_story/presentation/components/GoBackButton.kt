@@ -4,13 +4,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.domain.util.OnNavigate
 
 /**
- * Go back arrow button. Prevents double or triple clicking on it while going back action is performed.
+ * Go back arrow button.
+ * Prevents double or triple clicking on it while going back action is performed.
+ *
+ * @param onNavigate [OnNavigate].
+ * @param enabled Whether this button is enabled.
+ * @param customOnClick Call before going back.
  */
 @Composable
-fun GoBackButton(navigator: Navigator, enabled: Boolean = true, customOnClick: () -> Unit = {}) {
+fun GoBackButton(onNavigate: OnNavigate, enabled: Boolean = true, customOnClick: () -> Unit = {}) {
     CustomIconButton(
         icon = Icons.AutoMirrored.Filled.ArrowBack,
         contentDescription = R.string.go_back_content_desc,
@@ -18,6 +23,8 @@ fun GoBackButton(navigator: Navigator, enabled: Boolean = true, customOnClick: (
         enabled = enabled
     ) {
         customOnClick()
-        navigator.navigateBack()
+        onNavigate {
+            navigateBack()
+        }
     }
 }

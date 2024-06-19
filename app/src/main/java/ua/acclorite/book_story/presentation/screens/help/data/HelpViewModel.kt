@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.Screen
 import javax.inject.Inject
 
 @HiltViewModel
@@ -75,13 +75,11 @@ class HelpViewModel @Inject constructor(
         }
     }
 
-    fun init(navigator: Navigator) {
+    fun init(screen: Screen.Help) {
         viewModelScope.launch {
-            val isFromStart = navigator.retrieveArgument("from_start") as? Boolean ?: false
-
             _state.update {
                 it.copy(
-                    fromStart = isFromStart
+                    fromStart = screen.fromStart
                 )
             }
         }

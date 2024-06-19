@@ -16,6 +16,11 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 
 /**
  * Delete dialog. Deletes current book.
+ *
+ * @param onEvent [BookInfoEvent] callback.
+ * @param onLibraryLoadEvent [LibraryEvent] callback.
+ * @param onHistoryLoadEvent [HistoryEvent] callback.
+ * @param onBrowseLoadEvent [BrowseEvent] callback.
  */
 @Composable
 fun BookInfoDeleteDialog(
@@ -40,7 +45,7 @@ fun BookInfoDeleteDialog(
         onAction = {
             onEvent(
                 BookInfoEvent.OnDeleteBook(
-                    navigator = navigator,
+                    onNavigate = { navigator.it() },
                     refreshList = {
                         onLibraryLoadEvent(LibraryEvent.OnLoadList)
                         onBrowseLoadEvent(BrowseEvent.OnLoadList)

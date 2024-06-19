@@ -30,7 +30,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.presentation.data.LocalNavigator
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
@@ -41,6 +41,7 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
  * Reader end item. Displays at the end of the book.
  *
  * @param state [ReaderState].
+ * @param onNavigate Navigator callback.
  * @param onEvent [ReaderEvent] callback.
  * @param onLibraryEvent [LibraryEvent] callback.
  * @param onHistoryUpdateEvent [HistoryEvent] callback.
@@ -49,13 +50,12 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
 @Composable
 fun ReaderEndItem(
     state: State<ReaderState>,
+    onNavigate: OnNavigate,
     onEvent: (ReaderEvent) -> Unit,
     onLibraryEvent: (LibraryEvent) -> Unit,
     onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit,
 ) {
-    val navigator = LocalNavigator.current
     val context = LocalContext.current as ComponentActivity
-
     val buttonText = remember {
         context.getString(
             if (state.value.book.category != Category.ALREADY_READ) R.string.move_to_read
@@ -106,7 +106,7 @@ fun ReaderEndItem(
                             updatePage = {
                                 onLibraryEvent(LibraryEvent.OnUpdateCurrentPage(it))
                             },
-                            navigator = navigator,
+                            onNavigate = onNavigate,
                             context = context
                         )
                     )
@@ -120,13 +120,14 @@ fun ReaderEndItem(
                     onEvent(
                         ReaderEvent.OnGoBack(
                             context,
-                            navigator,
                             refreshList = {
                                 onLibraryEvent(LibraryEvent.OnUpdateBook(it))
                                 onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
                             },
                             navigate = {
-                                it.navigate(Screen.LIBRARY, true)
+                                onNavigate {
+                                    navigate(Screen.Library, useBackAnimation = true)
+                                }
                             }
                         )
                     )

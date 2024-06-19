@@ -5,8 +5,8 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.Selected
-import ua.acclorite.book_story.presentation.data.Navigator
 
 @Immutable
 sealed class LibraryEvent {
@@ -30,7 +30,7 @@ sealed class LibraryEvent {
     data class OnDeleteBooks(val refreshList: () -> Unit) : LibraryEvent()
     data class OnUpdateBook(val book: Book) : LibraryEvent()
     data class OnNavigateToReaderScreen(
-        val navigator: Navigator,
+        val onNavigate: OnNavigate,
         val book: Book
     ) : LibraryEvent()
 }

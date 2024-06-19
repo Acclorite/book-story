@@ -35,7 +35,12 @@ import ua.acclorite.book_story.presentation.screens.start.data.StartEvent
 import ua.acclorite.book_story.presentation.screens.start.data.StartState
 
 /**
- * Done screen.
+ * Start Done screen.
+ *
+ * @param state [StartState].
+ * @param onEvent [StartEvent] callback.
+ * @param onMainEvent [MainEvent] callback.
+ * @param onBrowseEvent [BrowseEvent] callback.
  */
 @Composable
 fun StartDone(
@@ -72,7 +77,7 @@ fun StartDone(
                         onClick = {
                             onEvent(
                                 StartEvent.OnGoToBrowse(
-                                    navigator,
+                                    onNavigate = { navigator.it() },
                                     onCompletedStartGuide = {
                                         onBrowseEvent(BrowseEvent.OnLoadList)
                                         onMainEvent(
@@ -91,9 +96,7 @@ fun StartDone(
                         shape = RoundedCornerShape(100),
                         onClick = {
                             onEvent(
-                                StartEvent.OnGoToHelp(
-                                    navigator
-                                )
+                                StartEvent.OnGoToHelp { navigator.it() }
                             )
                         }
                     ) {

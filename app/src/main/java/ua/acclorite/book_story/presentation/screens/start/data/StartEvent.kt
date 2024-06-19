@@ -6,7 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Immutable
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.domain.util.OnNavigate
 
 @Immutable
 sealed class StartEvent {
@@ -23,10 +23,10 @@ sealed class StartEvent {
         val onEnableUpdates: () -> Unit
     ) : StartEvent()
 
-    data class OnGoToBrowse(val navigator: Navigator, val onCompletedStartGuide: () -> Unit) :
+    data class OnGoToBrowse(val onNavigate: OnNavigate, val onCompletedStartGuide: () -> Unit) :
         StartEvent()
 
-    data class OnGoToHelp(val navigator: Navigator) : StartEvent()
+    data class OnGoToHelp(val onNavigate: OnNavigate) : StartEvent()
 
     data object OnResetStartScreen : StartEvent()
 }

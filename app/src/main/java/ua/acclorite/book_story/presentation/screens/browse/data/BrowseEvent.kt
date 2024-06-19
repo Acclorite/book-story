@@ -8,8 +8,8 @@ import androidx.compose.ui.focus.FocusRequester
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.domain.model.NullableBook
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.Selected
-import ua.acclorite.book_story.presentation.data.Navigator
 import java.io.File
 
 @Immutable
@@ -21,7 +21,8 @@ sealed class BrowseEvent {
     ) : BrowseEvent()
 
     data class OnStoragePermissionDismiss(
-        val permissionState: PermissionState, val showErrorMessage: () -> Unit
+        val permissionState: PermissionState,
+        val showErrorMessage: () -> Unit
     ) : BrowseEvent()
 
     data object OnRefreshList : BrowseEvent()
@@ -41,7 +42,7 @@ sealed class BrowseEvent {
     data object OnAddingDialogDismiss : BrowseEvent()
     data object OnGetBooksFromFiles : BrowseEvent()
     data class OnAddBooks(
-        val navigator: Navigator,
+        val onNavigate: OnNavigate,
         val resetScroll: () -> Unit,
         val onFailed: () -> Unit,
         val onSuccess: () -> Unit

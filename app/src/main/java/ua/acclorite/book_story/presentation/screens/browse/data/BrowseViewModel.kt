@@ -396,10 +396,9 @@ class BrowseViewModel @Inject constructor(
                     }
 
                     event.resetScroll()
-                    event.navigator.navigate(
-                        Screen.LIBRARY,
-                        false
-                    )
+                    event.onNavigate {
+                        navigate(Screen.Library)
+                    }
                     event.onSuccess()
 
                     _state.update {

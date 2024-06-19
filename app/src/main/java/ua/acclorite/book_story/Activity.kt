@@ -112,11 +112,15 @@ class Activity : AppCompatActivity() {
                     themeContrast = state.value.themeContrast!!
                 ) {
                     NavigationHost(
-                        startScreen = if (state.value.showStartScreen!!) Screen.START
-                        else Screen.LIBRARY
+                        startScreen = if (state.value.showStartScreen!!) Screen.Start
+                        else Screen.Library
                     ) {
                         navigation(
-                            screens = arrayOf(Screen.LIBRARY, Screen.HISTORY, Screen.BROWSE),
+                            screens = arrayOf(
+                                Screen.Library.getRoute(),
+                                Screen.History.getRoute(),
+                                Screen.Browse.getRoute()
+                            ),
                             bottomBar = {
                                 BottomNavigationBar()
                             },
@@ -125,8 +129,7 @@ class Activity : AppCompatActivity() {
                             }
                         ) {
                             // Library
-                            composable(
-                                screen = Screen.LIBRARY,
+                            composable<Screen.Library>(
                                 enterAnim = Transitions.FadeTransitionIn,
                                 exitAnim = Transitions.FadeTransitionOut
                             ) {
@@ -134,8 +137,7 @@ class Activity : AppCompatActivity() {
                             }
 
                             // History
-                            composable(
-                                screen = Screen.HISTORY,
+                            composable<Screen.History>(
                                 enterAnim = Transitions.FadeTransitionIn,
                                 exitAnim = Transitions.FadeTransitionOut
                             ) {
@@ -143,8 +145,7 @@ class Activity : AppCompatActivity() {
                             }
 
                             // Browse
-                            composable(
-                                screen = Screen.BROWSE,
+                            composable<Screen.Browse>(
                                 enterAnim = Transitions.FadeTransitionIn,
                                 exitAnim = Transitions.FadeTransitionOut
                             ) {
@@ -153,57 +154,54 @@ class Activity : AppCompatActivity() {
                         }
 
                         // Book Info
-                        composable(screen = Screen.BOOK_INFO) {
-                            BookInfoScreenRoot()
+                        composable<Screen.BookInfo> {
+                            BookInfoScreenRoot(it)
                         }
 
                         // Reader
-                        composable(screen = Screen.READER) {
-                            ReaderScreenRoot()
+                        composable<Screen.Reader> {
+                            ReaderScreenRoot(it)
                         }
 
                         // Settings
-                        composable(screen = Screen.SETTINGS) {
+                        composable<Screen.Settings> {
                             SettingsScreenRoot()
                         }
 
                         // Nested settings categories
-                        composable(screen = Screen.GENERAL_SETTINGS) {
+                        composable<Screen.Settings.General> {
                             GeneralSettingsRoot()
                         }
-                        composable(screen = Screen.APPEARANCE_SETTINGS) {
+                        composable<Screen.Settings.Appearance> {
                             AppearanceSettingsRoot()
                         }
-                        composable(screen = Screen.READER_SETTINGS) {
+                        composable<Screen.Settings.ReaderSettings> {
                             ReaderSettingsRoot()
                         }
 
                         // About screen
-                        composable(screen = Screen.ABOUT) {
+                        composable<Screen.About> {
                             AboutScreenRoot()
                         }
 
                         // Nested about categories
-                        composable(screen = Screen.LICENSES) {
+                        composable<Screen.About.Licenses> {
                             LicensesScreenRoot()
                         }
-                        composable(screen = Screen.LICENSES_INFO) {
-                            LicenseInfoScreenRoot()
+                        composable<Screen.About.LicenseInfo> {
+                            LicenseInfoScreenRoot(it)
                         }
-                        composable(screen = Screen.CREDITS) {
+                        composable<Screen.About.Credits> {
                             CreditsScreenRoot()
                         }
 
                         // Help screen
-                        composable(screen = Screen.HELP) {
-                            HelpScreenRoot()
+                        composable<Screen.Help> {
+                            HelpScreenRoot(it)
                         }
 
                         // Start screen
-                        composable(
-                            screen = Screen.START,
-                            enterAnim = Transitions.FadeTransitionIn
-                        ) {
+                        composable<Screen.Start>(enterAnim = Transitions.FadeTransitionIn) {
                             StartScreenRoot()
                         }
                     }

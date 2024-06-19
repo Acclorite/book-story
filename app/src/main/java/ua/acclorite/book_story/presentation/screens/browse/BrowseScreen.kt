@@ -46,6 +46,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomIconButton
@@ -55,7 +56,6 @@ import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
 import ua.acclorite.book_story.presentation.components.is_messages.IsError
 import ua.acclorite.book_story.presentation.data.LocalNavigator
-import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.browse.components.BrowseFileItem
 import ua.acclorite.book_story.presentation.screens.browse.components.BrowseStoragePermissionDialog
@@ -78,7 +78,7 @@ fun BrowseScreenRoot() {
 
     BrowseScreen(
         state = state,
-        navigator = navigator,
+        onNavigate = { navigator.it() },
         onEvent = viewModel::onEvent,
         onLibraryEvent = libraryViewModel::onEvent
     )
@@ -92,7 +92,7 @@ fun BrowseScreenRoot() {
 @Composable
 private fun BrowseScreen(
     state: State<BrowseState>,
-    navigator: Navigator,
+    onNavigate: OnNavigate,
     onEvent: (BrowseEvent) -> Unit,
     onLibraryEvent: (LibraryEvent) -> Unit
 ) {
@@ -303,7 +303,11 @@ private fun BrowseScreen(
                     message = stringResource(id = R.string.browse_empty),
                     icon = painterResource(id = R.drawable.empty_browse),
                     actionTitle = stringResource(id = R.string.get_help),
-                    action = { navigator.navigate(Screen.HELP, false) }
+                    action = {
+                        onNavigate {
+                            navigate(Screen.Help(false))
+                        }
+                    }
                 )
             }
 
@@ -328,7 +332,9 @@ private fun BrowseScreen(
             return@BackHandler
         }
 
-        navigator.navigate(Screen.LIBRARY, false)
+        onNavigate {
+            navigate(Screen.Library)
+        }
     }
 }
 

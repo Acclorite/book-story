@@ -21,7 +21,13 @@ import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 
 /**
- * Move dialog. Moves current book to the selected category.
+ * Move dialog.
+ * Moves current book to the selected category.
+ *
+ * @param state [BookInfoState].
+ * @param onEvent [BookInfoEvent] callback.
+ * @param onLibraryEvent [LibraryEvent] callback.
+ * @param onHistoryUpdateEvent [HistoryEvent] callback.
  */
 @Composable
 fun BookInfoMoveDialog(
@@ -60,7 +66,7 @@ fun BookInfoMoveDialog(
                     updatePage = {
                         onLibraryEvent(LibraryEvent.OnUpdateCurrentPage(it))
                     },
-                    navigator = navigator
+                    onNavigate = { navigator.it() }
                 )
             )
             Toast.makeText(

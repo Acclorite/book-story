@@ -38,6 +38,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
@@ -47,9 +48,7 @@ import ua.acclorite.book_story.presentation.components.CustomSnackbar
 import ua.acclorite.book_story.presentation.components.MoreDropDown
 import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
-import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.LocalNavigator
-import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.history.components.HistoryDeleteWholeHistoryDialog
 import ua.acclorite.book_story.presentation.screens.history.components.HistoryItem
@@ -71,7 +70,7 @@ fun HistoryScreenRoot() {
 
     HistoryScreen(
         state = state,
-        navigator = navigator,
+        onNavigate = { navigator.it() },
         onEvent = viewModel::onEvent,
         onLibraryEvent = libraryViewModel::onEvent
     )
@@ -84,7 +83,7 @@ fun HistoryScreenRoot() {
 @Composable
 private fun HistoryScreen(
     state: State<HistoryState>,
-    navigator: Navigator,
+    onNavigate: OnNavigate,
     onEvent: (HistoryEvent) -> Unit,
     onLibraryEvent: (LibraryEvent) -> Unit
 ) {
@@ -230,17 +229,17 @@ private fun HistoryScreen(
                                 history = it,
                                 isOnClickEnabled = !state.value.isRefreshing,
                                 onBodyClick = {
-                                    navigator.navigate(
-                                        Screen.BOOK_INFO,
-                                        false,
-                                        Argument("book", it.bookId)
-                                    )
+                                    onNavigate {
+                                        navigate(
+                                            Screen.BookInfo(it.bookId)
+                                        )
+                                    }
                                 },
                                 onTitleClick = {
                                     onEvent(
                                         HistoryEvent.OnNavigateToReaderScreen(
-                                            navigator,
-                                            it.book!!
+                                            onNavigate = onNavigate,
+                                            book = it.book!!
                                         )
                                     )
                                 },
@@ -300,7 +299,9 @@ private fun HistoryScreen(
             return@BackHandler
         }
 
-        navigator.navigate(Screen.LIBRARY, false)
+        onNavigate {
+            navigate(Screen.Library)
+        }
     }
 }
 

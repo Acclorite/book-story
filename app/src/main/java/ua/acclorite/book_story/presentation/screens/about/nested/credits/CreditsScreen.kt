@@ -21,11 +21,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.Constants
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.data.LocalNavigator
-import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
 import ua.acclorite.book_story.presentation.screens.about.data.AboutViewModel
 import ua.acclorite.book_story.presentation.screens.about.nested.credits.components.CreditItem
@@ -36,7 +36,7 @@ fun CreditsScreenRoot() {
     val aboutViewModel: AboutViewModel = hiltViewModel()
 
     CreditsScreen(
-        navigator = navigator,
+        onNavigate = { navigator.it() },
         onAboutNavigateEvent = aboutViewModel::onEvent
     )
 }
@@ -44,7 +44,7 @@ fun CreditsScreenRoot() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CreditsScreen(
-    navigator: Navigator,
+    onNavigate: OnNavigate,
     onAboutNavigateEvent: (AboutEvent.OnNavigateToBrowserPage) -> Unit
 ) {
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
@@ -62,7 +62,7 @@ private fun CreditsScreen(
                     Text(stringResource(id = R.string.credits_option))
                 },
                 navigationIcon = {
-                    GoBackButton(navigator = navigator)
+                    GoBackButton(onNavigate = onNavigate)
                 },
                 scrollBehavior = scrollState.first,
                 colors = TopAppBarDefaults.largeTopAppBarColors(

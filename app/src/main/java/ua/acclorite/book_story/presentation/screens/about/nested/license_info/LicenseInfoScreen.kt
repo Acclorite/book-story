@@ -42,19 +42,20 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.data.LocalNavigator
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoEvent
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoState
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoViewModel
 import ua.acclorite.book_story.presentation.ui.SlidingTransition
 
 @Composable
-fun LicenseInfoScreenRoot() {
+fun LicenseInfoScreenRoot(screen: Screen.About.LicenseInfo) {
     val navigator = LocalNavigator.current
     val context = LocalContext.current
     val licenseInfoViewModel: LicenseInfoViewModel = hiltViewModel()
@@ -63,15 +64,16 @@ fun LicenseInfoScreenRoot() {
 
     LaunchedEffect(Unit) {
         licenseInfoViewModel.init(
-            navigator,
-            context
+            screen = screen,
+            onNavigate = { navigator.it() },
+            context = context
         )
     }
 
     LicenseInfoScreen(
         state = state,
-        onEvent = licenseInfoViewModel::onEvent,
-        navigator = navigator
+        onNavigate = { navigator.it() },
+        onEvent = licenseInfoViewModel::onEvent
     )
 }
 
@@ -79,8 +81,8 @@ fun LicenseInfoScreenRoot() {
 @Composable
 private fun LicenseInfoScreen(
     state: State<LicenseInfoState>,
-    onEvent: (LicenseInfoEvent) -> Unit,
-    navigator: Navigator
+    onNavigate: OnNavigate,
+    onEvent: (LicenseInfoEvent) -> Unit
 ) {
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
     val context = LocalContext.current
@@ -106,7 +108,7 @@ private fun LicenseInfoScreen(
                         )
                     },
                     navigationIcon = {
-                        GoBackButton(navigator = navigator)
+                        GoBackButton(onNavigate = onNavigate)
                     },
                     actions = {
                         if (state.value.license?.website?.isNotBlank() == true) {

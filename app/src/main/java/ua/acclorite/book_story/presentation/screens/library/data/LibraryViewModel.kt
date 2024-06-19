@@ -18,7 +18,6 @@ import ua.acclorite.book_story.domain.use_case.DeleteBooks
 import ua.acclorite.book_story.domain.use_case.GetBooks
 import ua.acclorite.book_story.domain.use_case.InsertHistory
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
-import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.Screen
 import java.util.Date
 import javax.inject.Inject
@@ -338,13 +337,9 @@ class LibraryViewModel @Inject constructor(
                             )
                         )
                     }
-                    event.navigator.navigate(
-                        Screen.READER,
-                        false,
-                        Argument(
-                            "book", event.book.id
-                        )
-                    )
+                    event.onNavigate {
+                        navigate(Screen.Reader(event.book.id))
+                    }
                 }
             }
 

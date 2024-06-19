@@ -57,13 +57,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.CustomSnackbar
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.data.LocalNavigator
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoBackground
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoDescriptionSection
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoInfoSection
@@ -87,7 +88,7 @@ import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.Transitions
 
 @Composable
-fun BookInfoScreenRoot() {
+fun BookInfoScreenRoot(screen: Screen.BookInfo) {
     val navigator = LocalNavigator.current
 
     val viewModel: BookInfoViewModel = hiltViewModel()
@@ -99,13 +100,14 @@ fun BookInfoScreenRoot() {
 
     LaunchedEffect(Unit) {
         viewModel.init(
-            navigator
+            screen = screen,
+            onNavigate = { navigator.it() }
         )
     }
 
     BookInfoScreen(
         state = state,
-        navigator = navigator,
+        onNavigate = { navigator.it() },
         onEvent = viewModel::onEvent,
         onLibraryEvent = libraryViewModel::onEvent,
         onBrowseEvent = browseViewModel::onEvent,
@@ -117,7 +119,7 @@ fun BookInfoScreenRoot() {
 @Composable
 private fun BookInfoScreen(
     state: State<BookInfoState>,
-    navigator: Navigator,
+    onNavigate: OnNavigate,
     onEvent: (BookInfoEvent) -> Unit,
     onLibraryEvent: (LibraryEvent) -> Unit,
     onBrowseEvent: (BrowseEvent) -> Unit,
@@ -203,7 +205,7 @@ private fun BookInfoScreen(
                             onEvent(BookInfoEvent.OnShowHideEditTitle)
                         }
                     } else {
-                        GoBackButton(navigator = navigator, enabled = !state.value.isRefreshing) {
+                        GoBackButton(onNavigate = onNavigate, enabled = !state.value.isRefreshing) {
                             onEvent(BookInfoEvent.OnCancelUpdate)
                         }
                     }
@@ -329,7 +331,7 @@ private fun BookInfoScreen(
             FloatingActionButton(
                 onClick = {
                     if (!state.value.isRefreshing) {
-                        onEvent(BookInfoEvent.OnNavigateToReaderScreen(navigator))
+                        onEvent(BookInfoEvent.OnNavigateToReaderScreen(onNavigate = onNavigate))
                     }
                 },
                 shape = MaterialTheme.shapes.large,
@@ -387,7 +389,9 @@ private fun BookInfoScreen(
 
         if (!state.value.isRefreshing) {
             onEvent(BookInfoEvent.OnCancelUpdate)
-            navigator.navigateBack()
+            onNavigate {
+                navigateBack()
+            }
         }
     }
 }

@@ -42,9 +42,9 @@ import ua.acclorite.book_story.domain.use_case.TranslateText
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
 import ua.acclorite.book_story.domain.util.ID
 import ua.acclorite.book_story.domain.util.LanguageCode
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
-import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.data.removeKey
 import ua.acclorite.book_story.presentation.data.removeKeys
@@ -912,7 +912,7 @@ class ReaderViewModel @Inject constructor(
                         }
 
                         insetsController.show(WindowInsetsCompat.Type.systemBars())
-                        event.navigate(event.navigator)
+                        event.navigate()
                     }
                 }
 
@@ -967,7 +967,6 @@ class ReaderViewModel @Inject constructor(
                         onEvent(
                             ReaderEvent.OnGoBack(
                                 event.context,
-                                event.navigator,
                                 refreshList = {},
                                 navigate = {}
                             )
@@ -995,7 +994,12 @@ class ReaderViewModel @Inject constructor(
                             }.size - 1
                         )
 
-                        event.navigator.navigate(Screen.LIBRARY, true)
+                        event.onNavigate {
+                            navigate(
+                                Screen.Library,
+                                useBackAnimation = true
+                            )
+                        }
                     }
                 }
 
@@ -1226,23 +1230,19 @@ class ReaderViewModel @Inject constructor(
     }
 
     fun init(
-        navigator: Navigator,
+        screen: Screen.Reader,
+        onNavigate: OnNavigate,
         context: ComponentActivity,
         refreshList: (Book) -> Unit,
         onError: (UIText) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val bookId = navigator.retrieveArgument("book") as? Int
-
-            if (bookId == null) {
-                navigator.navigateBack()
-                return@launch
-            }
-
-            val book = getBookById.execute(bookId)
+            val book = getBookById.execute(screen.bookId)
 
             if (book == null) {
-                navigator.navigateBack()
+                onNavigate {
+                    navigateBack()
+                }
                 return@launch
             }
 

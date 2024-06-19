@@ -31,13 +31,13 @@ import com.google.accompanist.permissions.rememberPermissionState
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.domain.util.Constants
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.MainViewModel
-import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
@@ -53,7 +53,7 @@ fun GeneralSettingsRoot() {
 
     GeneralSettings(
         state = state,
-        navigator = navigator,
+        onNavigate = { navigator.it() },
         onSettingsEvent = settingsViewModel::onEvent,
         onMainEvent = mainViewModel::onEvent
     )
@@ -64,7 +64,7 @@ fun GeneralSettingsRoot() {
 @Composable
 private fun GeneralSettings(
     state: State<MainState>,
-    navigator: Navigator,
+    onNavigate: OnNavigate,
     onSettingsEvent: (SettingsEvent) -> Unit,
     onMainEvent: (MainEvent) -> Unit
 ) {
@@ -87,7 +87,7 @@ private fun GeneralSettings(
                     Text(stringResource(id = R.string.general_settings))
                 },
                 navigationIcon = {
-                    GoBackButton(navigator = navigator)
+                    GoBackButton(onNavigate = onNavigate)
                 },
                 scrollBehavior = scrollState.first,
                 colors = TopAppBarDefaults.largeTopAppBarColors(

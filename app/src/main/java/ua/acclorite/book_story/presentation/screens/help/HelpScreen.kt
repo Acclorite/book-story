@@ -33,13 +33,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
-import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
@@ -63,7 +63,7 @@ import ua.acclorite.book_story.presentation.screens.start.data.StartEvent
 import ua.acclorite.book_story.presentation.screens.start.data.StartViewModel
 
 @Composable
-fun HelpScreenRoot() {
+fun HelpScreenRoot(screen: Screen.Help) {
     val navigator = LocalNavigator.current
     val helpViewModel: HelpViewModel = hiltViewModel()
     val browseViewModel: BrowseViewModel = hiltViewModel()
@@ -73,12 +73,12 @@ fun HelpScreenRoot() {
     val state = helpViewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
-        helpViewModel.init(navigator)
+        helpViewModel.init(screen = screen)
     }
 
     HelpScreen(
         state = state,
-        navigator = navigator,
+        onNavigate = { navigator.it() },
         onEvent = helpViewModel::onEvent,
         onMainEvent = mainViewModel::onEvent,
         onBrowseEvent = browseViewModel::onEvent,
@@ -92,7 +92,7 @@ fun HelpScreenRoot() {
 @Composable
 private fun HelpScreen(
     state: State<HelpState>,
-    navigator: Navigator,
+    onNavigate: OnNavigate,
     onEvent: (HelpEvent) -> Unit,
     onMainEvent: (MainEvent) -> Unit,
     onBrowseEvent: (BrowseEvent) -> Unit,
@@ -113,7 +113,7 @@ private fun HelpScreen(
                 },
                 navigationIcon = {
                     if (!state.value.fromStart) {
-                        GoBackButton(navigator = navigator)
+                        GoBackButton(onNavigate = onNavigate)
                     }
                 },
                 actions = {
@@ -125,8 +125,10 @@ private fun HelpScreen(
                         ) {
                             onStartEvent(StartEvent.OnResetStartScreen)
                             onMainEvent(MainEvent.OnChangeShowStartScreen(true))
-                            navigator.navigateWithoutBackStack(Screen.START, false)
-                            navigator.clearBackStack()
+                            onNavigate {
+                                navigate(Screen.Start, saveInBackStack = false)
+                                clearBackStack()
+                            }
                         }
                     }
                 },
@@ -149,11 +151,11 @@ private fun HelpScreen(
                             .fillMaxWidth(),
                         shape = RoundedCornerShape(100),
                         onClick = {
-                            navigator.clearArgument("from_start")
-
                             onBrowseEvent(BrowseEvent.OnLoadList)
                             onMainEvent(MainEvent.OnChangeShowStartScreen(false))
-                            navigator.navigateWithoutBackStack(Screen.BROWSE, false)
+                            onNavigate {
+                                navigate(Screen.Browse, saveInBackStack = false)
+                            }
                         }
                     ) {
                         Text(text = stringResource(id = R.string.done))
@@ -203,6 +205,7 @@ private fun HelpScreen(
             item {
                 HelpAddBooksItem(
                     state = state,
+                    onNavigate = onNavigate,
                     onEvent = onEvent
                 )
             }
@@ -210,6 +213,7 @@ private fun HelpScreen(
             item {
                 HelpCustomizeApp(
                     state = state,
+                    onNavigate = onNavigate,
                     onEvent = onEvent
                 )
             }
@@ -217,6 +221,7 @@ private fun HelpScreen(
             item {
                 HelpMoveOrDeleteBooks(
                     state = state,
+                    onNavigate = onNavigate,
                     onEvent = onEvent
                 )
             }
@@ -224,6 +229,7 @@ private fun HelpScreen(
             item {
                 HelpEditBook(
                     state = state,
+                    onNavigate = onNavigate,
                     onEvent = onEvent
                 )
             }
@@ -231,6 +237,7 @@ private fun HelpScreen(
             item {
                 HelpReadBook(
                     state = state,
+                    onNavigate = onNavigate,
                     onEvent = onEvent
                 )
             }
@@ -238,6 +245,7 @@ private fun HelpScreen(
             item {
                 HelpCustomizeReader(
                     state = state,
+                    onNavigate = onNavigate,
                     onEvent = onEvent
                 )
             }
@@ -245,6 +253,7 @@ private fun HelpScreen(
             item {
                 HelpUpdateBook(
                     state = state,
+                    onNavigate = onNavigate,
                     onEvent = onEvent
                 )
             }
@@ -252,6 +261,7 @@ private fun HelpScreen(
             item {
                 HelpManageHistory(
                     state = state,
+                    onNavigate = onNavigate,
                     onEvent = onEvent
                 )
             }
@@ -266,6 +276,7 @@ private fun HelpScreen(
             item {
                 HelpSetUpTranslator(
                     state = state,
+                    onNavigate = onNavigate,
                     onEvent = onEvent
                 )
             }

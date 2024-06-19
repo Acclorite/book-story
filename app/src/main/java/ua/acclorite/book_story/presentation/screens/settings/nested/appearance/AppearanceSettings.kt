@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
@@ -36,7 +37,6 @@ import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.MainViewModel
-import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.screens.settings.components.ColorPickerWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.components.SegmentedButtonWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.theme_switcher.AppearanceSettingsThemeSwitcher
@@ -58,7 +58,7 @@ fun AppearanceSettingsRoot() {
 
     AppearanceSettings(
         state = state,
-        navigator = navigator,
+        onNavigate = { navigator.it() },
         onMainEvent = mainViewModel::onEvent
     )
 }
@@ -67,7 +67,7 @@ fun AppearanceSettingsRoot() {
 @Composable
 private fun AppearanceSettings(
     state: State<MainState>,
-    navigator: Navigator,
+    onNavigate: OnNavigate,
     onMainEvent: (MainEvent) -> Unit
 ) {
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
@@ -91,7 +91,7 @@ private fun AppearanceSettings(
                     Text(stringResource(id = R.string.appearance_settings))
                 },
                 navigationIcon = {
-                    GoBackButton(navigator = navigator)
+                    GoBackButton(onNavigate = onNavigate)
                 },
                 scrollBehavior = scrollState.first,
                 colors = TopAppBarDefaults.largeTopAppBarColors(

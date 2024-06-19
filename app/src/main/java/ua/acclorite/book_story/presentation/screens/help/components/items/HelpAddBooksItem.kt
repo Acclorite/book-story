@@ -6,7 +6,7 @@ import androidx.compose.runtime.State
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.buildAnnotatedString
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.data.LocalNavigator
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.help.components.HelpAnnotation
 import ua.acclorite.book_story.presentation.screens.help.components.HelpItem
@@ -16,10 +16,9 @@ import ua.acclorite.book_story.presentation.screens.help.data.HelpState
 @Composable
 fun LazyItemScope.HelpAddBooksItem(
     state: State<HelpState>,
+    onNavigate: OnNavigate,
     onEvent: (HelpEvent) -> Unit
 ) {
-    val navigator = LocalNavigator.current
-
     HelpItem(
         title = stringResource(id = R.string.help_title_how_to_add_books),
         description = buildAnnotatedString {
@@ -49,16 +48,18 @@ fun LazyItemScope.HelpAddBooksItem(
             )
         },
         onTagClick = { tag ->
-            when (tag) {
-                "browse" -> {
-                    if (!state.value.fromStart) {
-                        navigator.navigate(Screen.BROWSE, true)
+            onNavigate {
+                when (tag) {
+                    "browse" -> {
+                        if (!state.value.fromStart) {
+                            navigate(Screen.Browse, useBackAnimation = true)
+                        }
                     }
-                }
 
-                "library" -> {
-                    if (!state.value.fromStart) {
-                        navigator.navigate(Screen.LIBRARY, true)
+                    "library" -> {
+                        if (!state.value.fromStart) {
+                            navigate(Screen.Library, useBackAnimation = true)
+                        }
                     }
                 }
             }

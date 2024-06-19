@@ -21,7 +21,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.domain.use_case.CheckForUpdates
-import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.Screen
 import javax.inject.Inject
 
@@ -239,13 +238,16 @@ class StartViewModel @Inject constructor(
             }
 
             is StartEvent.OnGoToBrowse -> {
-                event.navigator.navigateWithoutBackStack(Screen.BROWSE, false)
+                event.onNavigate {
+                    navigate(Screen.Browse, saveInBackStack = false)
+                }
                 event.onCompletedStartGuide()
             }
 
             is StartEvent.OnGoToHelp -> {
-                event.navigator.putArgument(Argument("from_start", true))
-                event.navigator.navigateWithoutBackStack(Screen.HELP, false)
+                event.onNavigate {
+                    navigate(Screen.Help(true), saveInBackStack = false)
+                }
             }
 
             is StartEvent.OnResetStartScreen -> {

@@ -6,7 +6,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.History
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.domain.util.OnNavigate
 
 @Immutable
 sealed class HistoryEvent {
@@ -27,7 +27,7 @@ sealed class HistoryEvent {
     data class OnRequestFocus(val focusRequester: FocusRequester) : HistoryEvent()
     data class OnUpdateBook(val book: Book) : HistoryEvent()
     data class OnNavigateToReaderScreen(
-        val navigator: Navigator,
+        val onNavigate: OnNavigate,
         val book: Book
     ) : HistoryEvent()
 

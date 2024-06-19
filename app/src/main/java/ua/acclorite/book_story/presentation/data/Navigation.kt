@@ -43,60 +43,87 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
+import ua.acclorite.book_story.domain.util.Route
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.ui.Transitions
-import java.io.Serializable
-
 
 private const val CURRENT_SCREEN = "current_screen"
 private const val BACKSTACK = "back_stack"
 private const val USE_BACK_ANIM = "use_back_animation"
-private const val ARGUMENTS = "arguments"
+private const val SCREENS = "screens"
 
+/**
+ * Passed in [CompositionLocalProvider] and can be accessed through [LocalNavigator].current.
+ */
 val LocalNavigator = compositionLocalOf<Navigator> {
     error("Cannot initialize Navigator.")
 }
 
 /**
- * All screens are listed here, later each screen will be passed as a param for [Navigator.composable] function.
- */
-enum class Screen {
-    LIBRARY,
-    HISTORY,
-    BROWSE,
-
-    BOOK_INFO,
-    READER,
-
-    SETTINGS,
-    GENERAL_SETTINGS,
-    APPEARANCE_SETTINGS,
-    READER_SETTINGS,
-
-    ABOUT,
-    LICENSES,
-    LICENSES_INFO,
-    CREDITS,
-
-    HELP,
-    START
-}
-
-/**
- * Navigation Argument.
+ * Screens. Should be [Serializable] to be able to pass them inside [SavedStateHandle].
+ * Each screen should have unique name.
  */
 @Immutable
 @Parcelize
-data class Argument<out T : Serializable>(
-    val key: String,
-    val value: T
-) : Parcelable
+sealed class Screen : Parcelable {
+
+    @Parcelize
+    data object Library : Screen()
+
+    @Parcelize
+    data object History : Screen()
+
+    @Parcelize
+    data object Browse : Screen()
+
+    @Parcelize
+    data class BookInfo(
+        val bookId: Int
+    ) : Screen()
+
+    @Parcelize
+    data class Reader(
+        val bookId: Int
+    ) : Screen()
+
+    @Parcelize
+    data object Settings : Screen() {
+        @Parcelize
+        data object General : Screen()
+
+        @Parcelize
+        data object Appearance : Screen()
+
+        @Parcelize
+        data object ReaderSettings : Screen()
+    }
+
+    @Parcelize
+    data object About : Screen() {
+        @Parcelize
+        data object Licenses : Screen()
+
+        @Parcelize
+        data class LicenseInfo(val licenseId: String) : Screen()
+
+        @Parcelize
+        data object Credits : Screen()
+    }
+
+    @Parcelize
+    data class Help(
+        val fromStart: Boolean
+    ) : Screen()
+
+    @Parcelize
+    data object Start : Screen()
+}
 
 /**
- * Navigator. Using to navigate between screens.
+ * Navigator. Used to navigate between screens.
  *
  * [Navigator.currentScreen] param represents current [Screen].
  * [Navigator.navigate] navigates to [Screen] passed as param.
@@ -104,139 +131,186 @@ data class Argument<out T : Serializable>(
 @HiltViewModel(assistedFactory = Navigator.Factory::class)
 class Navigator @AssistedInject constructor(
     private val savedStateHandle: SavedStateHandle,
-    @Assisted startScreen: Screen
+    @Assisted private val startScreen: Screen
 ) : ViewModel() {
 
-    private val currentScreen = savedStateHandle.getStateFlow(CURRENT_SCREEN, startScreen)
-    private val useBackAnimation = savedStateHandle.getStateFlow(USE_BACK_ANIM, false)
-    private val backStack = savedStateHandle.getStateFlow(BACKSTACK, mutableListOf<Screen>())
-    private val arguments = savedStateHandle
-        .getStateFlow(ARGUMENTS, mutableListOf<Argument<Serializable>>())
+    val currentScreen = savedStateHandle.getStateFlow(CURRENT_SCREEN, startScreen.getRoute())
+    val useBackAnimation = savedStateHandle.getStateFlow(USE_BACK_ANIM, false)
+    private val backStack = savedStateHandle.getStateFlow(BACKSTACK, mutableListOf<Route>())
+    val screens = savedStateHandle.getStateFlow(SCREENS, mutableListOf<Screen>())
 
-    fun putArgument(argument: Argument<Serializable>) {
+    init {
+        putScreen(startScreen)
+    }
+
+    /**
+     * Saves screen into [screens]. Later can be retrieved via [retrieveScreen].
+     *
+     * @param screen [Screen].
+     */
+    fun putScreen(screen: Screen) {
         var found = false
 
-        for ((index, arg) in arguments.value.withIndex()) {
-            if (arg.key == argument.key) {
-                arguments.value[index] = argument
+        for ((index, arg) in screens.value.withIndex()) {
+            if (arg.getRoute() == screen.getRoute()) {
+                screens.value[index] = screen
                 found = true
                 break
             }
         }
 
         if (!found) {
-            arguments.value.add(argument)
+            screens.value.add(screen)
         }
     }
 
-    fun retrieveArgument(key: String): Serializable? {
-        for (arg in arguments.value) {
-            if (arg.key == key) {
-                return arg.value
+    /**
+     * Retrieves screen that was put via [putScreen].
+     *
+     * @exception Exception if there is no such screen saved that specified in [S], throws an [Exception].
+     */
+    inline fun <reified S : Screen> retrieveScreen(): S {
+        for (arg in screens.value) {
+            if (arg.getRoute() == getRoute<S>()) {
+                return arg as S
             }
         }
-        return null
+
+        throw Exception("Screen was not found.")
     }
 
-    fun clearArgument(key: String) {
-        arguments.value.removeIf { it.key == key }
-    }
-
-    fun navigate(screen: Screen, useBackAnimation: Boolean, vararg args: Argument<Serializable>) =
-        viewModelScope.launch(Dispatchers.Default) {
-            backStack.value.add(currentScreen.value)
-
-            args.forEach {
-                putArgument(it)
-            }
-
-            savedStateHandle[USE_BACK_ANIM] = useBackAnimation
-            savedStateHandle[CURRENT_SCREEN] = screen
-        }
-
-    fun navigateWithoutBackStack(
+    /**
+     * Navigates to the desired screen. Ignored if [currentScreen] is already [screen].
+     *
+     * @param screen [Screen] to navigate to.
+     * @param useBackAnimation Whether back animation should be used(as when user goes back).
+     * @param saveInBackStack Whether this screen should be saved in [backStack] (basically history of all opened screens).
+     */
+    fun navigate(
         screen: Screen,
-        useBackAnimation: Boolean,
-        vararg args: Argument<Serializable>
+        useBackAnimation: Boolean = false,
+        saveInBackStack: Boolean = true
     ) = viewModelScope.launch(Dispatchers.Default) {
-        if (backStack.value.lastOrNull() == screen) {
-            backStack.value.removeLast()
+        if (screen.getRoute() == currentScreen.value) {
+            return@launch
         }
 
-        args.forEach {
-            putArgument(it)
+        if (saveInBackStack) {
+            backStack.value.add(currentScreen.value)
         }
+
+        putScreen(screen)
 
         savedStateHandle[USE_BACK_ANIM] = useBackAnimation
-        savedStateHandle[CURRENT_SCREEN] = screen
+        savedStateHandle[CURRENT_SCREEN] = screen.getRoute()
     }
 
-    fun navigateBack(useBackAnimation: Boolean = true) =
-        viewModelScope.launch(Dispatchers.Default) {
-            if (canGoBack()) {
-                savedStateHandle[USE_BACK_ANIM] = useBackAnimation
-                savedStateHandle[CURRENT_SCREEN] = backStack.value.last()
-                backStack.value.removeLast()
-            }
-        }
+    /**
+     * Navigates user to the previous screen, if there is.
+     * If there is nowhere to go, this call is ignored.
+     *
+     * @param useBackAnimation Whether user should see back animation when he goes to the previous screen.
+     */
+    fun navigateBack(
+        useBackAnimation: Boolean = true
+    ) = viewModelScope.launch(Dispatchers.Default) {
+        if (canGoBack()) {
+            savedStateHandle[USE_BACK_ANIM] = useBackAnimation
+            savedStateHandle[CURRENT_SCREEN] = backStack.value.last()
 
+            backStack.value.removeLast()
+        }
+    }
+
+    /**
+     * Clears the whole [backStack].
+     */
     fun clearBackStack() {
         backStack.value.clear()
     }
 
+    /**
+     * Whether there is screen to go back.
+     */
     fun canGoBack(): Boolean {
         return backStack.value.isNotEmpty()
     }
 
-    fun getCurrentScreen(): StateFlow<Screen> {
-        return currentScreen
-    }
-
-    fun getUseBackAnim(): StateFlow<Boolean> {
-        return useBackAnimation
+    /**
+     * Gets route of specified [S].
+     */
+    inline fun <reified S : Screen> getRoute(): Route {
+        return S::class.simpleName!!
     }
 
     /**
-     * Animated Screen. Used in [NavigationHost]. Be sure to not use the same [screen] parameter twice, it'll override the highest one in your code.
+     * Gets route of this screen.
+     */
+    fun Screen.getRoute(): Route {
+        return this::class.simpleName!!
+    }
+
+    /**
+     * Animated Screen. Used in [NavigationHost].
+     * Each [composable] should have unique [Screen].
      *
-     * @param screen The [Screen] that represents [content].
      * @param enterAnim Enter Animation.
      * @param backEnterAnim Enter Animation for navigating back.
      * @param exitAnim Exit Animation.
      * @param backExitAnim Exit Animation for navigating back.
-     * @param content The Screen content to show when [Navigator.currentScreen] equals [screen].
+     * @param content The Screen content to show when [Navigator.currentScreen] equals [S].
      */
     @SuppressLint("ComposableNaming")
     @Composable
-    fun composable(
-        screen: Screen,
+    inline fun <reified S : Screen> composable(
         enterAnim: EnterTransition = Transitions.SlidingTransitionIn,
         backEnterAnim: EnterTransition = Transitions.BackSlidingTransitionIn,
         exitAnim: ExitTransition = Transitions.SlidingTransitionOut,
         backExitAnim: ExitTransition = Transitions.BackSlidingTransitionOut,
-        content: @Composable () -> Unit
+        noinline content: @Composable (screen: S) -> Unit
     ) {
+        val currentRoute by currentScreen.collectAsState()
+        val useBackAnimation by useBackAnimation.collectAsState()
+
         CustomAnimatedVisibility(
-            visible = getCurrentScreen().collectAsState().value == screen,
-            enter = if (!useBackAnimation.collectAsState().value) enterAnim else backEnterAnim,
-            exit = if (!useBackAnimation.collectAsState().value) exitAnim else backExitAnim
+            visible = currentRoute == getRoute<S>(),
+            enter = if (!useBackAnimation) enterAnim else backEnterAnim,
+            exit = if (!useBackAnimation) exitAnim else backExitAnim
         ) {
-            content()
+            val screen = remember { retrieveScreen<S>() }
+            content(screen)
         }
     }
 
+    /**
+     * Navigator's navigation.
+     * Shows BottomBar or Navigation Rail when any of the [screens] are currently showing.
+     *
+     * @param screens [Screen]s where navigation shows.
+     * @param enterBarAnim Enter animation for navigation.
+     * @param backEnterBarAnim Back enter animation for navigation.
+     * @param exitBarAnim Exit animation for navigation.
+     * @param backExitBarAnim Back exit animation for navigation.
+     * @param bottomBar Bottom bar, sticks to the bottom.
+     * @param navigationRail Navigation rail, sticks to the sides.
+     * @param content Content, all [screens] should be inside as [composable].
+     */
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     @SuppressLint("ComposableNaming")
     @Composable
     fun navigation(
-        vararg screens: Screen,
+        vararg screens: Route,
+        enterBarAnim: EnterTransition = Transitions.SlidingTransitionIn,
+        backEnterBarAnim: EnterTransition = Transitions.BackSlidingTransitionIn,
+        exitBarAnim: ExitTransition = Transitions.SlidingTransitionOut,
+        backExitBarAnim: ExitTransition = Transitions.BackSlidingTransitionOut,
         bottomBar: @Composable () -> Unit,
         navigationRail: @Composable BoxScope.() -> Unit,
         content: @Composable () -> Unit
     ) {
         val activity = LocalContext.current as ComponentActivity
-        val currentScreen by getCurrentScreen().collectAsState()
-        val useBackAnimation by getUseBackAnim().collectAsState()
+        val currentScreen by currentScreen.collectAsState()
+        val useBackAnimation by useBackAnimation.collectAsState()
         val shouldShow by remember(currentScreen) {
             derivedStateOf {
                 screens.any { it == currentScreen }
@@ -251,10 +325,10 @@ class Navigator @AssistedInject constructor(
 
         CustomAnimatedVisibility(
             visible = shouldShow,
-            enter = if (useBackAnimation) Transitions.BackSlidingTransitionIn
-            else Transitions.SlidingTransitionIn,
-            exit = if (useBackAnimation) Transitions.BackSlidingTransitionOut
-            else Transitions.SlidingTransitionOut
+            enter = if (useBackAnimation) backEnterBarAnim
+            else enterBarAnim,
+            exit = if (useBackAnimation) backExitBarAnim
+            else exitBarAnim
         ) {
             Scaffold(
                 bottomBar = {
@@ -305,13 +379,13 @@ class Navigator @AssistedInject constructor(
 }
 
 /**
- * Navigation Host. Contains [Navigator.composable]s in [content].
+ * Custom Navigation Host. Contains [Navigator.composable]s in [content].
+ * Based on [CustomAnimatedVisibility].
  *
  * @param startScreen Start Screen. Be sure to pass [Screen] that uses in one of your [Navigator.composable]s.
  * @param colorBetweenAnimations The color, that using between animations, recommended to set this to background or navigation bar color.
  * @param content Content of the [NavigationHost]. Highly recommended to use [Navigator.composable].
  */
-
 @Composable
 fun NavigationHost(
     startScreen: Screen,

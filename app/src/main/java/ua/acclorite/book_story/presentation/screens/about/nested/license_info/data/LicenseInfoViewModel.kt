@@ -13,7 +13,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.domain.util.OnNavigate
+import ua.acclorite.book_story.presentation.data.Screen
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,25 +43,20 @@ class LicenseInfoViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun init(navigator: Navigator, context: Context) {
+    fun init(screen: Screen.About.LicenseInfo, onNavigate: OnNavigate, context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             _state.update {
                 it.copy(license = null)
             }
 
-            val licenseId = navigator.retrieveArgument("license") as? String
-
-            if (licenseId == null) {
-                navigator.navigateBack()
-                return@launch
-            }
-
             val license = Libs.Builder().withContext(context).build().libraries.find {
-                it.uniqueId == licenseId
+                it.uniqueId == screen.licenseId
             }
 
             if (license == null) {
-                navigator.navigateBack()
+                onNavigate {
+                    navigateBack()
+                }
                 return@launch
             }
 

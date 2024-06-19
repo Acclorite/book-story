@@ -22,7 +22,6 @@ import ua.acclorite.book_story.domain.use_case.GetBooksById
 import ua.acclorite.book_story.domain.use_case.GetHistory
 import ua.acclorite.book_story.domain.use_case.InsertHistory
 import ua.acclorite.book_story.domain.util.Resource
-import ua.acclorite.book_story.presentation.data.Argument
 import ua.acclorite.book_story.presentation.data.Screen
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -266,13 +265,9 @@ class HistoryViewModel @Inject constructor(
                             )
                         )
                     }
-                    event.navigator.navigate(
-                        Screen.READER,
-                        false,
-                        Argument(
-                            "book", event.book.id
-                        )
-                    )
+                    event.onNavigate {
+                        navigate(Screen.Reader(event.book.id))
+                    }
                 }
             }
 

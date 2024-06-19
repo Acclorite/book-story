@@ -24,10 +24,10 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.data.LocalNavigator
-import ua.acclorite.book_story.presentation.data.Navigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.settings.components.SettingsCategoryItem
 
@@ -35,13 +35,13 @@ import ua.acclorite.book_story.presentation.screens.settings.components.Settings
 fun SettingsScreenRoot() {
     val navigator = LocalNavigator.current
 
-    SettingsScreen(navigator = navigator)
+    SettingsScreen(onNavigate = { navigator.it() })
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SettingsScreen(
-    navigator: Navigator
+    onNavigate: OnNavigate
 ) {
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
 
@@ -57,7 +57,7 @@ private fun SettingsScreen(
                     Text(stringResource(id = R.string.settings_screen))
                 },
                 navigationIcon = {
-                    GoBackButton(navigator = navigator)
+                    GoBackButton(onNavigate = onNavigate)
                 },
                 scrollBehavior = scrollState.first,
                 colors = TopAppBarDefaults.largeTopAppBarColors(
@@ -83,7 +83,9 @@ private fun SettingsScreen(
                     text = stringResource(id = R.string.general_settings),
                     description = stringResource(id = R.string.general_settings_desc)
                 ) {
-                    navigator.navigate(Screen.GENERAL_SETTINGS, false)
+                    onNavigate {
+                        navigate(Screen.Settings.General)
+                    }
                 }
             }
 
@@ -93,7 +95,9 @@ private fun SettingsScreen(
                     text = stringResource(id = R.string.appearance_settings),
                     description = stringResource(id = R.string.appearance_settings_desc)
                 ) {
-                    navigator.navigate(Screen.APPEARANCE_SETTINGS, false)
+                    onNavigate {
+                        navigate(Screen.Settings.Appearance)
+                    }
                 }
             }
 
@@ -103,7 +107,9 @@ private fun SettingsScreen(
                     text = stringResource(id = R.string.reader_settings),
                     description = stringResource(id = R.string.reader_settings_desc)
                 ) {
-                    navigator.navigate(Screen.READER_SETTINGS, false)
+                    onNavigate {
+                        navigate(Screen.Settings.ReaderSettings)
+                    }
                 }
             }
 
