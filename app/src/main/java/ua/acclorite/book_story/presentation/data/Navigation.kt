@@ -7,6 +7,7 @@ import android.os.Parcelable
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.viewModels
+import androidx.annotation.Keep
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
@@ -68,57 +69,73 @@ val LocalNavigator = compositionLocalOf<Navigator> {
  */
 @Immutable
 @Parcelize
+@Keep
 sealed class Screen : Parcelable {
 
     @Parcelize
+    @Keep
     data object Library : Screen()
 
     @Parcelize
+    @Keep
     data object History : Screen()
 
     @Parcelize
+    @Keep
     data object Browse : Screen()
 
     @Parcelize
+    @Keep
     data class BookInfo(
         val bookId: Int
     ) : Screen()
 
     @Parcelize
+    @Keep
     data class Reader(
         val bookId: Int
     ) : Screen()
 
     @Parcelize
+    @Keep
     data object Settings : Screen() {
         @Parcelize
+        @Keep
         data object General : Screen()
 
         @Parcelize
+        @Keep
         data object Appearance : Screen()
 
         @Parcelize
+        @Keep
         data object ReaderSettings : Screen()
     }
 
     @Parcelize
+    @Keep
     data object About : Screen() {
         @Parcelize
+        @Keep
         data object Licenses : Screen()
 
         @Parcelize
+        @Keep
         data class LicenseInfo(val licenseId: String) : Screen()
 
         @Parcelize
+        @Keep
         data object Credits : Screen()
     }
 
     @Parcelize
+    @Keep
     data class Help(
         val fromStart: Boolean
     ) : Screen()
 
     @Parcelize
+    @Keep
     data object Start : Screen()
 }
 
@@ -167,12 +184,18 @@ class Navigator @AssistedInject constructor(
     /**
      * Retrieves screen that was put via [putScreen].
      *
+     * @exception ClassCastException throws an exception if could not cast saved screen as [S].
      * @exception Exception if there is no such screen saved that specified in [S], throws an [Exception].
      */
     inline fun <reified S : Screen> retrieveScreen(): S {
         for (arg in screens.value) {
             if (arg.getRoute() == getRoute<S>()) {
-                return arg as S
+                println("Arg route: ${arg.getRoute()}")
+                println("Screen route: ${getRoute<S>()}")
+
+                val screen = arg as? S
+                    ?: throw ClassCastException("Cannot cast ${arg::class} as ${S::class}")
+                return screen
             }
         }
 
