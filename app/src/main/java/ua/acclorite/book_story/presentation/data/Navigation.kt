@@ -190,9 +190,6 @@ class Navigator @AssistedInject constructor(
     inline fun <reified S : Screen> retrieveScreen(): S {
         for (arg in screens.value) {
             if (arg.getRoute() == getRoute<S>()) {
-                println("Arg route: ${arg.getRoute()}")
-                println("Screen route: ${getRoute<S>()}")
-
                 val screen = arg as? S
                     ?: throw ClassCastException("Cannot cast ${arg::class} as ${S::class}")
                 return screen
