@@ -269,11 +269,16 @@ class Navigator @AssistedInject constructor(
         backExitAnim: ExitTransition = Transitions.BackSlidingTransitionOut,
         noinline content: @Composable (screen: S) -> Unit
     ) {
-        val currentRoute by currentScreen.collectAsState()
+        val currentRoute = currentScreen.collectAsState()
         val useBackAnimation by useBackAnimation.collectAsState()
+        val shouldShow by remember {
+            derivedStateOf {
+                currentRoute.value == getRoute<S>()
+            }
+        }
 
         CustomAnimatedVisibility(
-            visible = currentRoute == getRoute<S>(),
+            visible = shouldShow,
             enter = if (!useBackAnimation) enterAnim else backEnterAnim,
             exit = if (!useBackAnimation) exitAnim else backExitAnim
         ) {
@@ -309,11 +314,11 @@ class Navigator @AssistedInject constructor(
         content: @Composable () -> Unit
     ) {
         val activity = LocalContext.current as ComponentActivity
-        val currentScreen by currentScreen.collectAsState()
+        val currentScreen = currentScreen.collectAsState()
         val useBackAnimation by useBackAnimation.collectAsState()
-        val shouldShow by remember(currentScreen) {
+        val shouldShow by remember {
             derivedStateOf {
-                screens.any { it == currentScreen }
+                screens.any { it == currentScreen.value }
             }
         }
 
