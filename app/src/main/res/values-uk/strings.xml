@@ -13,10 +13,10 @@
     <string name="updates_notification_title">Нове оновлення Історії Книги!</string>
     <string name="updates_notification_desc">
         Оновлення %1$s вийшло!
-        Натиснувши на це сповіщення, ви завантажете останню версію застосунку.
+        Натисніть, щоб перейти на сторінку релізу.
     </string>
     <string name="updates_notification_action">
-        Подробиці
+        Завантажити
     </string>
 
     <!-- Screens -->

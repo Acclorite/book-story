@@ -32,10 +32,10 @@
     <string name="updates_notification_title">New update of Book\'s Story!</string>
     <string name="updates_notification_desc">
         Update %1$s just released!
-        By clicking this notification you will download the latest version of the app.
+        Click to go to the release page.
     </string>
     <string name="updates_notification_action">
-        Details
+        Download
     </string>
 
     <!-- Screens -->

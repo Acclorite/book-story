@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Icon
 import android.net.Uri
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.remote.dto.LatestReleaseInfo
@@ -53,11 +54,13 @@ class UpdatesNotificationServiceImpl @Inject constructor(
                     releaseInfo.name
                 )
             )
-            .setContentIntent(downloadLatestVersionPendingIntent)
+            .setContentIntent(latestReleasePendingIntent)
             .addAction(
-                R.drawable.app_icon_monochrome,
-                application.getString(R.string.updates_notification_action),
-                latestReleasePendingIntent
+                Notification.Action.Builder(
+                    Icon.createWithResource(application, R.drawable.app_icon_monochrome),
+                    application.getString(R.string.updates_notification_action),
+                    downloadLatestVersionPendingIntent
+                ).build()
             )
             .build()
 
