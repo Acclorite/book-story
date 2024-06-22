@@ -7,7 +7,6 @@ plugins {
     id("kotlin-parcelize")
     id("com.mikepenz.aboutlibraries.plugin")
     id("androidx.room")
-    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -84,11 +83,11 @@ dependencies {
 
     // Default
     implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.2")
     implementation("androidx.activity:activity-compose:1.9.0")
 
     // Compose BOM libraries
-    implementation(platform("androidx.compose:compose-bom:2024.05.00"))
+    implementation(platform("androidx.compose:compose-bom:2024.06.00"))
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.animation:animation")
     implementation("androidx.compose.animation:animation-android")
@@ -103,12 +102,11 @@ dependencies {
     implementation("androidx.compose.material:material")
 
     // All dependencies
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
     implementation("com.google.accompanist:accompanist-swiperefresh:0.24.2-alpha")
 
     // Dagger - Hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.6.7")
     ksp("com.google.dagger:hilt-android-compiler:2.51")
     implementation("com.google.dagger:hilt-compiler:latest.release")
     ksp("androidx.hilt:hilt-compiler:latest.release")
@@ -166,7 +164,4 @@ dependencies {
     // Translator
     implementation("com.google.mlkit:translate:latest.release")
     implementation("com.google.mlkit:language-id:latest.release")
-
-    // Navigation
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
 }

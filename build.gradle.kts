@@ -6,6 +6,4 @@ plugins {
     id("com.google.dagger.hilt.android") version "2.50" apply false
     id("com.mikepenz.aboutlibraries.plugin") version "11.1.3" apply false
     id("androidx.room") version "2.6.1" apply false
-    kotlin("jvm") version "2.0.0" apply true
-    kotlin("plugin.serialization") version "2.0.0" apply false
 }
