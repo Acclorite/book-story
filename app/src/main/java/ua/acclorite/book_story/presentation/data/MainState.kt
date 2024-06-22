@@ -1,8 +1,8 @@
 package ua.acclorite.book_story.presentation.data
 
 import android.os.Build
-import android.os.Parcel
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import com.google.mlkit.nl.translate.TranslateLanguage
@@ -10,6 +10,7 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.domain.model.LanguageHistory
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.DataStoreConstants
@@ -23,21 +24,14 @@ import ua.acclorite.book_story.presentation.ui.toTheme
 import ua.acclorite.book_story.presentation.ui.toThemeContrast
 import java.util.Locale
 
-val translatorHistoryMoshi: JsonAdapter<List<LanguageHistory>> = Moshi
-    .Builder()
-    .add(KotlinJsonAdapterFactory())
-    .build()
-    .adapter(
-        Types.newParameterizedType(
-            List::class.java,
-            LanguageHistory::class.java
-        )
-    )
-
 /**
- * Main State. All app's settings/preferences/permanent-variables are here. Wrapped in SavedStateHandle, so it won't reset.
+ * Main State.
+ * All app's settings/preferences/permanent-variables are here.
+ * Wrapped in SavedStateHandle, so it won't reset.
  */
 @Immutable
+@Keep
+@Parcelize
 data class MainState(
     val language: String? = null,
     val theme: Theme? = null,
@@ -61,127 +55,17 @@ data class MainState(
     val doubleClickTranslation: Boolean? = null,
     val translatorLanguageHistory: List<LanguageHistory>? = null,
 ) : Parcelable {
-
-    constructor(parcel: Parcel) : this(
-        // String
-        language = parcel.readString(),
-        // String
-        theme = Theme.valueOf(parcel.readString() ?: Theme.BLUE.name),
-        // String
-        darkTheme = DarkTheme.valueOf(parcel.readString() ?: DarkTheme.FOLLOW_SYSTEM.name),
-        // String
-        pureDark = PureDark.valueOf(parcel.readString() ?: PureDark.OFF.name),
-        // String
-        themeContrast = ThemeContrast.valueOf(parcel.readString() ?: ThemeContrast.STANDARD.name),
-        // String
-        fontFamily = parcel.readString(),
-        // Boolean
-        isItalic = if (parcel.readByte().toInt() != 0) parcel.readByte().toInt() == 1 else null,
-        // Int
-        fontSize = if (parcel.readByte().toInt() != 0) parcel.readInt() else null,
-        // Int
-        lineHeight = if (parcel.readByte().toInt() != 0) parcel.readInt() else null,
-        // Int
-        paragraphHeight = if (parcel.readByte().toInt() != 0) parcel.readInt() else null,
-        // Boolean
-        paragraphIndentation = if (parcel.readByte().toInt() != 0) parcel.readByte()
-            .toInt() == 1 else null,
-        // Long
-        backgroundColor = if (parcel.readByte().toInt() != 0) parcel.readLong() else null,
-        // Long
-        fontColor = if (parcel.readByte().toInt() != 0) parcel.readLong() else null,
-        // Boolean
-        showStartScreen = if (parcel.readByte().toInt() != 0) parcel.readByte()
-            .toInt() == 1 else null,
-        // Boolean
-        checkForUpdates = if (parcel.readByte().toInt() != 0) parcel.readByte()
-            .toInt() == 1 else null,
-        // Int
-        sidePadding = if (parcel.readByte().toInt() != 0) parcel.readInt() else null,
-        // Boolean
-        enableTranslator = if (parcel.readByte().toInt() != 0) parcel.readByte()
-            .toInt() == 1 else null,
-        // String
-        translateFrom = parcel.readString(),
-        // String
-        translateTo = parcel.readString(),
-        // Boolean
-        doubleClickTranslation = if (parcel.readByte().toInt() != 0) parcel.readByte()
-            .toInt() == 1 else null,
-        translatorLanguageHistory = parcel.readString()?.let {
-            translatorHistoryMoshi.fromJson(it)
-        }
-    )
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        // Language
-        parcel.writeString(language)
-        // Theme
-        parcel.writeString(theme?.name)
-        // Dark Theme
-        parcel.writeString(darkTheme?.name)
-        // Pure Dark
-        parcel.writeString(pureDark?.name)
-        // Contrast Level
-        parcel.writeString(themeContrast?.name)
-        // Font Family
-        parcel.writeString(fontFamily)
-        // Is Italic
-        parcel.writeByte((if (isItalic != null) 1 else 0).toByte())
-        isItalic?.let { parcel.writeByte(if (it) 1 else 0) }
-        // Font Size
-        parcel.writeByte((if (fontSize != null) 1 else 0).toByte())
-        fontSize?.let { parcel.writeInt(it) }
-        // Line Height
-        parcel.writeByte((if (lineHeight != null) 1 else 0).toByte())
-        lineHeight?.let { parcel.writeInt(it) }
-        // Paragraph Height
-        parcel.writeByte((if (paragraphHeight != null) 1 else 0).toByte())
-        paragraphHeight?.let { parcel.writeInt(it) }
-        // Paragraph Indentation
-        parcel.writeByte((if (paragraphIndentation != null) 1 else 0).toByte())
-        paragraphIndentation?.let { parcel.writeByte(if (it) 1 else 0) }
-        // Background color
-        parcel.writeByte((if (backgroundColor != null) 1 else 0).toByte())
-        backgroundColor?.let { parcel.writeLong(it) }
-        // Font color
-        parcel.writeByte((if (fontColor != null) 1 else 0).toByte())
-        fontColor?.let { parcel.writeLong(it) }
-        // Show Start Screen
-        parcel.writeByte((if (showStartScreen != null) 1 else 0).toByte())
-        showStartScreen?.let { parcel.writeByte(if (it) 1 else 0) }
-        // Check For Updates
-        parcel.writeByte((if (checkForUpdates != null) 1 else 0).toByte())
-        checkForUpdates?.let { parcel.writeByte(if (it) 1 else 0) }
-        // Side Padding
-        parcel.writeByte((if (sidePadding != null) 1 else 0).toByte())
-        sidePadding?.let { parcel.writeInt(it) }
-        // Enable Translator
-        parcel.writeByte((if (enableTranslator != null) 1 else 0).toByte())
-        enableTranslator?.let { parcel.writeByte(if (it) 1 else 0) }
-        // Translate From
-        parcel.writeString(translateFrom)
-        // Translate To
-        parcel.writeString(translateTo)
-        // Double Click Translation
-        parcel.writeByte((if (doubleClickTranslation != null) 1 else 0).toByte())
-        doubleClickTranslation?.let { parcel.writeByte(if (it) 1 else 0) }
-        // Translator Language History
-        parcel.writeString(translatorHistoryMoshi.toJson(translatorLanguageHistory))
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<MainState> {
-        override fun createFromParcel(parcel: Parcel): MainState {
-            return MainState(parcel)
-        }
-
-        override fun newArray(size: Int): Array<MainState?> {
-            return arrayOfNulls(size)
-        }
+    companion object {
+        val translatorHistoryMoshi: JsonAdapter<List<LanguageHistory>> = Moshi
+            .Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+            .adapter(
+                Types.newParameterizedType(
+                    List::class.java,
+                    LanguageHistory::class.java
+                )
+            )
 
         /**
          * Initializes [MainState] by given [Map].

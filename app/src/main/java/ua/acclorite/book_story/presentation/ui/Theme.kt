@@ -3,7 +3,9 @@ package ua.acclorite.book_story.presentation.ui
 import android.app.Activity
 import android.content.Context
 import android.os.Build
+import android.os.Parcelable
 import android.os.PowerManager
+import androidx.annotation.Keep
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -18,23 +20,30 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import kotlinx.parcelize.Parcelize
 
 @Immutable
-enum class PureDark {
+@Keep
+@Parcelize
+enum class PureDark : Parcelable {
     OFF,
     ON,
     SAVER
 }
 
 @Immutable
-enum class ThemeContrast {
+@Keep
+@Parcelize
+enum class ThemeContrast : Parcelable {
     STANDARD,
     MEDIUM,
     HIGH
 }
 
 @Immutable
-enum class DarkTheme {
+@Keep
+@Parcelize
+enum class DarkTheme : Parcelable {
     FOLLOW_SYSTEM,
     OFF,
     ON
