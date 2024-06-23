@@ -9,21 +9,20 @@
 <img src="https://github.com/Acclorite/book-story/blob/master/assets/readme/github_overview.png">
 Material3 Book Reader built with Jetpack Compose and Kotlin.
 
-## 🖌️ Screenshots
+## 🖌️ Screenshots + GIF
+
+<img src="https://github.com/Acclorite/book-story/blob/master/assets/readme/book's-story.gif" width="35%">
 <div>
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Library.png" width="20%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/History.png" width="20%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Browse.png" width="20%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Reader.png" width="20%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Start.png" width="20%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Book Info.png" width="20%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/About.png" width="20%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Help.png" width="20%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Settings.png" width="20%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Reader Settings.png" width="20%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Reader Translator.png" width="20%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Translator Settings.png" width="20%" />
+  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Library Dark + Frame.png" width="30%" />
+  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Book-Info Dark + Frame.png" width="30%" />
+  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Reader Dark + Frame.png" width="30%" />
+  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Library Light + Frame.png" width="30%" />
+  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Book-Info Light + Frame.png" width="30%" />
+  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Reader Light + Frame.png" width="30%" />
 </div>
+</br>
+
+_You can find more screenshots in [assets](https://github.com/Acclorite/book-story/tree/master/assets) folder._
 
 ## ✨ Features
 - 4 supported file formats(.pdf, .txt, .epub, .fb2)
