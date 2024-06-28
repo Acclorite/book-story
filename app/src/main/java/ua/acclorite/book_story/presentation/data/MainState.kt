@@ -6,12 +6,7 @@ import androidx.annotation.Keep
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import com.google.mlkit.nl.translate.TranslateLanguage
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.domain.model.LanguageHistory
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.DataStoreConstants
 import ua.acclorite.book_story.presentation.ui.DarkTheme
@@ -52,21 +47,9 @@ data class MainState(
     val enableTranslator: Boolean? = null,
     val translateFrom: String? = null,
     val translateTo: String? = null,
-    val doubleClickTranslation: Boolean? = null,
-    val translatorLanguageHistory: List<LanguageHistory>? = null,
+    val doubleClickTranslation: Boolean? = null
 ) : Parcelable {
     companion object {
-        val translatorHistoryMoshi: JsonAdapter<List<LanguageHistory>> = Moshi
-            .Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
-            .adapter(
-                Types.newParameterizedType(
-                    List::class.java,
-                    LanguageHistory::class.java
-                )
-            )
-
         /**
          * Initializes [MainState] by given [Map].
          */
@@ -144,12 +127,6 @@ data class MainState(
                     data[DOUBLE_CLICK_TRANSLATION.name] as? Boolean
                         ?: true
 
-                val translatorLanguageHistory: List<LanguageHistory> =
-                    (data[TRANSLATOR_LANGUAGE_HISTORY.name] as? String)?.let {
-                        translatorHistoryMoshi.fromJson(it)
-                    } ?: emptyList()
-
-
                 return MainState(
                     language = language,
                     theme = theme.toTheme(),
@@ -170,8 +147,7 @@ data class MainState(
                     enableTranslator = enableTranslator,
                     translateFrom = translateFrom,
                     translateTo = translateTo,
-                    doubleClickTranslation = doubleClickTranslation,
-                    translatorLanguageHistory = translatorLanguageHistory
+                    doubleClickTranslation = doubleClickTranslation
                 )
             }
         }

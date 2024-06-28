@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import ua.acclorite.book_story.data.remote.dto.LatestReleaseInfo
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.History
+import ua.acclorite.book_story.domain.model.LanguageHistory
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.util.CoverImage
 import ua.acclorite.book_story.domain.util.LanguageCode
@@ -105,4 +106,9 @@ interface BookRepository {
         targetLanguage: LanguageCode,
         text: String
     ): Resource<String>
+
+
+    suspend fun getLanguageHistory(): List<LanguageHistory>
+
+    suspend fun updateLanguageHistory(history: List<LanguageHistory>)
 }

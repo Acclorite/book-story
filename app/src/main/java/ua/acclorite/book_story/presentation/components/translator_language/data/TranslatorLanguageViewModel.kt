@@ -17,7 +17,9 @@ import ua.acclorite.book_story.domain.model.Language
 import ua.acclorite.book_story.domain.model.LanguageHistory
 import ua.acclorite.book_story.domain.use_case.DeleteLanguageModel
 import ua.acclorite.book_story.domain.use_case.DownloadLanguageModel
+import ua.acclorite.book_story.domain.use_case.GetLanguageHistory
 import ua.acclorite.book_story.domain.use_case.IsLanguageModelDownloaded
+import ua.acclorite.book_story.domain.use_case.UpdateLanguageHistory
 import ua.acclorite.book_story.domain.util.UIText
 import java.util.Locale
 import javax.inject.Inject
@@ -26,7 +28,9 @@ import javax.inject.Inject
 class TranslatorLanguageViewModel @Inject constructor(
     private val isLanguageModelDownloaded: IsLanguageModelDownloaded,
     private val downloadLanguageModel: DownloadLanguageModel,
-    private val deleteLanguageModel: DeleteLanguageModel
+    private val deleteLanguageModel: DeleteLanguageModel,
+    private val getLanguageHistory: GetLanguageHistory,
+    private val updateLanguageHistory: UpdateLanguageHistory,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(TranslatorLanguageState())
@@ -313,6 +317,33 @@ class TranslatorLanguageViewModel @Inject constructor(
                     filterLanguages()
                 }
             }
+
+            is TranslatorLanguageEvent.OnUpdateLanguageHistory -> {
+                viewModelScope.launch {
+                    var history = getLanguageHistory
+                        .execute()
+                        .sortedBy { it.order }
+                        .toMutableList()
+
+                    val langToAdd = _state.value.languageToSelect
+
+                    val firstItem = history.indexOfFirst { it.languageCode == langToAdd }
+                    val indexOfItem = if (firstItem != -1) firstItem else null
+
+                    if (indexOfItem != null) {
+                        history.removeAt(indexOfItem)
+                    }
+                    history.add(0, LanguageHistory(langToAdd, 0))
+
+                    history = history.mapIndexed { index, item ->
+                        item.copy(
+                            order = index
+                        )
+                    }.toMutableList()
+
+                    updateLanguageHistory.execute(history)
+                }
+            }
         }
     }
 
@@ -320,7 +351,6 @@ class TranslatorLanguageViewModel @Inject constructor(
         selectedLanguage: String,
         unselectedLanguage: String,
         translateFromSelecting: Boolean,
-        history: List<LanguageHistory>,
         loaded: () -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -329,6 +359,7 @@ class TranslatorLanguageViewModel @Inject constructor(
                 TranslatorLanguageState()
             }
 
+            val history = getLanguageHistory.execute()
             val unfilteredLanguages = TranslateLanguage.getAllLanguages()
                 .filter {
                     if (it == "ru") {
@@ -353,7 +384,7 @@ class TranslatorLanguageViewModel @Inject constructor(
 
                     val historyOrder = history.find {
                         it.languageCode == languageCode
-                    }?.id
+                    }?.order
 
                     Language(
                         languageCode = languageCode,

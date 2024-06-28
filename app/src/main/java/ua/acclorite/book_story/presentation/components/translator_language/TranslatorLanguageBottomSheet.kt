@@ -32,7 +32,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.LanguageHistory
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomBottomSheet
@@ -45,8 +44,6 @@ import ua.acclorite.book_story.presentation.components.translator_language.compo
 import ua.acclorite.book_story.presentation.components.translator_language.data.TranslatorLanguageEvent
 import ua.acclorite.book_story.presentation.components.translator_language.data.TranslatorLanguageState
 import ua.acclorite.book_story.presentation.components.translator_language.data.TranslatorLanguageViewModel
-import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.Transitions
 
@@ -69,11 +66,8 @@ fun TranslatorLanguageBottomSheet(
     onSelect: (String, String) -> Unit
 ) {
     val translatorLanguageViewModel: TranslatorLanguageViewModel = hiltViewModel()
-    val mainViewModel: MainViewModel = hiltViewModel()
 
     val state = translatorLanguageViewModel.state.collectAsState()
-    val mainState = mainViewModel.state.collectAsState()
-
     val loading = remember { mutableStateOf(true) }
 
     LaunchedEffect(Unit) {
@@ -81,7 +75,6 @@ fun TranslatorLanguageBottomSheet(
             selectedLanguage = selectedLanguage,
             unselectedLanguage = unselectedLanguage,
             translateFromSelecting = translateFromSelecting,
-            history = mainState.value.translatorLanguageHistory!!,
             loaded = {
                 loading.value = false
             }
@@ -96,24 +89,9 @@ fun TranslatorLanguageBottomSheet(
             val languageToChoose = if (fromSelecting) from else to
 
             if (languageToChoose != "auto") {
-                val currentHistory = mainState.value.translatorLanguageHistory!!.toMutableList()
-                val langToAdd = state.value.languageToSelect
-                val newHistory = mutableListOf<LanguageHistory>()
-                val indexOfItem = currentHistory.indexOfFirst { it.languageCode == langToAdd }
-
-                if (indexOfItem != -1) {
-                    currentHistory.removeAt(indexOfItem)
-                }
-
-                currentHistory.add(0, LanguageHistory(0, langToAdd))
-
-                currentHistory.sortedBy { it.id }.forEachIndexed { index, languageHistory ->
-                    newHistory.add(LanguageHistory(index, languageHistory.languageCode))
-                }
-
-                mainViewModel.onEvent(
-                    MainEvent.OnChangeTranslatorLanguageHistory(
-                        newHistory
+                translatorLanguageViewModel.onEvent(
+                    TranslatorLanguageEvent.OnUpdateLanguageHistory(
+                        languageToChoose
                     )
                 )
             }
@@ -157,7 +135,7 @@ private fun TranslatorLanguageBottomSheetContent(
             .fillMaxHeight(),
         dragHandle = {},
         shape = RoundedCornerShape(0),
-        scrimColor = Color.Transparent,
+        scrimColor = MaterialTheme.colorScheme.surface,
         onDismissRequest = {
             onDismiss()
         },

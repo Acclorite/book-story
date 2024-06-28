@@ -12,6 +12,8 @@ import ua.acclorite.book_story.data.mapper.book.BookMapper
 import ua.acclorite.book_story.data.mapper.book.BookMapperImpl
 import ua.acclorite.book_story.data.mapper.history.HistoryMapper
 import ua.acclorite.book_story.data.mapper.history.HistoryMapperImpl
+import ua.acclorite.book_story.data.mapper.language_history.LanguageHistoryMapper
+import ua.acclorite.book_story.data.mapper.language_history.LanguageHistoryMapperImpl
 import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.data.parser.FileParserImpl
 import ua.acclorite.book_story.data.parser.TextParser
@@ -46,6 +48,12 @@ abstract class RepositoryModule {
     abstract fun bindHistoryMapper(
         historyMapperImpl: HistoryMapperImpl
     ): HistoryMapper
+
+    @Binds
+    @Singleton
+    abstract fun bindLanguageHistoryMapper(
+        languageHistoryMapperImpl: LanguageHistoryMapperImpl
+    ): LanguageHistoryMapper
 
     @Binds
     @Singleton

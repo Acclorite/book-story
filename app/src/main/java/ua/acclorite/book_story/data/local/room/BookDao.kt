@@ -6,8 +6,10 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import androidx.room.Upsert
 import ua.acclorite.book_story.data.local.dto.BookEntity
 import ua.acclorite.book_story.data.local.dto.HistoryEntity
+import ua.acclorite.book_story.data.local.dto.LanguageHistoryEntity
 
 @Dao
 interface BookDao {
@@ -25,9 +27,7 @@ interface BookDao {
     )
     suspend fun searchBooks(query: String): List<BookEntity>
 
-    @Query(
-        "SELECT * FROM bookentity WHERE id=:id"
-    )
+    @Query("SELECT * FROM bookentity WHERE id=:id")
     suspend fun findBookById(id: Int): BookEntity
 
     @Query("SELECT * FROM bookentity WHERE id IN (:ids)")
@@ -59,4 +59,11 @@ interface BookDao {
 
     @Delete
     suspend fun deleteHistory(history: List<HistoryEntity>)
+
+
+    @Upsert
+    suspend fun updateLanguageHistory(history: List<LanguageHistoryEntity>)
+
+    @Query("SELECT * FROM languagehistoryentity")
+    suspend fun getLanguageHistory(): List<LanguageHistoryEntity>
 }

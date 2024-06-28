@@ -29,12 +29,14 @@ import ua.acclorite.book_story.data.local.notification.UpdatesNotificationServic
 import ua.acclorite.book_story.data.local.room.BookDao
 import ua.acclorite.book_story.data.mapper.book.BookMapper
 import ua.acclorite.book_story.data.mapper.history.HistoryMapper
+import ua.acclorite.book_story.data.mapper.language_history.LanguageHistoryMapper
 import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.data.remote.GithubAPI
 import ua.acclorite.book_story.data.remote.dto.LatestReleaseInfo
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.History
+import ua.acclorite.book_story.domain.model.LanguageHistory
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.repository.BookRepository
 import ua.acclorite.book_story.domain.util.Constants
@@ -67,6 +69,7 @@ class BookRepositoryImpl @Inject constructor(
 
     private val bookMapper: BookMapper,
     private val historyMapper: HistoryMapper,
+    private val languageHistoryMapper: LanguageHistoryMapper,
 
     private val fileParser: FileParser,
     private val textParser: TextParser
@@ -815,6 +818,20 @@ class BookRepositoryImpl @Inject constructor(
                     )
                 }
         }
+    }
+
+    override suspend fun getLanguageHistory(): List<LanguageHistory> {
+        return database.getLanguageHistory().map {
+            languageHistoryMapper.toLanguageHistory(it)
+        }
+    }
+
+    override suspend fun updateLanguageHistory(history: List<LanguageHistory>) {
+        database.updateLanguageHistory(
+            history.map {
+                languageHistoryMapper.toLanguageHistoryEntity(it)
+            }
+        )
     }
 }
 

@@ -271,22 +271,6 @@ class MainViewModel @Inject constructor(
                     }
                 }
             }
-
-            is MainEvent.OnChangeTranslatorLanguageHistory -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    val historyJson = MainState.translatorHistoryMoshi.toJson(event.history)
-
-                    setDatastore.execute(
-                        DataStoreConstants.TRANSLATOR_LANGUAGE_HISTORY,
-                        historyJson
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            translatorLanguageHistory = event.history
-                        )
-                    }
-                }
-            }
         }
     }
 

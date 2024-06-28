@@ -3,6 +3,7 @@ package ua.acclorite.book_story.presentation.components.translator_language.data
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.domain.model.Language
+import ua.acclorite.book_story.domain.util.LanguageCode
 import ua.acclorite.book_story.domain.util.UIText
 
 @Immutable
@@ -35,5 +36,9 @@ sealed class TranslatorLanguageEvent {
     data class OnUpdateLanguage(
         val languageCode: String,
         val block: (Language) -> Language
+    ) : TranslatorLanguageEvent()
+
+    data class OnUpdateLanguageHistory(
+        val languageToChoose: LanguageCode
     ) : TranslatorLanguageEvent()
 }

@@ -16,6 +16,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import ua.acclorite.book_story.data.local.room.BookDao
 import ua.acclorite.book_story.data.local.room.BookDatabase
+import ua.acclorite.book_story.data.local.room.DatabaseHelper
 import ua.acclorite.book_story.data.remote.GithubAPI
 import javax.inject.Singleton
 
@@ -43,7 +44,13 @@ object AppModule {
             app,
             BookDatabase::class.java,
             "book_db"
-        ).allowMainThreadQueries().build().dao
+        )
+            .addMigrations(
+                DatabaseHelper.MIGRATION_2_3, // creates LanguageHistoryEntity table(if does not exist)
+            )
+            .allowMainThreadQueries()
+            .build()
+            .dao
     }
 
     @Provides
