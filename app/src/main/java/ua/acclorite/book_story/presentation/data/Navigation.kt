@@ -1,5 +1,3 @@
-@file:Suppress("MemberVisibilityCanBePrivate")
-
 package ua.acclorite.book_story.presentation.data
 
 import android.annotation.SuppressLint

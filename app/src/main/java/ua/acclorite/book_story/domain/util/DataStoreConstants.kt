@@ -27,5 +27,4 @@ object DataStoreConstants {
     val TRANSLATE_FROM = stringPreferencesKey("translate_from")
     val TRANSLATE_TO = stringPreferencesKey("translate_to")
     val DOUBLE_CLICK_TRANSLATION = booleanPreferencesKey("double_click_translation")
-    val TRANSLATOR_LANGUAGE_HISTORY = stringPreferencesKey("translator_languages_history")
 }

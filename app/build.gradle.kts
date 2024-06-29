@@ -17,8 +17,8 @@ android {
         applicationId = "ua.acclorite.book_story"
         minSdk = 26
         targetSdk = 34
-        versionCode = 3
-        versionName = "1.0.2"
+        versionCode = 4
+        versionName = "1.0.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -34,6 +34,12 @@ android {
         getByName("debug") {
             applicationIdSuffix = ".debug"
         }
+        create("release-debug") {
+            initWith(getByName("release"))
+            applicationIdSuffix = ".release-debug"
+            signingConfig = signingConfigs.getByName("debug")
+        }
+
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
@@ -42,7 +48,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
