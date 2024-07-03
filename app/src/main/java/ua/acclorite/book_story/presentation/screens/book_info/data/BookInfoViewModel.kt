@@ -21,15 +21,18 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
+import ua.acclorite.book_story.domain.use_case.CanResetCover
 import ua.acclorite.book_story.domain.use_case.DeleteBooks
 import ua.acclorite.book_story.domain.use_case.GetBookById
 import ua.acclorite.book_story.domain.use_case.GetBookFromFile
 import ua.acclorite.book_story.domain.use_case.GetText
 import ua.acclorite.book_story.domain.use_case.InsertHistory
+import ua.acclorite.book_story.domain.use_case.ResetCoverImage
 import ua.acclorite.book_story.domain.use_case.UpdateBookWithText
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
 import ua.acclorite.book_story.domain.use_case.UpdateCoverImageOfBook
 import ua.acclorite.book_story.domain.util.OnNavigate
+import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.data.Screen
 import java.io.File
 import java.util.Date
@@ -45,7 +48,9 @@ class BookInfoViewModel @Inject constructor(
     private val deleteBooks: DeleteBooks,
     private val getBookFromFile: GetBookFromFile,
     private val getBookById: GetBookById,
-    private val getText: GetText
+    private val getText: GetText,
+    private val canResetCover: CanResetCover,
+    private val resetCoverImage: ResetCoverImage,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(BookInfoState())
@@ -83,7 +88,8 @@ class BookInfoViewModel @Inject constructor(
                             book = it.book.copy(
                                 coverImage = newCoverImage
                             ),
-                            showChangeCoverBottomSheet = false
+                            showChangeCoverBottomSheet = false,
+                            canResetCover = canResetCover.execute(bookId = it.book.id)
                         )
                     }
                     event.refreshList(_state.value.book)
@@ -105,9 +111,48 @@ class BookInfoViewModel @Inject constructor(
                             book = it.book.copy(
                                 coverImage = null
                             ),
-                            showChangeCoverBottomSheet = false
+                            showChangeCoverBottomSheet = false,
+                            canResetCover = canResetCover.execute(bookId = it.book.id)
                         )
                     }
+                    event.refreshList(_state.value.book)
+                }
+            }
+
+            is BookInfoEvent.OnCheckCoverReset -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    _state.update {
+                        it.copy(
+                            canResetCover = canResetCover.execute(_state.value.book.id)
+                        )
+                    }
+                }
+            }
+
+            is BookInfoEvent.OnResetCoverImage -> {
+                viewModelScope.launch {
+                    val result = resetCoverImage.execute(_state.value.book.id)
+
+                    if (!result) {
+                        event.showResult(UIText.StringResource(R.string.error_could_not_reset_cover))
+                        return@launch
+                    }
+
+                    val book = getBookById.execute(_state.value.book.id)
+
+                    if (book == null) {
+                        event.showResult(UIText.StringResource(R.string.error_something_went_wrong))
+                        return@launch
+                    }
+
+                    _state.update {
+                        it.copy(
+                            book = book,
+                            showChangeCoverBottomSheet = false,
+                            canResetCover = false
+                        )
+                    }
+                    event.showResult(UIText.StringResource(R.string.cover_reset))
                     event.refreshList(_state.value.book)
                 }
             }
@@ -662,7 +707,10 @@ class BookInfoViewModel @Inject constructor(
             }
 
             _state.update {
-                BookInfoState(book = book)
+                BookInfoState(
+                    book = book,
+                    canResetCover = canResetCover.execute(screen.bookId)
+                )
             }
         }
     }

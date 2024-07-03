@@ -52,6 +52,12 @@ interface BookRepository {
         books: List<Book>
     )
 
+    suspend fun canResetCover(
+        bookId: Int
+    ): Boolean
+
+    suspend fun resetCoverImage(bookId: Int): Boolean
+
 
     suspend fun <T> retrieveDataFromDataStore(
         key: Preferences.Key<T>,

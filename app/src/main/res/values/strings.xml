@@ -142,6 +142,7 @@
     <string name="error_wrong_language">Cannot select this language.</string>
     <string name="error_could_not_download_language">Could not download language.</string>
     <string name="error_could_not_download_languages">Could not download languages.</string>
+    <string name="error_could_not_reset_cover">Could not reset cover image.</string>
 
     <!-- Is Empty messages -->
     <string name="browse_empty">
@@ -204,6 +205,8 @@
     <string name="read_more">You need to read more!</string>
     <string name="read_keep">Keep it up!</string>
     <string name="read_done">Well done, you have read the whole book!</string>
+    <string name="reset_cover">Reset cover image</string>
+    <string name="reset_cover_desc">Reset cover image of the book to the default</string>
     <string name="change_cover">Change cover image</string>
     <string name="change_cover_desc">Choose new cover from your photos</string>
     <string name="delete_cover">Delete cover image</string>
@@ -314,6 +317,7 @@
     <string name="translator_canceling">Translation is canceling. Please wait.</string>
     <string name="translator_text_canceling">Translated text is canceling. Please wait.</string>
     <string name="translator_starting">Translation will start soon. Please wait.</string>
+    <string name="cover_reset">Cover image was successfully reset.</string>
 
     <!-- Snackbar messages -->
     <string name="history_element_deleted">History element was successfully deleted.</string>

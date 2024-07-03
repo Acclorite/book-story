@@ -17,6 +17,12 @@ class TextParserImpl @Inject constructor(
     private val fb2TextParser: Fb2TextParser
 ) : TextParser {
     override suspend fun parse(file: File): Resource<List<String>> {
+        if (!file.exists()) {
+            return Resource.Error(
+                UIText.StringResource(R.string.error_something_went_wrong_with_file)
+            )
+        }
+
         val fileFormat = ".${file.name.substringAfterLast(".")}".lowercase().trim()
 
         if (fileFormat == ".pdf") {

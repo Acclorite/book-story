@@ -16,6 +16,10 @@ class FileParserImpl @Inject constructor(
     private val fb2FileParser: Fb2FileParser
 ) : FileParser {
     override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
+        if (!file.exists()) {
+            return null
+        }
+
         val fileFormat = ".${file.name.substringAfterLast(".")}".lowercase().trim()
 
         if (fileFormat == ".pdf") {

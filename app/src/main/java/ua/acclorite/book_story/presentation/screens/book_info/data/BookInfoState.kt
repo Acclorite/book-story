@@ -22,6 +22,8 @@ data class BookInfoState(
     val titleValue: String = "",
 
     val showChangeCoverBottomSheet: Boolean = false,
+    val canResetCover: Boolean = false,
+
     val showDetailsBottomSheet: Boolean = false,
 
     val showDeleteDialog: Boolean = false,

@@ -7,10 +7,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.HideImage
 import androidx.compose.material.icons.filled.ImageSearch
+import androidx.compose.material.icons.filled.Restore
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -62,48 +65,86 @@ fun BookInfoChangeCoverBottomSheet(
         }
     )
 
+    LaunchedEffect(Unit) {
+        onEvent(BookInfoEvent.OnCheckCoverReset)
+    }
+
     CustomBottomSheet(
         modifier = Modifier.fillMaxWidth(),
         onDismissRequest = {
             onEvent(BookInfoEvent.OnShowHideChangeCoverBottomSheet)
         }
     ) { padding ->
-        BookInfoChangeCoverBottomSheetItem(
-            icon = Icons.Default.ImageSearch,
-            text = stringResource(id = R.string.change_cover),
-            description = stringResource(id = R.string.change_cover_desc)
-        ) {
-            photoPicker.launch(
-                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-            )
-        }
+        LazyColumn(Modifier.fillMaxWidth()) {
+            if (state.value.canResetCover) {
+                item {
+                    BookInfoChangeCoverBottomSheetItem(
+                        icon = Icons.Default.Restore,
+                        text = stringResource(id = R.string.reset_cover),
+                        description = stringResource(id = R.string.reset_cover_desc)
+                    ) {
+                        onEvent(
+                            BookInfoEvent.OnResetCoverImage(
+                                refreshList = {
+                                    onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
+                                    onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
+                                },
+                                showResult = {
+                                    Toast.makeText(
+                                        context,
+                                        it.asString(context),
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            )
+                        )
+                    }
+                }
+            }
 
-        if (state.value.book.coverImage != null) {
-            BookInfoChangeCoverBottomSheetItem(
-                icon = Icons.Default.HideImage,
-                text = stringResource(id = R.string.delete_cover),
-                description = stringResource(id = R.string.delete_cover_desc)
-            ) {
-                onEvent(
-                    BookInfoEvent.OnDeleteCover(
-                        refreshList = {
-                            onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
-                            onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
-                        }
+            item {
+                BookInfoChangeCoverBottomSheetItem(
+                    icon = Icons.Default.ImageSearch,
+                    text = stringResource(id = R.string.change_cover),
+                    description = stringResource(id = R.string.change_cover_desc)
+                ) {
+                    photoPicker.launch(
+                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                    )
+                }
+            }
+
+            if (state.value.book.coverImage != null) {
+                item {
+                    BookInfoChangeCoverBottomSheetItem(
+                        icon = Icons.Default.HideImage,
+                        text = stringResource(id = R.string.delete_cover),
+                        description = stringResource(id = R.string.delete_cover_desc)
+                    ) {
+                        onEvent(
+                            BookInfoEvent.OnDeleteCover(
+                                refreshList = {
+                                    onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
+                                    onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
+                                }
+                            )
+                        )
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.cover_image_deleted),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            }
+
+            item {
+                Spacer(
+                    modifier = Modifier.height(
+                        8.dp + padding
                     )
                 )
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.cover_image_deleted),
-                    Toast.LENGTH_LONG
-                ).show()
             }
         }
-
-        Spacer(
-            modifier = Modifier.height(
-                8.dp + padding
-            )
-        )
     }
 }

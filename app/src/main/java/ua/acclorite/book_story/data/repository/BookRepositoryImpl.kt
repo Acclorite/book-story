@@ -2,8 +2,10 @@ package ua.acclorite.book_story.data.repository
 
 import android.app.Application
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import androidx.datastore.preferences.core.Preferences
 import com.google.mlkit.common.model.DownloadConditions
@@ -46,6 +48,7 @@ import ua.acclorite.book_story.domain.util.LanguageCode
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.data.MainState
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.util.Locale
@@ -415,6 +418,46 @@ class BookRepositoryImpl @Inject constructor(
                 book
             }
         )
+    }
+
+    override suspend fun canResetCover(bookId: Int): Boolean {
+        val book = database.findBookById(bookId)
+
+        val defaultCoverUncompressed = fileParser.parse(File(book.filePath))?.second
+            ?: return false
+
+        if (book.image == null) {
+            return true
+        }
+
+        val stream = ByteArrayOutputStream()
+        defaultCoverUncompressed.copy(Bitmap.Config.RGB_565, false).compress(
+            Bitmap.CompressFormat.WEBP,
+            20,
+            stream
+        )
+        val byteArray = stream.toByteArray()
+        val defaultCover = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+
+        val currentCover = MediaStore.Images.Media.getBitmap(
+            application.contentResolver,
+            Uri.parse(book.image)
+        )
+
+        return !defaultCover.sameAs(currentCover)
+    }
+
+    override suspend fun resetCoverImage(bookId: Int): Boolean {
+        if (!canResetCover(bookId)) {
+            return false
+        }
+
+        val book = database.findBookById(bookId)
+        val defaultCover = fileParser.parse(File(book.filePath))?.second
+            ?: return false
+        updateCoverImageOfBook(bookMapper.toBook(book), defaultCover)
+
+        return true
     }
 
     override suspend fun <T> retrieveDataFromDataStore(

@@ -123,6 +123,7 @@
     <string name="error_wrong_language">Не можна вибрати цю мову.</string>
     <string name="error_could_not_download_language">Не вдалося завантажити мову.</string>
     <string name="error_could_not_download_languages">Не вдалося завантажити мови.</string>
+    <string name="error_could_not_reset_cover">Не вдалося скинути обкладинку.</string>
 
     <!-- Is Empty messages -->
     <string name="browse_empty">
@@ -186,6 +187,8 @@
     <string name="read_more">Вам потрібно читати більше!</string>
     <string name="read_keep">Так тримати!</string>
     <string name="read_done">Браво, ви повністю прочитали цю книгу!</string>
+    <string name="reset_cover">Скинути обкладинку</string>
+    <string name="reset_cover_desc">Скиніть обкладинку книги до стандартної</string>
     <string name="change_cover">Змінити обкладинку</string>
     <string name="change_cover_desc">Виберіть нову обкладинку з ваших фото</string>
     <string name="delete_cover">Видалити обкладинку</string>
@@ -294,6 +297,7 @@
     <string name="translator_canceling">Переклад відміняється. Будь ласка, зачекайте.</string>
     <string name="translator_text_canceling">Перекладений текст відміняється. Будь ласка, зачекайте.</string>
     <string name="translator_starting">Переклад скоро почнеться. Будь ласка, зачекайте.</string>
+    <string name="cover_reset">Обкладинка була успішно скинута.</string>
 
     <!-- Snackbar messages -->
     <string name="history_element_deleted">Елемент історії був успішно видалений.</string>

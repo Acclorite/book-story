@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,9 +23,15 @@ import androidx.compose.ui.unit.sp
 
 /**
  * Change cover bottom sheet item.
+ *
+ * @param icon Icon.
+ * @param text Text.
+ * @param description Description of the item.
+ * @param verticalPadding Vertical item padding.
+ * @param onClick OnClick callback.
  */
 @Composable
-fun BookInfoChangeCoverBottomSheetItem(
+fun LazyItemScope.BookInfoChangeCoverBottomSheetItem(
     icon: ImageVector,
     text: String,
     description: String,
@@ -33,6 +40,7 @@ fun BookInfoChangeCoverBottomSheetItem(
 ) {
     Row(
         modifier = Modifier
+            .animateItem()
             .fillMaxWidth()
             .clickable {
                 onClick()

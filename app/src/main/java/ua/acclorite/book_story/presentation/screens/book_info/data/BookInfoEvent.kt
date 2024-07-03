@@ -8,6 +8,7 @@ import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.util.OnNavigate
+import ua.acclorite.book_story.domain.util.UIText
 
 @Immutable
 sealed class BookInfoEvent {
@@ -17,6 +18,11 @@ sealed class BookInfoEvent {
     data class OnChangeCover(val uri: Uri, val context: Context, val refreshList: (Book) -> Unit) :
         BookInfoEvent()
 
+    data object OnCheckCoverReset : BookInfoEvent()
+    data class OnResetCoverImage(
+        val refreshList: (Book) -> Unit,
+        val showResult: (UIText) -> Unit
+    ) : BookInfoEvent()
     data object OnShowHideEditTitle : BookInfoEvent()
     data class OnRequestFocus(val focusRequester: FocusRequester) : BookInfoEvent()
     data class OnTitleValueChange(val value: String) : BookInfoEvent()
