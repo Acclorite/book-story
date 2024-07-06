@@ -1,3 +1,9 @@
-# Default ignored files
-/shelf/
-/workspace.xml
+# Ignore all .idea files
+*
+
+# except
+!compiler.xml
+!kotlinc.xml
+!codeStyles
+!codeStyles/codeStyleConfig.xml
+!codeStyles/Project.xml
