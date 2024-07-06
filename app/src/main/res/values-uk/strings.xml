@@ -339,7 +339,7 @@
 
     <!-- About -->
     <string name="app_version_option">Версія застосунка</string>
-    <string name="app_version_option_desc_1">Версія v%1$s</string>
+    <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
     <string name="app_version_option_desc_2">Натисніть, щоб перевірити на оновлення</string>
     <string name="report_bug_option">Повідомити про помилку</string>
     <string name="project_page_option">Сторінка проєкта</string>

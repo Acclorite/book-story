@@ -359,7 +359,7 @@
 
     <!-- About -->
     <string name="app_version_option">App version</string>
-    <string name="app_version_option_desc_1">Version v%1$s</string>
+    <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
     <string name="app_version_option_desc_2">Click to check for updates</string>
     <string name="report_bug_option">Report a bug</string>
     <string name="project_page_option">Project\'s page</string>
