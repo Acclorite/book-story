@@ -286,7 +286,6 @@
     <string name="books_deleted">Всі обрані книги були успішно видалені.</string>
     <string name="cover_image_changed">Обкладинка була успішно змінена.</string>
     <string name="cover_image_deleted">Обкладинка була успішно видалена.</string>
-    <string name="title_changed">Назва була успішно змінена.</string>
     <string name="book_deleted">Ця книга була успішно видалена.</string>
     <string name="book_moved">Ця книга була успішно переміщена.</string>
     <string name="copied">Скопійовано</string>

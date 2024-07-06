@@ -304,7 +304,6 @@
     <string name="books_deleted">All selected books were successfully deleted.</string>
     <string name="cover_image_changed">Cover Image was successfully changed.</string>
     <string name="cover_image_deleted">Cover Image was successfully deleted.</string>
-    <string name="title_changed">Title was successfully changed.</string>
     <string name="book_deleted">This book was successfully deleted.</string>
     <string name="book_moved">This book was successfully moved.</string>
     <string name="copied">Copied</string>
