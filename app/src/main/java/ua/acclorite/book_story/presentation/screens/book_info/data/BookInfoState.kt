@@ -18,8 +18,16 @@ data class BookInfoState(
     val textChanged: Boolean = false,
 
     val editTitle: Boolean = false,
-    val hasFocused: Boolean = false,
+    val hasTitleFocused: Boolean = false,
     val titleValue: String = "",
+
+    val editAuthor: Boolean = false,
+    val hasAuthorFocused: Boolean = false,
+    val authorValue: String = "",
+
+    val editDescription: Boolean = false,
+    val hasDescriptionFocused: Boolean = false,
+    val descriptionValue: String = "",
 
     val showChangeCoverBottomSheet: Boolean = false,
     val canResetCover: Boolean = false,

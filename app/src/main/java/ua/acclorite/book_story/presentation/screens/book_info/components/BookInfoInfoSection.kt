@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.outlined.Person
@@ -56,7 +55,8 @@ fun BookInfoInfoSection(
     state: State<BookInfoState>,
     onEvent: (BookInfoEvent) -> Unit
 ) {
-    val focusRequester = remember { FocusRequester() }
+    val titleFocusRequester = remember { FocusRequester() }
+    val authorFocusRequester = remember { FocusRequester() }
 
     Row(
         verticalAlignment = Alignment.CenterVertically, modifier = Modifier
@@ -135,9 +135,9 @@ fun BookInfoInfoSection(
                         }
                     },
                     modifier = Modifier
-                        .focusRequester(focusRequester)
+                        .focusRequester(titleFocusRequester)
                         .onGloballyPositioned {
-                            onEvent(BookInfoEvent.OnRequestFocus(focusRequester))
+                            onEvent(BookInfoEvent.OnTitleRequestFocus(titleFocusRequester))
                         },
                     keyboardOptions = KeyboardOptions(KeyboardCapitalization.Words),
                     cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurfaceVariant)
@@ -160,19 +160,54 @@ fun BookInfoInfoSection(
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                SelectionContainer {
+
+                if (!state.value.editAuthor) {
                     Text(
                         state.value.book.author.asString(),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .combinedClickable(
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = null,
+                                onClick = {},
+                                onLongClick = {
+                                    onEvent(BookInfoEvent.OnShowHideEditAuthor)
+                                }
+                            ),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
+                } else {
+                    BasicTextField(
+                        singleLine = true,
+                        value = state.value.authorValue,
+                        textStyle = MaterialTheme.typography.bodyLarge.copy(
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        ),
+                        onValueChange = {
+                            if (it.length < 50 || it.length < state.value.authorValue.length) {
+                                onEvent(BookInfoEvent.OnAuthorValueChange(it))
+                            }
+                        },
+                        modifier = Modifier
+                            .focusRequester(authorFocusRequester)
+                            .onGloballyPositioned {
+                                onEvent(BookInfoEvent.OnAuthorRequestFocus(authorFocusRequester))
+                            },
+                        keyboardOptions = KeyboardOptions(KeyboardCapitalization.Words),
+                        cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurfaceVariant)
+                    ) { innerText ->
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.CenterStart
+                        ) {
+                            innerText()
+                        }
+                    }
                 }
             }
-
         }
     }
 }

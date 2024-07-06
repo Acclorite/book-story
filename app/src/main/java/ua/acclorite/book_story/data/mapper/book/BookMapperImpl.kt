@@ -16,7 +16,7 @@ class BookMapperImpl @Inject constructor() : BookMapper {
             scrollIndex = book.scrollIndex,
             scrollOffset = book.scrollOffset,
             progress = book.progress,
-            author = book.author.string,
+            author = book.author.getAsString(),
             textPath = book.textPath,
             description = book.description,
             image = if (book.coverImage != null) book.coverImage.toString() else null,

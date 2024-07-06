@@ -575,7 +575,7 @@
     <string name="arrow_anim_content_desc">Анімація стрілки</string>
     <string name="required_content_desc">Необхідно</string>
     <string name="reset_start_content_desc">Скинути початковий посібник</string>
-    <string name="hide_edit_title_content_desc">Вийти з редагування назви</string>
+    <string name="exit_editing_content_desc">Вийти з режиму редагування</string>
     <string name="open_in_web_content_desc">Відкрити в браузері</string>
     <string name="translator_content_desc">Перекладач</string>
     <string name="translator_language_content_desc">Поміняти мови місцями</string>

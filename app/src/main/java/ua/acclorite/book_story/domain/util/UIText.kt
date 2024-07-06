@@ -11,9 +11,9 @@ import java.io.Serializable
 
 @Parcelize
 @Immutable
-sealed class UIText(val string: String?) : Parcelable {
-    data class StringValue(val value: String) : UIText(value)
-    class StringResource(@StringRes val resId: Int, vararg val args: Serializable) : UIText(null)
+sealed class UIText : Parcelable {
+    data class StringValue(val value: String) : UIText()
+    class StringResource(@StringRes val resId: Int, vararg val args: Serializable) : UIText()
 
     @Composable
     fun asString(): String {
@@ -27,6 +27,13 @@ sealed class UIText(val string: String?) : Parcelable {
         return when (this) {
             is StringValue -> value
             is StringResource -> context.getString(resId, *args)
+        }
+    }
+
+    fun getAsString(): String? {
+        return when (this) {
+            is StringValue -> value
+            is StringResource -> null
         }
     }
 }

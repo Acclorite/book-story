@@ -596,7 +596,7 @@
     <string name="arrow_anim_content_desc">Arrow animation</string>
     <string name="required_content_desc">Required</string>
     <string name="reset_start_content_desc">Reset start guide</string>
-    <string name="hide_edit_title_content_desc">Exit title editing</string>
+    <string name="exit_editing_content_desc">Exit editing mode</string>
     <string name="open_in_web_content_desc">Open in web</string>
     <string name="translator_content_desc">Translator</string>
     <string name="translator_language_content_desc">Change language places</string>

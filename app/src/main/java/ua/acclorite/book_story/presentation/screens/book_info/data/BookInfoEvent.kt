@@ -23,10 +23,21 @@ sealed class BookInfoEvent {
         val refreshList: (Book) -> Unit,
         val showResult: (UIText) -> Unit
     ) : BookInfoEvent()
+
     data object OnShowHideEditTitle : BookInfoEvent()
-    data class OnRequestFocus(val focusRequester: FocusRequester) : BookInfoEvent()
+    data class OnTitleRequestFocus(val focusRequester: FocusRequester) : BookInfoEvent()
     data class OnTitleValueChange(val value: String) : BookInfoEvent()
-    data class OnUpdateTitle(val refreshList: (Book) -> Unit) : BookInfoEvent()
+
+    data object OnShowHideEditAuthor : BookInfoEvent()
+    data class OnAuthorRequestFocus(val focusRequester: FocusRequester) : BookInfoEvent()
+    data class OnAuthorValueChange(val value: String) : BookInfoEvent()
+
+    data object OnShowHideEditDescription : BookInfoEvent()
+    data class OnDescriptionRequestFocus(val focusRequester: FocusRequester) : BookInfoEvent()
+    data class OnDescriptionValueChange(val value: String) : BookInfoEvent()
+
+    data class OnUpdateData(val refreshList: (Book) -> Unit) : BookInfoEvent()
+
     data object OnShowHideDeleteDialog : BookInfoEvent()
     data object OnShowHideMoveDialog : BookInfoEvent()
     data class OnDeleteBook(val refreshList: () -> Unit, val onNavigate: OnNavigate) :

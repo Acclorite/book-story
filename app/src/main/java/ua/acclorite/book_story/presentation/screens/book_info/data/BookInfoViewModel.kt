@@ -165,7 +165,7 @@ class BookInfoViewModel @Inject constructor(
                         _state.update {
                             it.copy(
                                 titleValue = it.book.title,
-                                hasFocused = false
+                                hasTitleFocused = false
                             )
                         }
                     }
@@ -178,12 +178,12 @@ class BookInfoViewModel @Inject constructor(
                 }
             }
 
-            is BookInfoEvent.OnRequestFocus -> {
-                if (!_state.value.hasFocused) {
+            is BookInfoEvent.OnTitleRequestFocus -> {
+                if (!_state.value.hasTitleFocused) {
                     event.focusRequester.requestFocus()
                     _state.update {
                         it.copy(
-                            hasFocused = true
+                            hasTitleFocused = true
                         )
                     }
                 }
@@ -197,25 +197,129 @@ class BookInfoViewModel @Inject constructor(
                 }
             }
 
-            is BookInfoEvent.OnUpdateTitle -> {
-                viewModelScope.launch {
-                    val title = _state.value.titleValue.trim().replace("\n", "")
+            is BookInfoEvent.OnShowHideEditAuthor -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    val shouldHide = _state.value.editAuthor
 
-                    updateBooks.execute(
-                        listOf(
-                            _state.value.book.copy(title = title)
-                        )
-                    )
+                    if (!shouldHide) {
+                        _state.update {
+                            it.copy(
+                                authorValue = it.book.author.getAsString() ?: "",
+                                hasAuthorFocused = false
+                            )
+                        }
+                    }
+
                     _state.update {
                         it.copy(
-                            book = it.book.copy(
-                                title = title
+                            editAuthor = !shouldHide
+                        )
+                    }
+                }
+            }
+
+            is BookInfoEvent.OnAuthorRequestFocus -> {
+                if (!_state.value.hasAuthorFocused) {
+                    event.focusRequester.requestFocus()
+                    _state.update {
+                        it.copy(
+                            hasAuthorFocused = true
+                        )
+                    }
+                }
+            }
+
+            is BookInfoEvent.OnAuthorValueChange -> {
+                _state.update {
+                    it.copy(
+                        authorValue = event.value
+                    )
+                }
+            }
+
+            is BookInfoEvent.OnShowHideEditDescription -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    val shouldHide = _state.value.editDescription
+
+                    if (!shouldHide) {
+                        _state.update {
+                            it.copy(
+                                descriptionValue = it.book.description ?: "",
+                                hasDescriptionFocused = false
                             )
+                        }
+                    }
+
+                    _state.update {
+                        it.copy(
+                            editDescription = !shouldHide
+                        )
+                    }
+                }
+            }
+
+            is BookInfoEvent.OnDescriptionRequestFocus -> {
+                if (!_state.value.hasDescriptionFocused) {
+                    event.focusRequester.requestFocus()
+                    _state.update {
+                        it.copy(
+                            hasDescriptionFocused = true
+                        )
+                    }
+                }
+            }
+
+            is BookInfoEvent.OnDescriptionValueChange -> {
+                _state.update {
+                    it.copy(
+                        descriptionValue = event.value
+                    )
+                }
+            }
+
+            is BookInfoEvent.OnUpdateData -> {
+                viewModelScope.launch {
+                    val title = _state.value.titleValue.trim().replace("\n", "")
+                    val author = _state.value.authorValue.trim().replace("\n", "")
+                    val description = _state.value.descriptionValue.trim().replace("\n", "")
+
+                    val titleChanged = title != _state.value.book.title
+                            && _state.value.editTitle
+                            && title.isNotBlank()
+                    val authorChanged = author != _state.value.book.author.getAsString()
+                            && _state.value.editAuthor
+                            && author.isNotBlank()
+                    val descriptionChanged = description != _state.value.book.description
+                            && _state.value.editDescription
+                            && description.isNotBlank()
+
+                    val book = _state.value.book.copy(
+                        title = if (titleChanged) title else _state.value.book.title,
+                        author = if (authorChanged) UIText.StringValue(author)
+                        else _state.value.book.author,
+                        description = if (descriptionChanged) description
+                        else _state.value.book.description
+                    )
+
+                    updateBooks.execute(listOf(book))
+                    _state.update {
+                        it.copy(
+                            book = book
                         )
                     }
                     event.refreshList(_state.value.book)
 
-                    onEvent(BookInfoEvent.OnShowHideEditTitle)
+                    if (state.value.editTitle) {
+                        onEvent(BookInfoEvent.OnShowHideEditTitle)
+                    }
+
+                    if (state.value.editAuthor) {
+                        onEvent(BookInfoEvent.OnShowHideEditAuthor)
+                    }
+
+                    if (state.value.editDescription) {
+                        onEvent(BookInfoEvent.OnShowHideEditDescription)
+                    }
                 }
             }
 
@@ -346,7 +450,9 @@ class BookInfoViewModel @Inject constructor(
                     _state.update {
                         it.copy(
                             isLoadingUpdate = true,
-                            editTitle = false
+                            editTitle = false,
+                            editAuthor = false,
+                            editDescription = false
                         )
                     }
 
@@ -708,10 +814,10 @@ class BookInfoViewModel @Inject constructor(
 
             _state.update {
                 BookInfoState(
-                    book = book,
-                    canResetCover = canResetCover.execute(screen.bookId)
+                    book = book
                 )
             }
+            onEvent(BookInfoEvent.OnCheckCoverReset)
         }
     }
 }
