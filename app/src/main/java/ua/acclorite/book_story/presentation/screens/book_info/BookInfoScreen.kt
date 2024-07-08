@@ -37,6 +37,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
@@ -90,6 +91,12 @@ fun BookInfoScreenRoot(screen: Screen.BookInfo) {
             screen = screen,
             onNavigate = { navigator.it() }
         )
+    }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            viewModel.clearViewModel()
+        }
     }
 
     BookInfoScreen(
