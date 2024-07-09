@@ -70,9 +70,8 @@
         Після видалення всієї історії порядок книг буде скинутий.
     </string>
     <string name="confirm_update_description">
-        При підтвердженні ця книга буде оновлена.
+        При підтвердженні текст цієї книги буде оновлений.
         Будь ласка, запам\'ятайте де ви зупинилися перед оновленням тексту.
-        Наступне буде оновлено:
     </string>
     <string name="update_app_description">
         Нова версія Історії Книги була знайдена.
@@ -301,8 +300,8 @@
     <!-- Snackbar messages -->
     <string name="history_element_deleted">Елемент історії був успішно видалений.</string>
     <string name="file_not_found">Файл \"%1$s\" не знайдено.</string>
-    <string name="book_updated">Текст, автор та опис книги були успішно оновлені.</string>
-    <string name="nothing_changed">Книга актуальна.</string>
+    <string name="book_updated">Текст книги був успішно оновлений.</string>
+    <string name="nothing_changed">Текст книги актуальний.</string>
 
     <!-- DropDown properties -->
     <string name="move_this_book">Перемістити</string>

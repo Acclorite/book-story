@@ -167,7 +167,6 @@ private fun BookInfoScreen(
     }
     if (state.value.showConfirmUpdateDialog) {
         BookInfoConfirmUpdateDialog(
-            state = state,
             snackbarHostState = snackbarState,
             onEvent = onEvent,
             onLibraryUpdateEvent = onLibraryEvent,

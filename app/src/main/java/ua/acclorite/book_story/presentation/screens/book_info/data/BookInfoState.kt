@@ -12,10 +12,7 @@ data class BookInfoState(
     val isLoadingUpdate: Boolean = false,
     val isRefreshing: Boolean = false,
     val showConfirmUpdateDialog: Boolean = false,
-    val updatedBook: Pair<Book, List<String>>? = null,
-    val authorChanged: Boolean = false,
-    val descriptionChanged: Boolean = false,
-    val textChanged: Boolean = false,
+    val updatedText: List<String>? = null,
 
     val editTitle: Boolean = false,
     val hasTitleFocused: Boolean = false,

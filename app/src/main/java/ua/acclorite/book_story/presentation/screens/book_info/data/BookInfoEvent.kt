@@ -76,10 +76,7 @@ sealed class BookInfoEvent {
     data object OnDismissConfirmUpdateDialog : BookInfoEvent()
 
     data class OnShowConfirmUpdateDialog(
-        val updatedBook: Pair<Book, List<String>>,
-        val authorUpdated: Boolean,
-        val descriptionUpdated: Boolean,
-        val textUpdated: Boolean,
+        val updatedText: List<String>
     ) : BookInfoEvent()
 
     data object OnCancelUpdate : BookInfoEvent()

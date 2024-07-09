@@ -89,9 +89,8 @@
         After deleting the whole history, the order of the books will be reset.
     </string>
     <string name="confirm_update_description">
-        By confirming this book will be updated.
+        By confirming this book\'s text will be updated.
         Please remember where you left before updating text.
-        Following will be updated:
     </string>
     <string name="update_app_description">
         New version of Book\'s Story was found.
@@ -321,8 +320,8 @@
     <!-- Snackbar messages -->
     <string name="history_element_deleted">History element was successfully deleted.</string>
     <string name="file_not_found">File \"%1$s\" was not found.</string>
-    <string name="book_updated">Book text, author and description were successfully updated.</string>
-    <string name="nothing_changed">Book is up to date.</string>
+    <string name="book_updated">Book\'s text was successfully updated.</string>
+    <string name="nothing_changed">Book\'s text is up to date.</string>
 
     <!-- DropDown properties -->
     <string name="move_this_book">Move</string>
