@@ -430,8 +430,8 @@
     <string name="help_desc_how_to_edit_book_2">Library</string>
     <string name="help_desc_how_to_edit_book_3">
         and click the book\'s cover image to see book\'s details.
-        Now you can hold down the book\'s title to edit title
-        or cover image to change or delete cover image.
+        Now you can hold down the book\'s title, author or description to edit it
+        or cover image to change, reset or delete cover image.
     </string>
 
     <string name="help_title_how_to_read_book">How do I read a book?</string>
