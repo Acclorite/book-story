@@ -92,6 +92,15 @@ object Constants {
             website = "https://github.com/Drumber/Kitsune"
         ),
         Credit(
+            name = "Crocus",
+            source = null,
+            credits = listOf(
+                UIText.StringResource(R.string.credits_motivation),
+                UIText.StringValue("UwU")
+            ),
+            website = null
+        ),
+        Credit(
             name = "Freepik",
             source = "Flaticon",
             credits = listOf(

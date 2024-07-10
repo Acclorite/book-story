@@ -99,7 +99,7 @@
         Немає опису.
     </string>
     <string name="error_something_went_wrong">
-        Щось пішло не так.
+        Який жах! Щось пішло не так.
     </string>
     <string name="error_something_went_wrong_with_file">
         Щось пішло не так. Будь ласка, перевірте чи файл цієї книги не пошкоджений.
@@ -351,6 +351,7 @@
     <string name="credits_design">Дизайн</string>
     <string name="credits_icon">Іконки</string>
     <string name="credits_updates">Керування новими оновленнями</string>
+    <string name="credits_motivation">Мотивація</string>
 
     <!-- Help -->
     <string name="help_clickable_note_1">Будь ласка, зверніть увагу, що на</string>

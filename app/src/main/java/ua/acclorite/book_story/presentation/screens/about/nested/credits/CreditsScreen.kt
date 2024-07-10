@@ -80,19 +80,21 @@ private fun CreditsScreen(
         ) {
             customItems(Constants.CREDITS, key = { it.name }) {
                 CreditItem(credit = it) {
-                    onAboutNavigateEvent(
-                        AboutEvent.OnNavigateToBrowserPage(
-                            page = it.website,
-                            context = context,
-                            noAppsFound = {
-                                Toast.makeText(
-                                    context,
-                                    context.getString(R.string.error_no_browser),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                    it.website?.let { website ->
+                        onAboutNavigateEvent(
+                            AboutEvent.OnNavigateToBrowserPage(
+                                page = website,
+                                context = context,
+                                noAppsFound = {
+                                    Toast.makeText(
+                                        context,
+                                        context.getString(R.string.error_no_browser),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            )
                         )
-                    )
+                    }
                 }
             }
         }

@@ -40,7 +40,7 @@ fun CreditItem(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClick.invoke() }
+            .clickable(enabled = credit.website != null) { onClick.invoke() }
             .padding(vertical = verticalPadding, horizontal = horizontalPadding)
     ) {
         Text(
@@ -51,11 +51,13 @@ fun CreditItem(
             overflow = TextOverflow.Ellipsis
         )
 
-        Text(
-            text = credit.source,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+        credit.source?.let {
+            Text(
+                text = it,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
 
         if (credit.credits.isNotEmpty()) {
             Spacer(modifier = Modifier.height(6.dp))
