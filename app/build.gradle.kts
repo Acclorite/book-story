@@ -175,8 +175,5 @@ dependencies {
         exclude("com.google.firebase", "firebase-encoders-json")
         exclude("com.google.firebase", "firebase-encoders")
     }
-    implementation("com.google.mlkit:language-id:latest.release") {
-//        exclude("com.google.firebase", "firebase-encoders-json")
-//        exclude("com.google.firebase", "firebase-encoders")
-    }
+    implementation("com.google.mlkit:language-id:latest.release")
 }
