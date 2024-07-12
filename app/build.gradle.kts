@@ -36,7 +36,7 @@ android {
         }
         create("release-debug") {
             initWith(getByName("release"))
-            applicationIdSuffix = ".release-debug"
+            applicationIdSuffix = ".release.debug"
             signingConfig = signingConfigs.getByName("debug")
         }
 
@@ -88,7 +88,7 @@ dependencies {
 
     // Default
     implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.2")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.3")
     implementation("androidx.activity:activity-compose:1.9.0")
 
     // Compose BOM libraries
@@ -107,7 +107,7 @@ dependencies {
     implementation("androidx.compose.material:material")
 
     // All dependencies
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.3")
     implementation("com.google.accompanist:accompanist-swiperefresh:0.24.2-alpha")
 
     // Dagger - Hilt
@@ -167,6 +167,16 @@ dependencies {
     implementation("com.mikepenz:aboutlibraries-compose-m3:latest.release")
 
     // Translator
-    implementation("com.google.mlkit:translate:latest.release")
-    implementation("com.google.mlkit:language-id:latest.release")
+    implementation("com.google.mlkit:translate:latest.release") {
+        exclude("com.google.android.gms", "play-services-base")
+        exclude("com.google.android.datatransport", "transport-api")
+        exclude("com.google.android.datatransport", "transport-backend-cct")
+        exclude("com.google.android.datatransport", "transport-runtime")
+        exclude("com.google.firebase", "firebase-encoders-json")
+        exclude("com.google.firebase", "firebase-encoders")
+    }
+    implementation("com.google.mlkit:language-id:latest.release") {
+//        exclude("com.google.firebase", "firebase-encoders-json")
+//        exclude("com.google.firebase", "firebase-encoders")
+    }
 }

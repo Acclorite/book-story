@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Build
 import android.os.Parcelable
 import android.os.PowerManager
+import android.view.View
 import androidx.annotation.Keep
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
@@ -96,6 +97,10 @@ fun BookStoryTheme(
 
             window.statusBarColor = Color.Transparent.toArgb()
             window.navigationBarColor = Color.Transparent.toArgb()
+
+            // Disabling Autofill
+            window.decorView.importantForAutofill =
+                View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS
 
             // Fix for nav bar being semi transparent in api 29+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
