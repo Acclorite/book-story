@@ -36,7 +36,7 @@ class LicensesViewModel @Inject constructor(
 
             _state.update {
                 it.copy(
-                    licenses = licenses
+                    licenses = licenses.sortedBy { library -> library.openSource }
                 )
             }
         }

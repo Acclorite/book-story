@@ -142,6 +142,7 @@
     <string name="error_could_not_download_language">Could not download language.</string>
     <string name="error_could_not_download_languages">Could not download languages.</string>
     <string name="error_could_not_reset_cover">Could not reset cover image.</string>
+    <string name="error_closed_source">Closed source</string>
 
     <!-- Is Empty messages -->
     <string name="browse_empty">

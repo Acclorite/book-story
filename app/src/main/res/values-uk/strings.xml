@@ -123,6 +123,7 @@
     <string name="error_could_not_download_language">Не вдалося завантажити мову.</string>
     <string name="error_could_not_download_languages">Не вдалося завантажити мови.</string>
     <string name="error_could_not_reset_cover">Не вдалося скинути обкладинку.</string>
+    <string name="error_closed_source">Закритий код</string>
 
     <!-- Is Empty messages -->
     <string name="browse_empty">

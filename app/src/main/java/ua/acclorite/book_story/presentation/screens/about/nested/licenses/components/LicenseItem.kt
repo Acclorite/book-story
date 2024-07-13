@@ -16,14 +16,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.m3.util.author
+import ua.acclorite.book_story.R
 
 /**
  * License Item.
@@ -53,18 +56,33 @@ fun LicenseItem(
                 text = library.name,
                 modifier = Modifier.weight(1f),
                 style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onSurface,
+                color = if (library.openSource) MaterialTheme.colorScheme.onSurface
+                else MaterialTheme.colorScheme.error,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
-            library.artifactVersion?.let {
+
+            if (library.artifactVersion != null || !library.openSource) {
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    it,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = TextAlign.Center
-                )
+                Column(horizontalAlignment = Alignment.End) {
+                    library.artifactVersion?.let {
+                        Text(
+                            it,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+
+                    if (!library.openSource) {
+                        Text(
+                            stringResource(id = R.string.error_closed_source),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
             }
         }
 
