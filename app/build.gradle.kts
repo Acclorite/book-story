@@ -81,7 +81,7 @@ aboutLibraries {
     duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
     duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
     prettyPrint = false
-    filterVariants = arrayOf("debug", "release")
+    filterVariants = arrayOf("debug", "release", "release-debug")
 }
 
 dependencies {

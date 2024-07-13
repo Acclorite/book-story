@@ -41,6 +41,7 @@
         android:theme="@style/Theme.Start.Splash"
         android:requestLegacyExternalStorage="true"
         android:enableOnBackInvokedCallback="true"
+        android:usesCleartextTraffic="false"
         tools:targetApi="tiramisu"
         tools:ignore="DataExtractionRules">
 
