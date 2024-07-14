@@ -5,23 +5,23 @@
 
     <!-- Book sources -->
     <string-array name="book_sites">
-        <item>Anna\'s Archive|https://annas-archive.org</item>
+        <item>Anna\'s Archive|https://www.annas-archive.org</item>
         <item>Project Gutenberg|https://www.gutenberg.org</item>
-        <item>Standard Ebooks|https://standardebooks.org</item>
+        <item>Standard Ebooks|https://www.standardebooks.org</item>
     </string-array>
 
     <!-- About sites -->
     <string name="download_latest_release_page" translatable="false">
-        https://github.com/Acclorite/book-story/releases/latest/download/book-story.apk
+        https://www.github.com/Acclorite/book-story/releases/latest/download/book-story.apk
     </string>
     <string name="releases_page" translatable="false">
-        https://github.com/Acclorite/book-story/releases/latest
+        https://www.github.com/Acclorite/book-story/releases/latest
     </string>
     <string name="issues_page" translatable="false">
-        https://github.com/Acclorite/book-story/issues
+        https://www.github.com/Acclorite/book-story/issues
     </string>
     <string name="project_page" translatable="false">
-        https://github.com/Acclorite/book-story
+        https://www.github.com/Acclorite/book-story
     </string>
     <string name="support_page" translatable="false">
         https://www.buymeacoffee.com/acclorite
