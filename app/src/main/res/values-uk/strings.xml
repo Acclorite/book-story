@@ -36,8 +36,6 @@
     <string name="move_book">Перемістити книгу?</string>
     <string name="delete_history">Видалити історію читання?</string>
     <string name="confirm_update">Підтвердити оновлення?</string>
-    <string name="download_language">Завантажити %1$s?</string>
-    <string name="download_languages">Завантажити мови?</string>
 
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">
@@ -79,17 +77,6 @@
         Натиснувши на кнопку «Завантажити», ви перейдете в ваш браузер
         та завантажете останнє оновлення автоматично.
     </string>
-    <string name="download_language_description">
-        Вам потрібно завантажити цю мову перед використанням.
-        Після завантаження, вона буде доступна офлайн та не потребуватиме інтернету.
-        Кожна мова має розмір близько ~30мб, для завантаження рекомендується використовувати Wi-Fi.
-    </string>
-    <string name="download_languages_description">
-        Вам потрібно завантажити ці мови перед використанням.
-        Кожна мова має розмір близько ~30мб, для завантаження рекомендується використовувати Wi-Fi.
-        Ви можете вибрати мови, які ви хочете завантажити,
-        всі не вибрані мови не будуть перекладені.
-    </string>
 
     <!-- Errors -->
     <string name="error_permission">
@@ -116,12 +103,6 @@
         Щось пішло не так.
         Спробуйте пізніше.
     </string>
-    <string name="error_language_not_identified">Мова не була ідентифікована.</string>
-    <string name="error_languages_not_identified">Не вдалося ідентифікувати жодної мови.</string>
-    <string name="error_cannot_select_language">Неможливо вибрати ту саму мову двічі.</string>
-    <string name="error_wrong_language">Не можна вибрати цю мову.</string>
-    <string name="error_could_not_download_language">Не вдалося завантажити мову.</string>
-    <string name="error_could_not_download_languages">Не вдалося завантажити мови.</string>
     <string name="error_could_not_reset_cover">Не вдалося скинути обкладинку.</string>
     <string name="error_closed_source">Закритий код</string>
 
@@ -135,9 +116,6 @@
     <string name="history_empty">
         Нехай ваша остання прочитана книга відкриє перед
         вами сторінки нової великої історії вашого читацького шляху
-    </string>
-    <string name="translator_languages_empty">
-        Не існує мови з такою назвою, або вона не підтримується
     </string>
 
     <!-- Query strings -->
@@ -173,14 +151,11 @@
     <string name="no">Ні</string>
     <string name="download">Завантажити</string>
     <string name="done">Готово</string>
-    <string name="undo_translation">Відмінити</string>
-    <string name="continue_download">Далі</string>
 
     <!-- Items -->
     <string name="files">файли</string>
     <string name="books">книги</string>
     <string name="history">історію</string>
-    <string name="languages">мови</string>
 
     <!-- Book -->
     <string name="unknown_author">Невідомий</string>
@@ -194,8 +169,6 @@
     <string name="delete_cover">Видалити обкладинку</string>
     <string name="delete_cover_desc">Видаліть нинішню обкладинку книги</string>
     <string name="author">Автор</string>
-    <string name="description">Опис</string>
-    <string name="text">Текст</string>
 
     <!-- Tabs -->
     <string name="reading_tab">Читаю</string>
@@ -237,13 +210,8 @@
     <string name="check_for_updates_option">Перевіряти на оновлення</string>
     <string name="check_for_updates_option_desc">Перевіряти на новішу версію застосунку при запуску</string>
     <string name="side_padding_option">Бокові відступи</string>
-    <string name="translator_language_option">Мова перекладача</string>
-    <string name="translator_enable_default_option">Увімкнути перекладач</string>
-    <string name="translator_enable_default_option_desc">Увімкнути перекладач при додаванні книги за замовчуванням</string>
     <string name="translator_double_click_to_translate_option">Переклад подвійним кліком</string>
     <string name="translator_double_click_to_translate_option_desc">Двічі клацніть на абзац, щоб перекласти його</string>
-    <string name="translator_translate_on_start_option">Перекладати при відкритті книги</string>
-    <string name="translator_translate_on_start_option_desc">Автоматично перекладати весь текст при відкритті книги</string>
 
     <!-- Colors -->
     <string name="red_color">Червоний</string>
@@ -291,11 +259,6 @@
     <string name="copied">Скопійовано</string>
     <string name="history_deleted">Історія була успішно видалена.</string>
     <string name="no_updates">Остання версія застосунка вже встановлена.</string>
-    <string name="language_downloaded">Мова була успішно завантажена та вибрана.</string>
-    <string name="languages_downloaded">Всі необхідні мови завантажені. Переклад почнеться незабаром.</string>
-    <string name="translator_canceling">Переклад відміняється. Будь ласка, зачекайте.</string>
-    <string name="translator_text_canceling">Перекладений текст відміняється. Будь ласка, зачекайте.</string>
-    <string name="translator_starting">Переклад скоро почнеться. Будь ласка, зачекайте.</string>
     <string name="cover_reset">Обкладинка була успішно скинута.</string>
 
     <!-- Snackbar messages -->
@@ -324,17 +287,6 @@
         Ми сподіваємось, що вам сподобалася ця книга!
     </string>
     <string name="letters_and_words">%1$s букв(а), %2$s слів.</string>
-
-    <!-- Translator -->
-    <string name="translator_auto">Визначити мову</string>
-    <string name="translator_auto_short">Визначити</string>
-    <string name="translator_query">Перекласти %1$s</string>
-    <string name="translator_from">з</string>
-    <string name="translator_to">на</string>
-    <string name="translator_all_languages">Всі мови</string>
-    <string name="translator_recent_languages">Недавні мови</string>
-    <string name="translator_occurrences">%1$s абзац(ів)</string>
-    <string name="translator_show_original">Показати оригінал (%1$s на %2$s)</string>
 
     <!-- About -->
     <string name="app_version_option">Версія застосунка</string>
@@ -577,8 +529,5 @@
     <string name="reset_start_content_desc">Скинути початковий посібник</string>
     <string name="exit_editing_content_desc">Вийти з режиму редагування</string>
     <string name="open_in_web_content_desc">Відкрити в браузері</string>
-    <string name="translator_content_desc">Перекладач</string>
-    <string name="translator_language_content_desc">Поміняти мови місцями</string>
-    <string name="downloaded_content_desc">Завантажено</string>
 
 </resources>

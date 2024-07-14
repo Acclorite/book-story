@@ -17,8 +17,5 @@ sealed class MainEvent {
     data class OnChangeShowStartScreen(val bool: Boolean) : MainEvent()
     data class OnChangeCheckForUpdates(val bool: Boolean) : MainEvent()
     data class OnChangeSidePadding(val sidePadding: Int) : MainEvent()
-    data class OnChangeEnableTranslator(val bool: Boolean) : MainEvent()
-    data class OnChangeTranslateFrom(val languageCode: String) : MainEvent()
-    data class OnChangeTranslateTo(val languageCode: String) : MainEvent()
     data class OnChangeDoubleClickTranslation(val bool: Boolean) : MainEvent()
 }

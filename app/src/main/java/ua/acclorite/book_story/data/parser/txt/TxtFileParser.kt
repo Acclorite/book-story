@@ -31,12 +31,7 @@ class TxtFileParser @Inject constructor() : FileParser {
                 filePath = file.path,
                 lastOpened = null,
                 category = Category.entries[0],
-                coverImage = null,
-                enableTranslator = false,
-                translateFrom = "",
-                translateTo = "",
-                doubleClickTranslation = false,
-                translateWhenOpen = false
+                coverImage = null
             ) to null
         } catch (e: Exception) {
             e.printStackTrace()

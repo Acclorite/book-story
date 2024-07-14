@@ -291,11 +291,6 @@ object Constants {
         scrollOffset = 0,
         progress = 0f,
         lastOpened = null,
-        category = Category.READING,
-        enableTranslator = false,
-        translateFrom = "",
-        translateTo = "",
-        doubleClickTranslation = false,
-        translateWhenOpen = false
+        category = Category.READING
     )
 }

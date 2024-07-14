@@ -228,39 +228,6 @@ class MainViewModel @Inject constructor(
                 }
             }
 
-            is MainEvent.OnChangeEnableTranslator -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.ENABLE_TRANSLATOR, event.bool)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            enableTranslator = event.bool
-                        )
-                    }
-                }
-            }
-
-            is MainEvent.OnChangeTranslateFrom -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.TRANSLATE_FROM, event.languageCode)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            translateFrom = event.languageCode
-                        )
-                    }
-                }
-            }
-
-            is MainEvent.OnChangeTranslateTo -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.TRANSLATE_TO, event.languageCode)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            translateTo = event.languageCode
-                        )
-                    }
-                }
-            }
-
             is MainEvent.OnChangeDoubleClickTranslation -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     setDatastore.execute(DataStoreConstants.DOUBLE_CLICK_TRANSLATION, event.bool)

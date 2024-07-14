@@ -40,7 +40,6 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -55,7 +54,6 @@ import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomSelectionContainer
 import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.components.is_messages.IsError
-import ua.acclorite.book_story.presentation.components.translator_language.TranslatorLanguageBottomSheet
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
@@ -66,13 +64,11 @@ import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewMode
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderEndItem
+import ua.acclorite.book_story.presentation.screens.reader.components.ReaderTextParagraph
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderBottomBar
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderTopBar
-import ua.acclorite.book_story.presentation.screens.reader.components.download_language_dialog.ReaderDownloadLanguageDialog
 import ua.acclorite.book_story.presentation.screens.reader.components.settings_bottom_sheet.ReaderSettingsBottomSheet
 import ua.acclorite.book_story.presentation.screens.reader.components.start_item.ReaderStartItem
-import ua.acclorite.book_story.presentation.screens.reader.components.text.ReaderTextParagraph
-import ua.acclorite.book_story.presentation.screens.reader.components.translator_bottom_sheet.ReaderTranslatorBottomSheet
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
@@ -163,7 +159,6 @@ private fun ReaderScreen(
     onHistoryEvent: (HistoryEvent) -> Unit,
 ) {
     val context = LocalContext.current as ComponentActivity
-    val density = LocalDensity.current
 
     val nestedScrollConnection = remember(state) {
         object : NestedScrollConnection {
@@ -214,56 +209,11 @@ private fun ReaderScreen(
         }
     }
 
-    if (state.value.showTranslatorBottomSheet) {
-        ReaderTranslatorBottomSheet(
-            state = state,
-            onEvent = onEvent
-        )
-    }
-    if (state.value.showLanguageBottomSheet) {
-        TranslatorLanguageBottomSheet(
-            selectedLanguage = if (state.value.languageBottomSheetTranslateFrom) {
-                state.value.book.translateFrom
-            } else state.value.book.translateTo,
-
-            unselectedLanguage = if (!state.value.languageBottomSheetTranslateFrom) {
-                state.value.book.translateFrom
-            } else state.value.book.translateTo,
-
-            translateFromSelecting = state.value.languageBottomSheetTranslateFrom,
-            onSelect = { from, to ->
-                onEvent(
-                    ReaderEvent.OnChangeTranslatorSettings(
-                        translateFrom = from,
-                        translateTo = to
-                    )
-                )
-                onEvent(
-                    ReaderEvent.OnShowHideLanguageBottomSheet(
-                        show = false
-                    )
-                )
-            },
-            onDismiss = {
-                onEvent(
-                    ReaderEvent.OnShowHideLanguageBottomSheet(
-                        show = false
-                    )
-                )
-            }
-        )
-    }
     if (state.value.showSettingsBottomSheet) {
         ReaderSettingsBottomSheet(
             mainState = mainState,
             onEvent = onEvent,
             onMainEvent = onMainEvent
-        )
-    }
-    if (state.value.showDownloadLanguageDialog) {
-        ReaderDownloadLanguageDialog(
-            state = state,
-            onEvent = onEvent
         )
     }
 
@@ -379,11 +329,7 @@ private fun ReaderScreen(
                     text, key = { key -> key.first }
                 ) { line ->
                     ReaderTextParagraph(
-                        state = state,
-                        id = line.first,
                         line = line.second,
-                        context = context,
-                        density = density,
                         fontFamily = fontFamily,
                         fontColor = fontColor,
                         lineHeight = lineHeight,
@@ -391,8 +337,6 @@ private fun ReaderScreen(
                         fontSize = mainState.value.fontSize!!.sp,
                         sidePadding = sidePadding,
                         paragraphIndentation = mainState.value.paragraphIndentation!!,
-                        toolbarHidden = toolbarHidden,
-                        onEvent = onEvent
                     )
                 }
 

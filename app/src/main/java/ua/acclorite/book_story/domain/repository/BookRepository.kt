@@ -6,10 +6,8 @@ import kotlinx.coroutines.flow.Flow
 import ua.acclorite.book_story.data.remote.dto.LatestReleaseInfo
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.History
-import ua.acclorite.book_story.domain.model.LanguageHistory
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.util.CoverImage
-import ua.acclorite.book_story.domain.util.LanguageCode
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.presentation.data.MainState
 import java.io.File
@@ -91,30 +89,5 @@ interface BookRepository {
         history: List<History>
     )
 
-
     suspend fun checkForUpdates(postNotification: Boolean): LatestReleaseInfo?
-
-
-    suspend fun isLanguageModelDownloaded(languageCode: String): Boolean
-
-    suspend fun downloadLanguageModel(
-        languageCode: String,
-        onCompleted: () -> Unit,
-        onFailure: (Exception) -> Unit
-    )
-
-    suspend fun deleteLanguageModel(languageCode: String): Boolean
-
-    suspend fun identifyLanguage(text: String): Resource<String>
-
-    suspend fun translateText(
-        sourceLanguage: LanguageCode,
-        targetLanguage: LanguageCode,
-        text: String
-    ): Resource<String>
-
-
-    suspend fun getLanguageHistory(): List<LanguageHistory>
-
-    suspend fun updateLanguageHistory(history: List<LanguageHistory>)
 }

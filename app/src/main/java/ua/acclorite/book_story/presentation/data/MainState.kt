@@ -5,7 +5,6 @@ import android.os.Parcelable
 import androidx.annotation.Keep
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
-import com.google.mlkit.nl.translate.TranslateLanguage
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.DataStoreConstants
@@ -44,9 +43,6 @@ data class MainState(
     val showStartScreen: Boolean? = null,
     val checkForUpdates: Boolean? = null,
     val sidePadding: Int? = null,
-    val enableTranslator: Boolean? = null,
-    val translateFrom: String? = null,
-    val translateTo: String? = null,
     val doubleClickTranslation: Boolean? = null
 ) : Parcelable {
     companion object {
@@ -109,23 +105,9 @@ data class MainState(
                 val sidePadding: Int = data[SIDE_PADDING.name] as? Int
                     ?: 6
 
-                val enableTranslator: Boolean = data[ENABLE_TRANSLATOR.name] as? Boolean
-                    ?: false
-
-                val translateFrom: String = data[TRANSLATE_FROM.name] as? String
-                    ?: "auto"
-
-                val translateTo: String = data[TRANSLATE_TO.name] as? String ?: if (
-                    TranslateLanguage.getAllLanguages().any { it == language }
-                ) {
-                    language
-                } else {
-                    "en"
-                }
-
                 val doubleClickTranslation: Boolean =
                     data[DOUBLE_CLICK_TRANSLATION.name] as? Boolean
-                        ?: true
+                        ?: false
 
                 return MainState(
                     language = language,
@@ -144,9 +126,6 @@ data class MainState(
                     paragraphIndentation = paragraphIndentation,
                     checkForUpdates = checkForUpdates,
                     sidePadding = sidePadding,
-                    enableTranslator = enableTranslator,
-                    translateFrom = translateFrom,
-                    translateTo = translateTo,
                     doubleClickTranslation = doubleClickTranslation
                 )
             }

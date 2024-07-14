@@ -57,11 +57,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Remove Firebase logging-->
-        <service
-            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
-            tools:node="remove" />
-
         <!-- Save app locales -->
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
