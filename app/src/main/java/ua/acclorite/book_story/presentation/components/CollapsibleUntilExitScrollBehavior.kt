@@ -20,14 +20,14 @@ import kotlinx.coroutines.flow.collectLatest
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState(
-
+    listState: LazyListState? = null
 ): Pair<TopAppBarScrollBehavior, LazyListState> {
-    val listState = rememberLazyListState()
+    val lazyListState = listState ?: rememberLazyListState()
 
     var canScroll by remember { mutableStateOf(false) }
     val scrollBehavior = exitUntilCollapsedScrollBehavior(
         canScroll = {
-            listState.canScrollForward || canScroll
+            lazyListState.canScrollForward || canScroll
         }
     )
 
@@ -39,7 +39,7 @@ fun TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState(
         }
     }
 
-    return scrollBehavior to listState
+    return scrollBehavior to lazyListState
 }
 
 

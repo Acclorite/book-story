@@ -63,7 +63,9 @@ private fun LicensesScreen(
     state: State<LicensesState>,
     onNavigate: OnNavigate
 ) {
-    val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
+    val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState(
+        state.value.listState
+    )
 
     Scaffold(
         Modifier
