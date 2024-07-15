@@ -116,7 +116,8 @@ private fun AboutScreen(
                         painterResource(id = R.drawable.app_icon_monochrome),
                         contentDescription = stringResource(id = R.string.app_icon_content_desc),
                         modifier = Modifier
-                            .size(180.dp),
+                            .padding(14.dp)
+                            .size(160.dp),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
