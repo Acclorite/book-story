@@ -1,12 +1,13 @@
 package ua.acclorite.book_story.presentation.components.bottom_navigation_bar
 
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -30,12 +31,6 @@ fun RowScope.BottomNavigationBarItem(
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
-    val icon = remember(isSelected) {
-        if (isSelected) item.selectedIcon
-        else item.unselectedIcon
-    }
-
-
     NavigationBarItem(
         label = {
             CustomTooltip(
@@ -56,11 +51,25 @@ fun RowScope.BottomNavigationBarItem(
                 text = stringResource(id = item.tooltip),
                 padding = 32.dp
             ) {
-                Icon(
-                    painter = painterResource(id = icon),
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp)
-                )
+                Crossfade(
+                    targetState = isSelected,
+                    animationSpec = tween(300),
+                    label = ""
+                ) {
+                    if (it) {
+                        Icon(
+                            painter = painterResource(id = item.selectedIcon),
+                            contentDescription = null,
+                            modifier = Modifier.size(24.dp)
+                        )
+                    } else {
+                        Icon(
+                            painter = painterResource(id = item.unselectedIcon),
+                            contentDescription = null,
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
+                }
             }
         },
         modifier = modifier
