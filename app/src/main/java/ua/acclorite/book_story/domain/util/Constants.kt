@@ -73,7 +73,7 @@ object Constants {
                 UIText.StringResource(R.string.credits_design),
                 UIText.StringValue("Readme")
             ),
-            website = "https://github.com/mihonapp/mihon"
+            website = "https://www.github.com/mihonapp/mihon"
         ),
         Credit(
             name = "Libre-Sudoku",
@@ -81,7 +81,7 @@ object Constants {
             credits = listOf(
                 UIText.StringValue("Readme")
             ),
-            website = "https://github.com/kaajjo/Libre-Sudoku"
+            website = "https://www.github.com/kaajjo/Libre-Sudoku"
         ),
         Credit(
             name = "Kitsune",
@@ -89,7 +89,15 @@ object Constants {
             credits = listOf(
                 UIText.StringResource(R.string.credits_updates)
             ),
-            website = "https://github.com/Drumber/Kitsune"
+            website = "https://www.github.com/Drumber/Kitsune"
+        ),
+        Credit(
+            name = "Material Design Icons",
+            source = "Google Fonts",
+            credits = listOf(
+                UIText.StringResource(R.string.credits_icon)
+            ),
+            website = "https://fonts.google.com/icons"
         ),
         Credit(
             name = "Crocus",
@@ -99,54 +107,6 @@ object Constants {
                 UIText.StringValue("UwU")
             ),
             website = null
-        ),
-        Credit(
-            name = "Freepik",
-            source = "Flaticon",
-            credits = listOf(
-                UIText.StringResource(R.string.credits_icon)
-            ),
-            website = "https://www.flaticon.com/authors/freepik"
-        ),
-        Credit(
-            name = "Anggara",
-            source = "Flaticon",
-            credits = listOf(
-                UIText.StringResource(R.string.credits_icon)
-            ),
-            website = "https://www.flaticon.com/authors/anggara"
-        ),
-        Credit(
-            name = "Google",
-            source = "Flaticon",
-            credits = listOf(
-                UIText.StringResource(R.string.credits_icon)
-            ),
-            website = "https://www.flaticon.com/authors/google"
-        ),
-        Credit(
-            name = "Creative Stall Premium",
-            source = "Flaticon",
-            credits = listOf(
-                UIText.StringResource(R.string.credits_icon)
-            ),
-            website = "https://www.flaticon.com/authors/creative-stall-premium"
-        ),
-        Credit(
-            name = "Gajah Mada",
-            source = "Flaticon",
-            credits = listOf(
-                UIText.StringResource(R.string.credits_icon)
-            ),
-            website = "https://www.flaticon.com/authors/gajah-mada"
-        ),
-        Credit(
-            name = "mavadee",
-            source = "Flaticon",
-            credits = listOf(
-                UIText.StringResource(R.string.credits_icon)
-            ),
-            website = "https://www.flaticon.com/authors/mavadee"
         ),
     )
 
