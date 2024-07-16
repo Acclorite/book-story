@@ -57,7 +57,7 @@ class UpdatesNotificationServiceImpl @Inject constructor(
             .setContentIntent(latestReleasePendingIntent)
             .addAction(
                 Notification.Action.Builder(
-                    Icon.createWithResource(application, R.drawable.app_icon_monochrome),
+                    Icon.createWithResource(application, R.drawable.notification_icon),
                     application.getString(R.string.updates_notification_action),
                     downloadLatestVersionPendingIntent
                 ).build()

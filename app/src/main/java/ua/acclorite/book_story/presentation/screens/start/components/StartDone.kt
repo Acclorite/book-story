@@ -109,10 +109,10 @@ fun StartDone(
         }
     ) {
         Icon(
-            painter = painterResource(id = R.drawable.checklist),
+            painter = painterResource(id = R.drawable.start_done),
             contentDescription = null,
             tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.size(150.dp)
+            modifier = Modifier.size(190.dp)
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(

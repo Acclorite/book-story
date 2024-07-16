@@ -1,0 +1,4 @@
+Almost all Icons are licensed under Apache License 2.0 and were taken from Material Design Icons.
+
+https://www.apache.org/licenses/LICENSE-2.0.html
+https://fonts.google.com/icons

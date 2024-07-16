@@ -49,10 +49,10 @@ fun IsEmpty(
         Icon(
             painter = icon,
             contentDescription = message,
-            modifier = Modifier.size(120.dp),
+            modifier = Modifier.size(190.dp),
             tint = MaterialTheme.colorScheme.primary
         )
-        Spacer(modifier = Modifier.height(36.dp))
+        Spacer(modifier = Modifier.height(12.dp))
         Text(
             text = message,
             style = MaterialTheme.typography.bodyLarge,

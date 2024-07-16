@@ -48,10 +48,10 @@ fun IsError(
         Icon(
             painter = icon,
             contentDescription = errorMessage,
-            modifier = Modifier.size(120.dp),
+            modifier = Modifier.size(140.dp),
             tint = MaterialTheme.colorScheme.error
         )
-        Spacer(modifier = Modifier.height(36.dp))
+        Spacer(modifier = Modifier.height(24.dp))
         Text(
             text = errorMessage,
             style = MaterialTheme.typography.bodyLarge,
