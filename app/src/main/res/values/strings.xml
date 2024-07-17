@@ -202,7 +202,7 @@
     <string name="appearance_settings">Appearance</string>
     <string name="appearance_settings_desc">Theme, colors</string>
     <string name="reader_settings">Reader</string>
-    <string name="reader_settings_desc">Translator, font, text</string>
+    <string name="reader_settings_desc">Font, text, translator</string>
 
     <!-- Settings subcategories -->
     <string name="font_reader_settings">Font</string>

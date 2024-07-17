@@ -249,6 +249,34 @@ fun ReaderSettingsBottomSheet(
                             )
                         }
                     }
+
+                    item {
+                        Spacer(modifier = Modifier.height(22.dp))
+                    }
+                    item {
+                        CategoryTitle(
+                            title = stringResource(id = R.string.translator_reader_settings),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                    item {
+                        Spacer(modifier = Modifier.height(8.dp))
+                    }
+
+                    item {
+                        SwitchWithTitle(
+                            selected = mainState.value.doubleClickTranslation!!,
+                            title = stringResource(id = R.string.translator_double_click_to_translate_option),
+                            description = stringResource(id = R.string.translator_double_click_to_translate_option_desc),
+                            onClick = {
+                                onMainEvent(
+                                    MainEvent.OnChangeDoubleClickTranslation(
+                                        !mainState.value.doubleClickTranslation!!
+                                    )
+                                )
+                            }
+                        )
+                    }
                 }
 
                 if (page == 1) {

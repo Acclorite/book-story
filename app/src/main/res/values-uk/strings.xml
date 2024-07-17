@@ -184,7 +184,7 @@
     <string name="appearance_settings">Зовнішній вигляд</string>
     <string name="appearance_settings_desc">Тема, кольори</string>
     <string name="reader_settings">Читач</string>
-    <string name="reader_settings_desc">Перекладач, шрифт, текст</string>
+    <string name="reader_settings_desc">Шрифт, текст, перекладач</string>
 
     <!-- Settings subcategories -->
     <string name="font_reader_settings">Шрифт</string>

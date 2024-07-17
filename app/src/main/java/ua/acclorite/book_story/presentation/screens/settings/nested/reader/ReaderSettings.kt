@@ -238,6 +238,34 @@ private fun ReaderSettings(
                 }
             }
 
+            item {
+                Spacer(modifier = Modifier.height(22.dp))
+            }
+            item {
+                CategoryTitle(
+                    title = stringResource(id = R.string.translator_reader_settings),
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+
+            item {
+                SwitchWithTitle(
+                    selected = state.value.doubleClickTranslation!!,
+                    title = stringResource(id = R.string.translator_double_click_to_translate_option),
+                    description = stringResource(id = R.string.translator_double_click_to_translate_option_desc),
+                    onClick = {
+                        onMainEvent(
+                            MainEvent.OnChangeDoubleClickTranslation(
+                                !state.value.doubleClickTranslation!!
+                            )
+                        )
+                    }
+                )
+            }
+
             item { Spacer(modifier = Modifier.height(48.dp)) }
         }
     }

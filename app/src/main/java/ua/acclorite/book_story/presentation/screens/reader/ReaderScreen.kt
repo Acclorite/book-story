@@ -330,6 +330,7 @@ private fun ReaderScreen(
                 ) { line ->
                     ReaderTextParagraph(
                         line = line.second,
+                        context = context,
                         fontFamily = fontFamily,
                         fontColor = fontColor,
                         lineHeight = lineHeight,
@@ -337,6 +338,9 @@ private fun ReaderScreen(
                         fontSize = mainState.value.fontSize!!.sp,
                         sidePadding = sidePadding,
                         paragraphIndentation = mainState.value.paragraphIndentation!!,
+                        doubleClickTranslationEnabled = mainState.value.doubleClickTranslation!!,
+                        toolbarHidden = toolbarHidden,
+                        onEvent = onEvent
                     )
                 }
 
