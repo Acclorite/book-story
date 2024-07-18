@@ -1,5 +1,6 @@
-package ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.theme_switcher
+package ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.settings
 
+import android.os.Build
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -10,6 +11,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +19,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyItemScope
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -25,21 +29,80 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.components.customItems
+import ua.acclorite.book_story.presentation.data.MainEvent
+import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.ui.Theme
 import ua.acclorite.book_story.presentation.ui.ThemeContrast
 import ua.acclorite.book_story.presentation.ui.animatedColorScheme
+import ua.acclorite.book_story.presentation.ui.isDark
+import ua.acclorite.book_story.presentation.ui.isPureDark
 
 /**
- * Theme switcher item. Used to change app theme.
+ * Theme setting.
+ * Lets user change app's theme from available in [Constants.THEMES].
+ */
+@Composable
+fun LazyItemScope.ThemeSetting(
+    state: State<MainState>,
+    onMainEvent: (MainEvent) -> Unit,
+    verticalPadding: Dp = 8.dp,
+    horizontalPadding: Dp = 18.dp
+) {
+    val themes = remember {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Constants.THEMES
+        else Constants.THEMES.dropWhile { it.first == Theme.DYNAMIC }
+    }
+
+    Column(
+        Modifier
+            .animateItem()
+            .fillMaxWidth()
+            .padding(vertical = verticalPadding)
+    ) {
+        CategoryTitle(
+            title = stringResource(id = R.string.app_theme_option),
+            padding = horizontalPadding
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        LazyRow(
+            Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(horizontal = horizontalPadding)
+        ) {
+            customItems(themes, key = { it.first.name }) { themeEntry ->
+                ThemeSettingItem(
+                    theme = themeEntry,
+                    darkTheme = state.value.darkTheme!!.isDark(),
+                    themeContrast = state.value.themeContrast!!,
+                    isPureDark = state.value.pureDark!!.isPureDark(context = LocalContext.current),
+                    selected = state.value.theme == themeEntry.first
+                ) {
+                    onMainEvent(MainEvent.OnChangeTheme(themeEntry.first.toString()))
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Theme Setting item.
+ * Used to switch between different themes.
  *
  * @param theme Target [Theme].
  * @param darkTheme Whether should be shown in Dark Theme.
@@ -49,7 +112,7 @@ import ua.acclorite.book_story.presentation.ui.animatedColorScheme
  * @param onClick OnClick callback.
  */
 @Composable
-fun AppearanceSettingsThemeSwitcherItem(
+private fun ThemeSettingItem(
     theme: Pair<Theme, UIText>,
     darkTheme: Boolean,
     isPureDark: Boolean,

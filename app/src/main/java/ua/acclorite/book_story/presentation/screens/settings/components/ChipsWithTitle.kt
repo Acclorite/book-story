@@ -23,6 +23,7 @@ import ua.acclorite.book_story.presentation.components.CategoryTitle
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ChipsWithTitle(
+    modifier: Modifier = Modifier,
     title: String,
     chips: List<ButtonItem>,
     horizontalPadding: Dp = 18.dp,
@@ -30,7 +31,7 @@ fun ChipsWithTitle(
     onClick: (ButtonItem) -> Unit
 ) {
     Column(
-        Modifier
+        modifier
             .fillMaxWidth()
             .padding(horizontal = horizontalPadding, vertical = verticalPadding)
     ) {

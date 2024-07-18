@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
  */
 @Composable
 fun SwitchWithTitle(
+    modifier: Modifier = Modifier,
     selected: Boolean,
     title: String,
     description: String? = null,
@@ -38,7 +39,7 @@ fun SwitchWithTitle(
     onClick: () -> Unit
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .clickable { onClick() }
             .padding(horizontal = horizontalPadding, vertical = verticalPadding),
         verticalAlignment = Alignment.CenterVertically

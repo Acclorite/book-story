@@ -19,9 +19,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,7 +38,6 @@ import ua.acclorite.book_story.presentation.screens.start.components.permissions
 import ua.acclorite.book_story.presentation.screens.start.data.StartEvent
 import ua.acclorite.book_story.presentation.screens.start.data.StartNavigationScreen
 import ua.acclorite.book_story.presentation.screens.start.data.StartState
-import ua.acclorite.book_story.presentation.ui.Theme
 
 /**
  * Start Settings.
@@ -73,13 +70,6 @@ fun StartSettings(
                 it.first == mainState.value.language
             )
         }.sortedBy { it.title }
-    }
-    val themeContrastTheme = remember { mutableStateOf(mainState.value.theme!!) }
-
-    LaunchedEffect(mainState.value.theme) {
-        if (themeContrastTheme.value != mainState.value.theme && mainState.value.theme != Theme.DYNAMIC) {
-            themeContrastTheme.value = mainState.value.theme!!
-        }
     }
 
     StartNavigationTransition(
@@ -148,8 +138,7 @@ fun StartSettings(
             ) {
                 startAppearanceScreen(
                     mainState = mainState,
-                    onMainEvent = onMainEvent,
-                    themeContrastTheme = themeContrastTheme
+                    onMainEvent = onMainEvent
                 )
             }
 

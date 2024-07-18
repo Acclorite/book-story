@@ -1,12 +1,7 @@
 package ua.acclorite.book_story.presentation.screens.settings.nested.general
 
-import android.Manifest
-import android.annotation.SuppressLint
-import androidx.activity.ComponentActivity
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -22,15 +17,9 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.rememberPermissionState
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.ButtonItem
-import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
@@ -38,10 +27,9 @@ import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.MainViewModel
-import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
-import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
+import ua.acclorite.book_story.presentation.screens.settings.nested.general.components.GeneralSettingsCategory
 
 @Composable
 fun GeneralSettingsRoot() {
@@ -59,8 +47,8 @@ fun GeneralSettingsRoot() {
     )
 }
 
-@SuppressLint("InlinedApi")
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun GeneralSettings(
     state: State<MainState>,
@@ -69,11 +57,6 @@ private fun GeneralSettings(
     onMainEvent: (MainEvent) -> Unit
 ) {
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
-    val activity = LocalContext.current as ComponentActivity
-
-    val notificationsPermissionState = rememberPermissionState(
-        permission = Manifest.permission.POST_NOTIFICATIONS
-    )
 
     Scaffold(
         Modifier
@@ -103,53 +86,11 @@ private fun GeneralSettings(
                 .padding(top = paddingValues.calculateTopPadding()),
             state = scrollState.second
         ) {
-            item {
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-            item {
-                ChipsWithTitle(
-                    title = stringResource(id = R.string.language_option),
-                    chips = Constants.LANGUAGES.sortedBy { it.second }.map {
-                        ButtonItem(
-                            it.first,
-                            it.second,
-                            MaterialTheme.typography.labelLarge,
-                            it.first == state.value.language
-                        )
-                    }.sortedBy { it.title }
-                ) {
-                    onMainEvent(
-                        MainEvent.OnChangeLanguage(
-                            it.id
-                        )
-                    )
-                }
-            }
-
-            item {
-                SwitchWithTitle(
-                    selected = state.value.checkForUpdates!!,
-                    title = stringResource(id = R.string.check_for_updates_option),
-                    description = stringResource(id = R.string.check_for_updates_option_desc)
-                ) {
-                    onSettingsEvent(
-                        SettingsEvent.OnGeneralChangeCheckForUpdates(
-                            enable = !state.value.checkForUpdates!!,
-                            activity = activity,
-                            notificationsPermissionState = notificationsPermissionState,
-                            onChangeCheckForUpdates = {
-                                onMainEvent(
-                                    MainEvent.OnChangeCheckForUpdates(
-                                        it
-                                    )
-                                )
-                            }
-                        )
-                    )
-                }
-            }
-
-            item { Spacer(modifier = Modifier.height(48.dp)) }
+            GeneralSettingsCategory(
+                state = state,
+                onMainEvent = onMainEvent,
+                onSettingsEvent = onSettingsEvent
+            )
         }
     }
 }
