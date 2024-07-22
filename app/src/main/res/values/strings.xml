@@ -441,50 +441,6 @@
         To show tooltip you can hold on an icon-button.
     </string>
 
-    <string name="help_title_how_to_set_up_translator">How do I set up translator?</string>
-    <string name="help_desc_how_to_set_up_translator_1">
-        You can set up translator in two ways.
-        First is to set it up individually for a book.
-        Second is to set it up globally for all newly added books.
-
-        To set translator up individually start reading the book(see: How do I read a book?).
-        After that bring top and bottom bars by clicking anywhere on the screen.
-        Click the translator icon in the upper right corner.
-        Now you can set up your preferences for the individual book.
-
-        To set translator up globally go to the
-    </string>
-    <string name="help_desc_how_to_set_up_translator_2">Reader Settings</string>
-    <string name="help_desc_how_to_set_up_translator_3">
-        Find «Translator» category.
-        Now you can set up default translator settings for all newly added books.
-    </string>
-
-    <string name="help_title_how_to_use_translator">How do I use translator?</string>
-    <string name="help_desc_how_to_use_translator_1">
-        There are two ways to use built-in translator.
-        First way is one paragraph translation, this will translate
-        only one paragraph at a time. Recommended to use it,
-        as it takes almost no time to translate(compared to the second way).
-        Second way is full text translation, this will translate
-        the whole text of the book. Not recommended for large books,
-        takes significant amount of time(up to a couple of minutes).
-
-        First, start reading the book(see: How do I read a book?).
-        To be able to use one paragraph translation
-        you should have «Double click translation» and translator enabled for your current book.
-        To translate, double click the desired paragraph,
-        to cancel translation double click it again.
-
-        For the whole text translation
-        you need to open translator settings for individual book(see: How do I set up translator?).
-        After that, click the «Translate» button. Translation will start,
-        if you chose «Detect» for «Translate from»,
-        you may see the dialog to download required languages.
-        Please note, that the whole text translation may take a significant amount of time,
-        therefore one paragraph translation is preferred.
-    </string>
-
 
     <!-- Start -->
     <string name="start_welcome">Welcome to Book\'s Story!</string>
