@@ -1,10 +1,13 @@
 package ua.acclorite.book_story.domain.util
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.model.Badge
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.model.Credit
@@ -107,6 +110,45 @@ object Constants {
                 UIText.StringValue("UwU")
             ),
             website = null
+        ),
+    )
+
+    // About Badges
+    val ABOUT_BADGES = listOf(
+        Badge(
+            id = "x",
+            drawable = R.drawable.x_logo,
+            imageVector = null,
+            contentDescription = R.string.x_content_desc,
+            url = "https://www.x.com/acclorite"
+        ),
+        Badge(
+            id = "reddit",
+            drawable = R.drawable.reddit,
+            imageVector = null,
+            contentDescription = R.string.reddit_content_desc,
+            url = "https://www.reddit.com/user/Acclorite/"
+        ),
+        Badge(
+            id = "tryzub",
+            drawable = R.drawable.tryzub,
+            imageVector = null,
+            contentDescription = R.string.tryzub_content_desc,
+            url = null
+        ),
+        Badge(
+            id = "github_project",
+            drawable = R.drawable.github,
+            imageVector = null,
+            contentDescription = R.string.github_project_content_desc,
+            url = "https://www.github.com/Acclorite/book-story"
+        ),
+        Badge(
+            id = "github_profile",
+            drawable = null,
+            imageVector = Icons.Default.Person,
+            contentDescription = R.string.github_profile_content_desc,
+            url = "https://www.github.com/Acclorite"
         ),
     )
 

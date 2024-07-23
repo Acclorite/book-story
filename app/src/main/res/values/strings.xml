@@ -20,9 +20,6 @@
     <string name="issues_page" translatable="false">
         https://www.github.com/Acclorite/book-story/issues
     </string>
-    <string name="project_page" translatable="false">
-        https://www.github.com/Acclorite/book-story
-    </string>
     <string name="support_page" translatable="false">
         https://www.buymeacoffee.com/acclorite
     </string>
@@ -311,12 +308,11 @@
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
     <string name="app_version_option_desc_2">Click to check for updates</string>
     <string name="report_bug_option">Report a bug</string>
-    <string name="project_page_option">Project\'s page</string>
+    <string name="whats_new_option">What\'s new</string>
     <string name="support_option">Support my work</string>
     <string name="licenses_option">Open source licenses</string>
     <string name="credits_option">Credits</string>
-    <string name="slava_ukraini_option">Slava Ukraini!</string>
-    <string name="slava_ukraini_option_desc">Heroyam Slava! 🇺🇦🐉</string>
+    <string name="slava_ukraini">Slava Ukraini!</string>
 
     <!-- Credits -->
     <string name="credits_design">Design</string>
@@ -504,5 +500,10 @@
     <string name="reset_start_content_desc">Reset start guide</string>
     <string name="exit_editing_content_desc">Exit editing mode</string>
     <string name="open_in_web_content_desc">Open in web</string>
+    <string name="x_content_desc" translatable="false">X</string>
+    <string name="reddit_content_desc" translatable="false">Reddit</string>
+    <string name="tryzub_content_desc">Tryzub</string>
+    <string name="github_project_content_desc">GitHub Project</string>
+    <string name="github_profile_content_desc">GitHub Profile</string>
 
 </resources>

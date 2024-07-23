@@ -40,6 +40,7 @@ import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.about.components.AboutItem
 import ua.acclorite.book_story.presentation.screens.about.components.AboutUpdateDialog
+import ua.acclorite.book_story.presentation.screens.about.components.badges.AboutBadges
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
 import ua.acclorite.book_story.presentation.screens.about.data.AboutState
 import ua.acclorite.book_story.presentation.screens.about.data.AboutViewModel
@@ -117,7 +118,7 @@ private fun AboutScreen(
                         contentDescription = stringResource(id = R.string.app_icon_content_desc),
                         modifier = Modifier
                             .padding(14.dp)
-                            .size(160.dp),
+                            .size(120.dp),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
@@ -190,12 +191,12 @@ private fun AboutScreen(
 
             item {
                 AboutItem(
-                    title = stringResource(id = R.string.project_page_option),
+                    title = stringResource(id = R.string.whats_new_option),
                     description = null
                 ) {
                     onEvent(
                         AboutEvent.OnNavigateToBrowserPage(
-                            context.getString(R.string.project_page),
+                            context.getString(R.string.releases_page),
                             context,
                             noAppsFound = {
                                 Toast.makeText(
@@ -253,19 +254,8 @@ private fun AboutScreen(
             }
 
             item {
-                AboutItem(
-                    title = stringResource(id = R.string.slava_ukraini_option),
-                    description = null
-                ) {
-                    Toast.makeText(
-                        context,
-                        context.getString(R.string.slava_ukraini_option_desc),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                AboutBadges(onEvent = onEvent)
             }
-
-            item { Spacer(modifier = Modifier.height(48.dp)) }
         }
     }
 }

@@ -293,12 +293,11 @@
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
     <string name="app_version_option_desc_2">Натисніть, щоб перевірити на оновлення</string>
     <string name="report_bug_option">Повідомити про помилку</string>
-    <string name="project_page_option">Сторінка проєкта</string>
+    <string name="whats_new_option">Що нового</string>
     <string name="support_option">Підтримати мою роботу</string>
     <string name="licenses_option">Ліцензії з відкритим кодом</string>
     <string name="credits_option">Заслуги</string>
-    <string name="slava_ukraini_option">Слава Україні!</string>
-    <string name="slava_ukraini_option_desc">Героям Слава! 🇺🇦🐉</string>
+    <string name="slava_ukraini">Слава Україні!</string>
 
     <!-- Credits -->
     <string name="credits_design">Дизайн</string>
@@ -485,5 +484,8 @@
     <string name="reset_start_content_desc">Скинути початковий посібник</string>
     <string name="exit_editing_content_desc">Вийти з режиму редагування</string>
     <string name="open_in_web_content_desc">Відкрити в браузері</string>
+    <string name="tryzub_content_desc">Тризуб</string>
+    <string name="github_project_content_desc">GitHub Проєкт</string>
+    <string name="github_profile_content_desc">GitHub Профіль</string>
 
 </resources>
