@@ -3,6 +3,7 @@ package ua.acclorite.book_story.presentation.screens.about.nested.license_info.d
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mikepenz.aboutlibraries.Libs
@@ -15,6 +16,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.data.launchActivity
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,12 +34,9 @@ class LicenseInfoViewModel @Inject constructor() : ViewModel() {
                         Uri.parse(event.page)
                     )
 
-                    if (intent.resolveActivity(event.context.packageManager) != null) {
-                        event.context.startActivity(intent)
-                        return@launch
+                    intent.launchActivity(event.context as ComponentActivity) {
+                        event.noAppsFound()
                     }
-
-                    event.noAppsFound()
                 }
             }
         }

@@ -26,6 +26,7 @@ import ua.acclorite.book_story.domain.use_case.GetFilesFromDevice
 import ua.acclorite.book_story.domain.use_case.InsertBook
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.data.launchActivity
 import javax.inject.Inject
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -84,9 +85,11 @@ class BrowseViewModel @Inject constructor(
                         val uri = Uri.parse("package:${event.activity.packageName}")
                         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri)
 
-                        if (intent.resolveActivity(event.activity.packageManager) != null) {
-                            event.activity.startActivity(intent)
-                        } else {
+                        var failure = false
+                        intent.launchActivity(event.activity) {
+                            failure = true
+                        }
+                        if (failure) {
                             return
                         }
                     }
@@ -99,9 +102,11 @@ class BrowseViewModel @Inject constructor(
                         uri
                     )
 
-                    if (intent.resolveActivity(event.activity.packageManager) != null) {
-                        event.activity.startActivity(intent)
-                    } else {
+                    var failure = false
+                    intent.launchActivity(event.activity) {
+                        failure = true
+                    }
+                    if (failure) {
                         return
                     }
                 }

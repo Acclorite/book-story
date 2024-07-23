@@ -2,6 +2,7 @@ package ua.acclorite.book_story.presentation.screens.about.data
 
 import android.content.Intent
 import android.net.Uri
+import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.use_case.CheckForUpdates
+import ua.acclorite.book_story.presentation.data.launchActivity
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,12 +32,9 @@ class AboutViewModel @Inject constructor(
                         Uri.parse(event.page)
                     )
 
-                    if (intent.resolveActivity(event.context.packageManager) != null) {
-                        event.context.startActivity(intent)
-                        return@launch
+                    intent.launchActivity(event.context as ComponentActivity) {
+                        event.noAppsFound()
                     }
-
-                    event.noAppsFound()
                 }
             }
 

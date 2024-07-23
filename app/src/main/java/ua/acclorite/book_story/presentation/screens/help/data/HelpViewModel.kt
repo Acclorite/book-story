@@ -3,6 +3,7 @@ package ua.acclorite.book_story.presentation.screens.help.data
 import android.app.SearchManager
 import android.content.Intent
 import android.net.Uri
+import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.data.launchActivity
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,12 +32,9 @@ class HelpViewModel @Inject constructor(
                         Uri.parse(event.page)
                     )
 
-                    if (intent.resolveActivity(event.context.packageManager) != null) {
-                        event.context.startActivity(intent)
-                        return@launch
+                    intent.launchActivity(event.context as ComponentActivity) {
+                        event.noAppsFound()
                     }
-
-                    event.noAppsFound()
                 }
             }
 
@@ -58,12 +57,9 @@ class HelpViewModel @Inject constructor(
                         "${_state.value.textFieldValue.trim()} filetype:txt OR filetype:pdf"
                     )
 
-                    if (intent.resolveActivity(event.context.packageManager) != null) {
-                        event.context.startActivity(intent)
-                        return@launch
+                    intent.launchActivity(event.context as ComponentActivity) {
+                        event.noAppsFound()
                     }
-
-                    event.noAppsFound()
                 }
             }
 

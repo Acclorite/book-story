@@ -32,6 +32,7 @@ import ua.acclorite.book_story.domain.use_case.UpdateBooks
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.data.launchActivity
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import javax.inject.Inject
@@ -336,13 +337,19 @@ class ReaderViewModel @Inject constructor(
                             "translate: ${event.textToTranslate.trim()}"
                         )
 
-                        if (translatorIntent.resolveActivity(event.context.packageManager) != null) {
-                            event.context.startActivity(translatorIntent)
+                        var translatorFailure = false
+                        translatorIntent.launchActivity(event.context) {
+                            translatorFailure = true
+                        }
+                        if (!translatorFailure) {
                             return@launch
                         }
 
-                        if (browserIntent.resolveActivity(event.context.packageManager) != null) {
-                            event.context.startActivity(browserIntent)
+                        var browserFailure = false
+                        browserIntent.launchActivity(event.context) {
+                            browserFailure = true
+                        }
+                        if (!browserFailure) {
                             return@launch
                         }
 
@@ -361,8 +368,11 @@ class ReaderViewModel @Inject constructor(
                                     ": ${event.textToDefine.trim()}"
                         )
 
-                        if (browserIntent.resolveActivity(event.context.packageManager) != null) {
-                            event.context.startActivity(browserIntent)
+                        var failure = false
+                        browserIntent.launchActivity(event.context) {
+                            failure = true
+                        }
+                        if (!failure) {
                             return@launch
                         }
 

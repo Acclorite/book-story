@@ -22,6 +22,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.domain.use_case.CheckForUpdates
 import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.data.launchActivity
 import javax.inject.Inject
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -137,9 +138,11 @@ class StartViewModel @Inject constructor(
                         val uri = Uri.parse("package:${event.activity.packageName}")
                         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri)
 
-                        if (intent.resolveActivity(event.activity.packageManager) != null) {
-                            event.activity.startActivity(intent)
-                        } else {
+                        var failure = false
+                        intent.launchActivity(event.activity) {
+                            failure = true
+                        }
+                        if (failure) {
                             return
                         }
                     }
@@ -152,9 +155,11 @@ class StartViewModel @Inject constructor(
                         uri
                     )
 
-                    if (intent.resolveActivity(event.activity.packageManager) != null) {
-                        event.activity.startActivity(intent)
-                    } else {
+                    var failure = false
+                    intent.launchActivity(event.activity) {
+                        failure = true
+                    }
+                    if (failure) {
                         return
                     }
                 }
@@ -203,9 +208,11 @@ class StartViewModel @Inject constructor(
                     val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
                     intent.putExtra(Settings.EXTRA_APP_PACKAGE, event.activity.packageName)
 
-                    if (intent.resolveActivity(event.activity.packageManager) != null) {
-                        event.activity.startActivity(intent)
-                    } else {
+                    var failure = false
+                    intent.launchActivity(event.activity) {
+                        failure = true
+                    }
+                    if (failure) {
                         return
                     }
                 }

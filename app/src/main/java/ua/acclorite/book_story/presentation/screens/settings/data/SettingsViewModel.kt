@@ -13,6 +13,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
+import ua.acclorite.book_story.presentation.data.launchActivity
 import javax.inject.Inject
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -48,9 +49,12 @@ class SettingsViewModel @Inject constructor(
                     val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
                     intent.putExtra(Settings.EXTRA_APP_PACKAGE, event.activity.packageName)
 
-                    if (intent.resolveActivity(event.activity.packageManager) != null) {
-                        event.activity.startActivity(intent)
-                    } else {
+                    var failure = false
+                    intent.launchActivity(event.activity) {
+                        failure = true
+                    }
+
+                    if (failure) {
                         return
                     }
                 }
