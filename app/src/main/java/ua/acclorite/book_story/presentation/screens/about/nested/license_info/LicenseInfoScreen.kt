@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
@@ -20,7 +19,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -31,13 +29,10 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -52,6 +47,7 @@ import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoEvent
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoState
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoViewModel
+import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.SlidingTransition
 
 @Composable
@@ -87,65 +83,71 @@ private fun LicenseInfoScreen(
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
     val context = LocalContext.current
 
-    if (state.value.license != null) {
-        val licenses = remember(state.value) {
-            state.value.license!!.licenses.toList()
-        }
+    val licenses = remember(state.value.license?.licenses) {
+        state.value.license?.licenses?.toList()
+    }
 
-        Scaffold(
-            Modifier
-                .fillMaxSize()
-                .nestedScroll(scrollState.first.nestedScrollConnection)
-                .windowInsetsPadding(WindowInsets.navigationBars),
-            containerColor = MaterialTheme.colorScheme.surface,
-            topBar = {
-                LargeTopAppBar(
-                    title = {
+    Scaffold(
+        Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollState.first.nestedScrollConnection)
+            .windowInsetsPadding(WindowInsets.navigationBars),
+        containerColor = MaterialTheme.colorScheme.surface,
+        topBar = {
+            LargeTopAppBar(
+                title = {
+                    DefaultTransition(
+                        visible = state.value.license?.name != null
+                    ) {
                         Text(
-                            state.value.license!!.name,
+                            state.value.license?.name ?: "",
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
-                    },
-                    navigationIcon = {
-                        GoBackButton(onNavigate = onNavigate)
-                    },
-                    actions = {
-                        if (state.value.license?.website?.isNotBlank() == true) {
-                            CustomIconButton(
-                                icon = Icons.Outlined.Language,
-                                contentDescription = R.string.open_in_web_content_desc,
-                                disableOnClick = false
-                            ) {
-                                var url = state.value.license?.website!!
-                                if (!url.startsWith("http://") && !url.startsWith("https://")) {
-                                    url = "https://$url"
-                                }
-
-                                onEvent(
-                                    LicenseInfoEvent.OnOpenLicensePage(
-                                        page = url,
-                                        context = context,
-                                        noAppsFound = {
-                                            Toast.makeText(
-                                                context,
-                                                context.getString(R.string.error_no_browser),
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                        }
-                                    )
-                                )
+                    }
+                },
+                navigationIcon = {
+                    GoBackButton(onNavigate = onNavigate)
+                },
+                actions = {
+                    if (state.value.license?.website?.isNotBlank() == true) {
+                        CustomIconButton(
+                            icon = Icons.Outlined.Language,
+                            contentDescription = R.string.open_in_web_content_desc,
+                            disableOnClick = false
+                        ) {
+                            var url = state.value.license?.website!!
+                            if (url.startsWith("http://") || !url.startsWith("https://")) {
+                                url = "https://$url"
                             }
+
+                            onEvent(
+                                LicenseInfoEvent.OnOpenLicensePage(
+                                    page = url,
+                                    context = context,
+                                    noAppsFound = {
+                                        Toast.makeText(
+                                            context,
+                                            context.getString(R.string.error_no_browser),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                )
+                            )
                         }
-                    },
-                    scrollBehavior = scrollState.first,
-                    colors = TopAppBarDefaults.largeTopAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.surface,
-                        scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
-                    )
+                    }
+                },
+                scrollBehavior = scrollState.first,
+                colors = TopAppBarDefaults.largeTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
                 )
-            }
-        ) { paddingValues ->
+            )
+        }
+    ) { paddingValues ->
+        DefaultTransition(
+            visible = state.value.license != null
+        ) {
             LazyColumn(
                 Modifier
                     .fillMaxSize()
@@ -158,9 +160,12 @@ private fun LicenseInfoScreen(
                     Spacer(modifier = Modifier.height(12.dp))
                 }
 
-                customItems(licenses, key = { it.name }) { license ->
+                customItems(
+                    licenses ?: emptyList(),
+                    key = { it.name }
+                ) { license ->
                     val showed = remember {
-                        mutableStateOf(licenses.size == 1)
+                        mutableStateOf(licenses?.size == 1)
                     }
 
                     Column(
@@ -211,26 +216,6 @@ private fun LicenseInfoScreen(
                     Spacer(modifier = Modifier.height(12.dp))
                 }
             }
-        }
-    } else {
-        Column(
-            Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = stringResource(id = R.string.loading),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.titleLarge,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-            LinearProgressIndicator(
-                modifier = Modifier.fillMaxWidth(0.55f),
-                strokeCap = StrokeCap.Round,
-                trackColor = MaterialTheme.colorScheme.secondaryContainer.copy(0.7f)
-            )
         }
     }
 }
