@@ -160,10 +160,7 @@ fun StartSettings(
                         onEvent(
                             StartEvent.OnNotificationsPermissionRequest(
                                 activity,
-                                notificationsPermissionState,
-                                onEnableUpdates = {
-                                    onMainEvent(MainEvent.OnChangeCheckForUpdates(true))
-                                }
+                                notificationsPermissionState
                             )
                         )
                     }

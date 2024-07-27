@@ -45,11 +45,7 @@ fun StartScreenRoot() {
     LaunchedEffect(Unit) {
         startViewModel.checkPermissions(
             storagePermissionState = storagePermissionState,
-            notificationPermissionState = notificationsPermissionState,
-            isCheckForUpdatesEnabled = mainState.value.checkForUpdates!!,
-            onEnableCheckForUpdates = {
-                mainViewModel.onEvent(MainEvent.OnChangeCheckForUpdates(true))
-            }
+            notificationPermissionState = notificationsPermissionState
         )
     }
 

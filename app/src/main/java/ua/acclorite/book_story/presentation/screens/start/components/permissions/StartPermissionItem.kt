@@ -74,7 +74,10 @@ fun StartPermissionItem(
                     onClick = onGrantClick,
                     contentPadding = ButtonDefaults.TextButtonContentPadding
                 ) {
-                    Text(text = stringResource(id = R.string.grant))
+                    Text(
+                        text = stringResource(id = R.string.grant),
+                        style = MaterialTheme.typography.labelLarge
+                    )
                 }
             } else {
                 TextButton(onClick = onGrantClick) {

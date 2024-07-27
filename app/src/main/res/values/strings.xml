@@ -52,6 +52,7 @@
     <string name="move_book">Move book?</string>
     <string name="delete_history">Delete reading history?</string>
     <string name="confirm_update">Confirm update?</string>
+    <string name="enable_check_for_updates">Enable check for updates?</string>
 
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">
@@ -92,6 +93,12 @@
         Do you want to download it?
         By clicking the «Download» button you will be transferred
         to your browser and download the latest update automatically.
+    </string>
+    <string name="enable_check_for_updates_description">
+        By enabling «Check for updates»
+        the app will retrieve latest release information from «api.github.com» each time
+        when app starts.
+        Do you want to proceed and enable «Check for updates»?
     </string>
 
     <!-- Errors -->
@@ -168,6 +175,7 @@
     <string name="no">No</string>
     <string name="download">Download</string>
     <string name="done">Done</string>
+    <string name="enable">Enable</string>
 
     <!-- Items -->
     <string name="files">files</string>

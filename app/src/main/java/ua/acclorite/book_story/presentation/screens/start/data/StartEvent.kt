@@ -19,8 +19,7 @@ sealed class StartEvent {
 
     data class OnNotificationsPermissionRequest(
         val activity: ComponentActivity,
-        val notificationsPermissionState: PermissionState,
-        val onEnableUpdates: () -> Unit
+        val notificationsPermissionState: PermissionState
     ) : StartEvent()
 
     data class OnGoToBrowse(val onNavigate: OnNavigate, val onCompletedStartGuide: () -> Unit) :

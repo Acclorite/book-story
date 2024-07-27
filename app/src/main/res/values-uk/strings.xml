@@ -36,6 +36,7 @@
     <string name="move_book">Перемістити книгу?</string>
     <string name="delete_history">Видалити історію читання?</string>
     <string name="confirm_update">Підтвердити оновлення?</string>
+    <string name="enable_check_for_updates">Увімнкути перевірку на оновлення?</string>
 
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">
@@ -76,6 +77,11 @@
         Чи бажаєте завантажити її?
         Натиснувши на кнопку «Завантажити», ви перейдете в ваш браузер
         та завантажете останнє оновлення автоматично.
+    </string>
+    <string name="enable_check_for_updates_description">
+        Увімкнувши «Перевіряти на оновлення» застосунок буде отримувати інформацію про останній реліз
+        з «api.github.com» кожен раз, коли застосунок запускається.
+        Хочете продовжити та увімкнути «Перевіряти на оновлення»?
     </string>
 
     <!-- Errors -->
@@ -153,6 +159,7 @@
     <string name="no">Ні</string>
     <string name="download">Завантажити</string>
     <string name="done">Готово</string>
+    <string name="enable">Увімкнути</string>
 
     <!-- Items -->
     <string name="files">файли</string>

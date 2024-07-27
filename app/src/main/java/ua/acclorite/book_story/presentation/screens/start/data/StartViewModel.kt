@@ -20,16 +20,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
-import ua.acclorite.book_story.domain.use_case.CheckForUpdates
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.data.launchActivity
 import javax.inject.Inject
 
 @OptIn(ExperimentalPermissionsApi::class)
 @HiltViewModel
-class StartViewModel @Inject constructor(
-    private val checkForUpdates: CheckForUpdates,
-) : ViewModel() {
+class StartViewModel @Inject constructor() : ViewModel() {
 
     private val _state = MutableStateFlow(StartState())
     val state = _state.asStateFlow()
@@ -198,7 +195,6 @@ class StartViewModel @Inject constructor(
                             notificationsPermissionGranted = true
                         )
                     }
-                    event.onEnableUpdates()
                     return
                 }
 
@@ -234,11 +230,6 @@ class StartViewModel @Inject constructor(
                             )
                         }
 
-                        event.onEnableUpdates()
-                        checkForUpdates.execute(
-                            postNotification = true
-                        )
-
                         break
                     }
                 }
@@ -267,9 +258,7 @@ class StartViewModel @Inject constructor(
 
     fun checkPermissions(
         storagePermissionState: PermissionState,
-        notificationPermissionState: PermissionState,
-        isCheckForUpdatesEnabled: Boolean,
-        onEnableCheckForUpdates: () -> Unit
+        notificationPermissionState: PermissionState
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             val legacyStoragePermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
@@ -284,13 +273,6 @@ class StartViewModel @Inject constructor(
                 notificationPermissionState.status.isGranted
             } else {
                 true
-            }
-
-            if (notificationPermissionGranted && !isCheckForUpdatesEnabled) {
-                onEnableCheckForUpdates()
-                checkForUpdates.execute(
-                    postNotification = true
-                )
             }
 
             _state.update {
