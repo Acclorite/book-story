@@ -11,7 +11,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -44,7 +43,7 @@ import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.components.customItems
+import ua.acclorite.book_story.presentation.components.customItemsIndexed
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.ui.Theme
@@ -79,13 +78,19 @@ fun LazyItemScope.ThemeSetting(
             title = stringResource(id = R.string.app_theme_option),
             padding = horizontalPadding
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         LazyRow(
             Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            contentPadding = PaddingValues(horizontal = horizontalPadding)
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            customItems(themes, key = { it.first.name }) { themeEntry ->
+            customItemsIndexed(
+                themes,
+                key = { item, _ -> item.first.name }
+            ) { index, themeEntry ->
+                if (index == 0) {
+                    Spacer(modifier = Modifier.width(horizontalPadding))
+                }
+
                 ThemeSettingItem(
                     theme = themeEntry,
                     darkTheme = state.value.darkTheme!!.isDark(),
@@ -94,6 +99,10 @@ fun LazyItemScope.ThemeSetting(
                     selected = state.value.theme == themeEntry.first
                 ) {
                     onMainEvent(MainEvent.OnChangeTheme(themeEntry.first.toString()))
+                }
+
+                if (index == themes.lastIndex) {
+                    Spacer(modifier = Modifier.width(horizontalPadding))
                 }
             }
         }

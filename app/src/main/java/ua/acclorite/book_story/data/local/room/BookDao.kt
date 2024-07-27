@@ -6,7 +6,9 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import androidx.room.Upsert
 import ua.acclorite.book_story.data.local.dto.BookEntity
+import ua.acclorite.book_story.data.local.dto.ColorPresetEntity
 import ua.acclorite.book_story.data.local.dto.HistoryEntity
 
 @Dao
@@ -57,4 +59,23 @@ interface BookDao {
 
     @Delete
     suspend fun deleteHistory(history: List<HistoryEntity>)
+
+
+    @Upsert
+    suspend fun updateColorPreset(colorPreset: ColorPresetEntity)
+
+    @Query("SELECT `order` FROM colorpresetentity WHERE :id=id")
+    suspend fun getColorPresetOrder(id: Int): Int
+
+    @Query("SELECT COUNT(*) FROM colorpresetentity")
+    suspend fun getColorPresetsSize(): Int
+
+    @Query("SELECT * FROM colorpresetentity")
+    suspend fun getColorPresets(): List<ColorPresetEntity>
+
+    @Delete
+    suspend fun deleteColorPreset(colorPreset: ColorPresetEntity)
+
+    @Query("DELETE FROM colorpresetentity")
+    suspend fun deleteColorPresets()
 }

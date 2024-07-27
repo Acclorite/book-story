@@ -24,15 +24,16 @@ object Transitions {
 
     val SlidingTransitionIn = fadeIn(tween(350)) +
             slideInHorizontally(tween(350)) { it / 16 }
-
     val BackSlidingTransitionIn = fadeIn(tween(350)) +
             slideInHorizontally(tween(350)) { -it / 16 }
 
     val SlidingTransitionOut = fadeOut(tween(250)) +
             slideOutHorizontally(tween(350)) { -it / 16 }
-
     val BackSlidingTransitionOut = fadeOut(tween(250)) +
             slideOutHorizontally(tween(350)) { it / 16 }
+
+    val NoEnterAnimation = fadeIn(tween(0))
+    val NoExitAnimation = fadeOut(tween(0))
 }
 
 @Composable

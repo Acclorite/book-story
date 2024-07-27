@@ -5,6 +5,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import ua.acclorite.book_story.data.remote.dto.LatestReleaseInfo
 import ua.acclorite.book_story.domain.model.Book
+import ua.acclorite.book_story.domain.model.ColorPreset
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.util.CoverImage
@@ -89,5 +90,17 @@ interface BookRepository {
         history: List<History>
     )
 
+
     suspend fun checkForUpdates(postNotification: Boolean): LatestReleaseInfo?
+
+
+    suspend fun updateColorPreset(colorPreset: ColorPreset)
+
+    suspend fun selectColorPreset(colorPreset: ColorPreset)
+
+    suspend fun getColorPresets(): List<ColorPreset>
+
+    suspend fun reorderColorPresets(orderedColorPresets: List<ColorPreset>)
+
+    suspend fun deleteColorPreset(colorPreset: ColorPreset)
 }

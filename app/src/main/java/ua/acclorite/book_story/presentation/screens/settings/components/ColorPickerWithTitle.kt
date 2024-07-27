@@ -1,7 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.settings.components
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,21 +8,27 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.debounce
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.components.CustomIconButton
@@ -33,22 +38,33 @@ import ua.acclorite.book_story.presentation.components.CustomIconButton
  *
  * @param modifier Modifier.
  * @param value Target [Color].
+ * @param presetId Current Color Preset id(to trigger initial value change).
  * @param title Title.
  * @param horizontalPadding Horizontal item padding.
  * @param verticalPadding Vertical item padding.
  * @param onValueChange Callback when target color changes.
  */
+@OptIn(FlowPreview::class)
 @Composable
 fun ColorPickerWithTitle(
     modifier: Modifier = Modifier,
     value: Color,
+    presetId: Int,
     title: String,
     horizontalPadding: Dp = 18.dp,
     verticalPadding: Dp = 8.dp,
     onValueChange: (Color) -> Unit
 ) {
-    val initialValue = rememberSaveable { value.value.toString() }
-    var color by remember { mutableStateOf(value) }
+    val initialValue = rememberSaveable(presetId) { value.value.toString() }
+    var color by remember(value) { mutableStateOf(value) }
+
+    LaunchedEffect(color) {
+        snapshotFlow {
+            color
+        }.debounce(50).collectLatest {
+            onValueChange(it)
+        }
+    }
 
     Column(
         modifier
@@ -66,7 +82,6 @@ fun ColorPickerWithTitle(
             title = stringResource(id = R.string.red_color),
             onValueChange = {
                 color = color.copy(red = it)
-                onValueChange(color)
             }
         )
         RevertibleSlider(
@@ -75,7 +90,6 @@ fun ColorPickerWithTitle(
             title = stringResource(id = R.string.green_color),
             onValueChange = {
                 color = color.copy(green = it)
-                onValueChange(color)
             }
         )
         RevertibleSlider(
@@ -84,7 +98,6 @@ fun ColorPickerWithTitle(
             title = stringResource(id = R.string.blue_color),
             onValueChange = {
                 color = color.copy(blue = it)
-                onValueChange(color)
             }
         )
     }
@@ -108,7 +121,7 @@ private fun RevertibleSlider(
         )
     ) {
         SliderWithTitle(
-            modifier = Modifier.weight(0.85f),
+            modifier = Modifier.weight(1f),
             value = value,
             title = title,
             toValue = 255,
@@ -118,18 +131,18 @@ private fun RevertibleSlider(
             horizontalPadding = 0.dp,
             verticalPadding = 0.dp
         )
-        Box(modifier = Modifier.weight(0.15f), contentAlignment = Alignment.CenterEnd) {
-            CustomIconButton(
-                modifier = Modifier.size(28.dp),
-                icon = Icons.Default.History,
-                contentDescription = R.string.revert_content_desc,
-                disableOnClick = false,
-                enabled = initialValue != value.first,
-                color = if (initialValue == value.first) MaterialTheme.colorScheme.onSurfaceVariant
-                else MaterialTheme.colorScheme.onSurface
-            ) {
-                onValueChange(initialValue)
-            }
+
+        Spacer(modifier = Modifier.width(10.dp))
+        CustomIconButton(
+            modifier = Modifier.size(28.dp),
+            icon = Icons.Default.History,
+            contentDescription = R.string.revert_content_desc,
+            disableOnClick = false,
+            enabled = initialValue != value.first,
+            color = if (initialValue == value.first) MaterialTheme.colorScheme.onSurfaceVariant
+            else MaterialTheme.colorScheme.onSurface
+        ) {
+            onValueChange(initialValue)
         }
     }
 }

@@ -1,4 +1,4 @@
-package ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings
+package ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.settings
 
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.runtime.Composable
@@ -11,23 +11,23 @@ import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWithTitle
 
 /**
- * Double Click Translation setting.
- * Changes Reader's double click translation.
+ * Fast Color Preset Change setting.
+ * If true, user can fast change color presets in Reader with swipes.
  */
 @Composable
-fun LazyItemScope.DoubleClickTranslationSetting(
+fun LazyItemScope.FastColorPresetChangeSetting(
     state: State<MainState>,
     onMainEvent: (MainEvent) -> Unit
 ) {
     SwitchWithTitle(
-        selected = state.value.doubleClickTranslation!!,
+        selected = state.value.fastColorPresetChange!!,
         modifier = Modifier.animateItem(),
-        title = stringResource(id = R.string.double_click_translation_option),
-        description = stringResource(id = R.string.double_click_translation_option_desc),
+        title = stringResource(id = R.string.fast_color_preset_change_option),
+        description = stringResource(id = R.string.fast_color_preset_change_option_desc),
         onClick = {
             onMainEvent(
-                MainEvent.OnChangeDoubleClickTranslation(
-                    !state.value.doubleClickTranslation!!
+                MainEvent.OnChangeFastColorPresetChange(
+                    !state.value.fastColorPresetChange!!
                 )
             )
         }

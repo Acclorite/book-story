@@ -10,6 +10,8 @@ import ua.acclorite.book_story.data.local.notification.UpdatesNotificationServic
 import ua.acclorite.book_story.data.local.notification.UpdatesNotificationServiceImpl
 import ua.acclorite.book_story.data.mapper.book.BookMapper
 import ua.acclorite.book_story.data.mapper.book.BookMapperImpl
+import ua.acclorite.book_story.data.mapper.color_preset.ColorPresetMapper
+import ua.acclorite.book_story.data.mapper.color_preset.ColorPresetMapperImpl
 import ua.acclorite.book_story.data.mapper.history.HistoryMapper
 import ua.acclorite.book_story.data.mapper.history.HistoryMapperImpl
 import ua.acclorite.book_story.data.parser.FileParser
@@ -46,6 +48,12 @@ abstract class RepositoryModule {
     abstract fun bindHistoryMapper(
         historyMapperImpl: HistoryMapperImpl
     ): HistoryMapper
+
+    @Binds
+    @Singleton
+    abstract fun bindColorPresetMapper(
+        colorPresetMapperImpl: ColorPresetMapperImpl
+    ): ColorPresetMapper
 
     @Binds
     @Singleton

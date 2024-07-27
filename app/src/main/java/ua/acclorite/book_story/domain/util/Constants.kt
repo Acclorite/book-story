@@ -2,6 +2,7 @@ package ua.acclorite.book_story.domain.util
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -10,6 +11,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Badge
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
+import ua.acclorite.book_story.domain.model.ColorPreset
 import ua.acclorite.book_story.domain.model.Credit
 import ua.acclorite.book_story.domain.model.FontWithName
 import ua.acclorite.book_story.domain.model.NavigationItem
@@ -294,5 +296,13 @@ object Constants {
         progress = 0f,
         lastOpened = null,
         category = Category.READING
+    )
+
+    val DEFAULT_COLOR_PRESET = ColorPreset(
+        id = -1,
+        name = null,
+        backgroundColor = Color.DarkGray,
+        fontColor = Color.LightGray,
+        isSelected = false
     )
 }

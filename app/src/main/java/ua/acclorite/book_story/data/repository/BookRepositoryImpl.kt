@@ -22,12 +22,14 @@ import ua.acclorite.book_story.data.local.data_store.DataStore
 import ua.acclorite.book_story.data.local.notification.UpdatesNotificationService
 import ua.acclorite.book_story.data.local.room.BookDao
 import ua.acclorite.book_story.data.mapper.book.BookMapper
+import ua.acclorite.book_story.data.mapper.color_preset.ColorPresetMapper
 import ua.acclorite.book_story.data.mapper.history.HistoryMapper
 import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.data.remote.GithubAPI
 import ua.acclorite.book_story.data.remote.dto.LatestReleaseInfo
 import ua.acclorite.book_story.domain.model.Book
+import ua.acclorite.book_story.domain.model.ColorPreset
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.repository.BookRepository
@@ -55,6 +57,7 @@ class BookRepositoryImpl @Inject constructor(
 
     private val bookMapper: BookMapper,
     private val historyMapper: HistoryMapper,
+    private val colorPresetMapper: ColorPresetMapper,
 
     private val fileParser: FileParser,
     private val textParser: TextParser
@@ -666,6 +669,50 @@ class BookRepositoryImpl @Inject constructor(
                 null
             }
         }
+    }
+
+    override suspend fun updateColorPreset(colorPreset: ColorPreset) {
+        database.updateColorPreset(
+            colorPresetMapper.toColorPresetEntity(
+                colorPreset,
+                if (colorPreset.id != -1) database.getColorPresetOrder(colorPreset.id)
+                else database.getColorPresetsSize()
+            )
+        )
+    }
+
+    override suspend fun selectColorPreset(colorPreset: ColorPreset) {
+        database.getColorPresets().map {
+            it.copy(
+                isSelected = it.id == colorPreset.id
+            )
+        }.forEach {
+            database.updateColorPreset(it)
+        }
+    }
+
+    override suspend fun getColorPresets(): List<ColorPreset> {
+        return database.getColorPresets()
+            .sortedBy { it.order }
+            .map { colorPresetMapper.toColorPreset(it) }
+    }
+
+    override suspend fun reorderColorPresets(orderedColorPresets: List<ColorPreset>) {
+        database.deleteColorPresets()
+
+        orderedColorPresets.forEachIndexed { index, colorPreset ->
+            database.updateColorPreset(
+                colorPresetMapper.toColorPresetEntity(colorPreset, order = index)
+            )
+        }
+    }
+
+    override suspend fun deleteColorPreset(colorPreset: ColorPreset) {
+        database.deleteColorPreset(
+            colorPresetMapper.toColorPresetEntity(
+                colorPreset, -1
+            )
+        )
     }
 }
 

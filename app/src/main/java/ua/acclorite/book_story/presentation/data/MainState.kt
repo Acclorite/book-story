@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Parcelable
 import androidx.annotation.Keep
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.graphics.Color
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.DataStoreConstants
@@ -38,12 +37,11 @@ data class MainState(
     val lineHeight: Int? = null,
     val paragraphHeight: Int? = null,
     val paragraphIndentation: Boolean? = null,
-    val backgroundColor: Long? = null,
-    val fontColor: Long? = null,
     val showStartScreen: Boolean? = null,
     val checkForUpdates: Boolean? = null,
     val sidePadding: Int? = null,
-    val doubleClickTranslation: Boolean? = null
+    val doubleClickTranslation: Boolean? = null,
+    val fastColorPresetChange: Boolean? = null,
 ) : Parcelable {
     companion object {
         /**
@@ -75,12 +73,6 @@ data class MainState(
                 val showStartScreen: Boolean = data[SHOW_START_SCREEN.name] as? Boolean
                     ?: true
 
-                val backgroundColor: Long = data[BACKGROUND_COLOR.name] as? Long
-                    ?: Color.DarkGray.value.toLong()
-
-                val fontColor: Long = data[FONT_COLOR.name] as? Long
-                    ?: Color.LightGray.value.toLong()
-
                 val fontFamily: String = data[FONT.name] as? String
                     ?: Constants.FONTS[0].id
 
@@ -109,6 +101,10 @@ data class MainState(
                     data[DOUBLE_CLICK_TRANSLATION.name] as? Boolean
                         ?: false
 
+                val fastColorPresetChange: Boolean =
+                    data[FAST_COLOR_PRESET_CHANGE.name] as? Boolean
+                        ?: true
+
                 return MainState(
                     language = language,
                     theme = theme.toTheme(),
@@ -116,8 +112,6 @@ data class MainState(
                     pureDark = pureDark.toPureDark(),
                     themeContrast = themeContrast.toThemeContrast(),
                     showStartScreen = showStartScreen,
-                    backgroundColor = backgroundColor,
-                    fontColor = fontColor,
                     fontFamily = fontFamily,
                     isItalic = isItalic,
                     fontSize = fontSize,
@@ -126,7 +120,8 @@ data class MainState(
                     paragraphIndentation = paragraphIndentation,
                     checkForUpdates = checkForUpdates,
                     sidePadding = sidePadding,
-                    doubleClickTranslation = doubleClickTranslation
+                    doubleClickTranslation = doubleClickTranslation,
+                    fastColorPresetChange = fastColorPresetChange
                 )
             }
         }

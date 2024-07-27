@@ -5,6 +5,7 @@ import android.os.Build
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
@@ -34,7 +35,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
@@ -67,11 +67,15 @@ import ua.acclorite.book_story.presentation.screens.reader.components.ReaderEndI
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderTextParagraph
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderBottomBar
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderTopBar
+import ua.acclorite.book_story.presentation.screens.reader.components.readerFastColorPresetChange
 import ua.acclorite.book_story.presentation.screens.reader.components.settings_bottom_sheet.ReaderSettingsBottomSheet
 import ua.acclorite.book_story.presentation.screens.reader.components.start_item.ReaderStartItem
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsState
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
 
 @Composable
 fun ReaderScreenRoot(screen: Screen.Reader) {
@@ -82,9 +86,11 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
     val mainViewModel: MainViewModel = hiltViewModel()
     val libraryViewModel: LibraryViewModel = hiltViewModel()
     val historyViewModel: HistoryViewModel = hiltViewModel()
+    val settingsViewModel: SettingsViewModel = hiltViewModel()
 
     val state = viewModel.state.collectAsState()
     val mainState = mainViewModel.state.collectAsState()
+    val settingsState = settingsViewModel.state.collectAsState()
 
     val lazyListState = rememberSaveable(
         state.value.listState,
@@ -137,10 +143,12 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
     ReaderScreen(
         state = state,
         mainState = mainState,
+        settingsState = settingsState,
         lazyListState = lazyListState,
         onNavigate = { navigator.it() },
         onEvent = viewModel::onEvent,
         onMainEvent = mainViewModel::onEvent,
+        onSettingsEvent = settingsViewModel::onEvent,
         onLibraryEvent = libraryViewModel::onEvent,
         onHistoryEvent = historyViewModel::onEvent
     )
@@ -151,10 +159,12 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
 private fun ReaderScreen(
     state: State<ReaderState>,
     mainState: State<MainState>,
+    settingsState: State<SettingsState>,
     lazyListState: LazyListState,
     onNavigate: OnNavigate,
     onEvent: (ReaderEvent) -> Unit,
     onMainEvent: (MainEvent) -> Unit,
+    onSettingsEvent: (SettingsEvent) -> Unit,
     onLibraryEvent: (LibraryEvent) -> Unit,
     onHistoryEvent: (HistoryEvent) -> Unit,
 ) {
@@ -186,12 +196,14 @@ private fun ReaderScreen(
             it.id == mainState.value.fontFamily
         } ?: Constants.FONTS[0]
     }
-    val fontColor = remember(mainState.value.fontColor) {
-        Color(mainState.value.fontColor!!.toULong())
-    }
-    val backgroundColor = remember(mainState.value.backgroundColor) {
-        Color(mainState.value.backgroundColor!!.toULong())
-    }
+    val backgroundColor = animateColorAsState(
+        settingsState.value.selectedColorPreset.backgroundColor,
+        label = ""
+    )
+    val fontColor = animateColorAsState(
+        settingsState.value.selectedColorPreset.fontColor,
+        label = ""
+    )
     val lineHeight =
         remember(mainState.value.fontSize, mainState.value.lineHeight) {
             (mainState.value.fontSize!! + mainState.value.lineHeight!!).sp
@@ -212,8 +224,10 @@ private fun ReaderScreen(
     if (state.value.showSettingsBottomSheet) {
         ReaderSettingsBottomSheet(
             mainState = mainState,
+            settingsState = settingsState,
             onEvent = onEvent,
-            onMainEvent = onMainEvent
+            onMainEvent = onMainEvent,
+            onSettingsEvent = onSettingsEvent
         )
     }
 
@@ -298,7 +312,7 @@ private fun ReaderScreen(
                 state = lazyListState,
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(backgroundColor)
+                    .background(backgroundColor.value)
                     .then(
                         if (!state.value.loading && toolbarHidden) {
                             Modifier
@@ -313,6 +327,25 @@ private fun ReaderScreen(
                                 )
                         } else {
                             Modifier
+                        }
+                    )
+                    .readerFastColorPresetChange(
+                        fastColorPresetChangeEnabled = mainState.value.fastColorPresetChange!!,
+                        toolbarHidden = toolbarHidden,
+                        onSettingsEvent = onSettingsEvent,
+                        presetChanged = {
+                            Toast
+                                .makeText(
+                                    context,
+                                    context.getString(
+                                        R.string.color_preset_selected_query,
+                                        it
+                                            .asString(context)
+                                            .trim()
+                                    ),
+                                    Toast.LENGTH_SHORT
+                                )
+                                .show()
                         }
                     ),
                 verticalArrangement = Arrangement.spacedBy(paragraphHeight)
@@ -332,7 +365,7 @@ private fun ReaderScreen(
                         line = line.second,
                         context = context,
                         fontFamily = fontFamily,
-                        fontColor = fontColor,
+                        fontColor = fontColor.value,
                         lineHeight = lineHeight,
                         fontStyle = fontStyle,
                         fontSize = mainState.value.fontSize!!.sp,

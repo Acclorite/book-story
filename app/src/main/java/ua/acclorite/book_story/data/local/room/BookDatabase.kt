@@ -9,18 +9,21 @@ import androidx.room.migration.AutoMigrationSpec
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import ua.acclorite.book_story.data.local.dto.BookEntity
+import ua.acclorite.book_story.data.local.dto.ColorPresetEntity
 import ua.acclorite.book_story.data.local.dto.HistoryEntity
 
 @Database(
     entities = [
         BookEntity::class,
-        HistoryEntity::class
+        HistoryEntity::class,
+        ColorPresetEntity::class,
     ],
-    version = 4,
+    version = 5,
     autoMigrations = [
         AutoMigration(1, 2),
         AutoMigration(2, 3),
         AutoMigration(3, 4, spec = DatabaseHelper.MIGRATION_3_4::class),
+        AutoMigration(4, 5),
     ],
     exportSchema = true
 )
@@ -50,4 +53,19 @@ object DatabaseHelper {
     @DeleteColumn("BookEntity", "translateWhenOpen")
     @DeleteTable("LanguageHistoryEntity")
     class MIGRATION_3_4 : AutoMigrationSpec
+
+    val MIGRATION_4_5 = object : Migration(4, 5) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            db.execSQL(
+                "CREATE TABLE IF NOT EXISTS `ColorPresetEntity` (" +
+                        "`id` INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "`name` TEXT, " +
+                        "`backgroundColor` INTEGER NOT NULL, " +
+                        "`fontColor` INTEGER NOT NULL, " +
+                        "`isSelected` INTEGER NOT NULL, " +
+                        "`order` INTEGER NOT NULL" +
+                        ")"
+            )
+        }
+    }
 }

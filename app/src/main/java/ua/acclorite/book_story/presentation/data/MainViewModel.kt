@@ -19,6 +19,7 @@ import ua.acclorite.book_story.domain.use_case.SetDatastore
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.DataStoreConstants
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
 import ua.acclorite.book_story.presentation.ui.toDarkTheme
 import ua.acclorite.book_story.presentation.ui.toPureDark
 import ua.acclorite.book_story.presentation.ui.toTheme
@@ -173,28 +174,6 @@ class MainViewModel @Inject constructor(
                 }
             }
 
-            is MainEvent.OnChangeBackgroundColor -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.BACKGROUND_COLOR, event.color)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            backgroundColor = event.color
-                        )
-                    }
-                }
-            }
-
-            is MainEvent.OnChangeFontColor -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.FONT_COLOR, event.color)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            fontColor = event.color
-                        )
-                    }
-                }
-            }
-
             is MainEvent.OnChangeShowStartScreen -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     setDatastore.execute(DataStoreConstants.SHOW_START_SCREEN, event.bool)
@@ -238,11 +217,23 @@ class MainViewModel @Inject constructor(
                     }
                 }
             }
+
+            is MainEvent.OnChangeFastColorPresetChange -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.FAST_COLOR_PRESET_CHANGE, event.bool)
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            fastColorPresetChange = event.bool
+                        )
+                    }
+                }
+            }
         }
     }
 
     fun init(
-        libraryViewModel: LibraryViewModel
+        libraryViewModel: LibraryViewModel,
+        settingsViewModel: SettingsViewModel,
     ) {
         viewModelScope.launch(Dispatchers.Main) {
             val settings = getAllSettings.execute(viewModelScope)
@@ -265,7 +256,12 @@ class MainViewModel @Inject constructor(
         }
 
         viewModelScope.launch(Dispatchers.IO) {
-            libraryViewModel.isReady.collectLatest { ready ->
+            combine(
+                libraryViewModel.isReady,
+                settingsViewModel.isReady
+            ) { (libraryViewModelReady, settingsViewModelReady) ->
+                libraryViewModelReady && settingsViewModelReady
+            }.collectLatest { ready ->
                 isViewModelReady.update {
                     ready
                 }

@@ -26,6 +26,8 @@ import ua.acclorite.book_story.presentation.components.CustomBottomSheet
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsState
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.subcategories.ColorsSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.ReaderSettingsCategory
 
@@ -33,15 +35,19 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.reader.compo
  * Settings bottom sheet. Has General and Colors categories.
  *
  * @param mainState [MainState].
+ * @param settingsState [SettingsState].
  * @param onEvent [ReaderEvent] callback.
  * @param onMainEvent [MainEvent] callback.
+ * @param onSettingsEvent [SettingsEvent] callback.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReaderSettingsBottomSheet(
     mainState: State<MainState>,
+    settingsState: State<SettingsState>,
     onEvent: (ReaderEvent) -> Unit,
-    onMainEvent: (MainEvent) -> Unit
+    onMainEvent: (MainEvent) -> Unit,
+    onSettingsEvent: (SettingsEvent) -> Unit
 ) {
     val pagerState = rememberPagerState { 2 }
     val currentPage by remember { derivedStateOf { pagerState.currentPage } }
@@ -57,7 +63,7 @@ fun ReaderSettingsBottomSheet(
     )
 
     val height = remember(currentPage) {
-        if (currentPage == 1) 0.5f else 0.7f
+        if (currentPage == 1) 0.6f else 0.7f
     }
     val animatedHeight by animateFloatAsState(
         targetValue = height,
@@ -107,8 +113,11 @@ fun ReaderSettingsBottomSheet(
                 if (page == 1) {
                     ColorsSubcategory(
                         state = mainState,
+                        settingsState = settingsState,
                         onMainEvent = onMainEvent,
+                        onSettingsEvent = onSettingsEvent,
                         showTitle = false,
+                        backgroundColor = { MaterialTheme.colorScheme.surfaceContainer },
                         topPadding = 16.dp,
                         bottomPadding = 8.dp + it
                     )
@@ -117,14 +126,3 @@ fun ReaderSettingsBottomSheet(
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-

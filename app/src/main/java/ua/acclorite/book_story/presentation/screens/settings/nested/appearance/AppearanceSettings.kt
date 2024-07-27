@@ -2,6 +2,7 @@ package ua.acclorite.book_story.presentation.screens.settings.nested.appearance
 
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -27,19 +28,26 @@ import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.MainViewModel
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsState
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.AppearanceSettingsCategory
 
 @Composable
 fun AppearanceSettingsRoot() {
     val navigator = LocalNavigator.current
     val mainViewModel: MainViewModel = hiltViewModel()
+    val settingsViewModel: SettingsViewModel = hiltViewModel()
 
     val state = mainViewModel.state.collectAsState()
+    val settingsState = settingsViewModel.state.collectAsState()
 
     AppearanceSettings(
         state = state,
+        settingsState = settingsState,
         onNavigate = { navigator.it() },
-        onMainEvent = mainViewModel::onEvent
+        onMainEvent = mainViewModel::onEvent,
+        onSettingsEvent = settingsViewModel::onEvent
     )
 }
 
@@ -47,8 +55,10 @@ fun AppearanceSettingsRoot() {
 @Composable
 private fun AppearanceSettings(
     state: State<MainState>,
+    settingsState: State<SettingsState>,
     onNavigate: OnNavigate,
-    onMainEvent: (MainEvent) -> Unit
+    onMainEvent: (MainEvent) -> Unit,
+    onSettingsEvent: (SettingsEvent) -> Unit
 ) {
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
 
@@ -56,7 +66,8 @@ private fun AppearanceSettings(
         Modifier
             .fillMaxSize()
             .nestedScroll(scrollState.first.nestedScrollConnection)
-            .windowInsetsPadding(WindowInsets.navigationBars),
+            .windowInsetsPadding(WindowInsets.navigationBars)
+            .imePadding(),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             LargeTopAppBar(
@@ -82,7 +93,9 @@ private fun AppearanceSettings(
         ) {
             AppearanceSettingsCategory(
                 state = state,
-                onMainEvent = onMainEvent
+                settingsState = settingsState,
+                onMainEvent = onMainEvent,
+                onSettingsEvent = onSettingsEvent
             )
         }
     }

@@ -19,7 +19,10 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
-import ua.acclorite.book_story.presentation.screens.settings.components.ColorPickerWithTitle
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsState
+import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.settings.ColorPresetSetting
+import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.settings.FastColorPresetChangeSetting
 
 /**
  * Colors subcategory.
@@ -27,9 +30,12 @@ import ua.acclorite.book_story.presentation.screens.settings.components.ColorPic
  */
 fun LazyListScope.ColorsSubcategory(
     state: State<MainState>,
+    settingsState: State<SettingsState>,
     onMainEvent: (MainEvent) -> Unit,
+    onSettingsEvent: (SettingsEvent) -> Unit,
     titleColor: @Composable () -> Color = { MaterialTheme.colorScheme.primary },
     title: @Composable () -> String = { stringResource(id = R.string.colors_appearance_settings) },
+    backgroundColor: @Composable () -> Color = { MaterialTheme.colorScheme.surfaceContainerLow },
     showTitle: Boolean = true,
     topPadding: Dp,
     bottomPadding: Dp
@@ -55,36 +61,20 @@ fun LazyListScope.ColorsSubcategory(
         }
     }
 
-    // todo: This will be replaced with ColorPresets
     item {
-        ColorPickerWithTitle(
-            modifier = Modifier.animateItem(),
-            value = Color(state.value.backgroundColor!!.toULong()),
-            title = stringResource(id = R.string.background_color_option),
-            onValueChange = {
-                onMainEvent(
-                    MainEvent.OnChangeBackgroundColor(
-                        it.value.toLong()
-                    )
-                )
-            }
+        ColorPresetSetting(
+            state = settingsState,
+            backgroundColor = backgroundColor.invoke(),
+            onEvent = onSettingsEvent
         )
     }
+
     item {
-        ColorPickerWithTitle(
-            modifier = Modifier.animateItem(),
-            value = Color(state.value.fontColor!!.toULong()),
-            title = stringResource(id = R.string.font_color_option),
-            onValueChange = {
-                onMainEvent(
-                    MainEvent.OnChangeFontColor(
-                        it.value.toLong()
-                    )
-                )
-            }
+        FastColorPresetChangeSetting(
+            state = state,
+            onMainEvent = onMainEvent
         )
     }
-    // ---------
 
     item {
         Spacer(

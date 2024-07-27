@@ -38,6 +38,7 @@ import ua.acclorite.book_story.presentation.screens.library.LibraryScreenRoot
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.reader.ReaderScreenRoot
 import ua.acclorite.book_story.presentation.screens.settings.SettingsScreenRoot
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.AppearanceSettingsRoot
 import ua.acclorite.book_story.presentation.screens.settings.nested.general.GeneralSettingsRoot
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.ReaderSettingsRoot
@@ -53,11 +54,12 @@ import java.lang.reflect.Field
 @SuppressLint("DiscouragedPrivateApi")
 @AndroidEntryPoint
 class Activity : AppCompatActivity() {
-    // Initializing all viewModels on app startup
+    // Initializing all required viewModels on app startup
     private val mainViewModel: MainViewModel by viewModels()
     private val libraryViewModel: LibraryViewModel by viewModels()
     private val historyViewModel: HistoryViewModel by viewModels()
     private val browseViewModel: BrowseViewModel by viewModels()
+    private val settingsViewModel: SettingsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +74,7 @@ class Activity : AppCompatActivity() {
         }
 
         // Initializing all variables
-        mainViewModel.init(libraryViewModel)
+        mainViewModel.init(libraryViewModel, settingsViewModel)
 
         // Splash screen
         installSplashScreen().apply {

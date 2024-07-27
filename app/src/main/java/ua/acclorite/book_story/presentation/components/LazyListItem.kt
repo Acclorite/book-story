@@ -20,11 +20,11 @@ fun <T> LazyListScope.customItems(
 
 fun <T> LazyListScope.customItemsIndexed(
     items: List<T>,
-    key: (T) -> Any?,
+    key: (T, Int) -> Any?,
     content: @Composable LazyItemScope.(Int, T) -> Unit
 ) {
     for ((index, item) in items.withIndex()) {
-        item(key = key(item)) {
+        item(key = key(item, index)) {
             content(index, item)
         }
     }

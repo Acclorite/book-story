@@ -165,4 +165,7 @@ dependencies {
     // About open source libraries
     implementation("com.mikepenz:aboutlibraries-core:latest.release")
     implementation("com.mikepenz:aboutlibraries-compose-m3:latest.release")
+
+    // Drag & Drop
+    implementation("sh.calvin.reorderable:reorderable:2.2.0")
 }
