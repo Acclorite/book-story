@@ -5,11 +5,10 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 sealed class HelpEvent {
-
-    data class OnUpdateState(val block: (HelpState) -> HelpState) : HelpEvent()
-
     data class OnSearchInWeb(
+        val page: String,
         val context: Context,
+        val error: () -> Unit,
         val noAppsFound: () -> Unit
     ) : HelpEvent()
 

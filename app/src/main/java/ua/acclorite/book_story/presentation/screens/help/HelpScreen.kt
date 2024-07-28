@@ -33,27 +33,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
-import ua.acclorite.book_story.presentation.screens.help.components.items.HelpAddBooksItem
+import ua.acclorite.book_story.presentation.screens.help.components.HelpItem
 import ua.acclorite.book_story.presentation.screens.help.components.items.HelpClickMeNoteItem
-import ua.acclorite.book_story.presentation.screens.help.components.items.HelpCustomizeApp
-import ua.acclorite.book_story.presentation.screens.help.components.items.HelpCustomizeReader
-import ua.acclorite.book_story.presentation.screens.help.components.items.HelpEditBook
-import ua.acclorite.book_story.presentation.screens.help.components.items.HelpFindBooksItem
-import ua.acclorite.book_story.presentation.screens.help.components.items.HelpManageHistory
-import ua.acclorite.book_story.presentation.screens.help.components.items.HelpMoveOrDeleteBooks
-import ua.acclorite.book_story.presentation.screens.help.components.items.HelpReadBook
-import ua.acclorite.book_story.presentation.screens.help.components.items.HelpUpdateBook
-import ua.acclorite.book_story.presentation.screens.help.components.items.HelpUseTooltips
 import ua.acclorite.book_story.presentation.screens.help.data.HelpEvent
 import ua.acclorite.book_story.presentation.screens.help.data.HelpState
 import ua.acclorite.book_story.presentation.screens.help.data.HelpViewModel
@@ -179,10 +172,7 @@ private fun HelpScreen(
             }
 
             item {
-                HelpClickMeNoteItem(
-                    state = state,
-                    onEvent = onEvent
-                )
+                HelpClickMeNoteItem()
             }
 
             item {
@@ -193,81 +183,12 @@ private fun HelpScreen(
                 )
             }
 
-            item {
-                HelpFindBooksItem(
-                    state = state,
-                    onEvent = onEvent
-                )
-            }
-
-            item {
-                HelpAddBooksItem(
-                    state = state,
+            customItems(Constants.HELP_TIPS, key = { it.title }) { helpTip ->
+                HelpItem(
+                    helpTip = helpTip,
                     onNavigate = onNavigate,
-                    onEvent = onEvent
-                )
-            }
-
-            item {
-                HelpCustomizeApp(
-                    state = state,
-                    onNavigate = onNavigate,
-                    onEvent = onEvent
-                )
-            }
-
-            item {
-                HelpMoveOrDeleteBooks(
-                    state = state,
-                    onNavigate = onNavigate,
-                    onEvent = onEvent
-                )
-            }
-
-            item {
-                HelpEditBook(
-                    state = state,
-                    onNavigate = onNavigate,
-                    onEvent = onEvent
-                )
-            }
-
-            item {
-                HelpReadBook(
-                    state = state,
-                    onNavigate = onNavigate,
-                    onEvent = onEvent
-                )
-            }
-
-            item {
-                HelpCustomizeReader(
-                    state = state,
-                    onNavigate = onNavigate,
-                    onEvent = onEvent
-                )
-            }
-
-            item {
-                HelpUpdateBook(
-                    state = state,
-                    onNavigate = onNavigate,
-                    onEvent = onEvent
-                )
-            }
-
-            item {
-                HelpManageHistory(
-                    state = state,
-                    onNavigate = onNavigate,
-                    onEvent = onEvent
-                )
-            }
-
-            item {
-                HelpUseTooltips(
-                    state = state,
-                    onEvent = onEvent
+                    fromStart = state.value.fromStart,
+                    onHelpEvent = onEvent
                 )
             }
 

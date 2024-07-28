@@ -6,12 +6,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyItemScope
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -21,16 +23,15 @@ import ua.acclorite.book_story.presentation.components.CustomTooltip
 import ua.acclorite.book_story.presentation.ui.SlidingTransition
 
 /**
- * When clicked returns a Tag from [tags] (if present in [text])
+ * Help Clickable Note.
+ * Collapsible simple note to user.
+ *
+ * @param text [AnnotatedString].
  */
 @Composable
-fun LazyItemScope.HelpClickableNote(
-    text: AnnotatedString,
-    tags: List<String> = emptyList(),
-    isNoteFullyShown: Boolean,
-    onIconClick: () -> Unit,
-    onTagClick: (String) -> Unit
-) {
+fun LazyItemScope.HelpClickableNote(text: AnnotatedString) {
+    val showNote = rememberSaveable { mutableStateOf(true) }
+
     Column(Modifier.animateItem()) {
         CustomTooltip(text = stringResource(R.string.note_content_desc)) {
             Icon(
@@ -38,29 +39,22 @@ fun LazyItemScope.HelpClickableNote(
                 modifier = Modifier
                     .size(20.dp)
                     .clickable(interactionSource = null, indication = null) {
-                        onIconClick()
+                        showNote.value = !showNote.value
                     },
                 contentDescription = stringResource(R.string.note_content_desc),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
 
-        SlidingTransition(visible = isNoteFullyShown) {
+        SlidingTransition(visible = showNote.value) {
             Column {
                 Spacer(modifier = Modifier.height(8.dp))
-                ClickableText(
+                Text(
                     text = text,
                     style = MaterialTheme.typography.bodySmall.copy(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                ) { offset ->
-                    tags.forEach { tag ->
-                        text.getStringAnnotations(tag = tag, start = offset, end = offset)
-                            .firstOrNull()?.let {
-                                onTagClick(tag)
-                            }
-                    }
-                }
+                )
             }
         }
     }

@@ -3,26 +3,36 @@ package ua.acclorite.book_story.presentation.screens.help.components
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 
 /**
- * Help clickable annotation. Mainly used for highlighting screens.
+ * Help clickable annotation.
+ * Mainly used for highlighting screens.
+ *
+ * @param onClick OnClick callback, to, for example navigate to another screen.
+ * @param block Lambda to append all text to be highlighted.
  */
 @Composable
 fun AnnotatedString.Builder.HelpAnnotation(
-    tag: String,
+    onClick: () -> Unit,
     block: @Composable AnnotatedString.Builder.() -> Unit
 ) {
-    pushStringAnnotation(tag = tag, annotation = "")
-    withStyle(
-        style = SpanStyle(
-            color = MaterialTheme.colorScheme.tertiary,
-            fontWeight = FontWeight.Medium
-        )
+    withLink(
+        LinkAnnotation.Url("", style = null) {
+            onClick()
+        }
     ) {
-        block()
+        withStyle(
+            style = SpanStyle(
+                color = MaterialTheme.colorScheme.tertiary,
+                fontWeight = FontWeight.Medium
+            )
+        ) {
+            block()
+        }
     }
-    pop()
 }

@@ -451,6 +451,45 @@
         To show tooltip you can hold on an icon-button.
     </string>
 
+    <string name="help_title_how_to_use_double_click_translation">
+        How do I use double click translation?
+    </string>
+    <string name="help_desc_how_to_use_double_click_translation_1">
+        Firstly, go to the Reader settings(see: How do I customize the Reader?),
+        then turn on corresponding setting. After that,
+        start reading the book(see: How do I read a book?).
+        Now if you double click on desired paragraph,
+        external translator will be opened with paragraph\'s text.
+    </string>
+
+    <string name="help_title_how_to_create_color_presets">
+        How do I create and modify color presets?
+    </string>
+    <string name="help_desc_how_to_create_color_presets_1">
+        Go to the Appearance settings(see: How do I customize the Reader?).
+        You can modify all color preset\'s settings in the box under «Color Preset» in «Colors» subcategory.
+        To create a new color preset, click the «Add» icon-button.
+        There are multiple ways to modify a color preset:
+        by clicking the text field you can change the name of the color preset,
+        by moving sliders you can change colors of the color preset,
+        by clicking the «Shuffle» icon-button you can shuffle all colors.
+        If you want to delete color preset, click the «Delete» icon-button.
+    </string>
+
+    <string name="help_title_how_to_use_color_presets">
+        How do I use color presets?
+    </string>
+    <string name="help_desc_how_to_use_color_presets_1">
+        Go to the Appearance settings(see: How do I customize the Reader?).
+        You can choose which color preset to use in «Color Preset» setting.
+        Click the desired color preset to select it, this will also change your colors in Reader.
+        If you want to reorder color preset, select it and hold «Handle» icon-button,
+        then move it to the desired position.
+        You can fast change color presets by enabling corresponding setting
+        in Appearance setting\'s «Colors» subcategory, then swiping left or right in Reader,
+        to fast change color preset.
+    </string>
+
 
     <!-- Start -->
     <string name="start_welcome">Welcome to Book\'s Story!</string>

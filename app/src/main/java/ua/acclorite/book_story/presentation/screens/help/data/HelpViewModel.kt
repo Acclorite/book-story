@@ -40,12 +40,8 @@ class HelpViewModel @Inject constructor(
 
             is HelpEvent.OnSearchInWeb -> {
                 viewModelScope.launch {
-                    if (_state.value.textFieldValue.isBlank()) {
-                        _state.update {
-                            it.copy(
-                                showError = true
-                            )
-                        }
+                    if (event.page.isBlank()) {
+                        event.error()
                         return@launch
                     }
 
@@ -54,18 +50,12 @@ class HelpViewModel @Inject constructor(
                     intent.action = Intent.ACTION_WEB_SEARCH
                     intent.putExtra(
                         SearchManager.QUERY,
-                        "${_state.value.textFieldValue.trim()} filetype:txt OR filetype:pdf"
+                        "${event.page.trim()} filetype:txt OR filetype:pdf"
                     )
 
                     intent.launchActivity(event.context as ComponentActivity) {
                         event.noAppsFound()
                     }
-                }
-            }
-
-            is HelpEvent.OnUpdateState -> {
-                _state.update {
-                    event.block(it)
                 }
             }
         }
