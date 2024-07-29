@@ -137,7 +137,7 @@ dependencies {
     implementation("com.tom-roush:pdfbox-android:latest.release")
 
     // Epub parser
-    implementation("nl.siegmann.epublib:epublib-core:latest.release") {
+    implementation("com.positiondev.epublib:epublib-core:3.1") {
         exclude("org.slf4j")
         exclude("xmlpull")
     }
