@@ -1,0 +1,8 @@
+* Color Presets for Reader
+* Changed app icon & in app icons
+* Book Info/Details: Reset cover, Edit author & Edit Description
+* Double click translation with external translator
+* New badges in About
+* New "What's New" option in About
+* New Help Screen tips
+* More..

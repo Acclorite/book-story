@@ -1,0 +1,20 @@
+Material3 eBook reader - Book's Story. Built with Jetpack Compose. 4 supported file formats (.txt, .pdf, .epub, .fb2), 2 supported languages. Lots of customization. More is coming!
+
+Main Features:
+* 4 supported file formats(.pdf, .txt, .epub, .fb2)
+* Color Presets for Reader
+* Categories to organize your Library
+* Check for app updates on app startup
+* Anti error protection(you cannot add/update a book if it is not valid)
+* Highly customizable Reader
+* Double click translation(sends to the external translator)
+* Translate and Dictionary options when text is selected in Reader
+* Material3 latest design guidelines
+* 7 unique themes
+* MaterialYou Dynamic Theme support
+* Simple UI
+* Tablet UI support
+* Detailed app functions explanation(Help screen tips)
+* More..
+
+If you have any ideas please feel free to create new Feature Request(see Issue tracker), I will always gladly accept new ideas!
