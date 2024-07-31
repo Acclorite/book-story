@@ -7,7 +7,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Badge
 import ua.acclorite.book_story.domain.model.Book
@@ -400,11 +399,7 @@ object Constants {
             UIText.StringValue("Raleway"),
             FontFamily(
                 Font(R.font.raleway_regular),
-                Font(R.font.raleway_regular_italic, style = FontStyle.Italic),
-                Font(R.font.raleway_medium, FontWeight.Medium),
-                Font(R.font.raleway_medium_italic, FontWeight.Medium, style = FontStyle.Italic),
-                Font(R.font.raleway_bold, FontWeight.Bold),
-                Font(R.font.raleway_bold_italic, FontWeight.Bold, style = FontStyle.Italic)
+                Font(R.font.raleway_regular_italic, style = FontStyle.Italic)
             )
         ),
         FontWithName(
@@ -412,11 +407,7 @@ object Constants {
             UIText.StringValue("Open Sans"),
             FontFamily(
                 Font(R.font.opensans_regular),
-                Font(R.font.opensans_regular_italic, style = FontStyle.Italic),
-                Font(R.font.opensans_medium, FontWeight.Medium),
-                Font(R.font.opensans_medium_italic, FontWeight.Medium, style = FontStyle.Italic),
-                Font(R.font.opensans_bold, FontWeight.Bold),
-                Font(R.font.opensans_bold_italic, FontWeight.Bold, style = FontStyle.Italic)
+                Font(R.font.opensans_regular_italic, style = FontStyle.Italic)
             )
         ),
         FontWithName(
@@ -424,11 +415,7 @@ object Constants {
             UIText.StringValue("Mulish"),
             FontFamily(
                 Font(R.font.mulish_regular),
-                Font(R.font.mulish_regular_italic, style = FontStyle.Italic),
-                Font(R.font.mulish_medium, FontWeight.Medium),
-                Font(R.font.mulish_medium_italic, FontWeight.Medium, style = FontStyle.Italic),
-                Font(R.font.mulish_bold, FontWeight.Bold),
-                Font(R.font.mulish_bold_italic, FontWeight.Bold, style = FontStyle.Italic)
+                Font(R.font.mulish_regular_italic, style = FontStyle.Italic)
             )
         ),
         FontWithName(
@@ -436,11 +423,7 @@ object Constants {
             UIText.StringValue("Arimo"),
             FontFamily(
                 Font(R.font.arimo_regular),
-                Font(R.font.arimo_regular_italic, style = FontStyle.Italic),
-                Font(R.font.arimo_medium, FontWeight.Medium),
-                Font(R.font.arimo_medium_italic, FontWeight.Medium, style = FontStyle.Italic),
-                Font(R.font.arimo_bold, FontWeight.Bold),
-                Font(R.font.arimo_bold_italic, FontWeight.Bold, style = FontStyle.Italic)
+                Font(R.font.arimo_regular_italic, style = FontStyle.Italic)
             )
         ),
         FontWithName(
@@ -448,11 +431,7 @@ object Constants {
             UIText.StringValue("Garamond"),
             FontFamily(
                 Font(R.font.garamond_regular),
-                Font(R.font.garamond_regular_italic, style = FontStyle.Italic),
-                Font(R.font.garamond_medium, FontWeight.Medium),
-                Font(R.font.garamond_medium_italic, FontWeight.Medium, style = FontStyle.Italic),
-                Font(R.font.garamond_bold, FontWeight.Bold),
-                Font(R.font.garamond_bold_italic, FontWeight.Bold, style = FontStyle.Italic)
+                Font(R.font.garamond_regular_italic, style = FontStyle.Italic)
             )
         ),
         FontWithName(
@@ -460,11 +439,7 @@ object Constants {
             UIText.StringValue("Roboto Serif"),
             FontFamily(
                 Font(R.font.robotoserif_regular),
-                Font(R.font.robotoserif_regular_italic, style = FontStyle.Italic),
-                Font(R.font.robotoserif_medium, FontWeight.Medium),
-                Font(R.font.robotoserif_medium_italic, FontWeight.Medium, style = FontStyle.Italic),
-                Font(R.font.robotoserif_bold, FontWeight.Bold),
-                Font(R.font.robotoserif_bold_italic, FontWeight.Bold, style = FontStyle.Italic)
+                Font(R.font.robotoserif_regular_italic, style = FontStyle.Italic)
             )
         ),
         FontWithName(
@@ -472,11 +447,7 @@ object Constants {
             UIText.StringValue("Noto Serif"),
             FontFamily(
                 Font(R.font.notoserif_regular),
-                Font(R.font.notoserif_regular_italic, style = FontStyle.Italic),
-                Font(R.font.notoserif_medium, FontWeight.Medium),
-                Font(R.font.notoserif_medium_italic, FontWeight.Medium, style = FontStyle.Italic),
-                Font(R.font.notoserif_bold, FontWeight.Bold),
-                Font(R.font.notoserif_bold_italic, FontWeight.Bold, style = FontStyle.Italic)
+                Font(R.font.notoserif_regular_italic, style = FontStyle.Italic)
             )
         ),
         FontWithName(
@@ -484,11 +455,7 @@ object Constants {
             UIText.StringValue("Noto Sans"),
             FontFamily(
                 Font(R.font.notosans_regular),
-                Font(R.font.notosans_regular_italic, style = FontStyle.Italic),
-                Font(R.font.notosans_medium, FontWeight.Medium),
-                Font(R.font.notosans_medium_italic, FontWeight.Medium, style = FontStyle.Italic),
-                Font(R.font.notosans_bold, FontWeight.Bold),
-                Font(R.font.notosans_bold_italic, FontWeight.Bold, style = FontStyle.Italic)
+                Font(R.font.notosans_regular_italic, style = FontStyle.Italic)
             )
         ),
         FontWithName(
@@ -496,11 +463,7 @@ object Constants {
             UIText.StringValue("Roboto"),
             FontFamily(
                 Font(R.font.roboto_regular),
-                Font(R.font.roboto_regular_italic, style = FontStyle.Italic),
-                Font(R.font.roboto_medium, FontWeight.Medium),
-                Font(R.font.roboto_medium_italic, FontWeight.Medium, style = FontStyle.Italic),
-                Font(R.font.roboto_bold, FontWeight.Bold),
-                Font(R.font.roboto_bold_italic, FontWeight.Bold, style = FontStyle.Italic)
+                Font(R.font.roboto_regular_italic, style = FontStyle.Italic)
             )
         ),
         FontWithName(
@@ -508,11 +471,7 @@ object Constants {
             UIText.StringValue("Jost"),
             FontFamily(
                 Font(R.font.jost_regular),
-                Font(R.font.jost_regular_italic, style = FontStyle.Italic),
-                Font(R.font.jost_medium, FontWeight.Medium),
-                Font(R.font.jost_medium_italic, FontWeight.Medium, style = FontStyle.Italic),
-                Font(R.font.jost_bold, FontWeight.Bold),
-                Font(R.font.jost_bold_italic, FontWeight.Bold, style = FontStyle.Italic)
+                Font(R.font.jost_regular_italic, style = FontStyle.Italic)
             )
         )
     )
