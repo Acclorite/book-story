@@ -41,7 +41,7 @@ android {
         }
 
         getByName("release") {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             isShrinkResources = false
 
             proguardFiles(
@@ -75,7 +75,7 @@ aboutLibraries {
     registerAndroidTasks = true
     outputFileName = "aboutlibraries.json"
     offlineMode = false
-    fetchRemoteLicense = false
+    fetchRemoteLicense = true
     fetchRemoteFunding = true
     includePlatform = true
     duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
