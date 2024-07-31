@@ -74,14 +74,17 @@ android {
 aboutLibraries {
     registerAndroidTasks = true
     outputFileName = "aboutlibraries.json"
+
+    gitHubApiToken = properties["github-key"] as? String
     offlineMode = false
     fetchRemoteLicense = true
-    fetchRemoteFunding = true
+    fetchRemoteFunding = false
     includePlatform = true
+
     duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
     duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
     prettyPrint = false
-    filterVariants = arrayOf("debug", "release", "release-debug")
+
     excludeFields = arrayOf("generated")
 }
 
