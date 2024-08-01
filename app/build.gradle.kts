@@ -75,7 +75,7 @@ aboutLibraries {
     outputFileName = "aboutlibraries.json"
 
     gitHubApiToken = properties["github-key"] as? String
-    offlineMode = true
+    offlineMode = false
     fetchRemoteLicense = true
     fetchRemoteFunding = false
 
