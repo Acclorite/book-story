@@ -38,6 +38,22 @@ _Currently the app is only available on Github, Fdroid is coming.._
  - _Install from Github_: Click on the "Get it on GitHub" badge above, scroll down and download **book-story.apk** or download the last apk from GitHub [here](https://github.com/Acclorite/book-story/releases/latest/download/book-story.apk). After that, find downloaded file and install it. If you don't understand how to do so, follow [this guide](https://www.lifewire.com/install-apk-on-android-4177185).
  - _Install from F-Droid_: Coming soon...
 
+### 🗳️ APK Verification 
+ - _APK Verification is an important step to ensure APK integrity and prevent risks from getting infected one._
+ - Although it is recommended to verify APK before installing, it is not necessary.
+
+|                       APK SHA-256 certificate                     |
+|-------------------------------------------------------------------|
+| a661a0c81f138e53dff32f8fdc1dd19f8130523914027e2c0296fe245131a7d4  |
+
+ - For verification you can use tool called [apksigner](https://developer.android.com/tools/apksigner). Which is the part of Android SDK Build Tools, so you need to install that first.
+
+To verify downloaded APK, you can write this command:
+```
+path/to/android/build/tools/apksigner verify --print-certs path/to/downloaded/apk/file.apk
+```
+In `Signer #1 certificate SHA-256 digest:` you should see exact certificate written in the table above. This way you can ensure, that the APK was signed directly by me. If the downloaded APK's certificate does not match, or gives an error, please do not install that APK, instead, create an [Issue](https://github.com/Acclorite/book-story/issues) along with downloaded APK.
+
 ### 🧭 Afterwards
  - Open the app and follow basic instructions.
  - If you don't understand how to use the app, please read everything in the app's Help Screen. (You can find it in: Library, History, Browse → Three Dots → Help)
