@@ -75,12 +75,12 @@ aboutLibraries {
     outputFileName = "aboutlibraries.json"
 
     gitHubApiToken = properties["github-key"] as? String
-    offlineMode = false
+    offlineMode = true
     fetchRemoteLicense = true
     fetchRemoteFunding = false
 
     filterVariants = arrayOf("debug", "release", "release-debug")
-    excludeFields = arrayOf("generated", "funding", "description", "scm", "url")
+    excludeFields = arrayOf("generated", "funding", "description")
 }
 
 dependencies {
