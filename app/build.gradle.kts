@@ -44,10 +44,7 @@ android {
             isMinifyEnabled = true // Enabling minify, test of reproducibility
             isShrinkResources = false
 
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles("proguard-rules.pro")
         }
     }
     compileOptions {
