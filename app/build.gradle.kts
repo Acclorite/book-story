@@ -140,7 +140,6 @@ dependencies {
         exclude("org.slf4j")
         exclude("xmlpull")
     }
-    implementation("org.slf4j:slf4j-android:latest.release")
     implementation("org.jsoup:jsoup:latest.release")
 
     // Fb2 parser

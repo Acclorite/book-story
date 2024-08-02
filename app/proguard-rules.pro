@@ -32,6 +32,9 @@
 -dontwarn javax.lang.model.util.Types
 -dontwarn javax.tools.Diagnostic$Kind
 -dontwarn org.kxml2.io.**
+-dontwarn android.content.res.**
+-dontwarn org.slf4j.Logger
+-dontwarn org.slf4j.LoggerFactory
 
 -keep class com.mikepenz.aboutlibraries.** { *; }
 -keep class org.xmlpull.** { *; }
