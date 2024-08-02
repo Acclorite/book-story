@@ -36,9 +36,5 @@
 -dontwarn org.slf4j.Logger
 -dontwarn org.slf4j.LoggerFactory
 
--keep class com.mikepenz.aboutlibraries.** { *; }
--keep class org.xmlpull.** { *; }
--keepclassmembers class org.xmlpull.** { *; }
-
 # Debug rule
 #-keepnames class ** { *; }
