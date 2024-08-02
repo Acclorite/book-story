@@ -36,5 +36,5 @@
 -dontwarn org.slf4j.LoggerFactory
 -dontwarn org.xmlpull.v1.XmlPullParserFactory
 
-# Debug rule
--keepnames class **
+# Keeping names of classes that produce undeterministic results
+-keepnames class java.util.*
