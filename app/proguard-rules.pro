@@ -37,4 +37,4 @@
 -dontwarn org.xmlpull.v1.XmlPullParserFactory
 
 # Keeping names of classes that produce undeterministic results
--keepnames class java.util.*
+-keepnames class **
