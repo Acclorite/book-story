@@ -41,8 +41,8 @@ android {
         }
 
         getByName("release") {
-            isMinifyEnabled = true // Enabling minify, test of reproducibility
-            isShrinkResources = true
+            isMinifyEnabled = true
+            isShrinkResources = false
 
             proguardFiles("proguard-rules.pro")
         }
