@@ -37,4 +37,4 @@
 -dontwarn org.xmlpull.v1.XmlPullParserFactory
 
 # Debug rule
-#-keepnames class ** { *; }
+-keepnames class **
