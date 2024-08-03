@@ -1,6 +1,6 @@
 package ua.acclorite.book_story.presentation.components
 
-import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
@@ -18,19 +18,20 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.R
 
 /**
- * Animated top app bar. Has up to 3 different top bars inside it. Follow [TopAppBar] for more info.
+ * Animated top app bar.
+ * Has up to 3 different top bars inside it. Follow [TopAppBar] for more info.
  *
+ * @param containerColor Container color of the TopBar.
+ * @param scrolledContainerColor Scrolled container color of the TopBar.
+ * @param scrollBehavior [TopAppBarScrollBehavior].
  * @param isTopBarScrolled Whether isScrolled state should be forced or not.
  * @param content1Visibility Whether first top app bar should be shown.
  * @param content2Visibility Whether second top app bar should be shown.
@@ -66,7 +67,7 @@ fun AnimatedTopAppBar(
             WindowInsets.statusBars.getTop(density).toDp()
         }
 
-        if (containerColor != Color.Transparent) {
+        if (containerColor.alpha != 0f) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -78,21 +79,17 @@ fun AnimatedTopAppBar(
             )
         }
 
-        val scrollableContainerColor by remember(isTopBarScrolled) {
-            derivedStateOf {
-                if (isTopBarScrolled == true) {
-                    scrolledContainerColor
-                } else {
-                    containerColor
-                }
-            }
+        val animatedContainerColor = remember(
+            containerColor,
+            scrolledContainerColor,
+            isTopBarScrolled
+        ) {
+            lerp(
+                containerColor,
+                scrolledContainerColor,
+                FastOutLinearInEasing.transform(if (isTopBarScrolled == true) 1f else 0f)
+            )
         }
-
-        val animatedContainerColor by animateColorAsState(
-            targetValue = scrollableContainerColor,
-            animationSpec = spring(stiffness = Spring.StiffnessMediumLow),
-            label = stringResource(id = R.string.top_app_bar_anim_content_desc)
-        )
 
         CustomAnimatedVisibility(
             visible = content1Visibility ?: true,
