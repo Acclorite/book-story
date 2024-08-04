@@ -12,11 +12,13 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import ua.acclorite.book_story.R
@@ -40,6 +42,7 @@ import ua.acclorite.book_story.presentation.ui.Transitions
  * @param onLibraryEvent [LibraryEvent] callback.
  * @param onHistoryEvent [HistoryEvent] callback.
  * @param onNavigate Navigator callback.
+ * @param scrollBehavior [TopAppBarScrollBehavior].
  * @param listState [LazyListState].
  * @param snackbarState [SnackbarHostState].
  */
@@ -51,6 +54,7 @@ fun BookInfoTopBar(
     onLibraryEvent: (LibraryEvent) -> Unit,
     onHistoryEvent: (HistoryEvent) -> Unit,
     onNavigate: OnNavigate,
+    scrollBehavior: TopAppBarScrollBehavior,
     listState: LazyListState,
     snackbarState: SnackbarHostState
 ) {
@@ -58,9 +62,9 @@ fun BookInfoTopBar(
     val firstVisibleItemIndex by remember { derivedStateOf { listState.firstVisibleItemIndex } }
 
     AnimatedTopAppBar(
-        containerColor = MaterialTheme.colorScheme.surface.copy(0f),
-        scrollBehavior = null,
-        isTopBarScrolled = listState.canScrollBackward,
+        containerColor = Color.Transparent,
+        scrollBehavior = scrollBehavior,
+        isTopBarScrolled = null,
 
         content1NavigationIcon = {
             if (
