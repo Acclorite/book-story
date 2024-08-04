@@ -33,12 +33,14 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
  * Tab row, either scrollable or static, depends on screen width.
  *
  * @param onEvent Event used to Scroll to Page.
+ * @param itemCountBackgroundColor Item count background color.
  * @param books The list of all books.
  * @param pagerState [PagerState].
  */
 @Composable
 fun LibraryTabRow(
     onEvent: (LibraryEvent) -> Unit,
+    itemCountBackgroundColor: Color,
     books: List<CategorizedBooks>,
     pagerState: PagerState
 ) {
@@ -113,7 +115,7 @@ fun LibraryTabRow(
                                 text = tabItem.second.toString(),
                                 modifier = Modifier
                                     .background(
-                                        MaterialTheme.colorScheme.surfaceContainer,
+                                        itemCountBackgroundColor,
                                         MaterialTheme.shapes.medium
                                     )
                                     .padding(horizontal = 8.dp, vertical = 4.dp),
