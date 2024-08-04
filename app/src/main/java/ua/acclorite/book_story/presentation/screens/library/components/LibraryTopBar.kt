@@ -1,5 +1,8 @@
 package ua.acclorite.book_story.presentation.screens.library.components
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -168,12 +171,20 @@ fun LibraryTopBar(
             },
             content3Actions = {
                 MoreDropDown()
+            },
+            customContent = {
+                LibraryTabRow(
+                    onEvent = onEvent,
+                    books = state.value.categorizedBooks,
+                    itemCountBackgroundColor = animateColorAsState(
+                        if (state.value.hasSelectedItems) MaterialTheme.colorScheme.surfaceContainerHighest
+                        else MaterialTheme.colorScheme.surfaceContainer,
+                        animationSpec = spring(stiffness = Spring.StiffnessMediumLow),
+                        label = stringResource(id = R.string.top_app_bar_anim_content_desc)
+                    ).value,
+                    pagerState = pagerState
+                )
             }
-        )
-        LibraryTabRow(
-            onEvent = onEvent,
-            books = state.value.categorizedBooks,
-            pagerState = pagerState
         )
     }
 }
