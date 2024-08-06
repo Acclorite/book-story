@@ -54,13 +54,15 @@ _You can find more screenshots in [assets](https://github.com/Acclorite/book-sto
 <div align="left">
 
   [<img src="https://raw.githubusercontent.com/ismartcoding/plain-app/main/assets/get-it-on-github.png" alt='Get it on GitHub' height="80">](https://github.com/Acclorite/book-story/releases/latest)
+  [<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Get it on IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/ua.acclorite.book_story)
 </div>
 
-_Currently the app is only available on Github, Fdroid is coming.._
+_Fdroid is coming.._
 
 ### 📲 How to download and install
  - _Install from Github_: Click on the "Get it on GitHub" badge above, scroll down and download **book-story.apk** or download the last apk from GitHub [here](https://github.com/Acclorite/book-story/releases/latest/download/book-story.apk). After that, find downloaded file and install it. If you don't understand how to do so, follow [this guide](https://www.lifewire.com/install-apk-on-android-4177185).
  - _Install from F-Droid_: Coming soon...
+ - _Install from IzzyOnDroid_: Click on the "Get it on IzzyOnDroid" badge above, scroll down and click "Download" to download the last apk from IzzyOnDroid. After that, find downloaded file and install it. If you don't understand how to do so, follow [this guide](https://www.lifewire.com/install-apk-on-android-4177185).
 
 ### 🗳️ APK Verification 
  - _APK Verification is an important step to ensure APK integrity and prevent risks from getting infected one._
