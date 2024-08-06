@@ -27,7 +27,7 @@ _You can find more screenshots in [assets](https://github.com/Acclorite/book-sto
 ## ✈️ Download
  - _Please note, that the app supports Android versions only from Android 8.0_
 
-<div align="start">
+<div align="left">
 
   [<img src="https://raw.githubusercontent.com/ismartcoding/plain-app/main/assets/get-it-on-github.png" alt='Get it on GitHub' height="80">](https://github.com/Acclorite/book-story/releases/latest)
 </div>
@@ -40,19 +40,11 @@ _Currently the app is only available on Github, Fdroid is coming.._
 
 ### 🗳️ APK Verification 
  - _APK Verification is an important step to ensure APK integrity and prevent risks from getting infected one._
- - Although it is recommended to verify APK before installing, it is not necessary.
+ - For verification you can use tool called [apksigner](https://developer.android.com/tools/apksigner). Which is the part of Android SDK Build Tools, so you need to install that first.
 
 |                       APK SHA-256 certificate                     |
 |-------------------------------------------------------------------|
 | a661a0c81f138e53dff32f8fdc1dd19f8130523914027e2c0296fe245131a7d4  |
-
- - For verification you can use tool called [apksigner](https://developer.android.com/tools/apksigner). Which is the part of Android SDK Build Tools, so you need to install that first.
-
-To verify downloaded APK, you can write this command:
-```
-path/to/android/build/tools/apksigner verify --print-certs path/to/downloaded/apk/file.apk
-```
-In `Signer #1 certificate SHA-256 digest:` you should see exact certificate written in the table above. This way you can ensure, that the APK was signed directly by me. If the downloaded APK's certificate does not match, or gives an error, please do not install that APK, instead, create an [Issue](https://github.com/Acclorite/book-story/issues) along with downloaded APK.
 
 ### 🧭 Afterwards
  - Open the app and follow basic instructions.
