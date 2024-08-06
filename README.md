@@ -17,6 +17,7 @@
   <a href="">[![Downloads](https://img.shields.io/github/downloads/Acclorite/book-story/total?color=3f8f9b&labelColor=27303D&label=Downloads&logo=GitHub)]()</a>
   <a href="">[![Stars](https://img.shields.io/github/stars/Acclorite/book-story?style=flat&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIC05NjAgOTYwIDk2MCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxwYXRoIGQ9Im0zNTQtMjQ3IDEyNi03NiAxMjYgNzctMzMtMTQ0IDExMS05Ni0xNDYtMTMtNTgtMTM2LTU4IDEzNS0xNDYgMTMgMTExIDk3LTMzIDE0M1pNMjMzLTgwbDY1LTI4MUw4MC01NTBsMjg4LTI1IDExMi0yNjUgMTEyIDI2NSAyODggMjUtMjE4IDE4OSA2NSAyODEtMjQ3LTE0OUwyMzMtODBabTI0Ny0zNTBaIiBzdHlsZT0iZmlsbDogcmdiKDI0NSwgMjI3LCA2Nik7Ii8%2BCjwvc3ZnPg%3D%3D&color=949b3f&labelColor=27303D&label=Stars)](https://github.com/Acclorite/book-story/stargazers)</a>
   <a href="">[![Development Stage](https://img.shields.io/badge/Active-9b3f90?label=Development%20stage&labelColor=27303D)](https://github.com/Acclorite/book-story/commits/)</a>
+  </br>
   <a href="">[![Last Commit](https://img.shields.io/github/last-commit/Acclorite/book-story?label=Last%20commit&labelColor=27303D&color=749b3f)](https://github.com/Acclorite/book-story/commits/)</a>
   <a href="">[![License: GPL-3.0](https://img.shields.io/github/license/Acclorite/book-story?label=License&labelColor=27303D&color=3f9b75)](/LICENSE)</a>
   <a href="">[![Repository Size](https://img.shields.io/github/repo-size/Acclorite/book-story?label=Repository%20size&labelColor=27303D&color=563f9b)]()</a>
