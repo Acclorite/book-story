@@ -1,13 +1,25 @@
-# <p align="center">Book's Story 📖</p>
+<div align="center">
+
+  <img src="https://github.com/Acclorite/book-story/blob/master/assets/readme/app_icon.png" width="23%" />
+</div>
+
+# <p align="center">Book's Story</p>
+### <p align="center">Material3 Book Reader for Android</p>
+<p align="center">Dive into the world of adventure as you discover your favorite book's story!</p>
 
 <div align="center">
 
-  <a href="">[![Latest Stable Release](https://img.shields.io/github/release/Acclorite/book-story.svg?label=Release&logo=GitHub)](https://github.com/Acclorite/book-story/releases)</a>
-  <a href="">[![Downloads](https://img.shields.io/github/downloads/Acclorite/book-story/total?color=0273b3&label=Downloads&logo=GitHub)]()</a>
+  <a href="">[![Latest Stable Release](https://img.shields.io/github/release/Acclorite/book-story.svg?labelColor=27303D&color=3f719b&label=Release&logo=GitHub)](https://github.com/Acclorite/book-story/releases)</a>
+  <a href="">[![Downloads](https://img.shields.io/github/downloads/Acclorite/book-story/total?color=3f8f9b&labelColor=27303D&label=Downloads&logo=GitHub)]()</a>
+  <a href="">[![Stars](https://img.shields.io/github/stars/Acclorite/book-story?style=flat&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIC05NjAgOTYwIDk2MCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxwYXRoIGQ9Im0zNTQtMjQ3IDEyNi03NiAxMjYgNzctMzMtMTQ0IDExMS05Ni0xNDYtMTMtNTgtMTM2LTU4IDEzNS0xNDYgMTMgMTExIDk3LTMzIDE0M1pNMjMzLTgwbDY1LTI4MUw4MC01NTBsMjg4LTI1IDExMi0yNjUgMTEyIDI2NSAyODggMjUtMjE4IDE4OSA2NSAyODEtMjQ3LTE0OUwyMzMtODBabTI0Ny0zNTBaIiBzdHlsZT0iZmlsbDogcmdiKDI0NSwgMjI3LCA2Nik7Ii8%2BCjwvc3ZnPg%3D%3D&color=%23f8e444&labelColor=27303D&label=Stars)](https://github.com/Acclorite/book-story/stargazers)</a>
+  <a href="">[![Development Stage](https://img.shields.io/badge/Active-9b3f90?label=Development%20stage&labelColor=27303D)](https://github.com/Acclorite/book-story/commits/)</a>
+  <a href="">[![License: GPL-3.0](https://img.shields.io/github/license/Acclorite/book-story?label=License&labelColor=27303D&color=3f9b75)](/LICENSE)</a>
 </div>
 
+# <p align="center">Overview</p>
+
 <img src="https://github.com/Acclorite/book-story/blob/master/assets/readme/github_overview.png">
-Material3 Book Reader built with Jetpack Compose and Kotlin.
+Built using Jetpack Compose and Kotlin.
 
 ## 🖌️ Screenshots + GIF
 
