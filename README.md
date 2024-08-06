@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/readme/app_icon.png" width="23%" />
+  <img src="https://github.com/Acclorite/book-story/blob/master/assets/readme/app_icon.png" width="13%" />
 </div>
 
 # <p align="center">Book's Story</p>
