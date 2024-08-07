@@ -401,10 +401,15 @@ class BookRepositoryImpl @Inject constructor(
         val byteArray = stream.toByteArray()
         val defaultCover = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
 
-        val currentCover = MediaStore.Images.Media.getBitmap(
-            application.contentResolver,
-            Uri.parse(book.image)
-        )
+        val currentCover = try {
+            MediaStore.Images.Media.getBitmap(
+                application.contentResolver,
+                Uri.parse(book.image)
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return true
+        }
 
         return !defaultCover.sameAs(currentCover)
     }
