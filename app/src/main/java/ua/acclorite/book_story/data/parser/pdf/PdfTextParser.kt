@@ -53,20 +53,6 @@ class PdfTextParser @Inject constructor(private val application: Application) : 
                         return@forEachIndexed
                     }
 
-                    if (
-                        line.all {
-                            if (it == ' ') {
-                                true
-                            } else if (it.isUpperCase() || it.isDigit() || it == '-') {
-                                true
-                            } else {
-                                false
-                            }
-                        }
-                    ) {
-                        return@forEachIndexed
-                    }
-
                     if (line.all { it.isDigit() }) {
                         return@forEachIndexed
                     }
