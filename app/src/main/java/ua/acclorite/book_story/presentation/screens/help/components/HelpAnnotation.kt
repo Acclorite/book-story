@@ -22,7 +22,7 @@ fun AnnotatedString.Builder.HelpAnnotation(
     block: @Composable AnnotatedString.Builder.() -> Unit
 ) {
     withLink(
-        LinkAnnotation.Url("", style = null) {
+        LinkAnnotation.Url("", styles = null) {
             onClick()
         }
     ) {
