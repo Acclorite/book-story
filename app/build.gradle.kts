@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -73,12 +75,7 @@ android {
 }
 
 aboutLibraries {
-    outputFileName = "aboutlibraries.json"
-
-    gitHubApiToken = properties["github-key"] as? String
-    offlineMode = false
-    fetchRemoteLicense = true
-    fetchRemoteFunding = false
+    gitHubApiToken = gradleLocalProperties(rootDir, providers)["github-key"] as String
 
     filterVariants = arrayOf("debug", "release", "release-debug")
     excludeFields = arrayOf("generated", "funding", "description")
