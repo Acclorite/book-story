@@ -485,6 +485,16 @@ class BookRepositoryImpl @Inject constructor(
                 .map { bookMapper.toBook(it) }
 
             val primaryDirectory = Environment.getExternalStorageDirectory()
+
+            if (
+                !primaryDirectory.exists() ||
+                (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED &&
+                        Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED_READ_ONLY)
+            ) {
+                emit(Resource.Success(null))
+                return@flow
+            }
+
             val allFiles = getAllFilesInDirectory(primaryDirectory)
 
             if (allFiles.isEmpty()) {
