@@ -84,14 +84,6 @@ object Constants {
             website = "https://www.github.com/mihonapp/mihon"
         ),
         Credit(
-            name = "Libre-Sudoku",
-            source = "GitHub",
-            credits = listOf(
-                UIText.StringValue("Readme")
-            ),
-            website = "https://www.github.com/kaajjo/Libre-Sudoku"
-        ),
-        Credit(
             name = "Kitsune",
             source = "GitHub",
             credits = listOf(
