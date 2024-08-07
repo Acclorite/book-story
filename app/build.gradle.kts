@@ -75,7 +75,8 @@ android {
 }
 
 aboutLibraries {
-    gitHubApiToken = gradleLocalProperties(rootDir, providers)["github-key"] as String
+    registerAndroidTasks = false
+    gitHubApiToken = gradleLocalProperties(rootDir, providers)["github-key"] as? String
 
     filterVariants = arrayOf("debug", "release", "release-debug")
     excludeFields = arrayOf("generated", "funding", "description")
