@@ -76,6 +76,7 @@ android {
 
 aboutLibraries {
     registerAndroidTasks = false
+    prettyPrint = true
     gitHubApiToken = gradleLocalProperties(rootDir, providers)["github-key"] as? String
 
     filterVariants = arrayOf("debug", "release", "release-debug")
@@ -136,7 +137,6 @@ dependencies {
 
     // Epub parser
     implementation("com.positiondev.epublib:epublib-core:3.1") {
-        exclude("org.slf4j")
         exclude("xmlpull")
     }
     implementation("org.jsoup:jsoup:1.18.1")

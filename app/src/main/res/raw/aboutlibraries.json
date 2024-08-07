@@ -2857,6 +2857,24 @@
       }
     },
     {
+      "uniqueId": "org.slf4j:slf4j-api",
+      "developers": [],
+      "artifactVersion": "1.7.36",
+      "scm": {
+        "connection": "git@github.com:qos-ch/slf4j.git",
+        "url": "https://github.com/qos-ch/slf4j"
+      },
+      "name": "SLF4J API Module",
+      "website": "http://www.slf4j.org",
+      "licenses": [
+        "MIT"
+      ],
+      "organization": {
+        "url": "http://www.qos.ch",
+        "name": "QOS.ch"
+      }
+    },
+    {
       "uniqueId": "sh.calvin.reorderable:reorderable-android",
       "developers": [
         {
