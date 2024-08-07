@@ -41,13 +41,10 @@ android {
         }
 
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             isShrinkResources = false
 
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles("proguard-rules.pro")
         }
     }
     compileOptions {
@@ -144,7 +141,6 @@ dependencies {
         exclude("org.slf4j")
         exclude("xmlpull")
     }
-    implementation("org.slf4j:slf4j-android:1.7.36")
     implementation("org.jsoup:jsoup:1.18.1")
 
     // Fb2 parser

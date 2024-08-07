@@ -1,5 +1,5 @@
 # Proguard-rules
--dontwarn org.xmlpull.v1.**
+-dontwarn android.content.res.**
 -dontwarn com.gemalto.jp2.JP2Decoder
 -dontwarn com.google.auto.service.AutoService
 -dontwarn javax.lang.model.SourceVersion
@@ -31,11 +31,10 @@
 -dontwarn javax.lang.model.util.SimpleTypeVisitor8
 -dontwarn javax.lang.model.util.Types
 -dontwarn javax.tools.Diagnostic$Kind
--dontwarn org.kxml2.io.**
+-dontwarn org.kxml2.io.KXml**
+-dontwarn org.slf4j.Logger
+-dontwarn org.slf4j.LoggerFactory
+-dontwarn org.xmlpull.v1.XmlPullParserFactory
 
--keep class com.mikepenz.aboutlibraries.** { *; }
--keep class org.xmlpull.** { *; }
--keepclassmembers class org.xmlpull.** { *; }
-
-# Debug rule
-#-keepnames class ** { *; }
+# Keeping names of classes that produce undeterministic results
+-keepnames class **
