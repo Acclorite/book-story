@@ -99,15 +99,6 @@ object Constants {
             ),
             website = "https://fonts.google.com/icons"
         ),
-        Credit(
-            name = "Crocus",
-            source = null,
-            credits = listOf(
-                UIText.StringResource(R.string.credits_motivation),
-                UIText.StringValue("UwU")
-            ),
-            website = null
-        ),
     )
 
     // Help Tips
