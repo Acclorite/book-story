@@ -144,27 +144,36 @@ private fun AboutScreen(
                         )
                         append("\n")
                         append(stringResource(id = R.string.app_version_option_desc_2))
-                    }
+                    },
+                    showLoading = state.value.updateLoading
                 ) {
-                    onEvent(
-                        AboutEvent.OnCheckForUpdates(
-                            context = context,
-                            noUpdatesFound = {
-                                Toast.makeText(
-                                    context,
-                                    context.getString(R.string.no_updates),
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            },
-                            error = {
-                                Toast.makeText(
-                                    context,
-                                    context.getString(R.string.error_check_internet),
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
+                    if (!state.value.alreadyCheckedForUpdates) {
+                        onEvent(
+                            AboutEvent.OnCheckForUpdates(
+                                context = context,
+                                noUpdatesFound = {
+                                    Toast.makeText(
+                                        context,
+                                        context.getString(R.string.no_updates),
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                },
+                                error = {
+                                    Toast.makeText(
+                                        context,
+                                        context.getString(R.string.error_check_internet),
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            )
                         )
-                    )
+                    } else {
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.no_updates),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
             }
 

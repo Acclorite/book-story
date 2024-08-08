@@ -40,9 +40,19 @@ class AboutViewModel @Inject constructor(
 
             is AboutEvent.OnCheckForUpdates -> {
                 viewModelScope.launch {
+                    _state.update {
+                        it.copy(
+                            updateLoading = true
+                        )
+                    }
                     val result = checkForUpdates.execute(false)
 
                     if (result == null) {
+                        _state.update {
+                            it.copy(
+                                updateLoading = false
+                            )
+                        }
                         event.error()
                         return@launch
                     }
@@ -52,12 +62,19 @@ class AboutViewModel @Inject constructor(
 
                     if (version == currentVersion) {
                         event.noUpdatesFound()
+                        _state.update {
+                            it.copy(
+                                updateLoading = false,
+                                alreadyCheckedForUpdates = true
+                            )
+                        }
                         return@launch
                     }
 
                     _state.update {
                         it.copy(
                             showUpdateDialog = true,
+                            updateLoading = false,
                             updateInfo = result
                         )
                     }
