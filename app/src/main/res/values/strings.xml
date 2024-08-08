@@ -31,9 +31,6 @@
         Update %1$s just released!
         Click to go to the release page.
     </string>
-    <string name="updates_notification_action">
-        Download
-    </string>
 
     <!-- Screens -->
     <string name="library_screen">Library</string>
@@ -562,5 +559,6 @@
     <string name="github_project_content_desc">GitHub Project</string>
     <string name="github_profile_content_desc">GitHub Profile</string>
     <string name="drag_content_desc">Drag</string>
+    <string name="updates_notification_action">Download</string>
 
 </resources>

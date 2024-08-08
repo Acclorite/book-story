@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Book\'s Story</string>
+    <string name="updates_notification_channel">Neue Updates</string>
+    <string name="updates_notification_title">Neue Updates von Book\'s Story!</string>
+    <string name="updates_notification_desc">"         Update %1$s just released!         Click to go to the release page.     "</string>
+    <string name="updates_notification_action">Download</string>
+    <string name="library_screen">Bücherei</string>
+    <string name="history_screen">Verlauf</string>
+    <string name="browse_screen">Durchsuchen</string>
+    <string name="settings_screen">Einstellungen</string>
+    <string name="about_screen">Über diese App</string>
+    <string name="help_screen">Hilfe</string>
+    <string name="storage_permission">Berechtigung erteilen</string>
+    <string name="add_books">Bücher hinzufügen?</string>
+    <string name="move_books">Bücher verschieben?</string>
+</resources>
