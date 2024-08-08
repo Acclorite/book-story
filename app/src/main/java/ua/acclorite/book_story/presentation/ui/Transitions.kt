@@ -98,7 +98,7 @@ fun SlidingTransition(
 fun FadeTransitionPreservingSpace(
     visible: Boolean,
     modifier: Modifier = Modifier,
-    animationSpec: AnimationSpec<Float> = tween(durationMillis = 300, easing = EaseInOut),
+    animationSpec: AnimationSpec<Float> = tween(durationMillis = 150, easing = EaseInOut),
     content: @Composable () -> Unit
 ) {
     val alpha by animateFloatAsState(
