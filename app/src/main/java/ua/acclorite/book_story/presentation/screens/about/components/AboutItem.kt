@@ -74,7 +74,7 @@ fun AboutItem(
             Row {
                 Spacer(modifier = Modifier.width(18.dp))
                 CircularProgressIndicator(
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     strokeCap = StrokeCap.Round,
                     modifier = Modifier.size(28.dp)
                 )
