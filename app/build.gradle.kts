@@ -36,17 +36,18 @@ android {
         getByName("debug") {
             applicationIdSuffix = ".debug"
         }
-        create("release-debug") {
-            initWith(getByName("release"))
-            applicationIdSuffix = ".release.debug"
-            signingConfig = signingConfigs.getByName("debug")
-        }
-
+        
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = false
 
             proguardFiles("proguard-rules.pro")
+        }
+
+        create("release-debug") {
+            initWith(getByName("release"))
+            applicationIdSuffix = ".release.debug"
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
