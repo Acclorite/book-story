@@ -1,5 +1,8 @@
 package ua.acclorite.book_story.presentation.ui
 
+import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.EaseInOut
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -8,8 +11,11 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
@@ -86,4 +92,22 @@ fun SlidingTransition(
         } + fadeOut(tween(100)),
         content = content
     )
+}
+
+@Composable
+fun FadeTransitionPreservingSpace(
+    visible: Boolean,
+    modifier: Modifier = Modifier,
+    animationSpec: AnimationSpec<Float> = tween(durationMillis = 150, easing = EaseInOut),
+    content: @Composable () -> Unit
+) {
+    val alpha by animateFloatAsState(
+        if (visible) 1f else 0f,
+        label = "",
+        animationSpec = animationSpec
+    )
+
+    Box(modifier = modifier.alpha(alpha)) {
+        content.invoke()
+    }
 }

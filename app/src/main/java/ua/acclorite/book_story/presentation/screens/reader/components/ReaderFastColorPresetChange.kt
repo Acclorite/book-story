@@ -14,6 +14,7 @@ import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
  * Detects horizontal swipe gestures.
  *
  * @param fastColorPresetChangeEnabled Whether this is enabled.
+ * @param isLoading Whether Reader is loading.
  * @param toolbarHidden Whether toolbar(selection) is hidden.
  * @param onSettingsEvent [SettingsEvent] callback.
  * @param presetChanged Callback when Color Preset was changed.
@@ -21,13 +22,14 @@ import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
 @Composable
 fun Modifier.readerFastColorPresetChange(
     fastColorPresetChangeEnabled: Boolean,
+    isLoading: Boolean,
     toolbarHidden: Boolean,
     onSettingsEvent: (SettingsEvent) -> Unit,
     presetChanged: (UIText) -> Unit
 ): Modifier {
     val offset = remember { mutableFloatStateOf(0f) }
     return this.then(
-        if (fastColorPresetChangeEnabled && toolbarHidden) {
+        if (fastColorPresetChangeEnabled && toolbarHidden && !isLoading) {
             Modifier.pointerInput(Unit) {
                 detectHorizontalDragGestures(
                     onDragStart = { offset.floatValue = 0f },

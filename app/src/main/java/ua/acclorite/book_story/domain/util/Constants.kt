@@ -84,14 +84,6 @@ object Constants {
             website = "https://www.github.com/mihonapp/mihon"
         ),
         Credit(
-            name = "Libre-Sudoku",
-            source = "GitHub",
-            credits = listOf(
-                UIText.StringValue("Readme")
-            ),
-            website = "https://www.github.com/kaajjo/Libre-Sudoku"
-        ),
-        Credit(
             name = "Kitsune",
             source = "GitHub",
             credits = listOf(
@@ -106,15 +98,6 @@ object Constants {
                 UIText.StringResource(R.string.credits_icon)
             ),
             website = "https://fonts.google.com/icons"
-        ),
-        Credit(
-            name = "Crocus",
-            source = null,
-            credits = listOf(
-                UIText.StringResource(R.string.credits_motivation),
-                UIText.StringValue("UwU")
-            ),
-            website = null
         ),
     )
 

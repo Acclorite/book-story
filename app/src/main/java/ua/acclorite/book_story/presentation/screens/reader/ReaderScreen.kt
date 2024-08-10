@@ -331,6 +331,7 @@ private fun ReaderScreen(
                     )
                     .readerFastColorPresetChange(
                         fastColorPresetChangeEnabled = mainState.value.fastColorPresetChange!!,
+                        isLoading = state.value.loading,
                         toolbarHidden = toolbarHidden,
                         onSettingsEvent = onSettingsEvent,
                         presetChanged = {
