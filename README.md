@@ -117,6 +117,7 @@ _Don't see your favorite app store? Create an [Issue](https://github.com/Acclori
 
 ## 🤝 How to contribute
  - **The most improtant thing is I do not want someone's code.** This project is maintaining only by me and I want it to be this way. Creating Pull Requests will not have much sense as they will probably be closed.
+ - **Place your suggestions on Issues with [Suggestion Needed](https://github.com/Acclorite/book-story/labels/%F0%9F%93%9D%20Suggestion%20needed) label.** When the issue has this label that means I seek new ideas on how to improve what I already propose. Feel free to tell me what's on your mind!
  - **Share your ideas and suggestions.** Your ideas and suggestions are always welcome, if you miss some feature or got an interesting idea, feel free to create a new [Issue](https://github.com/Acclorite/book-story/issues).
  - **Report bugs**. Had a crash or something went wrong? Create a new [Issue](https://github.com/Acclorite/book-story/issues), the more information you can give the better it is.
  - **Enjoy the app**. Your best contribution is using my app and enjoying it!
