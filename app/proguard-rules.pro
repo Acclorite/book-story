@@ -42,4 +42,6 @@
 
 # Keeping names of classes that produce undeterministic results
 -keepnames class **
+-keepnames class org.xmlpull.** { *; }
+-keepclassmembernames class org.xmlpull.** { *; }
 -keepnames class kotlin.reflect.jvm.internal.impl.builtins.PrimitiveType { values(); }
