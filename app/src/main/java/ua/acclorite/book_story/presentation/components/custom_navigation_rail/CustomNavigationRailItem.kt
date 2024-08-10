@@ -52,7 +52,7 @@ fun CustomNavigationRailItem(
             ) {
                 Crossfade(
                     targetState = isSelected,
-                    animationSpec = tween(300),
+                    animationSpec = tween(150),
                     label = ""
                 ) {
                     if (it) {
