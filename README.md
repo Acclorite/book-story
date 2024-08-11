@@ -39,12 +39,14 @@ Built using Jetpack Compose and Kotlin.
 
 <img src="https://github.com/Acclorite/book-story/blob/master/assets/readme/book's-story.gif" width="35%">
 <div>
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Library Dark + Frame.png" width="30%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Book-Info Dark + Frame.png" width="30%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Reader Dark + Frame.png" width="30%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Library Light + Frame.png" width="30%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Book-Info Light + Frame.png" width="30%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Reader Light + Frame.png" width="30%" />
+  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="30%" />
+  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="30%" />
+  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/9.png" width="30%" />
+  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="30%" />
+  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" width="30%" />
+  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/8.png" width="30%" />
+  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="45%" />
+  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/6.png" width="45%" />
 </div>
 </br>
 
