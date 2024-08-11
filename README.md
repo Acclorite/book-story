@@ -35,9 +35,8 @@ Built using Jetpack Compose and Kotlin.
 
 <!------------ Screenshots ------------>
 
-## 🖌️ Screenshots + GIF
+## 🖌️ Screenshots
 
-<img src="https://github.com/Acclorite/book-story/blob/master/assets/readme/book's-story.gif" width="35%">
 <div>
   <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="30%" />
   <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="30%" />
