@@ -60,7 +60,7 @@ fun CustomDialogWithContent(
     modifier: Modifier = Modifier,
     drawableIcon: Painter? = null,
     imageVectorIcon: ImageVector? = null,
-    backgroundTransparency: Float = 0.3f,
+    backgroundTransparency: Float = 0.5f,
     title: String,
     description: String?,
     actionText: String?,
