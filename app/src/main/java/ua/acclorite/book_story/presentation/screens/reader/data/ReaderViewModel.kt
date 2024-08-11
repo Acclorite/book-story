@@ -73,7 +73,6 @@ class ReaderViewModel @Inject constructor(
                         }
 
                         val textAsLine = text
-                            .map { it.value.line }
                             .joinToString(
                                 separator = "\n"
                             )

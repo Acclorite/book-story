@@ -52,7 +52,7 @@ import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomSelectionContainer
-import ua.acclorite.book_story.presentation.components.customItems
+import ua.acclorite.book_story.presentation.components.customItemsIndexed
 import ua.acclorite.book_story.presentation.components.is_messages.IsError
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
@@ -188,9 +188,6 @@ private fun ReaderScreen(
         }
     }
 
-    val text = remember(state.value.text) {
-        state.value.text.toList().sortedBy { it.first }
-    }
     val fontFamily = remember(mainState.value.fontFamily) {
         Constants.FONTS.find {
             it.id == mainState.value.fontFamily
@@ -359,11 +356,11 @@ private fun ReaderScreen(
                     Spacer(modifier = Modifier.height(18.dp))
                 }
 
-                customItems(
-                    text, key = { key -> key.first }
-                ) { line ->
+                customItemsIndexed(
+                    state.value.text, key = { _, index -> index }
+                ) { _, line ->
                     ReaderTextParagraph(
-                        line = line.second,
+                        line = line,
                         context = context,
                         fontFamily = fontFamily,
                         fontColor = fontColor.value,

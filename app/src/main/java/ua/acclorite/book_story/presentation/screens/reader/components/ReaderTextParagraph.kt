@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.FontWithName
-import ua.acclorite.book_story.domain.model.ReaderLine
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 
 /**
@@ -44,7 +43,7 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LazyItemScope.ReaderTextParagraph(
-    line: ReaderLine,
+    line: String,
     context: Context,
     fontFamily: FontWithName,
     fontColor: Color,
@@ -72,7 +71,7 @@ fun LazyItemScope.ReaderTextParagraph(
                     append("  ")
                 }
 
-                append(line.line)
+                append(line)
             },
             modifier = Modifier.then(
                 if (
@@ -85,7 +84,7 @@ fun LazyItemScope.ReaderTextParagraph(
                         onDoubleClick = {
                             onEvent(
                                 ReaderEvent.OnOpenTranslator(
-                                    textToTranslate = line.line,
+                                    textToTranslate = line,
                                     context = context as ComponentActivity,
                                     noAppsFound = {
                                         Toast.makeText(
