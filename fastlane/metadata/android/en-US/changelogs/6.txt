@@ -1,0 +1,8 @@
+* Added loading indicator in AboutScreen's check for updates
+* Reduced APK size (30Mb → 12Mb)
+* Improved performance
+* Improved text parsers
+* Fixed various crashes
+* Various small changes
+* Removed no longer valid Credits
+* More small changes
