@@ -90,7 +90,9 @@ fun LicenseItem(
             Text(
                 text = library.author,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
             )
         }
         if (library.licenses.isNotEmpty()) {
