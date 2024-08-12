@@ -61,12 +61,6 @@ class EpubFileParser @Inject constructor() : FileParser {
                             .firstOrNull()?.attr("href")
                     }
 
-                    if (coverImagePath == null) {
-                        return@withContext
-                    }
-
-                    val coverImage = extractCoverImageBitmap(file, coverImagePath)
-
                     book = Book(
                         title = title,
                         author = author,
@@ -79,7 +73,7 @@ class EpubFileParser @Inject constructor() : FileParser {
                         lastOpened = null,
                         category = Category.entries[0],
                         coverImage = null
-                    ) to coverImage
+                    ) to extractCoverImageBitmap(file, coverImagePath)
                 }
             }
             return book
@@ -90,7 +84,11 @@ class EpubFileParser @Inject constructor() : FileParser {
     }
 }
 
-private fun extractCoverImageBitmap(file: File, coverImagePath: String): Bitmap? {
+private fun extractCoverImageBitmap(file: File, coverImagePath: String?): Bitmap? {
+    if (coverImagePath.isNullOrBlank()) {
+        return null
+    }
+
     ZipFile(file).use { zip ->
         zip.entries().asSequence().forEach { entry ->
             if (entry.name.endsWith(coverImagePath)) {

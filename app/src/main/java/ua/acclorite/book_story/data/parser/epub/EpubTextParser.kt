@@ -37,12 +37,13 @@ class EpubTextParser @Inject constructor() : TextParser {
                                 }
 
                             val document = Jsoup.parse(content)
+                            document.select("p").append("\n")
                             document
                                 .wholeText()
                                 .lines()
-                                .forEach { element ->
-                                    if (element.isNotBlank()) {
-                                        lines.add(element.trim())
+                                .forEach { line ->
+                                    if (line.isNotBlank()) {
+                                        lines.add(line.trim())
                                     }
                                 }
                         }
