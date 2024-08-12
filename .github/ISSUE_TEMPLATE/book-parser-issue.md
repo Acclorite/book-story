@@ -1,6 +1,6 @@
 ---
 name: Book parser issue
-about: Report an issue with parser
+about: Report an issue with parser (problems with text parsing and adding books)
 title: ''
 labels: "\U0001F3BC Parser issue"
 assignees: Acclorite
