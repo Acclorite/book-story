@@ -2,19 +2,13 @@ package ua.acclorite.book_story.data.parser.epub
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import nl.siegmann.epublib.epub.EpubReader
 import org.jsoup.Jsoup
-import org.jsoup.nodes.Document.OutputSettings
-import org.jsoup.safety.Safelist
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
-import java.io.BufferedReader
 import java.io.File
-import java.io.FileInputStream
-import java.io.InputStreamReader
-import java.nio.charset.Charset
+import java.util.zip.ZipFile
 import javax.inject.Inject
 
 
@@ -26,66 +20,41 @@ class EpubTextParser @Inject constructor() : TextParser {
         }
 
         try {
-            val book = withContext(Dispatchers.IO) {
-                EpubReader().readEpub(FileInputStream(file))
-            }
-            val unformattedText = StringBuilder()
+            val lines = mutableListOf<String>()
 
-            for (spineReference in book.spine.spineReferences) {
-                val resource = spineReference.resource
-                val inputStream = resource.inputStream
-                val reader = BufferedReader(
-                    InputStreamReader(
-                        inputStream,
-                        Charset.forName("UTF-8")
-                    )
-                )
-                var line: String?
+            withContext(Dispatchers.IO) {
+                ZipFile(file).use { zip ->
+                    zip.entries().asSequence().forEach { entry ->
+                        if (
+                            entry.name.endsWith(".xhtml")
+                            || entry.name.endsWith(".html")
+                            || entry.name.endsWith(".xml")
+                            || entry.name.endsWith(".htm")
+                        ) {
+                            val content = zip.getInputStream(entry).bufferedReader()
+                                .use {
+                                    it.readText()
+                                }
 
-                withContext(Dispatchers.IO) {
-                    inputStream.close()
-                }
-
-                while (withContext(Dispatchers.IO) { reader.readLine() }
-                        .also { line = it } != null) {
-                    unformattedText.append(line).append("\n")
-                }
-
-                withContext(Dispatchers.IO) {
-                    reader.close()
-                }
-            }
-
-            val strings = mutableListOf<String>()
-
-            val parsedText = Jsoup.parse(unformattedText.toString())
-            parsedText.outputSettings(OutputSettings().prettyPrint(false))
-            parsedText.select("br").append("\n")
-            parsedText.select("p").prepend("\n")
-            parsedText.select("em").append(" ").prepend("")
-
-            val formattedText = Jsoup.clean(
-                parsedText.html(),
-                "",
-                Safelist.none(),
-                OutputSettings().prettyPrint(false)
-            )
-
-            formattedText
-                .replace("&nbsp;", "")
-                .replace("\u00a0", "")
-                .split("\n")
-                .forEach {
-                    if (it.isNotBlank()) {
-                        strings.add(it.trim())
+                            val document = Jsoup.parse(content)
+                            document
+                                .wholeText()
+                                .lines()
+                                .forEach { element ->
+                                    if (element.isNotBlank()) {
+                                        lines.add(element.trim())
+                                    }
+                                }
+                        }
                     }
                 }
+            }
 
-            if (strings.isEmpty()) {
+            if (lines.isEmpty()) {
                 return Resource.Error(UIText.StringResource(R.string.error_file_empty))
             }
 
-            return Resource.Success(strings)
+            return Resource.Success(lines)
         } catch (e: Exception) {
             e.printStackTrace()
             return Resource.Error(

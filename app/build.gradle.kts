@@ -137,9 +137,6 @@ dependencies {
     implementation("com.tom-roush:pdfbox-android:2.0.27.0")
 
     // Epub parser
-    implementation("com.positiondev.epublib:epublib-core:3.1") {
-        exclude("xmlpull")
-    }
     implementation("org.jsoup:jsoup:1.18.1")
 
     // Fb2 parser
