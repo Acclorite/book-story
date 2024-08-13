@@ -20,12 +20,14 @@ import ua.acclorite.book_story.R
 /**
  * Custom Checkbox. Has a Circle shape.
  *
+ * @param modifier Modifier.
  * @param selected Whether checked or not.
  * @param containerColor Container color.
  * @param size Size of the checkbox icon(not the whole checkbox).
  */
 @Composable
 fun CustomCheckbox(
+    modifier: Modifier = Modifier,
     selected: Boolean,
     containerColor: Color,
     size: Dp = 22.dp
@@ -33,7 +35,7 @@ fun CustomCheckbox(
     Icon(
         imageVector = Icons.Default.Check,
         tint = if (selected) containerColor else Color.Transparent,
-        modifier = Modifier
+        modifier = modifier
             .border(
                 width = if (!selected) 1.dp else 0.dp,
                 if (!selected) MaterialTheme.colorScheme.outline else Color.Transparent,
