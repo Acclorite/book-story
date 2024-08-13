@@ -64,7 +64,7 @@ fun BrowseAddingDialogItem(result: Pair<NullableBook, Selected>, onClick: (Boole
                 Spacer(modifier = Modifier.width(24.dp))
                 CustomCheckbox(
                     selected = result.second,
-                    MaterialTheme.colorScheme.surfaceContainerHigh
+                    containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
                 )
             }
         }
