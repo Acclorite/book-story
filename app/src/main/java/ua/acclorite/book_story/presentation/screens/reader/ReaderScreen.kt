@@ -274,6 +274,36 @@ private fun ReaderScreen(
                     ).show()
                 }
             },
+            onShareRequested = { textToShare ->
+                onEvent(
+                    ReaderEvent.OnOpenShareApp(
+                        textToShare = textToShare,
+                        context,
+                        noAppsFound = {
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.error_no_share_app),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    )
+                )
+            },
+            onWebSearchRequested = { textToSearch ->
+                onEvent(
+                    ReaderEvent.OnOpenWebBrowser(
+                        textToSearch = textToSearch,
+                        context,
+                        noAppsFound = {
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.error_no_browser),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    )
+                )
+            },
             onTranslateRequested = { textToTranslate ->
                 onEvent(
                     ReaderEvent.OnOpenTranslator(
@@ -298,7 +328,7 @@ private fun ReaderScreen(
                         noAppsFound = {
                             Toast.makeText(
                                 context,
-                                context.getString(R.string.error_no_browser),
+                                context.getString(R.string.error_no_dictionary),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

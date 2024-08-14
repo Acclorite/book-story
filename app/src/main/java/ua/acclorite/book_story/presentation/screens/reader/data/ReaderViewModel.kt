@@ -360,6 +360,55 @@ class ReaderViewModel @Inject constructor(
                     }
                 }
 
+                is ReaderEvent.OnOpenShareApp -> {
+                    launch {
+                        val shareIntent = Intent()
+
+                        shareIntent.action = Intent.ACTION_SEND
+                        shareIntent.type = "text/plain"
+                        shareIntent.putExtra(
+                            Intent.EXTRA_SUBJECT,
+                            event.context.getString(R.string.app_name)
+                        )
+                        shareIntent.putExtra(
+                            Intent.EXTRA_TEXT,
+                            event.textToShare.trim()
+                        )
+
+                        var shareFailure = false
+                        shareIntent.launchActivity(event.context, createChooser = true) {
+                            shareFailure = true
+                        }
+                        if (!shareFailure) {
+                            return@launch
+                        }
+
+                        event.noAppsFound()
+                    }
+                }
+
+                is ReaderEvent.OnOpenWebBrowser -> {
+                    launch {
+                        val browserIntent = Intent()
+
+                        browserIntent.action = Intent.ACTION_WEB_SEARCH
+                        browserIntent.putExtra(
+                            SearchManager.QUERY,
+                            event.textToSearch
+                        )
+
+                        var browserFailure = false
+                        browserIntent.launchActivity(event.context) {
+                            browserFailure = true
+                        }
+                        if (!browserFailure) {
+                            return@launch
+                        }
+
+                        event.noAppsFound()
+                    }
+                }
+
                 is ReaderEvent.OnOpenDictionary -> {
                     launch {
                         val dictionaryIntent = Intent()

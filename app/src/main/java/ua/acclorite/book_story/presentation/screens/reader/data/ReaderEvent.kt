@@ -51,6 +51,18 @@ sealed class ReaderEvent {
         val noAppsFound: () -> Unit
     ) : ReaderEvent()
 
+    data class OnOpenShareApp(
+        val textToShare: String,
+        val context: ComponentActivity,
+        val noAppsFound: () -> Unit
+    ) : ReaderEvent()
+
+    data class OnOpenWebBrowser(
+        val textToSearch: String,
+        val context: ComponentActivity,
+        val noAppsFound: () -> Unit
+    ) : ReaderEvent()
+
     data class OnOpenDictionary(
         val textToDefine: String,
         val context: ComponentActivity,

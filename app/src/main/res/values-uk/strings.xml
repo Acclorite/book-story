@@ -101,7 +101,9 @@
     <string name="error_query">Помилка: %1$s</string>
     <string name="error_file_empty">Цей файл пустий або пошкоджений.</string>
     <string name="error_no_translator">Не знайдено жодного перекладача.</string>
+    <string name="error_no_dictionary">Не знайдено жодного словника.</string>
     <string name="error_no_browser">Не знайдено жодного браузера.</string>
+    <string name="error_no_share_app">Не знайдено застосунка щоб поділитися.</string>
     <string name="error_no_text">
         Вміст книги пустий. Будь ласка, перевірте вміст книги та оновіть її.
     </string>
@@ -160,6 +162,8 @@
     <string name="download">Завантажити</string>
     <string name="done">Готово</string>
     <string name="enable">Увімкнути</string>
+    <string name="web_search">Веб-пошук</string>
+    <string name="share">Поділитися</string>
 
     <!-- Items -->
     <string name="files">файли</string>
