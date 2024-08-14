@@ -277,7 +277,8 @@ private fun ReaderScreen(
             onTranslateRequested = { textToTranslate ->
                 onEvent(
                     ReaderEvent.OnOpenTranslator(
-                        textToTranslate,
+                        textToTranslate = textToTranslate,
+                        translateWholeParagraph = false,
                         context,
                         noAppsFound = {
                             Toast.makeText(

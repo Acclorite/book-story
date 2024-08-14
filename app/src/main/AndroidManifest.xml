@@ -17,26 +17,6 @@
         android:name="ua.acclorite.book_story.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         tools:node="remove" />
 
-    <queries>
-
-        <!-- Translator -->
-        <intent>
-            <action android:name="android.intent.action.PROCESS_TEXT" />
-            <data android:mimeType="text/plain" />
-        </intent>
-
-        <!-- Browser -->
-        <intent>
-            <action android:name="android.intent.action.WEB_SEARCH" />
-        </intent>
-        <intent>
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <data android:scheme="https" />
-        </intent>
-
-    </queries>
-
     <application
         android:name=".Application"
         android:allowBackup="false"

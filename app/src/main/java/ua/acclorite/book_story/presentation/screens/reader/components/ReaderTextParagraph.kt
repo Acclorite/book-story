@@ -85,6 +85,7 @@ fun LazyItemScope.ReaderTextParagraph(
                             onEvent(
                                 ReaderEvent.OnOpenTranslator(
                                     textToTranslate = line,
+                                    translateWholeParagraph = true,
                                     context = context as ComponentActivity,
                                     noAppsFound = {
                                         Toast.makeText(

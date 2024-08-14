@@ -15,16 +15,18 @@ fun Double.removeDigits(digits: Int) = "%.${digits}f".format(this).replace(",", 
 
 fun Intent.launchActivity(
     activity: ComponentActivity,
+    createChooser: Boolean = false,
     openInNewWindow: Boolean = true,
     success: (() -> Unit)? = null,
     error: () -> Unit
 ) {
+    val intent = if (createChooser) Intent.createChooser(this, "") else this
     if (openInNewWindow) {
-        this.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
     }
 
     try {
-        activity.baseContext.startActivity(this)
+        activity.baseContext.startActivity(intent)
     } catch (e: Exception) {
         error()
         return

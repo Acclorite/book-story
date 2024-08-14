@@ -2,6 +2,7 @@ package ua.acclorite.book_story.presentation.screens.reader.data
 
 import android.app.SearchManager
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.snapshotFlow
@@ -337,7 +338,10 @@ class ReaderViewModel @Inject constructor(
                         )
 
                         var translatorFailure = false
-                        translatorIntent.launchActivity(event.context) {
+                        translatorIntent.launchActivity(
+                            event.context,
+                            createChooser = !event.translateWholeParagraph
+                        ) {
                             translatorFailure = true
                         }
                         if (!translatorFailure) {
@@ -358,20 +362,34 @@ class ReaderViewModel @Inject constructor(
 
                 is ReaderEvent.OnOpenDictionary -> {
                     launch {
+                        val dictionaryIntent = Intent()
                         val browserIntent = Intent()
 
-                        browserIntent.action = Intent.ACTION_WEB_SEARCH
-                        browserIntent.putExtra(
-                            SearchManager.QUERY,
-                            "dictionary" +
-                                    ": ${event.textToDefine.trim()}"
+                        dictionaryIntent.type = "text/plain"
+                        dictionaryIntent.action = Intent.ACTION_PROCESS_TEXT
+                        dictionaryIntent.putExtra(
+                            Intent.EXTRA_PROCESS_TEXT,
+                            event.textToDefine.trim()
                         )
+                        dictionaryIntent.putExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, true)
 
-                        var failure = false
-                        browserIntent.launchActivity(event.context) {
-                            failure = true
+                        browserIntent.action = Intent.ACTION_VIEW
+                        val text = event.textToDefine.trim().replace(" ", "+")
+                        browserIntent.data = Uri.parse("https://www.onelook.com/?w=$text")
+
+                        var dictionaryFailure = false
+                        dictionaryIntent.launchActivity(event.context, createChooser = true) {
+                            dictionaryFailure = true
                         }
-                        if (!failure) {
+                        if (!dictionaryFailure) {
+                            return@launch
+                        }
+
+                        var browserFailure = false
+                        browserIntent.launchActivity(event.context) {
+                            browserFailure = true
+                        }
+                        if (!browserFailure) {
                             return@launch
                         }
 
