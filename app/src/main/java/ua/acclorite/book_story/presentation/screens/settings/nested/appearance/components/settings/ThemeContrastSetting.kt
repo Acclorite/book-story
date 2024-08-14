@@ -54,17 +54,17 @@ fun LazyItemScope.ThemeContrastSetting(
         ) {
             SegmentedButtonWithTitle(
                 title = stringResource(id = R.string.theme_contrast_option),
-                locked = state.value.theme != Theme.DYNAMIC,
+                enabled = state.value.theme != Theme.DYNAMIC,
                 buttons = ThemeContrast.entries.map {
                     ButtonItem(
-                        it.toString(),
-                        when (it) {
+                        id = it.toString(),
+                        title = when (it) {
                             ThemeContrast.STANDARD -> stringResource(id = R.string.theme_contrast_standard)
                             ThemeContrast.MEDIUM -> stringResource(id = R.string.theme_contrast_medium)
                             ThemeContrast.HIGH -> stringResource(id = R.string.theme_contrast_high)
                         },
-                        MaterialTheme.typography.labelLarge,
-                        it == state.value.themeContrast
+                        textStyle = MaterialTheme.typography.labelLarge,
+                        selected = it == state.value.themeContrast
                     )
                 }
             ) {

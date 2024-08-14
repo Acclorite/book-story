@@ -64,10 +64,10 @@ fun StartSettings(
     val languages = remember(mainState.value.language) {
         Constants.LANGUAGES.sortedBy { it.second }.map {
             ButtonItem(
-                it.first,
-                it.second,
-                TextStyle(),
-                it.first == mainState.value.language
+                id = it.first,
+                title = it.second,
+                textStyle = TextStyle(),
+                selected = it.first == mainState.value.language
             )
         }.sortedBy { it.title }
     }

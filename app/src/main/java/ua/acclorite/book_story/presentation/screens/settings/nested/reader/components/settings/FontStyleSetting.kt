@@ -13,7 +13,7 @@ import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
-import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
+import ua.acclorite.book_story.presentation.screens.settings.components.SegmentedButtonWithTitle
 
 /**
  * Font Style setting.
@@ -30,27 +30,27 @@ fun LazyItemScope.FontStyleSetting(
         } ?: Constants.FONTS[0]
     }
 
-    ChipsWithTitle(
+    SegmentedButtonWithTitle(
         title = stringResource(id = R.string.font_style_option),
         modifier = Modifier.animateItem(),
-        chips = listOf(
+        buttons = listOf(
             ButtonItem(
-                "normal",
-                stringResource(id = R.string.font_style_normal),
-                MaterialTheme.typography.labelLarge.copy(
+                id = "normal",
+                title = stringResource(id = R.string.font_style_normal),
+                textStyle = MaterialTheme.typography.labelLarge.copy(
                     fontFamily = fontFamily.font,
                     fontStyle = FontStyle.Normal
                 ),
-                !state.value.isItalic!!
+                selected = !state.value.isItalic!!
             ),
             ButtonItem(
-                "italic",
-                stringResource(id = R.string.font_style_italic),
-                MaterialTheme.typography.labelLarge.copy(
+                id = "italic",
+                title = stringResource(id = R.string.font_style_italic),
+                textStyle = MaterialTheme.typography.labelLarge.copy(
                     fontFamily = fontFamily.font,
                     fontStyle = FontStyle.Italic
                 ),
-                state.value.isItalic!!
+                selected = state.value.isItalic!!
             ),
         ),
         onClick = {
