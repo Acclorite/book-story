@@ -1,7 +1,4 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Basic Strings -->
-    <string name="app_name">Історія Книги</string>
-
     <!-- Book sources -->
     <string-array name="book_sites" tools:ignore="InconsistentArrays">
         <item>Архів Анни|https://uk.annas-archive.org</item>
