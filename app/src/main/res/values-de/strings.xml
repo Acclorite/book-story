@@ -368,4 +368,5 @@
     <string name="horizontal_gesture_off"></string>
     <string name="highlighted_reading_thickness_option"></string>
     <string name="highlighted_reading_option"></string>
+    <string name="app_name" translatable="false"></string>
 </resources>
