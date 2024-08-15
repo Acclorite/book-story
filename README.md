@@ -20,6 +20,7 @@
 )](https://apt.izzysoft.de/fdroid/index/apk/ua.acclorite.book_story)</a>
   <a href="">[![Downloads](https://img.shields.io/github/downloads/Acclorite/book-story/total?color=3f8f9b&labelColor=27303D&label=Downloads&logo=GitHub)]()</a>
   <a href="">[![Stars](https://img.shields.io/github/stars/Acclorite/book-story?style=flat&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIC05NjAgOTYwIDk2MCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxwYXRoIGQ9Im0zNTQtMjQ3IDEyNi03NiAxMjYgNzctMzMtMTQ0IDExMS05Ni0xNDYtMTMtNTgtMTM2LTU4IDEzNS0xNDYgMTMgMTExIDk3LTMzIDE0M1pNMjMzLTgwbDY1LTI4MUw4MC01NTBsMjg4LTI1IDExMi0yNjUgMTEyIDI2NSAyODggMjUtMjE4IDE4OSA2NSAyODEtMjQ3LTE0OUwyMzMtODBabTI0Ny0zNTBaIiBzdHlsZT0iZmlsbDogcmdiKDI0NSwgMjI3LCA2Nik7Ii8%2BCjwvc3ZnPg%3D%3D&color=949b3f&labelColor=27303D&label=Stars)](https://github.com/Acclorite/book-story/stargazers)</a>
+  <a href="">[![Translation Status](https://img.shields.io/weblate/progress/book-story?label=Translated&logo=weblate&labelColor=27303D&color=3f9b86)](https://hosted.weblate.org/engage/book-story/)</a>
   <a href="">[![Development Stage](https://img.shields.io/badge/Active-9b3f90?label=Development%20stage&labelColor=27303D)](https://github.com/Acclorite/book-story/commits/)</a>
   <a href="">[![Last Commit](https://img.shields.io/github/last-commit/Acclorite/book-story?label=Last%20commit&labelColor=27303D&color=749b3f)](https://github.com/Acclorite/book-story/commits/)</a>
   <a href="">[![License: GPL-3.0](https://img.shields.io/github/license/Acclorite/book-story?label=License&labelColor=27303D&color=3f9b75)](/LICENSE)</a>
@@ -35,9 +36,8 @@ Built using Jetpack Compose and Kotlin.
 
 <!------------ Screenshots ------------>
 
-## 🖌️ Screenshots + GIF
+## 🖌️ Screenshots
 
-<img src="https://github.com/Acclorite/book-story/blob/master/assets/readme/book's-story.gif" width="35%">
 <div>
   <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="30%" />
   <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="30%" />
@@ -112,8 +112,11 @@ _Don't see your favorite app store? Create an [Issue](https://github.com/Acclori
 <!------------ Translation ------------>
 
 ## 🌐 Translation
-- English (Default)
-- Ukrainian (Default)
+
+[<img src="https://hosted.weblate.org/widget/book-story/book-story-translation/multi-blue.svg" alt="Translation progress" width=50%>](https://hosted.weblate.org/engage/book-story/)
+<br/>
+
+_You can help translating the app on [Hosted Weblate](https://hosted.weblate.org/engage/book-story/)._
 
 <!------------ Contribution ------------>
 
@@ -125,9 +128,9 @@ _Don't see your favorite app store? Create an [Issue](https://github.com/Acclori
   already propose. Feel free to tell me what's on your mind!
  - **Share your ideas and suggestions.** Your ideas and suggestions are always welcome, if you miss some feature or got an interesting idea, feel free to create a new [Issue](https://github.com/Acclorite/book-story/issues).
  - **Report bugs**. Had a crash or something went wrong? Create a new [Issue](https://github.com/Acclorite/book-story/issues), the more information you can give the better it is.
+ - **Translate the app**. You can do what I physically cannot - translate the app on multiple languages. For this you can use [Hosted Weblate](https://hosted.weblate.org/engage/book-story/).
  - **Enjoy the app**. Your best contribution is using my app and enjoying it!
- - _**About localization**. Planning to implement localiztion platform, so users can do what I physically cannot - translate the app on multiple languages. You can find more information about this in the corresponding issue([#22](https://github.com/Acclorite/book-story/issues/22))._
-
+   
 <!------------ Credits and License ------------>
 
 ## 🤗 Credits

@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="InconsistentArrays">
     <!-- Basic Strings -->
     <string name="app_version" translatable="false">1.1.1</string>
-    <string name="app_name">Book\'s Story</string>
+    <string name="app_name" translatable="false">Book\'s Story</string>
 
     <!-- Book sources -->
     <string-array name="book_sites">
@@ -336,7 +336,6 @@
     <string name="credits_design">Design</string>
     <string name="credits_icon">Icons</string>
     <string name="credits_updates">New updates managing</string>
-    <string name="credits_motivation">Motivation</string>
 
     <!-- Help -->
     <string name="help_clickable_note_1">Please note, that</string>
