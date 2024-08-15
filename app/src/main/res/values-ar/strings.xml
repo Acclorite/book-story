@@ -1,2 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="history_screen">التاريخ</string>
+    <string name="add_books_description">يمكنك اختيار أي الكتب تريد إضافتها. يمكنك تعديل العنوان و صورة غلاف الكتاب لاحقا. عملية التحميل يمكن أن تستغرق حتى بضع دقائق.</string>
+    <string name="storage_permission_description">نحتاج إذن التخزين لفحص جهازك من أجل الكتب. من دون هذا الإذن، لن تكون قادرا على إضافة كتاب.</string>
+    <string name="updates_notification_desc">التحديث %1$s تم نشره للتو! انقر للذهاب الى صفحة الإصدار.</string>
+    <string name="move_book_description">اختر الفئة التي تريد نقل هذا الكتاب إليها. سيتم نقل هذا الكتاب إلى الفئة المختارة.</string>
+    <string name="confirm_update_description">بتأكيد هذا، سيتم تحديث نص الكتاب. من فضلك تذكر أين كنت قبل تحديث النص.</string>
+    <string name="update_app_description">تم العثور على إصدار جديد من Book\'s Story. هل تريد تحميله؟ بنقر زر \"تحميل\" سيتم نقلك إلى متصفحك و تحميل آخر تحديث تلقائيا.</string>
+    <string name="updates_notification_channel">التحديثات الجديدة</string>
+    <string name="updates_notification_title">تحديث جديد ل Book\'s Story!</string>
+    <string name="updates_notification_action">تحميل</string>
+    <string name="library_screen">المكتبة</string>
+    <string name="browse_screen">تصفح</string>
+    <string name="settings_screen">الإعدادات</string>
+    <string name="about_screen">عن التطبيق</string>
+    <string name="help_screen">مساعدة</string>
+    <string name="storage_permission">منح الإذن؟</string>
+    <string name="add_books">إضافة الكتب؟</string>
+    <string name="move_books">نقل الكتب؟</string>
+    <string name="delete_books">حذف الكتب؟</string>
+    <string name="delete_book">حذف الكتاب؟</string>
+    <string name="move_book">نقل الكتاب؟</string>
+    <string name="delete_history">حذف سجل القراءة؟</string>
+    <string name="confirm_update">تأكيد التحديث؟</string>
+    <string name="enable_check_for_updates">تفعيل التحقق من التنبيهات؟</string>
+    <string name="move_books_description">اختر الفئة التي تريد نقل جميع الكتب%1$s المختارة إليها. جميع الكتب المختارة سيتم نقلها إلى الفئة المختارة.</string>
+    <string name="delete_books_description">هذا سيحذف جميع الكتب%1$sالمختارة من قاعدة البيانات. هذا لن يحذف الكتب المختارة من جهازك.</string>
+    <string name="delete_book_description">هذا سيحذف هذا الكتاب من قاعدة البيانات. هذا لن يحذف الكتاب من جهازك.</string>
+    <string name="delete_history_description">هذا سيحذف سجل التصفح بأكمله من قاعدة البيانات. بعد حذف سجل التصفح بأكمله ، سيتم إعادة ضبط ترتيب الكتب.</string>
+</resources>
