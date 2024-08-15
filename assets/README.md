@@ -11,7 +11,5 @@
   <img src="https://github.com/Acclorite/book-story/blob/master/assets/Help.png" width="20%" />
   <img src="https://github.com/Acclorite/book-story/blob/master/assets/Settings.png" width="20%" />
   <img src="https://github.com/Acclorite/book-story/blob/master/assets/Reader Settings.png" width="20%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Reader Translator.png" width="20%" />
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/Translator Settings.png" width="20%" />
 </div>
 </br>
