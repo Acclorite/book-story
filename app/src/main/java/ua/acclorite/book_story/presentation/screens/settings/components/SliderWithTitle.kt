@@ -72,7 +72,7 @@ fun SliderWithTitle(
             onValueChange = {
                 onValueChange(it.roundToInt())
             },
-            steps = toValue - fromValue,
+            steps = toValue - fromValue - 1,
             colors = SliderDefaults.colors(
                 activeTickColor = MaterialTheme.colorScheme.onPrimary,
                 inactiveTickColor = MaterialTheme.colorScheme.onSurfaceVariant,
