@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.components.CategoryTitle
@@ -60,9 +59,7 @@ fun SliderWithTitle(
                 text = if (!showPlaceholder) "${value.first}${value.second}"
                 else valuePlaceholder,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
         Spacer(modifier = Modifier.width(8.dp))
@@ -75,7 +72,7 @@ fun SliderWithTitle(
             steps = toValue - fromValue - 1,
             colors = SliderDefaults.colors(
                 activeTickColor = MaterialTheme.colorScheme.onPrimary,
-                inactiveTickColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                inactiveTickColor = MaterialTheme.colorScheme.onSurfaceVariant
             )
         )
     }
@@ -119,9 +116,7 @@ fun SliderWithTitle(
                 text = if (!showPlaceholder) "${(value.first * toValue).roundToInt()}${value.second}"
                 else valuePlaceholder,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
         Spacer(modifier = Modifier.width(8.dp))
@@ -133,7 +128,7 @@ fun SliderWithTitle(
             },
             colors = SliderDefaults.colors(
                 activeTickColor = MaterialTheme.colorScheme.onPrimary,
-                inactiveTickColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                inactiveTickColor = MaterialTheme.colorScheme.onSurfaceVariant
             )
         )
     }
