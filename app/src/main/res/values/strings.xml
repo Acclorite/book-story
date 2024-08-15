@@ -332,7 +332,6 @@
     <string name="credits_design">Design</string>
     <string name="credits_icon">Icons</string>
     <string name="credits_updates">New updates managing</string>
-    <string name="credits_motivation">Motivation</string>
 
     <!-- Help -->
     <string name="help_clickable_note_1">Please note, that</string>
