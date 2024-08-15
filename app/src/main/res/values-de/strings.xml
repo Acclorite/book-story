@@ -288,4 +288,22 @@
     <string name="start_language_preferences">Spracheinstellungen</string>
     <string name="start_theme_preferences">Themeneinstellungen</string>
     <string name="start_permissions_preferences">Berechtigungen</string>
+    <string name="note_content_desc">Notiz</string>
+    <string name="delete_history_element_content_desc">Lösche Verlaufselement</string>
+    <string name="library_content_desc">Deine Bibliothek</string>
+    <string name="history_content_desc">Leseverlauf</string>
+    <string name="browse_content_desc">Bücher hinzufügen</string>
+    <string name="arrow_content_desc">Pfeil</string>
+    <string name="arrow_anim_content_desc">Pfeilanimation</string>
+    <string name="required_content_desc">Vorausgesetzt</string>
+    <string name="reset_start_content_desc">Startanleitung zurücksetzen</string>
+    <string name="exit_editing_content_desc">Bearbeitungsmodus beenden</string>
+    <string name="open_in_web_content_desc">Im Internet öffnen</string>
+    <string name="delete_color_preset_content_desc">Farbvoreinstellung löschen</string>
+    <string name="create_color_preset_content_desc">Neue Farbvorgabe erstellen</string>
+    <string name="shuffle_color_preset_content_desc">Farben mischen</string>
+    <string name="tryzub_content_desc">Dreizack</string>
+    <string name="github_project_content_desc">GitHub Projekt</string>
+    <string name="github_profile_content_desc">GitHub Profil</string>
+    <string name="drag_content_desc">Ziehen</string>
 </resources>
