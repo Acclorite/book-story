@@ -7,7 +7,7 @@
 
     <!-- Notifications -->
     <string name="updates_notification_channel">Нові оновлення</string>
-    <string name="updates_notification_title">Нове оновлення Історії Книги!</string>
+    <string name="updates_notification_title">Нове оновлення Book\'s Story!</string>
     <string name="updates_notification_desc">
         Оновлення %1$s вийшло!
         Натисніть, щоб перейти на сторінку релізу.
@@ -70,7 +70,7 @@
         Будь ласка, запам\'ятайте де ви зупинилися перед оновленням тексту.
     </string>
     <string name="update_app_description">
-        Нова версія Історії Книги була знайдена.
+        Нова версія Book\'s Story була знайдена.
         Чи бажаєте завантажити її?
         Натиснувши на кнопку «Завантажити», ви перейдете в ваш браузер
         та завантажете останнє оновлення автоматично.
@@ -475,7 +475,7 @@
 
 
     <!-- Start -->
-    <string name="start_welcome">Вітаємо в Історія Книги!</string>
+    <string name="start_welcome">Вітаємо в Book\'s Story!</string>
     <string name="start_welcome_desc">
         У світ, де слова чарують, вчать та ведуть у неймовірні пригоди!
         Давайте дещо налаштуємо!
