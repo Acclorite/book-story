@@ -46,6 +46,19 @@ sealed class ReaderEvent {
 
     data class OnOpenTranslator(
         val textToTranslate: String,
+        val translateWholeParagraph: Boolean,
+        val context: ComponentActivity,
+        val noAppsFound: () -> Unit
+    ) : ReaderEvent()
+
+    data class OnOpenShareApp(
+        val textToShare: String,
+        val context: ComponentActivity,
+        val noAppsFound: () -> Unit
+    ) : ReaderEvent()
+
+    data class OnOpenWebBrowser(
+        val textToSearch: String,
         val context: ComponentActivity,
         val noAppsFound: () -> Unit
     ) : ReaderEvent()

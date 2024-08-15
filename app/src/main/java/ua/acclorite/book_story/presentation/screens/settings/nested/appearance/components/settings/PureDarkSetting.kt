@@ -33,17 +33,16 @@ fun LazyItemScope.PureDarkSetting(
     ) {
         SegmentedButtonWithTitle(
             title = stringResource(id = R.string.pure_dark_option),
-            locked = true,
             buttons = PureDark.entries.map {
                 ButtonItem(
-                    it.toString(),
-                    when (it) {
+                    id = it.toString(),
+                    title = when (it) {
                         PureDark.OFF -> stringResource(id = R.string.pure_dark_off)
                         PureDark.ON -> stringResource(id = R.string.pure_dark_on)
                         PureDark.SAVER -> stringResource(id = R.string.pure_dark_power_saver)
                     },
-                    MaterialTheme.typography.labelLarge,
-                    it == state.value.pureDark
+                    textStyle = MaterialTheme.typography.labelLarge,
+                    selected = it == state.value.pureDark
                 )
             }
         ) {

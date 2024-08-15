@@ -118,7 +118,9 @@
     <string name="error_query">Error: %1$s</string>
     <string name="error_file_empty">This file is empty or corrupted.</string>
     <string name="error_no_translator">No translator app found.</string>
+    <string name="error_no_dictionary">No dictionary app found.</string>
     <string name="error_no_browser">No browser app found.</string>
+    <string name="error_no_share_app">No app to share found.</string>
     <string name="error_no_text">
         The book content is empty. Please, make sure that the book content is not empty and update it.
     </string>
@@ -176,6 +178,8 @@
     <string name="download">Download</string>
     <string name="done">Done</string>
     <string name="enable">Enable</string>
+    <string name="web_search">Web search</string>
+    <string name="share">Share</string>
 
     <!-- Items -->
     <string name="files">files</string>

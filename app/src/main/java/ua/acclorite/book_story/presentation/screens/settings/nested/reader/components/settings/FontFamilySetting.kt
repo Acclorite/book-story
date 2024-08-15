@@ -35,12 +35,12 @@ fun LazyItemScope.FontFamilySetting(
         chips = Constants.FONTS
             .map {
                 ButtonItem(
-                    it.id,
-                    it.fontName.asString(),
-                    MaterialTheme.typography.labelLarge.copy(
+                    id = it.id,
+                    title = it.fontName.asString(),
+                    textStyle = MaterialTheme.typography.labelLarge.copy(
                         fontFamily = it.font
                     ),
-                    it.id == fontFamily.id
+                    selected = it.id == fontFamily.id
                 )
             },
         onClick = {

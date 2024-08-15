@@ -25,17 +25,16 @@ fun LazyItemScope.DarkThemeSetting(
     SegmentedButtonWithTitle(
         title = stringResource(id = R.string.dark_theme_option),
         modifier = Modifier.animateItem(),
-        locked = true,
         buttons = DarkTheme.entries.map {
             ButtonItem(
                 it.toString(),
-                when (it) {
+                title = when (it) {
                     DarkTheme.OFF -> stringResource(id = R.string.dark_theme_off)
                     DarkTheme.ON -> stringResource(id = R.string.dark_theme_on)
                     DarkTheme.FOLLOW_SYSTEM -> stringResource(id = R.string.dark_theme_follow_system)
                 },
-                MaterialTheme.typography.labelLarge,
-                it == state.value.darkTheme
+                textStyle = MaterialTheme.typography.labelLarge,
+                selected = it == state.value.darkTheme
             )
         }
     ) {

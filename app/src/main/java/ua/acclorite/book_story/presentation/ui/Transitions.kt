@@ -59,22 +59,6 @@ fun DefaultTransition(
 }
 
 @Composable
-fun <T> T.DefaultTransition(
-    visible: Boolean,
-    modifier: Modifier = Modifier,
-    content: @Composable T.() -> Unit
-) {
-    CustomAnimatedVisibility(
-        visible = visible,
-        modifier = modifier,
-        enter = Transitions.DefaultTransitionIn,
-        exit = Transitions.DefaultTransitionOut
-    ) {
-        content()
-    }
-}
-
-@Composable
 fun SlidingTransition(
     visible: Boolean,
     modifier: Modifier = Modifier,

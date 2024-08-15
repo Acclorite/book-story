@@ -2,6 +2,7 @@ package ua.acclorite.book_story.presentation.screens.reader.data
 
 import android.app.SearchManager
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.snapshotFlow
@@ -73,7 +74,6 @@ class ReaderViewModel @Inject constructor(
                         }
 
                         val textAsLine = text
-                            .map { it.value.line }
                             .joinToString(
                                 separator = "\n"
                             )
@@ -338,7 +338,10 @@ class ReaderViewModel @Inject constructor(
                         )
 
                         var translatorFailure = false
-                        translatorIntent.launchActivity(event.context) {
+                        translatorIntent.launchActivity(
+                            event.context,
+                            createChooser = !event.translateWholeParagraph
+                        ) {
                             translatorFailure = true
                         }
                         if (!translatorFailure) {
@@ -357,22 +360,85 @@ class ReaderViewModel @Inject constructor(
                     }
                 }
 
-                is ReaderEvent.OnOpenDictionary -> {
+                is ReaderEvent.OnOpenShareApp -> {
+                    launch {
+                        val shareIntent = Intent()
+
+                        shareIntent.action = Intent.ACTION_SEND
+                        shareIntent.type = "text/plain"
+                        shareIntent.putExtra(
+                            Intent.EXTRA_SUBJECT,
+                            event.context.getString(R.string.app_name)
+                        )
+                        shareIntent.putExtra(
+                            Intent.EXTRA_TEXT,
+                            event.textToShare.trim()
+                        )
+
+                        var shareFailure = false
+                        shareIntent.launchActivity(event.context, createChooser = true) {
+                            shareFailure = true
+                        }
+                        if (!shareFailure) {
+                            return@launch
+                        }
+
+                        event.noAppsFound()
+                    }
+                }
+
+                is ReaderEvent.OnOpenWebBrowser -> {
                     launch {
                         val browserIntent = Intent()
 
                         browserIntent.action = Intent.ACTION_WEB_SEARCH
                         browserIntent.putExtra(
                             SearchManager.QUERY,
-                            "dictionary" +
-                                    ": ${event.textToDefine.trim()}"
+                            event.textToSearch
                         )
 
-                        var failure = false
+                        var browserFailure = false
                         browserIntent.launchActivity(event.context) {
-                            failure = true
+                            browserFailure = true
                         }
-                        if (!failure) {
+                        if (!browserFailure) {
+                            return@launch
+                        }
+
+                        event.noAppsFound()
+                    }
+                }
+
+                is ReaderEvent.OnOpenDictionary -> {
+                    launch {
+                        val dictionaryIntent = Intent()
+                        val browserIntent = Intent()
+
+                        dictionaryIntent.type = "text/plain"
+                        dictionaryIntent.action = Intent.ACTION_PROCESS_TEXT
+                        dictionaryIntent.putExtra(
+                            Intent.EXTRA_PROCESS_TEXT,
+                            event.textToDefine.trim()
+                        )
+                        dictionaryIntent.putExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, true)
+
+                        browserIntent.action = Intent.ACTION_VIEW
+                        val text = event.textToDefine.trim().replace(" ", "+")
+                        browserIntent.data = Uri.parse("https://www.onelook.com/?w=$text")
+
+                        var dictionaryFailure = false
+                        dictionaryIntent.launchActivity(event.context, createChooser = true) {
+                            dictionaryFailure = true
+                        }
+                        if (!dictionaryFailure) {
+                            return@launch
+                        }
+
+                        var browserFailure = false
+                        browserIntent.launchActivity(event.context) {
+                            browserFailure = true
+                        }
+                        if (!browserFailure) {
                             return@launch
                         }
 
