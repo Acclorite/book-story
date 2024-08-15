@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="updates_notification_channel">Nuevas actualizaciones</string>
+    <string name="updates_notification_desc">¡Actualización %1$s recién lanzada! Haz clic para ir a la página de lanzamiento.</string>
+    <string name="updates_notification_action">Descargar</string>
+    <string name="library_screen">Biblioteca</string>
+    <string name="history_screen">Historial</string>
+    <string name="browse_screen">Navegar</string>
+    <string name="settings_screen">Ajustes</string>
+    <string name="about_screen">A cerca de la aplicación</string>
+    <string name="help_screen">Ayuda</string>
+    <string name="storage_permission">¿Conceder permiso?</string>
+    <string name="add_books">¿Añadir los libros?</string>
+    <string name="move_books">¿Mover libros?</string>
+    <string name="delete_books">¿Borrar libros?</string>
+    <string name="delete_book">¿Borrar libro?</string>
+    <string name="updates_notification_title">¡Nuevas actualizaciones de Book\'s Story!</string>
+    <string name="move_book">¿Mover libro?</string>
+</resources>
