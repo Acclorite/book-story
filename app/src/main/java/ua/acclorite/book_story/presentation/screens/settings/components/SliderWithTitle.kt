@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.components.CategoryTitle
@@ -21,11 +22,24 @@ import kotlin.math.roundToInt
 
 /**
  * Slider with title.
+ *
+ * @param modifier Modifier.
+ * @param value Value to be displayed, in pair with [String] which is the type of value(e.g. "pt")
+ * @param valuePlaceholder Placeholder of the value(e.g. "Default", instead of the "1pt")
+ * @param showPlaceholder Whether placeholder should be shown.
+ * @param fromValue From where user can pick value.
+ * @param toValue To where user can pick value.
+ * @param title Title of this slider.
+ * @param horizontalPadding Horizontal item padding.
+ * @param verticalPadding Vertical item padding.
+ * @param onValueChange Callback when value changes.
  */
 @Composable
 fun SliderWithTitle(
     modifier: Modifier = Modifier,
     value: Pair<Int, String>,
+    valuePlaceholder: String = "",
+    showPlaceholder: Boolean = false,
     fromValue: Int,
     toValue: Int,
     title: String,
@@ -43,9 +57,12 @@ fun SliderWithTitle(
             CategoryTitle(title = title, padding = 0.dp)
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "${value.first}${value.second}",
+                text = if (!showPlaceholder) "${value.first}${value.second}"
+                else valuePlaceholder,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
         Spacer(modifier = Modifier.width(8.dp))
@@ -64,10 +81,25 @@ fun SliderWithTitle(
     }
 }
 
+/**
+ * Slider with title.
+ *
+ * @param modifier Modifier.
+ * @param value Value to be displayed, in pair with [String] which is the type of value(e.g. "pt")
+ * @param valuePlaceholder Placeholder of the value(e.g. "Default", instead of the "1pt")
+ * @param showPlaceholder Whether placeholder should be shown.
+ * @param toValue To where user can pick value.
+ * @param title Title of this slider.
+ * @param horizontalPadding Horizontal item padding.
+ * @param verticalPadding Vertical item padding.
+ * @param onValueChange Callback when value changes.
+ */
 @Composable
 fun SliderWithTitle(
     modifier: Modifier = Modifier,
     value: Pair<Float, String>,
+    valuePlaceholder: String = "",
+    showPlaceholder: Boolean = false,
     title: String,
     toValue: Int,
     horizontalPadding: Dp = 18.dp,
@@ -84,9 +116,12 @@ fun SliderWithTitle(
             CategoryTitle(title = title, padding = 0.dp)
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "${(value.first * toValue).roundToInt()}${value.second}",
+                text = if (!showPlaceholder) "${(value.first * toValue).roundToInt()}${value.second}"
+                else valuePlaceholder,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
         Spacer(modifier = Modifier.width(8.dp))
