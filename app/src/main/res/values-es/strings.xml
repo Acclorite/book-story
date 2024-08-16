@@ -166,4 +166,10 @@
     <string name="blue_theme">Neptuno</string>
     <string name="green_theme">Tierra</string>
     <string name="red_theme">Marte</string>
+    <string name="confirm_update_description">Al confirmar, el texto de este libro se actualizará. Por favor, recuerda dónde lo dejó antes de actualizar el texto.</string>
+    <string name="color_preset_query">Por defecto %1$s</string>
+    <string name="color_preset_selected_query">Seleccionado « %1$s »</string>
+    <string name="color_preset_option">Color preestablecido</string>
+    <string name="fast_color_preset_change_option">Cambio rápido del color preestablecido</string>
+    <string name="fast_color_preset_change_option_desc">Desliza el dedo hacia la izquierda o hacia la derecha para cambiar el color predeterminado</string>
 </resources>
