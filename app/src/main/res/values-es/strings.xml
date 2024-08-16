@@ -251,4 +251,8 @@
     <string name="help_desc_how_to_update_book_3">y haz clic en la imagen de la portada del libro para ver los detalles del libro. Desliza hacia abajo la pantalla o haz clic en el icono de la actualización en la esquina superior derecha para actualizar el libro. Si el archivo del libro cambió, puedes confirmar y actualizar el libro o cancelar la actualización.</string>
     <string name="help_desc_how_to_customize_reader_1">Comienza a leer el libro (consulta: ¿Cómo leo un libro?), luego haz clic en cualquier parte de la pantalla para abrir las barras superior e inferior. Luego, haz clic en el ícono del engranaje en la esquina superior derecha. Esto mostrará todas las configuraciones del lector. La segunda forma es ir a los</string>
     <string name="help_desc_how_to_customize_reader_3">y selecciona la categoría Lector para personalizar la configuración general, o la categoría Apariencia para personalizar los temas.</string>
+    <string name="default_font">Por defecto</string>
+    <string name="today">Hoy</string>
+    <string name="yesterday">Ayer</string>
+    <string name="start_done_desc">Se ha hecho con éxito la configuración básica de la aplicación. ¿Te gustaría aprender a usar la aplicación leyendo la pantalla de Ayuda?</string>
 </resources>
