@@ -230,4 +230,21 @@
     <string name="help_title_how_to_read_book">¿Cómo leo un libro?</string>
     <string name="help_desc_how_to_read_book_1">Ir al</string>
     <string name="help_desc_how_to_read_book_2">Biblioteca</string>
+    <string name="help_title_how_to_use_double_click_translation">¿Cómo utilizo la traducción de doble clic?</string>
+    <string name="start_welcome_desc">¡A un mundo donde las palabras encantan, enseñan y conducen en increíbles aventuras! ¡Vamos a configurar algunas cosas!</string>
+    <string name="start_permissions_granted">Concedido</string>
+    <string name="start_permissions_notifications_desc">Necesario para comprobar la versión la aplicación</string>
+    <string name="start_done">¡Todo está hecho!</string>
+    <string name="start_permissions_storage">Permiso de almacenamiento</string>
+    <string name="help_desc_how_to_use_double_click_translation_1">En primer lugar, vaya a los ajustes del lector (ver: ¿Cómo personalizo el lector?), luego encienda el ajuste correspondiente. Después de eso, comienza a leer el libro (ver: ¿Cómo leo un libro?). Ahora si hace doble clic en el párrafo deseado, el traductor externo se abrirá con el texto del párrafo.</string>
+    <string name="start_permissions_storage_desc">Necesario para escanear su dispositivo y encontrar libros</string>
+    <string name="help_title_how_to_update_book">¿Cómo actualizo un libro?</string>
+    <string name="help_desc_how_to_customize_reader_2">Ajustes</string>
+    <string name="help_desc_how_to_update_book_2">Biblioteca</string>
+    <string name="help_desc_how_to_update_book_1">Ir al</string>
+    <string name="help_desc_how_to_manage_history_1">Ir al</string>
+    <string name="help_desc_how_to_manage_history_2">Historial</string>
+    <string name="help_title_how_to_manage_history">¿Cómo administro el historial?</string>
+    <string name="help_title_how_to_use_tooltip">¿Cómo utilizo las herramientas?</string>
+    <string name="help_desc_how_to_manage_history_3">Al hacer clic en el botón eliminar a la derecha del elemento del historial, se eliminará. El historial afecta el orden de libros en la Biblioteca, eliminando el historial también reordenará el libro. El último libro abierto es siempre el primero en Biblioteca e Historial.</string>
 </resources>
