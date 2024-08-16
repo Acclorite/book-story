@@ -27,7 +27,7 @@
     <string name="error_something_went_wrong">Algo salió mal.</string>
     <string name="error_something_went_wrong_with_file">Algo salió mal. Por favor, compruebe si el archivo de este libro no está dañado.</string>
     <string name="error_wrong_file_format">Formato de archivo equivocado.</string>
-    <string name="error_no_browser">No se encontró aplicación de navegador.</string>
+    <string name="error_no_browser">No se encontró ninguna aplicación de navegador.</string>
     <string name="error_closed_source">Fuente cerrada</string>
     <string name="selected_items_count_query">%1$s seleccionado</string>
     <string name="read_query">%1$s leído</string>
@@ -85,8 +85,8 @@
     <string name="start_language_preferences">Preferencias de lenguaje</string>
     <string name="start_theme_preferences">Preferencias de tema</string>
     <string name="start_permissions_preferences">Permisos</string>
-    <string name="start_welcome">¡Bienvenido/a a Book\'s Story!</string>
-    <string name="drag_content_desc">Arrastre</string>
+    <string name="start_welcome">¡Bienvenid@ a Book\'s Story!</string>
+    <string name="drag_content_desc">Arrastrar</string>
     <string name="delete">Borrar</string>
     <string name="start_permissions_notifications">Permisos de notificación</string>
     <string name="storage_permission_description">Necesitamos permiso de almacenamiento para escanear su dispositivo en busca de libros. Sin este permino, no podrá añadir libros.</string>
@@ -97,7 +97,7 @@
     <string name="update_app_description">Se encontró nueva versión de Book\'s Story. ¿Quieres descargarla? Al hacer clic en el botón «Descargar» será transferido a su navegador y se descargará la última actualización automáticamente.</string>
     <string name="error_query">Error: %1$s</string>
     <string name="error_no_translator">No se ha encontrado ninguna aplicación de traducción.</string>
-    <string name="error_no_text">El contenido del libro está vacío. Por favor, asegúrese de que el contenido del libro no está vacío y actualícelo.</string>
+    <string name="error_no_text">El contenido del libro está vacío. Por favor, asegúrate de que el contenido del libro no está vacío y actualizado.</string>
     <string name="error_check_internet">Algo salió mal. Inténtelo de nuevo más tarde.</string>
     <string name="enable_check_for_updates_description">Al habilitar «Comprobar actualizaciones» la aplicación conseguirá la última información de lanzamiento de «api.github.com» cada vez que comience la aplicación. ¿Quieres continuar y habilitar «Comprobar actualizaciones»?</string>
     <string name="error_could_not_reset_cover">No se pudo reiniciar la portada.</string>
@@ -160,7 +160,7 @@
     <string name="cover_image_deleted">La portada fue eliminada.</string>
     <string name="help_desc_how_to_read_book_3">Para empezar a leer el libro haga clic en el botón en la esquina inferior derecha del libro que desea leer. También puede comenzar a leer el libro haciendo clic en la portada para ver los detalles del libro y luego haga clic en el botón en la esquina inferior derecha. El progreso será guardado y restaurado automáticamente. Puede traer barras superiores e inferiores haciendo clic en cualquier lugar de la pantalla. Al hacer clic en el título del libro será transferido a los detalles del libro. Al hacer clic en el icono de engranaje verá los ajustes del lector. Puedes usar el control deslizante de la barra inferior para cambiar el progreso.</string>
     <string name="no_updates">La última versión de la aplicación ya está instalada.</string>
-    <string name="cover_reset">La portada fue reiniciada.</string>
+    <string name="cover_reset">La imagen de la portada se restableció correctamente.</string>
     <string name="book_deleted">El libro fue eliminado.</string>
     <string name="purple_theme">Júpiter</string>
     <string name="blue_theme">Neptuno</string>
@@ -231,10 +231,10 @@
     <string name="help_desc_how_to_read_book_1">Ir al</string>
     <string name="help_desc_how_to_read_book_2">Biblioteca</string>
     <string name="help_title_how_to_use_double_click_translation">¿Cómo utilizo la traducción de doble clic?</string>
-    <string name="start_welcome_desc">¡A un mundo donde las palabras encantan, enseñan y conducen en increíbles aventuras! ¡Vamos a configurar algunas cosas!</string>
+    <string name="start_welcome_desc">¡Hacia un mundo donde las palabras cautivan, enseñan y conducen a increíbles aventuras! ¡Vamos a preparar algunas cosas!</string>
     <string name="start_permissions_granted">Concedido</string>
     <string name="start_permissions_notifications_desc">Necesario para comprobar la versión la aplicación</string>
-    <string name="start_done">¡Todo está hecho!</string>
+    <string name="start_done">¡Todo está listo!</string>
     <string name="start_permissions_storage">Permiso de almacenamiento</string>
     <string name="help_desc_how_to_use_double_click_translation_1">En primer lugar, vaya a los ajustes del lector (ver: ¿Cómo personalizo el lector?), luego encienda el ajuste correspondiente. Después de eso, comienza a leer el libro (ver: ¿Cómo leo un libro?). Ahora si hace doble clic en el párrafo deseado, el traductor externo se abrirá con el texto del párrafo.</string>
     <string name="start_permissions_storage_desc">Necesario para escanear tu dispositivo y encontrar los libros</string>
@@ -254,5 +254,5 @@
     <string name="default_font">Por defecto</string>
     <string name="today">Hoy</string>
     <string name="yesterday">Ayer</string>
-    <string name="start_done_desc">Se ha hecho con éxito la configuración básica de la aplicación. ¿Te gustaría aprender a usar la aplicación leyendo la pantalla de Ayuda?</string>
+    <string name="start_done_desc">Has completado correctamente la configuración básica de la aplicación. ¿Te gustaría aprender a usar la aplicación leyendo la ayuda?</string>
 </resources>
