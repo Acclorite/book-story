@@ -247,4 +247,8 @@
     <string name="help_title_how_to_manage_history">¿Cómo administro el historial?</string>
     <string name="help_title_how_to_use_tooltip">¿Cómo utilizo las herramientas?</string>
     <string name="help_desc_how_to_manage_history_3">Al hacer clic en el botón eliminar a la derecha del elemento del historial, se eliminará. El historial afecta el orden de libros en la Biblioteca, eliminando el historial también reordenará el libro. El último libro abierto es siempre el primero en Biblioteca e Historial.</string>
+    <string name="help_desc_how_to_use_tooltip_1">La mayoría de los botones con íconos tienen información sobre herramientas que pueden ayudarte si no sabes qué hace un botón. Para mostrar la información sobre las herramientas, puedes mantener presionado el botón.</string>
+    <string name="help_desc_how_to_update_book_3">y haz clic en la imagen de la portada del libro para ver los detalles del libro. Desliza hacia abajo la pantalla o haz clic en el icono de la actualización en la esquina superior derecha para actualizar el libro. Si el archivo del libro cambió, puedes confirmar y actualizar el libro o cancelar la actualización.</string>
+    <string name="help_desc_how_to_customize_reader_1">Comienza a leer el libro (consulta: ¿Cómo leo un libro?), luego haz clic en cualquier parte de la pantalla para abrir las barras superior e inferior. Luego, haz clic en el ícono del engranaje en la esquina superior derecha. Esto mostrará todas las configuraciones del lector. La segunda forma es ir a los</string>
+    <string name="help_desc_how_to_customize_reader_3">y selecciona la categoría Lector para personalizar la configuración general, o la categoría Apariencia para personalizar los temas.</string>
 </resources>
