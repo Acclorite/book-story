@@ -97,4 +97,12 @@
     <string name="delete">حذف</string>
     <string name="move">نقل</string>
     <string name="confirm">تأكيد</string>
+    <string name="reset_cover_desc">إعادة ضبط صورة غلاف الكتاب الى الافتراضي</string>
+    <string name="change_cover">تغيير صورة الغلاف</string>
+    <string name="change_cover_desc">اختر غلاف جديد من صورك</string>
+    <string name="delete_cover">حذف صورة الغلاف</string>
+    <string name="delete_cover_desc">حذف صورة غلاف الكتاب الحالية</string>
+    <string name="author">المؤلف</string>
+    <string name="reading_tab">يقرأ</string>
+    <string name="already_read_tab">يقرأ بالفعل</string>
 </resources>
