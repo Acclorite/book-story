@@ -3,11 +3,13 @@
 package ua.acclorite.book_story.presentation.screens.browse.data
 
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.focus.FocusRequester
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.domain.model.NullableBook
+import ua.acclorite.book_story.domain.model.SelectableFile
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.Selected
 import java.io.File
@@ -16,22 +18,28 @@ import java.io.File
 sealed class BrowseEvent {
     data class OnStoragePermissionRequest(
         val activity: ComponentActivity,
-        val storagePermissionState: PermissionState,
-        val hideErrorMessage: () -> Unit
+        val storagePermissionState: PermissionState
     ) : BrowseEvent()
 
     data class OnStoragePermissionDismiss(
-        val permissionState: PermissionState,
-        val showErrorMessage: () -> Unit
+        val permissionState: PermissionState
     ) : BrowseEvent()
 
     data object OnRefreshList : BrowseEvent()
     data class OnPermissionCheck(
-        val permissionState: PermissionState,
-        val hideErrorMessage: () -> Unit
+        val permissionState: PermissionState
     ) : BrowseEvent()
 
-    data class OnSelectFile(val file: Pair<File, Selected>) : BrowseEvent()
+    data class OnSelectFile(
+        val includedFileFormats: List<String>,
+        val file: SelectableFile
+    ) : BrowseEvent()
+
+    data class OnSelectFiles(
+        val includedFileFormats: List<String>,
+        val files: List<SelectableFile>
+    ) : BrowseEvent()
+
     data class OnSelectBook(val book: Pair<NullableBook, Selected>) : BrowseEvent()
     data object OnSearchShowHide : BrowseEvent()
     data class OnRequestFocus(val focusRequester: FocusRequester) : BrowseEvent()
@@ -50,4 +58,11 @@ sealed class BrowseEvent {
 
     data object OnLoadList : BrowseEvent()
     data object OnUpdateScrollOffset : BrowseEvent()
+    data class OnChangeDirectory(val directory: File, val savePreviousDirectory: Boolean) :
+        BrowseEvent()
+
+    data object OnGoBackDirectory : BrowseEvent()
+    data object OnShowHideFilterBottomSheet : BrowseEvent()
+    data class OnScrollToFilterPage(val page: Int, val pagerState: PagerState?) : BrowseEvent()
+    data class OnUpdateFavoriteDirectory(val path: String) : BrowseEvent()
 }

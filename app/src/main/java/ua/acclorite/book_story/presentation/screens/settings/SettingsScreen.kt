@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.DisplaySettings
+import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
@@ -109,6 +110,18 @@ private fun SettingsScreen(
                 ) {
                     onNavigate {
                         navigate(Screen.Settings.ReaderSettings)
+                    }
+                }
+            }
+
+            item {
+                SettingsCategoryItem(
+                    icon = Icons.Default.Explore,
+                    text = stringResource(id = R.string.browse_settings),
+                    description = stringResource(id = R.string.browse_settings_desc)
+                ) {
+                    onNavigate {
+                        navigate(Screen.Settings.BrowseSettings)
                     }
                 }
             }

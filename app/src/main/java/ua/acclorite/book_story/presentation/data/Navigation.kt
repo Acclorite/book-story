@@ -108,6 +108,10 @@ sealed class Screen : Parcelable {
         @Parcelize
         @Keep
         data object ReaderSettings : Screen()
+
+        @Parcelize
+        @Keep
+        data object BrowseSettings : Screen()
     }
 
     @Parcelize

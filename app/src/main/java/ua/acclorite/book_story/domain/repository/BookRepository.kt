@@ -8,6 +8,7 @@ import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.ColorPreset
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
+import ua.acclorite.book_story.domain.model.SelectableFile
 import ua.acclorite.book_story.domain.util.CoverImage
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.presentation.data.MainState
@@ -71,7 +72,7 @@ interface BookRepository {
 
     suspend fun getAllSettings(scope: CoroutineScope): MainState
 
-    suspend fun getFilesFromDevice(query: String = ""): Flow<Resource<List<File>>>
+    suspend fun getFilesFromDevice(query: String = ""): List<SelectableFile>
 
     suspend fun getBooksFromFiles(files: List<File>): List<NullableBook>
 
@@ -103,4 +104,7 @@ interface BookRepository {
     suspend fun reorderColorPresets(orderedColorPresets: List<ColorPreset>)
 
     suspend fun deleteColorPreset(colorPreset: ColorPreset)
+
+
+    suspend fun updateFavoriteDirectory(path: String)
 }

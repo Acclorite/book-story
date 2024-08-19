@@ -40,6 +40,7 @@ import ua.acclorite.book_story.presentation.screens.reader.ReaderScreenRoot
 import ua.acclorite.book_story.presentation.screens.settings.SettingsScreenRoot
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.AppearanceSettingsRoot
+import ua.acclorite.book_story.presentation.screens.settings.nested.browse.BrowseSettingsRoot
 import ua.acclorite.book_story.presentation.screens.settings.nested.general.GeneralSettingsRoot
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.ReaderSettingsRoot
 import ua.acclorite.book_story.presentation.screens.start.StartScreenRoot
@@ -179,6 +180,9 @@ class Activity : AppCompatActivity() {
                         }
                         composable<Screen.Settings.ReaderSettings> {
                             ReaderSettingsRoot()
+                        }
+                        composable<Screen.Settings.BrowseSettings> {
+                            BrowseSettingsRoot()
                         }
 
                         // About screen

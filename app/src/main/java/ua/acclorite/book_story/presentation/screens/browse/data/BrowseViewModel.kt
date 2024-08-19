@@ -1,3 +1,5 @@
+@file:Suppress("LABEL_NAME_CLASH")
+
 package ua.acclorite.book_story.presentation.screens.browse.data
 
 import android.content.Intent
@@ -6,6 +8,7 @@ import android.os.Build
 import android.os.Environment
 import android.provider.Settings
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -21,35 +24,43 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.domain.model.NullableBook
-import ua.acclorite.book_story.domain.use_case.GetBooksFromFiles
+import ua.acclorite.book_story.domain.model.SelectableFile
+import ua.acclorite.book_story.domain.use_case.GetBookFromFile
 import ua.acclorite.book_story.domain.use_case.GetFilesFromDevice
 import ua.acclorite.book_story.domain.use_case.InsertBook
-import ua.acclorite.book_story.domain.util.Resource
+import ua.acclorite.book_story.domain.use_case.UpdateFavoriteDirectory
+import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.data.launchActivity
+import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
+import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseSortOrder
 import javax.inject.Inject
 
 @OptIn(ExperimentalPermissionsApi::class)
 @HiltViewModel
 class BrowseViewModel @Inject constructor(
-    private val getBooksFromFiles: GetBooksFromFiles,
+    private val getBookFromFile: GetBookFromFile,
     private val getFilesFromDevice: GetFilesFromDevice,
-    private val insertBook: InsertBook
+    private val insertBook: InsertBook,
+    private val updateFavoriteDirectory: UpdateFavoriteDirectory,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(BrowseState())
     val state = _state.asStateFlow()
 
-    private var job: Job? = null
-    private var job2: Job? = null
-    private var job3: Job? = null
+    private var searchQueryJob: Job? = null
+    private var refreshListJob: Job? = null
+    private var getBooksJob: Job? = null
     private var storagePermissionJob: Job? = null
+    private var changeDirectoryJob: Job? = null
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             _state.update {
                 it.copy(
-                    isLoading = true
+                    isLoading = true,
+                    selectedDirectory = Environment.getExternalStorageDirectory(),
+                    inNestedDirectory = false
                 )
             }
             getFilesFromDownloads()
@@ -70,10 +81,10 @@ class BrowseViewModel @Inject constructor(
                 if (isPermissionGranted) {
                     _state.update {
                         it.copy(
-                            requestPermissionDialog = false
+                            requestPermissionDialog = false,
+                            isError = false
                         )
                     }
-                    event.hideErrorMessage()
                     onEvent(BrowseEvent.OnRefreshList)
                     return
                 }
@@ -130,10 +141,10 @@ class BrowseViewModel @Inject constructor(
 
                         _state.update {
                             it.copy(
-                                requestPermissionDialog = false
+                                requestPermissionDialog = false,
+                                isError = false
                             )
                         }
-                        event.hideErrorMessage()
                         onEvent(BrowseEvent.OnRefreshList)
                         break
                     }
@@ -158,19 +169,24 @@ class BrowseViewModel @Inject constructor(
                         getFilesFromDownloads()
                     }
                 } else {
-                    event.showErrorMessage()
+                    _state.update {
+                        it.copy(
+                            isError = true
+                        )
+                    }
                 }
             }
 
             is BrowseEvent.OnRefreshList -> {
-                job2?.cancel()
-                job2 = viewModelScope.launch(Dispatchers.IO) {
+                refreshListJob?.cancel()
+                refreshListJob = viewModelScope.launch(Dispatchers.IO) {
                     _state.update {
                         it.copy(
                             isRefreshing = true,
                             hasSelectedItems = false,
                             showSearch = false,
-                            listState = LazyListState(0, 0)
+                            listState = LazyListState(),
+                            gridState = LazyGridState(),
                         )
                     }
                     yield()
@@ -197,30 +213,94 @@ class BrowseViewModel @Inject constructor(
 
                     _state.update {
                         it.copy(
-                            requestPermissionDialog = true
+                            requestPermissionDialog = true,
+                            isError = false
                         )
                     }
-                    event.hideErrorMessage()
                 }
             }
 
             is BrowseEvent.OnSelectFile -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    val editedList = _state.value.selectableFiles.map {
-                        if (event.file.first.path == it.first.path) {
-                            it.copy(
-                                second = !it.second
-                            )
-                        } else {
-                            it
+                    val editedList = _state.value.selectableFiles.map { file ->
+                        when (event.file.isDirectory) {
+                            false -> {
+                                if (event.file.fileOrDirectory.path == file.fileOrDirectory.path) {
+                                    file.copy(
+                                        isSelected = !file.isSelected
+                                    )
+                                } else {
+                                    file
+                                }
+                            }
+
+                            true -> {
+                                if (
+                                    file.fileOrDirectory.path.startsWith(
+                                        event.file.fileOrDirectory.path
+                                    ) && event.includedFileFormats.run {
+                                        if (isEmpty()) return@run true
+                                        any {
+                                            file.fileOrDirectory.path.endsWith(
+                                                it, ignoreCase = true
+                                            ) || file.isDirectory
+                                        }
+                                    }
+                                ) {
+                                    file.copy(
+                                        isSelected = !event.file.isSelected
+                                    )
+                                } else {
+                                    file
+                                }
+                            }
                         }
                     }
 
                     _state.update {
                         it.copy(
                             selectableFiles = editedList,
-                            selectedItemsCount = editedList.filter { file -> file.second }.size,
-                            hasSelectedItems = editedList.any { file -> file.second }
+                            selectedItemsCount = editedList.filter { file ->
+                                file.isSelected && !file.isDirectory
+                            }.size,
+                            hasSelectedItems = editedList.any { file ->
+                                file.isSelected && !file.isDirectory
+                            }
+                        )
+                    }
+                }
+            }
+
+            is BrowseEvent.OnSelectFiles -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    val editedList = _state.value.selectableFiles.map { file ->
+                        if (
+                            event.files.any {
+                                file.fileOrDirectory.path.startsWith(it.fileOrDirectory.path)
+                            } && event.includedFileFormats.run {
+                                if (isEmpty()) return@run true
+                                any {
+                                    file.fileOrDirectory.path.endsWith(
+                                        it, ignoreCase = true
+                                    ) || file.isDirectory
+                                }
+                            }
+                        ) {
+                            file.copy(isSelected = true)
+                        } else {
+                            file
+                        }
+                    }
+
+                    _state.update {
+                        it.copy(
+                            selectableFiles = editedList,
+                            selectedItemsCount = editedList.filter { file ->
+                                file.isSelected && !file.isDirectory
+                            }.size,
+                            hasSelectedItems = editedList.any { file ->
+                                file.isSelected && !file.isDirectory
+                            }
                         )
                     }
                 }
@@ -262,6 +342,7 @@ class BrowseViewModel @Inject constructor(
                         _state.update {
                             it.copy(
                                 searchQuery = "",
+                                hasSearched = false,
                                 hasFocused = false
                             )
                         }
@@ -289,7 +370,11 @@ class BrowseViewModel @Inject constructor(
                 viewModelScope.launch(Dispatchers.IO) {
                     _state.update {
                         it.copy(
-                            selectableFiles = it.selectableFiles.map { file -> file.copy(second = false) },
+                            selectableFiles = it.selectableFiles.map { file ->
+                                file.copy(
+                                    isSelected = false
+                                )
+                            },
                             hasSelectedItems = false
                         )
                     }
@@ -302,8 +387,8 @@ class BrowseViewModel @Inject constructor(
                         searchQuery = event.query
                     )
                 }
-                job?.cancel()
-                job = viewModelScope.launch(Dispatchers.IO) {
+                searchQueryJob?.cancel()
+                searchQueryJob = viewModelScope.launch(Dispatchers.IO) {
                     delay(500)
                     yield()
                     onEvent(BrowseEvent.OnSearch)
@@ -322,7 +407,7 @@ class BrowseViewModel @Inject constructor(
                         showAddingDialog = false
                     )
                 }
-                job3?.cancel(null)
+                getBooksJob?.cancel()
             }
 
             is BrowseEvent.OnAddingDialogRequest -> {
@@ -336,7 +421,7 @@ class BrowseViewModel @Inject constructor(
             }
 
             is BrowseEvent.OnGetBooksFromFiles -> {
-                job3 = viewModelScope.launch(Dispatchers.IO) {
+                getBooksJob = viewModelScope.launch(Dispatchers.IO) {
                     _state.update {
                         it.copy(
                             isBooksLoading = true
@@ -347,15 +432,11 @@ class BrowseViewModel @Inject constructor(
 
                     val books = mutableListOf<NullableBook>()
                     _state.value.selectableFiles
-                        .filter { it.second }
-                        .map { it.first }
+                        .filter { it.isSelected && !it.isDirectory }
+                        .map { it.fileOrDirectory }
                         .forEach {
                             yield()
-                            books.add(
-                                getBooksFromFiles.execute(
-                                    listOf(it)
-                                ).first()
-                            )
+                            books.add(getBookFromFile.execute(it))
                         }
 
                     yield()
@@ -422,7 +503,8 @@ class BrowseViewModel @Inject constructor(
                         it.copy(
                             isLoading = true,
                             hasSelectedItems = false,
-                            listState = LazyListState(0, 0)
+                            listState = LazyListState(),
+                            gridState = LazyGridState()
                         )
                     }
                     getFilesFromDownloads()
@@ -435,29 +517,201 @@ class BrowseViewModel @Inject constructor(
                         listState = LazyListState(
                             it.listState.firstVisibleItemIndex,
                             0
+                        ),
+                        gridState = LazyGridState(
+                            it.gridState.firstVisibleItemIndex,
+                            0
                         )
                     )
+                }
+            }
+
+            is BrowseEvent.OnChangeDirectory -> {
+                viewModelScope.launch {
+                    changeDirectoryJob?.cancel()
+                    searchQueryJob?.cancel()
+
+                    changeDirectoryJob = launch(Dispatchers.IO) {
+                        yield()
+                        _state.update {
+                            it.copy(
+                                listState = LazyListState(),
+                                gridState = LazyGridState(),
+                                selectedDirectory = event.directory,
+                                previousDirectory = if (event.savePreviousDirectory) it.selectedDirectory
+                                else event.directory.parentFile,
+                                inNestedDirectory = event.directory != Environment.getExternalStorageDirectory()
+                            )
+                        }
+                    }
+                }
+            }
+
+            is BrowseEvent.OnGoBackDirectory -> {
+                onEvent(
+                    BrowseEvent.OnChangeDirectory(
+                        _state.value.previousDirectory
+                            ?: Environment.getExternalStorageDirectory(),
+                        savePreviousDirectory = false
+                    )
+                )
+            }
+
+            is BrowseEvent.OnShowHideFilterBottomSheet -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    _state.update {
+                        it.copy(
+                            showFilterBottomSheet = !it.showFilterBottomSheet
+                        )
+                    }
+                }
+            }
+
+            is BrowseEvent.OnScrollToFilterPage -> {
+                viewModelScope.launch {
+                    _state.update {
+                        event.pagerState?.scrollToPage(event.page)
+
+                        it.copy(
+                            currentPage = event.page
+                        )
+                    }
+                }
+            }
+
+            is BrowseEvent.OnUpdateFavoriteDirectory -> {
+                viewModelScope.launch {
+                    _state.update {
+                        it.copy(isLoading = true)
+                    }
+                    updateFavoriteDirectory.execute(event.path)
+                    getFilesFromDownloads()
                 }
             }
         }
     }
 
+    fun filterList(mainState: MainState): List<SelectableFile> {
+        fun <T> thenCompareBy(
+            selector: (T) -> Comparable<*>?
+        ): Comparator<T> {
+            return if (mainState.browseSortOrderDescending!!) {
+                compareByDescending(selector)
+            } else {
+                compareBy(selector)
+            }
+        }
+
+        fun List<SelectableFile>.filterFiles(): List<SelectableFile> {
+            if (mainState.browseIncludedFilterItems!!.isEmpty()) {
+                return this
+            }
+
+            return filter { file ->
+                when (file.isDirectory) {
+                    true -> {
+                        return@filter this.filter {
+                            if (file == it) {
+                                return@filter false
+                            }
+
+                            it.fileOrDirectory.path.startsWith(file.fileOrDirectory.path)
+                        }.filterFiles().isNotEmpty()
+                    }
+
+                    false -> {
+                        return@filter mainState.browseIncludedFilterItems.any {
+                            file.fileOrDirectory.path.endsWith(
+                                it, ignoreCase = true
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        return _state.value.selectableFiles
+            .filterFiles()
+            .filter {
+                if (
+                    _state.value.hasSearched
+                    || mainState.browseFilesStructure == BrowseFilesStructure.ALL_FILES
+                ) {
+                    return@filter !it.isDirectory
+                }
+
+                if (
+                    Environment.getExternalStorageDirectory() == _state.value.selectedDirectory
+                    && it.isFavorite
+                    && mainState.browsePinFavoriteDirectories!!
+                ) {
+                    return@filter true
+                }
+
+                it.parentDirectory == _state.value.selectedDirectory
+            }
+            .sortedWith(
+                compareByDescending<SelectableFile> {
+                    when (mainState.browsePinFavoriteDirectories!!) {
+                        true -> it.isFavorite
+                        false -> true
+                    }
+                }.then(
+                    compareByDescending {
+                        when (mainState.browseSortOrder!! != BrowseSortOrder.FILE_TYPE) {
+                            true -> it.isDirectory
+                            false -> true
+                        }
+                    }
+                ).then(
+                    thenCompareBy {
+                        when (mainState.browseSortOrder!!) {
+                            BrowseSortOrder.NAME -> {
+                                it.fileOrDirectory.name.lowercase().trim()
+                            }
+
+                            BrowseSortOrder.FILE_TYPE -> {
+                                it.isDirectory
+                            }
+
+                            BrowseSortOrder.FILE_FORMAT -> {
+                                it.fileOrDirectory.extension
+                            }
+
+                            BrowseSortOrder.FILE_SIZE -> {
+                                it.fileOrDirectory.length()
+                            }
+
+                            BrowseSortOrder.LAST_MODIFIED -> {
+                                it.fileOrDirectory.lastModified()
+                            }
+                        }
+                    }
+                )
+            )
+    }
+
     private suspend fun getFilesFromDownloads(
         query: String = if (_state.value.showSearch) _state.value.searchQuery else ""
     ) {
-        getFilesFromDevice.execute(query).collect { result ->
-            when (result) {
-                is Resource.Success -> {
-                    _state.update {
-                        it.copy(
-                            selectableFiles = result.data?.map { book -> Pair(book, false) }
-                                ?: emptyList(),
-                            isLoading = false
-                        )
-                    }
-                }
+        getFilesFromDevice.execute(query).apply {
+            yield()
+            _state.update {
+                it.copy(
+                    selectableFiles = this,
+                    selectedItemsCount = 0,
+                    hasSearched = query.isNotBlank(),
+                    hasSelectedItems = false,
+                    isLoading = false
+                )
+            }
+        }
+    }
 
-                is Resource.Error -> Unit
+    fun clearViewModel() {
+        viewModelScope.launch(Dispatchers.Main) {
+            _state.update {
+                it.copy(isError = false)
             }
         }
     }

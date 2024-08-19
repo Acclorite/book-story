@@ -14,13 +14,15 @@ import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 
 /**
  * Storage permission dialog.
+ *
+ * @param onEvent [BrowseEvent] callback.
+ * @param permissionState Storage [PermissionState].
  */
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun BrowseStoragePermissionDialog(
     onEvent: (BrowseEvent) -> Unit,
-    permissionState: PermissionState,
-    showErrorMessage: (Boolean) -> Unit
+    permissionState: PermissionState
 ) {
     val activity = LocalContext.current as ComponentActivity
 
@@ -32,8 +34,7 @@ fun BrowseStoragePermissionDialog(
         onDismiss = {
             onEvent(
                 BrowseEvent.OnStoragePermissionDismiss(
-                    permissionState,
-                    showErrorMessage = { showErrorMessage(true) }
+                    permissionState = permissionState
                 )
             )
         },
@@ -43,9 +44,8 @@ fun BrowseStoragePermissionDialog(
         onAction = {
             onEvent(
                 BrowseEvent.OnStoragePermissionRequest(
-                    activity,
-                    storagePermissionState = permissionState,
-                    hideErrorMessage = { showErrorMessage(false) }
+                    activity = activity,
+                    storagePermissionState = permissionState
                 )
             )
         }

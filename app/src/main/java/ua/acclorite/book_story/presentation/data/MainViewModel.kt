@@ -20,6 +20,9 @@ import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.DataStoreConstants
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
+import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseLayout
+import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseSortOrder
+import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toFilesStructure
 import ua.acclorite.book_story.presentation.ui.toDarkTheme
 import ua.acclorite.book_story.presentation.ui.toPureDark
 import ua.acclorite.book_story.presentation.ui.toTheme
@@ -224,6 +227,105 @@ class MainViewModel @Inject constructor(
                     updateStateWithSavedHandle {
                         it.copy(
                             fastColorPresetChange = event.bool
+                        )
+                    }
+                }
+            }
+
+            is MainEvent.OnChangeBrowseFilesStructure -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.BROWSE_FILES_STRUCTURE, event.structure)
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            browseFilesStructure = event.structure.toFilesStructure()
+                        )
+                    }
+                }
+            }
+
+            is MainEvent.OnChangeBrowseLayout -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.BROWSE_LAYOUT, event.layout)
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            browseLayout = event.layout.toBrowseLayout()
+                        )
+                    }
+                }
+            }
+
+            is MainEvent.OnChangeBrowseAutoGridSize -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.BROWSE_AUTO_GRID_SIZE, event.bool)
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            browseAutoGridSize = event.bool
+                        )
+                    }
+                }
+            }
+
+            is MainEvent.OnChangeBrowseGridSize -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.BROWSE_GRID_SIZE, event.size)
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            browseGridSize = event.size
+                        )
+                    }
+                }
+            }
+
+            is MainEvent.OnChangeBrowsePinFavoriteDirectories -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(
+                        DataStoreConstants.BROWSE_PIN_FAVORITE_DIRECTORIES,
+                        event.bool
+                    )
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            browsePinFavoriteDirectories = event.bool
+                        )
+                    }
+                }
+            }
+
+            is MainEvent.OnChangeBrowseSortOrder -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(DataStoreConstants.BROWSE_SORT_ORDER, event.order)
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            browseSortOrder = event.order.toBrowseSortOrder()
+                        )
+                    }
+                }
+            }
+
+            is MainEvent.OnChangeBrowseSortOrderDescending -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(
+                        DataStoreConstants.BROWSE_SORT_ORDER_DESCENDING,
+                        event.bool
+                    )
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            browseSortOrderDescending = event.bool
+                        )
+                    }
+                }
+            }
+
+            is MainEvent.OnChangeBrowseIncludedFilterItem -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    val set = _state.value.browseIncludedFilterItems!!.toMutableSet()
+                    if (!set.add(event.item)) {
+                        set.remove(event.item)
+                    }
+
+                    setDatastore.execute(DataStoreConstants.BROWSE_INCLUDED_FILTER_ITEMS, set)
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            browseIncludedFilterItems = set.toList()
                         )
                     }
                 }

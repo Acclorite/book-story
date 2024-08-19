@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.local.data_store.DataStore
+import ua.acclorite.book_story.data.local.dto.FavoriteDirectoryEntity
 import ua.acclorite.book_story.data.local.notification.UpdatesNotificationService
 import ua.acclorite.book_story.data.local.room.BookDao
 import ua.acclorite.book_story.data.mapper.book.BookMapper
@@ -32,6 +33,7 @@ import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.ColorPreset
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
+import ua.acclorite.book_story.domain.model.SelectableFile
 import ua.acclorite.book_story.domain.repository.BookRepository
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.CoverImage
@@ -464,19 +466,82 @@ class BookRepositoryImpl @Inject constructor(
         return result.await()
     }
 
-    override suspend fun getFilesFromDevice(query: String): Flow<Resource<List<File>>> {
-        fun getAllFilesInDirectory(directory: File): List<File> {
-            val filesList = mutableListOf<File>()
+    override suspend fun getFilesFromDevice(query: String): List<SelectableFile> {
+        val existingBooks = database
+            .searchBooks("")
+            .map { bookMapper.toBook(it) }
+        val supportedExtensions = Constants.EXTENSIONS
 
-            val files = directory.listFiles()
+        fun File.isValid(): Boolean {
+            if (!exists()) {
+                return false
+            }
+
+            val isFileSupported = supportedExtensions.any { ext ->
+                name.endsWith(
+                    ext,
+                    ignoreCase = true
+                )
+            }
+
+            if (!isFileSupported) {
+                return false
+            }
+
+            val isFileNotAdded = existingBooks.all {
+                it.filePath.lowercase().trim() != path.lowercase().trim()
+            }
+
+            if (!isFileNotAdded) {
+                return false
+            }
+
+            val isQuery = if (query.isEmpty()) true else name.trim().lowercase()
+                .contains(query.trim().lowercase())
+
+            return isQuery
+        }
+
+        suspend fun File.getAllFiles(): List<SelectableFile> {
+            val filesList = mutableListOf<SelectableFile>()
+
+            val files = listFiles()
             if (files != null) {
                 for (file in files) {
-                    if (file.isFile) {
-                        filesList.add(file)
+                    if (!file.exists()) {
+                        continue
                     }
-                    if (file.isDirectory) {
-                        val subDirectoryFiles = getAllFilesInDirectory(file)
-                        filesList.addAll(subDirectoryFiles)
+
+                    when {
+                        file.isFile -> {
+                            if (file.isValid()) {
+                                filesList.add(
+                                    SelectableFile(
+                                        fileOrDirectory = file,
+                                        parentDirectory = this,
+                                        isDirectory = false,
+                                        isFavorite = false,
+                                        isSelected = false
+                                    )
+                                )
+                            }
+                        }
+
+                        file.isDirectory -> {
+                            val subDirectoryFiles = file.getAllFiles()
+                            if (subDirectoryFiles.isNotEmpty()) {
+                                filesList.add(
+                                    SelectableFile(
+                                        fileOrDirectory = file,
+                                        parentDirectory = this,
+                                        isDirectory = true,
+                                        isFavorite = database.favoriteDirectoryExits(file.path),
+                                        isSelected = false
+                                    )
+                                )
+                                filesList.addAll(subDirectoryFiles)
+                            }
+                        }
                     }
                 }
             }
@@ -484,77 +549,17 @@ class BookRepositoryImpl @Inject constructor(
             return filesList
         }
 
-        return flow {
-            val existingBooks = database
-                .searchBooks("")
-                .map { bookMapper.toBook(it) }
-
-            val primaryDirectory = Environment.getExternalStorageDirectory()
-
-            if (
-                !primaryDirectory.exists() ||
-                (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED &&
-                        Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED_READ_ONLY)
-            ) {
-                emit(Resource.Success(null))
-                return@flow
-            }
-
-            val allFiles = getAllFilesInDirectory(primaryDirectory)
-
-            if (allFiles.isEmpty()) {
-                emit(Resource.Success(null))
-                return@flow
-            }
-
-            val supportedExtensions = Constants.EXTENSIONS
-            var filteredFiles = mutableListOf<File>()
-
-            allFiles.filter { file ->
-                val isFileSupported = supportedExtensions.any { ext ->
-                    file.name.endsWith(
-                        ext,
-                        ignoreCase = true
-                    )
-                }
-
-                if (!isFileSupported) {
-                    return@filter false
-                }
-
-                val isFileNotAdded = existingBooks.all {
-                    it.filePath.substringAfterLast("/").lowercase() !=
-                            file.path.substringAfterLast("/").lowercase()
-                }
-
-                if (!isFileNotAdded) {
-                    return@filter false
-                }
-
-                val isQuery = if (query.isEmpty()) true else file.name.trim().lowercase()
-                    .contains(query.trim().lowercase())
-
-                if (!isQuery) {
-                    return@filter false
-                }
-
-                true
-            }.forEach {
-                filteredFiles.add(
-                    it
-                )
-            }
-
-            filteredFiles = filteredFiles.sortedByDescending {
-                it.lastModified()
-            }.toMutableList()
-
-            emit(
-                Resource.Success(
-                    data = filteredFiles
-                )
-            )
+        val rootDirectory = Environment.getExternalStorageDirectory()
+        if (
+            !rootDirectory.exists() ||
+            !rootDirectory.isDirectory ||
+            (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED &&
+                    Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED_READ_ONLY)
+        ) {
+            return emptyList()
         }
+
+        return rootDirectory.getAllFiles()
     }
 
     override suspend fun getBooksFromFiles(files: List<File>): List<NullableBook> {
@@ -727,6 +732,19 @@ class BookRepositoryImpl @Inject constructor(
             colorPresetMapper.toColorPresetEntity(
                 colorPreset, -1
             )
+        )
+    }
+
+    override suspend fun updateFavoriteDirectory(path: String) {
+        if (database.favoriteDirectoryExits(path)) {
+            database.deleteFavoriteDirectory(
+                FavoriteDirectoryEntity(path)
+            )
+            return
+        }
+
+        database.insertFavoriteDirectory(
+            FavoriteDirectoryEntity(path)
         )
     }
 }

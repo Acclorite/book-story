@@ -206,6 +206,8 @@
     <string name="dropped_tab">Dropped</string>
     <string name="general_tab">General</string>
     <string name="color_tab">Colors</string>
+    <string name="filter_tab">Filter</string>
+    <string name="sort_tab">Sort</string>
 
     <!-- Settings categories -->
     <string name="general_settings">General</string>
@@ -214,6 +216,8 @@
     <string name="appearance_settings_desc">Theme, colors</string>
     <string name="reader_settings">Reader</string>
     <string name="reader_settings_desc">Font, text, translator</string>
+    <string name="browse_settings">Browse</string>
+    <string name="browse_settings_desc">General, filter, sort</string>
 
     <!-- Settings subcategories -->
     <string name="font_reader_settings">Font</string>
@@ -221,6 +225,9 @@
     <string name="translator_reader_settings">Translator</string>
     <string name="theme_appearance_settings">Theme preferences</string>
     <string name="colors_appearance_settings">Colors</string>
+    <string name="general_browse_settings">General</string>
+    <string name="filter_browse_settings">Filter</string>
+    <string name="sort_browse_settings">Sort</string>
 
     <!-- Settings options -->
     <string name="language_option">App language</string>
@@ -244,6 +251,13 @@
     <string name="double_click_translation_option_desc">Double click on paragraph to translate it</string>
     <string name="fast_color_preset_change_option">Fast color preset change</string>
     <string name="fast_color_preset_change_option_desc">Swipe left or right to change color preset</string>
+    <string name="files_structure_option">Files structure</string>
+    <string name="browse_layout_option">Display mode</string>
+    <string name="browse_grid_size_option">Grid size</string>
+    <string name="browse_pin_favorite_directories_option">Pin favorite directories</string>
+    <string name="browse_pin_favorite_directories_option_desc">
+        Pin your favorite directories to the top of the screen
+    </string>
 
     <!-- Color presets -->
     <string name="red_color">Red</string>
@@ -269,6 +283,25 @@
     <!-- Font Style properties -->
     <string name="font_style_italic">Italic</string>
     <string name="font_style_normal">Normal</string>
+
+    <!-- Files Structure properties -->
+    <string name="files_structure_all">All files</string>
+    <string name="files_structure_directory">Directories</string>
+
+    <!-- Browse Layout properties -->
+    <string name="browse_layout_list">List</string>
+    <string name="browse_layout_grid">Grid</string>
+
+    <!-- Browse Grid Size properties -->
+    <string name="browse_grid_size_auto">Auto</string>
+    <string name="browse_grid_size_per_row">per row</string>
+
+    <!-- Browse Sort Order properties -->
+    <string name="browse_sort_order_name">Alphabetically</string>
+    <string name="browse_sort_order_file_format">File format</string>
+    <string name="browse_sort_order_file_type">File type</string>
+    <string name="browse_sort_order_last_modified">Last modified</string>
+    <string name="browse_sort_order_file_size">File size</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Mercury</string>
@@ -311,6 +344,9 @@
     <string name="file_last_opened">File last opened</string>
     <string name="file_size">File size</string>
     <string name="unknown">Unknown</string>
+
+    <!-- Browse -->
+    <string name="internal_storage">Internal Storage</string>
 
     <!-- Reader -->
     <string name="loading">Loading…</string>
@@ -530,6 +566,10 @@
     <string name="open_reader_settings_content_desc">Reader settings</string>
     <string name="top_app_bar_anim_content_desc">Top app bar animation</string>
     <string name="file_icon_content_desc">File</string>
+    <string name="directory_icon_content_desc">Directory</string>
+    <string name="favorite_directory_content_desc">Favorite directory</string>
+    <string name="sort_order_content_desc">Sort order</string>
+    <string name="path_arrow_icon_content_desc">Path arrow</string>
     <string name="checkbox_content_desc">Checkbox</string>
     <string name="show_dropdown_content_desc">Dropdown</string>
     <string name="cover_image_not_found_content_desc">Cover image not found</string>
@@ -538,6 +578,7 @@
     <string name="search_content_desc">Search</string>
     <string name="clear_selected_items_content_desc">Clear selected items</string>
     <string name="add_files_content_desc">Add files</string>
+    <string name="select_all_files_content_desc">Select all files</string>
     <string name="exit_search_content_desc">Exit search</string>
     <string name="delete_whole_history_content_desc">Delete whole history</string>
     <string name="move_books_content_desc">Move selected books</string>
@@ -565,5 +606,6 @@
     <string name="github_project_content_desc">GitHub Project</string>
     <string name="github_profile_content_desc">GitHub Profile</string>
     <string name="drag_content_desc">Drag</string>
+    <string name="filter_content_desc">Filter</string>
 
 </resources>

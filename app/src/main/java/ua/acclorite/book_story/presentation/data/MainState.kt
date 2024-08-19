@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package ua.acclorite.book_story.presentation.data
 
 import android.os.Build
@@ -7,6 +9,12 @@ import androidx.compose.runtime.Immutable
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.DataStoreConstants
+import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
+import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseLayout
+import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseSortOrder
+import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseLayout
+import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseSortOrder
+import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toFilesStructure
 import ua.acclorite.book_story.presentation.ui.DarkTheme
 import ua.acclorite.book_story.presentation.ui.PureDark
 import ua.acclorite.book_story.presentation.ui.Theme
@@ -42,6 +50,14 @@ data class MainState(
     val sidePadding: Int? = null,
     val doubleClickTranslation: Boolean? = null,
     val fastColorPresetChange: Boolean? = null,
+    val browseFilesStructure: BrowseFilesStructure? = null,
+    val browseLayout: BrowseLayout? = null,
+    val browseAutoGridSize: Boolean? = null,
+    val browseGridSize: Int? = null,
+    val browsePinFavoriteDirectories: Boolean? = null,
+    val browseSortOrder: BrowseSortOrder? = null,
+    val browseSortOrderDescending: Boolean? = null,
+    val browseIncludedFilterItems: List<String>? = null,
 ) : Parcelable {
     companion object {
         /**
@@ -105,6 +121,37 @@ data class MainState(
                     data[FAST_COLOR_PRESET_CHANGE.name] as? Boolean
                         ?: true
 
+                val browseFilesStructure: String = data[BROWSE_FILES_STRUCTURE.name] as? String
+                    ?: BrowseFilesStructure.DIRECTORIES.name
+
+                val browseLayout: String = data[BROWSE_LAYOUT.name] as? String
+                    ?: BrowseLayout.LIST.name
+
+                val browseAutoGridSize: Boolean =
+                    data[BROWSE_AUTO_GRID_SIZE.name] as? Boolean
+                        ?: true
+
+                val browseGridSize: Int =
+                    data[BROWSE_GRID_SIZE.name] as? Int
+                        ?: 0
+
+                val browsePinFavoriteDirectories: Boolean =
+                    data[BROWSE_PIN_FAVORITE_DIRECTORIES.name] as? Boolean
+                        ?: true
+
+                val browseSortOrder: String =
+                    data[BROWSE_SORT_ORDER.name] as? String
+                        ?: BrowseSortOrder.LAST_MODIFIED.name
+
+                val browseSortOrderDescending: Boolean =
+                    data[BROWSE_SORT_ORDER_DESCENDING.name] as? Boolean
+                        ?: true
+
+
+                val browseIncludedFilterItems =
+                    (data[BROWSE_INCLUDED_FILTER_ITEMS.name] as? Set<String>)?.toList()
+                        ?: emptyList()
+
                 return MainState(
                     language = language,
                     theme = theme.toTheme(),
@@ -121,7 +168,15 @@ data class MainState(
                     checkForUpdates = checkForUpdates,
                     sidePadding = sidePadding,
                     doubleClickTranslation = doubleClickTranslation,
-                    fastColorPresetChange = fastColorPresetChange
+                    fastColorPresetChange = fastColorPresetChange,
+                    browseFilesStructure = browseFilesStructure.toFilesStructure(),
+                    browseLayout = browseLayout.toBrowseLayout(),
+                    browseAutoGridSize = browseAutoGridSize,
+                    browseGridSize = browseGridSize,
+                    browsePinFavoriteDirectories = browsePinFavoriteDirectories,
+                    browseSortOrder = browseSortOrder.toBrowseSortOrder(),
+                    browseSortOrderDescending = browseSortOrderDescending,
+                    browseIncludedFilterItems = browseIncludedFilterItems
                 )
             }
         }

@@ -187,6 +187,8 @@
     <string name="dropped_tab">Кинуто</string>
     <string name="general_tab">Головні</string>
     <string name="color_tab">Кольори</string>
+    <string name="filter_tab">Фільтр</string>
+    <string name="sort_tab">Сортування</string>
 
     <!-- Settings categories -->
     <string name="general_settings">Головні</string>
@@ -195,6 +197,8 @@
     <string name="appearance_settings_desc">Тема, кольори</string>
     <string name="reader_settings">Читач</string>
     <string name="reader_settings_desc">Шрифт, текст, перекладач</string>
+    <string name="browse_settings">Огляд</string>
+    <string name="browse_settings_desc">Головні, фільтр, сортування</string>
 
     <!-- Settings subcategories -->
     <string name="font_reader_settings">Шрифт</string>
@@ -202,6 +206,9 @@
     <string name="translator_reader_settings">Перекладач</string>
     <string name="theme_appearance_settings">Налаштування теми</string>
     <string name="colors_appearance_settings">Кольори</string>
+    <string name="general_browse_settings">Головні</string>
+    <string name="filter_browse_settings">Фільтр</string>
+    <string name="sort_browse_settings">Сотрування</string>
 
     <!-- Settings options -->
     <string name="language_option">Мова застосунка</string>
@@ -225,6 +232,13 @@
     <string name="double_click_translation_option_desc">Двічі клацніть на абзац, щоб перекласти його</string>
     <string name="fast_color_preset_change_option">Швидка зміна пресета кольорів</string>
     <string name="fast_color_preset_change_option_desc">Проведіть вліво або вправо, щоб змінити пресет кольорів</string>
+    <string name="files_structure_option">Структура файлів</string>
+    <string name="browse_layout_option">Режим відображення</string>
+    <string name="browse_grid_size_option">Кількість комірок</string>
+    <string name="browse_pin_favorite_directories_option">Закріпити улюблені директорії</string>
+    <string name="browse_pin_favorite_directories_option_desc">
+        Закріпіть ваші улюблені директорії зверху екрана
+    </string>
 
     <!-- Color presets -->
     <string name="red_color">Червоний</string>
@@ -250,6 +264,25 @@
     <!-- Font Style properties -->
     <string name="font_style_italic">Похилий</string>
     <string name="font_style_normal">Нормальний</string>
+
+    <!-- Files Structure properties -->
+    <string name="files_structure_all">Всі файли</string>
+    <string name="files_structure_directory">Директорії</string>
+
+    <!-- Browse Layout properties -->
+    <string name="browse_layout_list">Список</string>
+    <string name="browse_layout_grid">Сітка</string>
+
+    <!-- Browse Grid Size properties -->
+    <string name="browse_grid_size_auto">Авто</string>
+    <string name="browse_grid_size_per_row">кожен рядок</string>
+
+    <!-- Browse Sort Order properties -->
+    <string name="browse_sort_order_name">За алфавітом</string>
+    <string name="browse_sort_order_file_format">Формат файла</string>
+    <string name="browse_sort_order_file_type">Тип файла</string>
+    <string name="browse_sort_order_last_modified">Остання зміна</string>
+    <string name="browse_sort_order_file_size">Розмір файла</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Меркурій</string>
@@ -292,6 +325,9 @@
     <string name="file_last_opened">Останнє відкриття файлу</string>
     <string name="file_size">Розмір файлу</string>
     <string name="unknown">Невідомо</string>
+
+    <!-- Browse -->
+    <string name="internal_storage">Внутрішнє Сховище</string>
 
     <!-- Reader -->
     <string name="loading">Завантаження…</string>
@@ -512,6 +548,10 @@
     <string name="open_reader_settings_content_desc">Налаштування читача</string>
     <string name="top_app_bar_anim_content_desc">Анімація верхньої панелі</string>
     <string name="file_icon_content_desc">Файл</string>
+    <string name="directory_icon_content_desc">Тека</string>
+    <string name="favorite_directory_content_desc">Улюблена тека</string>
+    <string name="sort_order_content_desc">Порядок сортування</string>
+    <string name="path_arrow_icon_content_desc">Стрілка шляху</string>
     <string name="checkbox_content_desc">Галочка</string>
     <string name="show_dropdown_content_desc">Випадаючий список</string>
     <string name="cover_image_not_found_content_desc">Обкладенка не знайдена</string>
@@ -520,6 +560,7 @@
     <string name="search_content_desc">Пошук</string>
     <string name="clear_selected_items_content_desc">Очистити обрані предмети</string>
     <string name="add_files_content_desc">Додати файли</string>
+    <string name="select_all_files_content_desc">Вибрати всі файли</string>
     <string name="exit_search_content_desc">Вийти з пошуку</string>
     <string name="delete_whole_history_content_desc">Видалити всю історію</string>
     <string name="move_books_content_desc">Перемістити обрані книги</string>
@@ -545,5 +586,6 @@
     <string name="github_project_content_desc">GitHub Проєкт</string>
     <string name="github_profile_content_desc">GitHub Профіль</string>
     <string name="drag_content_desc">Тягнути</string>
+    <string name="filter_content_desc">Фільтр</string>
 
 </resources>

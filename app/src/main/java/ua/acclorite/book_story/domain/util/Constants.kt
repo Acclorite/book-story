@@ -27,7 +27,7 @@ object Constants {
     const val MAIN_STATE = "main_state"
 
     // Supported file extensions
-    val EXTENSIONS = listOf(".txt", ".pdf", ".epub", ".fb2")
+    val EXTENSIONS = listOf(".epub", ".pdf", ".fb2", ".txt")
 
     // Supported languages
     val LANGUAGES = listOf(

@@ -9,6 +9,7 @@ import androidx.room.Update
 import androidx.room.Upsert
 import ua.acclorite.book_story.data.local.dto.BookEntity
 import ua.acclorite.book_story.data.local.dto.ColorPresetEntity
+import ua.acclorite.book_story.data.local.dto.FavoriteDirectoryEntity
 import ua.acclorite.book_story.data.local.dto.HistoryEntity
 
 @Dao
@@ -78,4 +79,14 @@ interface BookDao {
 
     @Query("DELETE FROM colorpresetentity")
     suspend fun deleteColorPresets()
+
+
+    @Upsert
+    suspend fun insertFavoriteDirectory(favoriteDirectoryEntity: FavoriteDirectoryEntity)
+
+    @Query("SELECT EXISTS(SELECT 1 FROM favoritedirectoryentity WHERE path = :path LIMIT 1)")
+    suspend fun favoriteDirectoryExits(path: String): Boolean
+
+    @Delete
+    suspend fun deleteFavoriteDirectory(favoriteDirectoryEntity: FavoriteDirectoryEntity)
 }

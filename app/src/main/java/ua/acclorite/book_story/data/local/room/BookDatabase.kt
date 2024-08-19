@@ -10,6 +10,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import ua.acclorite.book_story.data.local.dto.BookEntity
 import ua.acclorite.book_story.data.local.dto.ColorPresetEntity
+import ua.acclorite.book_story.data.local.dto.FavoriteDirectoryEntity
 import ua.acclorite.book_story.data.local.dto.HistoryEntity
 
 @Database(
@@ -17,13 +18,15 @@ import ua.acclorite.book_story.data.local.dto.HistoryEntity
         BookEntity::class,
         HistoryEntity::class,
         ColorPresetEntity::class,
+        FavoriteDirectoryEntity::class,
     ],
-    version = 5,
+    version = 6,
     autoMigrations = [
         AutoMigration(1, 2),
         AutoMigration(2, 3),
         AutoMigration(3, 4, spec = DatabaseHelper.MIGRATION_3_4::class),
         AutoMigration(4, 5),
+        AutoMigration(5, 6),
     ],
     exportSchema = true
 )
@@ -64,6 +67,17 @@ object DatabaseHelper {
                         "`fontColor` INTEGER NOT NULL, " +
                         "`isSelected` INTEGER NOT NULL, " +
                         "`order` INTEGER NOT NULL" +
+                        ")"
+            )
+        }
+    }
+
+    val MIGRATION_5_6 = object : Migration(4, 5) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            db.execSQL(
+                "CREATE TABLE IF NOT EXISTS `FavoriteDirectoryEntity` (" +
+                        "`path` TEXT NOT NULL, " +
+                        "PRIMARY KEY(`path`)" +
                         ")"
             )
         }
