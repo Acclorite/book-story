@@ -456,6 +456,45 @@ object Constants {
                 Font(R.font.jost_regular),
                 Font(R.font.jost_regular_italic, style = FontStyle.Italic)
             )
+        ),
+        FontWithName(
+            "merriweather",
+            UIText.StringValue("Merriweather"),
+            FontFamily(
+                Font(R.font.merriweather_regular),
+                Font(R.font.merriweather_regular_italic, style = FontStyle.Italic)
+            )
+        ),
+        FontWithName(
+            "montserrat",
+            UIText.StringValue("Montserrat"),
+            FontFamily(
+                Font(R.font.montserrat_regular),
+                Font(R.font.montserrat_regular_italic, style = FontStyle.Italic)
+            )
+        ),
+        FontWithName(
+            "nunito",
+            UIText.StringValue("Nunito"),
+            FontFamily(
+                Font(R.font.nunito_regular),
+                Font(R.font.nunito_regular_italic, style = FontStyle.Italic)
+            )
+        ),
+        FontWithName(
+            "roboto_slab",
+            UIText.StringValue("Roboto Slab"),
+            FontFamily(
+                Font(R.font.robotoslab_regular)
+            )
+        ),
+        FontWithName(
+            "lora",
+            UIText.StringValue("Lora"),
+            FontFamily(
+                Font(R.font.lora_regular),
+                Font(R.font.lora_regular_italic, style = FontStyle.Italic)
+            )
         )
     )
 
