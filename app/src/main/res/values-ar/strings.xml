@@ -105,4 +105,15 @@
     <string name="author">المؤلف</string>
     <string name="reading_tab">يقرأ</string>
     <string name="already_read_tab">يقرأ بالفعل</string>
+    <string name="move_to_read">نقل هذا الكتاب إلى «يتم قرائته بالفعل»</string>
+    <string name="general_tab">عام</string>
+    <string name="color_tab">الألوان</string>
+    <string name="pure_dark_option">أسود نقي (أوليد)</string>
+    <string name="theme_contrast_option">تباين السمة</string>
+    <string name="app_theme_option">سمة التطبيق</string>
+    <string name="font_family_option">نوع الخط</string>
+    <string name="font_size_option">حجم الخط</string>
+    <string name="paragraph_height_option">ارتفاع الفقرة</string>
+    <string name="check_for_updates_option_desc">التحقق من التحديثات الجديدة للتطبيق عند بدء التطبيق</string>
+    <string name="general_settings">عام</string>
 </resources>
