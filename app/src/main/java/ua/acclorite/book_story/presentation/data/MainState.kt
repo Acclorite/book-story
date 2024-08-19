@@ -15,6 +15,8 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseLayout
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseSortOrder
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toFilesStructure
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.ReaderTextAlignment
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.toTextAlignment
 import ua.acclorite.book_story.presentation.ui.DarkTheme
 import ua.acclorite.book_story.presentation.ui.PureDark
 import ua.acclorite.book_story.presentation.ui.Theme
@@ -58,6 +60,7 @@ data class MainState(
     val browseSortOrder: BrowseSortOrder? = null,
     val browseSortOrderDescending: Boolean? = null,
     val browseIncludedFilterItems: List<String>? = null,
+    val textAlignment: ReaderTextAlignment? = null,
 ) : Parcelable {
     companion object {
         /**
@@ -147,10 +150,12 @@ data class MainState(
                     data[BROWSE_SORT_ORDER_DESCENDING.name] as? Boolean
                         ?: true
 
-
                 val browseIncludedFilterItems =
                     (data[BROWSE_INCLUDED_FILTER_ITEMS.name] as? Set<String>)?.toList()
                         ?: emptyList()
+
+                val textAlignment = data[TEXT_ALIGNMENT.name] as? String
+                    ?: ReaderTextAlignment.START.name
 
                 return MainState(
                     language = language,
@@ -176,7 +181,8 @@ data class MainState(
                     browsePinFavoriteDirectories = browsePinFavoriteDirectories,
                     browseSortOrder = browseSortOrder.toBrowseSortOrder(),
                     browseSortOrderDescending = browseSortOrderDescending,
-                    browseIncludedFilterItems = browseIncludedFilterItems
+                    browseIncludedFilterItems = browseIncludedFilterItems,
+                    textAlignment = textAlignment.toTextAlignment()
                 )
             }
         }

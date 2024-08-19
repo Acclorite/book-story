@@ -23,6 +23,7 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.reader.compo
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.ParagraphHeightSetting
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.ParagraphIndentationSetting
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.SidePaddingSetting
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.TextAlignmentSetting
 
 /**
  * Text subcategory.
@@ -56,6 +57,13 @@ fun LazyListScope.TextSubcategory(
                     .height((topPadding - 8.dp).coerceAtLeast(0.dp))
             )
         }
+    }
+
+    item {
+        TextAlignmentSetting(
+            state = state,
+            onMainEvent = onMainEvent
+        )
     }
 
     item {

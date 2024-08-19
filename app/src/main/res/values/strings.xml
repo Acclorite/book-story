@@ -251,7 +251,8 @@
     <string name="double_click_translation_option_desc">Double click on paragraph to translate it</string>
     <string name="fast_color_preset_change_option">Fast color preset change</string>
     <string name="fast_color_preset_change_option_desc">Swipe left or right to change color preset</string>
-    <string name="files_structure_option">Files structure</string>
+    <string name="text_alignment_option">Text alignment</string>
+    <string name="browse_files_structure_option">Files structure</string>
     <string name="browse_layout_option">Display mode</string>
     <string name="browse_grid_size_option">Grid size</string>
     <string name="browse_pin_favorite_directories_option">Pin favorite directories</string>
@@ -302,6 +303,12 @@
     <string name="browse_sort_order_file_type">File type</string>
     <string name="browse_sort_order_last_modified">Last modified</string>
     <string name="browse_sort_order_file_size">File size</string>
+
+    <!-- Text Alignment properties -->
+    <string name="text_alignment_start">Start</string>
+    <string name="text_alignment_justify">Justify</string>
+    <string name="text_alignment_center">Center</string>
+    <string name="text_alignment_end">End</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Mercury</string>

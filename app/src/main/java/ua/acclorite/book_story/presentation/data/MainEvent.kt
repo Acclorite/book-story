@@ -28,4 +28,5 @@ sealed class MainEvent {
     data class OnChangeBrowseSortOrder(val order: String) : MainEvent()
     data class OnChangeBrowseSortOrderDescending(val bool: Boolean) : MainEvent()
     data class OnChangeBrowseIncludedFilterItem(val item: String) : MainEvent()
+    data class OnChangeTextAlignment(val alignment: String) : MainEvent()
 }

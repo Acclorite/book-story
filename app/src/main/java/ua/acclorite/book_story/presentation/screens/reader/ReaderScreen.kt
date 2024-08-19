@@ -397,6 +397,7 @@ private fun ReaderScreen(
                         fontColor = fontColor.value,
                         lineHeight = lineHeight,
                         fontStyle = fontStyle,
+                        textAlignment = mainState.value.textAlignment!!,
                         fontSize = mainState.value.fontSize!!.sp,
                         sidePadding = sidePadding,
                         paragraphIndentation = mainState.value.paragraphIndentation!!,

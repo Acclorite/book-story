@@ -23,7 +23,7 @@ fun LazyItemScope.BrowseFilesStructureSetting(
     onMainEvent: (MainEvent) -> Unit
 ) {
     SegmentedButtonWithTitle(
-        title = stringResource(id = R.string.files_structure_option),
+        title = stringResource(id = R.string.browse_files_structure_option),
         modifier = Modifier.animateItem(),
         buttons = BrowseFilesStructure.entries.map {
             ButtonItem(

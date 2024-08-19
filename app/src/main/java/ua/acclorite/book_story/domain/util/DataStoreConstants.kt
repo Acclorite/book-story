@@ -25,6 +25,7 @@ object DataStoreConstants {
     val LINE_HEIGHT = intPreferencesKey("line_height")
     val PARAGRAPH_HEIGHT = intPreferencesKey("paragraph_height")
     val PARAGRAPH_INDENTATION = booleanPreferencesKey("paragraph_indentation")
+    val TEXT_ALIGNMENT = stringPreferencesKey("text_alignment")
 
     // Browse settings
     val BROWSE_FILES_STRUCTURE = stringPreferencesKey("browse_files_structure")

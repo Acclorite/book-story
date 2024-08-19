@@ -23,6 +23,7 @@ import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewMo
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseLayout
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseSortOrder
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toFilesStructure
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.toTextAlignment
 import ua.acclorite.book_story.presentation.ui.toDarkTheme
 import ua.acclorite.book_story.presentation.ui.toPureDark
 import ua.acclorite.book_story.presentation.ui.toTheme
@@ -326,6 +327,20 @@ class MainViewModel @Inject constructor(
                     updateStateWithSavedHandle {
                         it.copy(
                             browseIncludedFilterItems = set.toList()
+                        )
+                    }
+                }
+            }
+
+            is MainEvent.OnChangeTextAlignment -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(
+                        DataStoreConstants.TEXT_ALIGNMENT,
+                        event.alignment
+                    )
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            textAlignment = event.alignment.toTextAlignment()
                         )
                     }
                 }
