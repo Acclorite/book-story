@@ -280,6 +280,7 @@ class SettingsViewModel @Inject constructor(
                 viewModelScope.launch {
                     cancelColorPresetJobs()
                     deleteColorPresetJob = launch {
+                        if (_state.value.colorPresets.size == 1) return@launch
                         val colorPreset = getColorPresetById(event.id) ?: return@launch
 
                         yield()
@@ -298,7 +299,10 @@ class SettingsViewModel @Inject constructor(
                         yield()
 
                         deleteColorPreset.execute(colorPreset)
-                        onSelectColorPreset(getColorPresets.execute()[nextPosition])
+                        val nextColorPreset = getColorPresets.execute().getOrNull(nextPosition)
+                            ?: return@launch
+
+                        onSelectColorPreset(nextColorPreset)
                         val colorPresets = getColorPresets.execute()
 
                         _state.update {
