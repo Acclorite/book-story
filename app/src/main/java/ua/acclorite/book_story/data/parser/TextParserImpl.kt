@@ -1,6 +1,7 @@
 package ua.acclorite.book_story.data.parser
 
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.data.parser.epub.EpubTextParser
 import ua.acclorite.book_story.data.parser.fb2.Fb2TextParser
 import ua.acclorite.book_story.data.parser.htm.HtmTextParser
 import ua.acclorite.book_story.data.parser.html.HtmlTextParser
@@ -15,7 +16,7 @@ import javax.inject.Inject
 class TextParserImpl @Inject constructor(
     private val txtTextParser: TxtTextParser,
     private val pdfTextParser: PdfTextParser,
-    private val epubTextParser: HtmlTextParser,
+    private val epubTextParser: EpubTextParser,
     private val fb2TextParser: Fb2TextParser,
     private val zipTextParser: ZipTextParser,
     private val htmlTextParser: HtmlTextParser,
