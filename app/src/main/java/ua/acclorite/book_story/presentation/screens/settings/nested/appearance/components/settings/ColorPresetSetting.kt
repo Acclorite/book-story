@@ -2,6 +2,7 @@ package ua.acclorite.book_story.presentation.screens.settings.nested.appearance.
 
 import android.content.Context
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandHorizontally
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -68,7 +69,7 @@ import ua.acclorite.book_story.presentation.components.customItemsIndexed
 import ua.acclorite.book_story.presentation.screens.settings.components.ColorPickerWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsState
-import ua.acclorite.book_story.presentation.ui.DefaultTransition
+import ua.acclorite.book_story.presentation.ui.FadeTransitionPreservingSpace
 import ua.acclorite.book_story.presentation.ui.Transitions
 
 /**
@@ -436,9 +437,9 @@ private fun ColorPresetSettingConfigurationItem(
             }
         }
 
-        Spacer(modifier = Modifier.width(24.dp))
+        Spacer(modifier = Modifier.width(12.dp))
 
-        DefaultTransition(visible = canDelete) {
+        FadeTransitionPreservingSpace(visible = canDelete, animationSpec = tween(300)) {
             CustomIconButton(
                 modifier = Modifier.size(24.dp),
                 icon = Icons.Default.DeleteOutline,
