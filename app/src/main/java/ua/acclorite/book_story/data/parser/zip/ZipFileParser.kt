@@ -1,4 +1,4 @@
-package ua.acclorite.book_story.data.parser.epub
+package ua.acclorite.book_story.data.parser.zip
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -15,10 +15,10 @@ import java.io.File
 import java.util.zip.ZipFile
 import javax.inject.Inject
 
-class EpubFileParser @Inject constructor() : FileParser {
+class ZipFileParser @Inject constructor() : FileParser {
 
     override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
-        if (!file.name.endsWith(".epub", true) || !file.exists()) {
+        if (!file.name.endsWith(".zip", true) || !file.exists()) {
             return null
         }
 

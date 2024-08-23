@@ -24,10 +24,11 @@ class PdfFileParser @Inject constructor(private val application: Application) : 
 
             val document = PDDocument.load(file)
 
-            val title = document.documentInformation.title ?: file.name.dropLast(4).trim()
-            val fileAuthor = document.documentInformation.author
-            val author = if (fileAuthor != null) UIText.StringValue(fileAuthor)
-            else UIText.StringResource(R.string.unknown_author)
+            val title = document.documentInformation.title ?: file.nameWithoutExtension.trim()
+            val author = document.documentInformation.author.run {
+                if (isNullOrBlank()) UIText.StringResource(R.string.unknown_author)
+                else UIText.StringValue(this)
+            }
             val description = document.documentInformation.subject ?: null
 
             document.close()

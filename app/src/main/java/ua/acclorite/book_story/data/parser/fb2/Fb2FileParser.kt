@@ -29,7 +29,7 @@ class Fb2FileParser @Inject constructor() : FileParser {
             }
 
             val titleFromFile = extractElementContent(document, "book-title")
-            val title = titleFromFile ?: file.name.dropLast(4).trim()
+            val title = titleFromFile ?: file.nameWithoutExtension.trim()
 
             val authorFirstName = extractElementContent(document, "first-name")
             val authorLastName = extractElementContent(document, "last-name")

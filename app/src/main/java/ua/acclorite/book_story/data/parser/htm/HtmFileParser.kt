@@ -1,5 +1,6 @@
-package ua.acclorite.book_story.data.parser.txt
+package ua.acclorite.book_story.data.parser.htm
 
+import org.jsoup.Jsoup
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.domain.model.Book
@@ -9,20 +10,25 @@ import ua.acclorite.book_story.domain.util.UIText
 import java.io.File
 import javax.inject.Inject
 
-class TxtFileParser @Inject constructor() : FileParser {
+class HtmFileParser @Inject constructor() : FileParser {
 
     override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
-        if (!file.name.endsWith(".txt", true) || !file.exists()) {
+        if (!file.name.endsWith(".htm", true) || !file.exists()) {
             return null
         }
 
         try {
-            val title = file.nameWithoutExtension.trim()
-            val author = UIText.StringResource(R.string.unknown_author)
+            val document = Jsoup.parse(file)
+
+            val title = document.select("head > title").text().trim().run {
+                ifBlank {
+                    file.nameWithoutExtension.trim()
+                }
+            }
 
             return Book(
                 title = title,
-                author = author,
+                author = UIText.StringResource(R.string.unknown_author),
                 description = null,
                 textPath = "",
                 scrollIndex = 0,
