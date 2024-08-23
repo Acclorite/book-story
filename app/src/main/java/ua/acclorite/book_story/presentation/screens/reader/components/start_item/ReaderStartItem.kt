@@ -55,7 +55,7 @@ fun ReaderStartItem(state: State<ReaderState>) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surface)
+            .background(MaterialTheme.colorScheme.surfaceContainerLowest)
     ) {
         if (state.value.book.coverImage != null) {
             ReaderStartItemBackground(

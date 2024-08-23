@@ -66,7 +66,7 @@ fun ReaderEndItem(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surface)
+            .background(MaterialTheme.colorScheme.surfaceContainerLowest)
             .padding(
                 horizontal = 36.dp,
                 vertical = 108.dp + WindowInsets.navigationBarsIgnoringVisibility

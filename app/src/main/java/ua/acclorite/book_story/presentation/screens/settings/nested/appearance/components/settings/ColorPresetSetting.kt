@@ -90,6 +90,8 @@ fun LazyItemScope.ColorPresetSetting(
     ) { from, to ->
         onEvent(SettingsEvent.OnReorderColorPresets(from.index, to.index))
     }
+    val defaultBackgroundColor = MaterialTheme.colorScheme.surface
+    val defaultFontColor = MaterialTheme.colorScheme.onSurfaceVariant
 
     Column(
         Modifier
@@ -200,7 +202,12 @@ fun LazyItemScope.ColorPresetSetting(
                     )
                 },
                 onAdd = {
-                    onEvent(SettingsEvent.OnAddColorPreset)
+                    onEvent(
+                        SettingsEvent.OnAddColorPreset(
+                            backgroundColor = defaultBackgroundColor,
+                            fontColor = defaultFontColor
+                        )
+                    )
                 }
             )
 

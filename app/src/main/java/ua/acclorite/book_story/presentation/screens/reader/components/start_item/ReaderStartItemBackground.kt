@@ -19,7 +19,7 @@ import ua.acclorite.book_story.presentation.components.CustomCoverImage
  */
 @Composable
 fun ReaderStartItemBackground(height: Dp, image: Uri) {
-    val background = MaterialTheme.colorScheme.surface
+    val background = MaterialTheme.colorScheme.surfaceContainerLowest
 
     CustomCoverImage(
         uri = image,

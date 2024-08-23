@@ -541,7 +541,7 @@ private fun provideEmptyBook() = Book(
 private fun provideDefaultColorPreset() = ColorPreset(
     id = -1,
     name = null,
-    backgroundColor = Color.DarkGray,
-    fontColor = Color.LightGray,
+    backgroundColor = Color(0xFFFAF8FF), // Blue Light Surface (hardcoded)
+    fontColor = Color(0xFF44464F), // Blue Light OnSurfaceVariant (hardcoded)
     isSelected = false
 )

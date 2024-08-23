@@ -394,7 +394,10 @@ class SettingsViewModel @Inject constructor(
                     addColorPresetJob = launch {
                         yield()
 
-                        val newColorPreset = Constants.DEFAULT_COLOR_PRESET
+                        val newColorPreset = Constants.DEFAULT_COLOR_PRESET.copy(
+                            backgroundColor = event.backgroundColor,
+                            fontColor = event.fontColor
+                        )
                         updateColorPreset.execute(newColorPreset)
 
                         onSelectColorPreset(getColorPresets.execute().last())
