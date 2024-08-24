@@ -67,7 +67,7 @@ private fun LazyItemScope.FilterItem(
             .clickable {
                 onClick()
             }
-            .padding(horizontal = 14.dp, vertical = 6.dp),
+            .padding(horizontal = 14.dp, vertical = 2.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Checkbox(
