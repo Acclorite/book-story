@@ -11,6 +11,7 @@ import ua.acclorite.book_story.presentation.ui.theme.aquaTheme
 import ua.acclorite.book_story.presentation.ui.theme.blackTheme
 import ua.acclorite.book_story.presentation.ui.theme.blueTheme
 import ua.acclorite.book_story.presentation.ui.theme.greenTheme
+import ua.acclorite.book_story.presentation.ui.theme.marshTheme
 import ua.acclorite.book_story.presentation.ui.theme.pinkTheme
 import ua.acclorite.book_story.presentation.ui.theme.purpleTheme
 import ua.acclorite.book_story.presentation.ui.theme.redTheme
@@ -25,7 +26,8 @@ enum class Theme {
     PURPLE,
     PINK,
     YELLOW,
-    AQUA
+    AQUA,
+    MARSH,
 }
 
 /**
@@ -73,6 +75,11 @@ fun colorScheme(
         Theme.GREEN -> {
             /* Green Theme */
             greenTheme(isDark = darkTheme, themeContrast = themeContrast)
+        }
+
+        Theme.MARSH -> {
+            /* Marsh Theme */
+            marshTheme(isDark = darkTheme, themeContrast = themeContrast)
         }
 
         Theme.PINK -> {

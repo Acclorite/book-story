@@ -106,6 +106,7 @@ private fun provideThemes() = listOf(
     Pair(Theme.DYNAMIC, UIText.StringResource(R.string.dynamic_theme)),
     Pair(Theme.BLUE, UIText.StringResource(R.string.blue_theme)),
     Pair(Theme.GREEN, UIText.StringResource(R.string.green_theme)),
+    Pair(Theme.MARSH, UIText.StringResource(R.string.marsh_theme)),
     Pair(Theme.RED, UIText.StringResource(R.string.red_theme)),
     Pair(Theme.PURPLE, UIText.StringResource(R.string.purple_theme)),
     Pair(Theme.PINK, UIText.StringResource(R.string.pink_theme)),
