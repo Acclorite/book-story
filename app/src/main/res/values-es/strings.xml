@@ -332,4 +332,17 @@
     <string name="browse_sort_order_last_modified">Última modificación</string>
     <string name="select_all_files_content_desc">Seleccionar todos los archivos</string>
     <string name="filter_content_desc">Filtrar</string>
+    <string name="text_alignment_option">Alineación del texto</string>
+    <string name="browse_files_structure_option">Estructura de los ficheros</string>
+    <string name="text_alignment_start">Iniciar</string>
+    <string name="text_alignment_justify">Justificar</string>
+    <string name="text_alignment_center">Centrar</string>
+    <string name="text_alignment_end">Fin</string>
+    <string name="help_translate_option">Ayuda a traducir</string>
+    <string name="credits_fonts">Fuentes</string>
+    <string name="credits_translation">Traducción</string>
+    <string name="credits_contribution">Contribución</string>
+    <string name="credits_ideas">Ideas</string>
+    <string name="lavender_theme">Tritón</string>
+    <string name="marsh_theme">Titán</string>
 </resources>
