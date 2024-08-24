@@ -351,15 +351,19 @@
     <string name="app_version_option_desc_2">Натисніть, щоб перевірити на оновлення</string>
     <string name="report_bug_option">Повідомити про помилку</string>
     <string name="whats_new_option">Що нового</string>
-    <string name="support_option">Підтримати мою роботу</string>
     <string name="licenses_option">Ліцензії з відкритим кодом</string>
     <string name="credits_option">Заслуги</string>
+    <string name="help_translate_option">Допомогти перекласти</string>
     <string name="slava_ukraini">Слава Україні!</string>
 
     <!-- Credits -->
     <string name="credits_design">Дизайн</string>
     <string name="credits_icon">Іконки</string>
     <string name="credits_updates">Керування новими оновленнями</string>
+    <string name="credits_fonts">Шрифти</string>
+    <string name="credits_translation">Переклад</string>
+    <string name="credits_contribution">Внесок</string>
+    <string name="credits_ideas">Ідеї</string>
 
     <!-- Help -->
     <string name="help_clickable_note_1">Будь ласка, зверніть увагу, що на</string>

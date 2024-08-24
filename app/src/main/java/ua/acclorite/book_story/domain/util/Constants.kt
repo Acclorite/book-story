@@ -119,6 +119,7 @@ private fun provideCredits() = listOf(
         source = "GitHub",
         credits = listOf(
             UIText.StringResource(R.string.credits_design),
+            UIText.StringResource(R.string.credits_ideas),
             UIText.StringValue("Readme")
         ),
         website = "https://www.github.com/mihonapp/mihon"
@@ -127,7 +128,8 @@ private fun provideCredits() = listOf(
         name = "Kitsune",
         source = "GitHub",
         credits = listOf(
-            UIText.StringResource(R.string.credits_updates)
+            UIText.StringResource(R.string.credits_updates),
+            UIText.StringResource(R.string.credits_ideas)
         ),
         website = "https://www.github.com/Drumber/Kitsune"
     ),
@@ -138,6 +140,23 @@ private fun provideCredits() = listOf(
             UIText.StringResource(R.string.credits_icon)
         ),
         website = "https://fonts.google.com/icons"
+    ),
+    Credit(
+        name = "Material Design Fonts",
+        source = "Google Fonts",
+        credits = listOf(
+            UIText.StringResource(R.string.credits_fonts)
+        ),
+        website = "https://fonts.google.com"
+    ),
+    Credit(
+        name = "Weblate",
+        source = "Hosted Weblate",
+        credits = listOf(
+            UIText.StringResource(R.string.credits_translation),
+            UIText.StringResource(R.string.credits_contribution)
+        ),
+        website = "https://hosted.weblate.org/projects/book-story"
     ),
 )
 
@@ -393,11 +412,11 @@ private fun provideAboutBadges() = listOf(
         url = null
     ),
     Badge(
-        id = "github_project",
-        drawable = R.drawable.github,
+        id = "patreon",
+        drawable = R.drawable.patreon,
         imageVector = null,
-        contentDescription = R.string.github_project_content_desc,
-        url = "https://www.github.com/Acclorite/book-story"
+        contentDescription = R.string.patreon_content_desc,
+        url = "https://www.patreon.com/Acclorite"
     ),
     Badge(
         id = "github_profile",

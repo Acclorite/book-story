@@ -243,12 +243,12 @@ private fun AboutScreen(
 
             item {
                 AboutItem(
-                    title = stringResource(id = R.string.support_option),
+                    title = stringResource(id = R.string.help_translate_option),
                     description = null
                 ) {
                     onEvent(
                         AboutEvent.OnNavigateToBrowserPage(
-                            context.getString(R.string.support_page),
+                            context.getString(R.string.translation_page),
                             context,
                             noAppsFound = {
                                 Toast.makeText(
