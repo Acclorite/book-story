@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
@@ -30,6 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.components.customItems
@@ -94,7 +94,7 @@ private fun LicensesScreen(
             enter = fadeIn(tween(300)),
             exit = fadeOut(tween(300))
         ) {
-            LazyColumn(
+            CustomLazyColumn(
                 Modifier
                     .fillMaxSize()
                     .padding(top = paddingValues.calculateTopPadding()),

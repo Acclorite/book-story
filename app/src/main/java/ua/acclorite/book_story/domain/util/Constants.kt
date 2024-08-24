@@ -1,12 +1,20 @@
+@file:Suppress("unused")
+
 package ua.acclorite.book_story.domain.util
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.unit.dp
+import my.nanihadesuka.compose.ScrollbarSelectionMode
+import my.nanihadesuka.compose.ScrollbarSettings
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Badge
 import ua.acclorite.book_story.domain.model.Book
@@ -55,6 +63,10 @@ object Constants {
 
     // Default Color Preset (Used when creating new color presets)
     val DEFAULT_COLOR_PRESET = provideDefaultColorPreset()
+
+    // Scrollbars (Primary unused, awaiting for fixes)
+    val PRIMARY_SCROLLBAR @Composable get() = providePrimaryScrollbar()
+    val SECONDARY_SCROLLBAR @Composable get() = provideSecondaryScrollbar()
 }
 
 private fun provideSupportedExtensions() = listOf(
@@ -544,4 +556,27 @@ private fun provideDefaultColorPreset() = ColorPreset(
     backgroundColor = Color(0xFFFAF8FF), // Blue Light Surface (hardcoded)
     fontColor = Color(0xFF44464F), // Blue Light OnSurfaceVariant (hardcoded)
     isSelected = false
+)
+
+@Composable
+private fun providePrimaryScrollbar() = ScrollbarSettings(
+    thumbUnselectedColor = MaterialTheme.colorScheme.primary,
+    hideDelayMillis = 2000,
+    durationAnimationMillis = 300,
+    selectionMode = ScrollbarSelectionMode.Disabled,
+    thumbThickness = 8.dp,
+    scrollbarPadding = 4.dp
+)
+
+@Composable
+private fun provideSecondaryScrollbar() = ScrollbarSettings(
+    thumbUnselectedColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(0.5f),
+    hideDelayMillis = 500,
+    durationAnimationMillis = 200,
+    thumbMinLength = 0.4f,
+    selectionMode = ScrollbarSelectionMode.Disabled,
+    thumbThickness = 4.dp,
+    thumbShape = RectangleShape,
+    hideDisplacement = 0.dp,
+    scrollbarPadding = 0.dp
 )

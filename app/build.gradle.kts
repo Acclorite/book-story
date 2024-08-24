@@ -36,7 +36,7 @@ android {
         getByName("debug") {
             applicationIdSuffix = ".debug"
         }
-        
+
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = false
@@ -163,4 +163,7 @@ dependencies {
 
     // Drag & Drop
     implementation("sh.calvin.reorderable:reorderable:2.3.0")
+
+    // Scrollbar
+    implementation("com.github.nanihadesuka:LazyColumnScrollbar:2.2.0")
 }
