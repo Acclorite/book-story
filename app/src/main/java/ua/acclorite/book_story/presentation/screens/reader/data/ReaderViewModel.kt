@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
@@ -161,60 +162,61 @@ class ReaderViewModel @Inject constructor(
                 }
 
                 is ReaderEvent.OnShowHideMenu -> {
-                    if (_state.value.lockMenu) {
-                        return@launch
-                    }
-
-                    val shouldShow = event.show ?: !_state.value.showMenu
-
-                    val insetsController = WindowCompat.getInsetsController(
-                        event.context.window,
-                        event.context.window.decorView
-                    )
-
-                    insetsController.systemBarsBehavior =
-                        WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-
-                    insetsController.apply {
-                        if (shouldShow) {
-                            show(WindowInsetsCompat.Type.systemBars())
-                        } else {
-                            hide(WindowInsetsCompat.Type.systemBars())
+                    launch {
+                        if (_state.value.lockMenu) {
+                            return@launch
                         }
-                    }
 
-                    _state.update {
-                        it.copy(
-                            showMenu = shouldShow
-                        )
+                        val shouldShow = event.show ?: !_state.value.showMenu
+
+                        yield()
+
+                        WindowCompat.getInsetsController(
+                            event.context.window,
+                            event.context.window.decorView
+                        ).apply {
+                            yield()
+
+                            systemBarsBehavior = WindowInsetsControllerCompat
+                                .BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                            if (shouldShow) {
+                                show(WindowInsetsCompat.Type.systemBars())
+                            } else {
+                                hide(WindowInsetsCompat.Type.systemBars())
+                            }
+                        }
+
+                        _state.update {
+                            it.copy(
+                                showMenu = shouldShow
+                            )
+                        }
                     }
                 }
 
                 is ReaderEvent.OnGoBack -> {
                     launch {
+                        yield()
+
                         _state.update {
                             it.copy(
                                 lockMenu = true
                             )
                         }
 
-                        val insetsController = WindowCompat.getInsetsController(
-                            event.context.window,
-                            event.context.window.decorView
-                        )
+                        _state.value.listState.apply {
+                            if (
+                                _state.value.loading
+                                || layoutInfo.totalItemsCount < 1
+                                || _state.value.text.isEmpty()
+                            ) return@apply
 
-                        val listState = _state.value.listState
-                        if (
-                            !_state.value.loading &&
-                            listState.layoutInfo.totalItemsCount != 0 &&
-                            _state.value.text.isNotEmpty()
-                        ) {
                             _state.update {
                                 it.copy(
                                     book = it.book.copy(
                                         progress = calculateProgress(),
-                                        scrollIndex = listState.firstVisibleItemIndex,
-                                        scrollOffset = listState.firstVisibleItemScrollOffset
+                                        scrollIndex = firstVisibleItemIndex,
+                                        scrollOffset = firstVisibleItemScrollOffset
                                     )
                                 )
                             }
@@ -225,8 +227,11 @@ class ReaderViewModel @Inject constructor(
                             event.refreshList(_state.value.book)
                         }
 
-                        insetsController.show(WindowInsetsCompat.Type.systemBars())
-                        event.context.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                        WindowCompat.getInsetsController(
+                            event.context.window,
+                            event.context.window.decorView
+                        ).show(WindowInsetsCompat.Type.systemBars())
+
                         event.navigate()
                     }
                 }
@@ -279,27 +284,21 @@ class ReaderViewModel @Inject constructor(
 
                 is ReaderEvent.OnMoveBookToAlreadyRead -> {
                     launch {
-                        onEvent(
-                            ReaderEvent.OnGoBack(
-                                event.context,
-                                refreshList = {},
-                                navigate = {}
-                            )
-                        )
+                        yield()
 
                         _state.update {
-                            val listState = it.listState
                             it.copy(
+                                lockMenu = true,
                                 book = it.book.copy(
                                     category = Category.ALREADY_READ,
                                     progress = 1f,
-                                    scrollIndex = listState.firstVisibleItemIndex,
-                                    scrollOffset = listState.firstVisibleItemScrollOffset
+                                    scrollIndex = it.listState.firstVisibleItemIndex,
+                                    scrollOffset = it.listState.firstVisibleItemScrollOffset
                                 )
                             )
                         }
-                        updateBooks.execute(listOf(_state.value.book))
 
+                        updateBooks.execute(listOf(_state.value.book))
                         event.onUpdateCategories(
                             _state.value.book
                         )
@@ -308,6 +307,11 @@ class ReaderViewModel @Inject constructor(
                                 it != Category.ALREADY_READ
                             }.size - 1
                         )
+
+                        WindowCompat.getInsetsController(
+                            event.context.window,
+                            event.context.window.decorView
+                        ).show(WindowInsetsCompat.Type.systemBars())
 
                         event.onNavigate {
                             navigate(

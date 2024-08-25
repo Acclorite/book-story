@@ -2,6 +2,7 @@ package ua.acclorite.book_story.presentation.screens.reader
 
 import android.annotation.SuppressLint
 import android.os.Build
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
@@ -46,6 +47,8 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.Constants
@@ -137,6 +140,11 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
     DisposableEffect(Unit) {
         onDispose {
             viewModel.clearViewModel()
+            WindowCompat.getInsetsController(
+                context.window,
+                context.window.decorView
+            ).show(WindowInsetsCompat.Type.systemBars())
+            context.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
     }
 
@@ -441,7 +449,7 @@ private fun ReaderScreen(
                         onLibraryEvent(LibraryEvent.OnLoadList)
                         onEvent(
                             ReaderEvent.OnGoBack(
-                                context,
+                                context = context,
                                 refreshList = {
                                     onLibraryEvent(LibraryEvent.OnUpdateBook(it))
                                     onHistoryEvent(HistoryEvent.OnUpdateBook(it))
@@ -476,7 +484,7 @@ private fun ReaderScreen(
     BackHandler {
         onEvent(
             ReaderEvent.OnGoBack(
-                context,
+                context = context,
                 refreshList = {
                     onLibraryEvent(LibraryEvent.OnUpdateBook(it))
                     onHistoryEvent(HistoryEvent.OnUpdateBook(it))

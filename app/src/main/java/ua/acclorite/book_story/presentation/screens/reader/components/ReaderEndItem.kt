@@ -99,6 +99,7 @@ fun ReaderEndItem(
                 if (state.value.book.category != Category.ALREADY_READ) {
                     onEvent(
                         ReaderEvent.OnMoveBookToAlreadyRead(
+                            context = context,
                             onUpdateCategories = {
                                 onLibraryEvent(LibraryEvent.OnUpdateBook(it))
                                 onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
@@ -106,8 +107,7 @@ fun ReaderEndItem(
                             updatePage = {
                                 onLibraryEvent(LibraryEvent.OnUpdateCurrentPage(it))
                             },
-                            onNavigate = onNavigate,
-                            context = context
+                            onNavigate = onNavigate
                         )
                     )
 
@@ -119,7 +119,7 @@ fun ReaderEndItem(
                 } else {
                     onEvent(
                         ReaderEvent.OnGoBack(
-                            context,
+                            context = context,
                             refreshList = {
                                 onLibraryEvent(LibraryEvent.OnUpdateBook(it))
                                 onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))

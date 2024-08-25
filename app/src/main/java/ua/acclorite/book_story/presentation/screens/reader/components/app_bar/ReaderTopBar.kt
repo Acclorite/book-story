@@ -74,7 +74,7 @@ fun ReaderTopBar(
             ) {
                 onEvent(
                     ReaderEvent.OnGoBack(
-                        context,
+                        context = context,
                         refreshList = {
                             onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
                             onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
@@ -106,7 +106,7 @@ fun ReaderTopBar(
                             onClick = {
                                 onEvent(
                                     ReaderEvent.OnGoBack(
-                                        context,
+                                        context = context,
                                         refreshList = {
                                             onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
                                             onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
