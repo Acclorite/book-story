@@ -1,0 +1,6 @@
+* Big Browse screen improvement
+* New languages: German, Spanish and Arabic
+* New themes
+* New Text Alignment option
+* New supported file formats
+* More..
