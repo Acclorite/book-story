@@ -41,7 +41,6 @@ fun LazyItemScope.CheckForUpdatesSetting(
     val showConfirmation = remember { mutableStateOf(false) }
 
     if (showConfirmation.value) {
-        println(showConfirmation.value)
         CustomDialogWithContent(
             title = stringResource(id = R.string.enable_check_for_updates),
             description = stringResource(id = R.string.enable_check_for_updates_description),
