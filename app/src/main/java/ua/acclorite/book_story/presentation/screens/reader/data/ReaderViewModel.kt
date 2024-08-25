@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.snapshotFlow
 import androidx.core.view.WindowCompat
@@ -225,6 +226,7 @@ class ReaderViewModel @Inject constructor(
                         }
 
                         insetsController.show(WindowInsetsCompat.Type.systemBars())
+                        event.context.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
                         event.navigate()
                     }
                 }
@@ -472,6 +474,9 @@ class ReaderViewModel @Inject constructor(
 
             clear()
             launch {
+                launch(Dispatchers.Main) {
+                    context.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                }.join()
                 onEvent(ReaderEvent.OnShowHideMenu(false, context))
                 onEvent(
                     ReaderEvent.OnLoadText(
