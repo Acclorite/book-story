@@ -72,14 +72,6 @@ _Don't see your favorite app store? Create an [Issue](https://github.com/Acclori
  - _**Install from IzzyOnDroid**_: Click on the "Get it on IzzyOnDroid" badge above, scroll down and click "Download" to download the last APK from IzzyOnDroid. After that, find downloaded APK and install it.
  - If you don't know how to install APK file, follow [this guide](https://www.lifewire.com/install-apk-on-android-4177185).
 
-### 🗳️ APK Verification 
- - _APK Verification is an important step to ensure APK integrity and prevent risks from getting infected one._
- - For verification you can use tool called [apksigner](https://developer.android.com/tools/apksigner). Which is the part of Android SDK Build Tools, so you need to install that first.
-
-|                       APK SHA-256 certificate                     |
-|-------------------------------------------------------------------|
-| a661a0c81f138e53dff32f8fdc1dd19f8130523914027e2c0296fe245131a7d4  |
-
 ### 🧭 Afterwards
  - Open the app and follow basic instructions.
  - If you don't understand how to use the app, please read everything in the app's Help Screen. (You can find it in: Library, History, Browse → Three Dots → Help)
@@ -88,7 +80,7 @@ _Don't see your favorite app store? Create an [Issue](https://github.com/Acclori
 <!------------ Features ------------>
 
 ## ✨ Features
-- 4 supported file formats(.pdf, .txt, .epub, .fb2)
+- 7 supported file formats(.pdf, .txt, .epub, .fb2, .zip, .html, .htm)
 - Color Presets for Reader
 - Categories to organize your Library
 - Check for app updates on app startup
@@ -97,23 +89,24 @@ _Don't see your favorite app store? Create an [Issue](https://github.com/Acclori
 - Double click translation(sends to the external translator)
 - Translate and Dictionary options when text is selected in Reader
 - Material3 latest design guidelines
-- 7 unique themes
+- 10 unique themes
 - MaterialYou Dynamic Theme support
 - Simple UI
 - Tablet UI support
-- Detailed app functions explanation(Help screen tips)
+- Help screen
 - More..
 
 <!------------ Roadmap ------------>
 
 ## 😵‍💫 Upcoming features / Roadmap
  - _You can track project's progress, see what's coming and what is already implemented in [Book's Story: Development Roadmap](https://github.com/users/Acclorite/projects/1)._
+ - Some features may not be in Roadmap due to small size or other factors.
 
 <!------------ Translation ------------>
 
 ## 🌐 Translation
 
-[<img src="https://hosted.weblate.org/widget/book-story/book-story-translation/multi-blue.svg" alt="Translation progress" width=50%>](https://hosted.weblate.org/engage/book-story/)
+[<img src="https://hosted.weblate.org/widget/book-story/book-story-translation/multi-blue.svg" alt="Translation progress" width=70%>](https://hosted.weblate.org/engage/book-story/)
 <br/>
 
 _You can help translating the app on [Hosted Weblate](https://hosted.weblate.org/engage/book-story/)._
@@ -137,6 +130,8 @@ _You can help translating the app on [Hosted Weblate](https://hosted.weblate.org
 - [Tachiyomi (Mihon)](https://github.com/mihonapp/mihon) (Github)
 - [Kitsune](https://github.com/Drumber/Kitsune) (Github)
 - [Material Design Icons](https://fonts.google.com/icons) (Google Fonts)
+- [Material Design Fonts](https://fonts.google.com) (Google Fonts)
+- [Weblate Translators](https://hosted.weblate.org/projects/book-story) (Hosted Weblate)
 - Also listed in About > Credits.
 
 ## 🧾 License
