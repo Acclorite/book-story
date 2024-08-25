@@ -215,7 +215,6 @@
     <string name="help_desc_how_to_add_books_2">Navegar</string>
     <string name="whats_new_option">Novedades</string>
     <string name="report_bug_option">Informar de un error</string>
-    <string name="support_option">Apoya mi trabajo</string>
     <string name="licenses_option">Licencias de código abierto</string>
     <string name="credits_option">Créditos</string>
     <string name="help_clickable_note_1">Por favor, ten en cuenta que</string>
@@ -296,11 +295,9 @@
     <string name="help_desc_how_to_create_color_presets_1">Ve a los ajustes de visualización (allí lee: ¿Cómo personalizar el lector?). Puedes modificar todos los ajustes del color en el campo \"Preajuste de color\" de la subcategoría \"Colores\". Para crear un nuevo color preestablecido, haz clic en el icono \"Añadir\". Hay varias formas de modificar una especificación de color: Haciendo clic en el campo de texto, puedes cambiar el nombre de la preselección de color; moviendo los controles deslizantes, puedes cambiar los colores preestablecidos; haciendo clic en el botón del icono \"Reorganizar\", puedes reorganizar todos los colores. Si quieres borrar un color preestablecido, haz clic en el icono \"Borrar\".</string>
     <string name="help_desc_how_to_use_color_presets_1">Ve a los ajustes de visualización (mira: ¿Cómo personalizar el lector?). En el ajuste \"Preajuste de color\", puedes seleccionar el color preestablecido que debe utilizarse. Haz clic en el color deseado para seleccionarlo. Esto también cambiará los colores en el lector. Si deseas reordenar el color preestablecido, selecciónalo, manten pulsando el icono \"Asa\" y, a continuación, muévelo a la posición que deseas. Para cambiar rápidamente el color preestablecido, activa el ajuste correspondiente en la subcategoría \"Colores\" de los ajustes de pantalla y, a continuación, desliza el dedo hacia la izquierda o la derecha en el lector para cambiar rápidamente la preselección del color.</string>
     <string name="tryzub_content_desc">Tryzub</string>
-    <string name="github_project_content_desc">Proyecto en GitHub</string>
     <string name="github_profile_content_desc">Perfil de GitHub</string>
     <string name="sort_tab">Clasificar</string>
     <string name="general_browse_settings">General</string>
-    <string name="files_structure_option">Estructura de archivos</string>
     <string name="browse_grid_size_option">Tamaño de la cuadrícula</string>
     <string name="browse_layout_grid">Cuadrícula</string>
     <string name="browse_grid_size_per_row">por fila</string>

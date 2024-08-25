@@ -251,13 +251,11 @@
     <string name="unknown">Unbekannt</string>
     <string name="loading">Laden…</string>
     <string name="app_version_option_desc_2">Klicken Sie hier, um nach Updates zu suchen</string>
-    <string name="support_option">Unterstütze meine Arbeit</string>
     <string name="whats_new_option">Was ist neu</string>
     <string name="licenses_option">Open Source-Lizenzen</string>
     <string name="credits_option">Credits</string>
     <string name="slava_ukraini">Slava Ukraini!</string>
     <string name="help_clickable_note_2">solcher hervorgehobener Text</string>
-    <string name="credits_motivation">Motivation</string>
     <string name="credits_design">Design</string>
     <string name="credits_icon">Symbole</string>
     <string name="credits_updates">Neue Updates verwalten</string>
@@ -303,7 +301,6 @@
     <string name="create_color_preset_content_desc">Neue Farbvorgabe erstellen</string>
     <string name="shuffle_color_preset_content_desc">Farben mischen</string>
     <string name="tryzub_content_desc">Dreizack</string>
-    <string name="github_project_content_desc">GitHub Projekt</string>
     <string name="github_profile_content_desc">GitHub Profil</string>
     <string name="drag_content_desc">Ziehen</string>
     <string name="internal_storage">Interner Speicher</string>
@@ -314,7 +311,6 @@
     <string name="browse_settings_desc">Allgemein, Filter, Sortieren</string>
     <string name="filter_browse_settings">Filter</string>
     <string name="sort_browse_settings">Sortieren</string>
-    <string name="files_structure_option">Dateistruktur</string>
     <string name="browse_layout_option">Anzeigemodus</string>
     <string name="browse_grid_size_option">Rastergröße</string>
     <string name="files_structure_all">Alle Dateien</string>
