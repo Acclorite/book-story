@@ -202,7 +202,6 @@
     <string name="revert_content_desc">Zurücksetzen</string>
     <string name="selected_content_desc">Ausgewählt</string>
     <string name="app_icon_content_desc">App-Symbol</string>
-    <string name="app_name">Book\'s Story</string>
     <string name="updates_notification_title">Neues Update von Book\'s Story!</string>
     <string name="update_app_description">Es wurde eine neue Version von Book\'s Story gefunden. Möchten Sie sie herunterladen? Wenn Sie auf die Schaltfläche «Herunterladen» klicken, werden Sie zu Ihrem Browser weitergeleitet und laden das neueste Update automatisch herunter.</string>
     <string name="help_desc_how_to_add_books_3">Wenn Sie die heruntergeladenen Bücher nicht sehen, versuchen Sie, die Liste zu aktualisieren, indem Sie sie nach unten ziehen. Stellen Sie sicher, dass Ihre Bücher das unterstützte Dateiformat haben. Klicken Sie dann auf das Buch, um es auszuwählen, oder halten Sie gedrückt, um seinen Speicherort anzuzeigen. Nachdem Sie alle gewünschten Bücher ausgewählt haben, klicken Sie auf das Häkchensymbol in der oberen rechten Ecke, warten Sie, bis alle Bücher geladen sind, und klicken Sie auf «Hinzufügen». Jetzt sollten Sie alle Bücher sehen, die Sie in der Liste hinzugefügt haben</string>
