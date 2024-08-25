@@ -343,6 +343,8 @@
     <string name="credits_translation">Traducción</string>
     <string name="credits_contribution">Contribución</string>
     <string name="credits_ideas">Ideas</string>
-    <string name="lavender_theme">Tritón</string>
-    <string name="marsh_theme">Titán</string>
+    <string name="lavender_theme">Eris</string>
+    <string name="marsh_theme">Plutón</string>
+    <string name="double_press_exit_option_desc">Pulsa Atrás dos veces para salir de la aplicación</string>
+    <string name="double_press_exit_option">Doble pulsación para salir</string>
 </resources>
