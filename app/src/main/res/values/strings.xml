@@ -257,6 +257,7 @@
     <string name="fast_color_preset_change_option">Fast color preset change</string>
     <string name="fast_color_preset_change_option_desc">Swipe left or right to change color preset</string>
     <string name="text_alignment_option">Text alignment</string>
+    <string name="letter_spacing_option">Letter spacing</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>

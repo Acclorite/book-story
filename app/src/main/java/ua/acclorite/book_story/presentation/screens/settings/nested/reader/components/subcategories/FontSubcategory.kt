@@ -22,6 +22,7 @@ import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.FontFamilySetting
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.FontSizeSetting
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.FontStyleSetting
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.LetterSpacingSetting
 
 /**
  * Font subcategory.
@@ -73,6 +74,13 @@ fun LazyListScope.FontSubcategory(
 
     item {
         FontSizeSetting(
+            state = state,
+            onMainEvent = onMainEvent
+        )
+    }
+
+    item {
+        LetterSpacingSetting(
             state = state,
             onMainEvent = onMainEvent
         )

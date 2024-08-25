@@ -46,6 +46,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -209,10 +210,15 @@ private fun ReaderScreen(
         settingsState.value.selectedColorPreset.fontColor,
         label = ""
     )
-    val lineHeight =
-        remember(mainState.value.fontSize, mainState.value.lineHeight) {
-            (mainState.value.fontSize!! + mainState.value.lineHeight!!).sp
-        }
+    val lineHeight = remember(
+        mainState.value.fontSize,
+        mainState.value.lineHeight
+    ) {
+        (mainState.value.fontSize!! + mainState.value.lineHeight!!).sp
+    }
+    val letterSpacing = remember(mainState.value.letterSpacing) {
+        (mainState.value.letterSpacing!! / 100f).em
+    }
     val sidePadding = remember(mainState.value.sidePadding) {
         (mainState.value.sidePadding!! * 3).dp
     }
@@ -407,6 +413,7 @@ private fun ReaderScreen(
                         fontStyle = fontStyle,
                         textAlignment = mainState.value.textAlignment!!,
                         fontSize = mainState.value.fontSize!!.sp,
+                        letterSpacing = letterSpacing,
                         sidePadding = sidePadding,
                         paragraphIndentation = mainState.value.paragraphIndentation!!,
                         doubleClickTranslationEnabled = mainState.value.doubleClickTranslation!!,

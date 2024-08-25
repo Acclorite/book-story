@@ -38,6 +38,7 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.
  * @param fontStyle Line's font style.
  * @param textAlignment Line's text alignment.
  * @param fontSize Line's font size.
+ * @param letterSpacing Letter spacing.
  * @param sidePadding Line's side padding.
  * @param paragraphIndentation Whether Paragraph Indentation is enabled for this line.
  * @param doubleClickTranslationEnabled Whether Double Click Translation is enabled.
@@ -55,6 +56,7 @@ fun LazyItemScope.ReaderTextParagraph(
     fontStyle: FontStyle,
     textAlignment: ReaderTextAlignment,
     fontSize: TextUnit,
+    letterSpacing: TextUnit,
     sidePadding: Dp,
     paragraphIndentation: Boolean,
     doubleClickTranslationEnabled: Boolean,
@@ -126,6 +128,7 @@ fun LazyItemScope.ReaderTextParagraph(
                     ReaderTextAlignment.END -> TextAlign.End
                 },
                 fontStyle = fontStyle,
+                letterSpacing = letterSpacing,
                 fontSize = fontSize,
                 lineHeight = lineHeight,
                 color = fontColor,

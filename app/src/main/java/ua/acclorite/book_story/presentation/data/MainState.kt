@@ -57,6 +57,7 @@ data class MainState(
     val doubleClickTranslation: Boolean? = null,
     val fastColorPresetChange: Boolean? = null,
     val textAlignment: ReaderTextAlignment? = null,
+    val letterSpacing: Int? = null,
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure? = null,
@@ -166,6 +167,9 @@ data class MainState(
                 val doublePressExit = data[DOUBLE_PRESS_EXIT.name] as? Boolean
                     ?: false
 
+                val letterSpacing = data[LETTER_SPACING.name] as? Int
+                    ?: 0
+
                 return MainState(
                     language = language,
                     theme = theme.toTheme(),
@@ -192,7 +196,8 @@ data class MainState(
                     browseSortOrderDescending = browseSortOrderDescending,
                     browseIncludedFilterItems = browseIncludedFilterItems,
                     textAlignment = textAlignment.toTextAlignment(),
-                    doublePressExit = doublePressExit
+                    doublePressExit = doublePressExit,
+                    letterSpacing = letterSpacing,
                 )
             }
         }

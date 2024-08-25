@@ -359,6 +359,20 @@ class MainViewModel @Inject constructor(
                     }
                 }
             }
+
+            is MainEvent.OnChangeLetterSpacing -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(
+                        DataStoreConstants.LETTER_SPACING,
+                        event.spacing
+                    )
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            letterSpacing = event.spacing
+                        )
+                    }
+                }
+            }
         }
     }
 

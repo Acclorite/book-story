@@ -238,6 +238,7 @@
     <string name="fast_color_preset_change_option">Швидка зміна пресета кольорів</string>
     <string name="fast_color_preset_change_option_desc">Проведіть вліво або вправо, щоб змінити пресет кольорів</string>
     <string name="text_alignment_option">Розташування текста</string>
+    <string name="letter_spacing_option">Відстань між літерами</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>
