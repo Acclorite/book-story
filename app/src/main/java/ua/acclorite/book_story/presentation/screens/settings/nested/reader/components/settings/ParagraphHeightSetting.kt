@@ -23,7 +23,7 @@ fun LazyItemScope.ParagraphHeightSetting(
         value = state.value.paragraphHeight!! to "pt",
         modifier = Modifier.animateItem(),
         fromValue = 0,
-        toValue = 24,
+        toValue = 36,
         title = stringResource(id = R.string.paragraph_height_option),
         onValueChange = {
             onMainEvent(

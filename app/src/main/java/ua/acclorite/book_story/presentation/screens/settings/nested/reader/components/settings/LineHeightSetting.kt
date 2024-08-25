@@ -23,7 +23,7 @@ fun LazyItemScope.LineHeightSetting(
         value = state.value.lineHeight!! to "pt",
         modifier = Modifier.animateItem(),
         fromValue = 1,
-        toValue = 16,
+        toValue = 24,
         title = stringResource(id = R.string.line_height_option),
         onValueChange = {
             onMainEvent(
