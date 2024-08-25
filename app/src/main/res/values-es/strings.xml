@@ -347,4 +347,5 @@
     <string name="marsh_theme">Plutón</string>
     <string name="double_press_exit_option_desc">Pulsa Atrás dos veces para salir de la aplicación</string>
     <string name="double_press_exit_option">Doble pulsación para salir</string>
+    <string name="letter_spacing_option">Espaciado entre letras</string>
 </resources>
