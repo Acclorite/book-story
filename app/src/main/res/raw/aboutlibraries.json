@@ -645,17 +645,6 @@
       }
     },
     {
-      "uniqueId": "androidx.compose:compose-bom",
-      "developers": [
-      ],
-      "artifactVersion": "2024.04.00",
-      "name": "Jetpack Compose Libraries BOM",
-      "website": "https://developer.android.com/jetpack",
-      "licenses": [
-        "Apache-2.0"
-      ]
-    },
-    {
       "uniqueId": "androidx.concurrent:concurrent-futures",
       "developers": [
         {
