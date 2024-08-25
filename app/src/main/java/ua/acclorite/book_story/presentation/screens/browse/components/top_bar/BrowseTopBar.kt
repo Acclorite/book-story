@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.browse.components.top_bar
 
-import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandHorizontally
@@ -9,6 +8,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
@@ -26,6 +26,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -44,6 +45,7 @@ import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseState
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseLayout
+import ua.acclorite.book_story.presentation.ui.FadeTransitionPreservingSpace
 
 /**
  * Browse Top Bar.
@@ -117,18 +119,21 @@ fun BrowseTopBar(
             }
         },
         content1Title = {
-            Crossfade(
-                targetState = inNestedDirectory.value,
-                animationSpec = tween(200),
-                label = ""
-            ) {
-                if (it) {
+            Box(contentAlignment = Alignment.CenterStart) {
+                FadeTransitionPreservingSpace(
+                    visible = inNestedDirectory.value,
+                    animationSpec = tween(200)
+                ) {
                     Text(
                         selectedDirectoryName.value,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
-                } else {
+                }
+                FadeTransitionPreservingSpace(
+                    visible = !inNestedDirectory.value,
+                    animationSpec = tween(200)
+                ) {
                     Text(
                         stringResource(id = R.string.browse_screen),
                         maxLines = 1,
