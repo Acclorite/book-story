@@ -1,7 +1,7 @@
-Material3 eBook reader - Book's Story. Built with Jetpack Compose. 4 supported file formats (.txt, .pdf, .epub, .fb2), 2 supported languages. Lots of customization. More is coming!
+Material3 eBook reader - Book's Story. Built with Jetpack Compose. Multiple languages, mutliple supported file formats. Lots of customization. More is coming!
 
 Main Features:
-* 4 supported file formats(.pdf, .txt, .epub, .fb2)
+* 7 supported file formats(.pdf, .txt, .epub, .fb2, .zip, .html, .htm)
 * Color Presets for Reader
 * Categories to organize your Library
 * Check for app updates on app startup
@@ -14,7 +14,7 @@ Main Features:
 * MaterialYou Dynamic Theme support
 * Simple UI
 * Tablet UI support
-* Detailed app functions explanation(Help screen tips)
+* Help screen
 * More..
 
 If you have any ideas please feel free to create new Feature Request(see Issue tracker), I will always gladly accept new ideas!
