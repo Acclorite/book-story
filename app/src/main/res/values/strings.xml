@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="InconsistentArrays">
     <!-- Basic Strings -->
-    <string name="app_version" translatable="false">1.1.1</string>
+    <string name="app_version" translatable="false">1.2.0</string>
     <string name="app_name" translatable="false">Book\'s Story</string>
 
     <!-- Book sources -->
