@@ -95,12 +95,12 @@ dependencies {
     // Compose BOM was eliminated - it is recognized as Closed Source in AboutLibraries.
     implementation("androidx.compose.foundation:foundation:1.6.8")
     implementation("androidx.compose.animation:animation:1.6.8")
-    implementation("androidx.compose.animation:animation-android:1.6.8")
+    implementation("androidx.compose.animation:animation-android:1.7.0-rc01")
     implementation("androidx.compose.foundation:foundation-layout:1.6.8")
     implementation("androidx.compose.ui:ui:1.6.8")
     implementation("androidx.compose.ui:ui-graphics:1.6.8")
     implementation("androidx.compose.ui:ui-tooling-preview:1.6.8")
-    implementation("androidx.compose.ui:ui-android:1.6.8")
+    implementation("androidx.compose.ui:ui-android:1.7.0-rc01")
     implementation("androidx.compose.material3:material3:1.3.0-rc01")
     implementation("androidx.compose.material3:material3-window-size-class:1.2.1")
     implementation("androidx.compose.material:material-icons-extended:1.6.8")
@@ -158,11 +158,11 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     // About open source libraries
-    implementation("com.mikepenz:aboutlibraries-core:11.2.2")
-    implementation("com.mikepenz:aboutlibraries-compose-m3:11.2.2")
+    implementation("com.mikepenz:aboutlibraries-core:11.2.3")
+    implementation("com.mikepenz:aboutlibraries-compose-m3:11.2.3")
 
     // Drag & Drop
-    implementation("sh.calvin.reorderable:reorderable:2.3.0")
+    implementation("sh.calvin.reorderable:reorderable:2.3.1")
 
     // Scrollbar
     implementation("com.github.nanihadesuka:LazyColumnScrollbar:2.2.0")
