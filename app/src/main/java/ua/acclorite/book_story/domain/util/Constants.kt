@@ -76,6 +76,9 @@ private fun provideSupportedExtensions() = listOf(
 private fun provideLanguages() = listOf(
     Pair("en", "English"),
     Pair("uk", "Українська"),
+    Pair("de", "Deutsch"),
+    Pair("ar", "اَلْعَرَبِيَّةُ"),
+    Pair("es", "Español"),
 )
 
 private fun provideNavigationItems() = listOf(
