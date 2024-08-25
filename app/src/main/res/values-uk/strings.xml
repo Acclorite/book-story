@@ -211,11 +211,18 @@
     <string name="sort_browse_settings">Сотрування</string>
 
     <!-- Settings options -->
+    <!-- General -->
     <string name="language_option">Мова застосунка</string>
     <string name="dark_theme_option">Темна тема</string>
     <string name="pure_dark_option">Суцільна темрява (ОЛЕД)</string>
     <string name="theme_contrast_option">Контрастність теми</string>
     <string name="app_theme_option">Тема застосунка</string>
+    <string name="check_for_updates_option">Перевіряти на оновлення</string>
+    <string name="check_for_updates_option_desc">Перевіряти на новішу версію застосунку при запуску</string>
+    <string name="double_press_exit_option">Подвійне натискання для виходу</string>
+    <string name="double_press_exit_option_desc">Натисніть назад двічі, щоб вийти з застосунку</string>
+
+    <!-- Reader -->
     <string name="font_family_option">Сімейство шрифтів</string>
     <string name="font_style_option">Стиль шрифта</string>
     <string name="font_size_option">Розмір шрифта</string>
@@ -225,14 +232,14 @@
     <string name="color_preset_option">Пресет кольорів</string>
     <string name="background_color_option">Колір фона</string>
     <string name="font_color_option">Колір шрифта</string>
-    <string name="check_for_updates_option">Перевіряти на оновлення</string>
-    <string name="check_for_updates_option_desc">Перевіряти на новішу версію застосунку при запуску</string>
     <string name="side_padding_option">Бокові відступи</string>
     <string name="double_click_translation_option">Переклад подвійним кліком</string>
     <string name="double_click_translation_option_desc">Двічі клацніть на абзац, щоб перекласти його</string>
     <string name="fast_color_preset_change_option">Швидка зміна пресета кольорів</string>
     <string name="fast_color_preset_change_option_desc">Проведіть вліво або вправо, щоб змінити пресет кольорів</string>
     <string name="text_alignment_option">Розташування текста</string>
+
+    <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>
     <string name="browse_layout_option">Режим відображення</string>
     <string name="browse_grid_size_option">Кількість комірок</string>

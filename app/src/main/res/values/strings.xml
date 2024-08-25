@@ -230,11 +230,18 @@
     <string name="sort_browse_settings">Sort</string>
 
     <!-- Settings options -->
+    <!-- General -->
     <string name="language_option">App language</string>
     <string name="dark_theme_option">Dark theme</string>
     <string name="pure_dark_option">Pure dark (OLED)</string>
     <string name="theme_contrast_option">Theme contrast</string>
     <string name="app_theme_option">App theme</string>
+    <string name="check_for_updates_option">Check for updates</string>
+    <string name="check_for_updates_option_desc">Check for newer app version on startup</string>
+    <string name="double_press_exit_option">Double back press to exit</string>
+    <string name="double_press_exit_option_desc">Press back twice to exit the app</string>
+
+    <!-- Reader -->
     <string name="font_family_option">Font family</string>
     <string name="font_style_option">Font style</string>
     <string name="font_size_option">Font size</string>
@@ -244,14 +251,14 @@
     <string name="color_preset_option">Color preset</string>
     <string name="background_color_option">Background color</string>
     <string name="font_color_option">Font color</string>
-    <string name="check_for_updates_option">Check for updates</string>
-    <string name="check_for_updates_option_desc">Check for newer app version on startup</string>
     <string name="side_padding_option">Side padding</string>
     <string name="double_click_translation_option">Double click translation</string>
     <string name="double_click_translation_option_desc">Double click on paragraph to translate it</string>
     <string name="fast_color_preset_change_option">Fast color preset change</string>
     <string name="fast_color_preset_change_option_desc">Swipe left or right to change color preset</string>
     <string name="text_alignment_option">Text alignment</string>
+
+    <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>
     <string name="browse_layout_option">Display mode</string>
     <string name="browse_grid_size_option">Grid size</string>

@@ -15,6 +15,7 @@ import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
 import ua.acclorite.book_story.presentation.screens.settings.nested.general.components.settings.AppLanguageSetting
 import ua.acclorite.book_story.presentation.screens.settings.nested.general.components.settings.CheckForUpdatesSetting
+import ua.acclorite.book_story.presentation.screens.settings.nested.general.components.settings.DoublePressExitSetting
 
 /**
  * General Settings Category.
@@ -53,6 +54,13 @@ fun LazyListScope.GeneralSettingsCategory(
             state = state,
             onMainEvent = onMainEvent,
             onSettingsEvent = onSettingsEvent
+        )
+    }
+
+    item {
+        DoublePressExitSetting(
+            state = state,
+            onMainEvent = onMainEvent
         )
     }
 

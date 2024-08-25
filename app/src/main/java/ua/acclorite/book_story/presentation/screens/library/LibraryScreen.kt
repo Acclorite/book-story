@@ -34,6 +34,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,6 +55,8 @@ import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.components.header
 import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
 import ua.acclorite.book_story.presentation.data.LocalNavigator
+import ua.acclorite.book_story.presentation.data.MainState
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
@@ -73,10 +76,12 @@ import ua.acclorite.book_story.presentation.ui.Transitions
 fun LibraryScreenRoot() {
     val navigator = LocalNavigator.current
     val viewModel: LibraryViewModel = hiltViewModel()
+    val mainViewModel: MainViewModel = hiltViewModel()
     val browseViewModel: BrowseViewModel = hiltViewModel()
     val historyViewModel: HistoryViewModel = hiltViewModel()
 
     val state = viewModel.state.collectAsState()
+    val mainState = mainViewModel.state.collectAsState()
 
     val pagerState = rememberPagerState(
         initialPage = state.value.currentPage,
@@ -100,6 +105,7 @@ fun LibraryScreenRoot() {
 
     LibraryScreen(
         state = state,
+        mainState = mainState,
         onNavigate = { navigator.it() },
         pagerState = pagerState,
         refreshState = refreshState,
@@ -113,6 +119,7 @@ fun LibraryScreenRoot() {
 @Composable
 private fun LibraryScreen(
     state: State<LibraryState>,
+    mainState: State<MainState>,
     onNavigate: OnNavigate,
     pagerState: PagerState,
     refreshState: PullRefreshState,
@@ -264,7 +271,7 @@ private fun LibraryScreen(
 
     val activity = LocalContext.current as ComponentActivity
     val scope = rememberCoroutineScope()
-    var shouldExit = remember { false }
+    var shouldExit = rememberSaveable { false }
     BackHandler {
         if (state.value.hasSelectedItems) {
             onEvent(LibraryEvent.OnClearSelectedBooks)
@@ -281,7 +288,7 @@ private fun LibraryScreen(
             return@BackHandler
         }
 
-        if (shouldExit) {
+        if (shouldExit || !mainState.value.doublePressExit!!) {
             activity.finish()
             return@BackHandler
         }

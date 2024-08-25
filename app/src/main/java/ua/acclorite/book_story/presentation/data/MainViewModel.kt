@@ -345,6 +345,20 @@ class MainViewModel @Inject constructor(
                     }
                 }
             }
+
+            is MainEvent.OnChangeDoublePressExit -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(
+                        DataStoreConstants.DOUBLE_PRESS_EXIT,
+                        event.bool
+                    )
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            doublePressExit = event.bool
+                        )
+                    }
+                }
+            }
         }
     }
 

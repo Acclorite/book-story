@@ -36,22 +36,29 @@ import java.util.Locale
 @Keep
 @Parcelize
 data class MainState(
+    // General Settings
     val language: String? = null,
     val theme: Theme? = null,
     val darkTheme: DarkTheme? = null,
     val pureDark: PureDark? = null,
     val themeContrast: ThemeContrast? = null,
+    val showStartScreen: Boolean? = null,
+    val checkForUpdates: Boolean? = null,
+    val doublePressExit: Boolean? = null,
+
+    // Reader Settings
     val fontFamily: String? = null,
     val isItalic: Boolean? = null,
     val fontSize: Int? = null,
     val lineHeight: Int? = null,
     val paragraphHeight: Int? = null,
     val paragraphIndentation: Boolean? = null,
-    val showStartScreen: Boolean? = null,
-    val checkForUpdates: Boolean? = null,
     val sidePadding: Int? = null,
     val doubleClickTranslation: Boolean? = null,
     val fastColorPresetChange: Boolean? = null,
+    val textAlignment: ReaderTextAlignment? = null,
+
+    // Browse Settings
     val browseFilesStructure: BrowseFilesStructure? = null,
     val browseLayout: BrowseLayout? = null,
     val browseAutoGridSize: Boolean? = null,
@@ -60,7 +67,6 @@ data class MainState(
     val browseSortOrder: BrowseSortOrder? = null,
     val browseSortOrderDescending: Boolean? = null,
     val browseIncludedFilterItems: List<String>? = null,
-    val textAlignment: ReaderTextAlignment? = null,
 ) : Parcelable {
     companion object {
         /**
@@ -157,6 +163,9 @@ data class MainState(
                 val textAlignment = data[TEXT_ALIGNMENT.name] as? String
                     ?: ReaderTextAlignment.START.name
 
+                val doublePressExit = data[DOUBLE_PRESS_EXIT.name] as? Boolean
+                    ?: false
+
                 return MainState(
                     language = language,
                     theme = theme.toTheme(),
@@ -182,7 +191,8 @@ data class MainState(
                     browseSortOrder = browseSortOrder.toBrowseSortOrder(),
                     browseSortOrderDescending = browseSortOrderDescending,
                     browseIncludedFilterItems = browseIncludedFilterItems,
-                    textAlignment = textAlignment.toTextAlignment()
+                    textAlignment = textAlignment.toTextAlignment(),
+                    doublePressExit = doublePressExit
                 )
             }
         }
