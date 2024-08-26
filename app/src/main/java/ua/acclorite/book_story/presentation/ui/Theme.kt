@@ -132,7 +132,7 @@ fun BookStoryTheme(
 object Colors {
     val readerSystemBarsColor: Color
         @Composable
-        get() = MaterialTheme.colorScheme.surfaceContainer.copy(0.96f)
+        get() = MaterialTheme.colorScheme.surfaceContainer.copy(0.9f)
 }
 
 @Composable
