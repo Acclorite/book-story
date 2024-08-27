@@ -211,4 +211,16 @@
     <string name="credits_contribution">المساهمة</string>
     <string name="help_translate_option">المساعدة بالترجمة</string>
     <string name="credits_translation">الترجمة</string>
+    <string name="color_preset_query">المحدد مسبقا %1$s</string>
+    <string name="press_again_toast">الضغط مرة أخرى لإغلاق التطبيق</string>
+    <string name="fast_color_preset_change_option">تغيير اللون السريع</string>
+    <string name="fast_color_preset_change_option_desc">مرر لليسار أو اليمين لتغيير اللون</string>
+    <string name="color_preset_placeholder">تسمية إعداد محدد مسبقا…</string>
+    <string name="pure_dark_power_saver">توفير</string>
+    <string name="browse_sort_order_last_modified">آخر تعديل</string>
+    <string name="text_alignment_option">مواءمة النص</string>
+    <string name="browse_files_structure_option">هيكل الملفات</string>
+    <string name="double_press_exit_option">اضغط مرة أخرى مزدوجة للخروج</string>
+    <string name="double_press_exit_option_desc">اضغط مرتين للخروج من التطبيق</string>
+    <string name="letter_spacing_option">تباعد الحروف</string>
 </resources>
