@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="InconsistentArrays">
-    <!-- Book sources -->
-    <string-array name="book_sites">
-        <item>Anna\'s Archive|https://www.annas-archive.org</item>
-        <item>Project Gutenberg|https://www.gutenberg.org</item>
-        <item>Standard Ebooks|https://www.standardebooks.org</item>
-    </string-array>
+<resources>
     <string name="updates_notification_channel">Neue Updates</string>
     <string name="updates_notification_desc">Update %1$s wurde gerade veröffentlicht! Klicken Sie hier, um zur Veröffentlichungsseite zu gelangen.</string>
     <string name="updates_notification_action">Download</string>
