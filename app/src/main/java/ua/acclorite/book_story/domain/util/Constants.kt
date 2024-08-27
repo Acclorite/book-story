@@ -79,6 +79,7 @@ private fun provideLanguages() = listOf(
     Pair("de", "Deutsch"),
     Pair("ar", "اَلْعَرَبِيَّةُ"),
     Pair("es", "Español"),
+    Pair("tr", "Türkçe"),
 )
 
 private fun provideNavigationItems() = listOf(
