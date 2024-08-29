@@ -1,2 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="updates_notification_action">Pobierz</string>
+    <string name="history_screen">Historia</string>
+    <string name="help_screen">Pomoc</string>
+    <string name="move">Przenieś</string>
+    <string name="continue_read">Kontynuuj</string>
+    <string name="never">Nigdy</string>
+    <string name="undo">Cofnij</string>
+    <string name="copy">Kopiuj</string>
+    <string name="dictionary">Słownik</string>
+    <string name="retry">Spróbuj ponownie</string>
+    <string name="confirm">Potwierdź</string>
+    <string name="next">Dalej</string>
+    <string name="no">Nie</string>
+    <string name="download">Pobierz</string>
+    <string name="done">Gotowe</string>
+    <string name="enable">Włącz</string>
+    <string name="share">Udostępnij</string>
+    <string name="books">książki</string>
+    <string name="history">historia</string>
+    <string name="unknown_author">Nieznany</string>
+    <string name="author">Autor</string>
+    <string name="general_tab">Ogólne</string>
+    <string name="color_tab">Kolory</string>
+    <string name="filter_tab">Filtr</string>
+    <string name="sort_tab">Sortuj</string>
+    <string name="font_reader_settings">Czcionka</string>
+    <string name="colors_appearance_settings">Kolory</string>
+    <string name="general_browse_settings">Ogólne</string>
+    <string name="filter_browse_settings">Filtr</string>
+    <string name="green_color">Zielony</string>
+    <string name="blue_color">Niebieski</string>
+    <string name="dark_theme_off">Wyłączono</string>
+    <string name="updates_notification_channel">Nowe aktualizacje</string>
+    <string name="updates_notification_title">Nowa aktualizacja Book\'s Story!</string>
+    <string name="settings_screen">Ustawienia</string>
+    <string name="library_screen">Biblioteka</string>
+    <string name="browse_screen">Przeglądaj</string>
+    <string name="cancel">Anuluj</string>
+    <string name="grant">Udziel</string>
+    <string name="delete">Usuń</string>
+    <string name="start">Rozpocznij</string>
+    <string name="add">Dodaj</string>
+    <string name="files">pliki</string>
+    <string name="sort_browse_settings">Sortuj</string>
+    <string name="red_color">Czerwony</string>
+    <string name="general_settings">Ogólne</string>
+    <string name="appearance_settings">Wygląd</string>
+    <string name="reader_settings">Czytnik</string>
+    <string name="text_reader_settings">Tekst</string>
+    <string name="dark_theme_on">Włączono</string>
+</resources>
