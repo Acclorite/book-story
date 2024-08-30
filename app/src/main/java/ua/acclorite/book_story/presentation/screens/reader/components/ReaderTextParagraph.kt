@@ -1,7 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.reader.components
 
 import android.content.Context
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
@@ -24,6 +23,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.FontWithName
+import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.ReaderTextAlignment
 
@@ -100,11 +100,8 @@ fun LazyItemScope.ReaderTextParagraph(
                                     translateWholeParagraph = true,
                                     context = context as ComponentActivity,
                                     noAppsFound = {
-                                        Toast.makeText(
-                                            context,
-                                            context.getString(R.string.error_no_translator),
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+                                        context.getString(R.string.error_no_translator)
+                                            .showToast(context = context, longToast = false)
                                     }
                                 )
                             )

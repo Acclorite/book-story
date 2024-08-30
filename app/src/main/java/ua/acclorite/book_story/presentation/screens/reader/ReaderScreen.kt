@@ -3,7 +3,6 @@ package ua.acclorite.book_story.presentation.screens.reader
 import android.annotation.SuppressLint
 import android.os.Build
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.animateColorAsState
@@ -63,6 +62,7 @@ import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
@@ -118,11 +118,8 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
                 historyViewModel.onEvent(HistoryEvent.OnLoadList)
             },
             onError = {
-                Toast.makeText(
-                    context,
-                    it.asString(context),
-                    Toast.LENGTH_LONG
-                ).show()
+                it.asString(context)
+                    .showToast(context = context)
             }
         )
     }
@@ -281,11 +278,8 @@ private fun ReaderScreen(
         CustomSelectionContainer(
             onCopyRequested = {
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-                    Toast.makeText(
-                        context,
-                        context.getString(R.string.copied),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    context.getString(R.string.copied)
+                        .showToast(context = context, longToast = false)
                 }
             },
             onShareRequested = { textToShare ->
@@ -294,11 +288,8 @@ private fun ReaderScreen(
                         textToShare = textToShare,
                         context,
                         noAppsFound = {
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.error_no_share_app),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            context.getString(R.string.error_no_share_app)
+                                .showToast(context = context, longToast = false)
                         }
                     )
                 )
@@ -309,11 +300,8 @@ private fun ReaderScreen(
                         textToSearch = textToSearch,
                         context,
                         noAppsFound = {
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.error_no_browser),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            context.getString(R.string.error_no_browser)
+                                .showToast(context = context, longToast = false)
                         }
                     )
                 )
@@ -325,11 +313,8 @@ private fun ReaderScreen(
                         translateWholeParagraph = false,
                         context,
                         noAppsFound = {
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.error_no_translator),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            context.getString(R.string.error_no_translator)
+                                .showToast(context = context, longToast = false)
                         }
                     )
                 )
@@ -340,11 +325,8 @@ private fun ReaderScreen(
                         textToDefine,
                         context,
                         noAppsFound = {
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.error_no_dictionary),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            context.getString(R.string.error_no_dictionary)
+                                .showToast(context = context, longToast = false)
                         }
                     )
                 )
@@ -377,18 +359,14 @@ private fun ReaderScreen(
                         toolbarHidden = toolbarHidden,
                         onSettingsEvent = onSettingsEvent,
                         presetChanged = {
-                            Toast
-                                .makeText(
-                                    context,
-                                    context.getString(
-                                        R.string.color_preset_selected_query,
-                                        it
-                                            .asString(context)
-                                            .trim()
-                                    ),
-                                    Toast.LENGTH_SHORT
+                            context
+                                .getString(
+                                    R.string.color_preset_selected_query,
+                                    it
+                                        .asString(context)
+                                        .trim()
                                 )
-                                .show()
+                                .showToast(context = context, longToast = false)
                         }
                     ),
                 verticalArrangement = Arrangement.spacedBy(paragraphHeight)

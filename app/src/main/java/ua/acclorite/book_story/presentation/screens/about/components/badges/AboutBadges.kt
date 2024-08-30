@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.about.components.badges
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.presentation.components.customItems
+import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
 
 /**
@@ -45,11 +45,8 @@ fun AboutBadges(
                 AboutBadgeItem(badge = badge) {
                     when (badge.id) {
                         "tryzub" -> {
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.slava_ukraini),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            context.getString(R.string.slava_ukraini)
+                                .showToast(context = context, longToast = false)
                         }
 
                         else -> {
@@ -59,11 +56,8 @@ fun AboutBadges(
                                         it,
                                         context,
                                         noAppsFound = {
-                                            Toast.makeText(
-                                                context,
-                                                context.getString(R.string.error_no_browser),
-                                                Toast.LENGTH_SHORT
-                                            ).show()
+                                            context.getString(R.string.error_no_browser)
+                                                .showToast(context = context, longToast = false)
                                         }
                                     )
                                 )

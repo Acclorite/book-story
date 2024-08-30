@@ -1,7 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.browse
 
 import android.Manifest
-import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,6 +33,7 @@ import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.browse.components.BrowseEmptyPlaceholder
 import ua.acclorite.book_story.presentation.screens.browse.components.BrowseStoragePermissionDialog
 import ua.acclorite.book_story.presentation.screens.browse.components.adding_dialog.BrowseAddingDialog
@@ -166,14 +166,10 @@ private fun BrowseScreen(
                     onLongItemClick = { selectableFile ->
                         when (selectableFile.isDirectory) {
                             false -> {
-                                Toast.makeText(
-                                    context,
-                                    context.getString(
-                                        R.string.file_path_query,
-                                        selectableFile.fileOrDirectory.path
-                                    ),
-                                    Toast.LENGTH_LONG
-                                ).show()
+                                context.getString(
+                                    R.string.file_path_query,
+                                    selectableFile.fileOrDirectory.path
+                                ).showToast(context = context)
                             }
 
                             true -> {

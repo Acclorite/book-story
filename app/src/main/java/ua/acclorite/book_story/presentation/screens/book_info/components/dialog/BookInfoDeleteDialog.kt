@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.book_info.components.dialog
 
-import android.widget.Toast
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DeleteOutline
 import androidx.compose.runtime.Composable
@@ -9,6 +8,7 @@ import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithContent
 import ua.acclorite.book_story.presentation.data.LocalNavigator
+import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
@@ -53,11 +53,8 @@ fun BookInfoDeleteDialog(
                     }
                 )
             )
-            Toast.makeText(
-                context,
-                context.getString(R.string.book_deleted),
-                Toast.LENGTH_LONG
-            ).show()
+            context.getString(R.string.book_deleted)
+                .showToast(context = context)
         }
     )
 }

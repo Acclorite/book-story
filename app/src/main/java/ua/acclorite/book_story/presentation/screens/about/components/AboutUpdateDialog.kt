@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.about.components
 
-import android.widget.Toast
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Update
 import androidx.compose.runtime.Composable
@@ -10,6 +9,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithContent
+import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
 import ua.acclorite.book_story.presentation.screens.about.data.AboutState
 
@@ -43,11 +43,10 @@ fun AboutUpdateDialog(
                     page = context.getString(R.string.download_latest_release_page),
                     context = context,
                     noAppsFound = {
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.error_no_browser),
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        context.getString(R.string.error_no_browser).showToast(
+                            context = context,
+                            longToast = false
+                        )
                     }
                 )
             )

@@ -1,9 +1,13 @@
 package ua.acclorite.book_story.presentation.data
 
+import android.content.Context
 import android.content.Intent
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 
 fun String.removeTrailingZero(): String {
+var toast: Toast? = null
+
     if (!this.contains('.'))
         return this
     return this
@@ -33,4 +37,12 @@ fun Intent.launchActivity(
     }
 
     success?.invoke()
+}
+
+fun String.showToast(context: Context, longToast: Boolean = true) {
+    toast?.cancel()
+    toast = null
+
+    toast = Toast.makeText(context, this, if (longToast) Toast.LENGTH_LONG else Toast.LENGTH_SHORT)
+    toast?.show()
 }

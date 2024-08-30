@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.reader.components
 
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -32,6 +31,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
@@ -111,11 +111,8 @@ fun ReaderEndItem(
                         )
                     )
 
-                    Toast.makeText(
-                        context,
-                        context.getString(R.string.book_moved),
-                        Toast.LENGTH_LONG
-                    ).show()
+                    context.getString(R.string.book_moved)
+                        .showToast(context = context)
                 } else {
                     onEvent(
                         ReaderEvent.OnGoBack(

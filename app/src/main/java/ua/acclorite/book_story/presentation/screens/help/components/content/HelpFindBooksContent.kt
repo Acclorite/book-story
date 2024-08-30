@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.help.components.content
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,6 +25,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CustomIconButton
+import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.help.components.HelpAnnotation
 import ua.acclorite.book_story.presentation.screens.help.data.HelpEvent
 import ua.acclorite.book_story.presentation.ui.SlidingTransition
@@ -52,11 +52,8 @@ fun HelpFindBooksContent(onEvent: (HelpEvent) -> Unit) {
                             page = string.substringAfterLast("|"),
                             context = context,
                             noAppsFound = {
-                                Toast.makeText(
-                                    context,
-                                    context.getString(R.string.error_no_browser),
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                context.getString(R.string.error_no_browser)
+                                    .showToast(context = context, longToast = false)
                             }
                         )
                     )
@@ -93,11 +90,8 @@ fun HelpFindBooksContent(onEvent: (HelpEvent) -> Unit) {
                             showError.value = true
                         },
                         noAppsFound = {
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.error_no_browser),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            context.getString(R.string.error_no_browser)
+                                .showToast(context = context, longToast = false)
                         }
                     )
                 )
@@ -124,11 +118,8 @@ fun HelpFindBooksContent(onEvent: (HelpEvent) -> Unit) {
                             context = context,
                             error = { showError.value = true },
                             noAppsFound = {
-                                Toast.makeText(
-                                    context,
-                                    context.getString(R.string.error_no_browser),
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                context.getString(R.string.error_no_browser)
+                                    .showToast(context = context, longToast = false)
                             }
                         )
                     )

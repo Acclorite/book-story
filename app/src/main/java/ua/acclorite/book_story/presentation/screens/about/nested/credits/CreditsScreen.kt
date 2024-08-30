@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.about.nested.credits
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
@@ -26,6 +25,7 @@ import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.data.LocalNavigator
+import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
 import ua.acclorite.book_story.presentation.screens.about.data.AboutViewModel
 import ua.acclorite.book_story.presentation.screens.about.nested.credits.components.CreditItem
@@ -86,11 +86,8 @@ private fun CreditsScreen(
                                 page = website,
                                 context = context,
                                 noAppsFound = {
-                                    Toast.makeText(
-                                        context,
-                                        context.getString(R.string.error_no_browser),
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    context.getString(R.string.error_no_browser)
+                                        .showToast(context = context, longToast = false)
                                 }
                             )
                         )

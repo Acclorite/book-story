@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.about
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -38,6 +37,7 @@ import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.about.components.AboutItem
 import ua.acclorite.book_story.presentation.screens.about.components.AboutUpdateDialog
 import ua.acclorite.book_story.presentation.screens.about.components.badges.AboutBadges
@@ -152,27 +152,18 @@ private fun AboutScreen(
                             AboutEvent.OnCheckForUpdates(
                                 context = context,
                                 noUpdatesFound = {
-                                    Toast.makeText(
-                                        context,
-                                        context.getString(R.string.no_updates),
-                                        Toast.LENGTH_LONG
-                                    ).show()
+                                    context.getString(R.string.no_updates)
+                                        .showToast(context = context)
                                 },
                                 error = {
-                                    Toast.makeText(
-                                        context,
-                                        context.getString(R.string.error_check_internet),
-                                        Toast.LENGTH_LONG
-                                    ).show()
+                                    context.getString(R.string.error_check_internet)
+                                        .showToast(context = context)
                                 }
                             )
                         )
                     } else {
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.no_updates),
-                            Toast.LENGTH_LONG
-                        ).show()
+                        context.getString(R.string.no_updates)
+                            .showToast(context = context)
                     }
                 }
             }
@@ -187,11 +178,8 @@ private fun AboutScreen(
                             context.getString(R.string.issues_page),
                             context,
                             noAppsFound = {
-                                Toast.makeText(
-                                    context,
-                                    context.getString(R.string.error_no_browser),
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                context.getString(R.string.error_no_browser)
+                                    .showToast(context = context, longToast = false)
                             }
                         )
                     )
@@ -208,11 +196,8 @@ private fun AboutScreen(
                             context.getString(R.string.releases_page),
                             context,
                             noAppsFound = {
-                                Toast.makeText(
-                                    context,
-                                    context.getString(R.string.error_no_browser),
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                context.getString(R.string.error_no_browser)
+                                    .showToast(context = context, longToast = false)
                             }
                         )
                     )
@@ -251,11 +236,8 @@ private fun AboutScreen(
                             context.getString(R.string.translation_page),
                             context,
                             noAppsFound = {
-                                Toast.makeText(
-                                    context,
-                                    context.getString(R.string.error_no_browser),
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                context.getString(R.string.error_no_browser)
+                                    .showToast(context = context, longToast = false)
                             }
                         )
                     )

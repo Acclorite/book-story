@@ -2,7 +2,6 @@
 
 package ua.acclorite.book_story.presentation.screens.library
 
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.tween
@@ -58,6 +57,7 @@ import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
@@ -293,11 +293,8 @@ private fun LibraryScreen(
             return@BackHandler
         }
 
-        Toast.makeText(
-            activity,
-            activity.getString(R.string.press_again_toast),
-            Toast.LENGTH_SHORT
-        ).show()
+        activity.getString(R.string.press_again_toast)
+            .showToast(context = activity, longToast = false)
         shouldExit = true
 
         scope.launch {

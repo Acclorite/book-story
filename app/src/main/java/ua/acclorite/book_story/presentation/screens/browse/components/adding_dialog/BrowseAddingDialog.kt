@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.browse.components.adding_dialog
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,6 +21,7 @@ import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithLazyColumn
 import ua.acclorite.book_story.presentation.data.LocalNavigator
+import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseState
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
@@ -60,18 +60,12 @@ fun BrowseAddingDialog(
                         onLibraryEvent(LibraryEvent.OnLoadList)
                     },
                     onFailed = {
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.error_something_went_wrong),
-                            Toast.LENGTH_LONG
-                        ).show()
+                        context.getString(R.string.error_something_went_wrong)
+                            .showToast(context = context)
                     },
                     onSuccess = {
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.books_added),
-                            Toast.LENGTH_LONG
-                        ).show()
+                        context.getString(R.string.books_added)
+                            .showToast(context = context)
                     }
                 )
             )
@@ -102,11 +96,8 @@ fun BrowseAddingDialog(
                         if (it) {
                             onEvent(BrowseEvent.OnSelectBook(book))
                         } else {
-                            Toast.makeText(
-                                context,
-                                book.first.message?.asString(context),
-                                Toast.LENGTH_LONG
-                            ).show()
+                            book.first.message?.asString(context)
+                                ?.showToast(context = context)
                         }
                     }
                 }

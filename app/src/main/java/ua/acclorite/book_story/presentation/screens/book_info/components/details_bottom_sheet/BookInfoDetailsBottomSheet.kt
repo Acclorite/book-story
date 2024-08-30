@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.book_info.components.details_bottom_sheet
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,6 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CustomBottomSheet
+import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 import java.io.File
@@ -75,11 +75,8 @@ fun BookInfoDetailsBottomSheet(
                     context,
                     state.value.book.filePath.substringAfterLast("/").trim(),
                     success = {
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.copied),
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        context.getString(R.string.copied)
+                            .showToast(context = context, longToast = false)
                     }
                 ))
         }
@@ -92,11 +89,8 @@ fun BookInfoDetailsBottomSheet(
                     context,
                     state.value.book.filePath.trim(),
                     success = {
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.copied),
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        context.getString(R.string.copied)
+                            .showToast(context = context, longToast = false)
                     }
                 ))
         }
@@ -111,11 +105,8 @@ fun BookInfoDetailsBottomSheet(
                         context,
                         lastOpened,
                         success = {
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.copied),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            context.getString(R.string.copied)
+                                .showToast(context = context, longToast = false)
                         }
                     ))
             }
@@ -130,13 +121,11 @@ fun BookInfoDetailsBottomSheet(
                         context,
                         fileSize,
                         success = {
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.copied),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            context.getString(R.string.copied)
+                                .showToast(context = context, longToast = false)
                         }
-                    ))
+                    )
+                )
             }
         }
 

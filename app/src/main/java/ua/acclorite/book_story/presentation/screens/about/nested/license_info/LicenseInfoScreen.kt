@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.about.nested.license_info
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -44,6 +43,7 @@ import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrol
 import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoEvent
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoState
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoViewModel
@@ -126,11 +126,10 @@ private fun LicenseInfoScreen(
                                     page = url,
                                     context = context,
                                     noAppsFound = {
-                                        Toast.makeText(
-                                            context,
-                                            context.getString(R.string.error_no_browser),
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+                                        context.getString(R.string.error_no_browser).showToast(
+                                            context = context,
+                                            longToast = false
+                                        )
                                     }
                                 )
                             )

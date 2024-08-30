@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.book_info.components.change_cover_bottom_sheet
 
-import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -21,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CustomBottomSheet
+import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
@@ -56,11 +56,8 @@ fun BookInfoChangeCoverBottomSheet(
                         }
                     )
                 )
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.cover_image_changed),
-                    Toast.LENGTH_LONG
-                ).show()
+                context.getString(R.string.cover_image_changed)
+                    .showToast(context = context)
             }
         }
     )
@@ -90,11 +87,7 @@ fun BookInfoChangeCoverBottomSheet(
                                     onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
                                 },
                                 showResult = {
-                                    Toast.makeText(
-                                        context,
-                                        it.asString(context),
-                                        Toast.LENGTH_LONG
-                                    ).show()
+                                    it.asString(context).showToast(context = context)
                                 }
                             )
                         )
@@ -129,11 +122,8 @@ fun BookInfoChangeCoverBottomSheet(
                                 }
                             )
                         )
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.cover_image_deleted),
-                            Toast.LENGTH_LONG
-                        ).show()
+                        context.getString(R.string.cover_image_deleted)
+                            .showToast(context = context)
                     }
                 }
             }
