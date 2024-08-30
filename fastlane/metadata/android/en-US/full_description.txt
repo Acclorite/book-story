@@ -1,4 +1,4 @@
-Material3 eBook reader - Book's Story. Built with Jetpack Compose. Multiple languages, mutliple supported file formats. Lots of customization. More is coming!
+Material3 eBook reader - Book's Story. Built with Jetpack Compose. Multiple languages, multiple supported file formats. Lots of customization. More is coming!
 
 Main Features:
 * 7 supported file formats(.pdf, .txt, .epub, .fb2, .zip, .html, .htm)
