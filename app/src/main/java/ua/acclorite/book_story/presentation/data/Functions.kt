@@ -5,9 +5,9 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 
-fun String.removeTrailingZero(): String {
 var toast: Toast? = null
 
+fun String.removeTrailingZero(): String {
     if (!this.contains('.'))
         return this
     return this
