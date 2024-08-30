@@ -30,7 +30,6 @@
     <string name="history_empty">Lassen Sie Ihr letztes gelesenes Buch die Seiten einer neuen großartigen Geschichte Ihrer Lesereise öffnen</string>
     <string name="selected_items_count_query">%1$s ausgewählt</string>
     <string name="search_query">Suche %1$s…</string>
-    <string name="read_query">%1$s gelesen</string>
     <string name="file_path_query">Dateipfad: %1$s</string>
     <string name="update_query">%1$s aktualisieren</string>
     <string name="color_preset_selected_query">Ausgewählt «%1$s»</string>

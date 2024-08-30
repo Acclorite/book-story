@@ -126,7 +126,6 @@
     <!-- Query strings -->
     <string name="selected_items_count_query">%1$s обрано</string>
     <string name="search_query">Знайти %1$s…</string>
-    <string name="read_query">%1$s прочитано</string>
     <string name="file_path_query">Шлях до файлу: %1$s</string>
     <string name="update_query">Оновлення %1$s</string>
     <string name="color_preset_query">Пресет %1$s</string>

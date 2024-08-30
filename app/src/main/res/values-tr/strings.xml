@@ -106,7 +106,6 @@
     </string>
     <string name="selected_items_count_query">%1$s seçildi</string>
     <string name="search_query">%1$s ara…</string>
-    <string name="read_query">%1$s okundu</string>
     <string name="file_path_query">Dosya yolu: %1$s</string>
     <string name="update_query">%1$s güncelle</string>
     <string name="color_preset_query">Ön ayar %1$s</string>

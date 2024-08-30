@@ -30,7 +30,6 @@
     <string name="error_no_browser">No se encontró ninguna aplicación de navegador.</string>
     <string name="error_closed_source">Fuente cerrada</string>
     <string name="selected_items_count_query">%1$s seleccionado</string>
-    <string name="read_query">%1$s leído</string>
     <string name="search_query">Buscar %1$s…</string>
     <string name="cancel">Cancelar</string>
     <string name="grant">Conceder</string>
