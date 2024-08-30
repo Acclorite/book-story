@@ -15,21 +15,16 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.data.Screen
-import ua.acclorite.book_story.presentation.data.removeDigits
-import ua.acclorite.book_story.presentation.data.removeTrailingZero
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
@@ -55,15 +50,6 @@ fun ReaderTopBar(
     onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit
 ) {
     val context = LocalContext.current as ComponentActivity
-    val progress by remember(state.value.book.progress) {
-        derivedStateOf {
-            (state.value.book.progress * 100)
-                .toDouble()
-                .removeDigits(2)
-                .removeTrailingZero()
-                .dropWhile { it == '-' } + "%"
-        }
-    }
 
     TopAppBar(
         navigationIcon = {
@@ -129,12 +115,11 @@ fun ReaderTopBar(
                         )
                 )
                 Text(
-                    stringResource(
-                        id = R.string.read_query,
-                        progress
-                    ),
+                    state.value.book.author.asString(),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.bodyLarge,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
         },
