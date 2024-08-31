@@ -3,14 +3,12 @@ package ua.acclorite.book_story.presentation.screens.settings.nested.general.com
 import android.Manifest
 import android.annotation.SuppressLint
 import androidx.activity.ComponentActivity
-import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -29,7 +27,7 @@ import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
 @OptIn(ExperimentalPermissionsApi::class)
 @SuppressLint("InlinedApi")
 @Composable
-fun LazyItemScope.CheckForUpdatesSetting(
+fun CheckForUpdatesSetting(
     state: State<MainState>,
     onMainEvent: (MainEvent) -> Unit,
     onSettingsEvent: (SettingsEvent) -> Unit
@@ -62,7 +60,6 @@ fun LazyItemScope.CheckForUpdatesSetting(
 
     SwitchWithTitle(
         selected = state.value.checkForUpdates!!,
-        modifier = Modifier.animateItem(),
         title = stringResource(id = R.string.check_for_updates_option),
         description = stringResource(id = R.string.check_for_updates_option_desc)
     ) {

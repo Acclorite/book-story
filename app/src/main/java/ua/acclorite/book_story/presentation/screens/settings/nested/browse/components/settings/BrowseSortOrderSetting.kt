@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDownward
@@ -69,7 +68,7 @@ fun LazyListScope.BrowseSortOrderSetting(
  * @param onClick OnClick callback.
  */
 @Composable
-private fun LazyItemScope.SortItem(
+private fun SortItem(
     item: BrowseSortOrder,
     isSelected: Boolean,
     isDescending: Boolean,
@@ -77,7 +76,6 @@ private fun LazyItemScope.SortItem(
 ) {
     Row(
         modifier = Modifier
-            .animateItem()
             .fillMaxWidth()
             .clickable {
                 onClick()

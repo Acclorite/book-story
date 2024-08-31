@@ -44,7 +44,6 @@ fun LazyListScope.TextSubcategory(
                 title = title.invoke(),
                 color = titleColor.invoke(),
                 modifier = Modifier
-                    .animateItem()
                     .padding(
                         top = topPadding,
                         bottom = 8.dp
@@ -52,9 +51,7 @@ fun LazyListScope.TextSubcategory(
             )
         } else {
             Spacer(
-                modifier = Modifier
-                    .animateItem()
-                    .height((topPadding - 8.dp).coerceAtLeast(0.dp))
+                modifier = Modifier.height((topPadding - 8.dp).coerceAtLeast(0.dp))
             )
         }
     }
@@ -96,9 +93,7 @@ fun LazyListScope.TextSubcategory(
 
     item {
         Spacer(
-            modifier = Modifier
-                .animateItem()
-                .height(bottomPadding)
+            modifier = Modifier.height(bottomPadding)
         )
     }
 }

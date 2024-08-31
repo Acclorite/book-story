@@ -1,11 +1,9 @@
 package ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings
 
-import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import ua.acclorite.book_story.R
@@ -20,7 +18,7 @@ import ua.acclorite.book_story.presentation.screens.settings.components.Segmente
  * Changes Reader's font style (Normal/Italic).
  */
 @Composable
-fun LazyItemScope.FontStyleSetting(
+fun FontStyleSetting(
     state: State<MainState>,
     onMainEvent: (MainEvent) -> Unit
 ) {
@@ -32,7 +30,6 @@ fun LazyItemScope.FontStyleSetting(
 
     SegmentedButtonWithTitle(
         title = stringResource(id = R.string.font_style_option),
-        modifier = Modifier.animateItem(),
         buttons = listOf(
             ButtonItem(
                 id = "normal",

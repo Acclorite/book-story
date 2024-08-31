@@ -36,9 +36,7 @@ fun LazyListScope.GeneralSettingsCategory(
 ) {
     item {
         Spacer(
-            modifier = Modifier
-                .animateItem()
-                .height((topPadding - 8.dp).coerceAtLeast(0.dp))
+            modifier = Modifier.height((topPadding - 8.dp).coerceAtLeast(0.dp))
         )
     }
 
@@ -66,9 +64,7 @@ fun LazyListScope.GeneralSettingsCategory(
 
     item {
         Spacer(
-            modifier = Modifier
-                .animateItem()
-                .height(bottomPadding)
+            modifier = Modifier.height(bottomPadding)
         )
     }
 }

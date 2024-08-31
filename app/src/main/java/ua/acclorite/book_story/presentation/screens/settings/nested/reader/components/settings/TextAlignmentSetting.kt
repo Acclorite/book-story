@@ -1,10 +1,8 @@
 package ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings
 
-import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
@@ -18,13 +16,12 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.
  * Changes Reader's text alignment (Start/Justify/Center/End).
  */
 @Composable
-fun LazyItemScope.TextAlignmentSetting(
+fun TextAlignmentSetting(
     state: State<MainState>,
     onMainEvent: (MainEvent) -> Unit
 ) {
     SegmentedButtonWithTitle(
         title = stringResource(id = R.string.text_alignment_option),
-        modifier = Modifier.animateItem(),
         buttons = ReaderTextAlignment.entries.map {
             ButtonItem(
                 id = it.toString(),

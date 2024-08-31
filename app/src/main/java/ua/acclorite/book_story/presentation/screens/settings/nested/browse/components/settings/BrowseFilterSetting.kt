@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
@@ -55,14 +54,13 @@ fun LazyListScope.BrowseFilterSetting(
  * @param onClick OnClick callback.
  */
 @Composable
-private fun LazyItemScope.FilterItem(
+private fun FilterItem(
     item: String,
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
-            .animateItem()
             .fillMaxWidth()
             .clickable {
                 onClick()

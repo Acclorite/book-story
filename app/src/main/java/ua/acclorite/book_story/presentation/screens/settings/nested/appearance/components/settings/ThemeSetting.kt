@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -57,7 +56,7 @@ import ua.acclorite.book_story.presentation.ui.isPureDark
  * Lets user change app's theme from available in [Constants.THEMES].
  */
 @Composable
-fun LazyItemScope.ThemeSetting(
+fun ThemeSetting(
     state: State<MainState>,
     onMainEvent: (MainEvent) -> Unit,
     verticalPadding: Dp = 8.dp,
@@ -70,7 +69,6 @@ fun LazyItemScope.ThemeSetting(
 
     Column(
         Modifier
-            .animateItem()
             .fillMaxWidth()
             .padding(vertical = verticalPadding)
     ) {

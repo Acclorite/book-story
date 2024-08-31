@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
@@ -78,7 +77,7 @@ import ua.acclorite.book_story.presentation.ui.Transitions
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun LazyItemScope.ColorPresetSetting(
+fun ColorPresetSetting(
     state: State<SettingsState>,
     onEvent: (SettingsEvent) -> Unit,
     backgroundColor: Color,
@@ -96,7 +95,6 @@ fun LazyItemScope.ColorPresetSetting(
 
     Column(
         Modifier
-            .animateItem()
             .fillMaxWidth()
             .padding(vertical = verticalPadding)
     ) {
