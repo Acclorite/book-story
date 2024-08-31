@@ -454,7 +454,6 @@
     <string name="go_back_content_desc">Geri git</string>
     <string name="cover_image_content_desc">Kapak resmi</string>
     <string name="open_reader_settings_content_desc">Okuyucu ayarları</string>
-    <string name="top_app_bar_anim_content_desc">Üst uygulama çubuğu animasyonu</string>
     <string name="file_icon_content_desc">Dosya</string>
     <string name="directory_icon_content_desc">Dizin</string>
     <string name="favorite_directory_content_desc">Favori dizin</string>

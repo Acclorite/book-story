@@ -568,7 +568,6 @@
     <string name="go_back_content_desc">Go back</string>
     <string name="cover_image_content_desc">Cover image</string>
     <string name="open_reader_settings_content_desc">Reader settings</string>
-    <string name="top_app_bar_anim_content_desc">Top app bar animation</string>
     <string name="file_icon_content_desc">File</string>
     <string name="directory_icon_content_desc">Directory</string>
     <string name="favorite_directory_content_desc">Favorite directory</string>

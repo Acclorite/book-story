@@ -252,7 +252,6 @@
     <string name="continue_reading_content_desc">Seguir leyendo</string>
     <string name="go_back_content_desc">Regresar</string>
     <string name="cover_image_content_desc">Portada</string>
-    <string name="top_app_bar_anim_content_desc">Animación de barra superior</string>
     <string name="file_icon_content_desc">Archivo</string>
     <string name="show_dropdown_content_desc">Desplegable</string>
     <string name="cover_image_not_found_content_desc">Portada no encontrada</string>

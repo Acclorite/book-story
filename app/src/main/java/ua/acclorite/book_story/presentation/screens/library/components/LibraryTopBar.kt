@@ -176,8 +176,7 @@ fun LibraryTopBar(
                 itemCountBackgroundColor = animateColorAsState(
                     if (state.value.hasSelectedItems) MaterialTheme.colorScheme.surfaceContainerHighest
                     else MaterialTheme.colorScheme.surfaceContainer,
-                    animationSpec = spring(stiffness = Spring.StiffnessMediumLow),
-                    label = stringResource(id = R.string.top_app_bar_anim_content_desc)
+                    animationSpec = spring(stiffness = Spring.StiffnessMediumLow)
                 ).value,
                 pagerState = pagerState
             )

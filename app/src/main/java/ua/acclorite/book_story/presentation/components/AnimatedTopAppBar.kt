@@ -22,8 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
-import androidx.compose.ui.res.stringResource
-import ua.acclorite.book_story.R
 
 /**
  * Animated top app bar.
@@ -71,8 +69,7 @@ fun AnimatedTopAppBar(
             if (isTopBarScrolled == true) 1f else 0f,
             animationSpec = spring(
                 stiffness = Spring.StiffnessMediumLow
-            ),
-            label = stringResource(id = R.string.top_app_bar_anim_content_desc)
+            )
         ).value
     )
 
