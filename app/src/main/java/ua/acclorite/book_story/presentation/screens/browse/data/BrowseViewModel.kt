@@ -262,7 +262,10 @@ class BrowseViewModel @Inject constructor(
                             selectableFiles = editedList,
                             selectedItemsCount = editedList.filter { file ->
                                 file.isSelected && !file.isDirectory
-                            }.size,
+                            }.size.run {
+                                if (this == 0) return@run it.selectedItemsCount
+                                this
+                            },
                             hasSelectedItems = editedList.any { file ->
                                 file.isSelected && !file.isDirectory
                             }
@@ -297,7 +300,10 @@ class BrowseViewModel @Inject constructor(
                             selectableFiles = editedList,
                             selectedItemsCount = editedList.filter { file ->
                                 file.isSelected && !file.isDirectory
-                            }.size,
+                            }.size.run {
+                                if (this == 0) return@run it.selectedItemsCount
+                                this
+                            },
                             hasSelectedItems = editedList.any { file ->
                                 file.isSelected && !file.isDirectory
                             }
