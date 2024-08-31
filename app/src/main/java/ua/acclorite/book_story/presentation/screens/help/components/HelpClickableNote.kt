@@ -4,8 +4,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Icon
@@ -20,7 +20,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CustomTooltip
-import ua.acclorite.book_story.presentation.ui.SlidingTransition
+import ua.acclorite.book_story.presentation.ui.ExpandingTransition
 
 /**
  * Help Clickable Note.
@@ -29,10 +29,10 @@ import ua.acclorite.book_story.presentation.ui.SlidingTransition
  * @param text [AnnotatedString].
  */
 @Composable
-fun LazyItemScope.HelpClickableNote(text: AnnotatedString) {
+fun HelpClickableNote(text: AnnotatedString) {
     val showNote = rememberSaveable { mutableStateOf(true) }
 
-    Column(Modifier.animateItem()) {
+    Column(Modifier.padding(horizontal = 18.dp)) {
         CustomTooltip(text = stringResource(R.string.note_content_desc)) {
             Icon(
                 imageVector = Icons.Outlined.Info,
@@ -46,7 +46,7 @@ fun LazyItemScope.HelpClickableNote(text: AnnotatedString) {
             )
         }
 
-        SlidingTransition(visible = showNote.value) {
+        ExpandingTransition(visible = showNote.value) {
             Column {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
@@ -59,9 +59,3 @@ fun LazyItemScope.HelpClickableNote(text: AnnotatedString) {
         }
     }
 }
-
-
-
-
-
-

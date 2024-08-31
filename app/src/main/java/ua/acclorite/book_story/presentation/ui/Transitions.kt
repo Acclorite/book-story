@@ -4,9 +4,11 @@ import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.EaseInOut
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
@@ -74,6 +76,23 @@ fun SlidingTransition(
         exit = slideOutVertically(tween(150)) {
             with(density) { -10.dp.toPx() }.roundToInt()
         } + fadeOut(tween(100)),
+        content = content
+    )
+}
+
+@Composable
+fun ExpandingTransition(
+    visible: Boolean,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    CustomAnimatedVisibility(
+        visible = visible,
+        modifier = modifier,
+        enter = expandVertically(tween(400)) +
+                fadeIn(tween(400)),
+        exit = shrinkVertically(tween(350)) +
+                fadeOut(tween(200)),
         content = content
     )
 }

@@ -26,7 +26,6 @@ import ua.acclorite.book_story.domain.model.HelpTip
 import ua.acclorite.book_story.domain.model.NavigationItem
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.help.components.HelpAnnotation
-import ua.acclorite.book_story.presentation.screens.help.components.content.HelpFindBooksContent
 import ua.acclorite.book_story.presentation.ui.Theme
 
 object Constants {
@@ -167,16 +166,6 @@ private fun provideCredits() = listOf(
 )
 
 private fun provideHelpTips() = listOf(
-    HelpTip(
-        title = R.string.help_title_how_to_find_books,
-        description = { _, _ ->
-            append(stringResource(id = R.string.help_desc_how_to_find_books))
-        },
-        customContent = { onHelpEvent ->
-            HelpFindBooksContent(onEvent = onHelpEvent)
-        }
-    ),
-
     HelpTip(
         title = R.string.help_title_how_to_add_books,
         description = { onNavigate, fromStart ->

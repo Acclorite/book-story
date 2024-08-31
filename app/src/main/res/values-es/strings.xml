@@ -188,10 +188,6 @@
     <string name="slava_ukraini">¡Gloria a Ucrania!</string>
     <string name="credits_design">Diseño</string>
     <string name="help_clickable_note_action">¡Puedo hacer clic!</string>
-    <string name="help_title_how_to_find_books">¿Cómo encuentro y descargo libros?</string>
-    <string name="help_field_placeholder">Nombre del libro</string>
-    <string name="help_field_support">Páginas útiles con libros:</string>
-    <string name="help_field_error">El nombre del libro no debe estar vacío</string>
     <string name="help_desc_how_to_add_books_1">Ir a la</string>
     <string name="help_desc_how_to_add_books_4">Biblioteca</string>
     <string name="help_title_how_to_customize_app">¿Cómo personalizo la aplicación?</string>
@@ -221,7 +217,6 @@
     <string name="credits_updates">Gestión de nuevas actualizaciones</string>
     <string name="help_clickable_note_3">se puede hacer clic. También puedes ocultar esta nota haciendo clic en el icono, ¡pruébalo!</string>
     <string name="help_clickable_note_2">en este texto resaltado</string>
-    <string name="help_desc_how_to_find_books">Puedes intentar encontrar los libros que desees utilizando las páginas de la nota proporcionada o puedes utilizar el campo de texto para buscar los libros en Internet.</string>
     <string name="help_title_how_to_add_books">¿Cómo añado libros a la biblioteca?</string>
     <string name="help_desc_how_to_add_books_3">Si no ves los libros descargados intenta actualizar la lista tirando de ella hacia abajo. Asegúrate de que tus libros tienen un formato de archivo compatible. A continuación, haz clic en el libro para seleccionarlo o manténlo presionado para ver su ubicación. Cuando hayas seleccionado todos los libros que quieres, haz clic en el icono de la marca de verificación en la esquina superior derecha, espera a que se carguen todos los libros y haz clic en \"Añadir\". Ahora deberías ver todos los libros que ha añadido en la sección</string>
     <string name="help_title_how_to_edit_book">¿Cómo se edita un libro?</string>
@@ -274,7 +269,6 @@
     <string name="delete_history_element_content_desc">Eliminar elemento del historial</string>
     <string name="library_content_desc">Tu biblioteca</string>
     <string name="arrow_content_desc">Flecha</string>
-    <string name="arrow_anim_content_desc">Animación de flecha</string>
     <string name="required_content_desc">Necesario</string>
     <string name="exit_editing_content_desc">Salir del modo edición</string>
     <string name="open_in_web_content_desc">Abrir en la web</string>

@@ -303,14 +303,6 @@
         Ayrıca ikona tıklayarak bu notu gizleyebilirsiniz, deneyin!
     </string>
     <string name="help_clickable_note_action">Ben tıklanabiliyorum!</string>
-    <string name="help_title_how_to_find_books">Kitapları nasıl bulup indirebilirim?</string>
-    <string name="help_desc_how_to_find_books">
-        İstediğiniz kitapları verilen nottaki sitelerden bulmayı deneyebilir
-        veya kitapları çevrimiçi aramak için metin alanını kullanabilirsiniz.
-    </string>
-    <string name="help_field_placeholder">Kitabın adı</string>
-    <string name="help_field_support">Kitap içeren faydalı siteler:</string>
-    <string name="help_field_error">Kitap adı boş olmamalı</string>
     <string name="help_title_how_to_add_books">Kitapları Kütüphane\'ye nasıl eklerim?</string>
     <string name="help_desc_how_to_add_books_1">Şuraya gidin:</string>
     <string name="help_desc_how_to_add_books_2">Göz At</string>
@@ -490,7 +482,6 @@
     <string name="history_content_desc">Okuma geçmişi</string>
     <string name="browse_content_desc">Kitap ekle</string>
     <string name="arrow_content_desc">Ok</string>
-    <string name="arrow_anim_content_desc">Ok animasyonu</string>
     <string name="required_content_desc">Gerekli</string>
     <string name="reset_start_content_desc">Başlangıç kılavuzunu sıfırla</string>
     <string name="exit_editing_content_desc">Düzenleme modundan çık</string>

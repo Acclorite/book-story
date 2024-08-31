@@ -1,13 +1,11 @@
 package ua.acclorite.book_story.presentation.screens.help
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -47,7 +45,6 @@ import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.help.components.HelpItem
 import ua.acclorite.book_story.presentation.screens.help.components.items.HelpClickMeNoteItem
-import ua.acclorite.book_story.presentation.screens.help.data.HelpEvent
 import ua.acclorite.book_story.presentation.screens.help.data.HelpState
 import ua.acclorite.book_story.presentation.screens.help.data.HelpViewModel
 import ua.acclorite.book_story.presentation.screens.start.data.StartEvent
@@ -70,7 +67,6 @@ fun HelpScreenRoot(screen: Screen.Help) {
     HelpScreen(
         state = state,
         onNavigate = { navigator.it() },
-        onEvent = helpViewModel::onEvent,
         onMainEvent = mainViewModel::onEvent,
         onBrowseEvent = browseViewModel::onEvent,
         onStartEvent = startViewModel::onEvent
@@ -84,7 +80,6 @@ fun HelpScreenRoot(screen: Screen.Help) {
 private fun HelpScreen(
     state: State<HelpState>,
     onNavigate: OnNavigate,
-    onEvent: (HelpEvent) -> Unit,
     onMainEvent: (MainEvent) -> Unit,
     onBrowseEvent: (BrowseEvent) -> Unit,
     onStartEvent: (StartEvent) -> Unit
@@ -158,17 +153,11 @@ private fun HelpScreen(
         CustomLazyColumn(
             Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
-                .imePadding(),
-            state = scrollState.second,
-            contentPadding = PaddingValues(horizontal = 18.dp)
+                .padding(paddingValues),
+            state = scrollState.second
         ) {
             item {
-                Spacer(
-                    modifier = Modifier
-                        .animateItem()
-                        .height(16.dp)
-                )
+                Spacer(modifier = Modifier.height(16.dp))
             }
 
             item {
@@ -176,28 +165,19 @@ private fun HelpScreen(
             }
 
             item {
-                Spacer(
-                    modifier = Modifier
-                        .animateItem()
-                        .height(16.dp)
-                )
+                Spacer(modifier = Modifier.height(8.dp))
             }
 
             customItems(Constants.HELP_TIPS, key = { it.title }) { helpTip ->
                 HelpItem(
                     helpTip = helpTip,
                     onNavigate = onNavigate,
-                    fromStart = state.value.fromStart,
-                    onHelpEvent = onEvent
+                    fromStart = state.value.fromStart
                 )
             }
 
             item {
-                Spacer(
-                    modifier = Modifier
-                        .animateItem()
-                        .height(48.dp)
-                )
+                Spacer(modifier = Modifier.height(48.dp))
             }
         }
     }

@@ -1,14 +1,7 @@
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="InconsistentArrays">
+<resources>
     <!-- Basic Strings -->
     <string name="app_version" translatable="false">1.2.0</string>
     <string name="app_name" translatable="false">Book\'s Story</string>
-
-    <!-- Book sources -->
-    <string-array name="book_sites">
-        <item>Anna\'s Archive|https://www.annas-archive.org</item>
-        <item>Project Gutenberg|https://www.gutenberg.org</item>
-        <item>Standard Ebooks|https://www.standardebooks.org</item>
-    </string-array>
 
     <!-- About sites -->
     <string name="download_latest_release_page" translatable="false">
@@ -402,15 +395,6 @@
     </string>
     <string name="help_clickable_note_action">I\'m clickable!</string>
 
-    <string name="help_title_how_to_find_books">How do I find and download books?</string>
-    <string name="help_desc_how_to_find_books">
-        You can try to find desired books using sites from provided note
-        or you can use text field to search for books online.
-    </string>
-    <string name="help_field_placeholder">Book\'s name</string>
-    <string name="help_field_support">Useful sites with books:</string>
-    <string name="help_field_error">Book\'s name should not be empty</string>
-
     <string name="help_title_how_to_add_books">How do I add books to the Library?</string>
     <string name="help_desc_how_to_add_books_1">Go to the</string>
     <string name="help_desc_how_to_add_books_2">Browse</string>
@@ -612,7 +596,6 @@
     <string name="history_content_desc">Reading history</string>
     <string name="browse_content_desc">Add books</string>
     <string name="arrow_content_desc">Arrow</string>
-    <string name="arrow_anim_content_desc">Arrow animation</string>
     <string name="required_content_desc">Required</string>
     <string name="reset_start_content_desc">Reset start guide</string>
     <string name="exit_editing_content_desc">Exit editing mode</string>

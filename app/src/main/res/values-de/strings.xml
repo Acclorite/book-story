@@ -138,11 +138,6 @@
     <string name="report_bug_option">Fehler melden</string>
     <string name="help_clickable_note_3">kann angeklickt werden. Du kannst diese Notiz auch ausblenden, indem du auf das Symbol klickst, probier es aus!</string>
     <string name="help_clickable_note_action">Ich bin anklickbar!</string>
-    <string name="help_title_how_to_find_books">Wie finde und lade ich Bücher herunter?</string>
-    <string name="help_desc_how_to_find_books">Sie können versuchen, die gewünschten Bücher über die bereitgestellten Websites zu finden, oder Sie können das Textfeld verwenden, um online nach Büchern zu suchen.</string>
-    <string name="help_field_placeholder">Name des Buches</string>
-    <string name="help_field_support">Nützliche Websites mit Büchern:</string>
-    <string name="help_field_error">Der Name des Buches darf nicht leer sein</string>
     <string name="help_title_how_to_add_books">Wie füge ich Bücher zur Bibliothek hinzu?</string>
     <string name="help_desc_how_to_add_books_1">Gehen Sie zum</string>
     <string name="help_desc_how_to_add_books_2">Durchsuchen</string>
@@ -284,7 +279,6 @@
     <string name="history_content_desc">Leseverlauf</string>
     <string name="browse_content_desc">Bücher hinzufügen</string>
     <string name="arrow_content_desc">Pfeil</string>
-    <string name="arrow_anim_content_desc">Pfeilanimation</string>
     <string name="required_content_desc">Vorausgesetzt</string>
     <string name="reset_start_content_desc">Startanleitung zurücksetzen</string>
     <string name="exit_editing_content_desc">Bearbeitungsmodus beenden</string>

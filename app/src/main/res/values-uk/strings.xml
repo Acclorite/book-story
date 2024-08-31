@@ -1,9 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Book sources -->
-    <string-array name="book_sites" tools:ignore="InconsistentArrays">
-        <item>Архів Анни|https://uk.annas-archive.org</item>
-        <item>Укрліб|https://www.ukrlib.com.ua</item>
-    </string-array>
+<resources>
 
     <!-- Notifications -->
     <string name="updates_notification_channel">Нові оновлення</string>
@@ -383,15 +378,6 @@
     </string>
     <string name="help_clickable_note_action">На мене можна натиснути!</string>
 
-    <string name="help_title_how_to_find_books">Як мені знайти та завантажити книги?</string>
-    <string name="help_desc_how_to_find_books">
-        Ви можете спробувати знайти бажані книги використовуючи сайти з наведеної примітки
-        або ви можете використати текстове поле, щоб шукати книги в інтернеті.
-    </string>
-    <string name="help_field_placeholder">Назва книги</string>
-    <string name="help_field_support">Корисні сайти з книгами:</string>
-    <string name="help_field_error">Назва книги не має бути порожньою</string>
-
     <string name="help_title_how_to_add_books">Як мені додати книги в Бібліотеку?</string>
     <string name="help_desc_how_to_add_books_1">Перейдіть в</string>
     <string name="help_desc_how_to_add_books_2">Огляд</string>
@@ -594,7 +580,6 @@
     <string name="history_content_desc">Історія читання</string>
     <string name="browse_content_desc">Додавайте книги</string>
     <string name="arrow_content_desc">Стрілка</string>
-    <string name="arrow_anim_content_desc">Анімація стрілки</string>
     <string name="required_content_desc">Необхідно</string>
     <string name="reset_start_content_desc">Скинути початковий посібник</string>
     <string name="exit_editing_content_desc">Вийти з режиму редагування</string>
