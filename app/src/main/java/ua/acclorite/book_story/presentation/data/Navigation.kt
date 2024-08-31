@@ -10,7 +10,7 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,7 +32,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -332,7 +331,7 @@ class Navigator @AssistedInject constructor(
         exitBarAnim: ExitTransition = Transitions.SlidingTransitionOut,
         backExitBarAnim: ExitTransition = Transitions.BackSlidingTransitionOut,
         bottomBar: @Composable () -> Unit,
-        navigationRail: @Composable BoxScope.() -> Unit,
+        navigationRail: @Composable () -> Unit,
         content: @Composable () -> Unit
     ) {
         val activity = LocalContext.current as ComponentActivity
@@ -365,34 +364,25 @@ class Navigator @AssistedInject constructor(
                 },
                 containerColor = MaterialTheme.colorScheme.surface
             ) {
-                Box(
+                Row(
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
+                    if (tabletUI) {
+                        navigationRail()
+                    }
+
                     Box(
                         modifier = Modifier
+                            .weight(1f)
                             .fillMaxSize()
                             .padding(
-                                end = it.calculateEndPadding(
-                                    layoutDirection
-                                ),
+                                end = it.calculateEndPadding(layoutDirection),
                                 bottom = it.calculateBottomPadding(),
-                                start = if (tabletUI) {
-                                    80.dp + it.calculateStartPadding(
-                                        layoutDirection
-                                    )
-                                } else {
-                                    it.calculateStartPadding(
-                                        layoutDirection
-                                    )
-                                },
+                                start = it.calculateStartPadding(layoutDirection)
                             )
                     ) {
                         content()
-                    }
-
-                    if (tabletUI) {
-                        navigationRail()
                     }
                 }
             }
