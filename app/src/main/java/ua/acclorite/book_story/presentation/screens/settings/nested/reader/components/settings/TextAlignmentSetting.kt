@@ -32,7 +32,7 @@ fun TextAlignmentSetting(
                     ReaderTextAlignment.END -> stringResource(id = R.string.text_alignment_end)
                 },
                 textStyle = MaterialTheme.typography.labelLarge,
-                selected = it == state.value.textAlignment!!
+                selected = it == state.value.textAlignment
             )
         },
         onClick = {

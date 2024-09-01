@@ -34,7 +34,7 @@ fun LazyListScope.BrowseFilterSetting(
     customItems(Constants.EXTENSIONS, key = { it }) {
         FilterItem(
             item = it,
-            isSelected = state.value.browseIncludedFilterItems!!.any { item ->
+            isSelected = state.value.browseIncludedFilterItems.any { item ->
                 item == it
             }
         ) {

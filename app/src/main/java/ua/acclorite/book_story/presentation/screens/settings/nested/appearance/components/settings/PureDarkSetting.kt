@@ -22,7 +22,7 @@ fun PureDarkSetting(
     state: State<MainState>,
     onMainEvent: (MainEvent) -> Unit
 ) {
-    ExpandingTransition(visible = state.value.darkTheme!!.isDark()) {
+    ExpandingTransition(visible = state.value.darkTheme.isDark()) {
         SegmentedButtonWithTitle(
             title = stringResource(id = R.string.pure_dark_option),
             buttons = PureDark.entries.map {

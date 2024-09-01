@@ -211,19 +211,19 @@ private fun ReaderScreen(
         mainState.value.fontSize,
         mainState.value.lineHeight
     ) {
-        (mainState.value.fontSize!! + mainState.value.lineHeight!!).sp
+        (mainState.value.fontSize + mainState.value.lineHeight).sp
     }
     val letterSpacing = remember(mainState.value.letterSpacing) {
-        (mainState.value.letterSpacing!! / 100f).em
+        (mainState.value.letterSpacing / 100f).em
     }
     val sidePadding = remember(mainState.value.sidePadding) {
-        (mainState.value.sidePadding!! * 3).dp
+        (mainState.value.sidePadding * 3).dp
     }
     val paragraphHeight = remember(mainState.value.paragraphHeight) {
-        (mainState.value.paragraphHeight!! * 3).dp
+        (mainState.value.paragraphHeight * 3).dp
     }
     val fontStyle = remember(mainState.value.isItalic) {
-        when (mainState.value.isItalic!!) {
+        when (mainState.value.isItalic) {
             true -> FontStyle.Italic
             false -> FontStyle.Normal
         }
@@ -354,7 +354,7 @@ private fun ReaderScreen(
                         }
                     )
                     .readerFastColorPresetChange(
-                        fastColorPresetChangeEnabled = mainState.value.fastColorPresetChange!!,
+                        fastColorPresetChangeEnabled = mainState.value.fastColorPresetChange,
                         isLoading = state.value.loading,
                         toolbarHidden = toolbarHidden,
                         onSettingsEvent = onSettingsEvent,
@@ -389,12 +389,12 @@ private fun ReaderScreen(
                         fontColor = fontColor.value,
                         lineHeight = lineHeight,
                         fontStyle = fontStyle,
-                        textAlignment = mainState.value.textAlignment!!,
-                        fontSize = mainState.value.fontSize!!.sp,
+                        textAlignment = mainState.value.textAlignment,
+                        fontSize = mainState.value.fontSize.sp,
                         letterSpacing = letterSpacing,
                         sidePadding = sidePadding,
-                        paragraphIndentation = mainState.value.paragraphIndentation!!,
-                        doubleClickTranslationEnabled = mainState.value.doubleClickTranslation!!,
+                        paragraphIndentation = mainState.value.paragraphIndentation,
+                        doubleClickTranslationEnabled = mainState.value.doubleClickTranslation,
                         toolbarHidden = toolbarHidden,
                         onEvent = onEvent
                     )

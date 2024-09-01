@@ -18,7 +18,7 @@ fun SidePaddingSetting(
     onMainEvent: (MainEvent) -> Unit
 ) {
     SliderWithTitle(
-        value = state.value.sidePadding!! to "pt",
+        value = state.value.sidePadding to "pt",
         fromValue = 1,
         toValue = 20,
         title = stringResource(id = R.string.side_padding_option),

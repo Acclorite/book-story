@@ -18,7 +18,7 @@ fun ParagraphHeightSetting(
     onMainEvent: (MainEvent) -> Unit
 ) {
     SliderWithTitle(
-        value = state.value.paragraphHeight!! to "pt",
+        value = state.value.paragraphHeight to "pt",
         fromValue = 0,
         toValue = 36,
         title = stringResource(id = R.string.paragraph_height_option),

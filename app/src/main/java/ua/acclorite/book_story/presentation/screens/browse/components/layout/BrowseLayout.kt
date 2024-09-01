@@ -29,7 +29,7 @@ fun BrowseLayout(
     onFavoriteItemClick: (SelectableFile) -> Unit,
     onItemClick: (SelectableFile) -> Unit
 ) {
-    when (mainState.value.browseLayout!!) {
+    when (mainState.value.browseLayout) {
         BrowseLayout.LIST -> {
             BrowseListLayout(
                 state = state,
@@ -43,8 +43,8 @@ fun BrowseLayout(
         BrowseLayout.GRID -> {
             BrowseGridLayout(
                 state = state,
-                gridSize = mainState.value.browseGridSize!!,
-                autoGridSize = mainState.value.browseAutoGridSize!!,
+                gridSize = mainState.value.browseGridSize,
+                autoGridSize = mainState.value.browseAutoGridSize,
                 filteredFiles = filteredFiles,
                 onLongItemClick = onLongItemClick,
                 onFavoriteItemClick = onFavoriteItemClick,

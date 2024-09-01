@@ -75,7 +75,7 @@ fun BrowseTopBar(
     }
     val isScrolled = remember {
         derivedStateOf {
-            when (mainState.value.browseLayout!!) {
+            when (mainState.value.browseLayout) {
                 BrowseLayout.LIST -> state.value.listState.canScrollBackward
                 BrowseLayout.GRID -> state.value.gridState.canScrollBackward
             }
@@ -155,7 +155,7 @@ fun BrowseTopBar(
                 contentDescription = R.string.filter_content_desc,
                 disableOnClick = false,
                 color = animateColorAsState(
-                    if (mainState.value.browseIncludedFilterItems!!.isNotEmpty()) {
+                    if (mainState.value.browseIncludedFilterItems.isNotEmpty()) {
                         MaterialTheme.colorScheme.primary
                     } else LocalContentColor.current,
                     label = ""
@@ -195,7 +195,7 @@ fun BrowseTopBar(
             ) {
                 onEvent(
                     BrowseEvent.OnSelectFiles(
-                        includedFileFormats = mainState.value.browseIncludedFilterItems!!,
+                        includedFileFormats = mainState.value.browseIncludedFilterItems,
                         files = filteredFiles
                     )
                 )

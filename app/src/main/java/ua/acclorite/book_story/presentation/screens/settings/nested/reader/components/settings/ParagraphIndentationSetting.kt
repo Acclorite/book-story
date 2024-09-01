@@ -18,11 +18,11 @@ fun ParagraphIndentationSetting(
     onMainEvent: (MainEvent) -> Unit
 ) {
     SwitchWithTitle(
-        selected = state.value.paragraphIndentation!!,
+        selected = state.value.paragraphIndentation,
         title = stringResource(id = R.string.paragraph_indentation_option)
     ) {
         onMainEvent(
-            MainEvent.OnChangeParagraphIndentation(!state.value.paragraphIndentation!!)
+            MainEvent.OnChangeParagraphIndentation(!state.value.paragraphIndentation)
         )
     }
 }

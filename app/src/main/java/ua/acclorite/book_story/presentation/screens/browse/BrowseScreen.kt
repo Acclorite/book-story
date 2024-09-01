@@ -175,7 +175,7 @@ private fun BrowseScreen(
                             true -> {
                                 onEvent(
                                     BrowseEvent.OnSelectFile(
-                                        includedFileFormats = mainState.value.browseIncludedFilterItems!!,
+                                        includedFileFormats = mainState.value.browseIncludedFilterItems,
                                         file = selectableFile
                                     )
                                 )
@@ -194,7 +194,7 @@ private fun BrowseScreen(
                             false -> {
                                 onEvent(
                                     BrowseEvent.OnSelectFile(
-                                        includedFileFormats = mainState.value.browseIncludedFilterItems!!,
+                                        includedFileFormats = mainState.value.browseIncludedFilterItems,
                                         file = selectableFile
                                     )
                                 )
@@ -211,7 +211,7 @@ private fun BrowseScreen(
                                 } else {
                                     onEvent(
                                         BrowseEvent.OnSelectFile(
-                                            includedFileFormats = mainState.value.browseIncludedFilterItems!!,
+                                            includedFileFormats = mainState.value.browseIncludedFilterItems,
                                             file = selectableFile
                                         )
                                     )

@@ -318,7 +318,7 @@ class MainViewModel @Inject constructor(
 
             is MainEvent.OnChangeBrowseIncludedFilterItem -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    val set = _state.value.browseIncludedFilterItems!!.toMutableSet()
+                    val set = _state.value.browseIncludedFilterItems.toMutableSet()
                     if (!set.add(event.item)) {
                         set.remove(event.item)
                     }
@@ -384,9 +384,9 @@ class MainViewModel @Inject constructor(
             val settings = getAllSettings.execute(viewModelScope)
 
             // All additional execution
-            changeLanguage.execute(settings.language!!)
+            changeLanguage.execute(settings.language)
 
-            if (settings.checkForUpdates == true) {
+            if (settings.checkForUpdates) {
                 viewModelScope.launch(Dispatchers.IO) {
                     checkForUpdates.execute(
                         postNotification = true
@@ -394,9 +394,7 @@ class MainViewModel @Inject constructor(
                 }
             }
 
-            updateStateWithSavedHandle {
-                settings
-            }
+            updateStateWithSavedHandle { settings }
             isSettingsReady.update { true }
         }
 

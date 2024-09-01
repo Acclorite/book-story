@@ -18,13 +18,13 @@ fun DoubleClickTranslationSetting(
     onMainEvent: (MainEvent) -> Unit
 ) {
     SwitchWithTitle(
-        selected = state.value.doubleClickTranslation!!,
+        selected = state.value.doubleClickTranslation,
         title = stringResource(id = R.string.double_click_translation_option),
         description = stringResource(id = R.string.double_click_translation_option_desc),
         onClick = {
             onMainEvent(
                 MainEvent.OnChangeDoubleClickTranslation(
-                    !state.value.doubleClickTranslation!!
+                    !state.value.doubleClickTranslation
                 )
             )
         }

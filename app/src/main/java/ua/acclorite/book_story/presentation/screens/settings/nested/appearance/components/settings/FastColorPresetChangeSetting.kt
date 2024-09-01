@@ -18,13 +18,13 @@ fun FastColorPresetChangeSetting(
     onMainEvent: (MainEvent) -> Unit
 ) {
     SwitchWithTitle(
-        selected = state.value.fastColorPresetChange!!,
+        selected = state.value.fastColorPresetChange,
         title = stringResource(id = R.string.fast_color_preset_change_option),
         description = stringResource(id = R.string.fast_color_preset_change_option_desc),
         onClick = {
             onMainEvent(
                 MainEvent.OnChangeFastColorPresetChange(
-                    !state.value.fastColorPresetChange!!
+                    !state.value.fastColorPresetChange
                 )
             )
         }

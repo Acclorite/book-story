@@ -29,19 +29,19 @@ fun ThemeContrastSetting(
     state: State<MainState>,
     onMainEvent: (MainEvent) -> Unit
 ) {
-    val themeContrastTheme = remember { mutableStateOf(state.value.theme!!) }
+    val themeContrastTheme = remember { mutableStateOf(state.value.theme) }
 
     LaunchedEffect(state.value.theme) {
         if (themeContrastTheme.value != state.value.theme && state.value.theme != Theme.DYNAMIC) {
-            themeContrastTheme.value = state.value.theme!!
+            themeContrastTheme.value = state.value.theme
         }
     }
 
     BookStoryTheme(
         theme = themeContrastTheme.value,
-        isDark = state.value.darkTheme!!.isDark(),
-        isPureDark = state.value.pureDark!!.isPureDark(context = LocalContext.current),
-        themeContrast = state.value.themeContrast!!
+        isDark = state.value.darkTheme.isDark(),
+        isPureDark = state.value.pureDark.isPureDark(context = LocalContext.current),
+        themeContrast = state.value.themeContrast
     ) {
         ExpandingTransition(visible = state.value.theme != Theme.DYNAMIC) {
             SegmentedButtonWithTitle(

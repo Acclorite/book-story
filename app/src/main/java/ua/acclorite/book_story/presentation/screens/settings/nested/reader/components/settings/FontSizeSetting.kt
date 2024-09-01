@@ -18,7 +18,7 @@ fun FontSizeSetting(
     onMainEvent: (MainEvent) -> Unit
 ) {
     SliderWithTitle(
-        value = state.value.fontSize!! to "pt",
+        value = state.value.fontSize to "pt",
         fromValue = 10,
         toValue = 35,
         title = stringResource(id = R.string.font_size_option),

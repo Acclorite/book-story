@@ -20,12 +20,12 @@ fun DoublePressExitSetting(
     onMainEvent: (MainEvent) -> Unit
 ) {
     SwitchWithTitle(
-        selected = state.value.doublePressExit!!,
+        selected = state.value.doublePressExit,
         title = stringResource(id = R.string.double_press_exit_option),
         description = stringResource(id = R.string.double_press_exit_option_desc)
     ) {
         onMainEvent(
-            MainEvent.OnChangeDoublePressExit(!state.value.doublePressExit!!)
+            MainEvent.OnChangeDoublePressExit(!state.value.doublePressExit)
         )
     }
 }

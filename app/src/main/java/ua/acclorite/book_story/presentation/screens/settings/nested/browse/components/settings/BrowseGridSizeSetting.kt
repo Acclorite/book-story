@@ -21,10 +21,10 @@ fun BrowseGridSizeSetting(
 ) {
     ExpandingTransition(visible = state.value.browseLayout == BrowseLayout.GRID) {
         SliderWithTitle(
-            value = state.value.browseGridSize!!
+            value = state.value.browseGridSize
                     to " ${stringResource(R.string.browse_grid_size_per_row)}",
             valuePlaceholder = stringResource(id = R.string.browse_grid_size_auto),
-            showPlaceholder = state.value.browseAutoGridSize!!,
+            showPlaceholder = state.value.browseAutoGridSize,
             fromValue = 0,
             toValue = 10,
             title = stringResource(id = R.string.browse_grid_size_option),

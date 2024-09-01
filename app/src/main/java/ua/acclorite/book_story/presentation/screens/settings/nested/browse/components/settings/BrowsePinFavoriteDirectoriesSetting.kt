@@ -21,13 +21,13 @@ fun BrowsePinFavoriteDirectoriesSetting(
 ) {
     ExpandingTransition(visible = state.value.browseFilesStructure == BrowseFilesStructure.DIRECTORIES) {
         SwitchWithTitle(
-            selected = state.value.browsePinFavoriteDirectories!!,
+            selected = state.value.browsePinFavoriteDirectories,
             title = stringResource(id = R.string.browse_pin_favorite_directories_option),
             description = stringResource(id = R.string.browse_pin_favorite_directories_option_desc)
         ) {
             onMainEvent(
                 MainEvent.OnChangeBrowsePinFavoriteDirectories(
-                    !state.value.browsePinFavoriteDirectories!!
+                    !state.value.browsePinFavoriteDirectories
                 )
             )
         }

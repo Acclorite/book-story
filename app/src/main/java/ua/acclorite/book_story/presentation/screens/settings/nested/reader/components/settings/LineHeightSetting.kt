@@ -18,7 +18,7 @@ fun LineHeightSetting(
     onMainEvent: (MainEvent) -> Unit
 ) {
     SliderWithTitle(
-        value = state.value.lineHeight!! to "pt",
+        value = state.value.lineHeight to "pt",
         fromValue = 1,
         toValue = 24,
         title = stringResource(id = R.string.line_height_option),

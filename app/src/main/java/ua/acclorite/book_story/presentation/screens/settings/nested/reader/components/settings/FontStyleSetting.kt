@@ -38,7 +38,7 @@ fun FontStyleSetting(
                     fontFamily = fontFamily.font,
                     fontStyle = FontStyle.Normal
                 ),
-                selected = !state.value.isItalic!!
+                selected = !state.value.isItalic
             ),
             ButtonItem(
                 id = "italic",
@@ -47,7 +47,7 @@ fun FontStyleSetting(
                     fontFamily = fontFamily.font,
                     fontStyle = FontStyle.Italic
                 ),
-                selected = state.value.isItalic!!
+                selected = state.value.isItalic
             ),
         ),
         onClick = {

@@ -59,13 +59,13 @@ fun CheckForUpdatesSetting(
     }
 
     SwitchWithTitle(
-        selected = state.value.checkForUpdates!!,
+        selected = state.value.checkForUpdates,
         title = stringResource(id = R.string.check_for_updates_option),
         description = stringResource(id = R.string.check_for_updates_option_desc)
     ) {
         onSettingsEvent(
             SettingsEvent.OnGeneralChangeCheckForUpdates(
-                enable = !state.value.checkForUpdates!!,
+                enable = !state.value.checkForUpdates,
                 activity = activity,
                 notificationsPermissionState = notificationsPermissionState,
                 onChangeCheckForUpdates = {

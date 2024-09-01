@@ -288,7 +288,7 @@ private fun LibraryScreen(
             return@BackHandler
         }
 
-        if (shouldExit || !mainState.value.doublePressExit!!) {
+        if (shouldExit || !mainState.value.doublePressExit) {
             activity.finish()
             return@BackHandler
         }

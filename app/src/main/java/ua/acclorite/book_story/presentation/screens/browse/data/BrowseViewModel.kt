@@ -601,7 +601,7 @@ class BrowseViewModel @Inject constructor(
         fun <T> thenCompareBy(
             selector: (T) -> Comparable<*>?
         ): Comparator<T> {
-            return if (mainState.browseSortOrderDescending!!) {
+            return if (mainState.browseSortOrderDescending) {
                 compareByDescending(selector)
             } else {
                 compareBy(selector)
@@ -609,7 +609,7 @@ class BrowseViewModel @Inject constructor(
         }
 
         fun List<SelectableFile>.filterFiles(): List<SelectableFile> {
-            if (mainState.browseIncludedFilterItems!!.isEmpty()) {
+            if (mainState.browseIncludedFilterItems.isEmpty()) {
                 return this
             }
 
@@ -649,7 +649,7 @@ class BrowseViewModel @Inject constructor(
                 if (
                     Environment.getExternalStorageDirectory() == _state.value.selectedDirectory
                     && it.isFavorite
-                    && mainState.browsePinFavoriteDirectories!!
+                    && mainState.browsePinFavoriteDirectories
                 ) {
                     return@filter true
                 }
@@ -658,20 +658,20 @@ class BrowseViewModel @Inject constructor(
             }
             .sortedWith(
                 compareByDescending<SelectableFile> {
-                    when (mainState.browsePinFavoriteDirectories!!) {
+                    when (mainState.browsePinFavoriteDirectories) {
                         true -> it.isFavorite
                         false -> true
                     }
                 }.then(
                     compareByDescending {
-                        when (mainState.browseSortOrder!! != BrowseSortOrder.FILE_TYPE) {
+                        when (mainState.browseSortOrder != BrowseSortOrder.FILE_TYPE) {
                             true -> it.isDirectory
                             false -> true
                         }
                     }
                 ).then(
                     thenCompareBy {
-                        when (mainState.browseSortOrder!!) {
+                        when (mainState.browseSortOrder) {
                             BrowseSortOrder.NAME -> {
                                 it.fileOrDirectory.name.lowercase().trim()
                             }

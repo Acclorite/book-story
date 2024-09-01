@@ -91,9 +91,9 @@ fun ThemeSetting(
 
                 ThemeSettingItem(
                     theme = themeEntry,
-                    darkTheme = state.value.darkTheme!!.isDark(),
-                    themeContrast = state.value.themeContrast!!,
-                    isPureDark = state.value.pureDark!!.isPureDark(context = LocalContext.current),
+                    darkTheme = state.value.darkTheme.isDark(),
+                    themeContrast = state.value.themeContrast,
+                    isPureDark = state.value.pureDark.isPureDark(context = LocalContext.current),
                     selected = state.value.theme == themeEntry.first
                 ) {
                     onMainEvent(MainEvent.OnChangeTheme(themeEntry.first.toString()))

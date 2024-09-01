@@ -41,13 +41,13 @@ fun LazyListScope.BrowseSortOrderSetting(
     customItems(BrowseSortOrder.entries, key = { it.name }) {
         SortItem(
             item = it,
-            isSelected = state.value.browseSortOrder!! == it,
-            isDescending = state.value.browseSortOrderDescending!!
+            isSelected = state.value.browseSortOrder == it,
+            isDescending = state.value.browseSortOrderDescending
         ) {
-            if (state.value.browseSortOrder!! == it) {
+            if (state.value.browseSortOrder == it) {
                 onMainEvent(
                     MainEvent.OnChangeBrowseSortOrderDescending(
-                        !state.value.browseSortOrderDescending!!
+                        !state.value.browseSortOrderDescending
                     )
                 )
             } else {

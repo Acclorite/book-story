@@ -18,7 +18,7 @@ fun LetterSpacingSetting(
     onMainEvent: (MainEvent) -> Unit
 ) {
     SliderWithTitle(
-        value = state.value.letterSpacing!! to "pt",
+        value = state.value.letterSpacing to "pt",
         fromValue = -8,
         toValue = 16,
         title = stringResource(id = R.string.letter_spacing_option),

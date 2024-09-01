@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Parcelable
 import androidx.annotation.Keep
 import androidx.compose.runtime.Immutable
+import androidx.datastore.preferences.core.Preferences
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.DataStoreConstants
@@ -37,169 +38,179 @@ import java.util.Locale
 @Parcelize
 data class MainState(
     // General Settings
-    val language: String? = null,
-    val theme: Theme? = null,
-    val darkTheme: DarkTheme? = null,
-    val pureDark: PureDark? = null,
-    val themeContrast: ThemeContrast? = null,
-    val showStartScreen: Boolean? = null,
-    val checkForUpdates: Boolean? = null,
-    val doublePressExit: Boolean? = null,
+    val language: String = provideDefaultValue {
+        val locale = Locale.getDefault().language.take(2)
+        Constants.LANGUAGES.any { locale == it.first }.run {
+            if (this) locale
+            else "en"// Default language.
+        }
+    },
+    val theme: Theme = provideDefaultValue {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Theme.DYNAMIC
+        else Theme.BLUE
+    },
+    val darkTheme: DarkTheme = provideDefaultValue { DarkTheme.FOLLOW_SYSTEM },
+    val pureDark: PureDark = provideDefaultValue { PureDark.OFF },
+    val themeContrast: ThemeContrast = provideDefaultValue { ThemeContrast.STANDARD },
+    val showStartScreen: Boolean = provideDefaultValue { true },
+    val checkForUpdates: Boolean = provideDefaultValue { false },
+    val doublePressExit: Boolean = provideDefaultValue { false },
 
     // Reader Settings
-    val fontFamily: String? = null,
-    val isItalic: Boolean? = null,
-    val fontSize: Int? = null,
-    val lineHeight: Int? = null,
-    val paragraphHeight: Int? = null,
-    val paragraphIndentation: Boolean? = null,
-    val sidePadding: Int? = null,
-    val doubleClickTranslation: Boolean? = null,
-    val fastColorPresetChange: Boolean? = null,
-    val textAlignment: ReaderTextAlignment? = null,
-    val letterSpacing: Int? = null,
+    val fontFamily: String = provideDefaultValue { Constants.FONTS[0].id },
+    val isItalic: Boolean = provideDefaultValue { false },
+    val fontSize: Int = provideDefaultValue { 16 },
+    val lineHeight: Int = provideDefaultValue { 4 },
+    val paragraphHeight: Int = provideDefaultValue { 8 },
+    val paragraphIndentation: Boolean = provideDefaultValue { false },
+    val sidePadding: Int = provideDefaultValue { 6 },
+    val doubleClickTranslation: Boolean = provideDefaultValue { false },
+    val fastColorPresetChange: Boolean = provideDefaultValue { true },
+    val textAlignment: ReaderTextAlignment = provideDefaultValue { ReaderTextAlignment.START },
+    val letterSpacing: Int = provideDefaultValue { 0 },
 
     // Browse Settings
-    val browseFilesStructure: BrowseFilesStructure? = null,
-    val browseLayout: BrowseLayout? = null,
-    val browseAutoGridSize: Boolean? = null,
-    val browseGridSize: Int? = null,
-    val browsePinFavoriteDirectories: Boolean? = null,
-    val browseSortOrder: BrowseSortOrder? = null,
-    val browseSortOrderDescending: Boolean? = null,
-    val browseIncludedFilterItems: List<String>? = null,
+    val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
+        BrowseFilesStructure.DIRECTORIES
+    },
+    val browseLayout: BrowseLayout = provideDefaultValue { BrowseLayout.LIST },
+    val browseAutoGridSize: Boolean = provideDefaultValue { true },
+    val browseGridSize: Int = provideDefaultValue { 0 },
+    val browsePinFavoriteDirectories: Boolean = provideDefaultValue { true },
+    val browseSortOrder: BrowseSortOrder = provideDefaultValue { BrowseSortOrder.LAST_MODIFIED },
+    val browseSortOrderDescending: Boolean = provideDefaultValue { true },
+    val browseIncludedFilterItems: List<String> = provideDefaultValue { emptyList() },
 ) : Parcelable {
     companion object {
         /**
          * Initializes [MainState] by given [Map].
+         * If no value provided in [data], assigns default value.
          */
         fun initialize(data: Map<String, Any>): MainState {
-            DataStoreConstants.apply {
-                val language: String = data[LANGUAGE.name] as? String ?: if (
-                    Constants.LANGUAGES.any { Locale.getDefault().language.take(2) == it.first }
-                ) {
-                    Locale.getDefault().language.take(2)
-                } else {
-                    "en"
-                }
+            val defaultState = MainState()
+            fun <V, T> provideValue(
+                key: Preferences.Key<T>,
+                convert: T.() -> V = { this as V },
+                default: MainState.() -> V
+            ): V {
+                return (data[key.name] as? T)?.convert() ?: defaultState.default()
+            }
 
-                val theme: String = data[THEME.name] as? String ?: if (
-                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                ) Theme.DYNAMIC.name else Theme.BLUE.name
+            return DataStoreConstants.run {
+                MainState(
+                    language = provideValue(
+                        LANGUAGE
+                    ) { language },
 
-                val darkTheme: String = data[DARK_THEME.name] as? String
-                    ?: DarkTheme.FOLLOW_SYSTEM.name
+                    theme = provideValue(
+                        THEME, convert = { toTheme() }
+                    ) { theme },
 
-                val pureDark: String = data[PURE_DARK.name] as? String
-                    ?: PureDark.OFF.name
+                    darkTheme = provideValue(
+                        DARK_THEME, convert = { toDarkTheme() }
+                    ) { darkTheme },
 
-                val themeContrast: String = data[THEME_CONTRAST.name] as? String
-                    ?: ThemeContrast.STANDARD.name
+                    pureDark = provideValue(
+                        PURE_DARK, convert = { toPureDark() }
+                    ) { pureDark },
 
-                val showStartScreen: Boolean = data[SHOW_START_SCREEN.name] as? Boolean
-                    ?: true
+                    themeContrast = provideValue(
+                        THEME_CONTRAST, convert = { toThemeContrast() }
+                    ) { themeContrast },
 
-                val fontFamily: String = data[FONT.name] as? String
-                    ?: Constants.FONTS[0].id
+                    showStartScreen = provideValue(
+                        SHOW_START_SCREEN
+                    ) { showStartScreen },
 
-                val isItalic: Boolean = data[IS_ITALIC.name] as? Boolean
-                    ?: false
+                    fontFamily = provideValue(
+                        FONT
+                    ) { fontFamily },
 
-                val fontSize: Int = data[FONT_SIZE.name] as? Int
-                    ?: 16
+                    isItalic = provideValue(
+                        IS_ITALIC
+                    ) { isItalic },
 
-                val lineHeight: Int = data[LINE_HEIGHT.name] as? Int
-                    ?: 4
+                    fontSize = provideValue(
+                        FONT_SIZE
+                    ) { fontSize },
 
-                val paragraphHeight: Int = data[PARAGRAPH_HEIGHT.name] as? Int
-                    ?: 8
+                    lineHeight = provideValue(
+                        LINE_HEIGHT
+                    ) { lineHeight },
 
-                val paragraphIndentation: Boolean = data[PARAGRAPH_INDENTATION.name] as? Boolean
-                    ?: false
+                    paragraphHeight = provideValue(
+                        PARAGRAPH_HEIGHT
+                    ) { paragraphHeight },
 
-                val checkForUpdates: Boolean = data[CHECK_FOR_UPDATES.name] as? Boolean
-                    ?: false
+                    paragraphIndentation = provideValue(
+                        PARAGRAPH_INDENTATION
+                    ) { paragraphIndentation },
 
-                val sidePadding: Int = data[SIDE_PADDING.name] as? Int
-                    ?: 6
+                    checkForUpdates = provideValue(
+                        CHECK_FOR_UPDATES
+                    ) { checkForUpdates },
 
-                val doubleClickTranslation: Boolean =
-                    data[DOUBLE_CLICK_TRANSLATION.name] as? Boolean
-                        ?: false
+                    sidePadding = provideValue(
+                        SIDE_PADDING
+                    ) { sidePadding },
 
-                val fastColorPresetChange: Boolean =
-                    data[FAST_COLOR_PRESET_CHANGE.name] as? Boolean
-                        ?: true
+                    doubleClickTranslation = provideValue(
+                        DOUBLE_CLICK_TRANSLATION
+                    ) { doubleClickTranslation },
 
-                val browseFilesStructure: String = data[BROWSE_FILES_STRUCTURE.name] as? String
-                    ?: BrowseFilesStructure.DIRECTORIES.name
+                    fastColorPresetChange = provideValue(
+                        FAST_COLOR_PRESET_CHANGE
+                    ) { fastColorPresetChange },
 
-                val browseLayout: String = data[BROWSE_LAYOUT.name] as? String
-                    ?: BrowseLayout.LIST.name
+                    browseFilesStructure = provideValue(
+                        BROWSE_FILES_STRUCTURE, convert = { toFilesStructure() }
+                    ) { browseFilesStructure },
 
-                val browseAutoGridSize: Boolean =
-                    data[BROWSE_AUTO_GRID_SIZE.name] as? Boolean
-                        ?: true
+                    browseLayout = provideValue(
+                        BROWSE_LAYOUT, convert = { toBrowseLayout() }
+                    ) { browseLayout },
 
-                val browseGridSize: Int =
-                    data[BROWSE_GRID_SIZE.name] as? Int
-                        ?: 0
+                    browseAutoGridSize = provideValue(
+                        BROWSE_AUTO_GRID_SIZE
+                    ) { browseAutoGridSize },
 
-                val browsePinFavoriteDirectories: Boolean =
-                    data[BROWSE_PIN_FAVORITE_DIRECTORIES.name] as? Boolean
-                        ?: true
+                    browseGridSize = provideValue(
+                        BROWSE_GRID_SIZE
+                    ) { browseGridSize },
 
-                val browseSortOrder: String =
-                    data[BROWSE_SORT_ORDER.name] as? String
-                        ?: BrowseSortOrder.LAST_MODIFIED.name
+                    browsePinFavoriteDirectories = provideValue(
+                        BROWSE_PIN_FAVORITE_DIRECTORIES
+                    ) { browsePinFavoriteDirectories },
 
-                val browseSortOrderDescending: Boolean =
-                    data[BROWSE_SORT_ORDER_DESCENDING.name] as? Boolean
-                        ?: true
+                    browseSortOrder = provideValue(
+                        BROWSE_SORT_ORDER, convert = { toBrowseSortOrder() }
+                    ) { browseSortOrder },
 
-                val browseIncludedFilterItems =
-                    (data[BROWSE_INCLUDED_FILTER_ITEMS.name] as? Set<String>)?.toList()
-                        ?: emptyList()
+                    browseSortOrderDescending = provideValue(
+                        BROWSE_SORT_ORDER_DESCENDING
+                    ) { browseSortOrderDescending },
 
-                val textAlignment = data[TEXT_ALIGNMENT.name] as? String
-                    ?: ReaderTextAlignment.START.name
+                    browseIncludedFilterItems = provideValue(
+                        BROWSE_INCLUDED_FILTER_ITEMS, convert = { toList() }
+                    ) { browseIncludedFilterItems },
 
-                val doublePressExit = data[DOUBLE_PRESS_EXIT.name] as? Boolean
-                    ?: false
+                    textAlignment = provideValue(
+                        TEXT_ALIGNMENT, convert = { toTextAlignment() }
+                    ) { textAlignment },
 
-                val letterSpacing = data[LETTER_SPACING.name] as? Int
-                    ?: 0
+                    doublePressExit = provideValue(
+                        DOUBLE_PRESS_EXIT
+                    ) { doublePressExit },
 
-                return MainState(
-                    language = language,
-                    theme = theme.toTheme(),
-                    darkTheme = darkTheme.toDarkTheme(),
-                    pureDark = pureDark.toPureDark(),
-                    themeContrast = themeContrast.toThemeContrast(),
-                    showStartScreen = showStartScreen,
-                    fontFamily = fontFamily,
-                    isItalic = isItalic,
-                    fontSize = fontSize,
-                    lineHeight = lineHeight,
-                    paragraphHeight = paragraphHeight,
-                    paragraphIndentation = paragraphIndentation,
-                    checkForUpdates = checkForUpdates,
-                    sidePadding = sidePadding,
-                    doubleClickTranslation = doubleClickTranslation,
-                    fastColorPresetChange = fastColorPresetChange,
-                    browseFilesStructure = browseFilesStructure.toFilesStructure(),
-                    browseLayout = browseLayout.toBrowseLayout(),
-                    browseAutoGridSize = browseAutoGridSize,
-                    browseGridSize = browseGridSize,
-                    browsePinFavoriteDirectories = browsePinFavoriteDirectories,
-                    browseSortOrder = browseSortOrder.toBrowseSortOrder(),
-                    browseSortOrderDescending = browseSortOrderDescending,
-                    browseIncludedFilterItems = browseIncludedFilterItems,
-                    textAlignment = textAlignment.toTextAlignment(),
-                    doublePressExit = doublePressExit,
-                    letterSpacing = letterSpacing,
+                    letterSpacing = provideValue(
+                        LETTER_SPACING
+                    ) { letterSpacing },
                 )
             }
         }
     }
+}
+
+private fun <D> provideDefaultValue(calculation: () -> D): D {
+    return calculation()
 }

@@ -109,13 +109,13 @@ class Activity : AppCompatActivity() {
 
             if (isLoaded.value) {
                 BookStoryTheme(
-                    theme = state.value.theme!!,
-                    isDark = state.value.darkTheme!!.isDark(),
-                    isPureDark = state.value.pureDark!!.isPureDark(this),
-                    themeContrast = state.value.themeContrast!!
+                    theme = state.value.theme,
+                    isDark = state.value.darkTheme.isDark(),
+                    isPureDark = state.value.pureDark.isPureDark(this),
+                    themeContrast = state.value.themeContrast
                 ) {
                     NavigationHost(
-                        startScreen = if (state.value.showStartScreen!!) Screen.Start
+                        startScreen = if (state.value.showStartScreen) Screen.Start
                         else Screen.Library
                     ) {
                         navigation(
