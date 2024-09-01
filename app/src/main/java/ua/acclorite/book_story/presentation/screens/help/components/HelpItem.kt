@@ -72,13 +72,13 @@ fun HelpItem(
     Column(
         Modifier
             .fillMaxWidth()
-            .clip(MaterialTheme.shapes.large)
+            .clip(MaterialTheme.shapes.extraLarge)
             .padding(horizontal = 8.dp, vertical = 4.dp)
             .background(
                 animatedBackgroundColor.value,
-                MaterialTheme.shapes.large
+                MaterialTheme.shapes.extraLarge
             )
-            .padding(vertical = 16.dp, horizontal = 18.dp)
+            .padding(vertical = 18.dp, horizontal = 18.dp)
     ) {
         Row(
             modifier = Modifier
@@ -99,10 +99,10 @@ fun HelpItem(
                 imageVector = Icons.Outlined.ArrowDropUp,
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier
-                    .clip(MaterialTheme.shapes.medium)
+                    .clip(MaterialTheme.shapes.large)
                     .background(
                         animatedArrowContainerColor.value,
-                        MaterialTheme.shapes.medium
+                        MaterialTheme.shapes.large
                     )
                     .padding(8.dp)
                     .size(24.dp)
@@ -115,9 +115,9 @@ fun HelpItem(
             visible = showDescription.value
         ) {
             Column(Modifier.fillMaxWidth()) {
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(9.dp))
                 HorizontalDivider()
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(9.dp))
                 Text(
                     text = buildAnnotatedString {
                         helpTip.description.invoke(
