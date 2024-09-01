@@ -58,13 +58,13 @@ fun HelpItem(
     )
     val animatedBackgroundColor = animateColorAsState(
         targetValue = if (showDescription.value) {
-            MaterialTheme.colorScheme.surfaceContainer
+            MaterialTheme.colorScheme.surfaceContainerHigh
         } else MaterialTheme.colorScheme.surfaceContainerLow,
         animationSpec = tween(400)
     )
     val animatedArrowContainerColor = animateColorAsState(
         targetValue = if (showDescription.value) {
-            MaterialTheme.colorScheme.surfaceContainerHigh
+            MaterialTheme.colorScheme.surfaceContainerHighest
         } else MaterialTheme.colorScheme.surfaceContainer,
         animationSpec = tween(400)
     )
