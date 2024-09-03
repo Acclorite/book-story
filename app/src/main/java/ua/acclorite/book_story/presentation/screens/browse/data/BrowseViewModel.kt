@@ -9,7 +9,6 @@ import android.os.Environment
 import android.provider.Settings
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.grid.LazyGridState
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
@@ -29,6 +28,7 @@ import ua.acclorite.book_story.domain.use_case.GetBookFromFile
 import ua.acclorite.book_story.domain.use_case.GetFilesFromDevice
 import ua.acclorite.book_story.domain.use_case.InsertBook
 import ua.acclorite.book_story.domain.use_case.UpdateFavoriteDirectory
+import ua.acclorite.book_story.domain.util.BaseViewModel
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.data.launchActivity
@@ -43,10 +43,10 @@ class BrowseViewModel @Inject constructor(
     private val getFilesFromDevice: GetFilesFromDevice,
     private val insertBook: InsertBook,
     private val updateFavoriteDirectory: UpdateFavoriteDirectory,
-) : ViewModel() {
+) : BaseViewModel<BrowseState, BrowseEvent>() {
 
     private val _state = MutableStateFlow(BrowseState())
-    val state = _state.asStateFlow()
+    override val state = _state.asStateFlow()
 
     private var searchQueryJob: Job? = null
     private var refreshListJob: Job? = null
@@ -67,7 +67,7 @@ class BrowseViewModel @Inject constructor(
         }
     }
 
-    fun onEvent(event: BrowseEvent) {
+    override fun onEvent(event: BrowseEvent) {
         when (event) {
             is BrowseEvent.OnStoragePermissionRequest -> {
                 val legacyStoragePermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R

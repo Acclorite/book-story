@@ -1,7 +1,6 @@
 package ua.acclorite.book_story.presentation.data
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +15,7 @@ import ua.acclorite.book_story.domain.use_case.ChangeLanguage
 import ua.acclorite.book_story.domain.use_case.CheckForUpdates
 import ua.acclorite.book_story.domain.use_case.GetAllSettings
 import ua.acclorite.book_story.domain.use_case.SetDatastore
+import ua.acclorite.book_story.domain.util.BaseViewModel
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.DataStoreConstants
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
@@ -41,7 +41,7 @@ class MainViewModel @Inject constructor(
     private val changeLanguage: ChangeLanguage,
     private val checkForUpdates: CheckForUpdates,
     private val getAllSettings: GetAllSettings
-) : ViewModel() {
+) : BaseViewModel<MainState, MainEvent>() {
 
     private val _isReady = MutableStateFlow(false)
     val isReady = _isReady.asStateFlow()
@@ -52,9 +52,9 @@ class MainViewModel @Inject constructor(
     private val _state: MutableStateFlow<MainState> = MutableStateFlow(
         stateHandle[Constants.MAIN_STATE] ?: MainState()
     )
-    val state = _state.asStateFlow()
+    override val state = _state.asStateFlow()
 
-    fun onEvent(event: MainEvent) {
+    override fun onEvent(event: MainEvent) {
         when (event) {
             is MainEvent.OnChangeLanguage -> {
                 viewModelScope.launch(Dispatchers.Main) {

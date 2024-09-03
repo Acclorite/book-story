@@ -4,30 +4,28 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.DriveFileMove
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Category
+import ua.acclorite.book_story.presentation.components.LocalHistoryViewModel
+import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithLazyColumn
 import ua.acclorite.book_story.presentation.components.custom_dialog.SelectableDialogItem
 import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryState
 
 /**
  * Move dialog. Moves all selected books to the selected category.
  */
 @Composable
-fun LibraryMoveDialog(
-    state: State<LibraryState>,
-    onEvent: (LibraryEvent) -> Unit,
-    onHistoryLoadEvent: (HistoryEvent.OnLoadList) -> Unit,
-    pagerState: PagerState
-) {
+fun LibraryMoveDialog(pagerState: PagerState) {
     val context = LocalContext.current
+    val state = LocalLibraryViewModel.current.state
+    val onEvent = LocalLibraryViewModel.current.onEvent
+    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
 
     CustomDialogWithLazyColumn(
         title = stringResource(id = R.string.move_books),
@@ -44,7 +42,7 @@ fun LibraryMoveDialog(
                 LibraryEvent.OnMoveBooks(
                     pagerState,
                     refreshList = {
-                        onHistoryLoadEvent(HistoryEvent.OnLoadList)
+                        onHistoryEvent(HistoryEvent.OnLoadList)
                     }
                 )
             )

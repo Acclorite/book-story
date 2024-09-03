@@ -13,20 +13,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.GoBackButton
+import ua.acclorite.book_story.presentation.components.LocalBookInfoViewModel
+import ua.acclorite.book_story.presentation.components.LocalHistoryViewModel
+import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
-import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
@@ -35,26 +36,22 @@ import ua.acclorite.book_story.presentation.ui.Transitions
 /**
  * Book Info Top Bar.
  *
- * @param state [BookInfoState].
- * @param onEvent [BookInfoEvent] callback.
- * @param onLibraryEvent [LibraryEvent] callback.
- * @param onHistoryEvent [HistoryEvent] callback.
- * @param onNavigate Navigator callback.
  * @param listState [LazyListState].
  * @param snackbarState [SnackbarHostState].
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookInfoTopBar(
-    state: State<BookInfoState>,
-    onEvent: (BookInfoEvent) -> Unit,
-    onLibraryEvent: (LibraryEvent) -> Unit,
-    onHistoryEvent: (HistoryEvent) -> Unit,
-    onNavigate: OnNavigate,
     listState: LazyListState,
     snackbarState: SnackbarHostState
 ) {
+    val state = LocalBookInfoViewModel.current.state
+    val onEvent = LocalBookInfoViewModel.current.onEvent
+    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
+    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
+    val onNavigate = LocalOnNavigate.current
     val context = LocalContext.current
+
     val firstVisibleItemIndex by remember { derivedStateOf { listState.firstVisibleItemIndex } }
 
     AnimatedTopAppBar(
@@ -125,11 +122,7 @@ fun BookInfoTopBar(
                             !state.value.editAuthor &&
                             !state.value.editDescription
                 ) {
-                    BookInfoMoreDropDown(
-                        state = state,
-                        onEvent = onEvent,
-                        snackbarState = snackbarState
-                    )
+                    BookInfoMoreDropDown(snackbarState = snackbarState)
                 }
                 CustomAnimatedVisibility(
                     visible = state.value.editTitle ||
@@ -175,7 +168,8 @@ fun BookInfoTopBar(
                                     onLibraryEvent(LibraryEvent.OnUpdateBook(it))
                                     onHistoryEvent(HistoryEvent.OnUpdateBook(it))
                                 }
-                            ))
+                            )
+                        )
                     }
                 }
             }

@@ -3,7 +3,6 @@ package ua.acclorite.book_story.presentation.screens.settings.data
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
@@ -24,6 +23,7 @@ import ua.acclorite.book_story.domain.use_case.GetColorPresets
 import ua.acclorite.book_story.domain.use_case.ReorderColorPresets
 import ua.acclorite.book_story.domain.use_case.SelectColorPreset
 import ua.acclorite.book_story.domain.use_case.UpdateColorPreset
+import ua.acclorite.book_story.domain.util.BaseViewModel
 import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.ID
 import ua.acclorite.book_story.domain.util.UIText
@@ -39,10 +39,10 @@ class SettingsViewModel @Inject constructor(
     private val deleteColorPreset: DeleteColorPreset,
     private val selectColorPreset: SelectColorPreset,
     private val reorderColorPresets: ReorderColorPresets
-) : ViewModel() {
+) : BaseViewModel<SettingsState, SettingsEvent>() {
 
     private val _state = MutableStateFlow(SettingsState())
-    val state = _state.asStateFlow()
+    override val state = _state.asStateFlow()
 
     private val _isReady = MutableStateFlow(false)
     val isReady = _isReady.asStateFlow()
@@ -93,7 +93,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     @Suppress("LABEL_NAME_CLASH")
-    fun onEvent(event: SettingsEvent) {
+    override fun onEvent(event: SettingsEvent) {
         when (event) {
             is SettingsEvent.OnGeneralChangeCheckForUpdates -> {
                 if (!event.enable) {

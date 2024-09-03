@@ -36,7 +36,7 @@ sealed class ReaderEvent {
 
     data class OnScroll(val progress: Float) : ReaderEvent()
     data object OnShowHideSettingsBottomSheet : ReaderEvent()
-    data class OnScrollToSettingsPage(val page: Int, val pagerState: PagerState) : ReaderEvent()
+    data class OnScrollToSettingsPage(val page: Int, val pagerState: PagerState?) : ReaderEvent()
     data class OnMoveBookToAlreadyRead(
         val context: ComponentActivity,
         val onUpdateCategories: (Book) -> Unit,

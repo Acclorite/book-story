@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -17,8 +16,6 @@ import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CategoryTitle
-import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.FontFamilySetting
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.FontSizeSetting
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.FontStyleSetting
@@ -29,8 +26,6 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.reader.compo
  * Contains all settings from Font.
  */
 fun LazyListScope.FontSubcategory(
-    state: State<MainState>,
-    onMainEvent: (MainEvent) -> Unit,
     titleColor: @Composable () -> Color = { MaterialTheme.colorScheme.primary },
     title: @Composable () -> String = { stringResource(id = R.string.font_reader_settings) },
     showTitle: Boolean = true,
@@ -56,31 +51,19 @@ fun LazyListScope.FontSubcategory(
     }
 
     item {
-        FontFamilySetting(
-            state = state,
-            onMainEvent = onMainEvent
-        )
+        FontFamilySetting()
     }
 
     item {
-        FontStyleSetting(
-            state = state,
-            onMainEvent = onMainEvent
-        )
+        FontStyleSetting()
     }
 
     item {
-        FontSizeSetting(
-            state = state,
-            onMainEvent = onMainEvent
-        )
+        FontSizeSetting()
     }
 
     item {
-        LetterSpacingSetting(
-            state = state,
-            onMainEvent = onMainEvent
-        )
+        LetterSpacingSetting()
     }
 
     item {

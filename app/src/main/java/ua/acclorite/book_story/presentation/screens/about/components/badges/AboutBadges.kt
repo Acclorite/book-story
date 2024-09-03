@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.Constants
+import ua.acclorite.book_story.presentation.components.LocalAboutViewModel
 import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
@@ -21,14 +22,11 @@ import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
  * About Badges.
  * Links all ways to contact me.
  *
- * @param onEvent [AboutEvent] callback.
  * @param verticalPadding Vertical item padding.
  */
 @Composable
-fun AboutBadges(
-    onEvent: (AboutEvent) -> Unit,
-    verticalPadding: Dp = 18.dp
-) {
+fun AboutBadges(verticalPadding: Dp = 18.dp) {
+    val onEvent = LocalAboutViewModel.current.onEvent
     val context = LocalContext.current
 
     Box(

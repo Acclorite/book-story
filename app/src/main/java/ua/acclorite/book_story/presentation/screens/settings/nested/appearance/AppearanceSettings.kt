@@ -13,53 +13,25 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
-import ua.acclorite.book_story.presentation.data.LocalNavigator
-import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
-import ua.acclorite.book_story.presentation.data.MainViewModel
-import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
-import ua.acclorite.book_story.presentation.screens.settings.data.SettingsState
-import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.AppearanceSettingsCategory
 
 @Composable
 fun AppearanceSettingsRoot() {
-    val navigator = LocalNavigator.current
-    val mainViewModel: MainViewModel = hiltViewModel()
-    val settingsViewModel: SettingsViewModel = hiltViewModel()
-
-    val state = mainViewModel.state.collectAsState()
-    val settingsState = settingsViewModel.state.collectAsState()
-
-    AppearanceSettings(
-        state = state,
-        settingsState = settingsState,
-        onNavigate = { navigator.it() },
-        onMainEvent = mainViewModel::onEvent,
-        onSettingsEvent = settingsViewModel::onEvent
-    )
+    AppearanceSettings()
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun AppearanceSettings(
-    state: State<MainState>,
-    settingsState: State<SettingsState>,
-    onNavigate: OnNavigate,
-    onMainEvent: (MainEvent) -> Unit,
-    onSettingsEvent: (SettingsEvent) -> Unit
-) {
+private fun AppearanceSettings() {
+    val onNavigate = LocalOnNavigate.current
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
 
     Scaffold(
@@ -91,12 +63,7 @@ private fun AppearanceSettings(
                 .padding(top = paddingValues.calculateTopPadding()),
             state = scrollState.second
         ) {
-            AppearanceSettingsCategory(
-                state = state,
-                settingsState = settingsState,
-                onMainEvent = onMainEvent,
-                onSettingsEvent = onSettingsEvent
-            )
+            AppearanceSettingsCategory()
         }
     }
 }

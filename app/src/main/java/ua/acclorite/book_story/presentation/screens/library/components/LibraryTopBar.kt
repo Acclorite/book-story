@@ -20,7 +20,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,25 +34,21 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.CustomSearchTextField
+import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.components.MoreDropDown
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryState
 
 /**
  * Library Top Bar.
  * Contains [AnimatedTopAppBar] and [LibraryTabRow].
  *
- * @param state [LibraryState].
  * @param pagerState [PagerState].
- * @param onEvent [LibraryEvent] callback.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LibraryTopBar(
-    state: State<LibraryState>,
-    pagerState: PagerState,
-    onEvent: (LibraryEvent) -> Unit
-) {
+fun LibraryTopBar(pagerState: PagerState) {
+    val state = LocalLibraryViewModel.current.state
+    val onEvent = LocalLibraryViewModel.current.onEvent
     val focusRequester = remember { FocusRequester() }
 
     AnimatedTopAppBar(

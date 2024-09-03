@@ -4,39 +4,34 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.DriveFileMove
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Category
+import ua.acclorite.book_story.presentation.components.LocalBookInfoViewModel
+import ua.acclorite.book_story.presentation.components.LocalHistoryViewModel
+import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithLazyColumn
 import ua.acclorite.book_story.presentation.components.custom_dialog.SelectableDialogItem
-import ua.acclorite.book_story.presentation.data.LocalNavigator
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
-import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 
 /**
  * Move dialog.
  * Moves current book to the selected category.
- *
- * @param state [BookInfoState].
- * @param onEvent [BookInfoEvent] callback.
- * @param onLibraryEvent [LibraryEvent] callback.
- * @param onHistoryUpdateEvent [HistoryEvent] callback.
  */
 @Composable
-fun BookInfoMoveDialog(
-    state: State<BookInfoState>,
-    onEvent: (BookInfoEvent) -> Unit,
-    onLibraryEvent: (LibraryEvent) -> Unit,
-    onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit
-) {
-    val navigator = LocalNavigator.current
+fun BookInfoMoveDialog() {
+    val state = LocalBookInfoViewModel.current.state
+    val onEvent = LocalBookInfoViewModel.current.onEvent
+    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
+    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
+    val onNavigate = LocalOnNavigate.current
     val context = LocalContext.current
 
     val categories = remember {
@@ -61,12 +56,12 @@ fun BookInfoMoveDialog(
                 BookInfoEvent.OnMoveBook(
                     refreshList = {
                         onLibraryEvent(LibraryEvent.OnUpdateBook(it))
-                        onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
+                        onHistoryEvent(HistoryEvent.OnUpdateBook(it))
                     },
                     updatePage = {
                         onLibraryEvent(LibraryEvent.OnUpdateCurrentPage(it))
                     },
-                    onNavigate = { navigator.it() }
+                    onNavigate = onNavigate
                 )
             )
             context.getString(R.string.book_moved)

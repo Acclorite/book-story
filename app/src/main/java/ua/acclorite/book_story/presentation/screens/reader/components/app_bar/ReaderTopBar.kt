@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
@@ -22,34 +21,29 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CustomIconButton
+import ua.acclorite.book_story.presentation.components.LocalHistoryViewModel
+import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
+import ua.acclorite.book_story.presentation.components.LocalReaderViewModel
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
-import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
 import ua.acclorite.book_story.presentation.ui.Colors
 
 /**
  * Reader top bar. Displays title of the book.
- *
- * @param state [ReaderState].
- * @param onNavigate Navigator callback.
- * @param onEvent [ReaderEvent] callback.
- * @param onLibraryUpdateEvent [LibraryEvent] callback.
- * @param onHistoryUpdateEvent [HistoryEvent] callback.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReaderTopBar(
-    state: State<ReaderState>,
-    onNavigate: OnNavigate,
-    onEvent: (ReaderEvent) -> Unit,
-    onLibraryUpdateEvent: (LibraryEvent.OnUpdateBook) -> Unit,
-    onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit
-) {
+fun ReaderTopBar() {
+    val state = LocalReaderViewModel.current.state
+    val onEvent = LocalReaderViewModel.current.onEvent
+    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
+    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
     val context = LocalContext.current as ComponentActivity
+    val onNavigate = LocalOnNavigate.current
 
     TopAppBar(
         navigationIcon = {
@@ -62,8 +56,8 @@ fun ReaderTopBar(
                     ReaderEvent.OnGoBack(
                         context = context,
                         refreshList = {
-                            onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
-                            onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
+                            onLibraryEvent(LibraryEvent.OnUpdateBook(it))
+                            onHistoryEvent(HistoryEvent.OnUpdateBook(it))
                         },
                         navigate = {
                             onNavigate {
@@ -94,8 +88,8 @@ fun ReaderTopBar(
                                     ReaderEvent.OnGoBack(
                                         context = context,
                                         refreshList = {
-                                            onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
-                                            onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
+                                            onLibraryEvent(LibraryEvent.OnUpdateBook(it))
+                                            onHistoryEvent(HistoryEvent.OnUpdateBook(it))
                                         },
                                         navigate = {
                                             onNavigate {

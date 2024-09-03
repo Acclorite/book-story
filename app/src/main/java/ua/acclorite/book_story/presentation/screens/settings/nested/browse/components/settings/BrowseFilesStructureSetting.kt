@@ -2,12 +2,11 @@ package ua.acclorite.book_story.presentation.screens.settings.nested.browse.comp
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.components.SegmentedButtonWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
 
@@ -16,10 +15,10 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.
  * Lets user choose between all and folders structure for Browse.
  */
 @Composable
-fun BrowseFilesStructureSetting(
-    state: State<MainState>,
-    onMainEvent: (MainEvent) -> Unit
-) {
+fun BrowseFilesStructureSetting() {
+    val state = LocalMainViewModel.current.state
+    val onMainEvent = LocalMainViewModel.current.onEvent
+
     SegmentedButtonWithTitle(
         title = stringResource(id = R.string.browse_files_structure_option),
         buttons = BrowseFilesStructure.entries.map {

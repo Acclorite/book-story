@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -17,8 +16,6 @@ import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CategoryTitle
-import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.components.settings.BrowseFilterSetting
 
 /**
@@ -26,8 +23,6 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.browse.compo
  * Contains all settings from Filter Browse settings.
  */
 fun LazyListScope.BrowseFilterSubcategory(
-    state: State<MainState>,
-    onMainEvent: (MainEvent) -> Unit,
     titleColor: @Composable () -> Color = { MaterialTheme.colorScheme.primary },
     title: @Composable () -> String = { stringResource(id = R.string.filter_browse_settings) },
     showTitle: Boolean = true,
@@ -52,10 +47,7 @@ fun LazyListScope.BrowseFilterSubcategory(
         }
     }
 
-    BrowseFilterSetting(
-        state = state,
-        onMainEvent = onMainEvent
-    )
+    BrowseFilterSetting()
 
     item {
         Spacer(

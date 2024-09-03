@@ -18,51 +18,40 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.components.GoBackButton
+import ua.acclorite.book_story.presentation.components.LocalLicensesViewModel
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.components.customItems
-import ua.acclorite.book_story.presentation.data.LocalNavigator
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.about.nested.licenses.components.LicenseItem
-import ua.acclorite.book_story.presentation.screens.about.nested.licenses.data.LicensesState
-import ua.acclorite.book_story.presentation.screens.about.nested.licenses.data.LicensesViewModel
 
 @Composable
 fun LicensesScreenRoot() {
-    val navigator = LocalNavigator.current
+    val viewModel = LocalLicensesViewModel.current.viewModel
     val context = LocalContext.current
-    val licensesViewModel: LicensesViewModel = hiltViewModel()
-
-    val state = licensesViewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
-        licensesViewModel.init(context)
+        viewModel.init(context)
     }
 
-    LicensesScreen(
-        state = state,
-        onNavigate = { navigator.it() }
-    )
+    LicensesScreen()
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun LicensesScreen(
-    state: State<LicensesState>,
-    onNavigate: OnNavigate
-) {
+private fun LicensesScreen() {
+    val state = LocalLicensesViewModel.current.state
+    val onNavigate = LocalOnNavigate.current
+
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState(
         state.value.listState
     )

@@ -9,7 +9,6 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
@@ -17,15 +16,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.LocalBookInfoViewModel
 import ua.acclorite.book_story.presentation.data.removeDigits
 import ua.acclorite.book_story.presentation.data.removeTrailingZero
-import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 
 /**
  * Statistic section.
  */
 @Composable
-fun BookInfoStatisticSection(state: State<BookInfoState>) {
+fun BookInfoStatisticSection() {
+    val state = LocalBookInfoViewModel.current.state
+
     val progress = remember(state.value.book) {
         "${
             (state.value.book.progress * 100)

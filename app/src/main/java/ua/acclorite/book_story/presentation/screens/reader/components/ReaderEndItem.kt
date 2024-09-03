@@ -17,7 +17,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,33 +28,30 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.domain.util.OnNavigate
+import ua.acclorite.book_story.presentation.components.LocalHistoryViewModel
+import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
+import ua.acclorite.book_story.presentation.components.LocalReaderViewModel
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
-import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
 
 /**
  * Reader end item. Displays at the end of the book.
- *
- * @param state [ReaderState].
- * @param onNavigate Navigator callback.
- * @param onEvent [ReaderEvent] callback.
- * @param onLibraryEvent [LibraryEvent] callback.
- * @param onHistoryUpdateEvent [HistoryEvent] callback.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ReaderEndItem(
-    state: State<ReaderState>,
-    onNavigate: OnNavigate,
-    onEvent: (ReaderEvent) -> Unit,
-    onLibraryEvent: (LibraryEvent) -> Unit,
-    onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit,
 ) {
+    val state = LocalReaderViewModel.current.state
+    val onEvent = LocalReaderViewModel.current.onEvent
+    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
+    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
     val context = LocalContext.current as ComponentActivity
+    val onNavigate = LocalOnNavigate.current
+
     val buttonText = remember {
         context.getString(
             if (state.value.book.category != Category.ALREADY_READ) R.string.move_to_read
@@ -102,7 +98,7 @@ fun ReaderEndItem(
                             context = context,
                             onUpdateCategories = {
                                 onLibraryEvent(LibraryEvent.OnUpdateBook(it))
-                                onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
+                                onHistoryEvent(HistoryEvent.OnUpdateBook(it))
                             },
                             updatePage = {
                                 onLibraryEvent(LibraryEvent.OnUpdateCurrentPage(it))
@@ -119,7 +115,7 @@ fun ReaderEndItem(
                             context = context,
                             refreshList = {
                                 onLibraryEvent(LibraryEvent.OnUpdateBook(it))
-                                onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
+                                onHistoryEvent(HistoryEvent.OnUpdateBook(it))
                             },
                             navigate = {
                                 onNavigate {

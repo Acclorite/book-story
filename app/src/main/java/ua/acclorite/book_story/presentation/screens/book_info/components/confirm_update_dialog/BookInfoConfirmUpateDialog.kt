@@ -7,6 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.LocalBookInfoViewModel
+import ua.acclorite.book_story.presentation.components.LocalHistoryViewModel
+import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithContent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
@@ -17,17 +20,12 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
  * Updates book if action clicked.
  *
  * @param snackbarHostState [SnackbarHostState].
- * @param onEvent [BookInfoEvent] callback.
- * @param onLibraryUpdateEvent [LibraryEvent] callback.
- * @param onHistoryUpdateEvent [HistoryEvent] callback.
  */
 @Composable
-fun BookInfoConfirmUpdateDialog(
-    snackbarHostState: SnackbarHostState,
-    onEvent: (BookInfoEvent) -> Unit,
-    onLibraryUpdateEvent: (LibraryEvent.OnUpdateBook) -> Unit,
-    onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit,
-) {
+fun BookInfoConfirmUpdateDialog(snackbarHostState: SnackbarHostState) {
+    val onEvent = LocalBookInfoViewModel.current.onEvent
+    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
+    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
     val context = LocalContext.current
 
     CustomDialogWithContent(
@@ -45,8 +43,8 @@ fun BookInfoConfirmUpdateDialog(
                     snackbarState = snackbarHostState,
                     context = context,
                     refreshList = {
-                        onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
-                        onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
+                        onLibraryEvent(LibraryEvent.OnUpdateBook(it))
+                        onHistoryEvent(HistoryEvent.OnUpdateBook(it))
                     }
                 )
             )
@@ -54,11 +52,3 @@ fun BookInfoConfirmUpdateDialog(
         withDivider = false
     )
 }
-
-
-
-
-
-
-
-

@@ -3,24 +3,22 @@ package ua.acclorite.book_story.presentation.screens.about.components
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Update
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.LocalAboutViewModel
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithContent
 import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
-import ua.acclorite.book_story.presentation.screens.about.data.AboutState
 
 /**
  * Update dialog. If there is app update transfers to the download page.
  */
 @Composable
-fun AboutUpdateDialog(
-    state: State<AboutState>,
-    onEvent: (AboutEvent) -> Unit
-) {
+fun AboutUpdateDialog() {
+    val state = LocalAboutViewModel.current.state
+    val onEvent = LocalAboutViewModel.current.onEvent
     val context = LocalContext.current
 
     val update = remember(state.value.showUpdateDialog) {

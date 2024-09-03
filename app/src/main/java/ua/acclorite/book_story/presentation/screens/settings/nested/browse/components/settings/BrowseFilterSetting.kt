@@ -13,25 +13,24 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.util.Constants
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
 
 /**
  * Browse Filter setting.
  * Lets user choose which items to filter in Browse.
  */
-fun LazyListScope.BrowseFilterSetting(
-    state: State<MainState>,
-    onMainEvent: (MainEvent) -> Unit
-) {
+fun LazyListScope.BrowseFilterSetting() {
     customItems(Constants.EXTENSIONS, key = { it }) {
+        val state = LocalMainViewModel.current.state
+        val onMainEvent = LocalMainViewModel.current.onEvent
+
         FilterItem(
             item = it,
             isSelected = state.value.browseIncludedFilterItems.any { item ->

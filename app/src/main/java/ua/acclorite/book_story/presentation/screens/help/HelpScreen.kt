@@ -22,68 +22,51 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.Constants
-import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.components.GoBackButton
+import ua.acclorite.book_story.presentation.components.LocalBrowseViewModel
+import ua.acclorite.book_story.presentation.components.LocalHelpViewModel
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
+import ua.acclorite.book_story.presentation.components.LocalStartViewModel
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.components.customItems
-import ua.acclorite.book_story.presentation.data.LocalNavigator
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
-import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.help.components.HelpItem
 import ua.acclorite.book_story.presentation.screens.help.components.items.HelpClickMeNoteItem
-import ua.acclorite.book_story.presentation.screens.help.data.HelpState
-import ua.acclorite.book_story.presentation.screens.help.data.HelpViewModel
 import ua.acclorite.book_story.presentation.screens.start.data.StartEvent
-import ua.acclorite.book_story.presentation.screens.start.data.StartViewModel
 
 @Composable
 fun HelpScreenRoot(screen: Screen.Help) {
-    val navigator = LocalNavigator.current
-    val helpViewModel: HelpViewModel = hiltViewModel()
-    val browseViewModel: BrowseViewModel = hiltViewModel()
-    val mainViewModel: MainViewModel = hiltViewModel()
-    val startViewModel: StartViewModel = hiltViewModel()
-
-    val state = helpViewModel.state.collectAsState()
+    val viewModel = LocalHelpViewModel.current.viewModel
 
     LaunchedEffect(Unit) {
-        helpViewModel.init(screen = screen)
+        viewModel.init(screen = screen)
     }
 
-    HelpScreen(
-        state = state,
-        onNavigate = { navigator.it() },
-        onMainEvent = mainViewModel::onEvent,
-        onBrowseEvent = browseViewModel::onEvent,
-        onStartEvent = startViewModel::onEvent
-    )
+    HelpScreen()
 }
 
 @OptIn(
     ExperimentalMaterial3Api::class
 )
 @Composable
-private fun HelpScreen(
-    state: State<HelpState>,
-    onNavigate: OnNavigate,
-    onMainEvent: (MainEvent) -> Unit,
-    onBrowseEvent: (BrowseEvent) -> Unit,
-    onStartEvent: (StartEvent) -> Unit
-) {
+private fun HelpScreen() {
+    val state = LocalHelpViewModel.current.state
+    val onMainEvent = LocalMainViewModel.current.onEvent
+    val onBrowseEvent = LocalBrowseViewModel.current.onEvent
+    val onStartEvent = LocalStartViewModel.current.onEvent
+    val onNavigate = LocalOnNavigate.current
+
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
 
     Scaffold(
@@ -171,7 +154,6 @@ private fun HelpScreen(
             customItems(Constants.HELP_TIPS, key = { it.title }) { helpTip ->
                 HelpItem(
                     helpTip = helpTip,
-                    onNavigate = onNavigate,
                     fromStart = state.value.fromStart
                 )
             }

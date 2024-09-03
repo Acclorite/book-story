@@ -20,7 +20,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -28,34 +27,29 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.LocalBrowseViewModel
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
+import ua.acclorite.book_story.presentation.components.LocalStartViewModel
 import ua.acclorite.book_story.presentation.data.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.start.data.StartEvent
-import ua.acclorite.book_story.presentation.screens.start.data.StartState
 
 /**
  * Start Done screen.
- *
- * @param state [StartState].
- * @param onEvent [StartEvent] callback.
- * @param onMainEvent [MainEvent] callback.
- * @param onBrowseEvent [BrowseEvent] callback.
  */
 @Composable
-fun StartDone(
-    state: State<StartState>,
-    onEvent: (StartEvent) -> Unit,
-    onMainEvent: (MainEvent) -> Unit,
-    onBrowseEvent: (BrowseEvent) -> Unit
-) {
+fun StartDone() {
+    val state = LocalStartViewModel.current.state
+    val onEvent = LocalStartViewModel.current.onEvent
+    val onMainEvent = LocalMainViewModel.current.onEvent
+    val onBrowseEvent = LocalBrowseViewModel.current.onEvent
     val navigator = LocalNavigator.current
 
     StartNavigationTransition(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
             .padding(48.dp),
-        state = state,
         visible = state.value.isDone,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,

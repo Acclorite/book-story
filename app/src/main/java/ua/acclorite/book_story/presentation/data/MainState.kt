@@ -82,6 +82,10 @@ data class MainState(
     val browseIncludedFilterItems: List<String> = provideDefaultValue { emptyList() },
 ) : Parcelable {
     companion object {
+        private fun <D> provideDefaultValue(calculation: () -> D): D {
+            return calculation()
+        }
+
         /**
          * Initializes [MainState] by given [Map].
          * If no value provided in [data], assigns default value.
@@ -209,8 +213,4 @@ data class MainState(
             }
         }
     }
-}
-
-private fun <D> provideDefaultValue(calculation: () -> D): D {
-    return calculation()
 }

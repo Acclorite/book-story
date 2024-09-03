@@ -3,28 +3,28 @@ package ua.acclorite.book_story.presentation.screens.library.components.dialog
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DeleteOutline
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.LocalBrowseViewModel
+import ua.acclorite.book_story.presentation.components.LocalHistoryViewModel
+import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithContent
 import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryState
 
 /**
  * Delete dialog. Deletes all selected books.
  */
 @Composable
-fun LibraryDeleteDialog(
-    state: State<LibraryState>,
-    onEvent: (LibraryEvent) -> Unit,
-    onBrowseLoadEvent: (BrowseEvent.OnLoadList) -> Unit,
-    onHistoryLoadEvent: (HistoryEvent.OnLoadList) -> Unit
-) {
+fun LibraryDeleteDialog() {
     val context = LocalContext.current
+    val state = LocalLibraryViewModel.current.state
+    val onEvent = LocalLibraryViewModel.current.onEvent
+    val onBrowseEvent = LocalBrowseViewModel.current.onEvent
+    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
 
     CustomDialogWithContent(
         title = stringResource(id = R.string.delete_books),
@@ -40,8 +40,8 @@ fun LibraryDeleteDialog(
         onAction = {
             onEvent(
                 LibraryEvent.OnDeleteBooks {
-                    onBrowseLoadEvent(BrowseEvent.OnLoadList)
-                    onHistoryLoadEvent(HistoryEvent.OnLoadList)
+                    onBrowseEvent(BrowseEvent.OnLoadList)
+                    onHistoryEvent(HistoryEvent.OnLoadList)
                 }
             )
             context.getString(R.string.books_deleted)

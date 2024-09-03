@@ -2,13 +2,12 @@ package ua.acclorite.book_story.presentation.screens.settings.nested.general.com
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.domain.util.Constants
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
 
 /**
@@ -16,10 +15,10 @@ import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWit
  * Changes app's language.
  */
 @Composable
-fun AppLanguageSetting(
-    state: State<MainState>,
-    onMainEvent: (MainEvent) -> Unit
-) {
+fun AppLanguageSetting() {
+    val state = LocalMainViewModel.current.state
+    val onMainEvent = LocalMainViewModel.current.onEvent
+
     ChipsWithTitle(
         title = stringResource(id = R.string.language_option),
         chips = Constants.LANGUAGES.sortedBy { it.second }.map {

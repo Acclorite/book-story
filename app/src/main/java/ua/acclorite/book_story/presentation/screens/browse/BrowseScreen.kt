@@ -14,24 +14,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.rememberPermissionState
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.SelectableFile
-import ua.acclorite.book_story.domain.util.OnNavigate
-import ua.acclorite.book_story.presentation.data.LocalNavigator
-import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
-import ua.acclorite.book_story.presentation.data.MainViewModel
+import ua.acclorite.book_story.presentation.components.LocalBrowseViewModel
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.browse.components.BrowseEmptyPlaceholder
@@ -41,23 +36,16 @@ import ua.acclorite.book_story.presentation.screens.browse.components.filter_bot
 import ua.acclorite.book_story.presentation.screens.browse.components.layout.BrowseLayout
 import ua.acclorite.book_story.presentation.screens.browse.components.top_bar.BrowseTopBar
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
-import ua.acclorite.book_story.presentation.screens.browse.data.BrowseState
-import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun BrowseScreenRoot() {
-    val navigator = LocalNavigator.current
-    val viewModel: BrowseViewModel = hiltViewModel()
-    val libraryViewModel: LibraryViewModel = hiltViewModel()
-    val mainViewModel: MainViewModel = hiltViewModel()
-
-    val state = viewModel.state.collectAsState()
-    val mainState = mainViewModel.state.collectAsState()
+    val state = LocalBrowseViewModel.current.state
+    val mainState = LocalMainViewModel.current.state
+    val onEvent = LocalBrowseViewModel.current.onEvent
+    val viewModel = LocalBrowseViewModel.current.viewModel
 
     val permissionState = rememberPermissionState(
         permission = Manifest.permission.READ_EXTERNAL_STORAGE
@@ -72,22 +60,14 @@ fun BrowseScreenRoot() {
     }
 
     LaunchedEffect(Unit) {
-        viewModel.onEvent(BrowseEvent.OnUpdateScrollOffset)
-        viewModel.onEvent(
-            BrowseEvent.OnPermissionCheck(permissionState)
-        )
+        onEvent(BrowseEvent.OnUpdateScrollOffset)
+        onEvent(BrowseEvent.OnPermissionCheck(permissionState))
     }
 
 
     BrowseScreen(
-        state = state,
-        mainState = mainState,
         permissionState = permissionState,
         filteredFiles = filteredFiles.value,
-        onNavigate = { navigator.it() },
-        onEvent = viewModel::onEvent,
-        onMainEvent = mainViewModel::onEvent,
-        onLibraryEvent = libraryViewModel::onEvent
     )
 
     DisposableEffect(Unit) {
@@ -103,16 +83,15 @@ fun BrowseScreenRoot() {
 )
 @Composable
 private fun BrowseScreen(
-    state: State<BrowseState>,
-    mainState: State<MainState>,
     permissionState: PermissionState,
-    filteredFiles: List<SelectableFile>,
-    onNavigate: OnNavigate,
-    onEvent: (BrowseEvent) -> Unit,
-    onMainEvent: (MainEvent) -> Unit,
-    onLibraryEvent: (LibraryEvent) -> Unit
+    filteredFiles: List<SelectableFile>
 ) {
+    val state = LocalBrowseViewModel.current.state
+    val mainState = LocalMainViewModel.current.state
+    val onEvent = LocalBrowseViewModel.current.onEvent
+    val onNavigate = LocalOnNavigate.current
     val context = LocalContext.current
+
     val refreshState = rememberPullRefreshState(
         refreshing = state.value.isRefreshing,
         onRefresh = {
@@ -121,22 +100,13 @@ private fun BrowseScreen(
     )
 
     if (state.value.requestPermissionDialog) {
-        BrowseStoragePermissionDialog(onEvent, permissionState)
+        BrowseStoragePermissionDialog(permissionState)
     }
     if (state.value.showAddingDialog) {
-        BrowseAddingDialog(
-            state = state,
-            onEvent = onEvent,
-            onLibraryEvent = onLibraryEvent
-        )
+        BrowseAddingDialog()
     }
     if (state.value.showFilterBottomSheet) {
-        BrowseFilterBottomSheet(
-            state = state,
-            mainState = mainState,
-            onMainEvent = onMainEvent,
-            onEvent = onEvent
-        )
+        BrowseFilterBottomSheet()
     }
 
     Scaffold(
@@ -145,12 +115,7 @@ private fun BrowseScreen(
             .pullRefresh(refreshState),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
-            BrowseTopBar(
-                state = state,
-                mainState = mainState,
-                filteredFiles = filteredFiles,
-                onEvent = onEvent
-            )
+            BrowseTopBar(filteredFiles = filteredFiles)
         }
     ) { padding ->
         Box(
@@ -160,8 +125,6 @@ private fun BrowseScreen(
         ) {
             DefaultTransition(visible = !state.value.isLoading) {
                 BrowseLayout(
-                    state = state,
-                    mainState = mainState,
                     filteredFiles = filteredFiles,
                     onLongItemClick = { selectableFile ->
                         when (selectableFile.isDirectory) {
@@ -223,11 +186,8 @@ private fun BrowseScreen(
             }
 
             BrowseEmptyPlaceholder(
-                state = state,
                 isFilesEmpty = filteredFiles.isEmpty(),
                 storagePermissionState = permissionState,
-                onNavigate = onNavigate,
-                onEvent = onEvent
             )
 
             PullRefreshIndicator(
@@ -255,9 +215,7 @@ private fun BrowseScreen(
             state.value.inNestedDirectory
             && mainState.value.browseFilesStructure != BrowseFilesStructure.ALL_FILES
         ) {
-            onEvent(
-                BrowseEvent.OnGoBackDirectory
-            )
+            onEvent(BrowseEvent.OnGoBackDirectory)
             return@BackHandler
         }
 

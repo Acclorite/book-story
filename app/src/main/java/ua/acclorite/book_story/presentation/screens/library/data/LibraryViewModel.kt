@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.library.data
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +17,7 @@ import ua.acclorite.book_story.domain.use_case.DeleteBooks
 import ua.acclorite.book_story.domain.use_case.GetBooks
 import ua.acclorite.book_story.domain.use_case.InsertHistory
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
+import ua.acclorite.book_story.domain.util.BaseViewModel
 import ua.acclorite.book_story.presentation.data.Screen
 import java.util.Date
 import javax.inject.Inject
@@ -28,10 +28,10 @@ class LibraryViewModel @Inject constructor(
     private val updateBooks: UpdateBooks,
     private val deleteBooks: DeleteBooks,
     private val insertHistory: InsertHistory
-) : ViewModel() {
+) : BaseViewModel<LibraryState, LibraryEvent>() {
 
     private val _state = MutableStateFlow(LibraryState())
-    val state = _state.asStateFlow()
+    override val state = _state.asStateFlow()
 
     private val _isReady = MutableStateFlow(false)
     val isReady = _isReady.asStateFlow()
@@ -53,7 +53,7 @@ class LibraryViewModel @Inject constructor(
         }
     }
 
-    fun onEvent(event: LibraryEvent) {
+    override fun onEvent(event: LibraryEvent) {
         when (event) {
             is LibraryEvent.OnScrollToPage -> {
                 viewModelScope.launch {

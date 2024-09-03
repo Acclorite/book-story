@@ -2,7 +2,6 @@ package ua.acclorite.book_story.presentation.screens.history.data
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.SnackbarResult
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +20,7 @@ import ua.acclorite.book_story.domain.use_case.DeleteWholeHistory
 import ua.acclorite.book_story.domain.use_case.GetBooksById
 import ua.acclorite.book_story.domain.use_case.GetHistory
 import ua.acclorite.book_story.domain.use_case.InsertHistory
+import ua.acclorite.book_story.domain.util.BaseViewModel
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.presentation.data.Screen
 import java.text.SimpleDateFormat
@@ -36,10 +36,10 @@ class HistoryViewModel @Inject constructor(
     private val deleteWholeHistory: DeleteWholeHistory,
     private val deleteHistory: DeleteHistory,
     private val getBooksById: GetBooksById
-) : ViewModel() {
+) : BaseViewModel<HistoryState, HistoryEvent>() {
 
     private val _state = MutableStateFlow(HistoryState())
-    val state = _state.asStateFlow()
+    override val state = _state.asStateFlow()
 
     private var job: Job? = null
     private var job2: Job? = null
@@ -56,7 +56,7 @@ class HistoryViewModel @Inject constructor(
         }
     }
 
-    fun onEvent(event: HistoryEvent) {
+    override fun onEvent(event: HistoryEvent) {
         when (event) {
             is HistoryEvent.OnRefreshList -> {
                 job3?.cancel()

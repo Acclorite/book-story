@@ -23,7 +23,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,16 +32,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CustomCoverImage
-import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
+import ua.acclorite.book_story.presentation.components.LocalReaderViewModel
 
 /**
  * Reader start item. Displays at the beginning of the book.
- *
- * @param state [ReaderState].
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ReaderStartItem(state: State<ReaderState>) {
+fun ReaderStartItem() {
+    val state = LocalReaderViewModel.current.state
+
     val statusBarHeight = WindowInsets
         .statusBarsIgnoringVisibility
         .asPaddingValues()

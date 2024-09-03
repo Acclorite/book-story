@@ -19,8 +19,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -29,51 +27,36 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.components.GoBackButton
+import ua.acclorite.book_story.presentation.components.LocalAboutViewModel
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
-import ua.acclorite.book_story.presentation.data.LocalNavigator
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.about.components.AboutItem
 import ua.acclorite.book_story.presentation.screens.about.components.AboutUpdateDialog
 import ua.acclorite.book_story.presentation.screens.about.components.badges.AboutBadges
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
-import ua.acclorite.book_story.presentation.screens.about.data.AboutState
-import ua.acclorite.book_story.presentation.screens.about.data.AboutViewModel
 
 @Composable
 fun AboutScreenRoot() {
-    val navigator = LocalNavigator.current
-    val aboutViewModel: AboutViewModel = hiltViewModel()
-
-    val state = aboutViewModel.state.collectAsState()
-
-    AboutScreen(
-        state = state,
-        onNavigate = { navigator.it() },
-        onEvent = aboutViewModel::onEvent
-    )
+    AboutScreen()
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun AboutScreen(
-    state: State<AboutState>,
-    onNavigate: OnNavigate,
-    onEvent: (AboutEvent) -> Unit
-) {
+private fun AboutScreen() {
+    val state = LocalAboutViewModel.current.state
+    val onEvent = LocalAboutViewModel.current.onEvent
+    val onNavigate = LocalOnNavigate.current
     val context = LocalContext.current
+
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
 
     if (state.value.showUpdateDialog) {
-        AboutUpdateDialog(
-            state = state,
-            onEvent = onEvent
-        )
+        AboutUpdateDialog()
     }
 
     Scaffold(
@@ -245,7 +228,7 @@ private fun AboutScreen(
             }
 
             item {
-                AboutBadges(onEvent = onEvent)
+                AboutBadges()
             }
         }
     }

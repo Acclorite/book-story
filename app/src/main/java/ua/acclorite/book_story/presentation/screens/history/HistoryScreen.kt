@@ -24,8 +24,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,44 +34,36 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.CustomSearchTextField
 import ua.acclorite.book_story.presentation.components.CustomSnackbar
+import ua.acclorite.book_story.presentation.components.LocalHistoryViewModel
+import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.components.MoreDropDown
 import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
-import ua.acclorite.book_story.presentation.data.LocalNavigator
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.history.components.HistoryDeleteWholeHistoryDialog
 import ua.acclorite.book_story.presentation.screens.history.components.HistoryItem
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
-import ua.acclorite.book_story.presentation.screens.history.data.HistoryState
-import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.Transitions
 
 @Composable
 fun HistoryScreenRoot() {
-    val navigator = LocalNavigator.current
-    val viewModel: HistoryViewModel = hiltViewModel()
-    val libraryViewModel: LibraryViewModel = hiltViewModel()
+    val onEvent = LocalHistoryViewModel.current.onEvent
 
-    val state = viewModel.state.collectAsState()
+    LaunchedEffect(Unit) {
+        onEvent(HistoryEvent.OnUpdateScrollOffset)
+    }
 
-    HistoryScreen(
-        state = state,
-        onNavigate = { navigator.it() },
-        onEvent = viewModel::onEvent,
-        onLibraryEvent = libraryViewModel::onEvent
-    )
+    HistoryScreen()
 }
 
 @OptIn(
@@ -81,13 +71,13 @@ fun HistoryScreenRoot() {
     ExperimentalMaterialApi::class
 )
 @Composable
-private fun HistoryScreen(
-    state: State<HistoryState>,
-    onNavigate: OnNavigate,
-    onEvent: (HistoryEvent) -> Unit,
-    onLibraryEvent: (LibraryEvent) -> Unit
-) {
+private fun HistoryScreen() {
     val context = LocalContext.current
+    val state = LocalHistoryViewModel.current.state
+    val onEvent = LocalHistoryViewModel.current.onEvent
+    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
+    val onNavigate = LocalOnNavigate.current
+
     val refreshState = rememberPullRefreshState(
         refreshing = state.value.isRefreshing,
         onRefresh = {
@@ -97,15 +87,8 @@ private fun HistoryScreen(
     val focusRequester = remember { FocusRequester() }
     val snackbarState = remember { SnackbarHostState() }
 
-    LaunchedEffect(Unit) {
-        onEvent(HistoryEvent.OnUpdateScrollOffset)
-    }
-
     if (state.value.showDeleteWholeHistoryDialog) {
-        HistoryDeleteWholeHistoryDialog(
-            onEvent = onEvent,
-            onLibraryLoadEvent = onLibraryEvent
-        )
+        HistoryDeleteWholeHistoryDialog()
     }
 
     Scaffold(
@@ -304,15 +287,3 @@ private fun HistoryScreen(
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

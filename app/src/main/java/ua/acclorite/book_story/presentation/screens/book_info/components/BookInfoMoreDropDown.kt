@@ -9,7 +9,6 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,18 +19,17 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CustomDropDownMenuItem
 import ua.acclorite.book_story.presentation.components.CustomIconButton
+import ua.acclorite.book_story.presentation.components.LocalBookInfoViewModel
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
-import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 
 /**
  * Book info more dropdown. Has three options: Delete, Move and Details.
  */
 @Composable
-fun BookInfoMoreDropDown(
-    state: State<BookInfoState>,
-    onEvent: (BookInfoEvent) -> Unit,
-    snackbarState: SnackbarHostState
-) {
+fun BookInfoMoreDropDown(snackbarState: SnackbarHostState) {
+    val state = LocalBookInfoViewModel.current.state
+    val onEvent = LocalBookInfoViewModel.current.onEvent
+
     var showDropDown by remember { mutableStateOf(false) }
 
     Box {

@@ -14,36 +14,32 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ua.acclorite.book_story.presentation.components.LocalHistoryViewModel
+import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
+import ua.acclorite.book_story.presentation.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.data.removeDigits
 import ua.acclorite.book_story.presentation.data.removeTrailingZero
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
-import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
 import ua.acclorite.book_story.presentation.ui.Colors
 
 /**
  * Reader bottom bar. Has a slider to change progress.
- *
- * @param state [ReaderState].
- * @param onEvent [ReaderEvent] callback.
- * @param onLibraryUpdateEvent [LibraryEvent] callback.
- * @param onHistoryUpdateEvent [HistoryEvent] callback.
  */
 @Composable
-fun ReaderBottomBar(
-    state: State<ReaderState>,
-    onEvent: (ReaderEvent) -> Unit,
-    onLibraryUpdateEvent: (LibraryEvent.OnUpdateBook) -> Unit,
-    onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit
-) {
+fun ReaderBottomBar() {
+    val state = LocalReaderViewModel.current.state
+    val onEvent = LocalReaderViewModel.current.onEvent
+    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
+    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
+
     val progress by remember(state.value.book.progress) {
         derivedStateOf {
             (state.value.book.progress * 100)
@@ -87,8 +83,8 @@ fun ReaderBottomBar(
                             firstVisibleItemIndex = state.value.listState.firstVisibleItemIndex,
                             firstVisibleItemOffset = 0,
                             refreshList = { book ->
-                                onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(book))
-                                onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(book))
+                                onLibraryEvent(LibraryEvent.OnUpdateBook(book))
+                                onHistoryEvent(HistoryEvent.OnUpdateBook(book))
                             }
                         )
                     )

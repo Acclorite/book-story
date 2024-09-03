@@ -27,8 +27,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,47 +39,33 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.Selected
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.components.header
 import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
-import ua.acclorite.book_story.presentation.data.LocalNavigator
-import ua.acclorite.book_story.presentation.data.MainState
-import ua.acclorite.book_story.presentation.data.MainViewModel
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.data.showToast
-import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
-import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
-import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
-import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.components.LibraryBookItem
 import ua.acclorite.book_story.presentation.screens.library.components.LibraryTopBar
 import ua.acclorite.book_story.presentation.screens.library.components.dialog.LibraryDeleteDialog
 import ua.acclorite.book_story.presentation.screens.library.components.dialog.LibraryMoveDialog
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryState
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.Transitions
 
 @Composable
 fun LibraryScreenRoot() {
-    val navigator = LocalNavigator.current
-    val viewModel: LibraryViewModel = hiltViewModel()
-    val mainViewModel: MainViewModel = hiltViewModel()
-    val browseViewModel: BrowseViewModel = hiltViewModel()
-    val historyViewModel: HistoryViewModel = hiltViewModel()
-
-    val state = viewModel.state.collectAsState()
-    val mainState = mainViewModel.state.collectAsState()
+    val state = LocalLibraryViewModel.current.state
+    val onEvent = LocalLibraryViewModel.current.onEvent
 
     val pagerState = rememberPagerState(
         initialPage = state.value.currentPage,
@@ -90,60 +74,43 @@ fun LibraryScreenRoot() {
     val refreshState = rememberPullRefreshState(
         refreshing = state.value.isRefreshing,
         onRefresh = {
-            viewModel.onEvent(LibraryEvent.OnRefreshList)
+            onEvent(LibraryEvent.OnRefreshList)
         }
     )
 
     LaunchedEffect(Unit) {
-        viewModel.onEvent(LibraryEvent.OnScrollToPage(state.value.currentPage, pagerState))
+        onEvent(LibraryEvent.OnScrollToPage(state.value.currentPage, pagerState))
     }
     LaunchedEffect(pagerState.currentPage) {
         if (pagerState.currentPage != state.value.currentPage) {
-            viewModel.onEvent(LibraryEvent.OnUpdateCurrentPage(pagerState.currentPage))
+            onEvent(LibraryEvent.OnUpdateCurrentPage(pagerState.currentPage))
         }
     }
 
     LibraryScreen(
-        state = state,
-        mainState = mainState,
-        onNavigate = { navigator.it() },
         pagerState = pagerState,
-        refreshState = refreshState,
-        onEvent = viewModel::onEvent,
-        onBrowseEvent = browseViewModel::onEvent,
-        onHistoryEvent = historyViewModel::onEvent
+        refreshState = refreshState
     )
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun LibraryScreen(
-    state: State<LibraryState>,
-    mainState: State<MainState>,
-    onNavigate: OnNavigate,
     pagerState: PagerState,
-    refreshState: PullRefreshState,
-    onEvent: (LibraryEvent) -> Unit,
-    onHistoryEvent: (HistoryEvent) -> Unit,
-    onBrowseEvent: (BrowseEvent) -> Unit
+    refreshState: PullRefreshState
 ) {
+    val state = LocalLibraryViewModel.current.state
+    val mainState = LocalMainViewModel.current.state
+    val onEvent = LocalLibraryViewModel.current.onEvent
+    val onNavigate = LocalOnNavigate.current
+
     var isScrollInProgress by remember { mutableStateOf(false) }
 
     if (state.value.showMoveDialog) {
-        LibraryMoveDialog(
-            state = state,
-            onEvent = onEvent,
-            onHistoryLoadEvent = onHistoryEvent,
-            pagerState = pagerState
-        )
+        LibraryMoveDialog(pagerState = pagerState)
     }
     if (state.value.showDeleteDialog) {
-        LibraryDeleteDialog(
-            state = state,
-            onEvent = onEvent,
-            onBrowseLoadEvent = onBrowseEvent,
-            onHistoryLoadEvent = onHistoryEvent
-        )
+        LibraryDeleteDialog()
     }
 
     Scaffold(
@@ -152,11 +119,7 @@ private fun LibraryScreen(
             .pullRefresh(refreshState),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
-            LibraryTopBar(
-                state = state,
-                pagerState = pagerState,
-                onEvent = onEvent
-            )
+            LibraryTopBar(pagerState = pagerState)
         }
     ) { paddingValues ->
         Box(

@@ -2,12 +2,11 @@ package ua.acclorite.book_story.presentation.screens.settings.nested.appearance.
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.components.SegmentedButtonWithTitle
 import ua.acclorite.book_story.presentation.ui.ExpandingTransition
 import ua.acclorite.book_story.presentation.ui.PureDark
@@ -18,10 +17,10 @@ import ua.acclorite.book_story.presentation.ui.isDark
  * If true, enables Pure Dark (OLED) theme.
  */
 @Composable
-fun PureDarkSetting(
-    state: State<MainState>,
-    onMainEvent: (MainEvent) -> Unit
-) {
+fun PureDarkSetting() {
+    val state = LocalMainViewModel.current.state
+    val onMainEvent = LocalMainViewModel.current.onEvent
+
     ExpandingTransition(visible = state.value.darkTheme.isDark()) {
         SegmentedButtonWithTitle(
             title = stringResource(id = R.string.pure_dark_option),

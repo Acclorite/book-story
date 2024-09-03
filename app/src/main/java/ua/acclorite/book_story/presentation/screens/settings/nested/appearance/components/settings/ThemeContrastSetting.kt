@@ -3,15 +3,14 @@ package ua.acclorite.book_story.presentation.screens.settings.nested.appearance.
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.components.SegmentedButtonWithTitle
 import ua.acclorite.book_story.presentation.ui.BookStoryTheme
 import ua.acclorite.book_story.presentation.ui.ExpandingTransition
@@ -25,10 +24,10 @@ import ua.acclorite.book_story.presentation.ui.isPureDark
  * Lets user change theme contrast levels.
  */
 @Composable
-fun ThemeContrastSetting(
-    state: State<MainState>,
-    onMainEvent: (MainEvent) -> Unit
-) {
+fun ThemeContrastSetting() {
+    val state = LocalMainViewModel.current.state
+    val onMainEvent = LocalMainViewModel.current.onEvent
+
     val themeContrastTheme = remember { mutableStateOf(state.value.theme) }
 
     LaunchedEffect(state.value.theme) {

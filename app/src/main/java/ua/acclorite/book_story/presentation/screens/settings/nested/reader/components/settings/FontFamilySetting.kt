@@ -2,14 +2,13 @@ package ua.acclorite.book_story.presentation.screens.settings.nested.reader.comp
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.domain.util.Constants
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
 
 /**
@@ -17,10 +16,10 @@ import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWit
  * Changes Reader's font, uses fonts from [Constants.FONTS].
  */
 @Composable
-fun FontFamilySetting(
-    state: State<MainState>,
-    onMainEvent: (MainEvent) -> Unit
-) {
+fun FontFamilySetting() {
+    val state = LocalMainViewModel.current.state
+    val onMainEvent = LocalMainViewModel.current.onEvent
+
     val fontFamily = remember(state.value.fontFamily) {
         Constants.FONTS.find {
             it.id == state.value.fontFamily

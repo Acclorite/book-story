@@ -2,11 +2,10 @@ package ua.acclorite.book_story.presentation.screens.settings.nested.general.com
 
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWithTitle
 
 /**
@@ -15,10 +14,10 @@ import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWi
  */
 @SuppressLint("InlinedApi")
 @Composable
-fun DoublePressExitSetting(
-    state: State<MainState>,
-    onMainEvent: (MainEvent) -> Unit
-) {
+fun DoublePressExitSetting() {
+    val state = LocalMainViewModel.current.state
+    val onMainEvent = LocalMainViewModel.current.onEvent
+
     SwitchWithTitle(
         selected = state.value.doublePressExit,
         title = stringResource(id = R.string.double_press_exit_option),

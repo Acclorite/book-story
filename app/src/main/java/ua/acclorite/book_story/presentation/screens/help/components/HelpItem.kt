@@ -31,7 +31,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.HelpTip
-import ua.acclorite.book_story.domain.util.OnNavigate
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.ui.ExpandingTransition
 
 /**
@@ -39,15 +39,15 @@ import ua.acclorite.book_story.presentation.ui.ExpandingTransition
  * Can be Expanded or Collapsed.
  *
  * @param helpTip [HelpTip] to be shown.
- * @param onNavigate Navigator callback.
  * @param fromStart Whether user came from Start screen.
  */
 @Composable
 fun HelpItem(
     helpTip: HelpTip,
-    onNavigate: OnNavigate,
     fromStart: Boolean
 ) {
+    val onNavigate = LocalOnNavigate.current
+
     val showDescription = rememberSaveable {
         mutableStateOf(false)
     }

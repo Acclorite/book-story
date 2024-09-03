@@ -37,20 +37,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomSnackbar
-import ua.acclorite.book_story.presentation.data.LocalNavigator
+import ua.acclorite.book_story.presentation.components.LocalBookInfoViewModel
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoBackground
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoDescriptionSection
@@ -63,60 +60,36 @@ import ua.acclorite.book_story.presentation.screens.book_info.components.details
 import ua.acclorite.book_story.presentation.screens.book_info.components.dialog.BookInfoDeleteDialog
 import ua.acclorite.book_story.presentation.screens.book_info.components.dialog.BookInfoMoveDialog
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
-import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
-import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
-import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
-import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
-import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
-import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 
 @Composable
 fun BookInfoScreenRoot(screen: Screen.BookInfo) {
-    val navigator = LocalNavigator.current
-
-    val viewModel: BookInfoViewModel = hiltViewModel()
-    val libraryViewModel: LibraryViewModel = hiltViewModel()
-    val historyViewModel: HistoryViewModel = hiltViewModel()
-    val browseViewModel: BrowseViewModel = hiltViewModel()
-
-    val state = viewModel.state.collectAsState()
+    val viewModel = LocalBookInfoViewModel.current.viewModel
+    val onNavigate = LocalOnNavigate.current
 
     LaunchedEffect(Unit) {
         viewModel.init(
             screen = screen,
-            onNavigate = { navigator.it() }
+            onNavigate = onNavigate
         )
     }
+
+    BookInfoScreen()
 
     DisposableEffect(Unit) {
         onDispose {
             viewModel.clearViewModel()
         }
     }
-
-    BookInfoScreen(
-        state = state,
-        onNavigate = { navigator.it() },
-        onEvent = viewModel::onEvent,
-        onLibraryEvent = libraryViewModel::onEvent,
-        onBrowseEvent = browseViewModel::onEvent,
-        onHistoryEvent = historyViewModel::onEvent
-    )
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun BookInfoScreen(
-    state: State<BookInfoState>,
-    onNavigate: OnNavigate,
-    onEvent: (BookInfoEvent) -> Unit,
-    onLibraryEvent: (LibraryEvent) -> Unit,
-    onBrowseEvent: (BrowseEvent) -> Unit,
-    onHistoryEvent: (HistoryEvent) -> Unit
-) {
+private fun BookInfoScreen() {
     val context = LocalContext.current
+    val state = LocalBookInfoViewModel.current.state
+    val onEvent = LocalBookInfoViewModel.current.onEvent
+    val onNavigate = LocalOnNavigate.current
+
     val listState = rememberLazyListState()
     val snackbarState = remember { SnackbarHostState() }
     val refreshState = rememberPullRefreshState(
@@ -132,42 +105,19 @@ private fun BookInfoScreen(
     )
 
     if (state.value.showChangeCoverBottomSheet) {
-        BookInfoChangeCoverBottomSheet(
-            state = state,
-            onEvent = onEvent,
-            onLibraryUpdateEvent = onLibraryEvent,
-            onHistoryUpdateEvent = onHistoryEvent
-        )
+        BookInfoChangeCoverBottomSheet()
     }
     if (state.value.showDetailsBottomSheet) {
-        BookInfoDetailsBottomSheet(
-            state = state,
-            onEvent = onEvent
-        )
+        BookInfoDetailsBottomSheet()
     }
     if (state.value.showDeleteDialog) {
-        BookInfoDeleteDialog(
-            onEvent = onEvent,
-            onLibraryLoadEvent = onLibraryEvent,
-            onHistoryLoadEvent = onHistoryEvent,
-            onBrowseLoadEvent = onBrowseEvent
-        )
+        BookInfoDeleteDialog()
     }
     if (state.value.showMoveDialog) {
-        BookInfoMoveDialog(
-            state = state,
-            onEvent = onEvent,
-            onLibraryEvent = onLibraryEvent,
-            onHistoryUpdateEvent = onHistoryEvent
-        )
+        BookInfoMoveDialog()
     }
     if (state.value.showConfirmUpdateDialog) {
-        BookInfoConfirmUpdateDialog(
-            snackbarHostState = snackbarState,
-            onEvent = onEvent,
-            onLibraryUpdateEvent = onLibraryEvent,
-            onHistoryUpdateEvent = onHistoryEvent
-        )
+        BookInfoConfirmUpdateDialog(snackbarHostState = snackbarState)
     }
 
     Scaffold(
@@ -179,11 +129,6 @@ private fun BookInfoScreen(
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             BookInfoTopBar(
-                state = state,
-                onEvent = onEvent,
-                onLibraryEvent = onLibraryEvent,
-                onHistoryEvent = onHistoryEvent,
-                onNavigate = onNavigate,
                 listState = listState,
                 snackbarState = snackbarState
             )
@@ -216,7 +161,7 @@ private fun BookInfoScreen(
                         Column(Modifier.fillMaxWidth()) {
                             Spacer(modifier = Modifier.height(paddingValues.calculateTopPadding() + 12.dp))
                             // Info
-                            BookInfoInfoSection(state = state, onEvent = onEvent)
+                            BookInfoInfoSection()
                         }
                     }
                 }
@@ -224,16 +169,13 @@ private fun BookInfoScreen(
                 item {
                     Spacer(modifier = Modifier.height(24.dp))
                     // Statistic
-                    BookInfoStatisticSection(state = state)
+                    BookInfoStatisticSection()
                 }
 
                 item {
                     Spacer(modifier = Modifier.height(24.dp))
                     // Description
-                    BookInfoDescriptionSection(
-                        state = state,
-                        onEvent = onEvent
-                    )
+                    BookInfoDescriptionSection()
                 }
             }
 

@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -12,9 +11,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CustomBottomSheet
+import ua.acclorite.book_story.presentation.components.LocalBookInfoViewModel
 import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
-import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -22,15 +21,11 @@ import java.util.Locale
 
 /**
  * Details bottom sheet. Displays name, path, last opened and size of the file.
- *
- * @param state [BookInfoState] instance.
- * @param onEvent [BookInfoEvent] callback.
  */
 @Composable
-fun BookInfoDetailsBottomSheet(
-    state: State<BookInfoState>,
-    onEvent: (BookInfoEvent) -> Unit
-) {
+fun BookInfoDetailsBottomSheet() {
+    val state = LocalBookInfoViewModel.current.state
+    val onEvent = LocalBookInfoViewModel.current.onEvent
     val context = LocalContext.current
 
     val pattern = remember {

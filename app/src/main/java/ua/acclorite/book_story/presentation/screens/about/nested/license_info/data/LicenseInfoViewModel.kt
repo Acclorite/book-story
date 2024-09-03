@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.ComponentActivity
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.util.withContext
@@ -14,18 +13,21 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ua.acclorite.book_story.domain.util.BaseViewModel
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.data.launchActivity
 import javax.inject.Inject
 
 @HiltViewModel
-class LicenseInfoViewModel @Inject constructor() : ViewModel() {
+class LicenseInfoViewModel @Inject constructor(
+
+) : BaseViewModel<LicenseInfoState, LicenseInfoEvent>() {
 
     private val _state = MutableStateFlow(LicenseInfoState())
-    val state = _state.asStateFlow()
+    override val state = _state.asStateFlow()
 
-    fun onEvent(event: LicenseInfoEvent) {
+    override fun onEvent(event: LicenseInfoEvent) {
         when (event) {
             is LicenseInfoEvent.OnOpenLicensePage -> {
                 viewModelScope.launch {

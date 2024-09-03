@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.components.bottom_navigation_bar.BottomNavigationBar
 import ua.acclorite.book_story.presentation.components.custom_navigation_rail.CustomNavigationRail
 import ua.acclorite.book_story.presentation.data.MainViewModel
@@ -89,8 +90,8 @@ class Activity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
+            val state = LocalMainViewModel.current.state
             val isLoaded = mainViewModel.isReady.collectAsState()
-            val state = mainViewModel.state.collectAsState()
 
             val density = LocalDensity.current
             val imeInsets = WindowInsets.ime

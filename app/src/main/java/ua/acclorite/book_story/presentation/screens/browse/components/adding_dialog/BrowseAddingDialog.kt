@@ -9,7 +9,6 @@ import androidx.compose.material.icons.filled.AddChart
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
@@ -18,30 +17,26 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.NullableBook
+import ua.acclorite.book_story.presentation.components.LocalBrowseViewModel
+import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithLazyColumn
-import ua.acclorite.book_story.presentation.data.LocalNavigator
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
-import ua.acclorite.book_story.presentation.screens.browse.data.BrowseState
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 
 /**
  * Adding dialog.
  * Adds all selected books to the Library.
- *
- * @param state [BrowseState].
- * @param onEvent [BrowseEvent] callback.
- * @param onLibraryEvent [LibraryEvent] callback.
  */
 @Composable
-fun BrowseAddingDialog(
-    state: State<BrowseState>,
-    onEvent: (BrowseEvent) -> Unit,
-    onLibraryEvent: (LibraryEvent) -> Unit
-) {
+fun BrowseAddingDialog() {
     val context = LocalContext.current
-    val navigator = LocalNavigator.current
+    val state = LocalBrowseViewModel.current.state
+    val onEvent = LocalBrowseViewModel.current.onEvent
+    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
+    val onNavigate = LocalOnNavigate.current
 
     CustomDialogWithLazyColumn(
         title = stringResource(id = R.string.add_books),
@@ -54,7 +49,7 @@ fun BrowseAddingDialog(
         onAction = {
             onEvent(
                 BrowseEvent.OnAddBooks(
-                    onNavigate = { navigator.it() },
+                    onNavigate = onNavigate,
                     resetScroll = {
                         onLibraryEvent(LibraryEvent.OnUpdateCurrentPage(0))
                         onLibraryEvent(LibraryEvent.OnLoadList)

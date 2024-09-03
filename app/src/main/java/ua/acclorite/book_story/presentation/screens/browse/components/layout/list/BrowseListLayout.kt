@@ -5,23 +5,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.model.SelectableFile
+import ua.acclorite.book_story.presentation.components.LocalBrowseViewModel
 import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.screens.browse.components.layout.BrowseItem
-import ua.acclorite.book_story.presentation.screens.browse.data.BrowseState
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseLayout
 
 @Composable
 fun BrowseListLayout(
-    state: State<BrowseState>,
     filteredFiles: List<SelectableFile>,
     onLongItemClick: (SelectableFile) -> Unit,
     onFavoriteItemClick: (SelectableFile) -> Unit,
     onItemClick: (SelectableFile) -> Unit,
 ) {
+    val state = LocalBrowseViewModel.current.state
+
     LazyColumn(
         state = state.value.listState,
         modifier = Modifier

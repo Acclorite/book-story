@@ -1,11 +1,10 @@
 package ua.acclorite.book_story.presentation.screens.settings.nested.browse.components.settings
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
 import ua.acclorite.book_story.presentation.ui.ExpandingTransition
@@ -15,10 +14,10 @@ import ua.acclorite.book_story.presentation.ui.ExpandingTransition
  * If true, shows all favorite directories in root directory and moves them to the top in nested directories.
  */
 @Composable
-fun BrowsePinFavoriteDirectoriesSetting(
-    state: State<MainState>,
-    onMainEvent: (MainEvent) -> Unit
-) {
+fun BrowsePinFavoriteDirectoriesSetting() {
+    val state = LocalMainViewModel.current.state
+    val onMainEvent = LocalMainViewModel.current.onEvent
+
     ExpandingTransition(visible = state.value.browseFilesStructure == BrowseFilesStructure.DIRECTORIES) {
         SwitchWithTitle(
             selected = state.value.browsePinFavoriteDirectories,

@@ -36,7 +36,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
@@ -64,10 +63,10 @@ import ua.acclorite.book_story.domain.util.Selected
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomIconButton
+import ua.acclorite.book_story.presentation.components.LocalSettingsViewModel
 import ua.acclorite.book_story.presentation.components.customItemsIndexed
 import ua.acclorite.book_story.presentation.screens.settings.components.ColorPickerWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
-import ua.acclorite.book_story.presentation.screens.settings.data.SettingsState
 import ua.acclorite.book_story.presentation.ui.FadeTransitionPreservingSpace
 import ua.acclorite.book_story.presentation.ui.Transitions
 
@@ -78,13 +77,14 @@ import ua.acclorite.book_story.presentation.ui.Transitions
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ColorPresetSetting(
-    state: State<SettingsState>,
-    onEvent: (SettingsEvent) -> Unit,
     backgroundColor: Color,
     verticalPadding: Dp = 8.dp,
     horizontalPadding: Dp = 18.dp
 ) {
+    val state = LocalSettingsViewModel.current.state
+    val onEvent = LocalSettingsViewModel.current.onEvent
     val context = LocalContext.current
+
     val reorderableListState = rememberReorderableLazyListState(
         lazyListState = state.value.colorPresetsListState
     ) { from, to ->

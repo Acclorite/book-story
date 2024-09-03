@@ -1,11 +1,10 @@
 package ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.settings
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWithTitle
 
 /**
@@ -13,10 +12,10 @@ import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWi
  * If true, user can fast change color presets in Reader with swipes.
  */
 @Composable
-fun FastColorPresetChangeSetting(
-    state: State<MainState>,
-    onMainEvent: (MainEvent) -> Unit
-) {
+fun FastColorPresetChangeSetting() {
+    val state = LocalMainViewModel.current.state
+    val onMainEvent = LocalMainViewModel.current.onEvent
+
     SwitchWithTitle(
         selected = state.value.fastColorPresetChange,
         title = stringResource(id = R.string.fast_color_preset_change_option),

@@ -12,50 +12,26 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
-import ua.acclorite.book_story.presentation.data.LocalNavigator
-import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
-import ua.acclorite.book_story.presentation.data.MainViewModel
-import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
-import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.screens.settings.nested.general.components.GeneralSettingsCategory
 
 @Composable
 fun GeneralSettingsRoot() {
-    val navigator = LocalNavigator.current
-    val settingsViewModel: SettingsViewModel = hiltViewModel()
-    val mainViewModel: MainViewModel = hiltViewModel()
-
-    val state = mainViewModel.state.collectAsState()
-
-    GeneralSettings(
-        state = state,
-        onNavigate = { navigator.it() },
-        onSettingsEvent = settingsViewModel::onEvent,
-        onMainEvent = mainViewModel::onEvent
-    )
+    GeneralSettings()
 }
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun GeneralSettings(
-    state: State<MainState>,
-    onNavigate: OnNavigate,
-    onSettingsEvent: (SettingsEvent) -> Unit,
-    onMainEvent: (MainEvent) -> Unit
-) {
+private fun GeneralSettings() {
+    val onNavigate = LocalOnNavigate.current
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
 
     Scaffold(
@@ -86,11 +62,7 @@ private fun GeneralSettings(
                 .padding(top = paddingValues.calculateTopPadding()),
             state = scrollState.second
         ) {
-            GeneralSettingsCategory(
-                state = state,
-                onMainEvent = onMainEvent,
-                onSettingsEvent = onSettingsEvent
-            )
+            GeneralSettingsCategory()
         }
     }
 }

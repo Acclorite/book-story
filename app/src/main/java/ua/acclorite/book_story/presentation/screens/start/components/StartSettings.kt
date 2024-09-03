@@ -19,7 +19,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,33 +31,28 @@ import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.domain.util.Constants
-import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
+import ua.acclorite.book_story.presentation.components.LocalStartViewModel
 import ua.acclorite.book_story.presentation.screens.start.components.permissions.startPermissionsScreen
 import ua.acclorite.book_story.presentation.screens.start.data.StartEvent
 import ua.acclorite.book_story.presentation.screens.start.data.StartNavigationScreen
-import ua.acclorite.book_story.presentation.screens.start.data.StartState
 
 /**
  * Start Settings.
  *
- * @param state [StartState].
- * @param mainState [MainState].
- * @param onEvent [StartEvent] callback.
- * @param onMainEvent [MainEvent] callback.
  * @param storagePermissionState Storage [PermissionState].
  * @param notificationsPermissionState Notifications [PermissionState].
  */
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun StartSettings(
-    state: State<StartState>,
-    mainState: State<MainState>,
-    onEvent: (StartEvent) -> Unit,
-    onMainEvent: (MainEvent) -> Unit,
     storagePermissionState: PermissionState,
     notificationsPermissionState: PermissionState
 ) {
+    val state = LocalStartViewModel.current.state
+    val mainState = LocalMainViewModel.current.state
+    val onEvent = LocalStartViewModel.current.onEvent
+    val onMainEvent = LocalMainViewModel.current.onEvent
     val activity = LocalContext.current as ComponentActivity
 
     val languages = remember(mainState.value.language) {
@@ -74,7 +68,6 @@ fun StartSettings(
 
     StartNavigationTransition(
         modifier = Modifier.padding(horizontal = 18.dp),
-        state = state,
         visible = !state.value.isDone,
         bottomBar = {
             Column {
@@ -126,24 +119,18 @@ fun StartSettings(
                 ),
         ) {
             StartNavigationScreenItem(
-                state = state,
                 screen = StartNavigationScreen.LANGUAGE_FIRST
             ) {
                 startLanguageScreen(onMainEvent = onMainEvent, languages = languages)
             }
 
             StartNavigationScreenItem(
-                state = state,
                 screen = StartNavigationScreen.APPEARANCE_SECOND
             ) {
-                startAppearanceScreen(
-                    mainState = mainState,
-                    onMainEvent = onMainEvent
-                )
+                startAppearanceScreen()
             }
 
             StartNavigationScreenItem(
-                state = state,
                 screen = StartNavigationScreen.PERMISSIONS_THIRD
             ) {
                 startPermissionsScreen(

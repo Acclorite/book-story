@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -17,8 +16,6 @@ import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CategoryTitle
-import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.DoubleClickTranslationSetting
 
 /**
@@ -26,8 +23,6 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.reader.compo
  * Contains all settings from Translator.
  */
 fun LazyListScope.TranslatorSubcategory(
-    state: State<MainState>,
-    onMainEvent: (MainEvent) -> Unit,
     titleColor: @Composable () -> Color = { MaterialTheme.colorScheme.primary },
     title: @Composable () -> String = { stringResource(id = R.string.translator_reader_settings) },
     showTitle: Boolean = true,
@@ -53,10 +48,7 @@ fun LazyListScope.TranslatorSubcategory(
     }
 
     item {
-        DoubleClickTranslationSetting(
-            state = state,
-            onMainEvent
-        )
+        DoubleClickTranslationSetting()
     }
 
     item {

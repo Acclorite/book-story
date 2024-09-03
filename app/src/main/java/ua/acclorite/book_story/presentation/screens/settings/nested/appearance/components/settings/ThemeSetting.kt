@@ -27,7 +27,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,9 +41,9 @@ import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.components.CategoryTitle
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.components.customItemsIndexed
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.ui.Theme
 import ua.acclorite.book_story.presentation.ui.ThemeContrast
 import ua.acclorite.book_story.presentation.ui.animatedColorScheme
@@ -57,11 +56,12 @@ import ua.acclorite.book_story.presentation.ui.isPureDark
  */
 @Composable
 fun ThemeSetting(
-    state: State<MainState>,
-    onMainEvent: (MainEvent) -> Unit,
     verticalPadding: Dp = 8.dp,
     horizontalPadding: Dp = 18.dp
 ) {
+    val state = LocalMainViewModel.current.state
+    val onMainEvent = LocalMainViewModel.current.onEvent
+
     val themes = remember {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Constants.THEMES
         else Constants.THEMES.dropWhile { it.first == Theme.DYNAMIC }

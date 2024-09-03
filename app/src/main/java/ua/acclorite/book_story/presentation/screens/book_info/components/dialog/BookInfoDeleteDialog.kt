@@ -6,8 +6,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.LocalBookInfoViewModel
+import ua.acclorite.book_story.presentation.components.LocalBrowseViewModel
+import ua.acclorite.book_story.presentation.components.LocalHistoryViewModel
+import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithContent
-import ua.acclorite.book_story.presentation.data.LocalNavigator
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
@@ -16,20 +20,14 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 
 /**
  * Delete dialog. Deletes current book.
- *
- * @param onEvent [BookInfoEvent] callback.
- * @param onLibraryLoadEvent [LibraryEvent] callback.
- * @param onHistoryLoadEvent [HistoryEvent] callback.
- * @param onBrowseLoadEvent [BrowseEvent] callback.
  */
 @Composable
-fun BookInfoDeleteDialog(
-    onEvent: (BookInfoEvent) -> Unit,
-    onLibraryLoadEvent: (LibraryEvent.OnLoadList) -> Unit,
-    onHistoryLoadEvent: (HistoryEvent.OnLoadList) -> Unit,
-    onBrowseLoadEvent: (BrowseEvent.OnLoadList) -> Unit
-) {
-    val navigator = LocalNavigator.current
+fun BookInfoDeleteDialog() {
+    val onEvent = LocalBookInfoViewModel.current.onEvent
+    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
+    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
+    val onBrowseEvent = LocalBrowseViewModel.current.onEvent
+    val onNavigate = LocalOnNavigate.current
     val context = LocalContext.current
 
     CustomDialogWithContent(
@@ -45,11 +43,11 @@ fun BookInfoDeleteDialog(
         onAction = {
             onEvent(
                 BookInfoEvent.OnDeleteBook(
-                    onNavigate = { navigator.it() },
+                    onNavigate = onNavigate,
                     refreshList = {
-                        onLibraryLoadEvent(LibraryEvent.OnLoadList)
-                        onBrowseLoadEvent(BrowseEvent.OnLoadList)
-                        onHistoryLoadEvent(HistoryEvent.OnLoadList)
+                        onLibraryEvent(LibraryEvent.OnLoadList)
+                        onBrowseEvent(BrowseEvent.OnLoadList)
+                        onHistoryEvent(HistoryEvent.OnLoadList)
                     }
                 )
             )

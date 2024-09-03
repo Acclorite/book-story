@@ -26,8 +26,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -49,24 +47,22 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.Constants
-import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomSelectionContainer
+import ua.acclorite.book_story.presentation.components.LocalHistoryViewModel
+import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
+import ua.acclorite.book_story.presentation.components.LocalReaderViewModel
+import ua.acclorite.book_story.presentation.components.LocalSettingsViewModel
 import ua.acclorite.book_story.presentation.components.customItemsIndexed
 import ua.acclorite.book_story.presentation.components.is_messages.IsError
-import ua.acclorite.book_story.presentation.data.LocalNavigator
-import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
-import ua.acclorite.book_story.presentation.data.MainViewModel
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
-import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderEndItem
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderTextParagraph
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderBottomBar
@@ -75,26 +71,16 @@ import ua.acclorite.book_story.presentation.screens.reader.components.readerFast
 import ua.acclorite.book_story.presentation.screens.reader.components.settings_bottom_sheet.ReaderSettingsBottomSheet
 import ua.acclorite.book_story.presentation.screens.reader.components.start_item.ReaderStartItem
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
-import ua.acclorite.book_story.presentation.screens.reader.data.ReaderState
-import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
-import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
-import ua.acclorite.book_story.presentation.screens.settings.data.SettingsState
-import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
 
 @Composable
 fun ReaderScreenRoot(screen: Screen.Reader) {
-    val navigator = LocalNavigator.current
+    val state = LocalReaderViewModel.current.state
+    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
+    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
+    val viewModel = LocalReaderViewModel.current.viewModel
     val context = LocalContext.current as ComponentActivity
+    val onNavigate = LocalOnNavigate.current
 
-    val viewModel: ReaderViewModel = hiltViewModel()
-    val mainViewModel: MainViewModel = hiltViewModel()
-    val libraryViewModel: LibraryViewModel = hiltViewModel()
-    val historyViewModel: HistoryViewModel = hiltViewModel()
-    val settingsViewModel: SettingsViewModel = hiltViewModel()
-
-    val state = viewModel.state.collectAsState()
-    val mainState = mainViewModel.state.collectAsState()
-    val settingsState = settingsViewModel.state.collectAsState()
 
     val lazyListState = rememberSaveable(
         state.value.listState,
@@ -111,11 +97,11 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
     LaunchedEffect(Unit) {
         viewModel.init(
             screen = screen,
-            onNavigate = { navigator.it() },
+            onNavigate = onNavigate,
             context = context,
             refreshList = {
-                libraryViewModel.onEvent(LibraryEvent.OnUpdateBook(it))
-                historyViewModel.onEvent(HistoryEvent.OnLoadList)
+                onLibraryEvent(LibraryEvent.OnUpdateBook(it))
+                onHistoryEvent(HistoryEvent.OnLoadList)
             },
             onError = {
                 it.asString(context)
@@ -129,11 +115,13 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
         }
     }
     LaunchedEffect(lazyListState) {
-        viewModel.onUpdateProgress(
-            onLibraryEvent = libraryViewModel::onEvent,
-            onHistoryEvent = historyViewModel::onEvent
-        )
+        viewModel.onUpdateProgress {
+            onLibraryEvent(LibraryEvent.OnUpdateBook(it))
+            onHistoryEvent(HistoryEvent.OnUpdateBook(it))
+        }
     }
+
+    ReaderScreen(lazyListState = lazyListState)
 
     DisposableEffect(Unit) {
         onDispose {
@@ -145,36 +133,19 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
             context.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
     }
-
-    ReaderScreen(
-        state = state,
-        mainState = mainState,
-        settingsState = settingsState,
-        lazyListState = lazyListState,
-        onNavigate = { navigator.it() },
-        onEvent = viewModel::onEvent,
-        onMainEvent = mainViewModel::onEvent,
-        onSettingsEvent = settingsViewModel::onEvent,
-        onLibraryEvent = libraryViewModel::onEvent,
-        onHistoryEvent = historyViewModel::onEvent
-    )
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-private fun ReaderScreen(
-    state: State<ReaderState>,
-    mainState: State<MainState>,
-    settingsState: State<SettingsState>,
-    lazyListState: LazyListState,
-    onNavigate: OnNavigate,
-    onEvent: (ReaderEvent) -> Unit,
-    onMainEvent: (MainEvent) -> Unit,
-    onSettingsEvent: (SettingsEvent) -> Unit,
-    onLibraryEvent: (LibraryEvent) -> Unit,
-    onHistoryEvent: (HistoryEvent) -> Unit,
-) {
+private fun ReaderScreen(lazyListState: LazyListState) {
+    val state = LocalReaderViewModel.current.state
+    val mainState = LocalMainViewModel.current.state
+    val settingsState = LocalSettingsViewModel.current.state
+    val onEvent = LocalReaderViewModel.current.onEvent
+    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
+    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
     val context = LocalContext.current as ComponentActivity
+    val onNavigate = LocalOnNavigate.current
 
     val nestedScrollConnection = remember(state) {
         object : NestedScrollConnection {
@@ -230,13 +201,7 @@ private fun ReaderScreen(
     }
 
     if (state.value.showSettingsBottomSheet) {
-        ReaderSettingsBottomSheet(
-            mainState = mainState,
-            settingsState = settingsState,
-            onEvent = onEvent,
-            onMainEvent = onMainEvent,
-            onSettingsEvent = onSettingsEvent
-        )
+        ReaderSettingsBottomSheet()
     }
 
     Scaffold(
@@ -250,13 +215,7 @@ private fun ReaderScreen(
                 enter = slideInVertically { -it },
                 exit = slideOutVertically { -it }
             ) {
-                ReaderTopBar(
-                    state = state,
-                    onNavigate = onNavigate,
-                    onEvent = onEvent,
-                    onLibraryUpdateEvent = onLibraryEvent,
-                    onHistoryUpdateEvent = onHistoryEvent
-                )
+                ReaderTopBar()
             }
         },
         bottomBar = {
@@ -266,12 +225,7 @@ private fun ReaderScreen(
                 enter = slideInVertically { it },
                 exit = slideOutVertically { it }
             ) {
-                ReaderBottomBar(
-                    state = state,
-                    onEvent = onEvent,
-                    onLibraryUpdateEvent = onLibraryEvent,
-                    onHistoryUpdateEvent = onHistoryEvent
-                )
+                ReaderBottomBar()
             }
         }
     ) {
@@ -357,7 +311,6 @@ private fun ReaderScreen(
                         fastColorPresetChangeEnabled = mainState.value.fastColorPresetChange,
                         isLoading = state.value.loading,
                         toolbarHidden = toolbarHidden,
-                        onSettingsEvent = onSettingsEvent,
                         presetChanged = {
                             context
                                 .getString(
@@ -373,7 +326,7 @@ private fun ReaderScreen(
             ) {
                 item {
                     DisableSelection {
-                        ReaderStartItem(state = state)
+                        ReaderStartItem()
                     }
 
                     Spacer(modifier = Modifier.height(18.dp))
@@ -395,8 +348,7 @@ private fun ReaderScreen(
                         sidePadding = sidePadding,
                         paragraphIndentation = mainState.value.paragraphIndentation,
                         doubleClickTranslationEnabled = mainState.value.doubleClickTranslation,
-                        toolbarHidden = toolbarHidden,
-                        onEvent = onEvent
+                        toolbarHidden = toolbarHidden
                     )
                 }
 
@@ -404,13 +356,7 @@ private fun ReaderScreen(
                     Spacer(modifier = Modifier.height(18.dp))
 
                     DisableSelection {
-                        ReaderEndItem(
-                            state = state,
-                            onNavigate = onNavigate,
-                            onEvent = onEvent,
-                            onLibraryEvent = onLibraryEvent,
-                            onHistoryUpdateEvent = onHistoryEvent,
-                        )
+                        ReaderEndItem()
                     }
                 }
             }

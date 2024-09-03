@@ -13,35 +13,31 @@ import androidx.compose.material.icons.filled.ImageSearch
 import androidx.compose.material.icons.filled.Restore
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CustomBottomSheet
+import ua.acclorite.book_story.presentation.components.LocalBookInfoViewModel
+import ua.acclorite.book_story.presentation.components.LocalHistoryViewModel
+import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
-import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 
 /**
  * Change cover bottom sheet. Lets user select photo from the gallery and replaces old one.
- *
- * @param state [BookInfoState] instance.
- * @param onEvent [BookInfoEvent] callback.
- * @param onLibraryUpdateEvent [LibraryEvent] callback.
- * @param onHistoryUpdateEvent [HistoryEvent] callback.
  */
 @Composable
-fun BookInfoChangeCoverBottomSheet(
-    state: State<BookInfoState>,
-    onEvent: (BookInfoEvent) -> Unit,
-    onLibraryUpdateEvent: (LibraryEvent.OnUpdateBook) -> Unit,
-    onHistoryUpdateEvent: (HistoryEvent.OnUpdateBook) -> Unit
-) {
+fun BookInfoChangeCoverBottomSheet() {
+    val state = LocalBookInfoViewModel.current.state
+    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
+    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
+    val onEvent = LocalBookInfoViewModel.current.onEvent
     val context = LocalContext.current
+
     val photoPicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = { uri ->
@@ -51,8 +47,8 @@ fun BookInfoChangeCoverBottomSheet(
                         uri,
                         context,
                         refreshList = {
-                            onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
-                            onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
+                            onLibraryEvent(LibraryEvent.OnUpdateBook(it))
+                            onHistoryEvent(HistoryEvent.OnUpdateBook(it))
                         }
                     )
                 )
@@ -83,8 +79,8 @@ fun BookInfoChangeCoverBottomSheet(
                         onEvent(
                             BookInfoEvent.OnResetCoverImage(
                                 refreshList = {
-                                    onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
-                                    onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
+                                    onLibraryEvent(LibraryEvent.OnUpdateBook(it))
+                                    onHistoryEvent(HistoryEvent.OnUpdateBook(it))
                                 },
                                 showResult = {
                                     it.asString(context).showToast(context = context)
@@ -117,8 +113,8 @@ fun BookInfoChangeCoverBottomSheet(
                         onEvent(
                             BookInfoEvent.OnDeleteCover(
                                 refreshList = {
-                                    onLibraryUpdateEvent(LibraryEvent.OnUpdateBook(it))
-                                    onHistoryUpdateEvent(HistoryEvent.OnUpdateBook(it))
+                                    onLibraryEvent(LibraryEvent.OnUpdateBook(it))
+                                    onHistoryEvent(HistoryEvent.OnUpdateBook(it))
                                 }
                             )
                         )

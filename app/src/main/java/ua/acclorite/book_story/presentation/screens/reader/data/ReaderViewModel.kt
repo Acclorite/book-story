@@ -10,7 +10,6 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -32,12 +31,11 @@ import ua.acclorite.book_story.domain.use_case.GetBookById
 import ua.acclorite.book_story.domain.use_case.GetLatestHistory
 import ua.acclorite.book_story.domain.use_case.GetText
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
+import ua.acclorite.book_story.domain.util.BaseViewModel
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.data.launchActivity
-import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -48,14 +46,14 @@ class ReaderViewModel @Inject constructor(
     private val getText: GetText,
     private val getLatestHistory: GetLatestHistory,
     private val getBookById: GetBookById
-) : ViewModel() {
+) : BaseViewModel<ReaderState, ReaderEvent>() {
 
     private val _state = MutableStateFlow(ReaderState())
-    val state = _state.asStateFlow()
+    override val state = _state.asStateFlow()
 
     private var eventJob = SupervisorJob()
 
-    fun onEvent(event: ReaderEvent) {
+    override fun onEvent(event: ReaderEvent) {
         viewModelScope.launch(eventJob + Dispatchers.Main) {
             when (event) {
                 is ReaderEvent.OnTextIsEmpty -> {
@@ -269,7 +267,6 @@ class ReaderViewModel @Inject constructor(
                     launch(Dispatchers.IO) {
                         _state.update {
                             it.copy(
-                                currentPage = if (it.showSettingsBottomSheet) it.currentPage else 0,
                                 showSettingsBottomSheet = !it.showSettingsBottomSheet
                             )
                         }
@@ -278,7 +275,13 @@ class ReaderViewModel @Inject constructor(
 
                 is ReaderEvent.OnScrollToSettingsPage -> {
                     launch {
-                        event.pagerState.scrollToPage(event.page)
+                        _state.update {
+                            event.pagerState?.scrollToPage(event.page)
+
+                            it.copy(
+                                currentPage = event.page
+                            )
+                        }
                     }
                 }
 
@@ -498,10 +501,7 @@ class ReaderViewModel @Inject constructor(
     }
 
     @OptIn(FlowPreview::class)
-    fun onUpdateProgress(
-        onLibraryEvent: (LibraryEvent) -> Unit,
-        onHistoryEvent: (HistoryEvent) -> Unit
-    ) {
+    fun onUpdateProgress(refreshList: (Book) -> Unit) {
         viewModelScope.launch {
             snapshotFlow {
                 _state.value.listState.firstVisibleItemIndex to _state.value.listState.firstVisibleItemScrollOffset
@@ -538,8 +538,7 @@ class ReaderViewModel @Inject constructor(
                                 firstVisibleItemIndex = firstVisibleItemIndex,
                                 firstVisibleItemOffset = firstVisibleItemScrollOffset,
                                 refreshList = { book ->
-                                    onLibraryEvent(LibraryEvent.OnUpdateBook(book))
-                                    onHistoryEvent(HistoryEvent.OnUpdateBook(book))
+                                    refreshList(book)
                                 }
                             )
                         )

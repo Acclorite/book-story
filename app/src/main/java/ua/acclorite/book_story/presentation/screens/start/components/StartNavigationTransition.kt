@@ -8,11 +8,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.screens.start.data.StartState
+import ua.acclorite.book_story.presentation.components.LocalStartViewModel
 import ua.acclorite.book_story.presentation.ui.Transitions
 
 /**
@@ -21,13 +20,14 @@ import ua.acclorite.book_story.presentation.ui.Transitions
 @Composable
 fun StartNavigationTransition(
     modifier: Modifier = Modifier,
-    state: State<StartState>,
     visible: Boolean,
     bottomBar: @Composable () -> Unit,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     content: @Composable ColumnScope.() -> Unit
 ) {
+    val state = LocalStartViewModel.current.state
+
     CustomAnimatedVisibility(
         visible = visible,
         enter = if (state.value.useBackAnimation) Transitions.BackSlidingTransitionIn

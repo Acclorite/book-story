@@ -6,6 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.LocalHistoryViewModel
+import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithContent
 import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
@@ -15,11 +17,10 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
  * Delete whole history dialog.
  */
 @Composable
-fun HistoryDeleteWholeHistoryDialog(
-    onEvent: (HistoryEvent) -> Unit,
-    onLibraryLoadEvent: (LibraryEvent.OnLoadList) -> Unit
-) {
+fun HistoryDeleteWholeHistoryDialog() {
     val context = LocalContext.current
+    val onEvent = LocalHistoryViewModel.current.onEvent
+    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
 
     CustomDialogWithContent(
         title = stringResource(id = R.string.delete_history),
@@ -34,7 +35,7 @@ fun HistoryDeleteWholeHistoryDialog(
         onAction = {
             onEvent(
                 HistoryEvent.OnDeleteWholeHistory {
-                    onLibraryLoadEvent(LibraryEvent.OnLoadList)
+                    onLibraryEvent(LibraryEvent.OnLoadList)
                 }
             )
             context.getString(R.string.history_deleted)

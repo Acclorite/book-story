@@ -9,22 +9,22 @@ import androidx.compose.ui.res.stringResource
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.LocalBrowseViewModel
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithContent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 
 /**
  * Storage permission dialog.
  *
- * @param onEvent [BrowseEvent] callback.
  * @param permissionState Storage [PermissionState].
  */
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun BrowseStoragePermissionDialog(
-    onEvent: (BrowseEvent) -> Unit,
     permissionState: PermissionState
 ) {
     val activity = LocalContext.current as ComponentActivity
+    val onEvent = LocalBrowseViewModel.current.onEvent
 
     CustomDialogWithContent(
         title = stringResource(id = R.string.storage_permission),

@@ -6,7 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
@@ -14,9 +13,10 @@ import androidx.compose.ui.res.stringResource
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
+import ua.acclorite.book_story.presentation.components.LocalSettingsViewModel
 import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithContent
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
 
@@ -27,12 +27,12 @@ import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
 @OptIn(ExperimentalPermissionsApi::class)
 @SuppressLint("InlinedApi")
 @Composable
-fun CheckForUpdatesSetting(
-    state: State<MainState>,
-    onMainEvent: (MainEvent) -> Unit,
-    onSettingsEvent: (SettingsEvent) -> Unit
-) {
+fun CheckForUpdatesSetting() {
+    val state = LocalMainViewModel.current.state
+    val onMainEvent = LocalMainViewModel.current.onEvent
+    val onSettingsEvent = LocalSettingsViewModel.current.onEvent
     val activity = LocalContext.current as ComponentActivity
+
     val notificationsPermissionState = rememberPermissionState(
         permission = Manifest.permission.POST_NOTIFICATIONS
     )

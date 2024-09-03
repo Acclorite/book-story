@@ -1,7 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.about.nested.licenses.data
 
 import android.content.Context
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.util.withJson
@@ -12,15 +11,18 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.util.BaseViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class LicensesViewModel @Inject constructor(
 
-) : ViewModel() {
+) : BaseViewModel<LicensesState, LicensesEvent>() {
 
     private val _state = MutableStateFlow(LicensesState())
-    val state = _state.asStateFlow()
+    override val state = _state.asStateFlow()
+
+    override fun onEvent(event: LicensesEvent) {}
 
     fun init(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {

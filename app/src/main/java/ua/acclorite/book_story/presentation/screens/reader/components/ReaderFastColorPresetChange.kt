@@ -7,6 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.presentation.components.LocalSettingsViewModel
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
 
 /**
@@ -16,7 +17,6 @@ import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
  * @param fastColorPresetChangeEnabled Whether this is enabled.
  * @param isLoading Whether Reader is loading.
  * @param toolbarHidden Whether toolbar(selection) is hidden.
- * @param onSettingsEvent [SettingsEvent] callback.
  * @param presetChanged Callback when Color Preset was changed.
  */
 @Composable
@@ -24,9 +24,10 @@ fun Modifier.readerFastColorPresetChange(
     fastColorPresetChangeEnabled: Boolean,
     isLoading: Boolean,
     toolbarHidden: Boolean,
-    onSettingsEvent: (SettingsEvent) -> Unit,
     presetChanged: (UIText) -> Unit
 ): Modifier {
+    val onSettingsEvent = LocalSettingsViewModel.current.onEvent
+
     val offset = remember { mutableFloatStateOf(0f) }
     return this.then(
         if (fastColorPresetChangeEnabled && toolbarHidden && !isLoading) {

@@ -19,7 +19,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,20 +27,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.components.LocalBrowseViewModel
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.components.customItemsIndexed
-import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
-import ua.acclorite.book_story.presentation.screens.browse.data.BrowseState
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
 import java.io.File
 
 @Composable
-fun BrowseTopBarDirectoryPath(
-    state: State<BrowseState>,
-    mainState: State<MainState>,
-    onEvent: (BrowseEvent) -> Unit
-) {
+fun BrowseTopBarDirectoryPath() {
+    val state = LocalBrowseViewModel.current.state
+    val mainState = LocalMainViewModel.current.state
+    val onEvent = LocalBrowseViewModel.current.onEvent
     val context = LocalContext.current
+
     val rootDirectory = remember {
         Environment.getExternalStorageDirectory()
     }

@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
@@ -20,21 +19,24 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
+import ua.acclorite.book_story.domain.util.BaseViewModel
 import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.data.launchActivity
 import javax.inject.Inject
 
 @OptIn(ExperimentalPermissionsApi::class)
 @HiltViewModel
-class StartViewModel @Inject constructor() : ViewModel() {
+class StartViewModel @Inject constructor(
+
+) : BaseViewModel<StartState, StartEvent>() {
 
     private val _state = MutableStateFlow(StartState())
-    val state = _state.asStateFlow()
+    override val state = _state.asStateFlow()
 
     private var storagePermissionJob: Job? = null
     private var notificationsPermissionJob: Job? = null
 
-    fun onEvent(event: StartEvent) {
+    override fun onEvent(event: StartEvent) {
         when (event) {
             is StartEvent.OnGoBack -> {
                 storagePermissionJob?.cancel()

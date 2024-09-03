@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 
 /**
@@ -24,6 +25,9 @@ fun ReaderSettingsBottomSheetTabRow(
     pagerState: PagerState
 ) {
     val tabItems = listOf(
+fun ReaderSettingsBottomSheetTabRow(pagerState: PagerState) {
+    val onEvent = LocalReaderViewModel.current.onEvent
+
         stringResource(id = R.string.general_tab),
         stringResource(id = R.string.color_tab)
     )

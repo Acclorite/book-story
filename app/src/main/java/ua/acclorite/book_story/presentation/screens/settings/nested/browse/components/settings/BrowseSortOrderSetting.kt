@@ -17,7 +17,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,20 +24,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.components.customItems
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseSortOrder
 
 /**
  * Browse Sort Order setting.
  * Lets user choose how to sort files in Browse.
  */
-fun LazyListScope.BrowseSortOrderSetting(
-    state: State<MainState>,
-    onMainEvent: (MainEvent) -> Unit
-) {
+fun LazyListScope.BrowseSortOrderSetting() {
     customItems(BrowseSortOrder.entries, key = { it.name }) {
+        val state = LocalMainViewModel.current.state
+        val onMainEvent = LocalMainViewModel.current.onEvent
+
         SortItem(
             item = it,
             isSelected = state.value.browseSortOrder == it,

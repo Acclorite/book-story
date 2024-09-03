@@ -13,44 +13,25 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.presentation.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.components.GoBackButton
 import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
-import ua.acclorite.book_story.presentation.data.LocalNavigator
-import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.data.MainState
-import ua.acclorite.book_story.presentation.data.MainViewModel
+import ua.acclorite.book_story.presentation.data.LocalOnNavigate
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.components.BrowseSettingsCategory
 
 @Composable
 fun BrowseSettingsRoot() {
-    val navigator = LocalNavigator.current
-    val mainViewModel: MainViewModel = hiltViewModel()
-
-    val state = mainViewModel.state.collectAsState()
-
-    BrowseSettings(
-        state = state,
-        onNavigate = { navigator.it() },
-        onMainEvent = mainViewModel::onEvent
-    )
+    BrowseSettings()
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun BrowseSettings(
-    state: State<MainState>,
-    onNavigate: OnNavigate,
-    onMainEvent: (MainEvent) -> Unit
-) {
+private fun BrowseSettings() {
+    val onNavigate = LocalOnNavigate.current
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
 
     Scaffold(
@@ -82,10 +63,7 @@ private fun BrowseSettings(
                 .padding(top = paddingValues.calculateTopPadding()),
             state = scrollState.second
         ) {
-            BrowseSettingsCategory(
-                state = state,
-                onMainEvent = onMainEvent
-            )
+            BrowseSettingsCategory()
         }
     }
 }

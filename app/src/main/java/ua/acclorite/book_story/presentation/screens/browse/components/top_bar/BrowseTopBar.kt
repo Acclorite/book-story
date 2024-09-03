@@ -22,7 +22,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,10 +38,10 @@ import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.components.CustomIconButton
 import ua.acclorite.book_story.presentation.components.CustomSearchTextField
+import ua.acclorite.book_story.presentation.components.LocalBrowseViewModel
+import ua.acclorite.book_story.presentation.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.components.MoreDropDown
-import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
-import ua.acclorite.book_story.presentation.screens.browse.data.BrowseState
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseLayout
 import ua.acclorite.book_story.presentation.ui.FadeTransitionPreservingSpace
@@ -50,19 +49,15 @@ import ua.acclorite.book_story.presentation.ui.FadeTransitionPreservingSpace
 /**
  * Browse Top Bar.
  *
- * @param state [BrowseState].
- * @param mainState [MainState].
  * @param filteredFiles Filtered files.
- * @param onEvent [BrowseEvent] callback.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BrowseTopBar(
-    state: State<BrowseState>,
-    mainState: State<MainState>,
-    filteredFiles: List<SelectableFile>,
-    onEvent: (BrowseEvent) -> Unit
-) {
+fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
+    val state = LocalBrowseViewModel.current.state
+    val mainState = LocalMainViewModel.current.state
+    val onEvent = LocalBrowseViewModel.current.onEvent
+
     val focusRequester = remember { FocusRequester() }
     val selectedDirectoryName = remember {
         mutableStateOf(state.value.selectedDirectory.name)
@@ -245,11 +240,7 @@ fun BrowseTopBar(
         },
 
         customContent = {
-            BrowseTopBarDirectoryPath(
-                state = state,
-                mainState = mainState,
-                onEvent = onEvent
-            )
+            BrowseTopBarDirectoryPath()
         }
     )
 }

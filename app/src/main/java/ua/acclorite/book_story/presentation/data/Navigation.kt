@@ -44,6 +44,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.Route
 import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.ui.Transitions
@@ -54,9 +55,12 @@ private const val USE_BACK_ANIM = "use_back_animation"
 private const val SCREENS = "screens"
 
 /**
- * Passed in [CompositionLocalProvider] and can be accessed through [LocalNavigator].current.
+ * Passed in [CompositionLocalProvider].
  */
 val LocalNavigator = compositionLocalOf<Navigator> {
+    error("Cannot initialize Navigator.")
+}
+val LocalOnNavigate = compositionLocalOf<OnNavigate> {
     error("Cannot initialize Navigator.")
 }
 
@@ -434,7 +438,10 @@ fun NavigationHost(
             .background(colorBetweenAnimations)
     )
 
-    CompositionLocalProvider(LocalNavigator provides navigator) {
+    CompositionLocalProvider(
+        LocalNavigator provides navigator,
+        LocalOnNavigate provides { navigator.it() }
+    ) {
         content(navigator)
     }
 }

@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.FontWithName
+import ua.acclorite.book_story.presentation.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.data.showToast
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.ReaderTextAlignment
@@ -43,7 +44,6 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.
  * @param paragraphIndentation Whether Paragraph Indentation is enabled for this line.
  * @param doubleClickTranslationEnabled Whether Double Click Translation is enabled.
  * @param toolbarHidden Whether selection toolBar is hidden.
- * @param onEvent [ReaderEvent] callback.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -60,9 +60,10 @@ fun LazyItemScope.ReaderTextParagraph(
     sidePadding: Dp,
     paragraphIndentation: Boolean,
     doubleClickTranslationEnabled: Boolean,
-    toolbarHidden: Boolean,
-    onEvent: (ReaderEvent) -> Unit
+    toolbarHidden: Boolean
 ) {
+    val onEvent = LocalReaderViewModel.current.onEvent
+
     Column(
         modifier = Modifier
             .animateItem(fadeInSpec = null, fadeOutSpec = null)

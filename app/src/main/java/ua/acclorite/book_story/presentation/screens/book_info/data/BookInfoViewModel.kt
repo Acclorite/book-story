@@ -8,7 +8,6 @@ import android.content.Context.CLIPBOARD_SERVICE
 import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.compose.material3.SnackbarResult
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -34,6 +33,7 @@ import ua.acclorite.book_story.domain.use_case.ResetCoverImage
 import ua.acclorite.book_story.domain.use_case.UpdateBookWithText
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
 import ua.acclorite.book_story.domain.use_case.UpdateCoverImageOfBook
+import ua.acclorite.book_story.domain.util.BaseViewModel
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.data.Screen
@@ -54,17 +54,17 @@ class BookInfoViewModel @Inject constructor(
     private val getText: GetText,
     private val canResetCover: CanResetCover,
     private val resetCoverImage: ResetCoverImage,
-) : ViewModel() {
+) : BaseViewModel<BookInfoState, BookInfoEvent>() {
 
     private val _state = MutableStateFlow(BookInfoState())
-    val state = _state.asStateFlow()
+    override val state = _state.asStateFlow()
 
     private var eventJob = SupervisorJob()
 
     private var snackBarJob: Job? = null
     private var updateJob: Job? = null
 
-    fun onEvent(event: BookInfoEvent) {
+    override fun onEvent(event: BookInfoEvent) {
         viewModelScope.launch(eventJob + Dispatchers.Main) {
             when (event) {
                 is BookInfoEvent.OnShowHideChangeCoverBottomSheet -> {

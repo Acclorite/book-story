@@ -13,7 +13,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,21 +25,18 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.components.LocalBookInfoViewModel
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
-import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoState
 
 /**
  * Description section.
- *
- * @param state [BookInfoState].
- * @param onEvent [BookInfoEvent] callback.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun BookInfoDescriptionSection(
-    state: State<BookInfoState>,
-    onEvent: (BookInfoEvent) -> Unit
-) {
+fun BookInfoDescriptionSection() {
+    val state = LocalBookInfoViewModel.current.state
+    val onEvent = LocalBookInfoViewModel.current.onEvent
+
     val descriptionFocusRequester = remember { FocusRequester() }
 
     if (!state.value.editDescription) {
