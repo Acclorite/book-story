@@ -9,12 +9,12 @@ import androidx.compose.ui.res.stringResource
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.components.LocalBrowseViewModel
-import ua.acclorite.book_story.presentation.components.is_messages.IsEmpty
-import ua.acclorite.book_story.presentation.components.is_messages.IsError
-import ua.acclorite.book_story.presentation.data.LocalOnNavigate
-import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
+import ua.acclorite.book_story.presentation.core.components.is_messages.IsEmpty
+import ua.acclorite.book_story.presentation.core.components.is_messages.IsError
+import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.ui.Transitions
 

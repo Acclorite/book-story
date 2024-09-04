@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.model.ButtonItem
-import ua.acclorite.book_story.presentation.components.CategoryTitle
+import ua.acclorite.book_story.presentation.core.components.CategoryTitle
 
 /**
  * Chips with title. Use list of [ButtonItem]s to display chips.

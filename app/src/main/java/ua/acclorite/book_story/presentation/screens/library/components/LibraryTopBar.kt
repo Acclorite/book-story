@@ -31,11 +31,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.AnimatedTopAppBar
-import ua.acclorite.book_story.presentation.components.CustomIconButton
-import ua.acclorite.book_story.presentation.components.CustomSearchTextField
-import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
-import ua.acclorite.book_story.presentation.components.MoreDropDown
+import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBar
+import ua.acclorite.book_story.presentation.core.components.CustomIconButton
+import ua.acclorite.book_story.presentation.core.components.CustomSearchTextField
+import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
+import ua.acclorite.book_story.presentation.core.components.MoreDropDown
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 
 /**

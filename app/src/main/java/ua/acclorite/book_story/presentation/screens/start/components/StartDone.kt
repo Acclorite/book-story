@@ -27,10 +27,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.LocalBrowseViewModel
-import ua.acclorite.book_story.presentation.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.components.LocalStartViewModel
-import ua.acclorite.book_story.presentation.data.LocalNavigator
+import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
+import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
+import ua.acclorite.book_story.presentation.core.components.LocalStartViewModel
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.start.data.StartEvent

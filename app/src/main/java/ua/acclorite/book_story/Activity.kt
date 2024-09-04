@@ -19,12 +19,12 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
-import ua.acclorite.book_story.presentation.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.components.bottom_navigation_bar.BottomNavigationBar
-import ua.acclorite.book_story.presentation.components.custom_navigation_rail.CustomNavigationRail
+import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
+import ua.acclorite.book_story.presentation.core.components.bottom_navigation_bar.BottomNavigationBar
+import ua.acclorite.book_story.presentation.core.components.custom_navigation_rail.CustomNavigationRail
+import ua.acclorite.book_story.presentation.core.navigation.NavigationHost
+import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.data.MainViewModel
-import ua.acclorite.book_story.presentation.data.NavigationHost
-import ua.acclorite.book_story.presentation.data.Screen
 import ua.acclorite.book_story.presentation.screens.about.AboutScreenRoot
 import ua.acclorite.book_story.presentation.screens.about.nested.credits.CreditsScreenRoot
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.LicenseInfoScreenRoot

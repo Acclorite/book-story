@@ -15,9 +15,9 @@ import ua.acclorite.book_story.domain.use_case.ChangeLanguage
 import ua.acclorite.book_story.domain.use_case.CheckForUpdates
 import ua.acclorite.book_story.domain.use_case.GetAllSettings
 import ua.acclorite.book_story.domain.use_case.SetDatastore
-import ua.acclorite.book_story.domain.util.BaseViewModel
-import ua.acclorite.book_story.domain.util.Constants
-import ua.acclorite.book_story.domain.util.DataStoreConstants
+import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
+import ua.acclorite.book_story.presentation.core.util.BaseViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseLayout

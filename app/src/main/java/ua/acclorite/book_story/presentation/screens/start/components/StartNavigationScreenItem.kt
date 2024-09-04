@@ -7,9 +7,9 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.components.CustomLazyColumn
-import ua.acclorite.book_story.presentation.components.LocalStartViewModel
+import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
+import ua.acclorite.book_story.presentation.core.components.LocalStartViewModel
 import ua.acclorite.book_story.presentation.screens.start.data.StartNavigationScreen
 import ua.acclorite.book_story.presentation.ui.Transitions
 

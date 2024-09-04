@@ -17,12 +17,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.NullableBook
-import ua.acclorite.book_story.presentation.components.LocalBrowseViewModel
-import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
-import ua.acclorite.book_story.presentation.components.customItems
-import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithLazyColumn
-import ua.acclorite.book_story.presentation.data.LocalOnNavigate
-import ua.acclorite.book_story.presentation.data.showToast
+import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
+import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
+import ua.acclorite.book_story.presentation.core.components.customItems
+import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithLazyColumn
+import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 

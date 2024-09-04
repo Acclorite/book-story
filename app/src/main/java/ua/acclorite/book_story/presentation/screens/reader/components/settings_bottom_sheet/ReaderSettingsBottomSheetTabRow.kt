@@ -11,8 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.LocalReaderViewModel
+import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 
 /**
@@ -20,11 +21,6 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReaderSettingsBottomSheetTabRow(
-    onEvent: (ReaderEvent) -> Unit,
-    pagerState: PagerState
-) {
-    val tabItems = listOf(
 fun ReaderSettingsBottomSheetTabRow(pagerState: PagerState) {
     val onEvent = LocalReaderViewModel.current.onEvent
 
@@ -40,7 +36,6 @@ fun ReaderSettingsBottomSheetTabRow(pagerState: PagerState) {
     ) {
         tabItems.forEachIndexed { index, tabItem ->
             Tab(
-                modifier = Modifier,
                 selected = pagerState.currentPage == index,
                 onClick = {
                     onEvent(ReaderEvent.OnScrollToSettingsPage(index, pagerState))

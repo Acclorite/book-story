@@ -30,8 +30,8 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.CategoryTitle
-import ua.acclorite.book_story.presentation.components.CustomIconButton
+import ua.acclorite.book_story.presentation.core.components.CategoryTitle
+import ua.acclorite.book_story.presentation.core.components.CustomIconButton
 
 /**
  * Color picker with title.

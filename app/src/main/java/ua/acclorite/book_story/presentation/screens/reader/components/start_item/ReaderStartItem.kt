@@ -31,8 +31,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.CustomCoverImage
-import ua.acclorite.book_story.presentation.components.LocalReaderViewModel
+import ua.acclorite.book_story.presentation.core.components.CustomCoverImage
+import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
 
 /**
  * Reader start item. Displays at the beginning of the book.

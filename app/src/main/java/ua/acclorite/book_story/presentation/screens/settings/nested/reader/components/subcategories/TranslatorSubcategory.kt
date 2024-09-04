@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.CategoryTitle
+import ua.acclorite.book_story.presentation.core.components.CategoryTitle
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.DoubleClickTranslationSetting
 
 /**

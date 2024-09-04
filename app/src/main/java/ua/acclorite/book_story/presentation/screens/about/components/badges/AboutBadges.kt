@@ -12,10 +12,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.util.Constants
-import ua.acclorite.book_story.presentation.components.LocalAboutViewModel
-import ua.acclorite.book_story.presentation.components.customItems
-import ua.acclorite.book_story.presentation.data.showToast
+import ua.acclorite.book_story.presentation.core.components.LocalAboutViewModel
+import ua.acclorite.book_story.presentation.core.components.customItems
+import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
 
 /**

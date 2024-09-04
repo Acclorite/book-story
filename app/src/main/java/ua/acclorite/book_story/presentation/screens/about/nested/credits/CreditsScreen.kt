@@ -17,14 +17,14 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.util.Constants
-import ua.acclorite.book_story.presentation.components.CustomLazyColumn
-import ua.acclorite.book_story.presentation.components.GoBackButton
-import ua.acclorite.book_story.presentation.components.LocalAboutViewModel
-import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
-import ua.acclorite.book_story.presentation.components.customItems
-import ua.acclorite.book_story.presentation.data.LocalOnNavigate
-import ua.acclorite.book_story.presentation.data.showToast
+import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
+import ua.acclorite.book_story.presentation.core.components.GoBackButton
+import ua.acclorite.book_story.presentation.core.components.LocalAboutViewModel
+import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.core.components.customItems
+import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
 import ua.acclorite.book_story.presentation.screens.about.nested.credits.components.CreditItem
 

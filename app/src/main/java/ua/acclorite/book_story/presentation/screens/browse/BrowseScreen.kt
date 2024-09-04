@@ -24,11 +24,11 @@ import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.rememberPermissionState
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.SelectableFile
-import ua.acclorite.book_story.presentation.components.LocalBrowseViewModel
-import ua.acclorite.book_story.presentation.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.data.LocalOnNavigate
-import ua.acclorite.book_story.presentation.data.Screen
-import ua.acclorite.book_story.presentation.data.showToast
+import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
+import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
+import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.Screen
+import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.browse.components.BrowseEmptyPlaceholder
 import ua.acclorite.book_story.presentation.screens.browse.components.BrowseStoragePermissionDialog
 import ua.acclorite.book_story.presentation.screens.browse.components.adding_dialog.BrowseAddingDialog

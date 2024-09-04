@@ -24,8 +24,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.components.customItems
+import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
+import ua.acclorite.book_story.presentation.core.components.customItems
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseSortOrder
 

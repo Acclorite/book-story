@@ -17,8 +17,8 @@ import ua.acclorite.book_story.domain.use_case.DeleteBooks
 import ua.acclorite.book_story.domain.use_case.GetBooks
 import ua.acclorite.book_story.domain.use_case.InsertHistory
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
-import ua.acclorite.book_story.domain.util.BaseViewModel
-import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.core.navigation.Screen
+import ua.acclorite.book_story.presentation.core.util.BaseViewModel
 import java.util.Date
 import javax.inject.Inject
 

@@ -19,8 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.components.CustomBottomSheet
-import ua.acclorite.book_story.presentation.components.LocalReaderViewModel
+import ua.acclorite.book_story.presentation.core.components.CustomBottomSheet
+import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.subcategories.ColorsSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.ReaderSettingsCategory
@@ -78,6 +78,11 @@ fun ReaderSettingsBottomSheet() {
         HorizontalPager(state = pagerState) { page ->
             LazyColumn {
                 if (page == 0) {
+            if (page == 0) {
+                LazyColumn {
+                }
+            }
+
             if (page == 1) {
                 LazyColumn {
                     ReaderSettingsCategory(

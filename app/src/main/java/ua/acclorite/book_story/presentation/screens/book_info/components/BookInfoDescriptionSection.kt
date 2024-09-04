@@ -25,7 +25,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.LocalBookInfoViewModel
+import ua.acclorite.book_story.presentation.core.components.LocalBookInfoViewModel
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 
 /**

@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.util.Selected
-import ua.acclorite.book_story.presentation.components.CustomCheckbox
+import ua.acclorite.book_story.presentation.core.components.CustomCheckbox
 
 /**
  * Adding dialog item.

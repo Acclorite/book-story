@@ -16,9 +16,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.LocalBookInfoViewModel
-import ua.acclorite.book_story.presentation.data.removeDigits
-import ua.acclorite.book_story.presentation.data.removeTrailingZero
+import ua.acclorite.book_story.presentation.core.components.LocalBookInfoViewModel
+import ua.acclorite.book_story.presentation.core.util.removeDigits
+import ua.acclorite.book_story.presentation.core.util.removeTrailingZero
 
 /**
  * Statistic section.

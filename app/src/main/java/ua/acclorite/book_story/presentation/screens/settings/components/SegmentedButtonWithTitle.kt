@@ -39,8 +39,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
-import ua.acclorite.book_story.presentation.components.CategoryTitle
-import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.CategoryTitle
+import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 
 /**
  * Segmented Button with Title.

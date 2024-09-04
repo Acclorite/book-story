@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.components.CategoryTitle
+import ua.acclorite.book_story.presentation.core.components.CategoryTitle
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.FontSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.TextSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.TranslatorSubcategory

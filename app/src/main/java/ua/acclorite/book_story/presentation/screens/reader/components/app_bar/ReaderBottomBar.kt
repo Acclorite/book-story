@@ -20,11 +20,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.components.LocalHistoryViewModel
-import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
-import ua.acclorite.book_story.presentation.components.LocalReaderViewModel
-import ua.acclorite.book_story.presentation.data.removeDigits
-import ua.acclorite.book_story.presentation.data.removeTrailingZero
+import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
+import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
+import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
+import ua.acclorite.book_story.presentation.core.util.removeDigits
+import ua.acclorite.book_story.presentation.core.util.removeTrailingZero
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent

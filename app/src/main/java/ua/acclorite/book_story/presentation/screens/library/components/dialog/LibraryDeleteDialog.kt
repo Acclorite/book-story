@@ -6,11 +6,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.LocalBrowseViewModel
-import ua.acclorite.book_story.presentation.components.LocalHistoryViewModel
-import ua.acclorite.book_story.presentation.components.LocalLibraryViewModel
-import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithContent
-import ua.acclorite.book_story.presentation.data.showToast
+import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
+import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
+import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
+import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithContent
+import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent

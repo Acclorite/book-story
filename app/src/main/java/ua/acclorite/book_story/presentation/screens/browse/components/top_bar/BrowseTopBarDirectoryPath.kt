@@ -26,10 +26,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.components.LocalBrowseViewModel
-import ua.acclorite.book_story.presentation.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.components.customItemsIndexed
+import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
+import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
+import ua.acclorite.book_story.presentation.core.components.customItemsIndexed
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
 import java.io.File

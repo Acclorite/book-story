@@ -33,10 +33,10 @@ import ua.acclorite.book_story.domain.use_case.ResetCoverImage
 import ua.acclorite.book_story.domain.use_case.UpdateBookWithText
 import ua.acclorite.book_story.domain.use_case.UpdateBooks
 import ua.acclorite.book_story.domain.use_case.UpdateCoverImageOfBook
-import ua.acclorite.book_story.domain.util.BaseViewModel
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.UIText
-import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.core.navigation.Screen
+import ua.acclorite.book_story.presentation.core.util.BaseViewModel
 import java.io.File
 import java.util.Date
 import javax.inject.Inject

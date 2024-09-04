@@ -35,10 +35,10 @@ import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.model.SelectableFile
 import ua.acclorite.book_story.domain.repository.BookRepository
-import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.CoverImage
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.data.MainState
 import java.io.ByteArrayOutputStream
 import java.io.File

@@ -17,10 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.CustomLazyColumn
-import ua.acclorite.book_story.presentation.components.GoBackButton
-import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
-import ua.acclorite.book_story.presentation.data.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
+import ua.acclorite.book_story.presentation.core.components.GoBackButton
+import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.AppearanceSettingsCategory
 
 @Composable

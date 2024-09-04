@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.util.BaseViewModel
+import ua.acclorite.book_story.presentation.core.util.BaseViewModel
 import javax.inject.Inject
 
 @HiltViewModel

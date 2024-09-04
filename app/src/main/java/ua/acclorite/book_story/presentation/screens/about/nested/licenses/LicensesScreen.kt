@@ -24,14 +24,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.components.CustomLazyColumn
-import ua.acclorite.book_story.presentation.components.GoBackButton
-import ua.acclorite.book_story.presentation.components.LocalLicensesViewModel
-import ua.acclorite.book_story.presentation.components.collapsibleUntilExitScrollBehaviorWithLazyListState
-import ua.acclorite.book_story.presentation.components.customItems
-import ua.acclorite.book_story.presentation.data.LocalOnNavigate
-import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
+import ua.acclorite.book_story.presentation.core.components.GoBackButton
+import ua.acclorite.book_story.presentation.core.components.LocalLicensesViewModel
+import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.core.components.customItems
+import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.screens.about.nested.licenses.components.LicenseItem
 
 @Composable

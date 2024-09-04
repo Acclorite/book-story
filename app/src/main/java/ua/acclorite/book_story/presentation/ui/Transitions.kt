@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import kotlin.math.roundToInt
 
 object Transitions {

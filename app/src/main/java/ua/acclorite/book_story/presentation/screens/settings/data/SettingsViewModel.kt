@@ -23,11 +23,11 @@ import ua.acclorite.book_story.domain.use_case.GetColorPresets
 import ua.acclorite.book_story.domain.use_case.ReorderColorPresets
 import ua.acclorite.book_story.domain.use_case.SelectColorPreset
 import ua.acclorite.book_story.domain.use_case.UpdateColorPreset
-import ua.acclorite.book_story.domain.util.BaseViewModel
-import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.ID
 import ua.acclorite.book_story.domain.util.UIText
-import ua.acclorite.book_story.presentation.data.launchActivity
+import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.util.BaseViewModel
+import ua.acclorite.book_story.presentation.core.util.launchActivity
 import javax.inject.Inject
 import kotlin.random.Random
 

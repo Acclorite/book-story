@@ -17,9 +17,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.CustomDropDownMenuItem
-import ua.acclorite.book_story.presentation.components.CustomIconButton
-import ua.acclorite.book_story.presentation.components.LocalBookInfoViewModel
+import ua.acclorite.book_story.presentation.core.components.CustomDropDownMenuItem
+import ua.acclorite.book_story.presentation.core.components.CustomIconButton
+import ua.acclorite.book_story.presentation.core.components.LocalBookInfoViewModel
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 
 /**

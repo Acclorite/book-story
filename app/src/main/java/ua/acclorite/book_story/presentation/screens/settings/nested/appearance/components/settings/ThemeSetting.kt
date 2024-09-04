@@ -37,12 +37,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.util.Constants
 import ua.acclorite.book_story.domain.util.UIText
-import ua.acclorite.book_story.presentation.components.CategoryTitle
-import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.components.customItemsIndexed
+import ua.acclorite.book_story.presentation.core.components.CategoryTitle
+import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
+import ua.acclorite.book_story.presentation.core.components.customItemsIndexed
+import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.ui.Theme
 import ua.acclorite.book_story.presentation.ui.ThemeContrast

@@ -7,7 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import ua.acclorite.book_story.domain.util.UIText
-import ua.acclorite.book_story.presentation.components.LocalSettingsViewModel
+import ua.acclorite.book_story.presentation.core.components.LocalSettingsViewModel
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
 
 /**

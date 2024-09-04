@@ -12,7 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.rememberPermissionState
-import ua.acclorite.book_story.presentation.components.LocalStartViewModel
+import ua.acclorite.book_story.presentation.core.components.LocalStartViewModel
 import ua.acclorite.book_story.presentation.screens.start.components.StartDone
 import ua.acclorite.book_story.presentation.screens.start.components.StartSettings
 import ua.acclorite.book_story.presentation.screens.start.data.StartEvent

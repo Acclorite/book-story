@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.components.CategoryTitle
+import ua.acclorite.book_story.presentation.core.components.CategoryTitle
 import kotlin.math.roundToInt
 
 /**

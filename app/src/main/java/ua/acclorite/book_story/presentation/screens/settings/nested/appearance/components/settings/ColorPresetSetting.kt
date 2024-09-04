@@ -60,11 +60,11 @@ import sh.calvin.reorderable.rememberReorderableLazyListState
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ColorPreset
 import ua.acclorite.book_story.domain.util.Selected
-import ua.acclorite.book_story.presentation.components.CategoryTitle
-import ua.acclorite.book_story.presentation.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.components.CustomIconButton
-import ua.acclorite.book_story.presentation.components.LocalSettingsViewModel
-import ua.acclorite.book_story.presentation.components.customItemsIndexed
+import ua.acclorite.book_story.presentation.core.components.CategoryTitle
+import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.CustomIconButton
+import ua.acclorite.book_story.presentation.core.components.LocalSettingsViewModel
+import ua.acclorite.book_story.presentation.core.components.customItemsIndexed
 import ua.acclorite.book_story.presentation.screens.settings.components.ColorPickerWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
 import ua.acclorite.book_story.presentation.ui.FadeTransitionPreservingSpace

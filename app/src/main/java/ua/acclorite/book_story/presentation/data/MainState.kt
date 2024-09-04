@@ -8,8 +8,8 @@ import androidx.annotation.Keep
 import androidx.compose.runtime.Immutable
 import androidx.datastore.preferences.core.Preferences
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.domain.util.Constants
-import ua.acclorite.book_story.domain.util.DataStoreConstants
+import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseLayout
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseSortOrder

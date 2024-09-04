@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.SelectableFile
-import ua.acclorite.book_story.presentation.components.CustomCheckbox
+import ua.acclorite.book_story.presentation.core.components.CustomCheckbox
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import java.text.SimpleDateFormat
 import java.util.Date

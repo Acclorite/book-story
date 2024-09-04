@@ -3,7 +3,7 @@ package ua.acclorite.book_story.domain.model
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.core.navigation.Screen
 
 @Immutable
 data class NavigationItem(

@@ -1,7 +1,7 @@
 package ua.acclorite.book_story.domain.util
 
 import android.graphics.Bitmap
-import ua.acclorite.book_story.presentation.data.Navigator
+import ua.acclorite.book_story.presentation.core.navigation.Navigator
 
 typealias CoverImage = Bitmap
 typealias Selected = Boolean

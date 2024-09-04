@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.model.Badge
-import ua.acclorite.book_story.presentation.components.CustomIconButton
+import ua.acclorite.book_story.presentation.core.components.CustomIconButton
 
 /**
  * About Badge Item.

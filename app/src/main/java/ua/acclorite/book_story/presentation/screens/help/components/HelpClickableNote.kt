@@ -19,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.CustomTooltip
+import ua.acclorite.book_story.presentation.core.components.CustomTooltip
 import ua.acclorite.book_story.presentation.ui.ExpandingTransition
 
 /**

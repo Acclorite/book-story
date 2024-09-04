@@ -32,8 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.History
-import ua.acclorite.book_story.presentation.components.CustomCoverImage
-import ua.acclorite.book_story.presentation.components.CustomIconButton
+import ua.acclorite.book_story.presentation.core.components.CustomCoverImage
+import ua.acclorite.book_story.presentation.core.components.CustomIconButton
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

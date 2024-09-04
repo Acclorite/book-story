@@ -13,9 +13,9 @@ import androidx.compose.ui.res.stringResource
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.components.LocalSettingsViewModel
-import ua.acclorite.book_story.presentation.components.custom_dialog.CustomDialogWithContent
+import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
+import ua.acclorite.book_story.presentation.core.components.LocalSettingsViewModel
+import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithContent
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent

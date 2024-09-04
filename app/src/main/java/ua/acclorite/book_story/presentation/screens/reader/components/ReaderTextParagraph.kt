@@ -23,8 +23,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.FontWithName
-import ua.acclorite.book_story.presentation.components.LocalReaderViewModel
-import ua.acclorite.book_story.presentation.data.showToast
+import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
+import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.ReaderTextAlignment
 

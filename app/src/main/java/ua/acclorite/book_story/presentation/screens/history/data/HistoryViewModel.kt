@@ -20,9 +20,9 @@ import ua.acclorite.book_story.domain.use_case.DeleteWholeHistory
 import ua.acclorite.book_story.domain.use_case.GetBooksById
 import ua.acclorite.book_story.domain.use_case.GetHistory
 import ua.acclorite.book_story.domain.use_case.InsertHistory
-import ua.acclorite.book_story.domain.util.BaseViewModel
 import ua.acclorite.book_story.domain.util.Resource
-import ua.acclorite.book_story.presentation.data.Screen
+import ua.acclorite.book_story.presentation.core.navigation.Screen
+import ua.acclorite.book_story.presentation.core.util.BaseViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date

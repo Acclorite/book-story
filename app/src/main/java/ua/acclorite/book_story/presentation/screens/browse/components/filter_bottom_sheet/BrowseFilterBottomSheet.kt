@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.components.CustomBottomSheet
-import ua.acclorite.book_story.presentation.components.LocalBrowseViewModel
+import ua.acclorite.book_story.presentation.core.components.CustomBottomSheet
+import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.components.subcategories.BrowseFilterSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.components.subcategories.BrowseGeneralSubcategory
