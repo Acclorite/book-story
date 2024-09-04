@@ -11,6 +11,7 @@ object DataStoreConstants {
     val THEME = stringPreferencesKey("theme")
     val DARK_THEME = stringPreferencesKey("dark_theme")
     val PURE_DARK = stringPreferencesKey("pure_dark")
+    val ABSOLUTE_DARK = booleanPreferencesKey("absolute_dark")
     val THEME_CONTRAST = stringPreferencesKey("theme_contrast")
     val SHOW_START_SCREEN = booleanPreferencesKey("guide")
     val CHECK_FOR_UPDATES = booleanPreferencesKey("check_for_updates")

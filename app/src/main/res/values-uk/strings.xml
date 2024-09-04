@@ -209,6 +209,8 @@
     <string name="language_option">Мова застосунка</string>
     <string name="dark_theme_option">Темна тема</string>
     <string name="pure_dark_option">Суцільна темрява (ОЛЕД)</string>
+    <string name="absolute_dark_option">Абсолютна темрява</string>
+    <string name="absolute_dark_option_desc">Змініть колір фона на повністю чорний</string>
     <string name="theme_contrast_option">Контрастність теми</string>
     <string name="app_theme_option">Тема застосунка</string>
     <string name="check_for_updates_option">Перевіряти на оновлення</string>

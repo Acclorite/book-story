@@ -226,6 +226,8 @@
     <string name="language_option">App language</string>
     <string name="dark_theme_option">Dark theme</string>
     <string name="pure_dark_option">Pure dark (OLED)</string>
+    <string name="absolute_dark_option">Absolute dark</string>
+    <string name="absolute_dark_option_desc">Change background color to be completely black</string>
     <string name="theme_contrast_option">Theme contrast</string>
     <string name="app_theme_option">App theme</string>
     <string name="check_for_updates_option">Check for updates</string>

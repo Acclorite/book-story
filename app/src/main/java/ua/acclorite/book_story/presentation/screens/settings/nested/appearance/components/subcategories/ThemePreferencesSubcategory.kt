@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.CategoryTitle
+import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.settings.AbsoluteDarkSetting
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.settings.DarkThemeSetting
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.settings.PureDarkSetting
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.settings.ThemeContrastSetting
@@ -64,6 +65,10 @@ fun LazyListScope.ThemePreferencesSubcategory(
 
     item {
         PureDarkSetting()
+    }
+
+    item {
+        AbsoluteDarkSetting()
     }
 
     item {

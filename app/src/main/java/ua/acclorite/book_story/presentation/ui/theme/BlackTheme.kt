@@ -3,61 +3,48 @@ package ua.acclorite.book_story.presentation.ui.theme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 
 @Composable
 fun blackTheme(initialTheme: ColorScheme): ColorScheme {
+    val absoluteDark = LocalMainViewModel.current.state.value.absoluteDark
+    val surfaceDarker = 3f
+    val surfaceContainerDarker = if (absoluteDark) 3f else 1.95f
+
     return initialTheme.copy(
         surface = initialTheme.surface.copy {
-            val darker = 3f
-            it.copy(
-                red = it.red / darker,
-                green = it.green / darker,
-                blue = it.blue / darker
-            )
+            if (absoluteDark) {
+                return@copy Color.Black
+            }
+
+            it.darkenBy(surfaceDarker)
         },
-        surfaceContainer = initialTheme.surfaceContainer.copy {
-            val darker = 1.95f
-            it.copy(
-                red = it.red / darker,
-                green = it.green / darker,
-                blue = it.blue / darker
-            )
-        },
-        surfaceContainerLowest = initialTheme.surfaceContainerLowest.copy {
-            val darker = 1.95f
-            it.copy(
-                red = it.red / darker,
-                green = it.green / darker,
-                blue = it.blue / darker
-            )
-        },
-        surfaceContainerLow = initialTheme.surfaceContainerLow.copy {
-            val darker = 1.95f
-            it.copy(
-                red = it.red / darker,
-                green = it.green / darker,
-                blue = it.blue / darker
-            )
-        },
-        surfaceContainerHigh = initialTheme.surfaceContainerHigh.copy {
-            val darker = 1.95f
-            it.copy(
-                red = it.red / darker,
-                green = it.green / darker,
-                blue = it.blue / darker
-            )
-        },
-        surfaceContainerHighest = initialTheme.surfaceContainerHighest.copy {
-            val darker = 1.95f
-            it.copy(
-                red = it.red / darker,
-                green = it.green / darker,
-                blue = it.blue / darker
-            )
-        },
+        surfaceContainer = initialTheme.surfaceContainer.darkenBy(
+            surfaceContainerDarker
+        ),
+        surfaceContainerLowest = initialTheme.surfaceContainerLowest.darkenBy(
+            surfaceContainerDarker
+        ),
+        surfaceContainerLow = initialTheme.surfaceContainerLow.darkenBy(
+            surfaceContainerDarker
+        ),
+        surfaceContainerHigh = initialTheme.surfaceContainerHigh.darkenBy(
+            surfaceContainerDarker
+        ),
+        surfaceContainerHighest = initialTheme.surfaceContainerHighest.darkenBy(
+            surfaceContainerDarker
+        )
     )
 }
 
 private fun Color.copy(calculation: (Color) -> Color): Color {
     return calculation(this)
+}
+
+private fun Color.darkenBy(value: Float): Color {
+    return copy(
+        red = red / value,
+        green = green / value,
+        blue = blue / value
+    )
 }

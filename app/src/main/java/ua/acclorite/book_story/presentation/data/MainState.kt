@@ -51,6 +51,7 @@ data class MainState(
     },
     val darkTheme: DarkTheme = provideDefaultValue { DarkTheme.FOLLOW_SYSTEM },
     val pureDark: PureDark = provideDefaultValue { PureDark.OFF },
+    val absoluteDark: Boolean = provideDefaultValue { false },
     val themeContrast: ThemeContrast = provideDefaultValue { ThemeContrast.STANDARD },
     val showStartScreen: Boolean = provideDefaultValue { true },
     val checkForUpdates: Boolean = provideDefaultValue { false },
@@ -117,6 +118,10 @@ data class MainState(
                     pureDark = provideValue(
                         PURE_DARK, convert = { toPureDark() }
                     ) { pureDark },
+
+                    absoluteDark = provideValue(
+                        ABSOLUTE_DARK
+                    ) { absoluteDark },
 
                     themeContrast = provideValue(
                         THEME_CONTRAST, convert = { toThemeContrast() }

@@ -373,6 +373,20 @@ class MainViewModel @Inject constructor(
                     }
                 }
             }
+
+            is MainEvent.OnChangeAbsoluteDark -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(
+                        DataStoreConstants.ABSOLUTE_DARK,
+                        event.bool
+                    )
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            absoluteDark = event.bool
+                        )
+                    }
+                }
+            }
         }
     }
 
