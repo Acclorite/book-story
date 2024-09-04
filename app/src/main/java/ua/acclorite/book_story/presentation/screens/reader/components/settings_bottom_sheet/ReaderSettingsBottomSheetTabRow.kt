@@ -24,6 +24,7 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 fun ReaderSettingsBottomSheetTabRow(pagerState: PagerState) {
     val onEvent = LocalReaderViewModel.current.onEvent
 
+    val tabItems = listOf(
         stringResource(id = R.string.general_tab),
         stringResource(id = R.string.color_tab)
     )

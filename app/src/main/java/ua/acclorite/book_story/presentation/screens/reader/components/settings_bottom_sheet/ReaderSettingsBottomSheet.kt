@@ -76,10 +76,9 @@ fun ReaderSettingsBottomSheet() {
         ReaderSettingsBottomSheetTabRow(pagerState = pagerState)
 
         HorizontalPager(state = pagerState) { page ->
-            LazyColumn {
-                if (page == 0) {
             if (page == 0) {
                 LazyColumn {
+
                 }
             }
 
