@@ -1,15 +1,12 @@
 package ua.acclorite.book_story.presentation.ui
 
-import android.annotation.SuppressLint
 import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.platform.LocalContext
 import ua.acclorite.book_story.presentation.ui.theme.aquaTheme
 import ua.acclorite.book_story.presentation.ui.theme.blackTheme
 import ua.acclorite.book_story.presentation.ui.theme.blueTheme
+import ua.acclorite.book_story.presentation.ui.theme.dynamicTheme
 import ua.acclorite.book_story.presentation.ui.theme.greenTheme
 import ua.acclorite.book_story.presentation.ui.theme.lavenderTheme
 import ua.acclorite.book_story.presentation.ui.theme.marshTheme
@@ -46,7 +43,6 @@ fun String.toTheme(): Theme {
  *
  * @return a [ColorScheme].
  */
-@SuppressLint("NewApi")
 @Composable
 fun colorScheme(
     theme: Theme,
@@ -57,11 +53,7 @@ fun colorScheme(
     val colorScheme = when (theme) {
         Theme.DYNAMIC -> {
             /* Dynamic Theme */
-            if (darkTheme) {
-                dynamicDarkColorScheme(LocalContext.current)
-            } else {
-                dynamicLightColorScheme(LocalContext.current)
-            }
+            dynamicTheme(isDark = darkTheme)
         }
 
         Theme.BLUE -> {
