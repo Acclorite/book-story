@@ -177,8 +177,8 @@
     <string name="filter_browse_settings">Filtre</string>
     <string name="sort_browse_settings">Sıralama</string>
     <string name="language_option">Uygulama dili</string>
-    <string name="dark_theme_option">Karanlık tema</string>
-    <string name="pure_dark_option">Saf karanlık (OLED)</string>
+    <string name="dark_theme_option">Koyu tema</string>
+    <string name="pure_dark_option">Saf koyu (OLED)</string>
     <string name="theme_contrast_option">Tema kontrastı</string>
     <string name="app_theme_option">Uygulama teması</string>
     <string name="check_for_updates_option">Güncellemeleri kontrol et</string>
@@ -489,4 +489,6 @@
     <string name="github_profile_content_desc">GitHub Profili</string>
     <string name="drag_content_desc">Sürükle</string>
     <string name="filter_content_desc">Filtre</string>
+    <string name="absolute_dark_option">Mutlak koyu</string>
+    <string name="absolute_dark_option_desc">Arka plan rengini tamamen siyah olacak şekilde değiştirin</string>
 </resources>
