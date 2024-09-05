@@ -337,4 +337,6 @@
     <string name="double_press_exit_option_desc">Pulsa Atrás dos veces para salir de la aplicación</string>
     <string name="double_press_exit_option">Doble pulsación para salir</string>
     <string name="letter_spacing_option">Espaciado entre letras</string>
+    <string name="absolute_dark_option_desc">Cambiar el color de fondo para que sea completamente negro</string>
+    <string name="absolute_dark_option">Negro puro</string>
 </resources>
