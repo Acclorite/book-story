@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.RestartAlt
+import androidx.compose.material.icons.outlined.RestartAlt
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
@@ -88,7 +88,7 @@ private fun HelpScreen() {
                 actions = {
                     if (!state.value.fromStart) {
                         CustomIconButton(
-                            icon = Icons.Default.RestartAlt,
+                            icon = Icons.Outlined.RestartAlt,
                             contentDescription = R.string.reset_start_content_desc,
                             disableOnClick = false
                         ) {

@@ -1,7 +1,7 @@
 package ua.acclorite.book_story.presentation.core.components
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.OnNavigate
@@ -17,7 +17,7 @@ import ua.acclorite.book_story.domain.util.OnNavigate
 @Composable
 fun GoBackButton(onNavigate: OnNavigate, enabled: Boolean = true, customOnClick: () -> Unit = {}) {
     CustomIconButton(
-        icon = Icons.AutoMirrored.Filled.ArrowBack,
+        icon = Icons.AutoMirrored.Outlined.ArrowBack,
         contentDescription = R.string.go_back_content_desc,
         disableOnClick = true,
         enabled = enabled

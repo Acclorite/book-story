@@ -3,9 +3,9 @@ package ua.acclorite.book_story.presentation.screens.book_info.components
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.DriveFileMove
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
@@ -34,7 +34,7 @@ fun BookInfoMoreDropDown(snackbarState: SnackbarHostState) {
 
     Box {
         CustomIconButton(
-            icon = Icons.Default.MoreVert,
+            icon = Icons.Outlined.MoreVert,
             contentDescription = R.string.show_dropdown_content_desc,
             disableOnClick = false,
             enabled = !showDropDown &&

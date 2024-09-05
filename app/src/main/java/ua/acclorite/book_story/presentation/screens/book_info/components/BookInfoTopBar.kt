@@ -5,9 +5,9 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.outlined.Done
+import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
@@ -66,7 +66,7 @@ fun BookInfoTopBar(
                 state.value.editDescription
             ) {
                 CustomIconButton(
-                    icon = Icons.AutoMirrored.Filled.ArrowBack,
+                    icon = Icons.AutoMirrored.Outlined.ArrowBack,
                     contentDescription = R.string.exit_editing_content_desc,
                     disableOnClick = true
                 ) {
@@ -103,7 +103,7 @@ fun BookInfoTopBar(
         },
         content1Actions = {
             CustomIconButton(
-                icon = Icons.Default.Refresh,
+                icon = Icons.Outlined.Refresh,
                 contentDescription = R.string.refresh_book_content_desc,
                 disableOnClick = false,
                 enabled = !state.value.isRefreshing && !state.value.isLoadingUpdate
@@ -132,7 +132,7 @@ fun BookInfoTopBar(
                     exit = fadeOut(tween(200))
                 ) {
                     CustomIconButton(
-                        icon = Icons.Default.Done,
+                        icon = Icons.Outlined.Done,
                         contentDescription = R.string.apply_changes_content_desc,
                         disableOnClick = true,
                         enabled = !state.value.isRefreshing &&
