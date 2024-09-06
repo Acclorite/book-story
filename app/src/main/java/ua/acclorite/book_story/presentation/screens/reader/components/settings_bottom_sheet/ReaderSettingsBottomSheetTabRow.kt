@@ -1,25 +1,19 @@
 package ua.acclorite.book_story.presentation.screens.reader.components.settings_bottom_sheet
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.PrimaryTabRow
-import androidx.compose.material3.Tab
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
+import ua.acclorite.book_story.presentation.core.components.custom_bottom_sheet.CustomBottomSheetTabRow
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 
 /**
- * Settings bottom sheet tab row. It is used to switch between categories.
+ * Settings bottom sheet tab row.
+ * It is used to switch between categories.
+ *
+ * @param pagerState PagerState to use along with TabRow.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReaderSettingsBottomSheetTabRow(pagerState: PagerState) {
     val onEvent = LocalReaderViewModel.current.onEvent
@@ -29,28 +23,10 @@ fun ReaderSettingsBottomSheetTabRow(pagerState: PagerState) {
         stringResource(id = R.string.color_tab)
     )
 
-    PrimaryTabRow(
-        modifier = Modifier
-            .fillMaxWidth(),
+    CustomBottomSheetTabRow(
         selectedTabIndex = pagerState.currentPage,
-        containerColor = Color.Transparent
-    ) {
-        tabItems.forEachIndexed { index, tabItem ->
-            Tab(
-                selected = pagerState.currentPage == index,
-                onClick = {
-                    onEvent(ReaderEvent.OnScrollToSettingsPage(index, pagerState))
-                },
-                selectedContentColor = MaterialTheme.colorScheme.primary,
-                unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                text = {
-                    Text(
-                        tabItem,
-                        style = MaterialTheme.typography.bodyLarge,
-                        maxLines = 1
-                    )
-                }
-            )
-        }
+        tabs = tabItems
+    ) { index ->
+        onEvent(ReaderEvent.OnScrollToSettingsPage(index, pagerState))
     }
 }

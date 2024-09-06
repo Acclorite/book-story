@@ -1,17 +1,10 @@
 package ua.acclorite.book_story.presentation.screens.browse.components.filter_bottom_sheet
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.PrimaryTabRow
-import androidx.compose.material3.Tab
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.core.components.custom_bottom_sheet.CustomBottomSheetTabRow
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 
 /**
@@ -21,7 +14,6 @@ import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
  * @param onEvent [BrowseEvent] callback.
  * @param pagerState [PagerState].
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BrowseFilterBottomSheetTabRow(
     onEvent: (BrowseEvent) -> Unit,
@@ -33,29 +25,10 @@ fun BrowseFilterBottomSheetTabRow(
         stringResource(id = R.string.sort_tab)
     )
 
-    PrimaryTabRow(
-        modifier = Modifier
-            .fillMaxWidth(),
+    CustomBottomSheetTabRow(
         selectedTabIndex = pagerState.currentPage,
-        containerColor = Color.Transparent
-    ) {
-        tabItems.forEachIndexed { index, tabItem ->
-            Tab(
-                modifier = Modifier,
-                selected = pagerState.currentPage == index,
-                onClick = {
-                    onEvent(BrowseEvent.OnScrollToFilterPage(index, pagerState))
-                },
-                selectedContentColor = MaterialTheme.colorScheme.primary,
-                unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                text = {
-                    Text(
-                        tabItem,
-                        style = MaterialTheme.typography.bodyLarge,
-                        maxLines = 1
-                    )
-                }
-            )
-        }
+        tabs = tabItems
+    ) { index ->
+        onEvent(BrowseEvent.OnScrollToFilterPage(index, pagerState))
     }
 }

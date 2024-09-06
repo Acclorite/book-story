@@ -1,4 +1,4 @@
-package ua.acclorite.book_story.presentation.core.components
+package ua.acclorite.book_story.presentation.core.components.custom_bottom_sheet
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
