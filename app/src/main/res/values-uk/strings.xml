@@ -183,6 +183,7 @@
     <string name="color_tab">Кольори</string>
     <string name="filter_tab">Фільтр</string>
     <string name="sort_tab">Сортування</string>
+    <string name="reader_tab">Читач</string>
 
     <!-- Settings categories -->
     <string name="general_settings">Головні</string>
@@ -198,6 +199,7 @@
     <string name="font_reader_settings">Шрифт</string>
     <string name="text_reader_settings">Текст</string>
     <string name="translator_reader_settings">Перекладач</string>
+    <string name="padding_reader_settings">Відступи</string>
     <string name="theme_appearance_settings">Налаштування теми</string>
     <string name="colors_appearance_settings">Кольори</string>
     <string name="general_browse_settings">Головні</string>

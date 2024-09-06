@@ -5,6 +5,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
@@ -23,7 +24,10 @@ import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.core.components.custom_bottom_sheet.CustomBottomSheet
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.subcategories.ColorsSubcategory
-import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.ReaderSettingsCategory
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.FontSubcategory
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.PaddingSubcategory
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.TextSubcategory
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.TranslatorSubcategory
 
 /**
  * Settings bottom sheet. Has General and Colors categories.
@@ -77,23 +81,37 @@ fun ReaderSettingsBottomSheet() {
 
         HorizontalPager(state = pagerState) { page ->
             if (page == 0) {
-                LazyColumn {
-
+                LazyColumn(Modifier.fillMaxSize()) {
+                    PaddingSubcategory(
+                        titleColor = { MaterialTheme.colorScheme.onSurface },
+                        topPadding = 22.dp,
+                        bottomPadding = 0.dp
+                    )
                 }
             }
 
             if (page == 1) {
-                LazyColumn {
-                    ReaderSettingsCategory(
+                LazyColumn(Modifier.fillMaxSize()) {
+                    FontSubcategory(
                         titleColor = { MaterialTheme.colorScheme.onSurface },
                         topPadding = 16.dp,
+                        bottomPadding = 0.dp
+                    )
+                    TextSubcategory(
+                        titleColor = { MaterialTheme.colorScheme.onSurface },
+                        topPadding = 22.dp,
+                        bottomPadding = 0.dp
+                    )
+                    TranslatorSubcategory(
+                        titleColor = { MaterialTheme.colorScheme.onSurface },
+                        topPadding = 22.dp,
                         bottomPadding = 8.dp + it
                     )
                 }
             }
 
             if (page == 2) {
-                LazyColumn {
+                LazyColumn(Modifier.fillMaxSize()) {
                     ColorsSubcategory(
                         showTitle = false,
                         backgroundColor = { MaterialTheme.colorScheme.surfaceContainer },

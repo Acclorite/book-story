@@ -16,18 +16,15 @@ import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.CategoryTitle
-import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.LineHeightSetting
-import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.ParagraphHeightSetting
-import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.ParagraphIndentationSetting
-import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.TextAlignmentSetting
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.SidePaddingSetting
 
 /**
- * Text subcategory.
- * Contains all settings from Text.
+ * Padding subcategory.
+ * Contains all settings related to padding.
  */
-fun LazyListScope.TextSubcategory(
+fun LazyListScope.PaddingSubcategory(
     titleColor: @Composable () -> Color = { MaterialTheme.colorScheme.primary },
-    title: @Composable () -> String = { stringResource(id = R.string.text_reader_settings) },
+    title: @Composable () -> String = { stringResource(id = R.string.padding_reader_settings) },
     showTitle: Boolean = true,
     topPadding: Dp,
     bottomPadding: Dp
@@ -51,19 +48,7 @@ fun LazyListScope.TextSubcategory(
     }
 
     item {
-        TextAlignmentSetting()
-    }
-
-    item {
-        LineHeightSetting()
-    }
-
-    item {
-        ParagraphHeightSetting()
-    }
-
-    item {
-        ParagraphIndentationSetting()
+        SidePaddingSetting()
     }
 
     item {

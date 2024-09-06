@@ -200,6 +200,7 @@
     <string name="color_tab">Colors</string>
     <string name="filter_tab">Filter</string>
     <string name="sort_tab">Sort</string>
+    <string name="reader_tab">Reader</string>
 
     <!-- Settings categories -->
     <string name="general_settings">General</string>
@@ -215,6 +216,7 @@
     <string name="font_reader_settings">Font</string>
     <string name="text_reader_settings">Text</string>
     <string name="translator_reader_settings">Translator</string>
+    <string name="padding_reader_settings">Padding</string>
     <string name="theme_appearance_settings">Theme preferences</string>
     <string name="colors_appearance_settings">Colors</string>
     <string name="general_browse_settings">General</string>
