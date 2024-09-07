@@ -68,13 +68,11 @@ import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
-import ua.acclorite.book_story.presentation.screens.reader.components.ReaderEndItem
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderTextParagraph
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderBottomBar
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderTopBar
 import ua.acclorite.book_story.presentation.screens.reader.components.readerFastColorPresetChange
 import ua.acclorite.book_story.presentation.screens.reader.components.settings_bottom_sheet.ReaderSettingsBottomSheet
-import ua.acclorite.book_story.presentation.screens.reader.components.start_item.ReaderStartItem
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 
 @Composable
@@ -326,6 +324,11 @@ private fun ReaderScreen(lazyListState: LazyListState) {
                                 )
                                 .showToast(context = context, longToast = false)
                         }
+                    )
+                    .then(
+                        if (mainState.value.cutoutPadding) Modifier.padding(
+                            WindowInsets.displayCutout.asPaddingValues()
+                        ) else Modifier
                     ),
                 verticalArrangement = Arrangement.spacedBy(paragraphHeight),
                 contentPadding = PaddingValues(

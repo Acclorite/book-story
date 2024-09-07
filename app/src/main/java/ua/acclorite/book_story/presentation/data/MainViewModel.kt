@@ -387,6 +387,20 @@ class MainViewModel @Inject constructor(
                     }
                 }
             }
+
+            is MainEvent.OnChangeCutoutPadding -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(
+                        DataStoreConstants.CUTOUT_PADDING,
+                        event.bool
+                    )
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            cutoutPadding = event.bool
+                        )
+                    }
+                }
+            }
         }
     }
 

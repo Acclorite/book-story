@@ -254,6 +254,8 @@
     <string name="fast_color_preset_change_option_desc">Swipe left or right to change color preset</string>
     <string name="text_alignment_option">Text alignment</string>
     <string name="letter_spacing_option">Letter spacing</string>
+    <string name="cutout_padding_option">Cutout padding</string>
+    <string name="cutout_padding_option_desc">Apply padding to cutout area</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>

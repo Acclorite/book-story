@@ -32,4 +32,5 @@ sealed class MainEvent {
     data class OnChangeDoublePressExit(val bool: Boolean) : MainEvent()
     data class OnChangeLetterSpacing(val spacing: Int) : MainEvent()
     data class OnChangeAbsoluteDark(val bool: Boolean) : MainEvent()
+    data class OnChangeCutoutPadding(val bool: Boolean) : MainEvent()
 }

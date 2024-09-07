@@ -69,6 +69,7 @@ data class MainState(
     val fastColorPresetChange: Boolean = provideDefaultValue { true },
     val textAlignment: ReaderTextAlignment = provideDefaultValue { ReaderTextAlignment.START },
     val letterSpacing: Int = provideDefaultValue { 0 },
+    val cutoutPadding: Boolean = provideDefaultValue { false },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -214,6 +215,10 @@ data class MainState(
                     letterSpacing = provideValue(
                         LETTER_SPACING
                     ) { letterSpacing },
+
+                    cutoutPadding = provideValue(
+                        CUTOUT_PADDING
+                    ) { cutoutPadding },
                 )
             }
         }
