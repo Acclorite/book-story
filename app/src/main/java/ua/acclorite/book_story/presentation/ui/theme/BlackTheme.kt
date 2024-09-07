@@ -12,12 +12,12 @@ fun blackTheme(initialTheme: ColorScheme): ColorScheme {
     val surfaceContainerDarker = if (absoluteDark) 3f else 1.95f
 
     return initialTheme.copy(
-        surface = initialTheme.surface.copy {
+        surface = initialTheme.surface.run {
             if (absoluteDark) {
-                return@copy Color.Black
+                return@run Color.Black
             }
 
-            it.darkenBy(surfaceDarker)
+            darkenBy(surfaceDarker)
         },
         surfaceContainer = initialTheme.surfaceContainer.darkenBy(
             surfaceContainerDarker
@@ -35,10 +35,6 @@ fun blackTheme(initialTheme: ColorScheme): ColorScheme {
             surfaceContainerDarker
         )
     )
-}
-
-private fun Color.copy(calculation: (Color) -> Color): Color {
-    return calculation(this)
 }
 
 private fun Color.darkenBy(value: Float): Color {
