@@ -122,8 +122,6 @@
     <string name="continue_read">Devam Et</string>
     <string name="never">Asla</string>
     <string name="go_back">Geri Dön</string>
-    <string name="move_to_read">Bu kitabı «Okunmuş» kategorisine taşı</string>
-    <string name="back_to_library">Kütüphaneye Dön</string>
     <string name="undo">Geri Al</string>
     <string name="copy">Kopyala</string>
     <string name="translate">Çevir</string>
@@ -274,12 +272,6 @@
     <string name="unknown">Bilinmiyor</string>
     <string name="internal_storage">Dahili Depolama</string>
     <string name="loading">Yükleniyor…</string>
-    <string name="happy_reading">İyi okumalar!</string>
-    <string name="thanks_for_reading">
-        \"%1$s\" kitabını bizimle okuduğunuz için teşekkür ederiz.
-        Umarız bu kitaptan keyif almışsınızdır!
-    </string>
-    <string name="letters_and_words">%1$s karakter, %2$s kelime.</string>
     <string name="app_version_option">Uygulama sürümü</string>
     <string name="app_version_option_desc_1">Book Story v%1$s</string>
     <string name="app_version_option_desc_2">Güncellemeleri kontrol etmek için tıklayın</string>

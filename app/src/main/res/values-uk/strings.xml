@@ -139,8 +139,6 @@
     <string name="continue_read">Продовжити</string>
     <string name="never">Ніколи</string>
     <string name="go_back">Назад</string>
-    <string name="move_to_read">Перемістити цю книгу в «Прочитано»</string>
-    <string name="back_to_library">Назад в Бібліотеку</string>
     <string name="undo">Скасувати</string>
     <string name="copy">Копіювати</string>
     <string name="translate">Перекласти</string>
@@ -353,12 +351,6 @@
 
     <!-- Reader -->
     <string name="loading">Завантаження…</string>
-    <string name="happy_reading">Приємного читання!</string>
-    <string name="thanks_for_reading">
-        Дякуємо за те, що прочитали \"%1$s\" з нами.
-        Ми сподіваємось, що вам сподобалася ця книга!
-    </string>
-    <string name="letters_and_words">%1$s букв(а), %2$s слів.</string>
 
     <!-- About -->
     <string name="app_version_option">Версія застосунка</string>
