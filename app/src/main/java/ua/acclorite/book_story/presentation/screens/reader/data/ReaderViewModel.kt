@@ -26,7 +26,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
-import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.use_case.GetBookById
 import ua.acclorite.book_story.domain.use_case.GetLatestHistory
 import ua.acclorite.book_story.domain.use_case.GetText
@@ -73,24 +72,9 @@ class ReaderViewModel @Inject constructor(
                             event.onTextIsEmpty()
                         }
 
-                        val textAsLine = text
-                            .joinToString(
-                                separator = "\n"
-                            )
-
-                        val letters = textAsLine
-                            .replace("\n", "")
-                            .length
-                        val words = textAsLine
-                            .replace("\n", " ")
-                            .split("\\s+".toRegex())
-                            .size
-
                         _state.update {
                             it.copy(
-                                text = text,
-                                letters = letters,
-                                words = words
+                                text = text
                             )
                         }
 
@@ -285,46 +269,6 @@ class ReaderViewModel @Inject constructor(
                     }
                 }
 
-                is ReaderEvent.OnMoveBookToAlreadyRead -> {
-                    launch {
-                        yield()
-
-                        _state.update {
-                            it.copy(
-                                lockMenu = true,
-                                book = it.book.copy(
-                                    category = Category.ALREADY_READ,
-                                    progress = 1f,
-                                    scrollIndex = it.listState.firstVisibleItemIndex,
-                                    scrollOffset = it.listState.firstVisibleItemScrollOffset
-                                )
-                            )
-                        }
-
-                        updateBooks.execute(listOf(_state.value.book))
-                        event.onUpdateCategories(
-                            _state.value.book
-                        )
-                        event.updatePage(
-                            Category.entries.dropLastWhile {
-                                it != Category.ALREADY_READ
-                            }.size - 1
-                        )
-
-                        WindowCompat.getInsetsController(
-                            event.context.window,
-                            event.context.window.decorView
-                        ).show(WindowInsetsCompat.Type.systemBars())
-
-                        event.onNavigate {
-                            navigate(
-                                Screen.Library,
-                                useBackAnimation = true
-                            )
-                        }
-                    }
-                }
-
                 is ReaderEvent.OnOpenTranslator -> {
                     launch {
                         val translatorIntent = Intent()
@@ -508,35 +452,15 @@ class ReaderViewModel @Inject constructor(
             }
                 .distinctUntilChanged()
                 .debounce(300)
-                .collectLatest { (firstVisibleItemIndex, firstVisibleItemScrollOffset) ->
-                    val listState = _state.value.listState
-                    if (
-                        !_state.value.loading &&
-                        _state.value.text.isNotEmpty() &&
-                        listState.layoutInfo.totalItemsCount > 0
-                    ) {
-                        val lastVisibleItemIndex = listState
-                            .layoutInfo
-                            .visibleItemsInfo
-                            .last()
-                            .index
-                        val totalItemsCount = listState.layoutInfo.totalItemsCount - 1
-
-                        val progress = if (firstVisibleItemIndex > 0) {
-                            if (lastVisibleItemIndex >= totalItemsCount) {
-                                1f
-                            } else {
-                                firstVisibleItemIndex / (_state.value.text.size - 1).toFloat()
-                            }
-                        } else {
-                            0f
-                        }
+                .collectLatest { (firstVisibleItemIndex, firstVisibleItemOffset) ->
+                    calculateProgress(firstVisibleItemIndex).apply {
+                        if (this == _state.value.book.progress) return@apply
 
                         onEvent(
                             ReaderEvent.OnChangeProgress(
-                                progress = progress,
+                                progress = this,
                                 firstVisibleItemIndex = firstVisibleItemIndex,
-                                firstVisibleItemOffset = firstVisibleItemScrollOffset,
+                                firstVisibleItemOffset = firstVisibleItemOffset,
                                 refreshList = { book ->
                                     refreshList(book)
                                 }
@@ -547,30 +471,28 @@ class ReaderViewModel @Inject constructor(
         }
     }
 
-    private fun calculateProgress(): Float {
-        val listState = _state.value.listState
+    private fun calculateProgress(firstVisibleItemIndex: Int? = null): Float {
+        return _state.value.run {
+            if (
+                loading ||
+                listState.layoutInfo.totalItemsCount == 0 ||
+                text.isEmpty()
+            ) {
+                return book.progress
+            }
 
-        if (
-            _state.value.loading ||
-            listState.layoutInfo.totalItemsCount == 0 ||
-            _state.value.text.isEmpty()
-        ) {
-            return _state.value.book.progress
+            if ((firstVisibleItemIndex ?: listState.firstVisibleItemIndex) == 0) {
+                return 0f
+            }
+
+            val lastVisibleItemIndex = listState.layoutInfo.visibleItemsInfo.last().index
+            if (lastVisibleItemIndex >= text.lastIndex) {
+                return 1f
+            }
+
+            return@run (firstVisibleItemIndex ?: listState.firstVisibleItemIndex) /
+                    (text.lastIndex).toFloat()
         }
-
-        val lastVisibleItemIndex = listState.layoutInfo
-            .visibleItemsInfo.last().index
-        val totalItemsCount = listState.layoutInfo.totalItemsCount - 1
-
-        if (listState.firstVisibleItemIndex == 0) {
-            return 0f
-        }
-
-        if (lastVisibleItemIndex >= totalItemsCount) {
-            return 1f
-        }
-
-        return listState.firstVisibleItemIndex / (_state.value.text.size - 1).toFloat()
     }
 
     private suspend fun clear() {

@@ -10,8 +10,6 @@ import ua.acclorite.book_story.presentation.core.constants.Constants
 data class ReaderState(
     val book: Book = Constants.EMPTY_BOOK,
     val text: List<String> = emptyList(),
-    val words: Int = 0,
-    val letters: Int = 0,
     val listState: LazyListState = LazyListState(),
 
     val errorMessage: UIText? = null,

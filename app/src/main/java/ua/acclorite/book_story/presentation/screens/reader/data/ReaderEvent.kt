@@ -4,7 +4,6 @@ import androidx.activity.ComponentActivity
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.domain.model.Book
-import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.UIText
 
 @Immutable
@@ -37,13 +36,6 @@ sealed class ReaderEvent {
     data class OnScroll(val progress: Float) : ReaderEvent()
     data object OnShowHideSettingsBottomSheet : ReaderEvent()
     data class OnScrollToSettingsPage(val page: Int, val pagerState: PagerState?) : ReaderEvent()
-    data class OnMoveBookToAlreadyRead(
-        val context: ComponentActivity,
-        val onUpdateCategories: (Book) -> Unit,
-        val updatePage: (Int) -> Unit,
-        val onNavigate: OnNavigate
-    ) : ReaderEvent()
-
     data class OnOpenTranslator(
         val textToTranslate: String,
         val translateWholeParagraph: Boolean,
