@@ -401,6 +401,20 @@ class MainViewModel @Inject constructor(
                     }
                 }
             }
+
+            is MainEvent.OnChangeFullscreen -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(
+                        DataStoreConstants.FULLSCREEN,
+                        event.bool
+                    )
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            fullscreen = event.bool
+                        )
+                    }
+                }
+            }
         }
     }
 

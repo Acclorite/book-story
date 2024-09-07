@@ -70,6 +70,7 @@ data class MainState(
     val textAlignment: ReaderTextAlignment = provideDefaultValue { ReaderTextAlignment.START },
     val letterSpacing: Int = provideDefaultValue { 0 },
     val cutoutPadding: Boolean = provideDefaultValue { false },
+    val fullscreen: Boolean = provideDefaultValue { true },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -219,6 +220,10 @@ data class MainState(
                     cutoutPadding = provideValue(
                         CUTOUT_PADDING
                     ) { cutoutPadding },
+
+                    fullscreen = provideValue(
+                        FULLSCREEN
+                    ) { fullscreen },
                 )
             }
         }

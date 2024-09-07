@@ -200,6 +200,7 @@
     <string name="text_reader_settings">Текст</string>
     <string name="translator_reader_settings">Перекладач</string>
     <string name="padding_reader_settings">Відступи</string>
+    <string name="misc_reader_settings">Інше</string>
     <string name="theme_appearance_settings">Налаштування теми</string>
     <string name="colors_appearance_settings">Кольори</string>
     <string name="general_browse_settings">Головні</string>
@@ -238,7 +239,9 @@
     <string name="text_alignment_option">Розташування текста</string>
     <string name="letter_spacing_option">Відстань між літерами</string>
     <string name="cutout_padding_option">Відступ від виїмки</string>
-    <string name="cutout_padding_option_desc">Застосуйте відступ до ділянки виїмки</string>
+    <string name="cutout_padding_option_desc">Застосувати відступ до ділянки виїмки</string>
+    <string name="fullscreen_option">Повний екран</string>
+    <string name="fullscreen_option_desc">Сховати системні панелі та прибрати відступи</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>

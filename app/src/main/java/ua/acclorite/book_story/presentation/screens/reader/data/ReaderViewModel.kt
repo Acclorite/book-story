@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
@@ -153,21 +154,11 @@ class ReaderViewModel @Inject constructor(
 
                         yield()
 
-                        WindowCompat.getInsetsController(
-                            event.context.window,
-                            event.context.window.decorView
-                        ).apply {
-                            yield()
-
-                            systemBarsBehavior = WindowInsetsControllerCompat
-                                .BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-                            if (shouldShow) {
-                                show(WindowInsetsCompat.Type.systemBars())
-                            } else {
-                                hide(WindowInsetsCompat.Type.systemBars())
-                            }
-                        }
-
+                        showSystemBars(
+                            show = shouldShow,
+                            fullscreenMode = event.fullscreenMode,
+                            activity = event.activity
+                        )
                         _state.update {
                             it.copy(
                                 showMenu = shouldShow
@@ -405,7 +396,8 @@ class ReaderViewModel @Inject constructor(
     fun init(
         screen: Screen.Reader,
         onNavigate: OnNavigate,
-        context: ComponentActivity,
+        fullscreenMode: Boolean,
+        activity: ComponentActivity,
         refreshList: (Book) -> Unit,
         onError: (UIText) -> Unit
     ) {
@@ -425,10 +417,17 @@ class ReaderViewModel @Inject constructor(
 
             clear()
             launch {
-                launch(Dispatchers.Main) {
-                    context.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-                }.join()
-                onEvent(ReaderEvent.OnShowHideMenu(false, context))
+                withContext(Dispatchers.Main) {
+                    activity.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                }
+
+                onEvent(
+                    ReaderEvent.OnShowHideMenu(
+                        show = false,
+                        fullscreenMode = fullscreenMode,
+                        activity = activity
+                    )
+                )
                 onEvent(
                     ReaderEvent.OnLoadText(
                         refreshList = { refreshList(it) },
@@ -493,6 +492,23 @@ class ReaderViewModel @Inject constructor(
             return@run (firstVisibleItemIndex ?: listState.firstVisibleItemIndex) /
                     (text.lastIndex).toFloat()
         }
+    }
+
+    private fun showSystemBars(
+        show: Boolean,
+        fullscreenMode: Boolean,
+        activity: ComponentActivity
+    ): Boolean {
+        WindowCompat.getInsetsController(
+            activity.window,
+            activity.window.decorView
+        ).apply {
+            systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            if (show || !fullscreenMode) show(WindowInsetsCompat.Type.systemBars())
+            else hide(WindowInsetsCompat.Type.systemBars())
+        }
+
+        return show || !fullscreenMode
     }
 
     private suspend fun clear() {

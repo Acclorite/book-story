@@ -17,7 +17,8 @@ sealed class ReaderEvent {
 
     data class OnShowHideMenu(
         val show: Boolean? = null,
-        val context: ComponentActivity
+        val fullscreenMode: Boolean,
+        val activity: ComponentActivity
     ) : ReaderEvent()
 
     data class OnGoBack(

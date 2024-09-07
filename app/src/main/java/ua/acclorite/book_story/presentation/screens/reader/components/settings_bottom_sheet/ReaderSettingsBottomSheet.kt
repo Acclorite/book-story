@@ -20,11 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.core.components.custom_bottom_sheet.CustomBottomSheet
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.subcategories.ColorsSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.FontSubcategory
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.MiscSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.PaddingSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.TextSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.TranslatorSubcategory
@@ -36,6 +38,7 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.reader.compo
 @Composable
 fun ReaderSettingsBottomSheet() {
     val state = LocalReaderViewModel.current.state
+    val mainState = LocalMainViewModel.current.state
     val onEvent = LocalReaderViewModel.current.onEvent
     val context = LocalContext.current
 
@@ -61,6 +64,7 @@ fun ReaderSettingsBottomSheet() {
         onEvent(
             ReaderEvent.OnShowHideMenu(
                 pagerState.currentPage != 2,
+                fullscreenMode = mainState.value.fullscreen,
                 context as ComponentActivity
             )
         )
@@ -86,6 +90,11 @@ fun ReaderSettingsBottomSheet() {
                         titleColor = { MaterialTheme.colorScheme.onSurface },
                         topPadding = 22.dp,
                         bottomPadding = 0.dp
+                    )
+                    MiscSubcategory(
+                        titleColor = { MaterialTheme.colorScheme.onSurface },
+                        topPadding = 22.dp,
+                        bottomPadding = 8.dp + it
                     )
                 }
             }

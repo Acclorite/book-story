@@ -42,6 +42,7 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.
  * @param letterSpacing Letter spacing.
  * @param sidePadding Line's side padding.
  * @param paragraphIndentation Whether Paragraph Indentation is enabled for this line.
+ * @param fullscreenMode Whether Reader is in fullscreen mode.
  * @param doubleClickTranslationEnabled Whether Double Click Translation is enabled.
  * @param toolbarHidden Whether selection toolBar is hidden.
  */
@@ -59,6 +60,7 @@ fun LazyItemScope.ReaderTextParagraph(
     letterSpacing: TextUnit,
     sidePadding: Dp,
     paragraphIndentation: Boolean,
+    fullscreenMode: Boolean,
     doubleClickTranslationEnabled: Boolean,
     toolbarHidden: Boolean
 ) {
@@ -109,7 +111,10 @@ fun LazyItemScope.ReaderTextParagraph(
                         },
                         onClick = {
                             onEvent(
-                                ReaderEvent.OnShowHideMenu(context = context as ComponentActivity)
+                                ReaderEvent.OnShowHideMenu(
+                                    fullscreenMode = fullscreenMode,
+                                    activity = context as ComponentActivity
+                                )
                             )
                         }
                     )

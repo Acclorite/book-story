@@ -33,4 +33,5 @@ sealed class MainEvent {
     data class OnChangeLetterSpacing(val spacing: Int) : MainEvent()
     data class OnChangeAbsoluteDark(val bool: Boolean) : MainEvent()
     data class OnChangeCutoutPadding(val bool: Boolean) : MainEvent()
+    data class OnChangeFullscreen(val bool: Boolean) : MainEvent()
 }

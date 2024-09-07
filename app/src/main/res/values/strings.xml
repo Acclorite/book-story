@@ -217,6 +217,7 @@
     <string name="text_reader_settings">Text</string>
     <string name="translator_reader_settings">Translator</string>
     <string name="padding_reader_settings">Padding</string>
+    <string name="misc_reader_settings">Misc</string>
     <string name="theme_appearance_settings">Theme preferences</string>
     <string name="colors_appearance_settings">Colors</string>
     <string name="general_browse_settings">General</string>
@@ -256,6 +257,8 @@
     <string name="letter_spacing_option">Letter spacing</string>
     <string name="cutout_padding_option">Cutout padding</string>
     <string name="cutout_padding_option_desc">Apply padding to cutout area</string>
+    <string name="fullscreen_option">Fullscreen</string>
+    <string name="fullscreen_option_desc">Hide system bars and remove padding</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>

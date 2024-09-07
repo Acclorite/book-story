@@ -12,15 +12,19 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsIgnoringVisibility
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.LinearProgressIndicator
@@ -42,6 +46,8 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -78,6 +84,8 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 @Composable
 fun ReaderScreenRoot(screen: Screen.Reader) {
     val state = LocalReaderViewModel.current.state
+    val mainState = LocalMainViewModel.current.state
+    val onEvent = LocalReaderViewModel.current.onEvent
     val onLibraryEvent = LocalLibraryViewModel.current.onEvent
     val onHistoryEvent = LocalHistoryViewModel.current.onEvent
     val viewModel = LocalReaderViewModel.current.viewModel
@@ -101,7 +109,8 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
         viewModel.init(
             screen = screen,
             onNavigate = onNavigate,
-            context = context,
+            fullscreenMode = mainState.value.fullscreen,
+            activity = context,
             refreshList = {
                 onLibraryEvent(LibraryEvent.OnUpdateBook(it))
                 onHistoryEvent(HistoryEvent.OnLoadList)
@@ -114,8 +123,22 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
     }
     LaunchedEffect(canScroll) {
         if (!canScroll && !state.value.showMenu && !state.value.loading) {
-            viewModel.onEvent(ReaderEvent.OnShowHideMenu(context = context))
+            onEvent(
+                ReaderEvent.OnShowHideMenu(
+                    fullscreenMode = mainState.value.fullscreen,
+                    activity = context
+                )
+            )
         }
+    }
+    LaunchedEffect(mainState.value.fullscreen) {
+        onEvent(
+            ReaderEvent.OnShowHideMenu(
+                show = state.value.showMenu,
+                fullscreenMode = mainState.value.fullscreen,
+                activity = context
+            )
+        )
     }
     LaunchedEffect(lazyListState) {
         viewModel.onUpdateProgress {
@@ -138,6 +161,7 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 private fun ReaderScreen(lazyListState: LazyListState) {
@@ -160,7 +184,12 @@ private fun ReaderScreen(lazyListState: LazyListState) {
                 val velocity = consumed.y
 
                 if ((velocity > 70 || velocity < -70) && state.value.showMenu && !state.value.lockMenu) {
-                    onEvent(ReaderEvent.OnShowHideMenu(context = context))
+                    onEvent(
+                        ReaderEvent.OnShowHideMenu(
+                            fullscreenMode = mainState.value.fullscreen,
+                            activity = context
+                        )
+                    )
                 }
 
                 return super.onPostScroll(consumed, available, source)
@@ -201,6 +230,64 @@ private fun ReaderScreen(lazyListState: LazyListState) {
             true -> FontStyle.Italic
             false -> FontStyle.Normal
         }
+    }
+
+    val density = LocalDensity.current
+    val layoutDirection = LocalLayoutDirection.current
+    val cutoutInsets = WindowInsets.displayCutout
+    val systemBarsInsets = WindowInsets.systemBarsIgnoringVisibility
+
+    val cutoutInsetsPadding = remember(mainState.value.cutoutPadding) {
+        derivedStateOf {
+            cutoutInsets.asPaddingValues(density = density).run {
+                if (mainState.value.cutoutPadding) PaddingValues(
+                    top = calculateTopPadding(),
+                    start = calculateStartPadding(layoutDirection),
+                    end = calculateEndPadding(layoutDirection),
+                    bottom = calculateBottomPadding()
+                ) else PaddingValues(0.dp)
+            }
+        }
+    }
+    val systemBarsInsetsPadding = remember(mainState.value.fullscreen) {
+        derivedStateOf {
+            systemBarsInsets.asPaddingValues(density = density).run {
+                if (!mainState.value.fullscreen) PaddingValues(
+                    top = calculateTopPadding(),
+                    start = calculateStartPadding(layoutDirection),
+                    end = calculateEndPadding(layoutDirection),
+                    bottom = calculateBottomPadding()
+                ) else PaddingValues(0.dp)
+            }
+        }
+    }
+
+    val contentPadding = remember(
+        cutoutInsetsPadding.value,
+        systemBarsInsetsPadding.value
+    ) {
+        PaddingValues(
+            top = systemBarsInsetsPadding.value.calculateTopPadding().run {
+                if (equals(0.dp)) return@run cutoutInsetsPadding.value
+                    .calculateTopPadding()
+                this
+            },
+            start = systemBarsInsetsPadding.value.calculateStartPadding(layoutDirection).run {
+                if (equals(0.dp)) return@run cutoutInsetsPadding.value
+                    .calculateStartPadding(layoutDirection)
+                this
+            },
+            end = systemBarsInsetsPadding.value.calculateEndPadding(layoutDirection).run {
+                if (equals(0.dp)) return@run cutoutInsetsPadding.value
+                    .calculateEndPadding(layoutDirection)
+                this
+            },
+            bottom = systemBarsInsetsPadding.value.calculateBottomPadding().run {
+                if (equals(0.dp)) return@run cutoutInsetsPadding.value
+                    .calculateBottomPadding()
+                this
+            }
+        )
     }
 
     if (state.value.showSettingsBottomSheet) {
@@ -302,7 +389,10 @@ private fun ReaderScreen(lazyListState: LazyListState) {
                                     indication = null,
                                     onClick = {
                                         onEvent(
-                                            ReaderEvent.OnShowHideMenu(context = context)
+                                            ReaderEvent.OnShowHideMenu(
+                                                fullscreenMode = mainState.value.fullscreen,
+                                                activity = context
+                                            )
                                         )
                                     }
                                 )
@@ -325,11 +415,7 @@ private fun ReaderScreen(lazyListState: LazyListState) {
                                 .showToast(context = context, longToast = false)
                         }
                     )
-                    .then(
-                        if (mainState.value.cutoutPadding) Modifier.padding(
-                            WindowInsets.displayCutout.asPaddingValues()
-                        ) else Modifier
-                    ),
+                    .padding(contentPadding),
                 verticalArrangement = Arrangement.spacedBy(paragraphHeight),
                 contentPadding = PaddingValues(
                     top = (WindowInsets.displayCutout.asPaddingValues()
@@ -355,6 +441,7 @@ private fun ReaderScreen(lazyListState: LazyListState) {
                         letterSpacing = letterSpacing,
                         sidePadding = sidePadding,
                         paragraphIndentation = mainState.value.paragraphIndentation,
+                        fullscreenMode = mainState.value.fullscreen,
                         doubleClickTranslationEnabled = mainState.value.doubleClickTranslation,
                         toolbarHidden = toolbarHidden
                     )

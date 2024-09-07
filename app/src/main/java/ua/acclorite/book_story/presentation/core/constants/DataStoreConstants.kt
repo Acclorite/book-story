@@ -30,6 +30,7 @@ object DataStoreConstants {
     val TEXT_ALIGNMENT = stringPreferencesKey("text_alignment")
     val LETTER_SPACING = intPreferencesKey("letter_spacing")
     val CUTOUT_PADDING = booleanPreferencesKey("cutout_padding")
+    val FULLSCREEN = booleanPreferencesKey("fullscreen")
 
     // Browse settings
     val BROWSE_FILES_STRUCTURE = stringPreferencesKey("browse_files_structure")

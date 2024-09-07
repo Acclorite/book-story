@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.core.components.CategoryTitle
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.FontSubcategory
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.MiscSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.PaddingSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.TextSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.TranslatorSubcategory
@@ -43,6 +44,11 @@ fun LazyListScope.ReaderSettingsCategory(
         bottomPadding = 0.dp
     )
     TranslatorSubcategory(
+        titleColor = titleColor,
+        topPadding = 22.dp,
+        bottomPadding = 0.dp
+    )
+    MiscSubcategory(
         titleColor = titleColor,
         topPadding = 22.dp,
         bottomPadding = bottomPadding
