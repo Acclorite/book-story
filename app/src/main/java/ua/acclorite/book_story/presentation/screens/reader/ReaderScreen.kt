@@ -12,13 +12,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.text.selection.DisableSelection
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -42,6 +46,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
@@ -322,16 +327,16 @@ private fun ReaderScreen(lazyListState: LazyListState) {
                                 .showToast(context = context, longToast = false)
                         }
                     ),
-                verticalArrangement = Arrangement.spacedBy(paragraphHeight)
+                verticalArrangement = Arrangement.spacedBy(paragraphHeight),
+                contentPadding = PaddingValues(
+                    top = (WindowInsets.displayCutout.asPaddingValues()
+                        .calculateTopPadding() + paragraphHeight)
+                        .coerceAtLeast(18.dp),
+                    bottom = (WindowInsets.displayCutout.asPaddingValues()
+                        .calculateBottomPadding() + paragraphHeight)
+                        .coerceAtLeast(18.dp),
+                )
             ) {
-                item {
-                    DisableSelection {
-                        ReaderStartItem()
-                    }
-
-                    Spacer(modifier = Modifier.height(18.dp))
-                }
-
                 customItemsIndexed(
                     state.value.text, key = { _, index -> index }
                 ) { _, line ->
@@ -350,14 +355,6 @@ private fun ReaderScreen(lazyListState: LazyListState) {
                         doubleClickTranslationEnabled = mainState.value.doubleClickTranslation,
                         toolbarHidden = toolbarHidden
                     )
-                }
-
-                item {
-                    Spacer(modifier = Modifier.height(18.dp))
-
-                    DisableSelection {
-                        ReaderEndItem()
-                    }
                 }
             }
         }
