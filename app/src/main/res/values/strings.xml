@@ -259,6 +259,8 @@
     <string name="cutout_padding_option_desc">Apply padding to cutout area</string>
     <string name="fullscreen_option">Fullscreen</string>
     <string name="fullscreen_option_desc">Hide system bars and remove padding</string>
+    <string name="keep_screen_on_option">Keep screen on</string>
+    <string name="keep_screen_on_option_desc">Keep screen awake infinitely</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>

@@ -4,7 +4,6 @@ import android.app.SearchManager
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
-import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.snapshotFlow
 import androidx.core.view.WindowCompat
@@ -23,7 +22,6 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
@@ -417,10 +415,6 @@ class ReaderViewModel @Inject constructor(
 
             clear()
             launch {
-                withContext(Dispatchers.Main) {
-                    activity.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-                }
-
                 onEvent(
                     ReaderEvent.OnShowHideMenu(
                         show = false,

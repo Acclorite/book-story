@@ -34,4 +34,5 @@ sealed class MainEvent {
     data class OnChangeAbsoluteDark(val bool: Boolean) : MainEvent()
     data class OnChangeCutoutPadding(val bool: Boolean) : MainEvent()
     data class OnChangeFullscreen(val bool: Boolean) : MainEvent()
+    data class OnChangeKeepScreenOn(val bool: Boolean) : MainEvent()
 }

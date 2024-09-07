@@ -58,6 +58,8 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.CustomSelectionContainer
@@ -139,6 +141,14 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
                 activity = context
             )
         )
+    }
+    LaunchedEffect(mainState.value.keepScreenOn) {
+        withContext(Dispatchers.Main) {
+            when (mainState.value.keepScreenOn) {
+                true -> context.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                false -> context.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            }
+        }
     }
     LaunchedEffect(lazyListState) {
         viewModel.onUpdateProgress {

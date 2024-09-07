@@ -415,6 +415,20 @@ class MainViewModel @Inject constructor(
                     }
                 }
             }
+
+            is MainEvent.OnChangeKeepScreenOn -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(
+                        DataStoreConstants.KEEP_SCREEN_ON,
+                        event.bool
+                    )
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            keepScreenOn = event.bool
+                        )
+                    }
+                }
+            }
         }
     }
 

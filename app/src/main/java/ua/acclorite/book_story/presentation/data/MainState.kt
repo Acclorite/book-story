@@ -71,6 +71,7 @@ data class MainState(
     val letterSpacing: Int = provideDefaultValue { 0 },
     val cutoutPadding: Boolean = provideDefaultValue { false },
     val fullscreen: Boolean = provideDefaultValue { true },
+    val keepScreenOn: Boolean = provideDefaultValue { true },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -224,6 +225,10 @@ data class MainState(
                     fullscreen = provideValue(
                         FULLSCREEN
                     ) { fullscreen },
+
+                    keepScreenOn = provideValue(
+                        KEEP_SCREEN_ON
+                    ) { keepScreenOn },
                 )
             }
         }

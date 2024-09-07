@@ -213,7 +213,7 @@
     <string name="dark_theme_option">Темна тема</string>
     <string name="pure_dark_option">Суцільна темрява (ОЛЕД)</string>
     <string name="absolute_dark_option">Абсолютна темрява</string>
-    <string name="absolute_dark_option_desc">Змініть колір фона на повністю чорний</string>
+    <string name="absolute_dark_option_desc">Змінити колір фона на повністю чорний</string>
     <string name="theme_contrast_option">Контрастність теми</string>
     <string name="app_theme_option">Тема застосунка</string>
     <string name="check_for_updates_option">Перевіряти на оновлення</string>
@@ -242,6 +242,8 @@
     <string name="cutout_padding_option_desc">Застосувати відступ до ділянки виїмки</string>
     <string name="fullscreen_option">Повний екран</string>
     <string name="fullscreen_option_desc">Сховати системні панелі та прибрати відступи</string>
+    <string name="keep_screen_on_option">Тримати екран увімкненим</string>
+    <string name="keep_screen_on_option_desc">Тримати екран увімкненим нескінченно</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>
