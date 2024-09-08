@@ -80,6 +80,9 @@ private fun provideLanguages() = listOf(
     Pair("ar", "اَلْعَرَبِيَّةُ"),
     Pair("es", "Español"),
     Pair("tr", "Türkçe"),
+    Pair("fr", "Français"),
+    Pair("pl", "Polski"),
+    Pair("it", "Italiano"),
 )
 
 private fun provideNavigationItems() = listOf(
