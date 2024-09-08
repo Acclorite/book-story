@@ -48,10 +48,8 @@ fun SettingsCategoryItem(
             modifier = Modifier.size(24.dp),
             tint = MaterialTheme.colorScheme.primary
         )
-        Spacer(modifier = Modifier.width(16.dp))
-        Column(
-            verticalArrangement = Arrangement.Center
-        ) {
+        Spacer(modifier = Modifier.width(18.dp))
+        Column {
             Text(
                 text,
                 style = MaterialTheme.typography.bodyLarge,
