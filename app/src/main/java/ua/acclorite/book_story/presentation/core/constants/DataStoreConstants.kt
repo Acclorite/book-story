@@ -21,6 +21,7 @@ object DataStoreConstants {
     val DOUBLE_CLICK_TRANSLATION = booleanPreferencesKey("double_click_translation")
     val FAST_COLOR_PRESET_CHANGE = booleanPreferencesKey("fast_color_preset_change")
     val SIDE_PADDING = intPreferencesKey("side_padding")
+    val VERTICAL_PADDING = intPreferencesKey("vertical_padding")
     val FONT = stringPreferencesKey("font")
     val IS_ITALIC = booleanPreferencesKey("font_style")
     val FONT_SIZE = intPreferencesKey("font_size")

@@ -65,6 +65,7 @@ data class MainState(
     val paragraphHeight: Int = provideDefaultValue { 8 },
     val paragraphIndentation: Boolean = provideDefaultValue { false },
     val sidePadding: Int = provideDefaultValue { 6 },
+    val verticalPadding: Int = provideDefaultValue { 0 },
     val doubleClickTranslation: Boolean = provideDefaultValue { false },
     val fastColorPresetChange: Boolean = provideDefaultValue { true },
     val textAlignment: ReaderTextAlignment = provideDefaultValue { ReaderTextAlignment.START },
@@ -229,6 +230,10 @@ data class MainState(
                     keepScreenOn = provideValue(
                         KEEP_SCREEN_ON
                     ) { keepScreenOn },
+
+                    verticalPadding = provideValue(
+                        VERTICAL_PADDING
+                    ) { verticalPadding },
                 )
             }
         }

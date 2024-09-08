@@ -429,6 +429,20 @@ class MainViewModel @Inject constructor(
                     }
                 }
             }
+
+            is MainEvent.OnChangeVerticalPadding -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(
+                        DataStoreConstants.VERTICAL_PADDING,
+                        event.padding
+                    )
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            verticalPadding = event.padding
+                        )
+                    }
+                }
+            }
         }
     }
 

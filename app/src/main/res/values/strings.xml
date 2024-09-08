@@ -247,6 +247,7 @@
     <string name="background_color_option">Background color</string>
     <string name="font_color_option">Font color</string>
     <string name="side_padding_option">Side padding</string>
+    <string name="vertical_padding_option">Vertical padding</string>
     <string name="double_click_translation_option">Double click translation</string>
     <string name="double_click_translation_option_desc">Double click on paragraph to translate it</string>
     <string name="fast_color_preset_change_option">Fast color preset change</string>

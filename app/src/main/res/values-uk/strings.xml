@@ -230,6 +230,7 @@
     <string name="background_color_option">Колір фона</string>
     <string name="font_color_option">Колір шрифта</string>
     <string name="side_padding_option">Бокові відступи</string>
+    <string name="vertical_padding_option">Вертикальні відступи</string>
     <string name="double_click_translation_option">Переклад подвійним кліком</string>
     <string name="double_click_translation_option_desc">Двічі клацніть на абзац, щоб перекласти його</string>
     <string name="fast_color_preset_change_option">Швидка зміна пресета кольорів</string>

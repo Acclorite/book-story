@@ -35,4 +35,5 @@ sealed class MainEvent {
     data class OnChangeCutoutPadding(val bool: Boolean) : MainEvent()
     data class OnChangeFullscreen(val bool: Boolean) : MainEvent()
     data class OnChangeKeepScreenOn(val bool: Boolean) : MainEvent()
+    data class OnChangeVerticalPadding(val padding: Int) : MainEvent()
 }

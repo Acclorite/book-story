@@ -232,6 +232,9 @@ private fun ReaderScreen(lazyListState: LazyListState) {
     val sidePadding = remember(mainState.value.sidePadding) {
         (mainState.value.sidePadding * 3).dp
     }
+    val verticalPadding = remember(mainState.value.verticalPadding) {
+        (mainState.value.verticalPadding * 4.5f).dp
+    }
     val paragraphHeight = remember(mainState.value.paragraphHeight) {
         (mainState.value.paragraphHeight * 3).dp
     }
@@ -425,7 +428,8 @@ private fun ReaderScreen(lazyListState: LazyListState) {
                                 .showToast(context = context, longToast = false)
                         }
                     )
-                    .padding(contentPadding),
+                    .padding(contentPadding)
+                    .padding(vertical = verticalPadding),
                 verticalArrangement = Arrangement.spacedBy(paragraphHeight),
                 contentPadding = PaddingValues(
                     top = (WindowInsets.displayCutout.asPaddingValues()

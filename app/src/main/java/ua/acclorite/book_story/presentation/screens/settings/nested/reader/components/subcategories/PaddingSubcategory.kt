@@ -12,6 +12,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.screens.settings.components.SettingsSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.CutoutPaddingSetting
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.SidePaddingSetting
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.VerticalPaddingSetting
 
 /**
  * Padding subcategory.
@@ -35,6 +36,10 @@ fun LazyListScope.PaddingSubcategory(
     ) {
         item {
             SidePaddingSetting()
+        }
+
+        item {
+            VerticalPaddingSetting()
         }
 
         item {
