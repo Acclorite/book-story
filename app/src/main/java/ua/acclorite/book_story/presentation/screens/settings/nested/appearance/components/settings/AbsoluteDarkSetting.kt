@@ -8,6 +8,7 @@ import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWithTitle
 import ua.acclorite.book_story.presentation.ui.ExpandingTransition
+import ua.acclorite.book_story.presentation.ui.isDark
 import ua.acclorite.book_story.presentation.ui.isPureDark
 
 /**
@@ -20,7 +21,10 @@ fun AbsoluteDarkSetting() {
     val onMainEvent = LocalMainViewModel.current.onEvent
     val context = LocalContext.current
 
-    ExpandingTransition(visible = state.value.pureDark.isPureDark(context)) {
+    ExpandingTransition(
+        visible = state.value.pureDark.isPureDark(context)
+                && state.value.darkTheme.isDark()
+    ) {
         SwitchWithTitle(
             selected = state.value.absoluteDark,
             title = stringResource(id = R.string.absolute_dark_option),
