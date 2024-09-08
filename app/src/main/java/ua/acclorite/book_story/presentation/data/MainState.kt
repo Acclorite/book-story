@@ -73,6 +73,7 @@ data class MainState(
     val cutoutPadding: Boolean = provideDefaultValue { false },
     val fullscreen: Boolean = provideDefaultValue { true },
     val keepScreenOn: Boolean = provideDefaultValue { true },
+    val hideBarsOnFastScroll: Boolean = provideDefaultValue { true },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -234,6 +235,10 @@ data class MainState(
                     verticalPadding = provideValue(
                         VERTICAL_PADDING
                     ) { verticalPadding },
+
+                    hideBarsOnFastScroll = provideValue(
+                        HIDE_BARS_ON_FAST_SCROLL
+                    ) { hideBarsOnFastScroll },
                 )
             }
         }

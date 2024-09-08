@@ -33,6 +33,7 @@ object DataStoreConstants {
     val CUTOUT_PADDING = booleanPreferencesKey("cutout_padding")
     val FULLSCREEN = booleanPreferencesKey("fullscreen")
     val KEEP_SCREEN_ON = booleanPreferencesKey("keep_screen_on")
+    val HIDE_BARS_ON_FAST_SCROLL = booleanPreferencesKey("hide_bars_on_fast_scroll")
 
     // Browse settings
     val BROWSE_FILES_STRUCTURE = stringPreferencesKey("browse_files_structure")

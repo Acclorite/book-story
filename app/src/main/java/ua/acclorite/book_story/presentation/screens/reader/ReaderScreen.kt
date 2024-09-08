@@ -191,17 +191,20 @@ private fun ReaderScreen(lazyListState: LazyListState) {
                 available: Offset,
                 source: NestedScrollSource
             ): Offset {
-                val velocity = consumed.y
+                consumed.y.let { velocity ->
+                    if(velocity in -70f..70f) return@let
+                    if(!state.value.showMenu) return@let
+                    if(state.value.lockMenu) return@let
+                    if(!mainState.value.hideBarsOnFastScroll) return@let
 
-                if ((velocity > 70 || velocity < -70) && state.value.showMenu && !state.value.lockMenu) {
                     onEvent(
                         ReaderEvent.OnShowHideMenu(
+                            show = false,
                             fullscreenMode = mainState.value.fullscreen,
                             activity = context
                         )
                     )
                 }
-
                 return super.onPostScroll(consumed, available, source)
             }
         }

@@ -242,7 +242,7 @@
     <string name="fullscreen_option">Повний екран</string>
     <string name="fullscreen_option_desc">Сховати системні панелі та прибрати відступи</string>
     <string name="keep_screen_on_option">Тримати екран увімкненим</string>
-    <string name="keep_screen_on_option_desc">Тримати екран увімкненим нескінченно</string>
+    <string name="hide_bars_on_fast_scroll_option">Ховати панелі при швидкому прокручуванні</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>

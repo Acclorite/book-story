@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.Dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.screens.settings.components.SettingsSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.FullscreenSetting
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.HideBarsOnFastScrollSetting
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.KeepScreenOnSetting
 
 /**
@@ -39,6 +40,10 @@ fun LazyListScope.MiscSubcategory(
 
         item {
             KeepScreenOnSetting()
+        }
+
+        item {
+            HideBarsOnFastScrollSetting()
         }
     }
 }

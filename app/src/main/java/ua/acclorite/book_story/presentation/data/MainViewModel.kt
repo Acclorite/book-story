@@ -443,6 +443,20 @@ class MainViewModel @Inject constructor(
                     }
                 }
             }
+
+            is MainEvent.OnChangeHideBarsOnFastScroll -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(
+                        DataStoreConstants.HIDE_BARS_ON_FAST_SCROLL,
+                        event.bool
+                    )
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            hideBarsOnFastScroll = event.bool
+                        )
+                    }
+                }
+            }
         }
     }
 

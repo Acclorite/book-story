@@ -8,23 +8,20 @@ import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWithTitle
 
 /**
- * Keep Screen On setting.
- * If true, keeps screen awake in Reader.
+ * Hide Bars On Fast Scroll setting.
+ * If true, hides bars during fast scroll.
  */
 @Composable
-fun KeepScreenOnSetting() {
+fun HideBarsOnFastScrollSetting() {
     val state = LocalMainViewModel.current.state
     val onMainEvent = LocalMainViewModel.current.onEvent
 
     SwitchWithTitle(
-        selected = state.value.keepScreenOn,
-        title = stringResource(id = R.string.keep_screen_on_option),
-        onClick = {
-            onMainEvent(
-                MainEvent.OnChangeKeepScreenOn(
-                    !state.value.keepScreenOn
-                )
-            )
-        }
-    )
+        selected = state.value.hideBarsOnFastScroll,
+        title = stringResource(id = R.string.hide_bars_on_fast_scroll_option)
+    ) {
+        onMainEvent(
+            MainEvent.OnChangeHideBarsOnFastScroll(!state.value.hideBarsOnFastScroll)
+        )
+    }
 }
