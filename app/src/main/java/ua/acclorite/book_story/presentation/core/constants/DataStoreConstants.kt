@@ -27,7 +27,7 @@ object DataStoreConstants {
     val FONT_SIZE = intPreferencesKey("font_size")
     val LINE_HEIGHT = intPreferencesKey("line_height")
     val PARAGRAPH_HEIGHT = intPreferencesKey("paragraph_height")
-    val PARAGRAPH_INDENTATION = booleanPreferencesKey("paragraph_indentation")
+    val PARAGRAPH_INDENTATION = intPreferencesKey("paragraph_indentation_int")
     val TEXT_ALIGNMENT = stringPreferencesKey("text_alignment")
     val LETTER_SPACING = intPreferencesKey("letter_spacing")
     val CUTOUT_PADDING = booleanPreferencesKey("cutout_padding")

@@ -14,7 +14,7 @@ sealed class MainEvent {
     data class OnChangeFontSize(val fontSize: Int) : MainEvent()
     data class OnChangeLineHeight(val lineHeight: Int) : MainEvent()
     data class OnChangeParagraphHeight(val paragraphHeight: Int) : MainEvent()
-    data class OnChangeParagraphIndentation(val bool: Boolean) : MainEvent()
+    data class OnChangeParagraphIndentation(val indentation: Int) : MainEvent()
     data class OnChangeShowStartScreen(val bool: Boolean) : MainEvent()
     data class OnChangeCheckForUpdates(val bool: Boolean) : MainEvent()
     data class OnChangeSidePadding(val sidePadding: Int) : MainEvent()

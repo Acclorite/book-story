@@ -5,7 +5,7 @@ import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.data.MainEvent
-import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWithTitle
+import ua.acclorite.book_story.presentation.screens.settings.components.SliderWithTitle
 
 /**
  * Paragraph Indentation setting.
@@ -16,12 +16,15 @@ fun ParagraphIndentationSetting() {
     val state = LocalMainViewModel.current.state
     val onMainEvent = LocalMainViewModel.current.onEvent
 
-    SwitchWithTitle(
-        selected = state.value.paragraphIndentation,
-        title = stringResource(id = R.string.paragraph_indentation_option)
-    ) {
-        onMainEvent(
-            MainEvent.OnChangeParagraphIndentation(!state.value.paragraphIndentation)
-        )
-    }
+    SliderWithTitle(
+        value = state.value.paragraphIndentation to "pt",
+        fromValue = 0,
+        toValue = 10,
+        title = stringResource(id = R.string.paragraph_indentation_option),
+        onValueChange = {
+            onMainEvent(
+                MainEvent.OnChangeParagraphIndentation(it)
+            )
+        }
+    )
 }

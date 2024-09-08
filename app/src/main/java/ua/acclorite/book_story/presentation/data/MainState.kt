@@ -63,7 +63,7 @@ data class MainState(
     val fontSize: Int = provideDefaultValue { 16 },
     val lineHeight: Int = provideDefaultValue { 4 },
     val paragraphHeight: Int = provideDefaultValue { 8 },
-    val paragraphIndentation: Boolean = provideDefaultValue { false },
+    val paragraphIndentation: Int = provideDefaultValue { 0 },
     val sidePadding: Int = provideDefaultValue { 6 },
     val verticalPadding: Int = provideDefaultValue { 0 },
     val doubleClickTranslation: Boolean = provideDefaultValue { false },

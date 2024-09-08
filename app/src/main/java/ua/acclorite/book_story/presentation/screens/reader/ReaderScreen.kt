@@ -247,6 +247,13 @@ private fun ReaderScreen(lazyListState: LazyListState) {
             false -> FontStyle.Normal
         }
     }
+    val paragraphIndentation = remember(mainState.value.paragraphIndentation) {
+        var indentation = ""
+        repeat(mainState.value.paragraphIndentation) {
+            indentation += " "
+        }
+        indentation
+    }
 
     val density = LocalDensity.current
     val layoutDirection = LocalLayoutDirection.current
@@ -457,7 +464,7 @@ private fun ReaderScreen(lazyListState: LazyListState) {
                         fontSize = mainState.value.fontSize.sp,
                         letterSpacing = letterSpacing,
                         sidePadding = sidePadding,
-                        paragraphIndentation = mainState.value.paragraphIndentation,
+                        paragraphIndentation = paragraphIndentation,
                         fullscreenMode = mainState.value.fullscreen,
                         doubleClickTranslationEnabled = mainState.value.doubleClickTranslation,
                         toolbarHidden = toolbarHidden
