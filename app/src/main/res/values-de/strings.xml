@@ -316,4 +316,20 @@
     <string name="browse_pin_favorite_directories_option_desc">Heften Sie Ihre Lieblingsverzeichnisse oben auf dem Bildschirm an</string>
     <string name="browse_sort_order_last_modified">Zuletzt geändert</string>
     <string name="browse_sort_order_file_size">Dateigröße</string>
+    <string name="text_alignment_option">Textausrichtung</string>
+    <string name="browse_files_structure_option">Dateistruktur</string>
+    <string name="text_alignment_start">Start</string>
+    <string name="text_alignment_justify">Rechtfertigen</string>
+    <string name="text_alignment_center">Mitte</string>
+    <string name="text_alignment_end">Ende</string>
+    <string name="credits_contribution">Beitrag</string>
+    <string name="double_press_exit_option_desc">Drücken Sie zweimal die Zurück-Taste, um die App zu beenden</string>
+    <string name="double_press_exit_option">Zum Beenden zweimal Zurück drücken</string>
+    <string name="lavender_theme">Eris</string>
+    <string name="help_translate_option">Übersetzen helfen</string>
+    <string name="credits_fonts">Schriftarten</string>
+    <string name="credits_translation">Übersetzung</string>
+    <string name="credits_ideas">Ideen</string>
+    <string name="letter_spacing_option">Buchstabenabstand</string>
+    <string name="marsh_theme">Pluto</string>
 </resources>

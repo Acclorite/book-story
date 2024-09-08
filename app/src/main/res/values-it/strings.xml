@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="updates_notification_channel">Nuovi aggiornamenti</string>
+    <string name="updates_notification_title">Nuovo aggiornamento di Book\'s Story!</string>
+    <string name="updates_notification_desc">Aggiornamento %1$s appena rilasciato! Clicca per andare alla pagina del rilascio.</string>
+    <string name="updates_notification_action">Scarica</string>
+    <string name="library_screen">Biblioteca</string>
+    <string name="history_screen">Cronologia</string>
+</resources>
