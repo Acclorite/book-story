@@ -44,7 +44,6 @@
     <string name="continue_read">Fortfahren</string>
     <string name="never">Niemals</string>
     <string name="go_back">Zurück gehen</string>
-    <string name="back_to_library">Zurück zur Bibliothek</string>
     <string name="undo">Rückgängig machen</string>
     <string name="copy">Kopieren</string>
     <string name="translate">Übersetzen</string>
@@ -130,9 +129,6 @@
     <string name="file_path">Dateipfad</string>
     <string name="file_last_opened">Zuletzt geöffnete Datei</string>
     <string name="file_size">Dateigröße</string>
-    <string name="happy_reading">Viel Spaß beim Lesen!</string>
-    <string name="thanks_for_reading">Vielen Dank, dass Sie „%1$s“ mit uns gelesen haben. Wir hoffen, Ihnen hat das Buch gefallen!</string>
-    <string name="letters_and_words">%1$s Zeichen, %2$s Wörter.</string>
     <string name="app_version_option">App-Version</string>
     <string name="app_version_option_desc_1">Buchgeschichte v%1$s</string>
     <string name="report_bug_option">Fehler melden</string>
@@ -210,7 +206,6 @@
     <string name="reset_cover_desc">Coverbild des Buches auf Standard zurücksetzen</string>
     <string name="change_cover_desc">Wählen Sie ein neues Cover aus Ihren Fotos</string>
     <string name="color_preset_query">Vorgabe %1$s</string>
-    <string name="move_to_read">Dieses Buch nach «Bereits gelesen» verschieben</string>
     <string name="yes_go_to_help">Ja, gehe zur Hilfe</string>
     <string name="browse_empty">Erweitern Sie den Buchbestand der Bibliothek mit Ihren Downloads</string>
     <string name="general_settings">Allgemein</string>

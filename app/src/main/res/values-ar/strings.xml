@@ -53,7 +53,6 @@
     <string name="continue_read">استمرار</string>
     <string name="never">أبدا˝</string>
     <string name="go_back">عودة</string>
-    <string name="back_to_library">عودة إلى المكتبة</string>
     <string name="undo">تراجع</string>
     <string name="read_more">يجب أن تقرأ المزيد!</string>
     <string name="read_keep">استمر!</string>
@@ -104,7 +103,6 @@
     <string name="author">المؤلف</string>
     <string name="reading_tab">يقرأ</string>
     <string name="already_read_tab">يقرأ بالفعل</string>
-    <string name="move_to_read">نقل هذا الكتاب إلى «يتم قرائته بالفعل»</string>
     <string name="general_tab">عام</string>
     <string name="color_tab">الألوان</string>
     <string name="pure_dark_option">أسود نقي (أوليد)</string>
@@ -182,12 +180,9 @@
     <string name="book_updated">تم تحديث نص الكتاب بنجاح.</string>
     <string name="file_size">حجم الملف</string>
     <string name="unknown">غير معروف</string>
-    <string name="thanks_for_reading">شكرا لك على قراءة \"%1$s\" معنا. نأمل أنك استمتعت بهذا الكتاب!</string>
     <string name="browse_grid_size_option">حجم الشبكة</string>
     <string name="nothing_changed">نص الكتاب محدث.</string>
     <string name="loading">يتم التحميل…</string>
-    <string name="happy_reading">قراءة ممتعة!</string>
-    <string name="letters_and_words">%1$s أحرف،%2$sكلمات.</string>
     <string name="app_version_option">إصدار التطبيق</string>
     <string name="app_version_option_desc_1">قصة كتاب الإصدار%1$s</string>
     <string name="licenses_option">رخص مفتوحة المصدر</string>

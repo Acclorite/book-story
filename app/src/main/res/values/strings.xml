@@ -156,8 +156,6 @@
     <string name="continue_read">Continue</string>
     <string name="never">Never</string>
     <string name="go_back">Go back</string>
-    <string name="move_to_read">Move this book to «Already Read»</string>
-    <string name="back_to_library">Back to Library</string>
     <string name="undo">Undo</string>
     <string name="copy">Copy</string>
     <string name="translate">Translate</string>
@@ -370,12 +368,6 @@
 
     <!-- Reader -->
     <string name="loading">Loading…</string>
-    <string name="happy_reading">Happy reading!</string>
-    <string name="thanks_for_reading">
-        Thank you for reading \"%1$s\" with us.
-        We hope you enjoyed this book!
-    </string>
-    <string name="letters_and_words">%1$s characters, %2$s words.</string>
 
     <!-- About -->
     <string name="app_version_option">App version</string>

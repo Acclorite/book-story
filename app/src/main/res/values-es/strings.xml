@@ -113,8 +113,6 @@
     <string name="never">Nunca</string>
     <string name="go_back">Regresar</string>
     <string name="copy">Copiar</string>
-    <string name="back_to_library">Volver a la Biblioteca</string>
-    <string name="move_to_read">Mover este libro a \"Leído\"</string>
     <string name="confirm">Confirmar</string>
     <string name="done">Hecho</string>
     <string name="files">archivos</string>
@@ -181,7 +179,6 @@
     <string name="file_last_opened">Último archivo abierto</string>
     <string name="file_size">Tamaño del archivo</string>
     <string name="unknown">Desconocido</string>
-    <string name="letters_and_words">%1$s caracteres, %2$s palabras.</string>
     <string name="app_version_option">Versión de la aplicación</string>
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
     <string name="app_version_option_desc_2">Haz clic para comprobar si hay actualizaciones</string>
@@ -203,10 +200,8 @@
     <string name="move_this_book">Mover</string>
     <string name="nothing_changed">Texto del libro actualizado.</string>
     <string name="delete_this_book">Borrar</string>
-    <string name="thanks_for_reading">Gracias por leer \"%1$s\" con nosotros. ¡Esperamos que haya disfrutado de este libro!</string>
     <string name="file_path">Ruta del archivo</string>
     <string name="loading">Cargando…</string>
-    <string name="happy_reading">¡Feliz lectura!</string>
     <string name="help_desc_how_to_add_books_2">Navegar</string>
     <string name="whats_new_option">Novedades</string>
     <string name="report_bug_option">Informar de un error</string>
