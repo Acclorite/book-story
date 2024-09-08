@@ -34,7 +34,6 @@
     <string name="library_empty">Lisez vos livres préférés et classez-les par catégories</string>
     <string name="selected_items_count_query">%1$s sélectionné</string>
     <string name="search_query">Chercher %1$s…</string>
-    <string name="read_query">%1$s Lire</string>
     <string name="file_path_query">Chemin de fichier: %1$s</string>
     <string name="update_query">Mise à jour %1$s</string>
     <string name="color_preset_query">Préréglage %1$s</string>
@@ -45,8 +44,6 @@
     <string name="continue_read">Continuer</string>
     <string name="never">Jamais</string>
     <string name="go_back">Retourner</string>
-    <string name="move_to_read">Déplacer ce livre vers «Déjà lu»</string>
-    <string name="back_to_library">Retour à la librairie</string>
     <string name="undo">Annuler</string>
     <string name="copy">Copier</string>
     <string name="translate">Traduire</string>
@@ -166,8 +163,6 @@
     <string name="unknown">Inconnu</string>
     <string name="internal_storage">Stockage interne</string>
     <string name="loading">Chargement…</string>
-    <string name="happy_reading">Joyeuse lecture!</string>
-    <string name="letters_and_words">%1$s caractères, %2$s mots.</string>
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
     <string name="app_version_option_desc_2">Cliquez pour vérifier les mises à jour</string>
     <string name="report_bug_option">Signaler un bug</string>
@@ -183,8 +178,6 @@
     <string name="help_clickable_note_1">Veuillez noter, que</string>
     <string name="help_clickable_note_2">tel texte surligné</string>
     <string name="help_clickable_note_action">Je suis cliquable!</string>
-    <string name="help_field_support">Sites utiles avec des livres:</string>
-    <string name="help_field_error">Le nom du livre ne doit pas être vide</string>
     <string name="help_title_how_to_add_books">Comment ajouter des livres à la librairie?</string>
     <string name="help_desc_how_to_add_books_1">Allez à la page</string>
     <string name="help_desc_how_to_add_books_2">Naviguer</string>
@@ -231,7 +224,6 @@
     <string name="continue_reading_content_desc">Poursuivre la lecture</string>
     <string name="go_back_content_desc">Retourner</string>
     <string name="cover_image_content_desc">Image de couverture</string>
-    <string name="top_app_bar_anim_content_desc">Animation de la barre supérieure de l\'application</string>
     <string name="file_icon_content_desc">Fichier</string>
     <string name="directory_icon_content_desc">Répertoire</string>
     <string name="path_arrow_icon_content_desc">Flèche du chemin</string>
@@ -256,7 +248,6 @@
     <string name="library_content_desc">Votre librairie</string>
     <string name="browse_content_desc">Ajouter les livres</string>
     <string name="arrow_content_desc">Flèche</string>
-    <string name="arrow_anim_content_desc">Animation de flèche</string>
     <string name="required_content_desc">Requis</string>
     <string name="reset_start_content_desc">Guide de réinitialisation</string>
     <string name="exit_editing_content_desc">Quitter le mode édition</string>
@@ -316,15 +307,11 @@
     <string name="delete_this_book">Supprimer</string>
     <string name="details_book">Détails</string>
     <string name="file_name">Nom du fichier</string>
-    <string name="thanks_for_reading">Merci d\'avoir lu \"%1$s\" avec nous. Nous espérons que vous avez apprécié ce livre!</string>
     <string name="app_version_option">Version de l\'application</string>
     <string name="credits_design">Design</string>
     <string name="credits_translation">Traduction</string>
     <string name="help_clickable_note_3">peut être cliqué. Vous pouvez également masquer cette note en cliquant sur l\'icône, essayez donc!</string>
-    <string name="help_title_how_to_find_books">Comment trouver et télécharger des livres?</string>
     <string name="credits_contribution">Contribution</string>
-    <string name="help_desc_how_to_find_books">Vous pouvez essayer de trouver les livres souhaités en utilisant des sites à partir de la note fournie ou vous pouvez utiliser le champ de texte pour rechercher des livres en ligne.</string>
-    <string name="help_field_placeholder">Nom du livre</string>
     <string name="help_title_how_to_customize_app">Comment personnaliser l\'application?</string>
     <string name="help_desc_how_to_customize_app_1">Allez vers la page des</string>
     <string name="help_desc_how_to_customize_app_2">Paramètres</string>
