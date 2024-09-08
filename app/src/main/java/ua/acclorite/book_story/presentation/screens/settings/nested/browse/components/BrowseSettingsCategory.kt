@@ -29,6 +29,7 @@ fun LazyListScope.BrowseSettingsCategory(
         bottomPadding = 0.dp
     )
     BrowseSortSubcategory(
+        showDivider = false,
         topPadding = 22.dp,
         bottomPadding = bottomPadding
     )

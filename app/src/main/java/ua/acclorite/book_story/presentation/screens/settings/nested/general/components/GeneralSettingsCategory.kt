@@ -25,9 +25,7 @@ fun LazyListScope.GeneralSettingsCategory(
     bottomPadding: Dp = 48.dp
 ) {
     item {
-        Spacer(
-            modifier = Modifier.height((topPadding - 8.dp).coerceAtLeast(0.dp))
-        )
+        Spacer(modifier = Modifier.height((topPadding - 8.dp).coerceAtLeast(0.dp)))
     }
 
     item {
@@ -43,8 +41,6 @@ fun LazyListScope.GeneralSettingsCategory(
     }
 
     item {
-        Spacer(
-            modifier = Modifier.height(bottomPadding)
-        )
+        Spacer(modifier = Modifier.height(bottomPadding))
     }
 }

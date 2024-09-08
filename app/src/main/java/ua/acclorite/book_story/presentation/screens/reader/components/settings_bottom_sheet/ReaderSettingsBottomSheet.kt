@@ -93,6 +93,7 @@ fun ReaderSettingsBottomSheet() {
                     )
                     MiscSubcategory(
                         titleColor = { MaterialTheme.colorScheme.onSurface },
+                        showDivider = false,
                         topPadding = 22.dp,
                         bottomPadding = 8.dp + it
                     )
@@ -113,6 +114,7 @@ fun ReaderSettingsBottomSheet() {
                     )
                     TranslatorSubcategory(
                         titleColor = { MaterialTheme.colorScheme.onSurface },
+                        showDivider = false,
                         topPadding = 22.dp,
                         bottomPadding = 8.dp + it
                     )
@@ -123,6 +125,7 @@ fun ReaderSettingsBottomSheet() {
                 LazyColumn(Modifier.fillMaxSize()) {
                     ColorsSubcategory(
                         showTitle = false,
+                        showDivider = false,
                         backgroundColor = { MaterialTheme.colorScheme.surfaceContainer },
                         topPadding = 16.dp,
                         bottomPadding = 8.dp + it

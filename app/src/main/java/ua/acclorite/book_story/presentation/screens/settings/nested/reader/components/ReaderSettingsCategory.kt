@@ -50,6 +50,7 @@ fun LazyListScope.ReaderSettingsCategory(
     )
     MiscSubcategory(
         titleColor = titleColor,
+        showDivider = false,
         topPadding = 22.dp,
         bottomPadding = bottomPadding
     )

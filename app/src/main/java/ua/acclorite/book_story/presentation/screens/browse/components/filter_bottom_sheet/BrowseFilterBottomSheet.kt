@@ -58,6 +58,7 @@ fun BrowseFilterBottomSheet() {
                     LazyColumn(Modifier.fillMaxSize()) {
                         BrowseGeneralSubcategory(
                             showTitle = false,
+                            showDivider = false,
                             topPadding = 16.dp,
                             bottomPadding = 8.dp + it
                         )
@@ -68,6 +69,7 @@ fun BrowseFilterBottomSheet() {
                     LazyColumn(Modifier.fillMaxSize()) {
                         BrowseFilterSubcategory(
                             showTitle = false,
+                            showDivider = false,
                             topPadding = 16.dp,
                             bottomPadding = 8.dp + it
                         )
@@ -78,6 +80,7 @@ fun BrowseFilterBottomSheet() {
                     LazyColumn(Modifier.fillMaxSize()) {
                         BrowseSortSubcategory(
                             showTitle = false,
+                            showDivider = false,
                             topPadding = 16.dp,
                             bottomPadding = 8.dp + it
                         )

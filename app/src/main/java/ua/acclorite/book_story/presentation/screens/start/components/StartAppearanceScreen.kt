@@ -12,6 +12,7 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.c
 fun LazyListScope.startAppearanceScreen() {
     ThemePreferencesSubcategory(
         title = { stringResource(id = R.string.start_theme_preferences) },
+        showDivider = false,
         topPadding = 16.dp,
         bottomPadding = 8.dp
     )
