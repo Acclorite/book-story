@@ -115,7 +115,7 @@
     <string name="book_deleted">Dieses Buch wurde erfolgreich gelöscht.</string>
     <string name="book_moved">Dieses Buch wurde erfolgreich verschoben.</string>
     <string name="copied">Kopieren</string>
-    <string name="history_deleted">Dieses Buch wurde erfolgreich verschoben.</string>
+    <string name="history_deleted">Dieses Buch wurde erfolgreich gelöscht.</string>
     <string name="no_updates">Die neuste Version der App ist bereits installiert.</string>
     <string name="cover_reset">Das Titelbild wurde erfolgreich zurückgesetzt.</string>
     <string name="history_element_deleted">Das Verlaufselement wurde erfolgreich gelöscht.</string>
@@ -332,4 +332,15 @@
     <string name="credits_ideas">Ideen</string>
     <string name="letter_spacing_option">Buchstabenabstand</string>
     <string name="marsh_theme">Pluto</string>
+    <string name="reader_tab">Leser</string>
+    <string name="fullscreen_option">Vollbild</string>
+    <string name="vertical_padding_option">Vertikale Polsterung</string>
+    <string name="keep_screen_on_option">Bildschirm eingeschaltet lassen</string>
+    <string name="absolute_dark_option">Absolute Dunkelheit</string>
+    <string name="misc_reader_settings">Sonstiges</string>
+    <string name="padding_reader_settings">Polsterung</string>
+    <string name="absolute_dark_option_desc">Ändern Sie die Hintergrundfarbe so, dass sie komplett schwarz ist</string>
+    <string name="fullscreen_option_desc">Systemleisten ausblenden und Polsterung entfernen</string>
+    <string name="cutout_padding_option_desc">Polsterung auf Ausschnittbereich auftragen</string>
+    <string name="cutout_padding_option">Aussparungspolster</string>
 </resources>
