@@ -32,6 +32,7 @@ import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.core.components.GoBackButton
 import ua.acclorite.book_story.presentation.core.components.LocalAboutViewModel
 import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.showToast
@@ -158,7 +159,7 @@ private fun AboutScreen() {
                 ) {
                     onEvent(
                         AboutEvent.OnNavigateToBrowserPage(
-                            context.getString(R.string.issues_page),
+                            Constants.ISSUES_PAGE,
                             context,
                             noAppsFound = {
                                 context.getString(R.string.error_no_browser)
@@ -176,7 +177,7 @@ private fun AboutScreen() {
                 ) {
                     onEvent(
                         AboutEvent.OnNavigateToBrowserPage(
-                            context.getString(R.string.releases_page),
+                            Constants.RELEASES_PAGE,
                             context,
                             noAppsFound = {
                                 context.getString(R.string.error_no_browser)
@@ -216,7 +217,7 @@ private fun AboutScreen() {
                 ) {
                     onEvent(
                         AboutEvent.OnNavigateToBrowserPage(
-                            context.getString(R.string.translation_page),
+                            Constants.TRANSLATION_PAGE,
                             context,
                             noAppsFound = {
                                 context.getString(R.string.error_no_browser)

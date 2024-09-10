@@ -67,6 +67,12 @@ object Constants {
     // Scrollbars (Primary unused, awaiting for fixes)
     val PRIMARY_SCROLLBAR @Composable get() = providePrimaryScrollbar()
     val SECONDARY_SCROLLBAR @Composable get() = provideSecondaryScrollbar()
+
+    // Links
+    val DOWNLOAD_LATEST_RELEASE_PAGE = provideDownloadLatestReleasePage()
+    val RELEASES_PAGE = provideReleasesPage()
+    val ISSUES_PAGE = provideIssuesPage()
+    val TRANSLATION_PAGE = provideTranslationPage()
 }
 
 private fun provideSupportedExtensions() = listOf(
@@ -598,3 +604,12 @@ private fun provideSecondaryScrollbar() = ScrollbarSettings(
     hideDisplacement = 0.dp,
     scrollbarPadding = 0.dp
 )
+
+private fun provideDownloadLatestReleasePage() =
+    "https://www.github.com/Acclorite/book-story/releases/latest/download/book-story.apk"
+
+private fun provideReleasesPage() = "https://www.github.com/Acclorite/book-story/releases/latest"
+
+private fun provideIssuesPage() = "https://www.github.com/Acclorite/book-story/issues"
+
+private fun provideTranslationPage() = "https://hosted.weblate.org/projects/book-story"

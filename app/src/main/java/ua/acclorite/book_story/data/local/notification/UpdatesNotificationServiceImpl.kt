@@ -10,6 +10,7 @@ import android.graphics.drawable.Icon
 import android.net.Uri
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.remote.dto.LatestReleaseInfo
+import ua.acclorite.book_story.presentation.core.constants.Constants
 import javax.inject.Inject
 
 class UpdatesNotificationServiceImpl @Inject constructor(
@@ -22,11 +23,11 @@ class UpdatesNotificationServiceImpl @Inject constructor(
     override fun postNotification(releaseInfo: LatestReleaseInfo) {
         val downloadLatestVersionIntent = Intent(
             Intent.ACTION_VIEW,
-            Uri.parse(application.getString(R.string.download_latest_release_page))
+            Uri.parse(Constants.DOWNLOAD_LATEST_RELEASE_PAGE)
         )
         val latestReleaseIntent = Intent(
             Intent.ACTION_VIEW,
-            Uri.parse(application.getString(R.string.releases_page))
+            Uri.parse(Constants.RELEASES_PAGE)
         )
 
         val downloadLatestVersionPendingIntent = PendingIntent.getActivity(

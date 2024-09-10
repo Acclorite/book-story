@@ -3,20 +3,6 @@
     <string name="app_version" translatable="false">1.2.0</string>
     <string name="app_name" translatable="false">Book\'s Story</string>
 
-    <!-- About sites -->
-    <string name="download_latest_release_page" translatable="false">
-        https://www.github.com/Acclorite/book-story/releases/latest/download/book-story.apk
-    </string>
-    <string name="releases_page" translatable="false">
-        https://www.github.com/Acclorite/book-story/releases/latest
-    </string>
-    <string name="issues_page" translatable="false">
-        https://www.github.com/Acclorite/book-story/issues
-    </string>
-    <string name="translation_page" translatable="false">
-        https://hosted.weblate.org/projects/book-story
-    </string>
-
     <!-- Notifications -->
     <string name="updates_notification_channel">New updates</string>
     <string name="updates_notification_title">New update of Book\'s Story!</string>
