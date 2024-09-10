@@ -486,4 +486,13 @@
     <string name="filter_content_desc">Filtre</string>
     <string name="absolute_dark_option">Mutlak koyu</string>
     <string name="absolute_dark_option_desc">Arka plan rengini tamamen siyah olacak şekilde değiştirin</string>
+    <string name="fullscreen_option">Tam ekran</string>
+    <string name="cutout_padding_option">Kesme dolgusu</string>
+    <string name="misc_reader_settings">Çeşitli</string>
+    <string name="reader_tab">Okuyucu</string>
+    <string name="padding_reader_settings">Dolgu</string>
+    <string name="fullscreen_option_desc">Sistem çubuklarını gizleyin ve dolguyu kaldırın</string>
+    <string name="cutout_padding_option_desc">Kesme alanına dolgu uygulayın</string>
+    <string name="vertical_padding_option">Dikey dolgu</string>
+    <string name="keep_screen_on_option">Ekranı açık tut</string>
 </resources>
