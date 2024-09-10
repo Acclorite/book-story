@@ -6,6 +6,8 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.screens.settings.components.SliderWithTitle
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.ReaderTextAlignment
+import ua.acclorite.book_story.presentation.ui.ExpandingTransition
 
 /**
  * Paragraph Indentation setting.
@@ -16,15 +18,20 @@ fun ParagraphIndentationSetting() {
     val state = LocalMainViewModel.current.state
     val onMainEvent = LocalMainViewModel.current.onEvent
 
-    SliderWithTitle(
-        value = state.value.paragraphIndentation to "pt",
-        fromValue = 0,
-        toValue = 10,
-        title = stringResource(id = R.string.paragraph_indentation_option),
-        onValueChange = {
-            onMainEvent(
-                MainEvent.OnChangeParagraphIndentation(it)
-            )
-        }
-    )
+    ExpandingTransition(
+        visible = state.value.textAlignment != ReaderTextAlignment.CENTER &&
+                state.value.textAlignment != ReaderTextAlignment.END
+    ) {
+        SliderWithTitle(
+            value = state.value.paragraphIndentation to "pt",
+            fromValue = 0,
+            toValue = 12,
+            title = stringResource(id = R.string.paragraph_indentation_option),
+            onValueChange = {
+                onMainEvent(
+                    MainEvent.OnChangeParagraphIndentation(it)
+                )
+            }
+        )
+    }
 }

@@ -15,10 +15,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import ua.acclorite.book_story.R
@@ -59,7 +59,7 @@ fun LazyItemScope.ReaderTextParagraph(
     fontSize: TextUnit,
     letterSpacing: TextUnit,
     sidePadding: Dp,
-    paragraphIndentation: String,
+    paragraphIndentation: TextUnit,
     fullscreenMode: Boolean,
     doubleClickTranslationEnabled: Boolean,
     toolbarHidden: Boolean
@@ -81,10 +81,7 @@ fun LazyItemScope.ReaderTextParagraph(
         }
     ) {
         BasicText(
-            text = buildAnnotatedString {
-                append(paragraphIndentation)
-                append(line)
-            },
+            text = line,
             modifier = Modifier.then(
                 if (
                     doubleClickTranslationEnabled &&
@@ -128,6 +125,7 @@ fun LazyItemScope.ReaderTextParagraph(
                     ReaderTextAlignment.CENTER -> TextAlign.Center
                     ReaderTextAlignment.END -> TextAlign.End
                 },
+                textIndent = TextIndent(firstLine = paragraphIndentation),
                 fontStyle = fontStyle,
                 letterSpacing = letterSpacing,
                 fontSize = fontSize,

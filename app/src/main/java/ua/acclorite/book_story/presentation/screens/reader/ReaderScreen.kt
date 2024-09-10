@@ -82,6 +82,7 @@ import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.Re
 import ua.acclorite.book_story.presentation.screens.reader.components.readerFastColorPresetChange
 import ua.acclorite.book_story.presentation.screens.reader.components.settings_bottom_sheet.ReaderSettingsBottomSheet
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.ReaderTextAlignment
 
 @Composable
 fun ReaderScreenRoot(screen: Screen.Reader) {
@@ -250,12 +251,17 @@ private fun ReaderScreen(lazyListState: LazyListState) {
             false -> FontStyle.Normal
         }
     }
-    val paragraphIndentation = remember(mainState.value.paragraphIndentation) {
-        var indentation = ""
-        repeat(mainState.value.paragraphIndentation) {
-            indentation += " "
+    val paragraphIndentation = remember(
+        mainState.value.paragraphIndentation,
+        mainState.value.textAlignment
+    ) {
+        if (
+            mainState.value.textAlignment == ReaderTextAlignment.CENTER ||
+            mainState.value.textAlignment == ReaderTextAlignment.END
+        ) {
+            return@remember 0.sp
         }
-        indentation
+        (mainState.value.paragraphIndentation * 6).sp
     }
 
     val density = LocalDensity.current
