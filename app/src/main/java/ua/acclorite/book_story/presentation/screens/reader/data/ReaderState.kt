@@ -16,6 +16,7 @@ data class ReaderState(
     val loading: Boolean = true,
 
     val showMenu: Boolean = false,
+    val checkpoint: Pair<Int, Int> = 0 to 0,
     val lockMenu: Boolean = false,
 
     val showSettingsBottomSheet: Boolean = false,

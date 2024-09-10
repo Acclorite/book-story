@@ -63,9 +63,10 @@ fun ReaderSettingsBottomSheet() {
         )
         onEvent(
             ReaderEvent.OnShowHideMenu(
-                pagerState.currentPage != 2,
+                show = pagerState.currentPage != 2,
                 fullscreenMode = mainState.value.fullscreen,
-                context as ComponentActivity
+                saveCheckpoint = false,
+                activity = context as ComponentActivity
             )
         )
     }

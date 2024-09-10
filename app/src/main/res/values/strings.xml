@@ -613,5 +613,7 @@
     <string name="github_profile_content_desc">GitHub Profile</string>
     <string name="drag_content_desc">Drag</string>
     <string name="filter_content_desc">Filter</string>
+    <string name="checkpoint_back_content_desc">Checkpoint back</string>
+    <string name="checkpoint_forward_content_desc">Checkpoint forward</string>
 
 </resources>

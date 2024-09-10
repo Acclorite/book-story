@@ -1,14 +1,28 @@
 package ua.acclorite.book_story.presentation.screens.reader.components.app_bar
 
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkHorizontally
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
@@ -19,19 +33,24 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.util.Direction
+import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.CustomIconButton
 import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
-import ua.acclorite.book_story.presentation.core.util.removeDigits
-import ua.acclorite.book_story.presentation.core.util.removeTrailingZero
+import ua.acclorite.book_story.presentation.core.util.calculateProgress
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.ui.Colors
 
 /**
- * Reader bottom bar. Has a slider to change progress.
+ * Reader bottom bar.
+ * Has a slider to change progress.
  */
 @Composable
 fun ReaderBottomBar() {
@@ -40,13 +59,26 @@ fun ReaderBottomBar() {
     val onLibraryEvent = LocalLibraryViewModel.current.onEvent
     val onHistoryEvent = LocalHistoryViewModel.current.onEvent
 
-    val progress by remember(state.value.book.progress) {
+    val progress by remember {
         derivedStateOf {
-            (state.value.book.progress * 100)
-                .toDouble()
-                .removeDigits(4)
-                .removeTrailingZero()
-                .dropWhile { it == '-' } + "%"
+            "${state.value.book.progress.calculateProgress(4)}%"
+        }
+    }
+    val arrowDirection by remember {
+        derivedStateOf {
+            val checkpoint = state.value.checkpoint.first
+            val index = state.value.listState.firstVisibleItemIndex
+
+            when {
+                checkpoint > index -> Direction.END
+                checkpoint < index -> Direction.START
+                else -> Direction.NEUTRAL
+            }
+        }
+    }
+    val checkpointProgress by remember {
+        derivedStateOf {
+            (state.value.checkpoint.first / state.value.text.lastIndex.toFloat()) * 0.987f
         }
     }
 
@@ -60,7 +92,7 @@ fun ReaderBottomBar() {
                 onClick = {}
             )
             .navigationBarsPadding()
-            .padding(horizontal = 24.dp)
+            .padding(horizontal = 18.dp)
             .padding(top = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -70,33 +102,99 @@ fun ReaderBottomBar() {
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleLarge
         )
-        Spacer(modifier = Modifier.height(3.dp))
-        Slider(
-            value = state.value.book.progress,
-            enabled = !state.value.lockMenu,
-            onValueChange = {
-                if (state.value.listState.layoutInfo.totalItemsCount > 0) {
-                    onEvent(ReaderEvent.OnScroll(it))
+        Row(
+            modifier = Modifier.padding(top = 3.dp, bottom = 5.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            CustomAnimatedVisibility(
+                visible = arrowDirection == Direction.START,
+                enter = expandHorizontally(expandFrom = Alignment.Start) + fadeIn() + slideInHorizontally { -it },
+                exit = shrinkHorizontally(shrinkTowards = Alignment.Start) + fadeOut() + slideOutHorizontally { -it }
+            ) {
+                CustomIconButton(
+                    icon = Icons.AutoMirrored.Default.ArrowBack,
+                    contentDescription = R.string.checkpoint_back_content_desc,
+                    modifier = Modifier.size(24.dp),
+                    color = MaterialTheme.colorScheme.primary,
+                    disableOnClick = false
+                ) {
                     onEvent(
-                        ReaderEvent.OnChangeProgress(
-                            progress = it,
-                            firstVisibleItemIndex = state.value.listState.firstVisibleItemIndex,
-                            firstVisibleItemOffset = 0,
-                            refreshList = { book ->
-                                onLibraryEvent(LibraryEvent.OnUpdateBook(book))
-                                onHistoryEvent(HistoryEvent.OnUpdateBook(book))
-                            }
-                        )
+                        ReaderEvent.OnRestoreCheckpoint { book ->
+                            onLibraryEvent(LibraryEvent.OnUpdateBook(book))
+                            onHistoryEvent(HistoryEvent.OnUpdateBook(book))
+                        }
                     )
                 }
-            },
-            colors = SliderDefaults.colors(
-                inactiveTrackColor = MaterialTheme.colorScheme.secondary.copy(0.15f),
-                disabledActiveTrackColor = MaterialTheme.colorScheme.primary,
-                disabledThumbColor = MaterialTheme.colorScheme.primary,
-                disabledInactiveTrackColor = MaterialTheme.colorScheme.secondary.copy(0.15f),
-            )
-        )
-        Spacer(modifier = Modifier.height(5.dp))
+            }
+
+            Box(
+                modifier = Modifier.weight(1f),
+                contentAlignment = Alignment.CenterStart
+            ) {
+                Slider(
+                    value = state.value.book.progress,
+                    enabled = !state.value.lockMenu,
+                    onValueChange = {
+                        if (state.value.listState.layoutInfo.totalItemsCount > 0) {
+                            onEvent(ReaderEvent.OnScroll(it))
+                            onEvent(
+                                ReaderEvent.OnChangeProgress(
+                                    progress = it,
+                                    firstVisibleItemIndex = state.value.listState.firstVisibleItemIndex,
+                                    firstVisibleItemOffset = 0,
+                                    refreshList = { book ->
+                                        onLibraryEvent(LibraryEvent.OnUpdateBook(book))
+                                        onHistoryEvent(HistoryEvent.OnUpdateBook(book))
+                                    }
+                                )
+                            )
+                        }
+                    },
+                    colors = SliderDefaults.colors(
+                        inactiveTrackColor = MaterialTheme.colorScheme.secondary.copy(0.15f),
+                        disabledActiveTrackColor = MaterialTheme.colorScheme.primary,
+                        disabledThumbColor = MaterialTheme.colorScheme.primary,
+                        disabledInactiveTrackColor = MaterialTheme.colorScheme.secondary.copy(0.15f),
+                    )
+                )
+                if (arrowDirection != Direction.NEUTRAL) {
+                    Row(Modifier.fillMaxWidth()) {
+                        Spacer(
+                            modifier = Modifier.fillMaxWidth(checkpointProgress)
+                        )
+                        Box(
+                            Modifier
+                                .width(4.dp)
+                                .height(16.dp)
+                                .clip(RoundedCornerShape(0.5.dp))
+                                .background(
+                                    MaterialTheme.colorScheme.onPrimary.copy(0.6f)
+                                )
+                        )
+                    }
+                }
+            }
+
+            CustomAnimatedVisibility(
+                visible = arrowDirection == Direction.END,
+                enter = expandHorizontally() + fadeIn() + slideInHorizontally { it },
+                exit = shrinkHorizontally() + fadeOut() + slideOutHorizontally { it }
+            ) {
+                CustomIconButton(
+                    icon = Icons.AutoMirrored.Default.ArrowForward,
+                    contentDescription = R.string.checkpoint_forward_content_desc,
+                    modifier = Modifier.size(24.dp),
+                    color = MaterialTheme.colorScheme.primary,
+                    disableOnClick = false
+                ) {
+                    onEvent(
+                        ReaderEvent.OnRestoreCheckpoint { book ->
+                            onLibraryEvent(LibraryEvent.OnUpdateBook(book))
+                            onHistoryEvent(HistoryEvent.OnUpdateBook(book))
+                        }
+                    )
+                }
+            }
+        }
     }
 }

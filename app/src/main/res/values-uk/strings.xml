@@ -594,5 +594,7 @@
     <string name="github_profile_content_desc">GitHub Профіль</string>
     <string name="drag_content_desc">Тягнути</string>
     <string name="filter_content_desc">Фільтр</string>
+    <string name="checkpoint_back_content_desc">Чекпоінт назад</string>
+    <string name="checkpoint_forward_content_desc">Чекпоінт вперед</string>
 
 </resources>

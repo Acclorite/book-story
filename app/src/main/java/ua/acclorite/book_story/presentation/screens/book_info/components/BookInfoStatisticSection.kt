@@ -9,6 +9,8 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
@@ -17,8 +19,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.LocalBookInfoViewModel
-import ua.acclorite.book_story.presentation.core.util.removeDigits
-import ua.acclorite.book_story.presentation.core.util.removeTrailingZero
+import ua.acclorite.book_story.presentation.core.util.calculateProgress
 
 /**
  * Statistic section.
@@ -27,13 +28,10 @@ import ua.acclorite.book_story.presentation.core.util.removeTrailingZero
 fun BookInfoStatisticSection() {
     val state = LocalBookInfoViewModel.current.state
 
-    val progress = remember(state.value.book) {
-        "${
-            (state.value.book.progress * 100)
-                .toDouble()
-                .removeDigits(1)
-                .removeTrailingZero()
-        }%"
+    val progress by remember {
+        derivedStateOf {
+            "${state.value.book.progress.calculateProgress(1)}%"
+        }
     }
     val description = stringResource(
         if (state.value.book.progress == 1f) R.string.read_done

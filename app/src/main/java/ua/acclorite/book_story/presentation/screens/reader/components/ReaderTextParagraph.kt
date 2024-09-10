@@ -110,6 +110,7 @@ fun LazyItemScope.ReaderTextParagraph(
                             onEvent(
                                 ReaderEvent.OnShowHideMenu(
                                     fullscreenMode = fullscreenMode,
+                                    saveCheckpoint = true,
                                     activity = context as ComponentActivity
                                 )
                             )

@@ -169,7 +169,10 @@ class MainViewModel @Inject constructor(
 
             is MainEvent.OnChangeParagraphIndentation -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.PARAGRAPH_INDENTATION, event.indentation)
+                    setDatastore.execute(
+                        DataStoreConstants.PARAGRAPH_INDENTATION,
+                        event.indentation
+                    )
                     updateStateWithSavedHandle {
                         it.copy(
                             paragraphIndentation = event.indentation

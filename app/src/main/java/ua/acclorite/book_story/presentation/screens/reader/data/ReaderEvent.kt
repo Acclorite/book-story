@@ -18,7 +18,12 @@ sealed class ReaderEvent {
     data class OnShowHideMenu(
         val show: Boolean? = null,
         val fullscreenMode: Boolean,
+        val saveCheckpoint: Boolean,
         val activity: ComponentActivity
+    ) : ReaderEvent()
+
+    data class OnRestoreCheckpoint(
+        val refreshList: (Book) -> Unit
     ) : ReaderEvent()
 
     data class OnGoBack(

@@ -128,6 +128,7 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
             onEvent(
                 ReaderEvent.OnShowHideMenu(
                     fullscreenMode = mainState.value.fullscreen,
+                    saveCheckpoint = true,
                     activity = context
                 )
             )
@@ -138,6 +139,7 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
             ReaderEvent.OnShowHideMenu(
                 show = state.value.showMenu,
                 fullscreenMode = mainState.value.fullscreen,
+                saveCheckpoint = false,
                 activity = context
             )
         )
@@ -192,15 +194,16 @@ private fun ReaderScreen(lazyListState: LazyListState) {
                 source: NestedScrollSource
             ): Offset {
                 consumed.y.let { velocity ->
-                    if(velocity in -70f..70f) return@let
-                    if(!state.value.showMenu) return@let
-                    if(state.value.lockMenu) return@let
-                    if(!mainState.value.hideBarsOnFastScroll) return@let
+                    if (velocity in -70f..70f) return@let
+                    if (!state.value.showMenu) return@let
+                    if (state.value.lockMenu) return@let
+                    if (!mainState.value.hideBarsOnFastScroll) return@let
 
                     onEvent(
                         ReaderEvent.OnShowHideMenu(
                             show = false,
                             fullscreenMode = mainState.value.fullscreen,
+                            saveCheckpoint = false,
                             activity = context
                         )
                     )
@@ -414,6 +417,7 @@ private fun ReaderScreen(lazyListState: LazyListState) {
                                         onEvent(
                                             ReaderEvent.OnShowHideMenu(
                                                 fullscreenMode = mainState.value.fullscreen,
+                                                saveCheckpoint = true,
                                                 activity = context
                                             )
                                         )

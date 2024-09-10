@@ -35,8 +35,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.util.Selected
 import ua.acclorite.book_story.presentation.core.components.CustomCoverImage
-import ua.acclorite.book_story.presentation.core.util.removeDigits
-import ua.acclorite.book_story.presentation.core.util.removeTrailingZero
+import ua.acclorite.book_story.presentation.core.util.calculateProgress
 
 /**
  * Library list element item.
@@ -69,13 +68,8 @@ fun LibraryBookItem(
         else onSurfaceColor
     }
 
-    val progress = rememberSaveable(book.first) {
-        "${
-            (book.first.progress * 100)
-                .toDouble()
-                .removeDigits(1)
-                .removeTrailingZero()
-        }%"
+    val progress = rememberSaveable(book.first.progress) {
+        "${book.first.progress.calculateProgress(1)}%"
     }
 
     Column(

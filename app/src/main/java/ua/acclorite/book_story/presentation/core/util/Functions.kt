@@ -34,3 +34,11 @@ fun Intent.launchActivity(
 
     success?.invoke()
 }
+
+fun Float.calculateProgress(digits: Int): String {
+    return (this * 100)
+        .toDouble()
+        .removeDigits(digits)
+        .removeTrailingZero()
+        .dropWhile { it == '-' }
+}

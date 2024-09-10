@@ -159,9 +159,34 @@ class ReaderViewModel @Inject constructor(
                         )
                         _state.update {
                             it.copy(
-                                showMenu = shouldShow
+                                showMenu = shouldShow,
+                                checkpoint = _state.value.listState.run {
+                                    if (!shouldShow || !event.saveCheckpoint) return@run it.checkpoint
+
+                                    firstVisibleItemIndex to firstVisibleItemScrollOffset
+                                }
                             )
                         }
+                    }
+                }
+
+                is ReaderEvent.OnRestoreCheckpoint -> {
+                    launch(Dispatchers.Main) {
+                        _state.value.listState.requestScrollToItem(
+                            _state.value.checkpoint.first,
+                            _state.value.checkpoint.second
+                        )
+
+                        onEvent(
+                            ReaderEvent.OnChangeProgress(
+                                progress = calculateProgress(_state.value.checkpoint.first),
+                                firstVisibleItemIndex = _state.value.checkpoint.first,
+                                firstVisibleItemOffset = _state.value.checkpoint.second,
+                                refreshList = { book ->
+                                    event.refreshList(book)
+                                }
+                            )
+                        )
                     }
                 }
 
@@ -419,6 +444,7 @@ class ReaderViewModel @Inject constructor(
                     ReaderEvent.OnShowHideMenu(
                         show = false,
                         fullscreenMode = fullscreenMode,
+                        saveCheckpoint = false,
                         activity = activity
                     )
                 )
