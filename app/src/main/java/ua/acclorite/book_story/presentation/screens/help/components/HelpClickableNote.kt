@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.help.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -20,6 +19,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.CustomTooltip
+import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.ui.ExpandingTransition
 
 /**
@@ -38,7 +38,7 @@ fun HelpClickableNote(text: AnnotatedString) {
                 imageVector = Icons.Outlined.Info,
                 modifier = Modifier
                     .size(20.dp)
-                    .clickable(interactionSource = null, indication = null) {
+                    .noRippleClickable {
                         showNote.value = !showNote.value
                     },
                 contentDescription = stringResource(R.string.note_content_desc),

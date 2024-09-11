@@ -9,7 +9,6 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -73,6 +72,7 @@ import ua.acclorite.book_story.presentation.core.components.is_messages.IsError
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
 import ua.acclorite.book_story.presentation.core.navigation.Screen
+import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
@@ -416,9 +416,7 @@ private fun ReaderScreen(lazyListState: LazyListState) {
                     .then(
                         if (!state.value.loading && toolbarHidden) {
                             Modifier
-                                .clickable(
-                                    interactionSource = null,
-                                    indication = null,
+                                .noRippleClickable(
                                     onClick = {
                                         onEvent(
                                             ReaderEvent.OnShowHideMenu(

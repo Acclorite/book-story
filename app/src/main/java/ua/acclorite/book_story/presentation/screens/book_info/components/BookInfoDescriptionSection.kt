@@ -1,8 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.book_info.components
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,12 +23,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.LocalBookInfoViewModel
+import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 
 /**
  * Description section.
  */
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BookInfoDescriptionSection() {
     val state = LocalBookInfoViewModel.current.state
@@ -48,9 +45,7 @@ fun BookInfoDescriptionSection() {
             textAlign = TextAlign.Start,
             modifier = Modifier
                 .padding(horizontal = 24.dp)
-                .combinedClickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null,
+                .noRippleClickable(
                     onClick = {},
                     onLongClick = {
                         onEvent(BookInfoEvent.OnShowHideEditDescription)

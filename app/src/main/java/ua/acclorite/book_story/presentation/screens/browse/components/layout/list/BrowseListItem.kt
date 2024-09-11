@@ -3,7 +3,6 @@ package ua.acclorite.book_story.presentation.screens.browse.components.layout.li
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -28,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.SelectableFile
 import ua.acclorite.book_story.presentation.core.components.CustomCheckbox
+import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.ui.FadeTransitionPreservingSpace
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -112,11 +112,7 @@ fun BrowseListItem(
                                 ),
                                 modifier = Modifier
                                     .size(24.dp)
-                                    .clickable(
-                                        enabled = !hasSelectedFiles,
-                                        interactionSource = null,
-                                        indication = null
-                                    ) {
+                                    .noRippleClickable(enabled = !hasSelectedFiles) {
                                         onFavoriteClick()
                                     },
                                 tint = if (file.isFavorite) MaterialTheme.colorScheme.primary

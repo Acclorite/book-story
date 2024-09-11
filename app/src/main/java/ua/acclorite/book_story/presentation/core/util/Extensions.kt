@@ -2,6 +2,9 @@ package ua.acclorite.book_story.presentation.core.util
 
 import android.content.Intent
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.ui.Modifier
 
 fun String.removeTrailingZero(): String {
     if (!this.contains('.'))
@@ -41,4 +44,21 @@ fun Float.calculateProgress(digits: Int): String {
         .removeDigits(digits)
         .removeTrailingZero()
         .dropWhile { it == '-' }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+fun Modifier.noRippleClickable(
+    enabled: Boolean = true,
+    onLongClick: (() -> Unit)? = null,
+    onDoubleClick: (() -> Unit)? = null,
+    onClick: () -> Unit
+): Modifier {
+    return this.combinedClickable(
+        indication = null,
+        interactionSource = null,
+        enabled = enabled,
+        onLongClick = onLongClick,
+        onDoubleClick = onDoubleClick,
+        onClick = onClick
+    )
 }

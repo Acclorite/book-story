@@ -2,8 +2,6 @@ package ua.acclorite.book_story.presentation.screens.reader.components
 
 import android.content.Context
 import androidx.activity.ComponentActivity
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,6 +22,7 @@ import androidx.compose.ui.unit.TextUnit
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.FontWithName
 import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
+import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.ReaderTextAlignment
@@ -46,7 +45,6 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.
  * @param doubleClickTranslationEnabled Whether Double Click Translation is enabled.
  * @param toolbarHidden Whether selection toolBar is hidden.
  */
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LazyItemScope.ReaderTextParagraph(
     line: String,
@@ -87,9 +85,7 @@ fun LazyItemScope.ReaderTextParagraph(
                     doubleClickTranslationEnabled &&
                     toolbarHidden
                 ) {
-                    Modifier.combinedClickable(
-                        interactionSource = null,
-                        indication = null,
+                    Modifier.noRippleClickable(
                         onDoubleClick = {
                             onEvent(
                                 ReaderEvent.OnOpenTranslator(

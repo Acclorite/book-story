@@ -7,7 +7,6 @@ import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,6 +42,7 @@ import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewMode
 import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.core.util.calculateProgress
+import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
@@ -86,11 +86,7 @@ fun ReaderBottomBar() {
         Modifier
             .fillMaxWidth()
             .background(Colors.readerSystemBarsColor)
-            .clickable(
-                interactionSource = null,
-                indication = null,
-                onClick = {}
-            )
+            .noRippleClickable(onClick = {})
             .navigationBarsPadding()
             .padding(horizontal = 18.dp)
             .padding(top = 16.dp),

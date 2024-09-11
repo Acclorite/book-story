@@ -1,7 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.browse.components.layout.grid
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -29,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.SelectableFile
 import ua.acclorite.book_story.presentation.core.components.CustomCheckbox
+import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -93,11 +93,7 @@ fun BrowseGridDirectoryItem(
                     ),
                     modifier = Modifier
                         .size(24.dp)
-                        .clickable(
-                            enabled = !hasSelectedFiles,
-                            interactionSource = null,
-                            indication = null
-                        ) {
+                        .noRippleClickable(enabled = !hasSelectedFiles) {
                             onFavoriteClick()
                         },
                     tint = if (file.isFavorite) MaterialTheme.colorScheme.primary

@@ -4,7 +4,6 @@ import android.os.Environment
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -30,6 +29,7 @@ import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibi
 import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.core.components.customItemsIndexed
+import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
 import java.io.File
@@ -112,10 +112,8 @@ fun BrowseTopBarDirectoryPath() {
                         label = ""
                     ).value,
                     style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.clickable(
-                        enabled = state.value.selectedDirectory != directory.second,
-                        indication = null,
-                        interactionSource = null
+                    modifier = Modifier.noRippleClickable(
+                        enabled = state.value.selectedDirectory != directory.second
                     ) {
                         onEvent(
                             BrowseEvent.OnChangeDirectory(

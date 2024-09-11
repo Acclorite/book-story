@@ -34,6 +34,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.presentation.core.components.CustomCoverImage
 import ua.acclorite.book_story.presentation.core.components.CustomIconButton
+import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -121,9 +122,7 @@ fun HistoryItem(
                     lineHeight = 21.sp,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable(
-                            interactionSource = null,
-                            indication = null,
+                        .noRippleClickable(
                             enabled = isOnClickEnabled,
                             onClick = onTitleClick
                         ),

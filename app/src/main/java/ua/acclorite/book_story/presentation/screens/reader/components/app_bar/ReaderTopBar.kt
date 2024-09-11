@@ -2,7 +2,6 @@ package ua.acclorite.book_story.presentation.screens.reader.components.app_bar
 
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.basicMarquee
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
@@ -27,6 +26,7 @@ import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewMode
 import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
 import ua.acclorite.book_story.presentation.core.navigation.Screen
+import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
@@ -79,10 +79,8 @@ fun ReaderTopBar() {
                     color = MaterialTheme.colorScheme.onSurface,
                     maxLines = 1,
                     modifier = Modifier
-                        .clickable(
+                        .noRippleClickable(
                             enabled = !state.value.lockMenu,
-                            interactionSource = null,
-                            indication = null,
                             onClick = {
                                 onEvent(
                                     ReaderEvent.OnGoBack(

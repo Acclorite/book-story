@@ -4,7 +4,6 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.HelpTip
 import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.ui.ExpandingTransition
 
 /**
@@ -83,7 +83,7 @@ fun HelpItem(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable(interactionSource = null, indication = null) {
+                .noRippleClickable {
                     showDescription.value = !showDescription.value
                 },
             verticalAlignment = Alignment.CenterVertically

@@ -1,9 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.book_info.components
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,12 +37,12 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.CustomCoverImage
 import ua.acclorite.book_story.presentation.core.components.LocalBookInfoViewModel
+import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 
 /**
  * BookInfo's Info section.
  */
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BookInfoInfoSection() {
     val state = LocalBookInfoViewModel.current.state
@@ -68,9 +65,7 @@ fun BookInfoInfoSection() {
                     MaterialTheme.colorScheme.surfaceContainerLow,
                     MaterialTheme.shapes.medium
                 )
-                .combinedClickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null,
+                .noRippleClickable(
                     onClick = {},
                     onLongClick = {
                         onEvent(BookInfoEvent.OnShowHideChangeCoverBottomSheet)
@@ -107,9 +102,7 @@ fun BookInfoInfoSection() {
                     style = MaterialTheme.typography.headlineSmall,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .combinedClickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null,
+                        .noRippleClickable(
                             onClick = {},
                             onLongClick = {
                                 onEvent(BookInfoEvent.OnShowHideEditTitle)
@@ -164,9 +157,7 @@ fun BookInfoInfoSection() {
                         style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .combinedClickable(
-                                interactionSource = remember { MutableInteractionSource() },
-                                indication = null,
+                            .noRippleClickable(
                                 onClick = {},
                                 onLongClick = {
                                     onEvent(BookInfoEvent.OnShowHideEditAuthor)
