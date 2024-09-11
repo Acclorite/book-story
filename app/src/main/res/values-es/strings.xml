@@ -343,4 +343,7 @@
     <string name="padding_reader_settings">Relleno</string>
     <string name="vertical_padding_option">Relleno vertical</string>
     <string name="cutout_padding_option_desc">Aplicar relleno a la zona recortada</string>
+    <string name="checkpoint_forward_content_desc">Punto de control nuevo</string>
+    <string name="hide_bars_on_fast_scroll_option">Ocultar barras en el desplazamiento rápido</string>
+    <string name="checkpoint_back_content_desc">Volver al punto de control</string>
 </resources>
