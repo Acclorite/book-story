@@ -58,12 +58,6 @@ interface BookRepository {
 
     suspend fun resetCoverImage(bookId: Int): Boolean
 
-
-    suspend fun <T> retrieveDataFromDataStore(
-        key: Preferences.Key<T>,
-        defaultValue: T
-    ): Flow<T>
-
     suspend fun <T> putDataToDataStore(
         key: Preferences.Key<T>,
         value: T

@@ -12,9 +12,13 @@ import ua.acclorite.book_story.data.local.dto.ColorPresetEntity
 import ua.acclorite.book_story.data.local.dto.FavoriteDirectoryEntity
 import ua.acclorite.book_story.data.local.dto.HistoryEntity
 
+/**
+ * Class to manipulate Room database.
+ */
 @Dao
 interface BookDao {
 
+    /* ------ BookEntity ------------------------ */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBooks(
         books: List<BookEntity>
@@ -39,8 +43,10 @@ interface BookDao {
 
     @Update
     suspend fun updateBooks(books: List<BookEntity>)
+    /* - - - - - - - - - - - - - - - - - - - - - - */
 
 
+    /* ------ HistoryEntity --------------------- */
     @Query("SELECT * FROM historyentity")
     suspend fun getHistory(): List<HistoryEntity>
 
@@ -60,8 +66,10 @@ interface BookDao {
 
     @Delete
     suspend fun deleteHistory(history: List<HistoryEntity>)
+    /* - - - - - - - - - - - - - - - - - - - - - - */
 
 
+    /* ------ ColorPresetEntity ----------------- */
     @Upsert
     suspend fun updateColorPreset(colorPreset: ColorPresetEntity)
 
@@ -79,8 +87,10 @@ interface BookDao {
 
     @Query("DELETE FROM colorpresetentity")
     suspend fun deleteColorPresets()
+    /* - - - - - - - - - - - - - - - - - - - - - - */
 
 
+    /* ------ FavoriteDirectoryEntity ----------- */
     @Upsert
     suspend fun insertFavoriteDirectory(favoriteDirectoryEntity: FavoriteDirectoryEntity)
 
@@ -89,4 +99,5 @@ interface BookDao {
 
     @Delete
     suspend fun deleteFavoriteDirectory(favoriteDirectoryEntity: FavoriteDirectoryEntity)
+    /* - - - - - - - - - - - - - - - - - - - - - - */
 }

@@ -20,6 +20,11 @@ class UpdatesNotificationServiceImpl @Inject constructor(
     private val notificationManager = application.getSystemService(Context.NOTIFICATION_SERVICE)
             as NotificationManager
 
+    /**
+     * Sends notification about new update.
+     *
+     * @param releaseInfo [LatestReleaseInfo].
+     */
     override fun postNotification(releaseInfo: LatestReleaseInfo) {
         val downloadLatestVersionIntent = Intent(
             Intent.ACTION_VIEW,

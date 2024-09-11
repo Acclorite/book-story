@@ -429,13 +429,6 @@ class BookRepositoryImpl @Inject constructor(
         return true
     }
 
-    override suspend fun <T> retrieveDataFromDataStore(
-        key: Preferences.Key<T>,
-        defaultValue: T
-    ): Flow<T> {
-        return dataStore.getData(key, defaultValue)
-    }
-
     override suspend fun <T> putDataToDataStore(key: Preferences.Key<T>, value: T) {
         dataStore.putData(key, value)
     }

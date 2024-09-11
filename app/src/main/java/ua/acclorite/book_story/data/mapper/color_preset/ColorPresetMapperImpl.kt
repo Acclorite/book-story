@@ -6,7 +6,6 @@ import ua.acclorite.book_story.domain.model.ColorPreset
 import javax.inject.Inject
 
 class ColorPresetMapperImpl @Inject constructor() : ColorPresetMapper {
-
     override suspend fun toColorPresetEntity(
         colorPreset: ColorPreset,
         order: Int
