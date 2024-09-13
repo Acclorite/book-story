@@ -343,4 +343,7 @@
     <string name="absolute_dark_option_desc">Change la couleur d\'arrière-plan pour qu\'elle soit complètement noire</string>
     <string name="reader_tab">Lecteur</string>
     <string name="keep_screen_on_option">Garder l\'écran allumé</string>
+    <string name="checkpoint_forward_content_desc">Point de contrôle en avant</string>
+    <string name="hide_bars_on_fast_scroll_option">Cacher les barres en cas de défilement rapide</string>
+    <string name="checkpoint_back_content_desc">Retour au point de contrôle</string>
 </resources>
