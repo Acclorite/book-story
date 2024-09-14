@@ -243,4 +243,5 @@
     <string name="absolute_dark_option_desc">تغيير لون الخلفية لتصبح سوداء بالكامل</string>
     <string name="dropped_tab">مهمل</string>
     <string name="reader_tab">قارئ</string>
+    <string name="misc_reader_settings">متنوع</string>
 </resources>
