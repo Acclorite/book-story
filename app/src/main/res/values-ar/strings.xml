@@ -237,4 +237,11 @@
     <string name="help_desc_how_to_add_books_2">تصفح</string>
     <string name="help_desc_how_to_add_books_4">المكتبة</string>
     <string name="help_desc_how_to_add_books_3">إذاكنت لا ترى الكتب التي قمت بتحميلها ، حاول تحديث القائمة عبر سحبها. تأكد ان كتبك تدعم صيغة الملف ثم انقر على الكتاب لاختياره او انقر مطولا لعرض موقعه. بعد أ تختار كل الكتب التي تريدها ، انقر على أيقونة ✔️ في الزاوية العلوية اليمنى ، انتظر حتى تحمل كل الكتب ثم انقر على \"إضافة\". الآن يجب ان ترى كل الكتب التي اضفتها في</string>
+    <string name="keep_screen_on_option">ابقي الشاشة</string>
+    <string name="color_preset_option">اللون المحدد مسبقا</string>
+    <string name="absolute_dark_option">مظلم بالكامل</string>
+    <string name="absolute_dark_option_desc">تغيير لون الخلفية لتصبح سوداء بالكامل</string>
+    <string name="dropped_tab">مهمل</string>
+    <string name="reader_tab">قارئ</string>
+    <string name="misc_reader_settings">متنوع</string>
 </resources>

@@ -334,4 +334,16 @@
     <string name="letter_spacing_option">Espaciado entre letras</string>
     <string name="absolute_dark_option_desc">Cambiar el color de fondo para que sea completamente negro</string>
     <string name="absolute_dark_option">Negro puro</string>
+    <string name="fullscreen_option_desc">Ocultar las barras del sistema y eliminar el relleno</string>
+    <string name="reader_tab">Lector</string>
+    <string name="misc_reader_settings">Varios</string>
+    <string name="keep_screen_on_option">Mantener la pantalla encendida</string>
+    <string name="fullscreen_option">Pantalla completa</string>
+    <string name="cutout_padding_option">Relleno del recorte</string>
+    <string name="padding_reader_settings">Relleno</string>
+    <string name="vertical_padding_option">Relleno vertical</string>
+    <string name="cutout_padding_option_desc">Aplicar relleno a la zona recortada</string>
+    <string name="checkpoint_forward_content_desc">Punto de control nuevo</string>
+    <string name="hide_bars_on_fast_scroll_option">Ocultar barras en el desplazamiento rápido</string>
+    <string name="checkpoint_back_content_desc">Volver al punto de control</string>
 </resources>

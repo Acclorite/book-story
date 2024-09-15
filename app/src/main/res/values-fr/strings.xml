@@ -332,4 +332,18 @@
     <string name="favorite_directory_content_desc">Répertoire favoris</string>
     <string name="create_color_preset_content_desc">Créer un nouveau préréglage de couleur</string>
     <string name="filter_content_desc">Filtre</string>
+    <string name="absolute_dark_option">Noir absolu</string>
+    <string name="fullscreen_option">Plein écran</string>
+    <string name="fullscreen_option_desc">Cache les barres du système et enleve le rembourrage</string>
+    <string name="padding_reader_settings">Rembourrage</string>
+    <string name="vertical_padding_option">Rembourrage vertical</string>
+    <string name="misc_reader_settings">Autres</string>
+    <string name="cutout_padding_option_desc">Applique un rembourrage à une zone de découpe</string>
+    <string name="cutout_padding_option">Rembourrage des découpes</string>
+    <string name="absolute_dark_option_desc">Change la couleur d\'arrière-plan pour qu\'elle soit complètement noire</string>
+    <string name="reader_tab">Lecteur</string>
+    <string name="keep_screen_on_option">Garder l\'écran allumé</string>
+    <string name="checkpoint_forward_content_desc">Point de contrôle en avant</string>
+    <string name="hide_bars_on_fast_scroll_option">Cacher les barres en cas de défilement rapide</string>
+    <string name="checkpoint_back_content_desc">Retour au point de contrôle</string>
 </resources>
