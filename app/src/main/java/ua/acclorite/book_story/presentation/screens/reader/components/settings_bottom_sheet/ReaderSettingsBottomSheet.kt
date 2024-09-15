@@ -7,7 +7,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.BottomSheetDefaults
@@ -20,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.core.components.custom_bottom_sheet.CustomBottomSheet
@@ -86,7 +86,7 @@ fun ReaderSettingsBottomSheet() {
 
         HorizontalPager(state = pagerState) { page ->
             if (page == 0) {
-                LazyColumn(Modifier.fillMaxSize()) {
+                CustomLazyColumn(Modifier.fillMaxSize()) {
                     PaddingSubcategory(
                         titleColor = { MaterialTheme.colorScheme.onSurface },
                         topPadding = 22.dp,
@@ -102,7 +102,7 @@ fun ReaderSettingsBottomSheet() {
             }
 
             if (page == 1) {
-                LazyColumn(Modifier.fillMaxSize()) {
+                CustomLazyColumn(Modifier.fillMaxSize()) {
                     FontSubcategory(
                         titleColor = { MaterialTheme.colorScheme.onSurface },
                         topPadding = 16.dp,
@@ -123,7 +123,7 @@ fun ReaderSettingsBottomSheet() {
             }
 
             if (page == 2) {
-                LazyColumn(Modifier.fillMaxSize()) {
+                CustomLazyColumn(Modifier.fillMaxSize()) {
                     ColorsSubcategory(
                         showTitle = false,
                         showDivider = false,
