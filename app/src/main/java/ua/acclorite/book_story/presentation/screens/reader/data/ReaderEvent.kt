@@ -9,6 +9,7 @@ import ua.acclorite.book_story.domain.util.UIText
 @Immutable
 sealed class ReaderEvent {
     data object OnTextIsEmpty : ReaderEvent()
+
     data class OnLoadText(
         val refreshList: (Book) -> Unit,
         val onError: (UIText) -> Unit,
@@ -39,9 +40,28 @@ sealed class ReaderEvent {
         val refreshList: (Book) -> Unit
     ) : ReaderEvent()
 
-    data class OnScroll(val progress: Float) : ReaderEvent()
-    data object OnShowHideSettingsBottomSheet : ReaderEvent()
-    data class OnScrollToSettingsPage(val page: Int, val pagerState: PagerState?) : ReaderEvent()
+    data class OnScroll(
+        val progress: Float
+    ) : ReaderEvent()
+
+    data class OnScrollToChapter(
+        val chapterStartIndex: Int,
+        val refreshList: (Book) -> Unit
+    ) : ReaderEvent()
+
+    data class OnShowHideSettingsBottomSheet(
+        val show: Boolean
+    ) : ReaderEvent()
+
+    data class OnShowHideChaptersDrawer(
+        val show: Boolean
+    ) : ReaderEvent()
+
+    data class OnScrollToSettingsPage(
+        val page: Int,
+        val pagerState: PagerState?
+    ) : ReaderEvent()
+
     data class OnOpenTranslator(
         val textToTranslate: String,
         val translateWholeParagraph: Boolean,

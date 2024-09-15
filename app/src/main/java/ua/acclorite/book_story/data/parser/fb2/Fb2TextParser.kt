@@ -1,23 +1,26 @@
 package ua.acclorite.book_story.data.parser.fb2
 
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.w3c.dom.Element
 import org.w3c.dom.NodeList
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.TextParser
+import ua.acclorite.book_story.domain.model.ChapterWithText
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.presentation.core.constants.Constants
 import java.io.File
 import javax.inject.Inject
 import javax.xml.parsers.DocumentBuilderFactory
 
+private const val FB2_TAG = "FB2 Parser"
+
 class Fb2TextParser @Inject constructor() : TextParser {
 
-    override suspend fun parse(file: File): Resource<List<String>> {
-        if (!file.name.endsWith(".fb2", true) || !file.exists()) {
-            return Resource.Error(UIText.StringResource(R.string.error_wrong_file_format))
-        }
+    override suspend fun parse(file: File): Resource<List<ChapterWithText>> {
+        Log.i(FB2_TAG, "Started FB2 parsing: ${file.name}.")
 
         return try {
             val factory = DocumentBuilderFactory.newInstance()
@@ -38,6 +41,7 @@ class Fb2TextParser @Inject constructor() : TextParser {
             val unformattedLines = mutableListOf<String>()
             val bodyNode = bodyNodes.item(0) as Element
             val paragraphNodes = bodyNode.getElementsByTagName("p")
+
             for (element in paragraphNodes.asList()) {
                 if (element.textContent.isBlank()) {
                     continue
@@ -100,7 +104,15 @@ class Fb2TextParser @Inject constructor() : TextParser {
                 return Resource.Error(UIText.StringResource(R.string.error_file_empty))
             }
 
-            Resource.Success(formattedLines)
+            Log.i(FB2_TAG, "Successfully finished FB2 parsing.")
+            Resource.Success(
+                listOf(
+                    ChapterWithText(
+                        chapter = Constants.EMPTY_CHAPTER,
+                        text = formattedLines
+                    )
+                )
+            )
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(

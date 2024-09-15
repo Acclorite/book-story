@@ -355,6 +355,8 @@
 
     <!-- Reader -->
     <string name="loading">Loading…</string>
+    <string name="no_chapters">No chapters</string>
+    <string name="chapters">Chapters</string>
 
     <!-- About -->
     <string name="app_version_option">App version</string>
@@ -601,5 +603,6 @@
     <string name="filter_content_desc">Filter</string>
     <string name="checkpoint_back_content_desc">Checkpoint back</string>
     <string name="checkpoint_forward_content_desc">Checkpoint forward</string>
+    <string name="chapters_content_desc">Chapters</string>
 
 </resources>

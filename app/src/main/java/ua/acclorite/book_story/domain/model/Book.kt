@@ -19,6 +19,7 @@ data class Book(
     val scrollIndex: Int,
     val scrollOffset: Int,
     val progress: Float,
+    val chapters: List<Chapter> = emptyList(),
 
     val lastOpened: Long?,
     val category: Category,

@@ -79,7 +79,7 @@ fun ReaderSettingsBottomSheet() {
             .fillMaxHeight(animatedHeight),
         dragHandle = {},
         onDismissRequest = {
-            onEvent(ReaderEvent.OnShowHideSettingsBottomSheet)
+            onEvent(ReaderEvent.OnShowHideSettingsBottomSheet(false))
         }
     ) {
         ReaderSettingsBottomSheetTabRow(pagerState = pagerState)

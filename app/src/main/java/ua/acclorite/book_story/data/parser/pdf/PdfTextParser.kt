@@ -1,26 +1,25 @@
 package ua.acclorite.book_story.data.parser.pdf
 
-import android.app.Application
-import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
+import android.util.Log
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.text.PDFTextStripper
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.TextParser
+import ua.acclorite.book_story.domain.model.ChapterWithText
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.presentation.core.constants.Constants
 import java.io.File
 import javax.inject.Inject
 
-class PdfTextParser @Inject constructor(private val application: Application) : TextParser {
+private const val PDF_TAG = "PDF Parser"
 
-    override suspend fun parse(file: File): Resource<List<String>> {
-        if (!file.name.endsWith(".pdf", true) || !file.exists()) {
-            return Resource.Error(UIText.StringResource(R.string.error_wrong_file_format))
-        }
+class PdfTextParser @Inject constructor() : TextParser {
 
-        try {
-            PDFBoxResourceLoader.init(application)
+    override suspend fun parse(file: File): Resource<List<ChapterWithText>> {
+        Log.i(PDF_TAG, "Started PDF parsing: ${file.name}.")
 
+        return try {
             val document = PDDocument.load(file)
             val strings = mutableListOf<String>()
 
@@ -95,10 +94,18 @@ class PdfTextParser @Inject constructor(private val application: Application) : 
                 return Resource.Error(UIText.StringResource(R.string.error_file_empty))
             }
 
-            return Resource.Success(strings)
+            Log.i(PDF_TAG, "Successfully finished PDF parsing.")
+            Resource.Success(
+                listOf(
+                    ChapterWithText(
+                        chapter = Constants.EMPTY_CHAPTER,
+                        text = strings
+                    )
+                )
+            )
         } catch (e: Exception) {
             e.printStackTrace()
-            return Resource.Error(
+            Resource.Error(
                 UIText.StringResource(
                     R.string.error_query,
                     e.message?.take(40)?.trim() ?: ""

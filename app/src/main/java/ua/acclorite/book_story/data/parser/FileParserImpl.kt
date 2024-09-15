@@ -1,28 +1,30 @@
 package ua.acclorite.book_story.data.parser
 
+import android.util.Log
 import ua.acclorite.book_story.data.parser.epub.EpubFileParser
 import ua.acclorite.book_story.data.parser.fb2.Fb2FileParser
 import ua.acclorite.book_story.data.parser.htm.HtmFileParser
 import ua.acclorite.book_story.data.parser.html.HtmlFileParser
 import ua.acclorite.book_story.data.parser.pdf.PdfFileParser
 import ua.acclorite.book_story.data.parser.txt.TxtFileParser
-import ua.acclorite.book_story.data.parser.zip.ZipFileParser
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.util.CoverImage
 import java.io.File
 import javax.inject.Inject
+
+private const val FILE_PARSER = "File Parser"
 
 class FileParserImpl @Inject constructor(
     private val txtFileParser: TxtFileParser,
     private val pdfFileParser: PdfFileParser,
     private val epubFileParser: EpubFileParser,
     private val fb2FileParser: Fb2FileParser,
-    private val zipFileParser: ZipFileParser,
     private val htmlFileParser: HtmlFileParser,
     private val htmFileParser: HtmFileParser,
 ) : FileParser {
     override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
         if (!file.exists()) {
+            Log.e(FILE_PARSER, "File does not exist.")
             return null
         }
 
@@ -45,7 +47,7 @@ class FileParserImpl @Inject constructor(
             }
 
             ".zip" -> {
-                zipFileParser.parse(file)
+                epubFileParser.parse(file)
             }
 
             ".html" -> {
@@ -56,7 +58,10 @@ class FileParserImpl @Inject constructor(
                 htmFileParser.parse(file)
             }
 
-            else -> null
+            else -> {
+                Log.e(FILE_PARSER, "Wrong file format, could not find supported extension.")
+                null
+            }
         }
     }
 }

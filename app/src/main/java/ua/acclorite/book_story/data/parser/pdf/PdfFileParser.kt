@@ -15,11 +15,7 @@ import javax.inject.Inject
 class PdfFileParser @Inject constructor(private val application: Application) : FileParser {
 
     override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
-        if (!file.name.endsWith(".pdf", true) || !file.exists()) {
-            return null
-        }
-
-        try {
+        return try {
             PDFBoxResourceLoader.init(application)
 
             val document = PDDocument.load(file)
@@ -33,7 +29,7 @@ class PdfFileParser @Inject constructor(private val application: Application) : 
 
             document.close()
 
-            return Book(
+            Book(
                 title = title,
                 author = author,
                 description = description,
@@ -48,7 +44,7 @@ class PdfFileParser @Inject constructor(private val application: Application) : 
             ) to null
         } catch (e: Exception) {
             e.printStackTrace()
-            return null
+            null
         }
     }
 }

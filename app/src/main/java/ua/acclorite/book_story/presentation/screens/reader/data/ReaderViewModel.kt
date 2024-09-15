@@ -3,7 +3,6 @@ package ua.acclorite.book_story.presentation.screens.reader.data
 import android.app.SearchManager
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.snapshotFlow
 import androidx.core.view.WindowCompat
@@ -13,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,7 +28,7 @@ import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.use_case.GetBookById
 import ua.acclorite.book_story.domain.use_case.GetLatestHistory
 import ua.acclorite.book_story.domain.use_case.GetText
-import ua.acclorite.book_story.domain.use_case.UpdateBooks
+import ua.acclorite.book_story.domain.use_case.UpdateBook
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.core.navigation.Screen
@@ -40,7 +40,7 @@ import kotlin.math.roundToInt
 @Suppress("LABEL_NAME_CLASH")
 @HiltViewModel
 class ReaderViewModel @Inject constructor(
-    private val updateBooks: UpdateBooks,
+    private val updateBook: UpdateBook,
     private val getText: GetText,
     private val getLatestHistory: GetLatestHistory,
     private val getBookById: GetBookById
@@ -50,6 +50,7 @@ class ReaderViewModel @Inject constructor(
     override val state = _state.asStateFlow()
 
     private var eventJob = SupervisorJob()
+    private var scrollJob: Job? = null
 
     override fun onEvent(event: ReaderEvent) {
         viewModelScope.launch(eventJob + Dispatchers.Main) {
@@ -73,70 +74,35 @@ class ReaderViewModel @Inject constructor(
 
                         _state.update {
                             it.copy(
+                                book = it.book.copy(
+                                    lastOpened = getLatestHistory.execute(_state.value.book.id)?.time
+                                ),
                                 text = text
                             )
                         }
 
-                        val history = _state.value.book.id.let {
-                            getLatestHistory.execute(
-                                it
-                            )
-                        }
-
-                        _state.update {
-                            it.copy(
-                                book = it.book.copy(
-                                    lastOpened = history?.time,
-                                )
-                            )
-                        }
-
-                        updateBooks.execute(
-                            listOf(_state.value.book)
-                        )
+                        updateBook.execute(_state.value.book)
                         event.refreshList(_state.value.book)
 
                         launch {
                             snapshotFlow {
                                 _state.value.listState.layoutInfo.totalItemsCount
                             }.collectLatest { itemsCount ->
-                                val index = _state.value.book.scrollIndex
-                                val offset = _state.value.book.scrollOffset
+                                if (itemsCount < _state.value.text.size) return@collectLatest
 
-                                if (itemsCount >= _state.value.text.size) {
-                                    if (index > 0 || offset > 0) {
-                                        var loaded = false
-                                        for (i in 1..100) {
-                                            try {
-                                                _state.value.listState.requestScrollToItem(
-                                                    index,
-                                                    offset
-                                                )
-                                                loaded = true
-                                                break
-                                            } catch (e: Exception) {
-                                                Log.w(
-                                                    "READER",
-                                                    "Couldn't scroll to desired index and offset"
-                                                )
-                                                delay(100)
-                                            }
-                                        }
+                                _state.value.listState.requestScrollToItem(
+                                    _state.value.book.scrollIndex,
+                                    _state.value.book.scrollOffset
+                                )
 
-                                        if (!loaded) {
-                                            event.onTextIsEmpty()
-                                        }
-                                    }
-
-                                    delay(100)
-                                    _state.update {
-                                        it.copy(
-                                            loading = false
-                                        )
-                                    }
-
-                                    return@collectLatest
+                                delay(100)
+                                _state.update {
+                                    it.copy(
+                                        loading = false
+                                    )
                                 }
+
+                                return@collectLatest
                             }
                         }
                     }
@@ -171,7 +137,7 @@ class ReaderViewModel @Inject constructor(
                 }
 
                 is ReaderEvent.OnRestoreCheckpoint -> {
-                    launch(Dispatchers.Main) {
+                    launch {
                         _state.value.listState.requestScrollToItem(
                             _state.value.checkpoint.first,
                             _state.value.checkpoint.second
@@ -217,9 +183,7 @@ class ReaderViewModel @Inject constructor(
                                 )
                             }
 
-                            updateBooks.execute(
-                                listOf(_state.value.book)
-                            )
+                            updateBook.execute(_state.value.book)
                             event.refreshList(_state.value.book)
                         }
 
@@ -233,11 +197,30 @@ class ReaderViewModel @Inject constructor(
                 }
 
                 is ReaderEvent.OnScroll -> {
-                    launch {
-                        val scrollTo = (_state.value.text.size * event.progress).roundToInt()
+                    scrollJob?.cancel()
+                    scrollJob = launch {
+                        delay(300)
 
-                        _state.value.listState.scrollToItem(
-                            scrollTo
+                        yield()
+
+                        val scrollTo = (_state.value.text.size * event.progress).roundToInt()
+                        _state.value.listState.requestScrollToItem(scrollTo)
+                    }
+                }
+
+                is ReaderEvent.OnScrollToChapter -> {
+                    launch {
+                        _state.value.listState.requestScrollToItem(
+                            event.chapterStartIndex
+                        )
+                        updateChapter(index = event.chapterStartIndex)
+                        onEvent(
+                            ReaderEvent.OnChangeProgress(
+                                progress = calculateProgress(event.chapterStartIndex),
+                                firstVisibleItemIndex = event.chapterStartIndex,
+                                firstVisibleItemOffset = 0,
+                                refreshList = event.refreshList
+                            )
                         )
                     }
                 }
@@ -254,28 +237,32 @@ class ReaderViewModel @Inject constructor(
                             )
                         }
 
-                        updateBooks.execute(
-                            listOf(_state.value.book)
-                        )
+                        updateBook.execute(_state.value.book)
                         event.refreshList(_state.value.book)
                     }
                 }
 
                 is ReaderEvent.OnShowHideSettingsBottomSheet -> {
-                    launch(Dispatchers.IO) {
-                        _state.update {
-                            it.copy(
-                                showSettingsBottomSheet = !it.showSettingsBottomSheet
-                            )
-                        }
+                    _state.update {
+                        it.copy(
+                            showSettingsBottomSheet = event.show
+                        )
+                    }
+                }
+
+                is ReaderEvent.OnShowHideChaptersDrawer -> {
+                    _state.update {
+                        it.copy(
+                            showChaptersDrawer = event.show
+                        )
                     }
                 }
 
                 is ReaderEvent.OnScrollToSettingsPage -> {
                     launch {
-                        _state.update {
-                            event.pagerState?.scrollToPage(event.page)
+                        event.pagerState?.requestScrollToPage(event.page)
 
+                        _state.update {
                             it.copy(
                                 currentPage = event.page
                             )
@@ -465,7 +452,7 @@ class ReaderViewModel @Inject constructor(
 
     @OptIn(FlowPreview::class)
     fun onUpdateProgress(refreshList: (Book) -> Unit) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             snapshotFlow {
                 _state.value.listState.firstVisibleItemIndex to _state.value.listState.firstVisibleItemScrollOffset
             }
@@ -487,6 +474,49 @@ class ReaderViewModel @Inject constructor(
                         )
                     }
                 }
+        }
+    }
+
+    @OptIn(FlowPreview::class)
+    fun onUpdateCurrentChapter() {
+        viewModelScope.launch(Dispatchers.IO) {
+            snapshotFlow {
+                _state.value.listState.firstVisibleItemIndex
+            }
+                .distinctUntilChanged()
+                .debounce(300)
+                .collectLatest { index ->
+                    if (_state.value.book.chapters.size < 2) {
+                        _state.update {
+                            it.copy(
+                                currentChapter = null
+                            )
+                        }
+                        return@collectLatest
+                    }
+
+                    updateChapter(index)
+                }
+        }
+    }
+
+    private fun updateChapter(index: Int) {
+        val currentChapter = _state.value.book.chapters.find { chapter ->
+            index in chapter.startIndex..chapter.endIndex
+        }
+        val currentChapterProgress = currentChapter.run {
+            if (this == null) return@run 0f
+
+            val currentIndex = index - startIndex
+            val endIndex = endIndex - startIndex
+            currentIndex / endIndex.toFloat()
+        }
+
+        _state.update {
+            it.copy(
+                currentChapter = currentChapter,
+                currentChapterProgress = currentChapterProgress
+            )
         }
     }
 

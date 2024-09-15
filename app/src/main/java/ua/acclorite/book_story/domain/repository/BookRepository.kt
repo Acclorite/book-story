@@ -68,7 +68,7 @@ interface BookRepository {
 
     suspend fun getFilesFromDevice(query: String = ""): List<SelectableFile>
 
-    suspend fun getBooksFromFiles(files: List<File>): List<NullableBook>
+    suspend fun getBookFromFile(file: File): NullableBook
 
 
     suspend fun insertHistory(history: List<History>)

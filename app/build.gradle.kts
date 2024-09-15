@@ -166,4 +166,7 @@ dependencies {
 
     // Scrollbar
     implementation("com.github.nanihadesuka:LazyColumnScrollbar:2.2.0")
+
+    // Gson
+    implementation("com.google.code.gson:gson:2.11.0")
 }

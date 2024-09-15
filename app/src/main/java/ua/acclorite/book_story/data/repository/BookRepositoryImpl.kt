@@ -40,12 +40,17 @@ import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.data.MainState
+import java.io.BufferedReader
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.io.FileReader
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
+
+private const val GET_BOOK_FROM_FILE = "GET BOOK FROM FILE, REPOSITORY"
+private const val GET_TEXT = "GET TEXT, REPOSITORY"
 
 @Suppress("DEPRECATION")
 @Singleton
@@ -96,21 +101,31 @@ class BookRepositoryImpl @Inject constructor(
         }
     }
 
+    /**
+     * Loads text from given path. Should be .txt.
+     * Used to get text from book and load Reader.
+     */
     override suspend fun getBookText(textPath: String): List<String> {
         val textFile = File(textPath)
+        val lines = mutableListOf<String>()
 
-        if (textPath.isBlank() || !textFile.exists()) {
-            Log.w("BOOK TEXT", "Failed to load file")
+        if (textPath.isBlank() || !textFile.exists() || textFile.extension != "txt") {
+            Log.w(GET_TEXT, "Failed to load file: $textPath")
             return emptyList()
         }
 
-        val text = textParser.parse(textFile)
-
-        if (text.data.isNullOrEmpty()) {
-            return emptyList()
+        withContext(Dispatchers.IO) {
+            BufferedReader(FileReader(textFile)).forEachLine { line ->
+                if (line.isNotBlank()) {
+                    lines.add(
+                        line.trim()
+                    )
+                }
+            }
         }
 
-        return text.data
+        Log.i(GET_TEXT, "Successfully loaded text.")
+        return lines
     }
 
     override suspend fun insertBook(
@@ -555,74 +570,40 @@ class BookRepositoryImpl @Inject constructor(
         return rootDirectory.getAllFiles()
     }
 
-    override suspend fun getBooksFromFiles(files: List<File>): List<NullableBook> {
-        val books = mutableListOf<NullableBook>()
-
-        for (file in files) {
-            val parsedBook = if (Constants.EXTENSIONS.any { file.name.endsWith(it, true) }) {
-                fileParser.parse(file)
-            } else {
-                books.add(
-                    NullableBook.Null(
-                        file.name,
-                        UIText.StringResource(R.string.error_wrong_file_format)
-                    )
-                )
-                continue
-            }
-
-            val parsedText = if (Constants.EXTENSIONS.any { file.name.endsWith(it, true) }) {
-                textParser.parse(file)
-            } else {
-                books.add(
-                    NullableBook.Null(
-                        file.name,
-                        UIText.StringResource(R.string.error_wrong_file_format)
-                    )
-                )
-                continue
-            }
-
-            if (parsedBook == null) {
-                books.add(
-                    NullableBook.Null(
-                        file.name,
-                        UIText.StringResource(R.string.error_something_went_wrong_with_file)
-                    )
-                )
-                continue
-            }
-
-            if (parsedText is Resource.Error) {
-                books.add(
-                    NullableBook.Null(
-                        file.name,
-                        parsedText.message
-                    )
-                )
-                continue
-            }
-
-            if (parsedText.data == null) {
-                books.add(
-                    NullableBook.Null(
-                        file.name,
-                        UIText.StringResource(R.string.error_file_empty)
-                    )
-                )
-                continue
-            }
-
-            books.add(
-                NullableBook.NotNull(
-                    book = parsedBook.first,
-                    coverImage = parsedBook.second,
-                    text = parsedText.data
-                )
+    /**
+     * Gets book from given file. If error happened, returns [NullableBook.Null].
+     */
+    override suspend fun getBookFromFile(file: File): NullableBook {
+        val parsedBook = fileParser.parse(file)
+        if (parsedBook == null) {
+            Log.w(GET_BOOK_FROM_FILE, "Parsed book(${file.name}) is null.")
+            return NullableBook.Null(
+                file.name,
+                UIText.StringResource(R.string.error_wrong_file_format)
             )
         }
 
-        return books
+        val parsedText = textParser.parse(file)
+        if (parsedText is Resource.Error) {
+            Log.w(GET_BOOK_FROM_FILE, "Parsed text(${file.name}) has error.")
+            return NullableBook.Null(
+                file.name,
+                parsedText.message
+            )
+        }
+
+        return NullableBook.NotNull(
+            book = parsedBook.first.copy(
+                chapters = parsedText.data!!.map { it.chapter }.run {
+                    if (this.size == 1) return@run emptyList()
+                    this
+                }
+            ),
+            coverImage = parsedBook.second,
+            text = parsedText.data.map {
+                it.text
+            }.flatten()
+        )
     }
 
     override suspend fun insertHistory(history: List<History>) {

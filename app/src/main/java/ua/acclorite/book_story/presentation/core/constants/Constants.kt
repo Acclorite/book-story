@@ -19,6 +19,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Badge
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
+import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.domain.model.ColorPreset
 import ua.acclorite.book_story.domain.model.Credit
 import ua.acclorite.book_story.domain.model.FontWithName
@@ -63,6 +64,9 @@ object Constants {
 
     // Default Color Preset (Used when creating new color presets)
     val DEFAULT_COLOR_PRESET = provideDefaultColorPreset()
+
+    // Empty Chapter
+    val EMPTY_CHAPTER = provideEmptyChapter()
 
     // Scrollbars (Primary unused, awaiting for fixes)
     val PRIMARY_SCROLLBAR @Composable get() = providePrimaryScrollbar()
@@ -580,6 +584,13 @@ private fun provideDefaultColorPreset() = ColorPreset(
     backgroundColor = Color(0xFFFAF8FF), // Blue Light Surface (hardcoded)
     fontColor = Color(0xFF44464F), // Blue Light OnSurfaceVariant (hardcoded)
     isSelected = false
+)
+
+private fun provideEmptyChapter() = Chapter(
+    index = 0,
+    title = "",
+    startIndex = 0,
+    endIndex = 0
 )
 
 @Composable

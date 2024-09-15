@@ -13,11 +13,7 @@ import javax.inject.Inject
 class HtmlFileParser @Inject constructor() : FileParser {
 
     override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
-        if (!file.name.endsWith(".html", true) || !file.exists()) {
-            return null
-        }
-
-        try {
+        return try {
             val document = Jsoup.parse(file)
 
             val title = document.select("head > title").text().trim().run {
@@ -26,7 +22,7 @@ class HtmlFileParser @Inject constructor() : FileParser {
                 }
             }
 
-            return Book(
+            Book(
                 title = title,
                 author = UIText.StringResource(R.string.unknown_author),
                 description = null,
@@ -41,7 +37,7 @@ class HtmlFileParser @Inject constructor() : FileParser {
             ) to null
         } catch (e: Exception) {
             e.printStackTrace()
-            return null
+            null
         }
     }
 }

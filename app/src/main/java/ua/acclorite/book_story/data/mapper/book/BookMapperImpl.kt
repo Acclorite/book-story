@@ -20,7 +20,8 @@ class BookMapperImpl @Inject constructor() : BookMapper {
             textPath = book.textPath,
             description = book.description,
             image = if (book.coverImage != null) book.coverImage.toString() else null,
-            category = book.category
+            category = book.category,
+            chapters = book.chapters
         )
     }
 
@@ -40,6 +41,7 @@ class BookMapperImpl @Inject constructor() : BookMapper {
             lastOpened = null,
             category = bookEntity.category,
             coverImage = if (bookEntity.image != null) Uri.parse(bookEntity.image) else null,
+            chapters = bookEntity.chapters
         )
     }
 }

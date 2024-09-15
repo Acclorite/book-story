@@ -10,6 +10,6 @@ class GetBookFromFile @Inject constructor(
 ) {
 
     suspend fun execute(file: File): NullableBook {
-        return repository.getBooksFromFiles(listOf(file)).first()
+        return repository.getBookFromFile(file)
     }
 }

@@ -102,10 +102,9 @@ fun ReaderBottomBar() {
             modifier = Modifier.padding(top = 3.dp, bottom = 5.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            CustomAnimatedVisibility(
+            HorizontalExpandingAnimation(
                 visible = arrowDirection == Direction.START,
-                enter = expandHorizontally(expandFrom = Alignment.Start) + fadeIn() + slideInHorizontally { -it },
-                exit = shrinkHorizontally(shrinkTowards = Alignment.Start) + fadeOut() + slideOutHorizontally { -it }
+                startDirection = true
             ) {
                 CustomIconButton(
                     icon = Icons.AutoMirrored.Default.ArrowBack,
@@ -127,54 +126,16 @@ fun ReaderBottomBar() {
                 modifier = Modifier.weight(1f),
                 contentAlignment = Alignment.CenterStart
             ) {
-                Slider(
-                    value = state.value.book.progress,
-                    enabled = !state.value.lockMenu,
-                    onValueChange = {
-                        if (state.value.listState.layoutInfo.totalItemsCount > 0) {
-                            onEvent(ReaderEvent.OnScroll(it))
-                            onEvent(
-                                ReaderEvent.OnChangeProgress(
-                                    progress = it,
-                                    firstVisibleItemIndex = state.value.listState.firstVisibleItemIndex,
-                                    firstVisibleItemOffset = 0,
-                                    refreshList = { book ->
-                                        onLibraryEvent(LibraryEvent.OnUpdateBook(book))
-                                        onHistoryEvent(HistoryEvent.OnUpdateBook(book))
-                                    }
-                                )
-                            )
-                        }
-                    },
-                    colors = SliderDefaults.colors(
-                        inactiveTrackColor = MaterialTheme.colorScheme.secondary.copy(0.15f),
-                        disabledActiveTrackColor = MaterialTheme.colorScheme.primary,
-                        disabledThumbColor = MaterialTheme.colorScheme.primary,
-                        disabledInactiveTrackColor = MaterialTheme.colorScheme.secondary.copy(0.15f),
-                    )
-                )
+                BottomBarSlider()
+
                 if (arrowDirection != Direction.NEUTRAL) {
-                    Row(Modifier.fillMaxWidth()) {
-                        Spacer(
-                            modifier = Modifier.fillMaxWidth(checkpointProgress)
-                        )
-                        Box(
-                            Modifier
-                                .width(4.dp)
-                                .height(16.dp)
-                                .clip(RoundedCornerShape(0.5.dp))
-                                .background(
-                                    MaterialTheme.colorScheme.onPrimary.copy(0.6f)
-                                )
-                        )
-                    }
+                    SliderIndicator(progress = checkpointProgress)
                 }
             }
 
-            CustomAnimatedVisibility(
+            HorizontalExpandingAnimation(
                 visible = arrowDirection == Direction.END,
-                enter = expandHorizontally() + fadeIn() + slideInHorizontally { it },
-                exit = shrinkHorizontally() + fadeOut() + slideOutHorizontally { it }
+                startDirection = false
             ) {
                 CustomIconButton(
                     icon = Icons.AutoMirrored.Default.ArrowForward,
@@ -192,5 +153,107 @@ fun ReaderBottomBar() {
                 }
             }
         }
+    }
+}
+
+/**
+ * Bottom Bar Slider.
+ * Has semi-transparent track color.
+ */
+@Composable
+private fun BottomBarSlider() {
+    val state = LocalReaderViewModel.current.state
+    val onEvent = LocalReaderViewModel.current.onEvent
+    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
+    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
+
+    Slider(
+        value = state.value.book.progress,
+        enabled = !state.value.lockMenu,
+        onValueChange = {
+            if (state.value.listState.layoutInfo.totalItemsCount > 0) {
+                onEvent(ReaderEvent.OnScroll(it))
+                onEvent(
+                    ReaderEvent.OnChangeProgress(
+                        progress = it,
+                        firstVisibleItemIndex = state.value.listState.firstVisibleItemIndex,
+                        firstVisibleItemOffset = 0,
+                        refreshList = { book ->
+                            onLibraryEvent(LibraryEvent.OnUpdateBook(book))
+                            onHistoryEvent(HistoryEvent.OnUpdateBook(book))
+                        }
+                    )
+                )
+            }
+        },
+        colors = SliderDefaults.colors(
+            inactiveTrackColor = MaterialTheme.colorScheme.secondary.copy(0.15f),
+            disabledActiveTrackColor = MaterialTheme.colorScheme.primary,
+            disabledThumbColor = MaterialTheme.colorScheme.primary,
+            disabledInactiveTrackColor = MaterialTheme.colorScheme.secondary.copy(0.15f),
+        )
+    )
+}
+
+/**
+ * Slider Indicator.
+ * Shows an indicator at desired progress.
+ */
+@Composable
+private fun SliderIndicator(progress: Float) {
+    Row(Modifier.fillMaxWidth()) {
+        Spacer(
+            modifier = Modifier.fillMaxWidth(progress)
+        )
+        Box(
+            Modifier
+                .width(4.dp)
+                .height(16.dp)
+                .clip(RoundedCornerShape(0.5.dp))
+                .background(
+                    MaterialTheme.colorScheme.onPrimary.copy(0.6f)
+                )
+        )
+    }
+}
+
+/**
+ * Horizontal Expanding Animation.
+ */
+@Composable
+private fun HorizontalExpandingAnimation(
+    visible: Boolean,
+    startDirection: Boolean,
+    content: @Composable () -> Unit,
+) {
+    val enterAnimation = remember(startDirection) {
+        when (startDirection) {
+            true -> {
+                expandHorizontally(expandFrom = Alignment.Start) + fadeIn() + slideInHorizontally { -it }
+            }
+
+            false -> {
+                expandHorizontally() + fadeIn() + slideInHorizontally { it }
+            }
+        }
+    }
+    val exitAnimation = remember(startDirection) {
+        when (startDirection) {
+            true -> {
+                shrinkHorizontally(shrinkTowards = Alignment.Start) + fadeOut() + slideOutHorizontally { -it }
+            }
+
+            false -> {
+                shrinkHorizontally() + fadeOut() + slideOutHorizontally { it }
+            }
+        }
+    }
+
+    CustomAnimatedVisibility(
+        visible = visible,
+        enter = enterAnimation,
+        exit = exitAnimation
+    ) {
+        content()
     }
 }

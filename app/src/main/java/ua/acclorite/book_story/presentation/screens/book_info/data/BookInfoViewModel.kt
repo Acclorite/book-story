@@ -30,8 +30,8 @@ import ua.acclorite.book_story.domain.use_case.GetBookFromFile
 import ua.acclorite.book_story.domain.use_case.GetText
 import ua.acclorite.book_story.domain.use_case.InsertHistory
 import ua.acclorite.book_story.domain.use_case.ResetCoverImage
+import ua.acclorite.book_story.domain.use_case.UpdateBook
 import ua.acclorite.book_story.domain.use_case.UpdateBookWithText
-import ua.acclorite.book_story.domain.use_case.UpdateBooks
 import ua.acclorite.book_story.domain.use_case.UpdateCoverImageOfBook
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.UIText
@@ -44,7 +44,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BookInfoViewModel @Inject constructor(
-    private val updateBooks: UpdateBooks,
+    private val updateBook: UpdateBook,
     private val updateBookWithText: UpdateBookWithText,
     private val updateCoverImageOfBook: UpdateCoverImageOfBook,
     private val insertHistory: InsertHistory,
@@ -307,7 +307,7 @@ class BookInfoViewModel @Inject constructor(
                             else _state.value.book.description
                         )
 
-                        updateBooks.execute(listOf(book))
+                        updateBook.execute(book)
                         _state.update {
                             it.copy(
                                 book = book
@@ -385,7 +385,7 @@ class BookInfoViewModel @Inject constructor(
                                 )
                             )
                         }
-                        updateBooks.execute(listOf(_state.value.book))
+                        updateBook.execute(_state.value.book)
 
                         event.refreshList(_state.value.book)
                         event.updatePage(

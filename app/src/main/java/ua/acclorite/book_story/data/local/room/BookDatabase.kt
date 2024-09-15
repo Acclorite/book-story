@@ -20,13 +20,14 @@ import ua.acclorite.book_story.data.local.dto.HistoryEntity
         ColorPresetEntity::class,
         FavoriteDirectoryEntity::class,
     ],
-    version = 6,
+    version = 7,
     autoMigrations = [
         AutoMigration(1, 2),
         AutoMigration(2, 3),
         AutoMigration(3, 4, spec = DatabaseHelper.MIGRATION_3_4::class),
         AutoMigration(4, 5),
         AutoMigration(5, 6),
+        AutoMigration(6, 7),
     ],
     exportSchema = true
 )
@@ -72,7 +73,7 @@ object DatabaseHelper {
         }
     }
 
-    val MIGRATION_5_6 = object : Migration(4, 5) {
+    val MIGRATION_5_6 = object : Migration(5, 6) {
         override fun migrate(db: SupportSQLiteDatabase) {
             db.execSQL(
                 "CREATE TABLE IF NOT EXISTS `FavoriteDirectoryEntity` (" +

@@ -18,11 +18,7 @@ import javax.inject.Inject
 class EpubFileParser @Inject constructor() : FileParser {
 
     override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
-        if (!file.name.endsWith(".epub", true) || !file.exists()) {
-            return null
-        }
-
-        try {
+        return try {
             var book: Pair<Book, CoverImage?>? = null
 
             withContext(Dispatchers.IO) {
@@ -90,27 +86,27 @@ class EpubFileParser @Inject constructor() : FileParser {
                     ) to extractCoverImageBitmap(file, coverImage)
                 }
             }
-            return book
+            book
         } catch (e: Exception) {
             e.printStackTrace()
+            null
+        }
+    }
+
+    private fun extractCoverImageBitmap(file: File, coverImagePath: String?): Bitmap? {
+        if (coverImagePath.isNullOrBlank()) {
             return null
         }
-    }
-}
 
-private fun extractCoverImageBitmap(file: File, coverImagePath: String?): Bitmap? {
-    if (coverImagePath.isNullOrBlank()) {
-        return null
-    }
-
-    ZipFile(file).use { zip ->
-        zip.entries().asSequence().forEach { entry ->
-            if (entry.name.endsWith(coverImagePath)) {
-                val imageBytes = zip.getInputStream(entry).readBytes()
-                return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+        ZipFile(file).use { zip ->
+            zip.entries().asSequence().forEach { entry ->
+                if (entry.name.endsWith(coverImagePath)) {
+                    val imageBytes = zip.getInputStream(entry).readBytes()
+                    return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                }
             }
         }
-    }
 
-    return null
+        return null
+    }
 }

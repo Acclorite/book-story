@@ -16,7 +16,7 @@ import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.use_case.DeleteBooks
 import ua.acclorite.book_story.domain.use_case.GetBooks
 import ua.acclorite.book_story.domain.use_case.InsertHistory
-import ua.acclorite.book_story.domain.use_case.UpdateBooks
+import ua.acclorite.book_story.domain.use_case.UpdateBook
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.BaseViewModel
 import java.util.Date
@@ -25,7 +25,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LibraryViewModel @Inject constructor(
     private val getBooks: GetBooks,
-    private val updateBooks: UpdateBooks,
+    private val updateBook: UpdateBook,
     private val deleteBooks: DeleteBooks,
     private val insertHistory: InsertHistory
 ) : BaseViewModel<LibraryState, LibraryEvent>() {
@@ -240,7 +240,7 @@ class LibraryViewModel @Inject constructor(
                     val books = _state.value.books.filter {
                         it.second
                     }.map { it.first.copy(category = _state.value.selectedCategory) }
-                    updateBooks.execute(books)
+                    books.forEach { updateBook.execute(it) }
 
                     _state.update {
                         it.copy(

@@ -60,6 +60,7 @@ import androidx.core.view.WindowInsetsCompat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.CustomSelectionContainer
 import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
@@ -76,6 +77,8 @@ import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
+import ua.acclorite.book_story.presentation.screens.reader.components.ReaderChapter
+import ua.acclorite.book_story.presentation.screens.reader.components.ReaderChaptersDrawer
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderTextParagraph
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderBottomBar
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderTopBar
@@ -158,6 +161,7 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
             onLibraryEvent(LibraryEvent.OnUpdateBook(it))
             onHistoryEvent(HistoryEvent.OnUpdateBook(it))
         }
+        viewModel.onUpdateCurrentChapter()
     }
 
     ReaderScreen(lazyListState = lazyListState)
@@ -322,6 +326,15 @@ private fun ReaderScreen(lazyListState: LazyListState) {
         )
     }
 
+    val chapters = remember(state.value.book.chapters) {
+        val chapters = mutableMapOf<Int, Chapter>()
+        state.value.book.chapters.forEach {
+            chapters[it.startIndex] = it
+        }
+        chapters
+    }
+
+    // Bottom sheets & Dialogs
     if (state.value.showSettingsBottomSheet) {
         ReaderSettingsBottomSheet()
     }
@@ -460,7 +473,13 @@ private fun ReaderScreen(lazyListState: LazyListState) {
             ) {
                 customItemsIndexed(
                     state.value.text, key = { _, index -> index }
-                ) { _, line ->
+                ) { index, line ->
+                    ReaderChapter(
+                        chapter = chapters[index], // Shows only when matching startIndex of chapter.
+                        fontColor = fontColor.value,
+                        sidePadding = sidePadding
+                    )
+
                     ReaderTextParagraph(
                         line = line,
                         context = context,
@@ -530,6 +549,9 @@ private fun ReaderScreen(lazyListState: LazyListState) {
             }
         }
     }
+
+    // Drawers
+    ReaderChaptersDrawer()
 
     BackHandler {
         onEvent(

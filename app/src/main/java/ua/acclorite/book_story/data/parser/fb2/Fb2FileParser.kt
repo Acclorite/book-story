@@ -17,11 +17,7 @@ import javax.xml.parsers.DocumentBuilderFactory
 class Fb2FileParser @Inject constructor() : FileParser {
 
     override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
-        if (!file.name.endsWith(".fb2", true) || !file.exists()) {
-            return null
-        }
-
-        try {
+        return try {
             val factory = DocumentBuilderFactory.newInstance()
             val builder = factory.newDocumentBuilder()
             val document = withContext(Dispatchers.IO) {
@@ -54,7 +50,7 @@ class Fb2FileParser @Inject constructor() : FileParser {
 
             val descriptionFromFile = extractElementContent(document, "annotation")
 
-            return Book(
+            Book(
                 title = title,
                 author = author,
                 description = descriptionFromFile,
@@ -69,7 +65,7 @@ class Fb2FileParser @Inject constructor() : FileParser {
             ) to null
         } catch (e: Exception) {
             e.printStackTrace()
-            return null
+            null
         }
     }
 

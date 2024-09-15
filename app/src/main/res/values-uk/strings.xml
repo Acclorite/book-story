@@ -352,6 +352,8 @@
 
     <!-- Reader -->
     <string name="loading">Завантаження…</string>
+    <string name="no_chapters">Немає розділів</string>
+    <string name="chapters">Розділи</string>
 
     <!-- About -->
     <string name="app_version_option">Версія застосунка</string>
@@ -596,5 +598,6 @@
     <string name="filter_content_desc">Фільтр</string>
     <string name="checkpoint_back_content_desc">Чекпоінт назад</string>
     <string name="checkpoint_forward_content_desc">Чекпоінт вперед</string>
+    <string name="chapters_content_desc">Розділи</string>
 
 </resources>
