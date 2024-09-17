@@ -328,12 +328,10 @@ class LibraryViewModel @Inject constructor(
                 viewModelScope.launch {
                     event.book.id.let {
                         insertHistory.execute(
-                            listOf(
-                                History(
-                                    bookId = it,
-                                    book = null,
-                                    time = Date().time
-                                )
+                            History(
+                                bookId = it,
+                                book = null,
+                                time = Date().time
                             )
                         )
                     }

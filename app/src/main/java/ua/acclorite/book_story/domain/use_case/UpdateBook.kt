@@ -7,6 +7,6 @@ import javax.inject.Inject
 class UpdateBook @Inject constructor(private val repository: BookRepository) {
 
     suspend fun execute(book: Book) {
-        repository.updateBooks(listOf(book))
+        repository.updateBook(book)
     }
 }

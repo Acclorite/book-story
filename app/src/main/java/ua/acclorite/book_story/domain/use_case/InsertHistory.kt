@@ -5,7 +5,7 @@ import ua.acclorite.book_story.domain.repository.BookRepository
 import javax.inject.Inject
 
 class InsertHistory @Inject constructor(private val repository: BookRepository) {
-    suspend fun execute(history: List<History>) {
+    suspend fun execute(history: History) {
         repository.insertHistory(history)
     }
 }

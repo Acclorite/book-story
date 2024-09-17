@@ -6,15 +6,15 @@ import com.tom_roush.pdfbox.pdmodel.PDDocument
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.domain.model.Book
+import ua.acclorite.book_story.domain.model.BookWithCover
 import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.domain.util.CoverImage
 import ua.acclorite.book_story.domain.util.UIText
 import java.io.File
 import javax.inject.Inject
 
 class PdfFileParser @Inject constructor(private val application: Application) : FileParser {
 
-    override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
+    override suspend fun parse(file: File): BookWithCover? {
         return try {
             PDFBoxResourceLoader.init(application)
 
@@ -29,19 +29,22 @@ class PdfFileParser @Inject constructor(private val application: Application) : 
 
             document.close()
 
-            Book(
-                title = title,
-                author = author,
-                description = description,
-                textPath = "",
-                scrollIndex = 0,
-                scrollOffset = 0,
-                progress = 0f,
-                filePath = file.path,
-                lastOpened = null,
-                category = Category.entries[0],
+            BookWithCover(
+                book = Book(
+                    title = title,
+                    author = author,
+                    description = description,
+                    textPath = "",
+                    scrollIndex = 0,
+                    scrollOffset = 0,
+                    progress = 0f,
+                    filePath = file.path,
+                    lastOpened = null,
+                    category = Category.entries[0],
+                    coverImage = null
+                ),
                 coverImage = null
-            ) to null
+            )
         } catch (e: Exception) {
             e.printStackTrace()
             null

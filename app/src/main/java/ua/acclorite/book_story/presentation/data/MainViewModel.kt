@@ -468,7 +468,7 @@ class MainViewModel @Inject constructor(
         settingsViewModel: SettingsViewModel,
     ) {
         viewModelScope.launch(Dispatchers.Main) {
-            val settings = getAllSettings.execute(viewModelScope)
+            val settings = getAllSettings.execute()
 
             // All additional execution
             changeLanguage.execute(settings.language)

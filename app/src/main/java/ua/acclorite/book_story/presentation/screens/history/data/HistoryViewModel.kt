@@ -20,7 +20,6 @@ import ua.acclorite.book_story.domain.use_case.DeleteWholeHistory
 import ua.acclorite.book_story.domain.use_case.GetBooksById
 import ua.acclorite.book_story.domain.use_case.GetHistory
 import ua.acclorite.book_story.domain.use_case.InsertHistory
-import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.BaseViewModel
 import java.text.SimpleDateFormat
@@ -119,9 +118,7 @@ class HistoryViewModel @Inject constructor(
 
             is HistoryEvent.OnDeleteHistoryElement -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    deleteHistory.execute(
-                        listOf(event.historyToDelete)
-                    )
+                    deleteHistory.execute(event.historyToDelete)
 
                     _state.update {
                         it.copy(
@@ -154,9 +151,7 @@ class HistoryViewModel @Inject constructor(
                     when (snackbar) {
                         SnackbarResult.Dismissed -> Unit
                         SnackbarResult.ActionPerformed -> {
-                            insertHistory.execute(
-                                listOf(event.historyToDelete)
-                            )
+                            insertHistory.execute(event.historyToDelete)
                             event.refreshList()
                             _state.update {
                                 it.copy(
@@ -256,12 +251,10 @@ class HistoryViewModel @Inject constructor(
                 viewModelScope.launch {
                     event.book.id.let {
                         insertHistory.execute(
-                            listOf(
-                                History(
-                                    bookId = it,
-                                    book = null,
-                                    time = Date().time
-                                )
+                            History(
+                                bookId = it,
+                                book = null,
+                                time = Date().time
                             )
                         )
                     }
@@ -300,91 +293,82 @@ class HistoryViewModel @Inject constructor(
             return maxElementsById.filterNotNull()
         }
 
-        getHistory.execute().collect { result ->
-            when (result) {
-                is Resource.Success -> {
-                    val historyWithoutBook =
-                        result.data?.sortedByDescending { it.time } ?: emptyList()
+        val historyWithoutBooks = getHistory.execute()
+            .sortedByDescending { it.time }
 
-                    if (historyWithoutBook.isEmpty()) {
-                        _state.update {
-                            it.copy(
-                                history = emptyList(),
-                                isLoading = false
-                            )
-                        }
-                        return@collect
-                    }
-
-                    val books = getBooksById.execute(
-                        historyWithoutBook.map { it.bookId }.distinct()
-                    )
-
-                    if (books.isEmpty()) {
-                        _state.update {
-                            it.copy(
-                                history = emptyList(),
-                                isLoading = false
-                            )
-                        }
-                        return@collect
-                    }
-
-                    val history = historyWithoutBook.map {
-                        val book = books.find { book -> book.id == it.bookId }!!
-                        it.copy(
-                            book = book
-                        )
-                    }
-
-                    val groupedHistory = mutableListOf<GroupedHistory>()
-
-                    history
-                        .filter {
-                            val book = books.find { book -> book.id == it.bookId }!!
-                            book.title.lowercase().trim().contains(query.lowercase().trim())
-                        }.groupBy { item ->
-                            val calendar = Calendar.getInstance().apply {
-                                timeInMillis = item.time
-                            }
-                            val now = Calendar.getInstance()
-
-                            when {
-                                isSameDay(calendar, now) -> "today"
-                                isSameDay(
-                                    calendar,
-                                    now.apply {
-                                        add(
-                                            Calendar.DAY_OF_YEAR,
-                                            -1
-                                        )
-                                    }) -> "yesterday"
-
-                                else -> SimpleDateFormat(
-                                    "dd.MM.yy",
-                                    Locale.getDefault()
-                                ).format(item.time)
-                            }
-                        }.forEach { (key, value) ->
-                            groupedHistory.add(
-                                GroupedHistory(
-                                    key,
-                                    filterMaxElementsById(value)
-                                )
-                            )
-                        }
-
-                    _state.update {
-                        it.copy(
-                            history = groupedHistory,
-                            isLoading = false
-                        )
-                    }
-                }
-
-                is Resource.Error -> Unit
+        if (historyWithoutBooks.isEmpty()) {
+            _state.update {
+                it.copy(
+                    history = emptyList(),
+                    isLoading = false
+                )
             }
+            return
+        }
+
+        val books = getBooksById.execute(
+            historyWithoutBooks.map { it.bookId }.distinct()
+        )
+
+        if (books.isEmpty()) {
+            _state.update {
+                it.copy(
+                    history = emptyList(),
+                    isLoading = false
+                )
+            }
+            return
+        }
+
+        val history = historyWithoutBooks.map {
+            val book = books.find { book -> book.id == it.bookId }!!
+            it.copy(
+                book = book
+            )
+        }
+
+        val groupedHistory = mutableListOf<GroupedHistory>()
+
+        history
+            .filter {
+                val book = books.find { book -> book.id == it.bookId }!!
+                book.title.lowercase().trim().contains(query.lowercase().trim())
+            }.groupBy { item ->
+                val calendar = Calendar.getInstance().apply {
+                    timeInMillis = item.time
+                }
+                val now = Calendar.getInstance()
+
+                when {
+                    isSameDay(calendar, now) -> "today"
+                    isSameDay(
+                        calendar,
+                        now.apply {
+                            add(
+                                Calendar.DAY_OF_YEAR,
+                                -1
+                            )
+                        }) -> "yesterday"
+
+                    else -> SimpleDateFormat(
+                        "dd.MM.yy",
+                        Locale.getDefault()
+                    ).format(item.time)
+                }
+            }.forEach { (key, value) ->
+                groupedHistory.add(
+                    GroupedHistory(
+                        key,
+                        filterMaxElementsById(value)
+                    )
+                )
+            }
+
+        _state.update {
+            it.copy(
+                history = groupedHistory,
+                isLoading = false
+            )
         }
     }
 }
-

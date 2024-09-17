@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class DeleteHistory @Inject constructor(private val repository: BookRepository) {
 
-    suspend fun execute(history: List<History>) {
+    suspend fun execute(history: History) {
         repository.deleteHistory(history)
     }
 }

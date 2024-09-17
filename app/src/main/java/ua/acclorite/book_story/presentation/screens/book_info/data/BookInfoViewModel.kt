@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.model.BookWithText
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
@@ -531,7 +532,7 @@ class BookInfoViewModel @Inject constructor(
 
                         var textUpdated = false
 
-                        val updatedText = updatedBook.text
+                        val updatedText = updatedBook.bookWithTextAndCover!!.text
                         val text = getText.execute(book.textPath)
 
                         if (updatedText != text) {
@@ -560,7 +561,7 @@ class BookInfoViewModel @Inject constructor(
                         yield()
                         onEvent(
                             BookInfoEvent.OnShowConfirmUpdateDialog(
-                                updatedText = updatedBook.text,
+                                updatedText = updatedBook.bookWithTextAndCover.text,
                             )
                         )
 
@@ -629,8 +630,10 @@ class BookInfoViewModel @Inject constructor(
 
                         val updatedText = _state.value.updatedText ?: return@launch
                         val isSuccess = updateBookWithText.execute(
-                            book = _state.value.book,
-                            text = updatedText
+                            BookWithText(
+                                book = _state.value.book,
+                                text = updatedText
+                            )
                         )
 
                         if (!isSuccess) {
@@ -732,12 +735,10 @@ class BookInfoViewModel @Inject constructor(
                         onEvent(BookInfoEvent.OnCancelUpdate)
                         _state.value.book.id.let {
                             insertHistory.execute(
-                                listOf(
-                                    History(
-                                        bookId = it,
-                                        book = null,
-                                        time = Date().time
-                                    )
+                                History(
+                                    bookId = it,
+                                    book = null,
+                                    time = Date().time
                                 )
                             )
                         }

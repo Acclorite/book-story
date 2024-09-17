@@ -467,12 +467,11 @@ class BrowseViewModel @Inject constructor(
                         return@launch
                     }
 
-                    val failed = booksToInsert.any {
-                        !insertBook.execute(
-                            it.book!!,
-                            it.coverImage,
-                            it.text
-                        )
+                    var failed = false
+                    booksToInsert.forEach {
+                        if (!insertBook.execute(it.bookWithTextAndCover!!)) {
+                            failed = true
+                        }
                     }
 
                     if (failed) {

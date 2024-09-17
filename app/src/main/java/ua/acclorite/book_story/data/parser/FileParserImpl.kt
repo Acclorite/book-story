@@ -7,8 +7,7 @@ import ua.acclorite.book_story.data.parser.htm.HtmFileParser
 import ua.acclorite.book_story.data.parser.html.HtmlFileParser
 import ua.acclorite.book_story.data.parser.pdf.PdfFileParser
 import ua.acclorite.book_story.data.parser.txt.TxtFileParser
-import ua.acclorite.book_story.domain.model.Book
-import ua.acclorite.book_story.domain.util.CoverImage
+import ua.acclorite.book_story.domain.model.BookWithCover
 import java.io.File
 import javax.inject.Inject
 
@@ -22,7 +21,7 @@ class FileParserImpl @Inject constructor(
     private val htmlFileParser: HtmlFileParser,
     private val htmFileParser: HtmFileParser,
 ) : FileParser {
-    override suspend fun parse(file: File): Pair<Book, CoverImage?>? {
+    override suspend fun parse(file: File): BookWithCover? {
         if (!file.exists()) {
             Log.e(FILE_PARSER, "File does not exist.")
             return null

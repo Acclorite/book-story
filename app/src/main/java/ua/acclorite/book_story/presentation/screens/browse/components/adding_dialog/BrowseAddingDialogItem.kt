@@ -46,14 +46,14 @@ fun BrowseAddingDialogItem(result: Pair<NullableBook, Selected>, onClick: (Boole
                 Modifier.weight(1f)
             ) {
                 Text(
-                    text = result.first.book!!.title,
+                    text = result.first.bookWithTextAndCover!!.book.title,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurface,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = result.first.book!!.author.asString(),
+                    text = result.first.bookWithTextAndCover!!.book.author.asString(),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
