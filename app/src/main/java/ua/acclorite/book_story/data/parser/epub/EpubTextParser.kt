@@ -209,10 +209,17 @@ class EpubTextParser @Inject constructor() : TextParser {
             }
 
         val document = Jsoup.parse(content)
-        document.select("p").append("\n")
-        document.select("head > title").remove()
+        document
+            .body()
+            .select("p")
+            .append("\n")
+            .forEach { element ->
+                val cleanedText = element.html().replace(Regex("\\n+"), " ")
+                element.html(cleanedText)
+            }
 
         document
+            .body()
             .run {
                 fragment?.let { return@run getElementById(it) ?: this }
                 this
