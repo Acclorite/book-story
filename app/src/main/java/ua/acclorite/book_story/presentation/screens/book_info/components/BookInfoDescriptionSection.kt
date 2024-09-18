@@ -41,7 +41,7 @@ fun BookInfoDescriptionSection() {
             if (state.value.book.description?.isNotBlank() == true) state.value.book.description!!
             else stringResource(id = R.string.error_no_description),
             style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurface,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Start,
             modifier = Modifier
                 .padding(horizontal = 24.dp)
