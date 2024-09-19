@@ -346,4 +346,7 @@
     <string name="checkpoint_forward_content_desc">Punto de control nuevo</string>
     <string name="hide_bars_on_fast_scroll_option">Ocultar barras en el desplazamiento rápido</string>
     <string name="checkpoint_back_content_desc">Volver al punto de control</string>
+    <string name="no_chapters">Sin capítulos</string>
+    <string name="chapters">Capítulos</string>
+    <string name="chapters_content_desc">Capítulos</string>
 </resources>
