@@ -251,7 +251,7 @@
     <string name="perception_expander_option_desc">
         Increase your reading speed by focusing on center
     </string>
-    <string name="perception_expander_padding_option">Perception expander padding</string>
+    <string name="perception_expander_padding_option">Perception expander line padding</string>
     <string name="perception_expander_thickness_option">Perception expander line thickness</string>
 
     <!-- Browse -->
