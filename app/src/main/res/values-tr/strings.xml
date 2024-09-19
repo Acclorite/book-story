@@ -2,10 +2,7 @@
 <resources>
     <string name="updates_notification_channel">Yeni güncellemeler</string>
     <string name="updates_notification_title">Kitabın Hikayesi\'nin yeni güncellemesi!</string>
-    <string name="updates_notification_desc">
-        Güncelleme %1$s yayınlandı!
-        Sürüm sayfasına gitmek için tıklayın.
-    </string>
+    <string name="updates_notification_desc">Güncelleme %1$s yayınlandı! Sürüm sayfasına gitmek için tıklayın.</string>
     <string name="updates_notification_action">İndir</string>
     <string name="library_screen">Kütüphane</string>
     <string name="history_screen">Geçmiş</string>
@@ -22,63 +19,20 @@
     <string name="delete_history">Okuma geçmişi silinsin mi?</string>
     <string name="confirm_update">Güncelleme onaylansın mı?</string>
     <string name="enable_check_for_updates">Güncelleme kontrolü etkinleştirilsin mi?</string>
-    <string name="storage_permission_description">
-        Cihazınızdaki kitapları taramak için depolama izni gerekiyor.
-        Bu izin olmadan kitap ekleyemezsiniz.
-    </string>
-    <string name="add_books_description">
-        Hangi kitapları eklemek istediğinizi seçebilirsiniz.
-        Kitabın Başlığını ve Kapak resmini daha sonra düzenleyebilirsiniz.
-        Yükleme işlemi birkaç dakika sürebilir.
-    </string>
-    <string name="move_books_description">
-        Seçilen tüm kitapları (%1$s) taşımak istediğiniz kategoriyi seçin.
-        Tüm seçili kitaplar seçilen kategoriye taşınacaktır.
-    </string>
-    <string name="delete_books_description">
-        Bu, seçilen tüm kitapları (%1$s) veritabanından silecektir.
-        Seçilen kitapları cihazınızdan silmeyecektir.
-    </string>
-    <string name="delete_book_description">
-        Bu, kitabı veritabanından silecektir.
-        Bu kitabı cihazınızdan silmeyecektir.
-    </string>
-    <string name="move_book_description">
-        Bu kitabı taşımak istediğiniz kategoriyi seçin.
-        Bu kitap seçilen kategoriye taşınacaktır.
-    </string>
-    <string name="delete_history_description">
-        Bu, tüm geçmişi veritabanından silecektir.
-        Tüm geçmişi sildikten sonra, kitapların sırası sıfırlanacaktır.
-    </string>
-    <string name="confirm_update_description">
-        Onaylayarak bu kitabın metni güncellenecektir.
-        Lütfen güncellemeden önce kaldığınız yeri hatırlayın.
-    </string>
-    <string name="update_app_description">
-        Kitabın Hikayesi\'nin yeni bir sürümü bulundu.
-        İndirmek ister misiniz?
-        «İndir» düğmesine tıklayarak tarayıcınıza yönlendirilecek
-        ve en son güncelleme otomatik olarak indirilecektir.
-    </string>
-    <string name="enable_check_for_updates_description">
-        «Güncellemeleri kontrol et» seçeneğini etkinleştirerek
-        uygulama her başlatıldığında «api.github.com» adresinden
-        en son sürüm bilgilerini alacaktır.
-        Devam edip «Güncellemeleri kontrol et» seçeneğini etkinleştirmek istiyor musunuz?
-    </string>
-    <string name="error_permission">
-        Cihazınızdaki kitapları taramak için depolama izni gerekiyor
-    </string>
-    <string name="error_no_description">
-        Açıklama yok.
-    </string>
-    <string name="error_something_went_wrong">
-        Bir şeyler yanlış gitti.
-    </string>
-    <string name="error_something_went_wrong_with_file">
-        Bir şeyler yanlış gitti. Lütfen bu kitap dosyasının bozuk olmadığını kontrol edin.
-    </string>
+    <string name="storage_permission_description">Cihazınızdaki kitapları taramak için depolama izni gerekiyor. Bu izin olmadan kitap ekleyemezsiniz.</string>
+    <string name="add_books_description">Hangi kitapları eklemek istediğinizi seçebilirsiniz. Kitabın Başlığını ve Kapak resmini daha sonra düzenleyebilirsiniz. Yükleme işlemi birkaç dakika sürebilir.</string>
+    <string name="move_books_description">Seçilen tüm kitapları (%1$s) taşımak istediğiniz kategoriyi seçin. Tüm seçili kitaplar seçilen kategoriye taşınacaktır.</string>
+    <string name="delete_books_description">Bu, seçilen tüm kitapları (%1$s) veritabanından silecektir. Seçilen kitapları cihazınızdan silmeyecektir.</string>
+    <string name="delete_book_description">Bu, kitabı veritabanından silecektir. Bu kitabı cihazınızdan silmeyecektir.</string>
+    <string name="move_book_description">Bu kitabı taşımak istediğiniz kategoriyi seçin. Bu kitap seçilen kategoriye taşınacaktır.</string>
+    <string name="delete_history_description">Bu, tüm geçmişi veritabanından silecektir. Tüm geçmişi sildikten sonra, kitapların sırası sıfırlanacaktır.</string>
+    <string name="confirm_update_description">Onaylayarak bu kitabın metni güncellenecektir. Lütfen güncellemeden önce kaldığınız yeri hatırlayın.</string>
+    <string name="update_app_description">Kitabın Hikayesi\'nin yeni bir sürümü bulundu. İndirmek ister misiniz? «İndir» düğmesine tıklayarak tarayıcınıza yönlendirilecek ve en son güncelleme otomatik olarak indirilecektir.</string>
+    <string name="enable_check_for_updates_description">«Güncellemeleri kontrol et» seçeneğini etkinleştirerek uygulama her başlatıldığında «api.github.com» adresinden en son sürüm bilgilerini alacaktır. Devam edip «Güncellemeleri kontrol et» seçeneğini etkinleştirmek istiyor musunuz?</string>
+    <string name="error_permission">Cihazınızdaki kitapları taramak için depolama izni gerekiyor</string>
+    <string name="error_no_description">Açıklama yok.</string>
+    <string name="error_something_went_wrong">Bir şeyler yanlış gitti.</string>
+    <string name="error_something_went_wrong_with_file">Bir şeyler yanlış gitti. Lütfen bu kitap dosyasının bozuk olmadığını kontrol edin.</string>
     <string name="error_wrong_file_format">Yanlış dosya formatı.</string>
     <string name="error_query">Hata: %1$s</string>
     <string name="error_file_empty">Bu dosya boş veya bozuk.</string>
@@ -86,24 +40,13 @@
     <string name="error_no_dictionary">Sözlük uygulaması bulunamadı.</string>
     <string name="error_no_browser">Tarayıcı uygulaması bulunamadı.</string>
     <string name="error_no_share_app">Paylaşım yapacak uygulama bulunamadı.</string>
-    <string name="error_no_text">
-        Kitap içeriği boş. Lütfen kitap içeriğinin boş olmadığından emin olun ve güncelleyin.
-    </string>
-    <string name="error_check_internet">
-        Bir şeyler yanlış gitti.
-        Daha sonra tekrar deneyin.
-    </string>
+    <string name="error_no_text">Kitap içeriği boş. Lütfen kitap içeriğinin boş olmadığından emin olun ve güncelleyin.</string>
+    <string name="error_check_internet">Bir şeyler yanlış gitti. Daha sonra tekrar deneyin.</string>
     <string name="error_could_not_reset_cover">Kapak resmi sıfırlanamadı.</string>
     <string name="error_closed_source">Kapalı kaynak</string>
-    <string name="browse_empty">
-        İndirdiklerinizle kütüphanenin kitap koleksiyonunu genişletin
-    </string>
-    <string name="library_empty">
-        Favori kitaplarınızı okuyun ve kategoriler arasında sıralayın
-    </string>
-    <string name="history_empty">
-        Son okuduğunuz kitabın, okuma yolculuğunuzun yeni harika hikayesinin sayfalarını açmasına izin verin
-    </string>
+    <string name="browse_empty">İndirdiklerinizle kütüphanenin kitap koleksiyonunu genişletin</string>
+    <string name="library_empty">Favori kitaplarınızı okuyun ve kategoriler arasında sıralayın</string>
+    <string name="history_empty">Son okuduğunuz kitabın, okuma yolculuğunuzun yeni harika hikayesinin sayfalarını açmasına izin verin</string>
     <string name="selected_items_count_query">%1$s seçildi</string>
     <string name="search_query">%1$s ara…</string>
     <string name="file_path_query">Dosya yolu: %1$s</string>
@@ -203,9 +146,7 @@
     <string name="browse_layout_option">Görüntüleme modu</string>
     <string name="browse_grid_size_option">Izgara boyutu</string>
     <string name="browse_pin_favorite_directories_option">Favori dizinleri sabitle</string>
-    <string name="browse_pin_favorite_directories_option_desc">
-        Favori dizinlerinizi ekranın üst kısmına sabitleyin
-    </string>
+    <string name="browse_pin_favorite_directories_option_desc">Favori dizinlerinizi ekranın üst kısmına sabitleyin</string>
     <string name="red_color">Kırmızı</string>
     <string name="green_color">Yeşil</string>
     <string name="blue_color">Mavi</string>
@@ -290,141 +231,51 @@
     <string name="credits_ideas">Fikirler</string>
     <string name="help_clickable_note_1">Lütfen dikkat edin,</string>
     <string name="help_clickable_note_2">bu şekilde vurgulanmış metin</string>
-    <string name="help_clickable_note_3">
-        tıklanabilir.
-        Ayrıca ikona tıklayarak bu notu gizleyebilirsiniz, deneyin!
-    </string>
+    <string name="help_clickable_note_3">tıklanabilir. Ayrıca ikona tıklayarak bu notu gizleyebilirsiniz, deneyin!</string>
     <string name="help_clickable_note_action">Ben tıklanabiliyorum!</string>
     <string name="help_title_how_to_add_books">Kitapları Kütüphane\'ye nasıl eklerim?</string>
     <string name="help_desc_how_to_add_books_1">Şuraya gidin:</string>
     <string name="help_desc_how_to_add_books_2">Göz At</string>
-    <string name="help_desc_how_to_add_books_3">
-        İndirilen kitapları görmüyorsanız, listeyi aşağı çekerek yenilemeyi deneyin.
-        Kitaplarınızın desteklenen dosya formatında olduğundan emin olun.
-        Ardından seçmek için kitaba tıklayın veya konumunu göstermek için basılı tutun.
-        İstediğiniz tüm kitapları seçtikten sonra, sağ üst köşedeki onay işareti simgesine tıklayın,
-        tüm kitapların yüklenmesini bekleyin ve «Ekle»\'ye tıklayın.
-        Şimdi eklediğiniz tüm kitapları şurada görmelisiniz:
-    </string>
+    <string name="help_desc_how_to_add_books_3">İndirilen kitapları görmüyorsanız, listeyi aşağı çekerek yenilemeyi deneyin. Kitaplarınızın desteklenen dosya formatında olduğundan emin olun. Ardından seçmek için kitaba tıklayın veya konumunu göstermek için basılı tutun. İstediğiniz tüm kitapları seçtikten sonra, sağ üst köşedeki onay işareti simgesine tıklayın, tüm kitapların yüklenmesini bekleyin ve «Ekle»\'ye tıklayın. Şimdi eklediğiniz tüm kitapları şurada görmelisiniz:</string>
     <string name="help_desc_how_to_add_books_4">Kütüphane</string>
     <string name="help_title_how_to_customize_app">Uygulamayı nasıl özelleştirebilirim?</string>
     <string name="help_desc_how_to_customize_app_1">Şuraya gidin:</string>
     <string name="help_desc_how_to_customize_app_2">Ayarlar</string>
-    <string name="help_desc_how_to_customize_app_3">
-        Bunu Kütüphane, Geçmiş ve Göz At ekranlarından
-        sağ üst köşedeki üç noktaya tıklayarak
-        ve açılır menüden «Ayarlar»ı seçerek yapabilirsiniz.
-        Ardından bu uygulama için mevcut tüm ayarları göreceksiniz.
-        Bunlarla deneyler yapmaktan çekinmeyin!
-    </string>
+    <string name="help_desc_how_to_customize_app_3">Bunu Kütüphane, Geçmiş ve Göz At ekranlarından sağ üst köşedeki üç noktaya tıklayarak ve açılır menüden «Ayarlar»ı seçerek yapabilirsiniz. Ardından bu uygulama için mevcut tüm ayarları göreceksiniz. Bunlarla deneyler yapmaktan çekinmeyin!</string>
     <string name="help_title_how_to_move_or_delete_books">Kitapları nasıl taşır veya silerim?</string>
     <string name="help_desc_how_to_move_or_delete_books_1">Şuraya gidin:</string>
     <string name="help_desc_how_to_move_or_delete_books_2">Kütüphane</string>
-    <string name="help_desc_how_to_move_or_delete_books_3">
-        İlk kitabın kapak görselini seçilene kadar basılı tutun,
-        şimdi seçmek istediğiniz tüm kitapların kapak görsellerine tıklayabilirsiniz.
-        Ayrıca birden fazla kategorideki kitapları da seçebilirsiniz.
-        İstediğiniz tüm kitapları seçtikten sonra, taşımak için ok simgesine
-        ve silmek için çöp kutusu simgesine tıklayabilirsiniz.
-    </string>
+    <string name="help_desc_how_to_move_or_delete_books_3">İlk kitabın kapak görselini seçilene kadar basılı tutun, şimdi seçmek istediğiniz tüm kitapların kapak görsellerine tıklayabilirsiniz. Ayrıca birden fazla kategorideki kitapları da seçebilirsiniz. İstediğiniz tüm kitapları seçtikten sonra, taşımak için ok simgesine ve silmek için çöp kutusu simgesine tıklayabilirsiniz.</string>
     <string name="help_title_how_to_edit_book">Bir kitabı nasıl düzenlerim?</string>
     <string name="help_desc_how_to_edit_book_1">Şuraya gidin:</string>
     <string name="help_desc_how_to_edit_book_2">Kütüphane</string>
-    <string name="help_desc_how_to_edit_book_3">
-        ve kitabın ayrıntılarını görmek için kitabın kapak görselini tıklayın.
-        Şimdi kitabın başlığını, yazarını veya açıklamasını düzenlemek için basılı tutabilir
-        veya kapak görselini değiştirmek, sıfırlamak veya silmek için kapak görselini basılı tutabilirsiniz.
-    </string>
+    <string name="help_desc_how_to_edit_book_3">ve kitabın ayrıntılarını görmek için kitabın kapak görselini tıklayın. Şimdi kitabın başlığını, yazarını veya açıklamasını düzenlemek için basılı tutabilir veya kapak görselini değiştirmek, sıfırlamak veya silmek için kapak görselini basılı tutabilirsiniz.</string>
     <string name="help_title_how_to_read_book">Bir kitabı nasıl okurum?</string>
     <string name="help_desc_how_to_read_book_1">Şuraya gidin:</string>
     <string name="help_desc_how_to_read_book_2">Kütüphane</string>
-    <string name="help_desc_how_to_read_book_3">
-        Kitabı okumaya başlamak için okumak istediğiniz kitabın sağ alt köşesindeki düğmeye tıklayın.
-        Ayrıca kitabın ayrıntılarını görmek için kapak görselini tıklayarak
-        ve ardından sağ alt köşedeki düğmeye tıklayarak da kitabı okumaya başlayabilirsiniz.
-        İlerleme otomatik olarak kaydedilecek ve geri yüklenecektir.
-        Ekrana herhangi bir yere tıklayarak üst ve alt çubukları getirebilirsiniz.
-        Kitabın başlığına tıklayarak kitabın ayrıntılarına yönlendirileceksiniz.
-        Dişli simgesine tıklayarak Okuyucu ayarlarını göreceksiniz.
-        İlerlemeyi değiştirmek için alt çubuktaki kaydırıcıyı kullanabilirsiniz.
-    </string>
+    <string name="help_desc_how_to_read_book_3">Kitabı okumaya başlamak için okumak istediğiniz kitabın sağ alt köşesindeki düğmeye tıklayın. Ayrıca kitabın ayrıntılarını görmek için kapak görselini tıklayarak ve ardından sağ alt köşedeki düğmeye tıklayarak da kitabı okumaya başlayabilirsiniz. İlerleme otomatik olarak kaydedilecek ve geri yüklenecektir. Ekrana herhangi bir yere tıklayarak üst ve alt çubukları getirebilirsiniz. Kitabın başlığına tıklayarak kitabın ayrıntılarına yönlendirileceksiniz. Dişli simgesine tıklayarak Okuyucu ayarlarını göreceksiniz. İlerlemeyi değiştirmek için alt çubuktaki kaydırıcıyı kullanabilirsiniz.</string>
     <string name="help_title_how_to_customize_reader">Okuyucu\'yu nasıl özelleştirebilirim?</string>
-    <string name="help_desc_how_to_customize_reader_1">
-        Kitabı okumaya başlayın (bkz: Bir kitabı nasıl okurum?),
-        ardından ekrana herhangi bir yere tıklayarak üst ve alt çubukları getirin.
-        Sonra sağ üst köşedeki dişli simgesine tıklayın.
-        Bu, tüm Okuyucu ayarlarını gösterecektir.
-        İkinci yol şuraya gitmektir:
-    </string>
-    <string name="help_desc_how_to_customize_reader_2">
-        Ayarlar
-    </string>
-    <string name="help_desc_how_to_customize_reader_3">
-        ve Genel ayarları özelleştirmek için Okuyucu kategorisini,
-        veya Renk ayarlarını özelleştirmek için Görünüm kategorisini seçin.
-    </string>
+    <string name="help_desc_how_to_customize_reader_1">Kitabı okumaya başlayın (bkz: Bir kitabı nasıl okurum?), ardından ekrana herhangi bir yere tıklayarak üst ve alt çubukları getirin. Sonra sağ üst köşedeki dişli simgesine tıklayın. Bu, tüm Okuyucu ayarlarını gösterecektir. İkinci yol şuraya gitmektir:</string>
+    <string name="help_desc_how_to_customize_reader_2">Ayarlar</string>
+    <string name="help_desc_how_to_customize_reader_3">ve Genel ayarları özelleştirmek için Okuyucu kategorisini, veya Renk ayarlarını özelleştirmek için Görünüm kategorisini seçin.</string>
     <string name="help_title_how_to_update_book">Bir kitabı nasıl güncellerim?</string>
     <string name="help_desc_how_to_update_book_1">Şuraya gidin:</string>
     <string name="help_desc_how_to_update_book_2">Kütüphane</string>
-    <string name="help_desc_how_to_update_book_3">
-        ve kitabın ayrıntılarını görmek için kitabın kapak görselini tıklayın.
-        Kitabı güncellemek için ekranı aşağı çekin veya sağ üst köşedeki yenileme simgesine tıklayın.
-        Kitap dosyası değiştiyse, kitabı onaylayıp güncelleyebilir veya güncellemeyi iptal edebilirsiniz.
-    </string>
+    <string name="help_desc_how_to_update_book_3">ve kitabın ayrıntılarını görmek için kitabın kapak görselini tıklayın. Kitabı güncellemek için ekranı aşağı çekin veya sağ üst köşedeki yenileme simgesine tıklayın. Kitap dosyası değiştiyse, kitabı onaylayıp güncelleyebilir veya güncellemeyi iptal edebilirsiniz.</string>
     <string name="help_title_how_to_manage_history">Geçmişi nasıl yönetirim?</string>
     <string name="help_desc_how_to_manage_history_1">Şuraya gidin:</string>
     <string name="help_desc_how_to_manage_history_2">Geçmiş</string>
-    <string name="help_desc_how_to_manage_history_3">
-        Geçmiş öğesinin sağındaki silme düğmesine tıklayarak silinecektir.
-        Geçmiş, Kütüphane\'deki kitapların sırasını etkiler,
-        geçmiş öğesini silerek bir kitabı da yeniden sıralayacaktır.
-        Son açılan kitap her zaman Kütüphane ve Geçmiş\'te ilk sıradadır.
-    </string>
+    <string name="help_desc_how_to_manage_history_3">Geçmiş öğesinin sağındaki silme düğmesine tıklayarak silinecektir. Geçmiş, Kütüphane\'deki kitapların sırasını etkiler, geçmiş öğesini silerek bir kitabı da yeniden sıralayacaktır. Son açılan kitap her zaman Kütüphane ve Geçmiş\'te ilk sıradadır.</string>
     <string name="help_title_how_to_use_tooltip">İpuçlarını nasıl kullanırım?</string>
-    <string name="help_desc_how_to_use_tooltip_1">
-        Çoğu simge düğmesinin ipuçları vardır, bir simge düğmesinin ne yaptığını bilmiyorsanız size yardımcı olabilirler.
-        İpucunu göstermek için bir simge düğmesini basılı tutabilirsiniz.
-    </string>
-    <string name="help_title_how_to_use_double_click_translation">
-        Çift tıklama çevirisini nasıl kullanırım?
-    </string>
-    <string name="help_desc_how_to_use_double_click_translation_1">
-        İlk olarak, Okuyucu ayarlarına gidin (bkz: Okuyucu\'yu nasıl özelleştirebilirim?),
-        ardından ilgili ayarı açın. Bundan sonra,
-        kitabı okumaya başlayın (bkz: Bir kitabı nasıl okurum?).
-        Şimdi istediğiniz paragrafa çift tıklarsanız,
-        harici çevirmen paragrafın metniyle açılacaktır.
-    </string>
-    <string name="help_title_how_to_create_color_presets">
-        Renk ön ayarlarını nasıl oluşturur ve değiştiririm?
-    </string>
-    <string name="help_desc_how_to_create_color_presets_1">
-        Görünüm ayarlarına gidin (bkz: Okuyucu\'yu nasıl özelleştirebilirim?).
-        «Renkler» alt kategorisinde «Renk Ön Ayarı» altındaki kutu içinde tüm renk ön ayarı ayarlarını değiştirebilirsiniz.
-        Yeni bir renk ön ayarı oluşturmak için «Ekle» simge düğmesine tıklayın.
-        Bir renk ön ayarını değiştirmek için birden fazla yol vardır:
-        metin alanına tıklayarak renk ön ayarının adını değiştirebilirsiniz,
-        kaydırıcıları hareket ettirerek renk ön ayarının renklerini değiştirebilirsiniz,
-        «Karıştır» simge düğmesine tıklayarak tüm renkleri karıştırabilirsiniz.
-        Renk ön ayarını silmek isterseniz, «Sil» simge düğmesine tıklayın.
-    </string>
-    <string name="help_title_how_to_use_color_presets">
-        Renk ön ayarlarını nasıl kullanırım?
-    </string>
-    <string name="help_desc_how_to_use_color_presets_1">
-        Görünüm ayarlarına gidin (bkz: Okuyucu\'yu nasıl özelleştirebilirim?).
-        «Renk Ön Ayarı» ayarında hangi renk ön ayarını kullanacağınızı seçebilirsiniz.
-        Seçmek için istediğiniz renk ön ayarına tıklayın, bu aynı zamanda Okuyucu\'daki renklerinizi de değiştirecektir.
-        Renk ön ayarını yeniden sıralamak isterseniz, seçin ve «Tutamaç» simge düğmesini basılı tutun,
-        ardından istediğiniz konuma taşıyın.
-        Görünüm ayarlarının «Renkler» alt kategorisindeki ilgili ayarı etkinleştirerek,
-        ardından Okuyucu\'da sola veya sağa kaydırarak renk ön ayarlarını hızlıca değiştirebilirsiniz.
-    </string>
+    <string name="help_desc_how_to_use_tooltip_1">Çoğu simge düğmesinin ipuçları vardır, bir simge düğmesinin ne yaptığını bilmiyorsanız size yardımcı olabilirler. İpucunu göstermek için bir simge düğmesini basılı tutabilirsiniz.</string>
+    <string name="help_title_how_to_use_double_click_translation">Çift tıklama çevirisini nasıl kullanırım?</string>
+    <string name="help_desc_how_to_use_double_click_translation_1">İlk olarak, Okuyucu ayarlarına gidin (bkz: Okuyucu\'yu nasıl özelleştirebilirim?), ardından ilgili ayarı açın. Bundan sonra, kitabı okumaya başlayın (bkz: Bir kitabı nasıl okurum?). Şimdi istediğiniz paragrafa çift tıklarsanız, harici çevirmen paragrafın metniyle açılacaktır.</string>
+    <string name="help_title_how_to_create_color_presets">Renk ön ayarlarını nasıl oluşturur ve değiştiririm?</string>
+    <string name="help_desc_how_to_create_color_presets_1">Görünüm ayarlarına gidin (bkz: Okuyucu\'yu nasıl özelleştirebilirim?). «Renkler» alt kategorisinde «Renk Ön Ayarı» altındaki kutu içinde tüm renk ön ayarı ayarlarını değiştirebilirsiniz. Yeni bir renk ön ayarı oluşturmak için «Ekle» simge düğmesine tıklayın. Bir renk ön ayarını değiştirmek için birden fazla yol vardır: metin alanına tıklayarak renk ön ayarının adını değiştirebilirsiniz, kaydırıcıları hareket ettirerek renk ön ayarının renklerini değiştirebilirsiniz, «Karıştır» simge düğmesine tıklayarak tüm renkleri karıştırabilirsiniz. Renk ön ayarını silmek isterseniz, «Sil» simge düğmesine tıklayın.</string>
+    <string name="help_title_how_to_use_color_presets">Renk ön ayarlarını nasıl kullanırım?</string>
+    <string name="help_desc_how_to_use_color_presets_1">Görünüm ayarlarına gidin (bkz: Okuyucu\'yu nasıl özelleştirebilirim?). «Renk Ön Ayarı» ayarında hangi renk ön ayarını kullanacağınızı seçebilirsiniz. Seçmek için istediğiniz renk ön ayarına tıklayın, bu aynı zamanda Okuyucu\'daki renklerinizi de değiştirecektir. Renk ön ayarını yeniden sıralamak isterseniz, seçin ve «Tutamaç» simge düğmesini basılı tutun, ardından istediğiniz konuma taşıyın. Görünüm ayarlarının «Renkler» alt kategorisindeki ilgili ayarı etkinleştirerek, ardından Okuyucu\'da sola veya sağa kaydırarak renk ön ayarlarını hızlıca değiştirebilirsiniz.</string>
     <string name="start_welcome">Book Story\'e Hoş Geldiniz!</string>
-    <string name="start_welcome_desc">
-        Kelimelerin büyülediği, öğrettiği ve inanılmaz maceralara 
-        sürüklediği bir dünyaya! Hadi bazı ayarları yapalım!
-    </string>
+    <string name="start_welcome_desc">Kelimelerin büyülediği, öğrettiği ve inanılmaz maceralara sürüklediği bir dünyaya! Hadi bazı ayarları yapalım!</string>
     <string name="start_language_preferences">Dil tercihleri</string>
     <string name="start_theme_preferences">Tema tercihleri</string>
     <string name="start_permissions_preferences">İzinler</string>
@@ -434,10 +285,7 @@
     <string name="start_permissions_notifications">Bildirim izni</string>
     <string name="start_permissions_notifications_desc">Daha yeni uygulama sürümünü kontrol etmek için gerekli</string>
     <string name="start_done">Her şey tamam!</string>
-    <string name="start_done_desc">
-        Uygulamanın temel ayarlarını başarıyla tamamladınız.
-        Yardım ekranını okuyarak uygulamayı nasıl kullanacağınızı öğrenmek ister misiniz?
-    </string>
+    <string name="start_done_desc">Uygulamanın temel ayarlarını başarıyla tamamladınız. Yardım ekranını okuyarak uygulamayı nasıl kullanacağınızı öğrenmek ister misiniz?</string>
     <string name="default_font">Varsayılan</string>
     <string name="today">Bugün</string>
     <string name="yesterday">Dün</string>

@@ -244,4 +244,6 @@
     <string name="dropped_tab">مهمل</string>
     <string name="reader_tab">قارئ</string>
     <string name="misc_reader_settings">متنوع</string>
+    <string name="padding_reader_settings">مسافة اضافية</string>
+    <string name="vertical_padding_option">الحشو العمودي</string>
 </resources>
