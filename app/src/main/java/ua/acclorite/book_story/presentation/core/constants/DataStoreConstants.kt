@@ -34,6 +34,9 @@ object DataStoreConstants {
     val FULLSCREEN = booleanPreferencesKey("fullscreen")
     val KEEP_SCREEN_ON = booleanPreferencesKey("keep_screen_on")
     val HIDE_BARS_ON_FAST_SCROLL = booleanPreferencesKey("hide_bars_on_fast_scroll")
+    val PERCEPTION_EXPANDER = booleanPreferencesKey("perception_expander")
+    val PERCEPTION_EXPANDER_PADDING = intPreferencesKey("perception_expander_padding")
+    val PERCEPTION_EXPANDER_THICKNESS = intPreferencesKey("perception_expander_thickness")
 
     // Browse settings
     val BROWSE_FILES_STRUCTURE = stringPreferencesKey("browse_files_structure")

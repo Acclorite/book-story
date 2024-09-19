@@ -79,6 +79,7 @@ import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderChapter
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderChaptersDrawer
+import ua.acclorite.book_story.presentation.screens.reader.components.ReaderPerceptionExpander
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderTextParagraph
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderBottomBar
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderTopBar
@@ -266,6 +267,17 @@ private fun ReaderScreen(lazyListState: LazyListState) {
             return@remember 0.sp
         }
         (mainState.value.paragraphIndentation * 6).sp
+    }
+    val perceptionExpanderPadding = remember(
+        sidePadding,
+        mainState.value.perceptionExpanderPadding
+    ) {
+        sidePadding + (mainState.value.perceptionExpanderPadding * 8).dp
+    }
+    val perceptionExpanderThickness = remember(
+        mainState.value.perceptionExpanderThickness
+    ) {
+        (mainState.value.perceptionExpanderThickness * 0.25f).dp
     }
 
     val density = LocalDensity.current
@@ -499,6 +511,13 @@ private fun ReaderScreen(lazyListState: LazyListState) {
                 }
             }
         }
+
+        ReaderPerceptionExpander(
+            perceptionExpander = mainState.value.perceptionExpander,
+            sidePadding = perceptionExpanderPadding,
+            thickness = perceptionExpanderThickness,
+            lineColor = fontColor.value
+        )
     }
 
     if (state.value.loading || state.value.errorMessage != null) {

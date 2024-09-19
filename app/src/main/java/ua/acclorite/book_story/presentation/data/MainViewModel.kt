@@ -460,6 +460,48 @@ class MainViewModel @Inject constructor(
                     }
                 }
             }
+
+            is MainEvent.OnChangePerceptionExpander -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(
+                        DataStoreConstants.PERCEPTION_EXPANDER,
+                        event.bool
+                    )
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            perceptionExpander = event.bool
+                        )
+                    }
+                }
+            }
+
+            is MainEvent.OnChangePerceptionExpanderPadding -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(
+                        DataStoreConstants.PERCEPTION_EXPANDER_PADDING,
+                        event.padding
+                    )
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            perceptionExpanderPadding = event.padding
+                        )
+                    }
+                }
+            }
+
+            is MainEvent.OnChangePerceptionExpanderThickness -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(
+                        DataStoreConstants.PERCEPTION_EXPANDER_THICKNESS,
+                        event.thickness
+                    )
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            perceptionExpanderThickness = event.thickness
+                        )
+                    }
+                }
+            }
         }
     }
 

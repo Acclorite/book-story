@@ -37,4 +37,7 @@ sealed class MainEvent {
     data class OnChangeKeepScreenOn(val bool: Boolean) : MainEvent()
     data class OnChangeVerticalPadding(val padding: Int) : MainEvent()
     data class OnChangeHideBarsOnFastScroll(val bool: Boolean) : MainEvent()
+    data class OnChangePerceptionExpander(val bool: Boolean) : MainEvent()
+    data class OnChangePerceptionExpanderPadding(val padding: Int) : MainEvent()
+    data class OnChangePerceptionExpanderThickness(val thickness: Int) : MainEvent()
 }

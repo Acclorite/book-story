@@ -202,6 +202,7 @@
     <string name="translator_reader_settings">Translator</string>
     <string name="padding_reader_settings">Padding</string>
     <string name="misc_reader_settings">Misc</string>
+    <string name="reading_speed_reader_settings">Reading speed</string>
     <string name="theme_appearance_settings">Theme preferences</string>
     <string name="colors_appearance_settings">Colors</string>
     <string name="general_browse_settings">General</string>
@@ -246,6 +247,12 @@
     <string name="fullscreen_option_desc">Hide system bars and remove padding</string>
     <string name="keep_screen_on_option">Keep screen on</string>
     <string name="hide_bars_on_fast_scroll_option">Hide bars on fast scroll</string>
+    <string name="perception_expander_option">Perception expander</string>
+    <string name="perception_expander_option_desc">
+        Increase your reading speed by reading less words directly
+    </string>
+    <string name="perception_expander_padding_option">Perception expander padding</string>
+    <string name="perception_expander_thickness_option">Perception expander line thickness</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>

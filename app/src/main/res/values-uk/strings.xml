@@ -199,6 +199,7 @@
     <string name="translator_reader_settings">Перекладач</string>
     <string name="padding_reader_settings">Відступи</string>
     <string name="misc_reader_settings">Інше</string>
+    <string name="reading_speed_reader_settings">Швидкість читання</string>
     <string name="theme_appearance_settings">Налаштування теми</string>
     <string name="colors_appearance_settings">Кольори</string>
     <string name="general_browse_settings">Головні</string>
@@ -243,6 +244,12 @@
     <string name="fullscreen_option_desc">Сховати системні панелі та прибрати відступи</string>
     <string name="keep_screen_on_option">Тримати екран увімкненим</string>
     <string name="hide_bars_on_fast_scroll_option">Ховати панелі при швидкому прокручуванні</string>
+    <string name="perception_expander_option">Розширення сприйняття</string>
+    <string name="perception_expander_option_desc">
+        Збільшіть швидкість вашого читання, читаючи менше слів напряму
+    </string>
+    <string name="perception_expander_padding_option">Відступи розширення сприйняття</string>
+    <string name="perception_expander_thickness_option">Товщина лінії розширення сприйняття</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>

@@ -74,6 +74,9 @@ data class MainState(
     val fullscreen: Boolean = provideDefaultValue { true },
     val keepScreenOn: Boolean = provideDefaultValue { true },
     val hideBarsOnFastScroll: Boolean = provideDefaultValue { true },
+    val perceptionExpander: Boolean = provideDefaultValue { false },
+    val perceptionExpanderPadding: Int = provideDefaultValue { 5 },
+    val perceptionExpanderThickness: Int = provideDefaultValue { 4 },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -239,6 +242,18 @@ data class MainState(
                     hideBarsOnFastScroll = provideValue(
                         HIDE_BARS_ON_FAST_SCROLL
                     ) { hideBarsOnFastScroll },
+
+                    perceptionExpander = provideValue(
+                        PERCEPTION_EXPANDER
+                    ) { perceptionExpander },
+
+                    perceptionExpanderPadding = provideValue(
+                        PERCEPTION_EXPANDER_PADDING
+                    ) { perceptionExpanderPadding },
+
+                    perceptionExpanderThickness = provideValue(
+                        PERCEPTION_EXPANDER_THICKNESS
+                    ) { perceptionExpanderThickness },
                 )
             }
         }

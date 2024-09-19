@@ -28,6 +28,7 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.c
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.FontSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.MiscSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.PaddingSubcategory
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.ReadingSpeedSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.TextSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.TranslatorSubcategory
 
@@ -88,6 +89,11 @@ fun ReaderSettingsBottomSheet() {
             if (page == 0) {
                 CustomLazyColumn(Modifier.fillMaxSize()) {
                     PaddingSubcategory(
+                        titleColor = { MaterialTheme.colorScheme.onSurface },
+                        topPadding = 22.dp,
+                        bottomPadding = 0.dp
+                    )
+                    ReadingSpeedSubcategory(
                         titleColor = { MaterialTheme.colorScheme.onSurface },
                         topPadding = 22.dp,
                         bottomPadding = 0.dp
