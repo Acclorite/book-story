@@ -12,7 +12,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.coerceAtMost
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.ui.DefaultTransition
 
 /**
  * Reader Perception Expander.
@@ -31,7 +30,7 @@ fun ReaderPerceptionExpander(
     thickness: Dp,
     lineColor: Color
 ) {
-    DefaultTransition(visible = perceptionExpander) {
+    if (perceptionExpander) {
         Row(
             modifier = Modifier
                 .fillMaxSize()

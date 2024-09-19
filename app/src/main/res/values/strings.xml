@@ -249,7 +249,7 @@
     <string name="hide_bars_on_fast_scroll_option">Hide bars on fast scroll</string>
     <string name="perception_expander_option">Perception expander</string>
     <string name="perception_expander_option_desc">
-        Increase your reading speed by reading less words directly
+        Increase your reading speed by focusing on center
     </string>
     <string name="perception_expander_padding_option">Perception expander padding</string>
     <string name="perception_expander_thickness_option">Perception expander line thickness</string>
