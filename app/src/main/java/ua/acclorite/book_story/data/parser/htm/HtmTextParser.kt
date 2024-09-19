@@ -1,8 +1,10 @@
 package ua.acclorite.book_story.data.parser.htm
 
 import android.util.Log
+import kotlinx.coroutines.yield
 import org.jsoup.Jsoup
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.data.parser.DocumentParser
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.domain.model.ChapterWithText
@@ -13,26 +15,17 @@ import javax.inject.Inject
 
 private const val HTM_TAG = "HTM Parser"
 
-class HtmTextParser @Inject constructor() : TextParser {
+class HtmTextParser @Inject constructor(
+    private val documentParser: DocumentParser
+) : TextParser {
 
     override suspend fun parse(file: File): Resource<List<ChapterWithText>> {
         Log.i(HTM_TAG, "Started HTM parsing: ${file.name}.")
 
         return try {
-            val lines = mutableListOf<String>()
+            val lines = documentParser.run { Jsoup.parse(file).parseDocument(null) }
 
-            val document = Jsoup.parse(file)
-            document.select("p").append("\n")
-            document.select("head > title").remove()
-
-            document
-                .wholeText()
-                .lines()
-                .forEach { line ->
-                    if (line.isNotBlank()) {
-                        lines.add(line.trim())
-                    }
-                }
+            yield()
 
             if (lines.isEmpty()) {
                 return Resource.Error(UIText.StringResource(R.string.error_file_empty))

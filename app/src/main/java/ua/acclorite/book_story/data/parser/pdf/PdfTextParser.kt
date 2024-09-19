@@ -3,6 +3,7 @@ package ua.acclorite.book_story.data.parser.pdf
 import android.util.Log
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.text.PDFTextStripper
+import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.domain.model.ChapterWithText
@@ -20,18 +21,24 @@ class PdfTextParser @Inject constructor() : TextParser {
         Log.i(PDF_TAG, "Started PDF parsing: ${file.name}.")
 
         return try {
-            val document = PDDocument.load(file)
-            val strings = mutableListOf<String>()
+            yield()
+
+            val oldText: String
 
             val pdfStripper = PDFTextStripper()
             pdfStripper.paragraphStart = "</br>"
 
-            val oldText = pdfStripper.getText(document)
-                .replace("\r", "")
+            PDDocument.load(file).use {
+                oldText = pdfStripper.getText(it)
+                    .replace("\r", "")
+            }
 
-            document.close()
+            yield()
 
+            val strings = mutableListOf<String>()
             val text = oldText.filterIndexed { index, c ->
+                yield()
+
                 if (c == ' ') {
                     oldText[index - 1] != ' '
                 } else {
@@ -39,12 +46,18 @@ class PdfTextParser @Inject constructor() : TextParser {
                 }
             }
 
+            yield()
+
             val unformattedLines = text.split("${pdfStripper.paragraphStart}|\\n".toRegex())
                 .filter { it.isNotBlank() }
+
+            yield()
 
             val lines = mutableListOf<String>()
             unformattedLines.forEachIndexed { index, string ->
                 try {
+                    yield()
+
                     val line = string.trim()
 
                     if (index == 0) {
@@ -86,9 +99,14 @@ class PdfTextParser @Inject constructor() : TextParser {
                 }
             }
 
+            yield()
+
             lines.forEach { line ->
+                yield()
                 strings.add(line.trim())
             }
+
+            yield()
 
             if (strings.isEmpty()) {
                 return Resource.Error(UIText.StringResource(R.string.error_file_empty))

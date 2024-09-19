@@ -4,8 +4,10 @@ import android.net.Uri
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.yield
 import org.jsoup.Jsoup
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.data.parser.DocumentParser
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.domain.model.ChapterWithText
@@ -18,7 +20,9 @@ import javax.inject.Inject
 
 private const val EPUB_TAG = "EPUB Parser"
 
-class EpubTextParser @Inject constructor() : TextParser {
+class EpubTextParser @Inject constructor(
+    private val documentParser: DocumentParser
+) : TextParser {
 
     override suspend fun parse(file: File): Resource<List<ChapterWithText>> {
         Log.i(EPUB_TAG, "Started EPUB parsing: ${file.name}.")
@@ -26,8 +30,12 @@ class EpubTextParser @Inject constructor() : TextParser {
         return try {
             val chapters = mutableListOf<ChapterWithText>()
 
+            yield()
+
             withContext(Dispatchers.IO) {
                 ZipFile(file).use { zip ->
+                    yield()
+
                     zip.entries().asSequence().find { entry ->
                         entry.name.endsWith("toc.ncx", ignoreCase = true)
                     }.apply {
@@ -45,9 +53,13 @@ class EpubTextParser @Inject constructor() : TextParser {
 
                             chapters.addAll(this)
                         }
+
+                        yield()
                     }
                 }
             }
+
+            yield()
 
             if (chapters.isEmpty()) {
                 return Resource.Error(UIText.StringResource(R.string.error_file_empty))
@@ -71,12 +83,16 @@ class EpubTextParser @Inject constructor() : TextParser {
      *
      * @return Null if could not parse.
      */
-    private fun parseWithoutToc(zip: ZipFile): List<ChapterWithText>? {
+    private suspend fun parseWithoutToc(zip: ZipFile): List<ChapterWithText>? {
         val chapters = mutableListOf<ChapterWithText>()
         var chapterTextIndex = -1
         var chapterIndex = 1
 
+        yield()
+
         zip.entries().asSequence().sortedBy { it.name }.forEach { entry ->
+            yield()
+
             if (
                 !entry.name.endsWith(".xhtml")
                 && !entry.name.endsWith(".html")
@@ -85,7 +101,13 @@ class EpubTextParser @Inject constructor() : TextParser {
                 || entry.name.endsWith("container.xml")
             ) return@forEach
 
-            val chapter = zip.parseDocument(entry = entry, fragment = null)
+            val content = zip.getInputStream(entry)
+                .bufferedReader()
+                .use {
+                    it.readText()
+                }
+
+            val chapter = documentParser.run { Jsoup.parse(content).parseDocument(fragment = null) }
             if (chapter.isEmpty()) {
                 Log.w(EPUB_TAG, "Chapter ${entry.name} is empty.")
                 return@forEach
@@ -106,6 +128,8 @@ class EpubTextParser @Inject constructor() : TextParser {
             chapterIndex++
         }
 
+        yield()
+
         if (chapters.isEmpty()) {
             Log.e(EPUB_TAG, "Could not parse file without toc.ncx")
             return null
@@ -119,7 +143,7 @@ class EpubTextParser @Inject constructor() : TextParser {
      *
      * @return Null if could not parse toc.ncx.
      */
-    private fun parseWithToc(tocEntry: ZipEntry, zip: ZipFile): List<ChapterWithText>? {
+    private suspend fun parseWithToc(tocEntry: ZipEntry, zip: ZipFile): List<ChapterWithText>? {
         Log.i(EPUB_TAG, "TOC Entry: ${tocEntry.name}")
 
         val chapters = mutableListOf<ChapterWithText>()
@@ -127,12 +151,18 @@ class EpubTextParser @Inject constructor() : TextParser {
         var chapterTextIndex = -1
         var chapterIndex = 1
 
-        val tocContent = zip.getInputStream(tocEntry)
-            .bufferedReader()
-            .use { it.readText() }
+        yield()
+
+        val tocContent = withContext(Dispatchers.IO) {
+            zip.getInputStream(tocEntry)
+        }.bufferedReader().use { it.readText() }
         val tocDocument = Jsoup.parse(tocContent)
 
+        yield()
+
         tocDocument.select("navPoint").forEach { navPoint ->
+            yield()
+
             val chapterTitle = navPoint.selectFirst("navLabel > text")?.text()?.trim()
                 ?: "Chapter $chapterIndex"
             val chapterSrc = navPoint.selectFirst("content")?.attr("src")?.trim()
@@ -154,11 +184,18 @@ class EpubTextParser @Inject constructor() : TextParser {
                     return null
                 }
 
-                val chapter = zip.parseDocument(
-                    entry = this,
-                    fragment = chapterSrc.second
-                ).dropWhile {
-                    it == chapterTitle // Remove chapter title if present
+                val content = zip.getInputStream(this)
+                    .bufferedReader()
+                    .use {
+                        it.readText()
+                    }
+
+                val chapter = documentParser.run {
+                    Jsoup.parse(content).parseDocument(
+                        fragment = chapterSrc.second
+                    ).dropWhile {
+                        it == chapterTitle // Remove chapter title if present
+                    }
                 }
                 if (chapter.isEmpty()) {
                     Log.w(EPUB_TAG, "Chapter $chapterTitle is empty.")
@@ -182,6 +219,8 @@ class EpubTextParser @Inject constructor() : TextParser {
             }
         }
 
+        yield()
+
         if (chapters.isEmpty()) {
             Log.e(EPUB_TAG, "Could not parse text with toc.ncx")
             return null
@@ -193,45 +232,5 @@ class EpubTextParser @Inject constructor() : TextParser {
         }
 
         return chapters
-    }
-
-    /**
-     * Parses [entry] to get it's text.
-     *
-     * @return Parsed text line by line. Can have line break issues due to bad [entry] formatting.
-     */
-    private fun ZipFile.parseDocument(entry: ZipEntry, fragment: String?): List<String> {
-        val lines = mutableListOf<String>()
-        val content = getInputStream(entry)
-            .bufferedReader()
-            .use {
-                it.readText()
-            }
-
-        val document = Jsoup.parse(content)
-        document
-            .body()
-            .select("p")
-            .append("\n")
-            .forEach { element ->
-                val cleanedText = element.html().replace(Regex("\\n+"), " ")
-                element.html(cleanedText)
-            }
-
-        document
-            .body()
-            .run {
-                fragment?.let { return@run getElementById(it) ?: this }
-                this
-            }
-            .wholeText()
-            .lines()
-            .forEach { line ->
-                if (line.isNotBlank()) {
-                    lines.add(line.trim())
-                }
-            }
-
-        return lines
     }
 }

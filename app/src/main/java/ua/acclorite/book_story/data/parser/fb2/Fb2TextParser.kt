@@ -3,6 +3,7 @@ package ua.acclorite.book_story.data.parser.fb2
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.yield
 import org.w3c.dom.Element
 import org.w3c.dom.NodeList
 import ua.acclorite.book_story.R
@@ -38,11 +39,15 @@ class Fb2TextParser @Inject constructor() : TextParser {
                 )
             }
 
+            yield()
+
             val unformattedLines = mutableListOf<String>()
             val bodyNode = bodyNodes.item(0) as Element
             val paragraphNodes = bodyNode.getElementsByTagName("p")
 
             for (element in paragraphNodes.asList()) {
+                yield()
+
                 if (element.textContent.isBlank()) {
                     continue
                 }
@@ -52,9 +57,13 @@ class Fb2TextParser @Inject constructor() : TextParser {
                 )
             }
 
+            yield()
+
             val lines = mutableListOf<String>()
             unformattedLines.forEachIndexed { index, string ->
                 try {
+                    yield()
+
                     val line = string.trim()
 
                     if (index == 0) {
@@ -96,9 +105,14 @@ class Fb2TextParser @Inject constructor() : TextParser {
                 }
             }
 
+            yield()
+
             lines.forEach { line ->
+                yield()
                 formattedLines.add(line.trim())
             }
+
+            yield()
 
             if (formattedLines.isEmpty()) {
                 return Resource.Error(UIText.StringResource(R.string.error_file_empty))
