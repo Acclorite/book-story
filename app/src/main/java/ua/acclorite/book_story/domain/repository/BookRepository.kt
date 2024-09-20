@@ -5,11 +5,13 @@ import ua.acclorite.book_story.data.remote.dto.LatestReleaseInfo
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.BookWithText
 import ua.acclorite.book_story.domain.model.BookWithTextAndCover
+import ua.acclorite.book_story.domain.model.ChapterWithText
 import ua.acclorite.book_story.domain.model.ColorPreset
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.model.SelectableFile
 import ua.acclorite.book_story.domain.util.CoverImage
+import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.presentation.data.MainState
 import java.io.File
 
@@ -77,6 +79,8 @@ interface BookRepository {
     suspend fun getBookFromFile(
         file: File
     ): NullableBook
+
+    suspend fun parseText(file: File): Resource<List<ChapterWithText>>
     /* - - - - - - - - - - - - - - - - - - - - - - */
 
 

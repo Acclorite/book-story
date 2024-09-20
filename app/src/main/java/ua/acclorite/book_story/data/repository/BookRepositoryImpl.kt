@@ -28,6 +28,7 @@ import ua.acclorite.book_story.data.remote.dto.LatestReleaseInfo
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.BookWithText
 import ua.acclorite.book_story.domain.model.BookWithTextAndCover
+import ua.acclorite.book_story.domain.model.ChapterWithText
 import ua.acclorite.book_story.domain.model.ColorPreset
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
@@ -697,6 +698,16 @@ class BookRepositoryImpl @Inject constructor(
                 }.flatten()
             )
         )
+    }
+
+    /**
+     * Parse text from given [file].
+     * May give [Resource.Error] if something went wrong.
+     *
+     * @param file File to parse. Should be one of supported file formats.
+     */
+    override suspend fun parseText(file: File): Resource<List<ChapterWithText>> {
+        return textParser.parse(file)
     }
 
     /**
