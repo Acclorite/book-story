@@ -330,4 +330,6 @@
     <string name="error_content_desc">Błąd</string>
     <string name="search_content_desc">Szukaj</string>
     <string name="clear_selected_items_content_desc">Wyczyść wybrane elementy</string>
+    <string name="perception_expander_option_desc">Zwiększ prędkość czytania, koncentrując się na środku</string>
+    <string name="credits_option">Napisy końcowe</string>
 </resources>
