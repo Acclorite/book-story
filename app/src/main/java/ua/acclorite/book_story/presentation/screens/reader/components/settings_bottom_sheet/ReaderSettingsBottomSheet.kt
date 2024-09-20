@@ -86,57 +86,59 @@ fun ReaderSettingsBottomSheet() {
         ReaderSettingsBottomSheetTabRow(pagerState = pagerState)
 
         HorizontalPager(state = pagerState) { page ->
-            if (page == 0) {
-                CustomLazyColumn(Modifier.fillMaxSize()) {
-                    PaddingSubcategory(
-                        titleColor = { MaterialTheme.colorScheme.onSurface },
-                        topPadding = 22.dp,
-                        bottomPadding = 0.dp
-                    )
-                    ReadingSpeedSubcategory(
-                        titleColor = { MaterialTheme.colorScheme.onSurface },
-                        topPadding = 22.dp,
-                        bottomPadding = 0.dp
-                    )
-                    MiscSubcategory(
-                        titleColor = { MaterialTheme.colorScheme.onSurface },
-                        showDivider = false,
-                        topPadding = 22.dp,
-                        bottomPadding = 8.dp + it
-                    )
+            when (page) {
+                0 -> {
+                    CustomLazyColumn(Modifier.fillMaxSize()) {
+                        PaddingSubcategory(
+                            titleColor = { MaterialTheme.colorScheme.onSurface },
+                            topPadding = 22.dp,
+                            bottomPadding = 0.dp
+                        )
+                        ReadingSpeedSubcategory(
+                            titleColor = { MaterialTheme.colorScheme.onSurface },
+                            topPadding = 22.dp,
+                            bottomPadding = 0.dp
+                        )
+                        MiscSubcategory(
+                            titleColor = { MaterialTheme.colorScheme.onSurface },
+                            showDivider = false,
+                            topPadding = 22.dp,
+                            bottomPadding = 8.dp + it
+                        )
+                    }
                 }
-            }
 
-            if (page == 1) {
-                CustomLazyColumn(Modifier.fillMaxSize()) {
-                    FontSubcategory(
-                        titleColor = { MaterialTheme.colorScheme.onSurface },
-                        topPadding = 16.dp,
-                        bottomPadding = 0.dp
-                    )
-                    TextSubcategory(
-                        titleColor = { MaterialTheme.colorScheme.onSurface },
-                        topPadding = 22.dp,
-                        bottomPadding = 0.dp
-                    )
-                    TranslatorSubcategory(
-                        titleColor = { MaterialTheme.colorScheme.onSurface },
-                        showDivider = false,
-                        topPadding = 22.dp,
-                        bottomPadding = 8.dp + it
-                    )
+                1 -> {
+                    CustomLazyColumn(Modifier.fillMaxSize()) {
+                        FontSubcategory(
+                            titleColor = { MaterialTheme.colorScheme.onSurface },
+                            topPadding = 16.dp,
+                            bottomPadding = 0.dp
+                        )
+                        TextSubcategory(
+                            titleColor = { MaterialTheme.colorScheme.onSurface },
+                            topPadding = 22.dp,
+                            bottomPadding = 0.dp
+                        )
+                        TranslatorSubcategory(
+                            titleColor = { MaterialTheme.colorScheme.onSurface },
+                            showDivider = false,
+                            topPadding = 22.dp,
+                            bottomPadding = 8.dp + it
+                        )
+                    }
                 }
-            }
 
-            if (page == 2) {
-                CustomLazyColumn(Modifier.fillMaxSize()) {
-                    ColorsSubcategory(
-                        showTitle = false,
-                        showDivider = false,
-                        backgroundColor = { MaterialTheme.colorScheme.surfaceContainer },
-                        topPadding = 16.dp,
-                        bottomPadding = 8.dp + it
-                    )
+                2 -> {
+                    CustomLazyColumn(Modifier.fillMaxSize()) {
+                        ColorsSubcategory(
+                            showTitle = false,
+                            showDivider = false,
+                            backgroundColor = { MaterialTheme.colorScheme.surfaceContainer },
+                            topPadding = 16.dp,
+                            bottomPadding = 8.dp + it
+                        )
+                    }
                 }
             }
         }
