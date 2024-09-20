@@ -64,8 +64,8 @@
         After deleting the whole history, the order of the books will be reset.
     </string>
     <string name="confirm_update_description">
-        By confirming this book\'s text will be updated.
-        Please remember where you left before updating text.
+        Update this book\'s text and chapters.
+        The progress should remain unchanged unless order of paragraphs was changed.
     </string>
     <string name="update_app_description">
         New version of Book\'s Story was found.

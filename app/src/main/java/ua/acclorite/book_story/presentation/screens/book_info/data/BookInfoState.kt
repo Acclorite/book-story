@@ -3,6 +3,7 @@ package ua.acclorite.book_story.presentation.screens.book_info.data
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
+import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.presentation.core.constants.Constants
 
 @Immutable
@@ -11,8 +12,10 @@ data class BookInfoState(
 
     val isLoadingUpdate: Boolean = false,
     val isRefreshing: Boolean = false,
+
     val showConfirmUpdateDialog: Boolean = false,
     val updatedText: List<String>? = null,
+    val updatedChapters: List<Chapter>? = null,
 
     val editTitle: Boolean = false,
     val hasTitleFocused: Boolean = false,
