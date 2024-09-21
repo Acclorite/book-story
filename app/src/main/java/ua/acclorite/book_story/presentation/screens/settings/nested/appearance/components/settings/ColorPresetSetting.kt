@@ -2,7 +2,6 @@ package ua.acclorite.book_story.presentation.screens.settings.nested.appearance.
 
 import android.content.Context
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandHorizontally
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -437,7 +436,7 @@ private fun ColorPresetSettingConfigurationItem(
 
         Spacer(modifier = Modifier.width(12.dp))
 
-        FadeTransitionPreservingSpace(visible = canDelete, animationSpec = tween(300)) {
+        FadeTransitionPreservingSpace(visible = canDelete) {
             CustomIconButton(
                 modifier = Modifier.size(24.dp),
                 icon = Icons.Default.DeleteOutline,

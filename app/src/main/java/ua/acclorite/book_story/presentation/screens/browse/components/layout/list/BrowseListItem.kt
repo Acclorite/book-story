@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.browse.components.layout.list
 
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
@@ -65,10 +64,7 @@ fun BrowseListItem(
             !file.isDirectory -> {
                 BrowseListFileItem(file = file)
 
-                FadeTransitionPreservingSpace(
-                    visible = hasSelectedFiles,
-                    animationSpec = tween(300)
-                ) {
+                FadeTransitionPreservingSpace(visible = hasSelectedFiles) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Spacer(modifier = Modifier.width(16.dp))
 
@@ -90,20 +86,14 @@ fun BrowseListItem(
                     Spacer(modifier = Modifier.width(16.dp))
 
                     Box(contentAlignment = Alignment.Center) {
-                        FadeTransitionPreservingSpace(
-                            hasSelectedFiles,
-                            animationSpec = tween(300)
-                        ) {
+                        FadeTransitionPreservingSpace(hasSelectedFiles) {
                             CustomCheckbox(
                                 selected = file.isSelected,
                                 containerColor = MaterialTheme.colorScheme.surface,
                                 size = 18.dp
                             )
                         }
-                        FadeTransitionPreservingSpace(
-                            !hasSelectedFiles,
-                            animationSpec = tween(300)
-                        ) {
+                        FadeTransitionPreservingSpace(!hasSelectedFiles) {
                             Icon(
                                 imageVector = if (file.isFavorite) Icons.Default.Favorite
                                 else Icons.Default.FavoriteBorder,

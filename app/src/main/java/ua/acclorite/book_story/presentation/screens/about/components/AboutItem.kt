@@ -1,5 +1,7 @@
 package ua.acclorite.book_story.presentation.screens.about.components
 
+import androidx.compose.animation.core.EaseInOut
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -70,7 +72,10 @@ fun AboutItem(
             }
         }
 
-        FadeTransitionPreservingSpace(visible = showLoading) {
+        FadeTransitionPreservingSpace(
+            visible = showLoading,
+            animationSpec = tween(150, easing = EaseInOut)
+        ) {
             Row {
                 Spacer(modifier = Modifier.width(18.dp))
                 CircularProgressIndicator(
