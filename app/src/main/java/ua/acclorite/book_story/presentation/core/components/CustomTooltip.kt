@@ -12,13 +12,25 @@ import androidx.compose.ui.unit.dp
 
 /**
  * Custom Tooltip.
+ * Shows [text] on long press.
+ *
+ * @param text Text to show.
+ * @param padding Space between [content] and tooltip.
+ * @param enabled Whether this tooltip is enabled.
+ * @param content Content.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomTooltip(text: String, padding: Dp = 14.dp, content: @Composable () -> Unit) {
+fun CustomTooltip(
+    text: String,
+    padding: Dp = 14.dp,
+    enabled: Boolean = true,
+    content: @Composable () -> Unit
+) {
     TooltipBox(
         positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(padding),
         focusable = false,
+        enableUserInput = enabled,
         tooltip = {
             PlainTooltip {
                 Text(text = text)

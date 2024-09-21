@@ -40,7 +40,7 @@ fun CustomIconButton(
     onClick: () -> Unit
 ) {
     var isClicked by remember { mutableStateOf(false) }
-    CustomTooltip(text = stringResource(id = contentDescription)) {
+    CustomTooltip(text = stringResource(id = contentDescription), enabled = enabled) {
         IconButton(
             enabled = enabled && !isClicked,
             modifier = Modifier.focusProperties {
