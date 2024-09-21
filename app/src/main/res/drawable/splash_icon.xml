@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:drawable="@drawable/app_icon_colored"
+        android:drawable="@drawable/app_icon"
         android:height="80.dp"
         android:width="80.dp"
         android:gravity="center" />

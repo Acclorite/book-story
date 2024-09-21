@@ -98,7 +98,7 @@ private fun AboutScreen() {
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        painterResource(id = R.drawable.app_icon_monochrome),
+                        painterResource(id = R.drawable.app_icon),
                         contentDescription = stringResource(id = R.string.app_icon_content_desc),
                         modifier = Modifier
                             .padding(14.dp)
