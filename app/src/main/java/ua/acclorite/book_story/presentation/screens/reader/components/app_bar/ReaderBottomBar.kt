@@ -1,11 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.reader.components.app_bar
 
-import androidx.compose.animation.expandHorizontally
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkHorizontally
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -36,7 +30,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.Direction
-import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.CustomIconButton
 import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
@@ -47,6 +40,7 @@ import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.ui.Colors
+import ua.acclorite.book_story.presentation.ui.HorizontalExpandingTransition
 
 /**
  * Reader bottom bar.
@@ -102,7 +96,7 @@ fun ReaderBottomBar() {
             modifier = Modifier.padding(top = 3.dp, bottom = 5.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            HorizontalExpandingAnimation(
+            HorizontalExpandingTransition(
                 visible = arrowDirection == Direction.START,
                 startDirection = true
             ) {
@@ -133,7 +127,7 @@ fun ReaderBottomBar() {
                 }
             }
 
-            HorizontalExpandingAnimation(
+            HorizontalExpandingTransition(
                 visible = arrowDirection == Direction.END,
                 startDirection = false
             ) {
@@ -214,46 +208,5 @@ private fun SliderIndicator(progress: Float) {
                     MaterialTheme.colorScheme.onPrimary.copy(0.6f)
                 )
         )
-    }
-}
-
-/**
- * Horizontal Expanding Animation.
- */
-@Composable
-private fun HorizontalExpandingAnimation(
-    visible: Boolean,
-    startDirection: Boolean,
-    content: @Composable () -> Unit,
-) {
-    val enterAnimation = remember(startDirection) {
-        when (startDirection) {
-            true -> {
-                expandHorizontally(expandFrom = Alignment.Start) + fadeIn() + slideInHorizontally { -it }
-            }
-
-            false -> {
-                expandHorizontally() + fadeIn() + slideInHorizontally { it }
-            }
-        }
-    }
-    val exitAnimation = remember(startDirection) {
-        when (startDirection) {
-            true -> {
-                shrinkHorizontally(shrinkTowards = Alignment.Start) + fadeOut() + slideOutHorizontally { -it }
-            }
-
-            false -> {
-                shrinkHorizontally() + fadeOut() + slideOutHorizontally { it }
-            }
-        }
-    }
-
-    CustomAnimatedVisibility(
-        visible = visible,
-        enter = enterAnimation,
-        exit = exitAnimation
-    ) {
-        content()
     }
 }

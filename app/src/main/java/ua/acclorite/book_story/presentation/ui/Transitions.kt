@@ -4,10 +4,12 @@ import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.EaseInOut
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandHorizontally
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
+import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
@@ -16,6 +18,8 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalDensity
@@ -95,6 +99,32 @@ fun ExpandingTransition(
                 fadeOut(tween(200)),
         content = content
     )
+}
+
+@Composable
+fun HorizontalExpandingTransition(
+    visible: Boolean,
+    startDirection: Boolean,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
+    val enterAnimation = remember(startDirection) {
+        if (startDirection) expandHorizontally(expandFrom = Alignment.Start) + fadeIn() + slideInHorizontally { -it }
+        else expandHorizontally() + fadeIn() + slideInHorizontally { it }
+    }
+    val exitAnimation = remember(startDirection) {
+        if (startDirection) shrinkHorizontally(shrinkTowards = Alignment.Start) + fadeOut() + slideOutHorizontally { -it }
+        else shrinkHorizontally() + fadeOut() + slideOutHorizontally { it }
+    }
+
+    CustomAnimatedVisibility(
+        visible = visible,
+        modifier = modifier,
+        enter = enterAnimation,
+        exit = exitAnimation
+    ) {
+        content()
+    }
 }
 
 @Composable
