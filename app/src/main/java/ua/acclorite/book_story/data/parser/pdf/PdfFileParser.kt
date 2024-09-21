@@ -12,7 +12,9 @@ import ua.acclorite.book_story.domain.util.UIText
 import java.io.File
 import javax.inject.Inject
 
-class PdfFileParser @Inject constructor(private val application: Application) : FileParser {
+class PdfFileParser @Inject constructor(
+    private val application: Application
+) : FileParser {
 
     override suspend fun parse(file: File): BookWithCover? {
         return try {

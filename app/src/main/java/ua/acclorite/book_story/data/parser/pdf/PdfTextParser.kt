@@ -1,6 +1,8 @@
 package ua.acclorite.book_story.data.parser.pdf
 
+import android.app.Application
 import android.util.Log
+import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.text.PDFTextStripper
 import kotlinx.coroutines.yield
@@ -15,12 +17,18 @@ import javax.inject.Inject
 
 private const val PDF_TAG = "PDF Parser"
 
-class PdfTextParser @Inject constructor() : TextParser {
+class PdfTextParser @Inject constructor(
+    private val application: Application
+) : TextParser {
 
     override suspend fun parse(file: File): Resource<List<ChapterWithText>> {
         Log.i(PDF_TAG, "Started PDF parsing: ${file.name}.")
 
         return try {
+            yield()
+
+            PDFBoxResourceLoader.init(application)
+
             yield()
 
             val oldText: String
