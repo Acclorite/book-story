@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Basic Strings -->
+    <string name="default_string">За замовчуванням</string>
 
     <!-- Notifications -->
     <string name="updates_notification_channel">Нові оновлення</string>
@@ -210,6 +212,7 @@
     <string name="padding_reader_settings">Відступи</string>
     <string name="misc_reader_settings">Інше</string>
     <string name="reading_speed_reader_settings">Швидкість читання</string>
+    <string name="system_reader_settings">Система</string>
     <string name="theme_appearance_settings">Налаштування теми</string>
     <string name="colors_appearance_settings">Кольори</string>
     <string name="general_browse_settings">Головні</string>
@@ -263,6 +266,7 @@
     <string name="check_for_text_update_option">Перевіряти на оновлення тексту</string>
     <string name="check_for_text_update_option_desc">Автоматично перевіряти чи є оновлення тексту</string>
     <string name="check_for_text_update_toast_option">Показувати повідомлення \"текст актуальний\"</string>
+    <string name="screen_orientation_option">Орієнтація екрана</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>
@@ -322,6 +326,13 @@
     <string name="text_alignment_justify">Рівномірно</string>
     <string name="text_alignment_center">Центр</string>
     <string name="text_alignment_end">Кінець</string>
+
+    <!-- Screen Orientation properties -->
+    <string name="screen_orientation_free">Вільно</string>
+    <string name="screen_orientation_portrait">Портрет</string>
+    <string name="screen_orientation_landscape">Альбом</string>
+    <string name="screen_orientation_locked_portrait">Заблокований портрет</string>
+    <string name="screen_orientation_locked_landscape">Заблокований альбом</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Меркурій</string>
@@ -564,9 +575,6 @@
         Ви успішно закінчили базове налаштовування застосунку.
         Бажаєте дізнатися, як користуватися застосунком, прочитавши екран Допомоги?
     </string>
-
-    <!-- Font families -->
-    <string name="default_font">За замовчуванням</string>
 
     <!-- History -->
     <string name="today">Сьогодні</string>

@@ -2,6 +2,7 @@
     <!-- Basic Strings -->
     <string name="app_version" translatable="false">1.2.0</string>
     <string name="app_name" translatable="false">Book\'s Story</string>
+    <string name="default_string">Default</string>
 
     <!-- Notifications -->
     <string name="updates_notification_channel">New updates</string>
@@ -212,6 +213,7 @@
     <string name="padding_reader_settings">Padding</string>
     <string name="misc_reader_settings">Misc</string>
     <string name="reading_speed_reader_settings">Reading speed</string>
+    <string name="system_reader_settings">System</string>
     <string name="theme_appearance_settings">Theme preferences</string>
     <string name="colors_appearance_settings">Colors</string>
     <string name="general_browse_settings">General</string>
@@ -265,6 +267,7 @@
     <string name="check_for_text_update_option">Check for text update</string>
     <string name="check_for_text_update_option_desc">Automatically check whether there is text update</string>
     <string name="check_for_text_update_toast_option">Show \"text is up-to-date\" toast</string>
+    <string name="screen_orientation_option">Screen orientation</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>
@@ -324,6 +327,13 @@
     <string name="text_alignment_justify">Justify</string>
     <string name="text_alignment_center">Center</string>
     <string name="text_alignment_end">End</string>
+
+    <!-- Screen Orientation properties -->
+    <string name="screen_orientation_free">Free</string>
+    <string name="screen_orientation_portrait">Portrait</string>
+    <string name="screen_orientation_landscape">Landscape</string>
+    <string name="screen_orientation_locked_portrait">Locked portrait</string>
+    <string name="screen_orientation_locked_landscape">Locked landscape</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Mercury</string>
@@ -565,9 +575,6 @@
         You\'re successfully done basic setting of the app.
         Would you like to learn how to use the app by reading Help screen?
     </string>
-
-    <!-- Font families -->
-    <string name="default_font">Default</string>
 
     <!-- History -->
     <string name="today">Today</string>

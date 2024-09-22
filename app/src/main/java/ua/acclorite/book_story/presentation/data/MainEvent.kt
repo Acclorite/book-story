@@ -42,4 +42,5 @@ sealed class MainEvent {
     data class OnChangePerceptionExpanderThickness(val thickness: Int) : MainEvent()
     data class OnChangeCheckForTextUpdate(val bool: Boolean) : MainEvent()
     data class OnChangeCheckForTextUpdateToast(val bool: Boolean) : MainEvent()
+    data class OnChangeScreenOrientation(val orientation: String) : MainEvent()
 }

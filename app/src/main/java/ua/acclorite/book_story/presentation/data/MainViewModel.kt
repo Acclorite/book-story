@@ -23,6 +23,7 @@ import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewMo
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseLayout
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseSortOrder
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toFilesStructure
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.toReaderScreenOrientation
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.toTextAlignment
 import ua.acclorite.book_story.presentation.ui.toDarkTheme
 import ua.acclorite.book_story.presentation.ui.toPureDark
@@ -526,6 +527,20 @@ class MainViewModel @Inject constructor(
                     updateStateWithSavedHandle {
                         it.copy(
                             checkForTextUpdateToast = event.bool
+                        )
+                    }
+                }
+            }
+
+            is MainEvent.OnChangeScreenOrientation -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(
+                        DataStoreConstants.SCREEN_ORIENTATION,
+                        event.orientation
+                    )
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            screenOrientation = event.orientation.toReaderScreenOrientation()
                         )
                     }
                 }

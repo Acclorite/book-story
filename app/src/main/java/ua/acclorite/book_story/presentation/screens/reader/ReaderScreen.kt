@@ -1,6 +1,7 @@
 package ua.acclorite.book_story.presentation.screens.reader
 
 import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.os.Build
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
@@ -173,6 +174,12 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
             onHistoryEvent(HistoryEvent.OnUpdateBook(it))
         }
         viewModel.onUpdateCurrentChapter()
+    }
+    DisposableEffect(mainState.value.screenOrientation) {
+        context.requestedOrientation = mainState.value.screenOrientation.code
+        onDispose {
+            context.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        }
     }
 
     ReaderScreen(lazyListState = lazyListState)

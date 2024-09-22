@@ -13,6 +13,7 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.reader.compo
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.MiscSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.PaddingSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.ReadingSpeedSubcategory
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.SystemSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.TextSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.TranslatorSubcategory
 
@@ -40,6 +41,11 @@ fun LazyListScope.ReaderSettingsCategory(
         bottomPadding = 0.dp
     )
     PaddingSubcategory(
+        titleColor = titleColor,
+        topPadding = 22.dp,
+        bottomPadding = 0.dp
+    )
+    SystemSubcategory(
         titleColor = titleColor,
         topPadding = 22.dp,
         bottomPadding = 0.dp

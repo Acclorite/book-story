@@ -440,7 +440,7 @@ private fun provideAboutBadges() = listOf(
 private fun provideFonts() = listOf(
     FontWithName(
         "default",
-        UIText.StringResource(R.string.default_font),
+        UIText.StringResource(R.string.default_string),
         FontFamily.Default
     ),
     FontWithName(

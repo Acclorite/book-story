@@ -16,7 +16,9 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseLayout
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseSortOrder
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toFilesStructure
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.ReaderScreenOrientation
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.ReaderTextAlignment
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.toReaderScreenOrientation
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.toTextAlignment
 import ua.acclorite.book_story.presentation.ui.DarkTheme
 import ua.acclorite.book_story.presentation.ui.PureDark
@@ -79,6 +81,9 @@ data class MainState(
     val perceptionExpanderThickness: Int = provideDefaultValue { 4 },
     val checkForTextUpdate: Boolean = provideDefaultValue { true },
     val checkForTextUpdateToast: Boolean = provideDefaultValue { true },
+    val screenOrientation: ReaderScreenOrientation = provideDefaultValue {
+        ReaderScreenOrientation.DEFAULT
+    },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -264,6 +269,10 @@ data class MainState(
                     checkForTextUpdateToast = provideValue(
                         CHECK_FOR_TEXT_UPDATE_TOAST
                     ) { checkForTextUpdateToast },
+
+                    screenOrientation = provideValue(
+                        SCREEN_ORIENTATION, convert = { toReaderScreenOrientation() }
+                    ) { screenOrientation },
                 )
             }
         }
