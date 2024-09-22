@@ -40,12 +40,15 @@ import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibi
 import ua.acclorite.book_story.presentation.core.components.CustomIconButton
 import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
+import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
+import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
+import ua.acclorite.book_story.presentation.screens.reader.components.readerFastColorPresetChange
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.ui.Colors
 
@@ -56,6 +59,7 @@ import ua.acclorite.book_story.presentation.ui.Colors
 @Composable
 fun ReaderTopBar() {
     val state = LocalReaderViewModel.current.state
+    val mainState = LocalMainViewModel.current.state
     val onEvent = LocalReaderViewModel.current.onEvent
     val onLibraryEvent = LocalLibraryViewModel.current.onEvent
     val onHistoryEvent = LocalHistoryViewModel.current.onEvent
@@ -70,6 +74,20 @@ fun ReaderTopBar() {
         Modifier
             .fillMaxWidth()
             .background(Colors.readerSystemBarsColor)
+            .readerFastColorPresetChange(
+                fastColorPresetChangeEnabled = mainState.value.fastColorPresetChange,
+                isLoading = state.value.loading,
+                presetChanged = {
+                    context
+                        .getString(
+                            R.string.color_preset_selected_query,
+                            it
+                                .asString(context)
+                                .trim()
+                        )
+                        .showToast(context = context, longToast = false)
+                }
+            )
     ) {
         TopAppBar(
             navigationIcon = {

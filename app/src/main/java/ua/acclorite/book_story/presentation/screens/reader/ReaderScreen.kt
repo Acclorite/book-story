@@ -85,7 +85,6 @@ import ua.acclorite.book_story.presentation.screens.reader.components.ReaderText
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderUpdateDialog
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderBottomBar
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderTopBar
-import ua.acclorite.book_story.presentation.screens.reader.components.readerFastColorPresetChange
 import ua.acclorite.book_story.presentation.screens.reader.components.settings_bottom_sheet.ReaderSettingsBottomSheet
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.ReaderTextAlignment
@@ -474,21 +473,6 @@ private fun ReaderScreen(lazyListState: LazyListState) {
                                 )
                         } else {
                             Modifier
-                        }
-                    )
-                    .readerFastColorPresetChange(
-                        fastColorPresetChangeEnabled = mainState.value.fastColorPresetChange,
-                        isLoading = state.value.loading,
-                        toolbarHidden = toolbarHidden,
-                        presetChanged = {
-                            context
-                                .getString(
-                                    R.string.color_preset_selected_query,
-                                    it
-                                        .asString(context)
-                                        .trim()
-                                )
-                                .showToast(context = context, longToast = false)
                         }
                     )
                     .padding(contentPadding)

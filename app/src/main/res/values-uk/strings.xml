@@ -248,7 +248,7 @@
     <string name="double_click_translation_option">Переклад подвійним кліком</string>
     <string name="double_click_translation_option_desc">Двічі клацніть на абзац, щоб перекласти його</string>
     <string name="fast_color_preset_change_option">Швидка зміна пресета кольорів</string>
-    <string name="fast_color_preset_change_option_desc">Проведіть вліво або вправо, щоб змінити пресет кольорів</string>
+    <string name="fast_color_preset_change_option_desc">Проведіть верхню панель вліво або вправо, щоб змінити пресет кольорів</string>
     <string name="text_alignment_option">Розташування текста</string>
     <string name="letter_spacing_option">Відстань між літерами</string>
     <string name="cutout_padding_option">Відступ від виїмки</string>
@@ -552,7 +552,7 @@
         після цього перемістіть його до бажаного місця.
         Ви можете швидко змінювати пресети кольорів увімкнувши відповідне
         налаштування в підкатегорії «Кольори» налаштувань Зовнішнього Вигляду,
-        та потім провівши вліво або вправо в Читачі, щоб швидко змінити пресет кольорів.
+        та потім провівши верхню панель вліво або вправо в Читачі, щоб швидко змінити пресет кольорів.
     </string>
 
 

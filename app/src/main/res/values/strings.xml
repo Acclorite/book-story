@@ -249,7 +249,7 @@
     <string name="double_click_translation_option">Double click translation</string>
     <string name="double_click_translation_option_desc">Double click on paragraph to translate it</string>
     <string name="fast_color_preset_change_option">Fast color preset change</string>
-    <string name="fast_color_preset_change_option_desc">Swipe left or right to change color preset</string>
+    <string name="fast_color_preset_change_option_desc">Swipe top bar left or right to change color preset</string>
     <string name="text_alignment_option">Text alignment</string>
     <string name="letter_spacing_option">Letter spacing</string>
     <string name="cutout_padding_option">Cutout padding</string>
@@ -550,7 +550,7 @@
         If you want to reorder color preset, select it and hold «Handle» icon-button,
         then move it to the desired position.
         You can fast change color presets by enabling corresponding setting
-        in Appearance setting\'s «Colors» subcategory, then swiping left or right in Reader,
+        in Appearance setting\'s «Colors» subcategory, then swiping top bar left or right in Reader,
         to fast change color preset.
     </string>
 
