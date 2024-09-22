@@ -26,7 +26,7 @@
     <string name="delete_book_description">Bu, kitabı veritabanından silecektir. Bu kitabı cihazınızdan silmeyecektir.</string>
     <string name="move_book_description">Bu kitabı taşımak istediğiniz kategoriyi seçin. Bu kitap seçilen kategoriye taşınacaktır.</string>
     <string name="delete_history_description">Bu, tüm geçmişi veritabanından silecektir. Tüm geçmişi sildikten sonra, kitapların sırası sıfırlanacaktır.</string>
-    <string name="confirm_update_description">Onaylayarak bu kitabın metni güncellenecektir. Lütfen güncellemeden önce kaldığınız yeri hatırlayın.</string>
+    <string name="confirm_update_description">Bu kitabın metnini ve bölümlerini güncelleyin. Paragrafların sırası değişmediği sürece ilerleme değişmeden kalacaktır.</string>
     <string name="update_app_description">Kitabın Hikayesi\'nin yeni bir sürümü bulundu. İndirmek ister misiniz? «İndir» düğmesine tıklayarak tarayıcınıza yönlendirilecek ve en son güncelleme otomatik olarak indirilecektir.</string>
     <string name="enable_check_for_updates_description">«Güncellemeleri kontrol et» seçeneğini etkinleştirerek uygulama her başlatıldığında «api.github.com» adresinden en son sürüm bilgilerini alacaktır. Devam edip «Güncellemeleri kontrol et» seçeneğini etkinleştirmek istiyor musunuz?</string>
     <string name="error_permission">Cihazınızdaki kitapları taramak için depolama izni gerekiyor</string>
@@ -202,7 +202,7 @@
     <string name="history_element_deleted">Geçmiş öğesi başarıyla silindi.</string>
     <string name="file_not_found">\"%1$s\" dosyası bulunamadı.</string>
     <string name="book_updated">Kitabın metni başarıyla güncellendi.</string>
-    <string name="nothing_changed">Kitabın metni güncel.</string>
+    <string name="nothing_changed">Metin güncel.</string>
     <string name="move_this_book">Taşı</string>
     <string name="delete_this_book">Sil</string>
     <string name="details_book">Ayrıntılar</string>
@@ -342,4 +342,22 @@
     <string name="cutout_padding_option_desc">Kesme alanına dolgu uygulayın</string>
     <string name="vertical_padding_option">Dikey dolgu</string>
     <string name="keep_screen_on_option">Ekranı açık tut</string>
+    <string name="update_book">Kitap güncellensin mi?</string>
+    <string name="reading_speed_reader_settings">Okuma hızı</string>
+    <string name="perception_expander_option_desc">Merkeze odaklanarak okuma hızınızı artırın</string>
+    <string name="perception_expander_thickness_option">Algı iyileştirici satır kalınlığı</string>
+    <string name="check_for_text_update_option_desc">Metin güncellemesi olup olmadığını otomatik olarak denetle</string>
+    <string name="chapters">Bölümler</string>
+    <string name="update_text_content_desc">Metni güncelle</string>
+    <string name="update_book_description">Metin güncellemesi bulundu. En son ayrıştırıcı yöntemlerinin kullanıldığından emin olmak için güncelleme gereklidir. Bu çevrim dışı bir işlemdir. Büyük değişiklikler olmadıkça ilerlemeniz etkilenmeyecektir. Güncellemeye devam etmek istiyor musunuz?</string>
+    <string name="proceed">Devam et</string>
+    <string name="perception_expander_option">Algı iyileştirici</string>
+    <string name="check_for_text_update_option">Metin güncellemesini denetle</string>
+    <string name="check_for_text_update_toast_option">\"metin güncel\" bildirimi göster</string>
+    <string name="no_chapters">Bölüm yok</string>
+    <string name="perception_expander_padding_option">Algı iyileştirici satır dolgusu</string>
+    <string name="hide_bars_on_fast_scroll_option">Hızlı kaydırmada çubukları gizle</string>
+    <string name="chapters_content_desc">Bölümler</string>
+    <string name="checkpoint_back_content_desc">Geri dönüş noktası</string>
+    <string name="checkpoint_forward_content_desc">İleri dönüş noktası</string>
 </resources>
