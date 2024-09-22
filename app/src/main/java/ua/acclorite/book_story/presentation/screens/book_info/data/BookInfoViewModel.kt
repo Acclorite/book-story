@@ -4,9 +4,11 @@ package ua.acclorite.book_story.presentation.screens.book_info.data
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.Context
 import android.content.Context.CLIPBOARD_SERVICE
 import android.graphics.BitmapFactory
 import android.os.Build
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -451,13 +453,13 @@ class BookInfoViewModel @Inject constructor(
                     }
                 }
 
-                is BookInfoEvent.OnLoadUpdate -> {
+                is BookInfoEvent.OnCheckForUpdate -> {
                     updateJob?.cancel()
                     updateJob = launch(Dispatchers.IO) {
                         _state.update {
                             it.copy(
                                 showConfirmUpdateDialog = false,
-                                isLoadingUpdate = true,
+                                checkingForUpdate = true,
                                 editTitle = false,
                                 editAuthor = false,
                                 editDescription = false
@@ -477,7 +479,7 @@ class BookInfoViewModel @Inject constructor(
                                         action = event.context.getString(R.string.retry),
                                         onAction = {
                                             onEvent(
-                                                BookInfoEvent.OnLoadUpdate(
+                                                BookInfoEvent.OnCheckForUpdate(
                                                     snackbarState = event.snackbarState,
                                                     context = event.context
                                                 )
@@ -491,7 +493,7 @@ class BookInfoViewModel @Inject constructor(
                                 delay(500)
                                 _state.update {
                                     it.copy(
-                                        isLoadingUpdate = false
+                                        checkingForUpdate = false
                                     )
                                 }
                                 return@launch
@@ -508,7 +510,7 @@ class BookInfoViewModel @Inject constructor(
                                         action = event.context.getString(R.string.retry),
                                         onAction = {
                                             onEvent(
-                                                BookInfoEvent.OnLoadUpdate(
+                                                BookInfoEvent.OnCheckForUpdate(
                                                     snackbarState = event.snackbarState,
                                                     context = event.context
                                                 )
@@ -522,7 +524,7 @@ class BookInfoViewModel @Inject constructor(
                                 delay(500)
                                 _state.update {
                                     it.copy(
-                                        isLoadingUpdate = false
+                                        checkingForUpdate = false
                                     )
                                 }
                                 return@launch
@@ -554,7 +556,7 @@ class BookInfoViewModel @Inject constructor(
                             delay(500)
                             _state.update {
                                 it.copy(
-                                    isLoadingUpdate = false
+                                    checkingForUpdate = false
                                 )
                             }
                             return@launch
@@ -571,7 +573,7 @@ class BookInfoViewModel @Inject constructor(
 
                         _state.update {
                             it.copy(
-                                isLoadingUpdate = false
+                                checkingForUpdate = false
                             )
                         }
                     }
@@ -601,7 +603,7 @@ class BookInfoViewModel @Inject constructor(
                     launch(Dispatchers.IO) {
                         _state.update {
                             it.copy(
-                                isRefreshing = true,
+                                updating = true,
                                 showConfirmUpdateDialog = false
                             )
                         }
@@ -615,7 +617,7 @@ class BookInfoViewModel @Inject constructor(
                                     action = event.context.getString(R.string.retry),
                                     onAction = {
                                         onEvent(
-                                            BookInfoEvent.OnLoadUpdate(
+                                            BookInfoEvent.OnCheckForUpdate(
                                                 snackbarState = event.snackbarState,
                                                 context = event.context
                                             )
@@ -629,7 +631,7 @@ class BookInfoViewModel @Inject constructor(
                             delay(500)
                             _state.update {
                                 it.copy(
-                                    isRefreshing = false,
+                                    updating = false,
                                     updatedText = null,
                                     updatedChapters = null
                                 )
@@ -660,7 +662,7 @@ class BookInfoViewModel @Inject constructor(
                                     action = event.context.getString(R.string.retry),
                                     onAction = {
                                         onEvent(
-                                            BookInfoEvent.OnLoadUpdate(
+                                            BookInfoEvent.OnCheckForUpdate(
                                                 snackbarState = event.snackbarState,
                                                 context = event.context
                                             )
@@ -674,7 +676,7 @@ class BookInfoViewModel @Inject constructor(
                             delay(500)
                             _state.update {
                                 it.copy(
-                                    isRefreshing = false,
+                                    updating = false,
                                     updatedText = null,
                                     updatedChapters = null
                                 )
@@ -692,7 +694,7 @@ class BookInfoViewModel @Inject constructor(
                                         action = event.context.getString(R.string.retry),
                                         onAction = {
                                             onEvent(
-                                                BookInfoEvent.OnLoadUpdate(
+                                                BookInfoEvent.OnCheckForUpdate(
                                                     snackbarState = event.snackbarState,
                                                     context = event.context
                                                 )
@@ -706,7 +708,7 @@ class BookInfoViewModel @Inject constructor(
                                 delay(500)
                                 _state.update {
                                     it.copy(
-                                        isRefreshing = false,
+                                        updating = false,
                                         updatedText = null,
                                         updatedChapters = null
                                     )
@@ -735,7 +737,7 @@ class BookInfoViewModel @Inject constructor(
                             delay(500)
                             _state.update {
                                 it.copy(
-                                    isRefreshing = false
+                                    updating = false
                                 )
                             }
                         }
@@ -748,7 +750,7 @@ class BookInfoViewModel @Inject constructor(
 
                         it.copy(
                             showConfirmUpdateDialog = false,
-                            isLoadingUpdate = false,
+                            checkingForUpdate = false,
                             updatedText = null,
                             updatedChapters = null
                         )
@@ -778,7 +780,12 @@ class BookInfoViewModel @Inject constructor(
         }
     }
 
-    fun init(screen: Screen.BookInfo, onNavigate: OnNavigate) {
+    fun init(
+        screen: Screen.BookInfo,
+        snackbarState: SnackbarHostState,
+        context: Context,
+        onNavigate: OnNavigate
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             val book = getBookById.execute(screen.bookId)
 
@@ -796,6 +803,22 @@ class BookInfoViewModel @Inject constructor(
             }
             clear()
 
+            if (screen.startUpdate) {
+                onEvent(
+                    BookInfoEvent.OnCheckForUpdate(
+                        snackbarState = snackbarState,
+                        context = context
+                    )
+                )
+                onNavigate {
+                    putScreen(
+                        Screen.BookInfo(
+                            screen.bookId,
+                            false
+                        )
+                    )
+                }
+            }
             onEvent(BookInfoEvent.OnCheckCoverReset)
         }
     }

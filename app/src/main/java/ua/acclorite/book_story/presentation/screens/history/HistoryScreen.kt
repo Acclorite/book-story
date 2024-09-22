@@ -214,7 +214,10 @@ private fun HistoryScreen() {
                                 onBodyClick = {
                                     onNavigate {
                                         navigate(
-                                            Screen.BookInfo(it.bookId)
+                                            Screen.BookInfo(
+                                                bookId = it.bookId,
+                                                startUpdate = false
+                                            )
                                         )
                                     }
                                 },

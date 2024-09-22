@@ -502,6 +502,34 @@ class MainViewModel @Inject constructor(
                     }
                 }
             }
+
+            is MainEvent.OnChangeCheckForTextUpdate -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(
+                        DataStoreConstants.CHECK_FOR_TEXT_UPDATE,
+                        event.bool
+                    )
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            checkForTextUpdate = event.bool
+                        )
+                    }
+                }
+            }
+
+            is MainEvent.OnChangeCheckForTextUpdateToast -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    setDatastore.execute(
+                        DataStoreConstants.CHECK_FOR_TEXT_UPDATE_TOAST,
+                        event.bool
+                    )
+                    updateStateWithSavedHandle {
+                        it.copy(
+                            checkForTextUpdateToast = event.bool
+                        )
+                    }
+                }
+            }
         }
     }
 

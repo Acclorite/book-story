@@ -11,6 +11,7 @@ sealed class ReaderEvent {
     data object OnTextIsEmpty : ReaderEvent()
 
     data class OnLoadText(
+        val checkForUpdate: () -> Unit,
         val refreshList: (Book) -> Unit,
         val onError: (UIText) -> Unit,
         val onTextIsEmpty: () -> Unit
@@ -86,4 +87,14 @@ sealed class ReaderEvent {
         val context: ComponentActivity,
         val noAppsFound: () -> Unit
     ) : ReaderEvent()
+
+    data class OnCheckTextForUpdate(
+        val noUpdateFound: () -> Unit
+    ) : ReaderEvent()
+
+    data class OnShowHideUpdateDialog(
+        val show: Boolean
+    ) : ReaderEvent()
+
+    data object OnCancelCheckTextForUpdate : ReaderEvent()
 }

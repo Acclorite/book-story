@@ -22,18 +22,22 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.use_case.GetBookById
 import ua.acclorite.book_story.domain.use_case.GetLatestHistory
 import ua.acclorite.book_story.domain.use_case.GetText
+import ua.acclorite.book_story.domain.use_case.ParseText
 import ua.acclorite.book_story.domain.use_case.UpdateBook
 import ua.acclorite.book_story.domain.util.OnNavigate
+import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.BaseViewModel
 import ua.acclorite.book_story.presentation.core.util.launchActivity
+import java.io.File
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -43,7 +47,8 @@ class ReaderViewModel @Inject constructor(
     private val updateBook: UpdateBook,
     private val getText: GetText,
     private val getLatestHistory: GetLatestHistory,
-    private val getBookById: GetBookById
+    private val getBookById: GetBookById,
+    private val parseText: ParseText
 ) : BaseViewModel<ReaderState, ReaderEvent>() {
 
     private val _state = MutableStateFlow(ReaderState())
@@ -51,6 +56,7 @@ class ReaderViewModel @Inject constructor(
 
     private var eventJob = SupervisorJob()
     private var scrollJob: Job? = null
+    private var updateJob: Job? = null
 
     override fun onEvent(event: ReaderEvent) {
         viewModelScope.launch(eventJob + Dispatchers.Main) {
@@ -94,6 +100,8 @@ class ReaderViewModel @Inject constructor(
                                     _state.value.book.scrollIndex,
                                     _state.value.book.scrollOffset
                                 )
+
+                                event.checkForUpdate()
 
                                 delay(100)
                                 _state.update {
@@ -399,6 +407,97 @@ class ReaderViewModel @Inject constructor(
                         event.noAppsFound()
                     }
                 }
+
+                is ReaderEvent.OnCheckTextForUpdate -> {
+                    updateJob?.cancel()
+                    updateJob = launch(Dispatchers.IO) {
+                        _state.update {
+                            it.copy(
+                                checkingForUpdate = true,
+                                updateFound = false,
+                                showUpdateDialog = false
+                            )
+                        }
+
+                        yield()
+
+                        val currentBook = _state.value.book.apply {
+                            if (!File(filePath).exists()) {
+                                _state.update {
+                                    it.copy(
+                                        checkingForUpdate = false,
+                                        updateFound = false
+                                    )
+                                }
+                                return@launch
+                            }
+                        }
+                        val updatedBook = parseText.execute(File(currentBook.filePath)).apply {
+                            if (this is Resource.Error || data == null) {
+                                _state.update {
+                                    it.copy(
+                                        checkingForUpdate = false,
+                                        updateFound = false
+                                    )
+                                }
+                                return@launch
+                            }
+                        }.data!!
+
+                        yield()
+
+                        val updatedText = updatedBook.map { it.text }.flatten()
+                        val text = getText.execute(currentBook.textPath)
+
+                        val updatedChapters = updatedBook.map { it.chapter }.run {
+                            if (size < 2) return@run emptyList()
+                            return@run this
+                        }
+                        val chapters = currentBook.chapters
+
+                        yield()
+
+                        if (updatedText == text && updatedChapters == chapters) {
+                            withContext(Dispatchers.Main) {
+                                event.noUpdateFound()
+                            }
+                            _state.update {
+                                it.copy(
+                                    checkingForUpdate = false,
+                                    updateFound = false
+                                )
+                            }
+                            return@launch
+                        }
+
+                        _state.update {
+                            it.copy(
+                                updateFound = true,
+                                checkingForUpdate = false
+                            )
+                        }
+                        onEvent(ReaderEvent.OnShowHideUpdateDialog(true))
+                    }
+                }
+
+                is ReaderEvent.OnShowHideUpdateDialog -> {
+                    _state.update {
+                        it.copy(
+                            showUpdateDialog = event.show
+                        )
+                    }
+                }
+
+                is ReaderEvent.OnCancelCheckTextForUpdate -> {
+                    _state.update {
+                        updateJob?.cancel()
+
+                        it.copy(
+                            showUpdateDialog = false,
+                            checkingForUpdate = false
+                        )
+                    }
+                }
             }
         }
     }
@@ -407,6 +506,8 @@ class ReaderViewModel @Inject constructor(
         screen: Screen.Reader,
         onNavigate: OnNavigate,
         fullscreenMode: Boolean,
+        checkForTextUpdate: Boolean,
+        checkForTextUpdateToast: () -> Unit,
         activity: ComponentActivity,
         refreshList: (Book) -> Unit,
         onError: (UIText) -> Unit
@@ -437,6 +538,15 @@ class ReaderViewModel @Inject constructor(
                 )
                 onEvent(
                     ReaderEvent.OnLoadText(
+                        checkForUpdate = {
+                            if (checkForTextUpdate) {
+                                onEvent(
+                                    ReaderEvent.OnCheckTextForUpdate {
+                                        checkForTextUpdateToast()
+                                    }
+                                )
+                            }
+                        },
                         refreshList = { refreshList(it) },
                         onError = {
                             onError(it)

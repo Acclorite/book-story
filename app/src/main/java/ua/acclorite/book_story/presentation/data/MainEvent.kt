@@ -40,4 +40,6 @@ sealed class MainEvent {
     data class OnChangePerceptionExpander(val bool: Boolean) : MainEvent()
     data class OnChangePerceptionExpanderPadding(val padding: Int) : MainEvent()
     data class OnChangePerceptionExpanderThickness(val thickness: Int) : MainEvent()
+    data class OnChangeCheckForTextUpdate(val bool: Boolean) : MainEvent()
+    data class OnChangeCheckForTextUpdateToast(val bool: Boolean) : MainEvent()
 }

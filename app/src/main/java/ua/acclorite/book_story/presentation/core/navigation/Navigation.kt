@@ -88,7 +88,8 @@ sealed class Screen : Parcelable {
     @Parcelize
     @Keep
     data class BookInfo(
-        val bookId: Int
+        val bookId: Int,
+        val startUpdate: Boolean
     ) : Screen()
 
     @Parcelize

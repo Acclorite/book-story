@@ -32,6 +32,7 @@
     <string name="delete_history">Delete reading history?</string>
     <string name="confirm_update">Confirm update?</string>
     <string name="enable_check_for_updates">Enable check for updates?</string>
+    <string name="update_book">Update book?</string>
 
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">
@@ -65,7 +66,7 @@
     </string>
     <string name="confirm_update_description">
         Update this book\'s text and chapters.
-        The progress should remain unchanged unless order of paragraphs was changed.
+        The progress should remain unchanged unless the order of paragraphs was changed.
     </string>
     <string name="update_app_description">
         New version of Book\'s Story was found.
@@ -78,6 +79,13 @@
         the app will retrieve latest release information from «api.github.com» each time
         when app starts.
         Do you want to proceed and enable «Check for updates»?
+    </string>
+    <string name="update_book_description">
+        Update of the text has been found.
+        Update is needed to ensure latest parser methods are used.
+        It is offline process.
+        Your progress will not be affected unless big changes occur.
+        Do you want to proceed with update?
     </string>
 
     <!-- Errors -->
@@ -156,6 +164,7 @@
     <string name="enable">Enable</string>
     <string name="web_search">Web search</string>
     <string name="share">Share</string>
+    <string name="proceed">Proceed</string>
 
     <!-- Items -->
     <string name="files">files</string>
@@ -253,6 +262,9 @@
     </string>
     <string name="perception_expander_padding_option">Perception expander line padding</string>
     <string name="perception_expander_thickness_option">Perception expander line thickness</string>
+    <string name="check_for_text_update_option">Check for text update</string>
+    <string name="check_for_text_update_option_desc">Automatically check whether there is text update</string>
+    <string name="check_for_text_update_toast_option">Show \"text is up-to-date\" toast</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>
@@ -343,7 +355,7 @@
     <string name="history_element_deleted">History element was successfully deleted.</string>
     <string name="file_not_found">File \"%1$s\" was not found.</string>
     <string name="book_updated">Book\'s text was successfully updated.</string>
-    <string name="nothing_changed">Book\'s text is up to date.</string>
+    <string name="nothing_changed">Text is up-to-date.</string>
 
     <!-- DropDown properties -->
     <string name="move_this_book">Move</string>
@@ -611,5 +623,6 @@
     <string name="checkpoint_back_content_desc">Checkpoint back</string>
     <string name="checkpoint_forward_content_desc">Checkpoint forward</string>
     <string name="chapters_content_desc">Chapters</string>
+    <string name="update_text_content_desc">Update text</string>
 
 </resources>

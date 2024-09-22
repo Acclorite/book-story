@@ -1,4 +1,4 @@
-package ua.acclorite.book_story.presentation.screens.book_info.components.confirm_update_dialog
+package ua.acclorite.book_story.presentation.screens.book_info.components.dialog
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Update

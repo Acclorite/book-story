@@ -24,6 +24,10 @@ data class ReaderState(
     val checkpoint: Pair<Int, Int> = 0 to 0,
     val lockMenu: Boolean = false,
 
+    val checkingForUpdate: Boolean = false,
+    val updateFound: Boolean = false,
+    val showUpdateDialog: Boolean = false,
+
     val showSettingsBottomSheet: Boolean = false,
     val currentPage: Int = 0,
 )

@@ -174,7 +174,12 @@ private fun LibraryScreen(
                                             onEvent(LibraryEvent.OnSelectBook(it))
                                         } else {
                                             onNavigate {
-                                                navigate(Screen.BookInfo(it.first.id))
+                                                navigate(
+                                                    Screen.BookInfo(
+                                                        bookId = it.first.id,
+                                                        startUpdate = false
+                                                    )
+                                                )
                                             }
                                         }
                                     },

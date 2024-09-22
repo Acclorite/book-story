@@ -37,6 +37,8 @@ object DataStoreConstants {
     val PERCEPTION_EXPANDER = booleanPreferencesKey("perception_expander")
     val PERCEPTION_EXPANDER_PADDING = intPreferencesKey("perception_expander_padding")
     val PERCEPTION_EXPANDER_THICKNESS = intPreferencesKey("perception_expander_thickness")
+    val CHECK_FOR_TEXT_UPDATE = booleanPreferencesKey("check_for_text_update")
+    val CHECK_FOR_TEXT_UPDATE_TOAST = booleanPreferencesKey("check_for_text_update_toast")
 
     // Browse settings
     val BROWSE_FILES_STRUCTURE = stringPreferencesKey("browse_files_structure")

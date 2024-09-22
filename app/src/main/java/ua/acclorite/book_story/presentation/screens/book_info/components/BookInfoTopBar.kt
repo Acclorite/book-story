@@ -83,7 +83,7 @@ fun BookInfoTopBar(
                     }
                 }
             } else {
-                GoBackButton(onNavigate = onNavigate, enabled = !state.value.isRefreshing) {
+                GoBackButton(onNavigate = onNavigate, enabled = !state.value.updating) {
                     onEvent(BookInfoEvent.OnCancelUpdate)
                 }
             }
@@ -106,10 +106,10 @@ fun BookInfoTopBar(
                 icon = Icons.Outlined.Refresh,
                 contentDescription = R.string.refresh_book_content_desc,
                 disableOnClick = false,
-                enabled = !state.value.isRefreshing && !state.value.isLoadingUpdate
+                enabled = !state.value.updating && !state.value.checkingForUpdate
             ) {
                 onEvent(
-                    BookInfoEvent.OnLoadUpdate(
+                    BookInfoEvent.OnCheckForUpdate(
                         snackbarState,
                         context
                     )
@@ -135,7 +135,7 @@ fun BookInfoTopBar(
                         icon = Icons.Outlined.Done,
                         contentDescription = R.string.apply_changes_content_desc,
                         disableOnClick = true,
-                        enabled = !state.value.isRefreshing &&
+                        enabled = !state.value.updating &&
                                 (state.value.titleValue.isNotBlank() &&
                                         state.value.titleValue.trim() !=
                                         state.value.book.title.trim()) ||

@@ -101,7 +101,7 @@ sealed class BookInfoEvent {
         val snackbarState: SnackbarHostState
     ) : BookInfoEvent()
 
-    data class OnLoadUpdate(
+    data class OnCheckForUpdate(
         val snackbarState: SnackbarHostState,
         val context: Context
     ) : BookInfoEvent()

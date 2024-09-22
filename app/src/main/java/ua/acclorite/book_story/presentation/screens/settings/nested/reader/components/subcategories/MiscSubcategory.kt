@@ -10,6 +10,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.screens.settings.components.SettingsSubcategory
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.CheckForTextUpdateSetting
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.CheckForTextUpdateToastSetting
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.FullscreenSetting
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.HideBarsOnFastScrollSetting
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.KeepScreenOnSetting
@@ -34,6 +36,14 @@ fun LazyListScope.MiscSubcategory(
         topPadding = topPadding,
         bottomPadding = bottomPadding
     ) {
+        item {
+            CheckForTextUpdateSetting()
+        }
+
+        item {
+            CheckForTextUpdateToastSetting()
+        }
+
         item {
             FullscreenSetting()
         }

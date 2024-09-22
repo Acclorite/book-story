@@ -77,6 +77,8 @@ data class MainState(
     val perceptionExpander: Boolean = provideDefaultValue { false },
     val perceptionExpanderPadding: Int = provideDefaultValue { 5 },
     val perceptionExpanderThickness: Int = provideDefaultValue { 4 },
+    val checkForTextUpdate: Boolean = provideDefaultValue { true },
+    val checkForTextUpdateToast: Boolean = provideDefaultValue { true },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -254,6 +256,14 @@ data class MainState(
                     perceptionExpanderThickness = provideValue(
                         PERCEPTION_EXPANDER_THICKNESS
                     ) { perceptionExpanderThickness },
+
+                    checkForTextUpdate = provideValue(
+                        CHECK_FOR_TEXT_UPDATE
+                    ) { checkForTextUpdate },
+
+                    checkForTextUpdateToast = provideValue(
+                        CHECK_FOR_TEXT_UPDATE_TOAST
+                    ) { checkForTextUpdateToast },
                 )
             }
         }

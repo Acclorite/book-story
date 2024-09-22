@@ -38,7 +38,7 @@ fun BookInfoMoreDropDown(snackbarState: SnackbarHostState) {
             contentDescription = R.string.show_dropdown_content_desc,
             disableOnClick = false,
             enabled = !showDropDown &&
-                    !state.value.isRefreshing
+                    !state.value.updating
         ) {
             showDropDown = true
         }

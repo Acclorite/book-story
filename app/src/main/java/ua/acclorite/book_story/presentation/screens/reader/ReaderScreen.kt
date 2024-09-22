@@ -81,6 +81,7 @@ import ua.acclorite.book_story.presentation.screens.reader.components.ReaderChap
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderChaptersDrawer
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderPerceptionExpander
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderTextParagraph
+import ua.acclorite.book_story.presentation.screens.reader.components.ReaderUpdateDialog
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderBottomBar
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderTopBar
 import ua.acclorite.book_story.presentation.screens.reader.components.readerFastColorPresetChange
@@ -117,6 +118,15 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
             screen = screen,
             onNavigate = onNavigate,
             fullscreenMode = mainState.value.fullscreen,
+            checkForTextUpdate = mainState.value.checkForTextUpdate,
+            checkForTextUpdateToast = {
+                if (mainState.value.checkForTextUpdateToast) {
+                    context.getString(R.string.nothing_changed).showToast(
+                        context = context,
+                        longToast = false
+                    )
+                }
+            },
             activity = context,
             refreshList = {
                 onLibraryEvent(LibraryEvent.OnUpdateBook(it))
@@ -349,6 +359,9 @@ private fun ReaderScreen(lazyListState: LazyListState) {
     // Bottom sheets & Dialogs
     if (state.value.showSettingsBottomSheet) {
         ReaderSettingsBottomSheet()
+    }
+    if (state.value.showUpdateDialog) {
+        ReaderUpdateDialog()
     }
 
     Scaffold(

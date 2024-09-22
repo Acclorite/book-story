@@ -55,8 +55,8 @@ import ua.acclorite.book_story.presentation.screens.book_info.components.BookInf
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoStatisticSection
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoTopBar
 import ua.acclorite.book_story.presentation.screens.book_info.components.change_cover_bottom_sheet.BookInfoChangeCoverBottomSheet
-import ua.acclorite.book_story.presentation.screens.book_info.components.confirm_update_dialog.BookInfoConfirmUpdateDialog
 import ua.acclorite.book_story.presentation.screens.book_info.components.details_bottom_sheet.BookInfoDetailsBottomSheet
+import ua.acclorite.book_story.presentation.screens.book_info.components.dialog.BookInfoConfirmUpdateDialog
 import ua.acclorite.book_story.presentation.screens.book_info.components.dialog.BookInfoDeleteDialog
 import ua.acclorite.book_story.presentation.screens.book_info.components.dialog.BookInfoMoveDialog
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
@@ -65,15 +65,22 @@ import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 fun BookInfoScreenRoot(screen: Screen.BookInfo) {
     val viewModel = LocalBookInfoViewModel.current.viewModel
     val onNavigate = LocalOnNavigate.current
+    val context = LocalContext.current
+
+    val snackbarState = remember { SnackbarHostState() }
 
     LaunchedEffect(Unit) {
         viewModel.init(
             screen = screen,
-            onNavigate = onNavigate
+            snackbarState = snackbarState,
+            onNavigate = onNavigate,
+            context = context
         )
     }
 
-    BookInfoScreen()
+    BookInfoScreen(
+        snackbarState = snackbarState
+    )
 
     DisposableEffect(Unit) {
         onDispose {
@@ -84,19 +91,18 @@ fun BookInfoScreenRoot(screen: Screen.BookInfo) {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun BookInfoScreen() {
+private fun BookInfoScreen(snackbarState: SnackbarHostState) {
     val context = LocalContext.current
     val state = LocalBookInfoViewModel.current.state
     val onEvent = LocalBookInfoViewModel.current.onEvent
     val onNavigate = LocalOnNavigate.current
 
     val listState = rememberLazyListState()
-    val snackbarState = remember { SnackbarHostState() }
     val refreshState = rememberPullRefreshState(
-        refreshing = state.value.isRefreshing || state.value.isLoadingUpdate,
+        refreshing = state.value.updating || state.value.checkingForUpdate,
         onRefresh = {
             onEvent(
-                BookInfoEvent.OnLoadUpdate(
+                BookInfoEvent.OnCheckForUpdate(
                     snackbarState,
                     context
                 )
@@ -181,7 +187,7 @@ private fun BookInfoScreen() {
 
             FloatingActionButton(
                 onClick = {
-                    if (!state.value.isRefreshing) {
+                    if (!state.value.updating) {
                         onEvent(BookInfoEvent.OnNavigateToReaderScreen(onNavigate = onNavigate))
                     }
                 },
@@ -221,7 +227,7 @@ private fun BookInfoScreen() {
             )
 
             PullRefreshIndicator(
-                state.value.isRefreshing || state.value.isLoadingUpdate,
+                state.value.updating || state.value.checkingForUpdate,
                 refreshState,
                 Modifier
                     .align(Alignment.TopCenter)
@@ -254,7 +260,7 @@ private fun BookInfoScreen() {
             return@BackHandler
         }
 
-        if (!state.value.isRefreshing) {
+        if (!state.value.updating) {
             onEvent(BookInfoEvent.OnCancelUpdate)
             onNavigate {
                 navigateBack()

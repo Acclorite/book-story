@@ -29,6 +29,7 @@
     <string name="delete_history">Видалити історію читання?</string>
     <string name="confirm_update">Підтвердити оновлення?</string>
     <string name="enable_check_for_updates">Увімнкути перевірку на оновлення?</string>
+    <string name="update_book">Оновити книгу?</string>
 
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">
@@ -74,6 +75,13 @@
         Увімкнувши «Перевіряти на оновлення» застосунок буде отримувати інформацію про останній реліз
         з «api.github.com» кожен раз, коли застосунок запускається.
         Хочете продовжити та увімкнути «Перевіряти на оновлення»?
+    </string>
+    <string name="update_book_description">
+        Знайдено оновлення тексту книги.
+        Оновлення необхідне для того, щоб забезпечити використання найновіших методів парсингу.
+        Це автономний процес і в більшості випадків пов\'язаний з оновленням парсеру текста.
+        Ваш прогрес не постраждає, якщо не відбудуться значні зміни.
+        Чи бажаєте ви продовжити оновлення?
     </string>
 
     <!-- Errors -->
@@ -153,6 +161,7 @@
     <string name="enable">Увімкнути</string>
     <string name="web_search">Веб-пошук</string>
     <string name="share">Поділитися</string>
+    <string name="proceed">Продовжити</string>
 
     <!-- Items -->
     <string name="files">файли</string>
@@ -250,6 +259,9 @@
     </string>
     <string name="perception_expander_padding_option">Відступи лінії розширення сприйняття</string>
     <string name="perception_expander_thickness_option">Товщина лінії розширення сприйняття</string>
+    <string name="check_for_text_update_option">Перевіряти на оновлення тексту</string>
+    <string name="check_for_text_update_option_desc">Автоматично перевіряти чи є оновлення тексту</string>
+    <string name="check_for_text_update_toast_option">Показувати \"текст актуальний\" повідомлення</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>
@@ -340,7 +352,7 @@
     <string name="history_element_deleted">Елемент історії був успішно видалений.</string>
     <string name="file_not_found">Файл \"%1$s\" не знайдено.</string>
     <string name="book_updated">Текст книги був успішно оновлений.</string>
-    <string name="nothing_changed">Текст книги актуальний.</string>
+    <string name="nothing_changed">Текст актуальний.</string>
 
     <!-- DropDown properties -->
     <string name="move_this_book">Перемістити</string>
@@ -606,5 +618,6 @@
     <string name="checkpoint_back_content_desc">Чекпоінт назад</string>
     <string name="checkpoint_forward_content_desc">Чекпоінт вперед</string>
     <string name="chapters_content_desc">Розділи</string>
+    <string name="update_text_content_desc">Оновити текст</string>
 
 </resources>
