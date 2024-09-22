@@ -261,7 +261,7 @@
     <string name="perception_expander_thickness_option">Товщина лінії розширення сприйняття</string>
     <string name="check_for_text_update_option">Перевіряти на оновлення тексту</string>
     <string name="check_for_text_update_option_desc">Автоматично перевіряти чи є оновлення тексту</string>
-    <string name="check_for_text_update_toast_option">Показувати \"текст актуальний\" повідомлення</string>
+    <string name="check_for_text_update_toast_option">Показувати повідомлення \"текст актуальний\"</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>
