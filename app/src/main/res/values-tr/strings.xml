@@ -360,4 +360,12 @@
     <string name="chapters_content_desc">Bölümler</string>
     <string name="checkpoint_back_content_desc">Geri dönüş noktası</string>
     <string name="checkpoint_forward_content_desc">İleri dönüş noktası</string>
+    <string name="default_string">Öntanımlı</string>
+    <string name="system_reader_settings">Sistem</string>
+    <string name="screen_orientation_locked_portrait">Kilitli dikey</string>
+    <string name="screen_orientation_locked_landscape">Kilitli yatay</string>
+    <string name="screen_orientation_portrait">Dikey</string>
+    <string name="screen_orientation_option">Ekran yönü</string>
+    <string name="screen_orientation_free">Serbest</string>
+    <string name="screen_orientation_landscape">Yatay</string>
 </resources>
