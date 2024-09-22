@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- Notifications -->
     <string name="updates_notification_channel">Нові оновлення</string>
     <string name="updates_notification_title">Нове оновлення Book\'s Story!</string>
@@ -61,7 +62,10 @@
         Це видалить всю історію з бази даних.
         Після видалення всієї історії порядок книг буде скинутий.
     </string>
-    <string name="confirm_update_description">Оновіть текст та розділи цієї книги. Прогрес повинен залишитися незмінним, якщо порядок параграфів не був змінений.</string>
+    <string name="confirm_update_description">
+        Оновіть текст та розділи цієї книги.
+        Прогрес повинен залишитися незмінним, якщо порядок параграфів не був змінений.
+    </string>
     <string name="update_app_description">
         Нова версія Book\'s Story була знайдена.
         Чи бажаєте завантажити її?
@@ -259,7 +263,7 @@
     <string name="check_for_text_update_option">Перевіряти на оновлення тексту</string>
     <string name="check_for_text_update_option_desc">Автоматично перевіряти чи є оновлення тексту</string>
     <string name="check_for_text_update_toast_option">Показувати повідомлення \"текст актуальний\"</string>
-  
+
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>
     <string name="browse_layout_option">Режим відображення</string>
@@ -399,6 +403,7 @@
         Також ви можете приховати цю примітку, натиснувши на іконку, спробуйте!
     </string>
     <string name="help_clickable_note_action">На мене можна натиснути!</string>
+
     <string name="help_title_how_to_add_books">Як мені додати книги в Бібліотеку?</string>
     <string name="help_desc_how_to_add_books_1">Перейдіть в</string>
     <string name="help_desc_how_to_add_books_2">Огляд</string>
@@ -411,6 +416,7 @@
         Тепер ви повинні побачити всі додані вами книги в
     </string>
     <string name="help_desc_how_to_add_books_4">Бібліотеці</string>
+
     <string name="help_title_how_to_customize_app">Як мені налаштувати застосунок?</string>
     <string name="help_desc_how_to_customize_app_1">Перейдіть в</string>
     <string name="help_desc_how_to_customize_app_2">Налаштування</string>
@@ -421,6 +427,7 @@
         Після цього ви побачите всі доступні налаштування для цього застосунку.
         Не соромтеся експерементувати з ними!
     </string>
+
     <string name="help_title_how_to_move_or_delete_books">Як мені перемістити або видалити книги?</string>
     <string name="help_desc_how_to_move_or_delete_books_1">Перейдіть в</string>
     <string name="help_desc_how_to_move_or_delete_books_2">Бібліотеку</string>
@@ -431,6 +438,7 @@
         Після того, як ви вибрали всі бажані книги, ви можете натиснути на іконку зі стрілкою,
         щоб перемістити та на іконку кошика, щоб видалити книги.
     </string>
+
     <string name="help_title_how_to_edit_book">Як мені відредагувати книгу?</string>
     <string name="help_desc_how_to_edit_book_1">Перейдіть в</string>
     <string name="help_desc_how_to_edit_book_2">Бібліотеку</string>
@@ -439,6 +447,7 @@
         Тепер ви можете утримувати назву, автора або опис книги, щоб відредагувати її
         або обкладинку, щоб змінити, скинути або видалити обкладинку.
     </string>
+
     <string name="help_title_how_to_read_book">Як мені читати книгу?</string>
     <string name="help_desc_how_to_read_book_1">Перейдіть в</string>
     <string name="help_desc_how_to_read_book_2">Бібліотеку</string>
@@ -452,6 +461,7 @@
         Натиснувши на іконку з шестернею, ви побачите налаштування Читача.
         Ви можете використовувати повзунок нижньої панелі для зміни прогресу.
     </string>
+
     <string name="help_title_how_to_customize_reader">Як мені налаштувати Читач?</string>
     <string name="help_desc_how_to_customize_reader_1">
         Почніть читати книгу(див: Як мені читати книгу?),
@@ -467,6 +477,7 @@
         та вибрати категорію Читач, щоб налаштувати Головні параметри,
         або категорію Зовнішній Вигляд, щоб налаштувати параметри Кольорів.
     </string>
+
     <string name="help_title_how_to_update_book">Як мені оновити книгу?</string>
     <string name="help_desc_how_to_update_book_1">Перейдіть в</string>
     <string name="help_desc_how_to_update_book_2">Бібліотеку</string>
@@ -475,6 +486,7 @@
         Потягніть екран вниз або натисніть на іконку оновлення у верхньому правому куті, щоб оновити книгу.
         Якщо файл книги змінився, ви можете підтвердити і оновити книгу або скасувати оновлення.
     </string>
+
     <string name="help_title_how_to_manage_history">Як керувати історією?</string>
     <string name="help_desc_how_to_manage_history_1">Перейдіть в</string>
     <string name="help_desc_how_to_manage_history_2">Історію</string>
@@ -484,11 +496,13 @@
         видалення елемента історії призведе до зміни порядку книг.
         Остання відкрита книга завжди є першою в Бібліотеці та Історії.
     </string>
+
     <string name="help_title_how_to_use_tooltip">Як використовувати підказки?</string>
     <string name="help_desc_how_to_use_tooltip_1">
         Більшість кнопок-іконок мають підказки, вони можуть допомогти якщо ви не знаєте, що робить кнопка-іконка.
         Щоб показати підказку, ви можете затиснути кнопку-іконку.
     </string>
+
     <string name="help_title_how_to_use_double_click_translation">
         Як використовувати переклад подвійним кліком?
     </string>
@@ -499,6 +513,7 @@
         Тепер якщо ви двічі клацните на бажаний параграф,
         відкриється зовнішній перекладач з текстом параграфу.
     </string>
+
     <string name="help_title_how_to_create_color_presets">
         Як створити та редагувати пресети кольорів?
     </string>
@@ -513,6 +528,7 @@
         натиснувши на кнопку-іконку «Перетасувати» ви можете перетасувати всі кольори.
         Якщо ви хочете видалити пресет кольорів, натисніть на кнопку-іконку «Видалити».
     </string>
+
     <string name="help_title_how_to_use_color_presets">
         Як використовувати пресети кольорів?
     </string>
@@ -604,4 +620,5 @@
     <string name="checkpoint_forward_content_desc">Чекпоінт вперед</string>
     <string name="chapters_content_desc">Розділи</string>
     <string name="update_text_content_desc">Оновити текст</string>
+
 </resources>
