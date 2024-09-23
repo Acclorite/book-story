@@ -73,10 +73,12 @@ object Constants {
     val SECONDARY_SCROLLBAR @Composable get() = provideSecondaryScrollbar()
 
     // Links
-    val DOWNLOAD_LATEST_RELEASE_PAGE = provideDownloadLatestReleasePage()
-    val RELEASES_PAGE = provideReleasesPage()
-    val ISSUES_PAGE = provideIssuesPage()
-    val TRANSLATION_PAGE = provideTranslationPage()
+    const val DOWNLOAD_LATEST_RELEASE_PAGE =
+        "https://www.github.com/Acclorite/book-story/releases/latest/download/book-story.apk"
+    const val RELEASES_PAGE = "https://www.github.com/Acclorite/book-story/releases/latest"
+    const val ISSUES_PAGE = "https://www.github.com/Acclorite/book-story/issues"
+    const val CONTRIBUTORS_PAGE = "https://github.com/Acclorite/book-story/graphs/contributors"
+    const val TRANSLATION_PAGE = "https://hosted.weblate.org/projects/book-story"
 }
 
 private fun provideSupportedExtensions() = listOf(
@@ -616,12 +618,3 @@ private fun provideSecondaryScrollbar() = ScrollbarSettings(
     hideDisplacement = 0.dp,
     scrollbarPadding = 0.dp
 )
-
-private fun provideDownloadLatestReleasePage() =
-    "https://www.github.com/Acclorite/book-story/releases/latest/download/book-story.apk"
-
-private fun provideReleasesPage() = "https://www.github.com/Acclorite/book-story/releases/latest"
-
-private fun provideIssuesPage() = "https://www.github.com/Acclorite/book-story/issues"
-
-private fun provideTranslationPage() = "https://hosted.weblate.org/projects/book-story"

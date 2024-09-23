@@ -170,6 +170,25 @@ private fun AboutScreen() {
                 }
             }
 
+
+            item {
+                AboutItem(
+                    title = stringResource(id = R.string.contributors_option),
+                    description = null
+                ) {
+                    onEvent(
+                        AboutEvent.OnNavigateToBrowserPage(
+                            Constants.CONTRIBUTORS_PAGE,
+                            context,
+                            noAppsFound = {
+                                context.getString(R.string.error_no_browser)
+                                    .showToast(context = context, longToast = false)
+                            }
+                        )
+                    )
+                }
+            }
+
             item {
                 AboutItem(
                     title = stringResource(id = R.string.whats_new_option),
