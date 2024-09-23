@@ -139,7 +139,7 @@
     <string name="double_click_translation_option">Çift tıklama çevirisi</string>
     <string name="double_click_translation_option_desc">Paragrafı çevirmek için çift tıklayın</string>
     <string name="fast_color_preset_change_option">Hızlı renk ön ayarı değişimi</string>
-    <string name="fast_color_preset_change_option_desc">Renk ön ayarını değiştirmek için sola veya sağa kaydırın</string>
+    <string name="fast_color_preset_change_option_desc">Renk ön ayarını değiştirmek için üst çubuğu sola veya sağa kaydırın</string>
     <string name="text_alignment_option">Metin hizalama</string>
     <string name="letter_spacing_option">Harf aralığı</string>
     <string name="browse_files_structure_option">Dosya yapısı</string>
@@ -273,7 +273,7 @@
     <string name="help_title_how_to_create_color_presets">Renk ön ayarlarını nasıl oluşturur ve değiştiririm?</string>
     <string name="help_desc_how_to_create_color_presets_1">Görünüm ayarlarına gidin (bkz: Okuyucu\'yu nasıl özelleştirebilirim?). «Renkler» alt kategorisinde «Renk Ön Ayarı» altındaki kutu içinde tüm renk ön ayarı ayarlarını değiştirebilirsiniz. Yeni bir renk ön ayarı oluşturmak için «Ekle» simge düğmesine tıklayın. Bir renk ön ayarını değiştirmek için birden fazla yol vardır: metin alanına tıklayarak renk ön ayarının adını değiştirebilirsiniz, kaydırıcıları hareket ettirerek renk ön ayarının renklerini değiştirebilirsiniz, «Karıştır» simge düğmesine tıklayarak tüm renkleri karıştırabilirsiniz. Renk ön ayarını silmek isterseniz, «Sil» simge düğmesine tıklayın.</string>
     <string name="help_title_how_to_use_color_presets">Renk ön ayarlarını nasıl kullanırım?</string>
-    <string name="help_desc_how_to_use_color_presets_1">Görünüm ayarlarına gidin (bkz: Okuyucu\'yu nasıl özelleştirebilirim?). «Renk Ön Ayarı» ayarında hangi renk ön ayarını kullanacağınızı seçebilirsiniz. Seçmek için istediğiniz renk ön ayarına tıklayın, bu aynı zamanda Okuyucu\'daki renklerinizi de değiştirecektir. Renk ön ayarını yeniden sıralamak isterseniz, seçin ve «Tutamaç» simge düğmesini basılı tutun, ardından istediğiniz konuma taşıyın. Görünüm ayarlarının «Renkler» alt kategorisindeki ilgili ayarı etkinleştirerek, ardından Okuyucu\'da sola veya sağa kaydırarak renk ön ayarlarını hızlıca değiştirebilirsiniz.</string>
+    <string name="help_desc_how_to_use_color_presets_1">Görünüm ayarlarına gidin (bkz: Okuyucu\'yu nasıl özelleştirebilirim?). «Renk Ön Ayarı» ayarında hangi renk ön ayarını kullanacağınızı seçebilirsiniz. Seçmek için istediğiniz renk ön ayarına tıklayın, bu aynı zamanda Okuyucu\'daki renklerinizi de değiştirecektir. Renk ön ayarını yeniden sıralamak isterseniz, seçin ve «Tutamaç» simge düğmesini basılı tutun, ardından istediğiniz konuma taşıyın. Görünüm ayarlarının «Renkler» alt kategorisindeki ilgili ayarı etkinleştirerek, ardından Okuyucu\'da üst çubuğu sola veya sağa kaydırarak renk ön ayarlarını hızlıca değiştirebilirsiniz.</string>
     <string name="start_welcome">Book Story\'e Hoş Geldiniz!</string>
     <string name="start_welcome_desc">Kelimelerin büyülediği, öğrettiği ve inanılmaz maceralara sürüklediği bir dünyaya! Hadi bazı ayarları yapalım!</string>
     <string name="start_language_preferences">Dil tercihleri</string>
@@ -368,4 +368,5 @@
     <string name="screen_orientation_option">Ekran yönü</string>
     <string name="screen_orientation_free">Serbest</string>
     <string name="screen_orientation_landscape">Yatay</string>
+    <string name="contributors_option">Katkıda bulunanlar</string>
 </resources>
