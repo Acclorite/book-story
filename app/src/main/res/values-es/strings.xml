@@ -168,7 +168,7 @@
     <string name="color_preset_selected_query">Seleccionado « %1$s »</string>
     <string name="color_preset_option">Color preestablecido</string>
     <string name="fast_color_preset_change_option">Cambio rápido del color preestablecido</string>
-    <string name="fast_color_preset_change_option_desc">Desliza el dedo hacia la izquierda o hacia la derecha para cambiar el color predeterminado</string>
+    <string name="fast_color_preset_change_option_desc">Desliza la barra superior hacia la izquierda o hacia la derecha para cambiar el color predeterminado</string>
     <string name="color_preset_placeholder">Nombrar un preajuste…</string>
     <string name="book_moved">Este libro se movió correctamente.</string>
     <string name="history_element_deleted">El elemento del historial se eliminó correctamente.</string>
