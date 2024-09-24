@@ -562,7 +562,7 @@ class ReaderViewModel @Inject constructor(
 
     @OptIn(FlowPreview::class)
     fun onUpdateProgress(refreshList: (Book) -> Unit) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Main) {
             snapshotFlow {
                 _state.value.listState.firstVisibleItemIndex to _state.value.listState.firstVisibleItemScrollOffset
             }
@@ -589,7 +589,7 @@ class ReaderViewModel @Inject constructor(
 
     @OptIn(FlowPreview::class)
     fun onUpdateCurrentChapter() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Main) {
             snapshotFlow {
                 _state.value.listState.firstVisibleItemIndex
             }
