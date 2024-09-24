@@ -286,7 +286,6 @@
     <string name="start_permissions_notifications_desc">Daha yeni uygulama sürümünü kontrol etmek için gerekli</string>
     <string name="start_done">Her şey tamam!</string>
     <string name="start_done_desc">Uygulamanın temel ayarlarını başarıyla tamamladınız. Yardım ekranını okuyarak uygulamayı nasıl kullanacağınızı öğrenmek ister misiniz?</string>
-    <string name="default_font">Varsayılan</string>
     <string name="today">Bugün</string>
     <string name="yesterday">Dün</string>
     <string name="refresh_book_content_desc">Kitabı yenile</string>

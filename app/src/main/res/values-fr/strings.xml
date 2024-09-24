@@ -327,7 +327,6 @@
     <string name="start_done_desc">Vous avez réussi à effectuer les réglages de base de l\'application. Souhaitez-vous apprendre à utiliser l\'application en lisant l\'écran d\'aide?</string>
     <string name="sort_order_content_desc">Ordre de tri</string>
     <string name="history_content_desc">Historique de lecture</string>
-    <string name="default_font">Défaut</string>
     <string name="today">Aujourd\'hui</string>
     <string name="favorite_directory_content_desc">Répertoire favoris</string>
     <string name="create_color_preset_content_desc">Créer un nouveau préréglage de couleur</string>

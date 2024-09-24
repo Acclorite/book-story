@@ -161,7 +161,6 @@
     <string name="start_permissions_notifications_desc">Erforderlich, um nach einer neueren App-Version zu suchen</string>
     <string name="start_done">Alles ist erledigt!</string>
     <string name="start_done_desc">Sie haben die Grundeinstellungen der App erfolgreich abgeschlossen. Möchten Sie anhand des Hilfebildschirms erfahren, wie Sie die App verwenden?</string>
-    <string name="default_font">Standard</string>
     <string name="today">Heute</string>
     <string name="yesterday">Gestern</string>
     <string name="refresh_book_content_desc">Buch aktualisieren</string>
