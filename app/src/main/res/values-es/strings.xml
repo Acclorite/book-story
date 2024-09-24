@@ -163,12 +163,12 @@
     <string name="blue_theme">Neptuno</string>
     <string name="green_theme">Tierra</string>
     <string name="red_theme">Marte</string>
-    <string name="confirm_update_description">Actualiza el texto y los capítulos de este libro. El progreso debe permanecer sin cambios a menos que se cambien el orden de los párrafos.</string>
+    <string name="confirm_update_description">Actualizar el texto y los capítulos de este libro. El progreso debe permanecer inalterado a menos que se haya modificado el orden de los párrafos.</string>
     <string name="color_preset_query">Por defecto %1$s</string>
     <string name="color_preset_selected_query">Seleccionado « %1$s »</string>
     <string name="color_preset_option">Color preestablecido</string>
     <string name="fast_color_preset_change_option">Cambio rápido del color preestablecido</string>
-    <string name="fast_color_preset_change_option_desc">Desliza el dedo hacia la izquierda o hacia la derecha para cambiar el color predeterminado</string>
+    <string name="fast_color_preset_change_option_desc">Desliza la barra superior hacia la izquierda o hacia la derecha para cambiar el color predeterminado</string>
     <string name="color_preset_placeholder">Nombrar un preajuste…</string>
     <string name="book_moved">Este libro se movió correctamente.</string>
     <string name="history_element_deleted">El elemento del historial se eliminó correctamente.</string>
@@ -198,7 +198,7 @@
     <string name="help_desc_how_to_edit_book_3">y haz clic en la imagen de la portada del libro para ver los detalles del libro. Ahora puedes mantener presionado el título, el autor o la descripción del libro para editarlo o la imagen de la portada para cambiarla, restablecerla o eliminarla.</string>
     <string name="help_title_how_to_customize_reader">¿Cómo personalizo el lector?</string>
     <string name="move_this_book">Mover</string>
-    <string name="nothing_changed">Texto del libro actualizado.</string>
+    <string name="nothing_changed">El texto está actualizado.</string>
     <string name="delete_this_book">Borrar</string>
     <string name="file_path">Ruta del archivo</string>
     <string name="loading">Cargando…</string>
@@ -351,4 +351,19 @@
     <string name="reading_speed_reader_settings">Velocidad de lectura</string>
     <string name="perception_expander_option">Ampliador de percepción</string>
     <string name="perception_expander_option_desc">Aumente su velocidad de lectura centrándose en los principal</string>
+    <string name="update_book">¿Actualizar libro?</string>
+    <string name="update_book_description">Se encontró una actualización del texto del libro. La actualización es necesaria para garantizar que se utilicen los métodos de análisis más recientes. Este es un proceso autónomo y en la mayoría de los casos está asociado con la actualización del analizador de texto. Su progreso no se verá afectado a menos que haya cambios significativos. ¿Quieres continuar con la actualización?</string>
+    <string name="proceed">Proceder</string>
+    <string name="default_string">Por defecto</string>
+    <string name="system_reader_settings">Sistema</string>
+    <string name="screen_orientation_free">Libre</string>
+    <string name="screen_orientation_portrait">Vertical</string>
+    <string name="screen_orientation_landscape">Apaisada</string>
+    <string name="screen_orientation_locked_portrait">Bloquear en vertical</string>
+    <string name="update_text_content_desc">Actualizar texto</string>
+    <string name="check_for_text_update_option_desc">Comprobar automáticamente si hay actualización del texto</string>
+    <string name="check_for_text_update_option">Buscar actualizaciones del texto</string>
+    <string name="screen_orientation_option">Orientación de la pantalla</string>
+    <string name="screen_orientation_locked_landscape">Bloqueado en apaisado</string>
+    <string name="check_for_text_update_toast_option">Mostrar mensaje emergente \"El texto está actualizado\"</string>
 </resources>
