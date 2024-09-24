@@ -555,6 +555,21 @@
         to fast change color preset.
     </string>
 
+    <string name="help_title_how_to_use_perception_expander">
+        What is and how do I use perception expander?
+    </string>
+    <string name="help_title_how_to_use_perception_expander_1">
+        Perception expander may help you read faster.
+        First, enable it in the Reader settings(see: How do I customize the Reader?).
+        Once enabled, two vertical lines will appear on either side of the Reader.
+        To optimize your reading speed further,
+        adjust the padding to create less space around the center.
+        To use it, focus on the center of the screen while
+        allowing your peripheral vision to pick up the text on the sides.
+        As you read, maintain your focus on the center without directly
+        looking at the sides after each line.
+    </string>
+
 
     <!-- Start -->
     <string name="start_welcome">Welcome to Book\'s Story!</string>

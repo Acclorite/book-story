@@ -399,6 +399,13 @@ private fun provideHelpTips() = listOf(
             append(stringResource(id = R.string.help_desc_how_to_use_color_presets_1))
         }
     ),
+
+    HelpTip(
+        title = R.string.help_title_how_to_use_perception_expander,
+        description = { _, _ ->
+            append(stringResource(id = R.string.help_title_how_to_use_perception_expander_1))
+        }
+    ),
 )
 
 private fun provideAboutBadges() = listOf(
