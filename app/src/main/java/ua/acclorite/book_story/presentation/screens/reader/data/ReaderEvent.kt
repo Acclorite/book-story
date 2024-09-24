@@ -4,6 +4,7 @@ import androidx.activity.ComponentActivity
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.domain.model.Book
+import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.UIText
 
 @Immutable
@@ -97,4 +98,9 @@ sealed class ReaderEvent {
     ) : ReaderEvent()
 
     data object OnCancelCheckTextForUpdate : ReaderEvent()
+
+    data class OnUpdateText(
+        val activity: ComponentActivity,
+        val onNavigate: OnNavigate
+    ) : ReaderEvent()
 }

@@ -498,6 +498,25 @@ class ReaderViewModel @Inject constructor(
                         )
                     }
                 }
+
+                is ReaderEvent.OnUpdateText -> {
+                    launch {
+                        showSystemBars(
+                            show = true,
+                            activity = event.activity
+                        )
+                        event.onNavigate {
+                            navigate(
+                                Screen.BookInfo(
+                                    bookId = _state.value.book.id,
+                                    startUpdate = true
+                                ),
+                                useBackAnimation = true,
+                                saveInBackStack = false
+                            )
+                        }
+                    }
+                }
             }
         }
     }
@@ -656,7 +675,7 @@ class ReaderViewModel @Inject constructor(
 
     private fun showSystemBars(
         show: Boolean,
-        fullscreenMode: Boolean,
+        fullscreenMode: Boolean = true,
         activity: ComponentActivity
     ): Boolean {
         WindowCompat.getInsetsController(
