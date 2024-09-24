@@ -439,6 +439,15 @@ class BrowseViewModel @Inject constructor(
                     val books = mutableListOf<NullableBook>()
                     _state.value.selectableFiles
                         .filter { it.isSelected && !it.isDirectory }
+                        .ifEmpty {
+                            _state.update {
+                                it.copy(
+                                    isBooksLoading = false,
+                                    showAddingDialog = false
+                                )
+                            }
+                            return@launch
+                        }
                         .map { it.fileOrDirectory }
                         .forEach {
                             yield()
