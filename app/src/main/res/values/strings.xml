@@ -1,6 +1,6 @@
 <resources>
     <!-- Basic Strings -->
-    <string name="app_version" translatable="false">1.2.0</string>
+    <string name="app_version" translatable="false">1.3.0</string>
     <string name="app_name" translatable="false">Book\'s Story</string>
     <string name="default_string">Default</string>
 
