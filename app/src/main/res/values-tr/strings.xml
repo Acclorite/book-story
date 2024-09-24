@@ -27,7 +27,7 @@
     <string name="move_book_description">Bu kitabı taşımak istediğiniz kategoriyi seçin. Bu kitap seçilen kategoriye taşınacaktır.</string>
     <string name="delete_history_description">Bu, tüm geçmişi veritabanından silecektir. Tüm geçmişi sildikten sonra, kitapların sırası sıfırlanacaktır.</string>
     <string name="confirm_update_description">Bu kitabın metnini ve bölümlerini güncelleyin. Paragrafların sırası değişmediği sürece ilerleme değişmeden kalacaktır.</string>
-    <string name="update_app_description">Kitabın Hikayesi\'nin yeni bir sürümü bulundu. İndirmek ister misiniz? «İndir» düğmesine tıklayarak tarayıcınıza yönlendirilecek ve en son güncelleme otomatik olarak indirilecektir.</string>
+    <string name="update_app_description">Yeni uygulama sürümü bulundu. Devam etmek ve yayın sayfasına gitmek istiyor musunuz?</string>
     <string name="enable_check_for_updates_description">«Güncellemeleri kontrol et» seçeneğini etkinleştirerek uygulama her başlatıldığında «api.github.com» adresinden en son sürüm bilgilerini alacaktır. Devam edip «Güncellemeleri kontrol et» seçeneğini etkinleştirmek istiyor musunuz?</string>
     <string name="error_permission">Cihazınızdaki kitapları taramak için depolama izni gerekiyor</string>
     <string name="error_no_description">Açıklama yok.</string>
