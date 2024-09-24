@@ -70,10 +70,8 @@
         The progress should remain unchanged unless the order of paragraphs was changed.
     </string>
     <string name="update_app_description">
-        New version of Book\'s Story was found.
-        Do you want to download it?
-        By clicking the «Download» button you will be transferred
-        to your browser and download the latest update automatically.
+        New app version was found.
+        Do you want to proceed and go to the release page?
     </string>
     <string name="enable_check_for_updates_description">
         By enabling «Check for updates»

@@ -32,7 +32,7 @@ fun AboutUpdateDialog() {
         description = stringResource(
             id = R.string.update_app_description
         ),
-        actionText = stringResource(id = R.string.download),
+        actionText = stringResource(id = R.string.proceed),
         isActionEnabled = true,
         disableOnClick = false,
         onDismiss = { onEvent(AboutEvent.OnDismissUpdateDialog) },
