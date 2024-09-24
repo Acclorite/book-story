@@ -649,8 +649,8 @@ class ReaderViewModel @Inject constructor(
                 return 1f
             }
 
-            return@run (firstVisibleItemIndex ?: listState.firstVisibleItemIndex) /
-                    (text.lastIndex).toFloat()
+            return@run ((firstVisibleItemIndex ?: listState.firstVisibleItemIndex) /
+                    (text.lastIndex).toFloat()).coerceIn(0f, 1f)
         }
     }
 
