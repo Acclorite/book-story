@@ -91,7 +91,7 @@
     <string name="add_books_description">Puede escoger qué libros desea añadir. Puede editar el título y la portada del libro más adelante. El proceso de carga puede durar varios minutos.</string>
     <string name="delete_book_description">Eliminará este libro de la base de datos. No eliminará este libro de su dispositivo.</string>
     <string name="error_file_empty">Este archivo está vacío o dañado.</string>
-    <string name="update_app_description">Se encontró nueva versión de Book\'s Story. ¿Quieres descargarla? Al hacer clic en el botón «Descargar» será transferido a su navegador y se descargará la última actualización automáticamente.</string>
+    <string name="update_app_description">Se encontró una nueva versión de la aplicación. ¿Quieres continuar e ir a la página de actualizaciones?</string>
     <string name="error_query">Error: %1$s</string>
     <string name="error_no_translator">No se ha encontrado ninguna aplicación de traducción.</string>
     <string name="error_no_text">El contenido del libro está vacío. Por favor, asegúrate de que el contenido del libro no está vacío y actualizado.</string>
@@ -272,7 +272,7 @@
     <string name="delete_color_preset_content_desc">Borrar color predefinido</string>
     <string name="create_color_preset_content_desc">Crear un nuevo color predeterminado</string>
     <string name="help_desc_how_to_create_color_presets_1">Ve a los ajustes de visualización (allí lee: ¿Cómo personalizar el lector?). Puedes modificar todos los ajustes del color en el campo \"Preajuste de color\" de la subcategoría \"Colores\". Para crear un nuevo color preestablecido, haz clic en el icono \"Añadir\". Hay varias formas de modificar una especificación de color: Haciendo clic en el campo de texto, puedes cambiar el nombre de la preselección de color; moviendo los controles deslizantes, puedes cambiar los colores preestablecidos; haciendo clic en el botón del icono \"Reorganizar\", puedes reorganizar todos los colores. Si quieres borrar un color preestablecido, haz clic en el icono \"Borrar\".</string>
-    <string name="help_desc_how_to_use_color_presets_1">Ve a los ajustes de visualización (mira: ¿Cómo personalizar el lector?). En el ajuste \"Preajuste de color\", puedes seleccionar el color preestablecido que debe utilizarse. Haz clic en el color deseado para seleccionarlo. Esto también cambiará los colores en el lector. Si deseas reordenar el color preestablecido, selecciónalo, manten pulsando el icono \"Asa\" y, a continuación, muévelo a la posición que deseas. Para cambiar rápidamente el color preestablecido, activa el ajuste correspondiente en la subcategoría \"Colores\" de los ajustes de pantalla y, a continuación, desliza el dedo hacia la izquierda o la derecha en el lector para cambiar rápidamente la preselección del color.</string>
+    <string name="help_desc_how_to_use_color_presets_1">Ve a la configuración de Apariencia (consulta: ¿Cómo personalizo Reader?). Puede elegir qué colores preestablecidos usar en la configuración «Ajuste preestablecido de color». Haz clic en el ajuste preestablecido de color deseado para seleccionarlo; esto también cambiará tus colores en Reader. Si deseas reordenar el ajuste preestablecido de color, selecciona lo y manten presionado el botón con el ícono «Manejar»; luego, muévelo a la posición deseada. Puedes cambiar rápidamente los ajustes preestablecidos de color habilitando la configuración correspondiente en la subcategoría «Colores» de la configuración de Apariencia y luego deslizando la barra superior hacia la izquierda o la derecha en Reader para cambiar rápidamente el ajuste preestablecido de color.</string>
     <string name="tryzub_content_desc">Tryzub</string>
     <string name="github_profile_content_desc">Perfil de GitHub</string>
     <string name="sort_tab">Clasificar</string>
@@ -359,4 +359,9 @@
     <string name="screen_orientation_option">Orientación de la pantalla</string>
     <string name="screen_orientation_locked_landscape">Bloqueado en apaisado</string>
     <string name="check_for_text_update_toast_option">Mostrar mensaje emergente \"El texto está actualizado\"</string>
+    <string name="contributors_option">Colaboradores</string>
+    <string name="help_title_how_to_use_perception_expander">¿Qué es un potenciador de la percepción y cómo utilizarlo?</string>
+    <string name="help_title_how_to_use_perception_expander_1">El expansor de percepción puede ayudarte a leer más rápido. En primer lugar, actívelo en los ajustes del Lector (consulte: ¿Cómo personalizo el Lector?). Una vez activado, aparecerán dos líneas verticales a cada lado del Reader. Para optimizar aún más su velocidad de lectura, ajuste el relleno para crear menos espacio alrededor del centro. Para utilizarlo, concéntrate en el centro de la pantalla y deja que tu visión periférica capte el texto de los lados. Mientras lees, mantén la atención en el centro sin mirar directamente a los lados después de cada línea.</string>
+    <string name="perception_expander_padding_option">Sangrías en la línea de mejoran la percepción.</string>
+    <string name="perception_expander_thickness_option">Grosor de la línea mejora la percepción</string>
 </resources>
