@@ -180,7 +180,7 @@
     <string name="dark_theme_follow_system">System</string>
     <string name="updates_notification_desc">Aktualizacja%1$s właśnie została wydana! Kliknij, aby przejść do strony.</string>
     <string name="change_cover_desc">Wybierz nową okładkę ze swoich zdjęć</string>
-    <string name="color_preset_query">Ustaw %1$s</string>
+    <string name="color_preset_query">Preset %1$s</string>
     <string name="delete_cover_desc">Usuń bieżący obraz okładki książki</string>
     <string name="color_preset_selected_query">Wybrano «%1$s»</string>
     <string name="browse_grid_size_auto">Automatyczny</string>
@@ -220,7 +220,7 @@
     <string name="start_permissions_notifications">Zezwolenie na powiadomienia</string>
     <string name="sort_order_content_desc">Kolejność sortowania</string>
     <string name="cover_image_not_found_content_desc">Nie znaleziono obrazu okładki</string>
-    <string name="credits_contribution">Wkład</string>
+    <string name="credits_contribution">Wnieśli wkład</string>
     <string name="yesterday">Wczoraj</string>
     <string name="selected_content_desc">Wybrane</string>
     <string name="start_permissions_storage_desc">Wymagane do przeskanowania urządzenia i znalezienia książek</string>
@@ -276,7 +276,7 @@
     <string name="help_desc_how_to_read_book_3">Aby rozpocząć czytanie książki, kliknij przycisk w prawym dolnym rogu książki, którą chcesz przeczytać. Możesz także rozpocząć czytanie książki, klikając jej zdjęcie na okładce, aby zobaczyć szczegóły książki, a następnie kliknąć przycisk w prawym dolnym rogu. Postęp zostanie zapisany i przywrócony automatycznie. Możesz przynieść górne i dolne paski, klikając w dowolnym miejscu na ekranie. Klikając tytuł książki, zostaniesz przeniesiony do szczegółów książki. Klikając ikonę zębatki, zobaczysz ustawienia Czytelnika. Możesz użyć suwaka dolnego paska, aby zmienić postęp.</string>
     <string name="help_desc_how_to_create_color_presets_1">Przejdź do ustawień wyglądu (patrz: Jak mogę dostosować czytnik?). Możesz zmodyfikować wszystkie ustawienia koloru w polu poniżej « Ustawienie koloru » w podkategorii « Kolory ». Aby utworzyć nowe ustawienie kolorów, kliknij przycisk ikony « Dodaj ». Istnieje wiele sposobów modyfikowania ustawienia koloru: klikając pole tekstowe, możesz zmienić nazwę ustawienia koloru, przesuwając suwaki, możesz zmienić kolory ustawionego koloru, klikając przycisk ikony « Losowo pomieszaj », możesz wymieszać wszystkie kolory. Jeśli chcesz usunąć ustawienie koloru, kliknij przycisk ikony « Usuń ».</string>
     <string name="help_desc_how_to_use_color_presets_1">Przejdź do ustawień wyglądu (patrz: Jak mogę dostosować czytnik?). Możesz wybrać, który kolor ma być używany w ustawieniu « Ustawienia kolorów ». Kliknij żądane ustawienie koloru, aby go wybrać, spowoduje to również zmianę kolorów w programie Reader. Jeśli chcesz zmienić kolejność ustawienia koloru, wybierz go i przytrzymaj przycisk ikony « Uchwyt », a następnie przesuń go do żądanej pozycji. Możesz szybko zmienić ustawienia kolorów, włączając odpowiednie ustawienie w podkategorii « Kolory » ustawienia wyglądu, a następnie przesuwając palcem w lewo lub w prawo w programie Reader, aby szybko zmienić ustawienie kolorów.</string>
-    <string name="start_theme_preferences">Preferencje motywu</string>
+    <string name="start_theme_preferences">Ustawienia wyglądu</string>
     <string name="start_permissions_preferences">Uprawnienia</string>
     <string name="start_permissions_granted">Przyznane</string>
     <string name="start_done_desc">Pomyślnie wykonałeś podstawowe ustawienie aplikacji. Czy chcesz dowiedzieć się, jak korzystać z aplikacji, czytając Pomoc?</string>
@@ -330,5 +330,14 @@
     <string name="search_content_desc">Szukaj</string>
     <string name="clear_selected_items_content_desc">Wyczyść wybrane elementy</string>
     <string name="perception_expander_option_desc">Zwiększ prędkość czytania, koncentrując się na środku</string>
-    <string name="credits_option">Napisy końcowe</string>
+    <string name="credits_option">Twórcy</string>
+    <string name="default_string">Domyślne</string>
+    <string name="proceed">Przejdź dalej</string>
+    <string name="padding_reader_settings">Margines wewnętrzny</string>
+    <string name="contributors_option">Współtwórcy</string>
+    <string name="system_reader_settings">Ustawienia systemu</string>
+    <string name="screen_orientation_portrait">Portret</string>
+    <string name="screen_orientation_landscape">Krajobraz</string>
+    <string name="note_content_desc">Notatka</string>
+    <string name="lavender_theme">Eris</string>
 </resources>

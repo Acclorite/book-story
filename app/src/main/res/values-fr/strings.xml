@@ -19,7 +19,7 @@
     <string name="delete_books_description">Cela supprimera tous les livres sélectionnés (%1$s) de la base de données. Ceci ne supprimera pas les livres sélectionnés de votre appareil.</string>
     <string name="delete_book_description">Cela supprimera ce livre de la base de données. Ceci ne le supprimera pas de votre appareil.</string>
     <string name="move_book_description">Choisissez la catégorie dans laquelle vous souhaitez déplacer ce livre. Ce dernier sera déplacé vers la catégorie choisie.</string>
-    <string name="confirm_update_description">En confirmant, le texte de ce livre sera mis à jour. Veuillez vous rappeler où vous vous êtes arrêté avant de mettre à jour le texte.</string>
+    <string name="confirm_update_description">Met à jour le texte et les chapitres de ce livre. La progression devrait rester inchangée sauf si l\'ordre des paragraphes a été changé.</string>
     <string name="enable_check_for_updates_description">En activant la fonction \"Vérifier les mises à jour\", l\'application récupérera les informations de la dernière version de \"api.github.com\" à chaque fois que l\'application démarrera. Voulez-vous continuer et activer \"Vérifier les mises à jour\"?</string>
     <string name="error_permission">Nous avons besoin de l\'autorisation de stockage pour scanner votre appareil à la recherche de livres</string>
     <string name="error_query">Erreur: %1$s</string>
@@ -99,7 +99,7 @@
     <string name="double_click_translation_option">Traduction double click</string>
     <string name="double_click_translation_option_desc">Clickez deux fois sur un paragraphe pour le traduire</string>
     <string name="fast_color_preset_change_option">Changement rapide des pré-réglages de couleur</string>
-    <string name="fast_color_preset_change_option_desc">Balayez à gauche ou à droite pour changer de couleur préréglée</string>
+    <string name="fast_color_preset_change_option_desc">Balayez la barre supérieure à gauche ou à droite pour changer de couleur préréglée</string>
     <string name="text_alignment_option">Alignement du texte</string>
     <string name="letter_spacing_option">Espacement des lettres</string>
     <string name="browse_files_structure_option">Structure des fichiers</string>
@@ -207,7 +207,7 @@
     <string name="help_title_how_to_use_double_click_translation">Comment utiliser la traduction par double clic?</string>
     <string name="help_title_how_to_create_color_presets">Comment créer et modifier des préréglages de couleurs?</string>
     <string name="help_title_how_to_use_color_presets">Comment utiliser les préréglages de couleur?</string>
-    <string name="help_desc_how_to_use_color_presets_1">Allez dans les paramètres d\'apparence(voir: Comment personnaliser le Reader?). Vous pouvez choisir le préréglage de couleur à utiliser dans le paramètre «Préréglage de couleur». Cliquez sur le préréglage de couleur souhaité pour le sélectionner, ce qui modifiera également vos couleurs dans le lecteur. Si vous souhaitez réorganiser le préréglage des couleurs, sélectionnez-le et maintenez le bouton «Poignée» enfoncé, puis déplacez-le à la position souhaitée. Vous pouvez changer rapidement les préréglages de couleurs en activant le paramètre correspondant dans la sous-catégorie «Couleurs» des paramètres d\'apparence, puis en balayant vers la gauche ou la droite dans Reader, pour changer rapidement les préréglages de couleurs.</string>
+    <string name="help_desc_how_to_use_color_presets_1">Allez dans les paramètres d\'apparence(voir: Comment personnaliser le Reader?). Vous pouvez choisir le préréglage de couleur à utiliser dans le paramètre «Préréglage de couleur». Cliquez sur le préréglage de couleur souhaité pour le sélectionner, ce qui modifiera également vos couleurs dans le lecteur. Si vous souhaitez réorganiser le préréglage des couleurs, sélectionnez-le et maintenez le bouton «Poignée» enfoncé, puis déplacez-le à la position souhaitée. Vous pouvez changer rapidement les préréglages de couleurs en activant le paramètre correspondant dans la sous-catégorie «Couleurs» des paramètres d\'apparence, puis en balayant la barre supérieure vers la gauche ou la droite dans Reader, pour changer rapidement les préréglages de couleurs.</string>
     <string name="start_welcome">Bienvenue sur Book\'s Story!</string>
     <string name="start_welcome_desc">Pour un monde où les mots charment, enseignent et mènent à des aventures incroyables! Mettons les choses au point!</string>
     <string name="start_language_preferences">Préférences de langue</string>
@@ -267,7 +267,7 @@
     <string name="error_no_description">Pas de description.</string>
     <string name="error_something_went_wrong">Quelque chose a mal tourné.</string>
     <string name="delete_history_description">L\'historique complet sera supprimé de la base de données. Après la suppression de tout l\'historique, l\'ordre des livres sera réinitialisé.</string>
-    <string name="update_app_description">Une nouvelle version de Book\'s Story a été trouvée. Voulez-vous la télécharger ? En cliquant sur le bouton \"Télécharger\", vous serez transféré vers votre navigateur et vous téléchargerez automatiquement la dernière mise à jour.</string>
+    <string name="update_app_description">Une nouvelle version de l\'application a été trouvée. Voulez-vous continuer et aller à la page de publication?</string>
     <string name="error_wrong_file_format">Mauvais format de fichier.</string>
     <string name="error_no_browser">Aucune application de navigation n\'a été trouvée.</string>
     <string name="error_no_text">Le contenu du livre est vide. Veuillez vous assurer que le contenu du livre n\'est pas vide et le mettre à jour.</string>
@@ -302,7 +302,7 @@
     <string name="files_structure_directory">Répertoires</string>
     <string name="browse_sort_order_file_format">Format de fichier</string>
     <string name="browse_sort_order_name">Alphabétiquement</string>
-    <string name="nothing_changed">Le texte du livre est à jour.</string>
+    <string name="nothing_changed">Le texte est à jour.</string>
     <string name="move_this_book">Déplacer</string>
     <string name="delete_this_book">Supprimer</string>
     <string name="details_book">Détails</string>
@@ -345,4 +345,30 @@
     <string name="checkpoint_forward_content_desc">Point de contrôle en avant</string>
     <string name="hide_bars_on_fast_scroll_option">Cacher les barres en cas de défilement rapide</string>
     <string name="checkpoint_back_content_desc">Retour au point de contrôle</string>
+    <string name="default_string">Défaut</string>
+    <string name="update_book">Mettre à jour le livre?</string>
+    <string name="proceed">Cotninuer</string>
+    <string name="reading_speed_reader_settings">Vitesse de lecture</string>
+    <string name="perception_expander_option">Expansion de la perception</string>
+    <string name="perception_expander_option_desc">Augmentez votre vitesse de lecture en vous concentrant sur le centre</string>
+    <string name="perception_expander_thickness_option">Epaisseur du trait de l\'extenseur de perception</string>
+    <string name="check_for_text_update_toast_option">Afficher le toast \"le texte est à jour\"</string>
+    <string name="screen_orientation_option">Orientation de l\'écran</string>
+    <string name="screen_orientation_locked_portrait">Portrait verrouillé</string>
+    <string name="contributors_option">Contributeurs</string>
+    <string name="help_title_how_to_use_perception_expander">Qu\'est-ce que l\'expandeur de perception et comment l\'utiliser?</string>
+    <string name="chapters_content_desc">Chapitres</string>
+    <string name="update_text_content_desc">Mettre à jour le texte</string>
+    <string name="update_book_description">Une mise à jour du texte a été trouvée. La mise à jour est nécessaire pour s\'assurer que les dernières méthodes d\'analyse sont utilisées. Il s\'agit d\'un processus hors ligne. Votre progression ne sera pas affectée, à moins que des changements importants ne surviennent. Voulez-vous procéder à la mise à jour?</string>
+    <string name="system_reader_settings">Système</string>
+    <string name="check_for_text_update_option">Vérifier si le texte est actualisé</string>
+    <string name="check_for_text_update_option_desc">Vérifie automatiquement s\'il y a une mise à jour du texte</string>
+    <string name="screen_orientation_free">Libre</string>
+    <string name="screen_orientation_landscape">Paysage</string>
+    <string name="screen_orientation_portrait">Portrait</string>
+    <string name="screen_orientation_locked_landscape">Paysage verrouillé</string>
+    <string name="help_title_how_to_use_perception_expander_1">L\'expandeur de perception peut vous aider à lire plus vite. Tout d\'abord, activez-le dans les paramètres du Reader (voir: Comment personnaliser le Reader?). Une fois activé, deux lignes verticales apparaissent de part et d\'autre du Reader. Pour optimiser davantage votre vitesse de lecture, ajustez le rembourrage afin de créer moins d\'espace autour du centre. Pour l\'utiliser, concentrez-vous sur le centre de l\'écran tout en laissant votre vision périphérique capter le texte sur les côtés. Pendant que vous lisez, maintenez votre attention sur le centre sans regarder directement les côtés après chaque ligne.</string>
+    <string name="perception_expander_padding_option">Rembourrage de la ligne de l\'expandeur de perception</string>
+    <string name="no_chapters">Pas de chapitres</string>
+    <string name="chapters">Chapitres</string>
 </resources>
