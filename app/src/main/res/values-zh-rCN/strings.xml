@@ -212,4 +212,16 @@
     <string name="browse_layout_grid">网格</string>
     <string name="browse_grid_size_auto">自动</string>
     <string name="browse_sort_order_file_type">文件类型</string>
+    <string name="books_added">成功添加所有已选择的书。</string>
+    <string name="books_deleted">成功删除所有已选择的书。</string>
+    <string name="cover_image_deleted">成功删除了封面图片。</string>
+    <string name="cover_reset">成功重置了封面图片。</string>
+    <string name="book_deleted">这本书已被成功删除。</string>
+    <string name="book_moved">这本书已被成功移动。</string>
+    <string name="copied">已复制</string>
+    <string name="history_deleted">成功删除历史。</string>
+    <string name="no_updates">本应用的最新版本已被安装。</string>
+    <string name="cover_image_changed">成功更改了封面图片。</string>
+    <string name="history_element_deleted">成功删除了历史元素。</string>
+    <string name="books_moved">成功移动所有已选择的书。</string>
 </resources>
