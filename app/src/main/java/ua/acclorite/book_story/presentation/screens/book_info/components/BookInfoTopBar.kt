@@ -20,6 +20,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBar
+import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBarData
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.CustomIconButton
 import ua.acclorite.book_story.presentation.core.components.GoBackButton
@@ -59,120 +60,125 @@ fun BookInfoTopBar(
         scrollBehavior = null,
         isTopBarScrolled = listState.canScrollBackward,
 
-        content1NavigationIcon = {
-            if (
-                state.value.editTitle ||
-                state.value.editAuthor ||
-                state.value.editDescription
-            ) {
-                CustomIconButton(
-                    icon = Icons.AutoMirrored.Outlined.ArrowBack,
-                    contentDescription = R.string.exit_editing_content_desc,
-                    disableOnClick = true
-                ) {
-                    if (state.value.editTitle) {
-                        onEvent(BookInfoEvent.OnShowHideEditTitle)
-                    }
+        animatedTopBars = listOf(
+            AnimatedTopAppBarData(
+                contentVisibility = true,
+                contentNavigationIcon = {
+                    if (
+                        state.value.editTitle ||
+                        state.value.editAuthor ||
+                        state.value.editDescription
+                    ) {
+                        CustomIconButton(
+                            icon = Icons.AutoMirrored.Outlined.ArrowBack,
+                            contentDescription = R.string.exit_editing_content_desc,
+                            disableOnClick = true
+                        ) {
+                            if (state.value.editTitle) {
+                                onEvent(BookInfoEvent.OnShowHideEditTitle)
+                            }
 
-                    if (state.value.editAuthor) {
-                        onEvent(BookInfoEvent.OnShowHideEditAuthor)
-                    }
+                            if (state.value.editAuthor) {
+                                onEvent(BookInfoEvent.OnShowHideEditAuthor)
+                            }
 
-                    if (state.value.editDescription) {
-                        onEvent(BookInfoEvent.OnShowHideEditDescription)
+                            if (state.value.editDescription) {
+                                onEvent(BookInfoEvent.OnShowHideEditDescription)
+                            }
+                        }
+                    } else {
+                        GoBackButton(onNavigate = onNavigate, enabled = !state.value.updating) {
+                            onEvent(BookInfoEvent.OnCancelUpdate)
+                        }
                     }
-                }
-            } else {
-                GoBackButton(onNavigate = onNavigate, enabled = !state.value.updating) {
-                    onEvent(BookInfoEvent.OnCancelUpdate)
-                }
-            }
-        },
-        content1Title = {
-            DefaultTransition(
-                firstVisibleItemIndex > 0 && !state.value.editTitle
-            ) {
-                Text(
-                    state.value.book.title,
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
-                )
-            }
-        },
-        content1Actions = {
-            CustomIconButton(
-                icon = Icons.Outlined.Refresh,
-                contentDescription = R.string.refresh_book_content_desc,
-                disableOnClick = false,
-                enabled = !state.value.updating && !state.value.checkingForUpdate
-            ) {
-                onEvent(
-                    BookInfoEvent.OnCheckForUpdate(
-                        snackbarState,
-                        context
-                    )
-                )
-            }
-
-            Box {
-                DefaultTransition(
-                    visible = !state.value.editTitle &&
-                            !state.value.editAuthor &&
-                            !state.value.editDescription
-                ) {
-                    BookInfoMoreDropDown(snackbarState = snackbarState)
-                }
-                CustomAnimatedVisibility(
-                    visible = state.value.editTitle ||
-                            state.value.editAuthor ||
-                            state.value.editDescription,
-                    enter = Transitions.DefaultTransitionIn,
-                    exit = fadeOut(tween(200))
-                ) {
+                },
+                contentTitle = {
+                    DefaultTransition(
+                        firstVisibleItemIndex > 0 && !state.value.editTitle
+                    ) {
+                        Text(
+                            state.value.book.title,
+                            style = MaterialTheme.typography.titleLarge,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            overflow = TextOverflow.Ellipsis,
+                            maxLines = 1
+                        )
+                    }
+                },
+                contentActions = {
                     CustomIconButton(
-                        icon = Icons.Outlined.Done,
-                        contentDescription = R.string.apply_changes_content_desc,
-                        disableOnClick = true,
-                        enabled = !state.value.updating &&
-                                (state.value.titleValue.isNotBlank() &&
-                                        state.value.titleValue.trim() !=
-                                        state.value.book.title.trim()) ||
-
-                                (state.value.authorValue.isNotBlank() &&
-                                        state.value.authorValue.trim() !=
-                                        state.value.book.author.getAsString()?.trim()) ||
-
-                                (state.value.descriptionValue.isNotBlank() &&
-                                        state.value.descriptionValue.trim() !=
-                                        state.value.book.description?.trim()),
-
-                        color = if ((state.value.titleValue.isNotBlank() &&
-                                    state.value.titleValue.trim() !=
-                                    state.value.book.title.trim()) ||
-
-                            (state.value.authorValue.isNotBlank() &&
-                                    state.value.authorValue.trim() !=
-                                    state.value.book.author.getAsString()?.trim()) ||
-
-                            (state.value.descriptionValue.isNotBlank() &&
-                                    state.value.descriptionValue.trim() !=
-                                    state.value.book.description?.trim())
-                        ) MaterialTheme.colorScheme.onSurface
-                        else MaterialTheme.colorScheme.onSurfaceVariant
+                        icon = Icons.Outlined.Refresh,
+                        contentDescription = R.string.refresh_book_content_desc,
+                        disableOnClick = false,
+                        enabled = !state.value.updating && !state.value.checkingForUpdate
                     ) {
                         onEvent(
-                            BookInfoEvent.OnUpdateData(
-                                refreshList = {
-                                    onLibraryEvent(LibraryEvent.OnUpdateBook(it))
-                                    onHistoryEvent(HistoryEvent.OnUpdateBook(it))
-                                }
+                            BookInfoEvent.OnCheckForUpdate(
+                                snackbarState,
+                                context
                             )
                         )
                     }
+
+                    Box {
+                        DefaultTransition(
+                            visible = !state.value.editTitle &&
+                                    !state.value.editAuthor &&
+                                    !state.value.editDescription
+                        ) {
+                            BookInfoMoreDropDown(snackbarState = snackbarState)
+                        }
+                        CustomAnimatedVisibility(
+                            visible = state.value.editTitle ||
+                                    state.value.editAuthor ||
+                                    state.value.editDescription,
+                            enter = Transitions.DefaultTransitionIn,
+                            exit = fadeOut(tween(200))
+                        ) {
+                            CustomIconButton(
+                                icon = Icons.Outlined.Done,
+                                contentDescription = R.string.apply_changes_content_desc,
+                                disableOnClick = true,
+                                enabled = !state.value.updating &&
+                                        (state.value.titleValue.isNotBlank() &&
+                                                state.value.titleValue.trim() !=
+                                                state.value.book.title.trim()) ||
+
+                                        (state.value.authorValue.isNotBlank() &&
+                                                state.value.authorValue.trim() !=
+                                                state.value.book.author.getAsString()?.trim()) ||
+
+                                        (state.value.descriptionValue.isNotBlank() &&
+                                                state.value.descriptionValue.trim() !=
+                                                state.value.book.description?.trim()),
+
+                                color = if ((state.value.titleValue.isNotBlank() &&
+                                            state.value.titleValue.trim() !=
+                                            state.value.book.title.trim()) ||
+
+                                    (state.value.authorValue.isNotBlank() &&
+                                            state.value.authorValue.trim() !=
+                                            state.value.book.author.getAsString()?.trim()) ||
+
+                                    (state.value.descriptionValue.isNotBlank() &&
+                                            state.value.descriptionValue.trim() !=
+                                            state.value.book.description?.trim())
+                                ) MaterialTheme.colorScheme.onSurface
+                                else MaterialTheme.colorScheme.onSurfaceVariant
+                            ) {
+                                onEvent(
+                                    BookInfoEvent.OnUpdateData(
+                                        refreshList = {
+                                            onLibraryEvent(LibraryEvent.OnUpdateBook(it))
+                                            onHistoryEvent(HistoryEvent.OnUpdateBook(it))
+                                        }
+                                    )
+                                )
+                            }
+                        }
+                    }
                 }
-            }
-        }
+            )
+        )
     )
 }

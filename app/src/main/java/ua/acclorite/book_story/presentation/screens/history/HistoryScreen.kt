@@ -36,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBar
+import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBarData
 import ua.acclorite.book_story.presentation.core.components.CategoryTitle
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.CustomIconButton
@@ -101,69 +102,72 @@ private fun HistoryScreen() {
                 scrollBehavior = null,
                 isTopBarScrolled = state.value.listState.canScrollBackward,
 
-                content1Visibility = !state.value.showSearch,
-                content1NavigationIcon = {},
-                content1Title = {
-                    Text(
-                        stringResource(id = R.string.history_screen)
-                    )
-                },
-                content1Actions = {
-                    CustomIconButton(
-                        icon = Icons.Default.Search,
-                        contentDescription = R.string.search_content_desc,
-                        disableOnClick = true,
-                    ) {
-                        onEvent(HistoryEvent.OnSearchShowHide)
-                    }
-                    CustomIconButton(
-                        icon = Icons.Outlined.DeleteSweep,
-                        contentDescription = R.string.delete_whole_history_content_desc,
-                        disableOnClick = false,
-                        enabled = !state.value.isLoading
-                                && !state.value.isRefreshing
-                                && state.value.history.isNotEmpty()
-                                && !state.value.showDeleteWholeHistoryDialog
-                    ) {
-                        onEvent(HistoryEvent.OnShowHideDeleteWholeHistoryDialog)
-                    }
-                    MoreDropDown()
-                },
+                animatedTopBars = listOf(
+                    AnimatedTopAppBarData(
+                        contentVisibility = !state.value.showSearch,
+                        contentNavigationIcon = {},
+                        contentTitle = {
+                            Text(stringResource(id = R.string.history_screen))
+                        },
+                        contentActions = {
+                            CustomIconButton(
+                                icon = Icons.Default.Search,
+                                contentDescription = R.string.search_content_desc,
+                                disableOnClick = true,
+                            ) {
+                                onEvent(HistoryEvent.OnSearchShowHide)
+                            }
+                            CustomIconButton(
+                                icon = Icons.Outlined.DeleteSweep,
+                                contentDescription = R.string.delete_whole_history_content_desc,
+                                disableOnClick = false,
+                                enabled = !state.value.isLoading
+                                        && !state.value.isRefreshing
+                                        && state.value.history.isNotEmpty()
+                                        && !state.value.showDeleteWholeHistoryDialog
+                            ) {
+                                onEvent(HistoryEvent.OnShowHideDeleteWholeHistoryDialog)
+                            }
+                            MoreDropDown()
+                        }
+                    ),
 
-                content2Visibility = state.value.showSearch,
-                content2NavigationIcon = {
-                    CustomIconButton(
-                        icon = Icons.AutoMirrored.Default.ArrowBack,
-                        contentDescription = R.string.exit_search_content_desc,
-                        disableOnClick = true
-                    ) {
-                        onEvent(HistoryEvent.OnSearchShowHide)
-                    }
-                },
-                content2Title = {
-                    CustomSearchTextField(
-                        modifier = Modifier
-                            .focusRequester(focusRequester)
-                            .onGloballyPositioned {
-                                onEvent(HistoryEvent.OnRequestFocus(focusRequester))
-                            },
-                        query = state.value.searchQuery,
-                        onQueryChange = {
-                            onEvent(HistoryEvent.OnSearchQueryChange(it))
+                    AnimatedTopAppBarData(
+                        contentVisibility = state.value.showSearch,
+                        contentNavigationIcon = {
+                            CustomIconButton(
+                                icon = Icons.AutoMirrored.Default.ArrowBack,
+                                contentDescription = R.string.exit_search_content_desc,
+                                disableOnClick = true
+                            ) {
+                                onEvent(HistoryEvent.OnSearchShowHide)
+                            }
                         },
-                        onSearch = {
-                            onEvent(HistoryEvent.OnSearch)
+                        contentTitle = {
+                            CustomSearchTextField(
+                                modifier = Modifier
+                                    .focusRequester(focusRequester)
+                                    .onGloballyPositioned {
+                                        onEvent(HistoryEvent.OnRequestFocus(focusRequester))
+                                    },
+                                query = state.value.searchQuery,
+                                onQueryChange = {
+                                    onEvent(HistoryEvent.OnSearchQueryChange(it))
+                                },
+                                onSearch = {
+                                    onEvent(HistoryEvent.OnSearch)
+                                },
+                                placeholder = stringResource(
+                                    id = R.string.search_query,
+                                    stringResource(id = R.string.history)
+                                )
+                            )
                         },
-                        placeholder = stringResource(
-                            id = R.string.search_query,
-                            stringResource(id = R.string.history)
-                        )
+                        contentActions = {
+                            MoreDropDown()
+                        },
                     )
-                },
-                content2Actions = {
-                    MoreDropDown()
-                },
-                content3Visibility = false
+                )
             )
         },
         bottomBar = {

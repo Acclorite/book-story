@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBar
+import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBarData
 import ua.acclorite.book_story.presentation.core.components.CustomIconButton
 import ua.acclorite.book_story.presentation.core.components.CustomSearchTextField
 import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
@@ -55,115 +56,123 @@ fun LibraryTopBar(pagerState: PagerState) {
         scrollBehavior = null,
         isTopBarScrolled = state.value.hasSelectedItems,
 
-        content1Visibility = !state.value.hasSelectedItems && !state.value.showSearch,
-        content1NavigationIcon = {},
-        content1Title = {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(stringResource(id = R.string.library_screen))
-                Spacer(modifier = Modifier.width(6.dp))
-                Text(
-                    text = state.value.books.size.toString(),
-                    modifier = Modifier
-                        .background(
-                            MaterialTheme.colorScheme.surfaceContainer,
-                            RoundedCornerShape(14.dp)
+        animatedTopBars = listOf(
+            AnimatedTopAppBarData(
+                contentVisibility = !state.value.hasSelectedItems && !state.value.showSearch,
+                contentNavigationIcon = {},
+                contentTitle = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(stringResource(id = R.string.library_screen))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = state.value.books.size.toString(),
+                            modifier = Modifier
+                                .background(
+                                    MaterialTheme.colorScheme.surfaceContainer,
+                                    RoundedCornerShape(14.dp)
+                                )
+                                .padding(horizontal = 8.dp, vertical = 3.dp),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            fontSize = 16.sp
                         )
-                        .padding(horizontal = 8.dp, vertical = 3.dp),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 16.sp
-                )
-            }
-        },
-        content1Actions = {
-            CustomIconButton(
-                icon = Icons.Default.Search,
-                contentDescription = R.string.search_content_desc,
-                disableOnClick = true,
-            ) {
-                onEvent(LibraryEvent.OnSearchShowHide)
-            }
-            MoreDropDown()
-        },
-
-        content2Visibility = state.value.hasSelectedItems,
-        content2NavigationIcon = {
-            CustomIconButton(
-                icon = Icons.Default.Clear,
-                contentDescription = R.string.clear_selected_items_content_desc,
-                disableOnClick = true
-            ) {
-                onEvent(LibraryEvent.OnClearSelectedBooks)
-            }
-        },
-        content2Title = {
-            Text(
-                stringResource(
-                    id = R.string.selected_items_count_query,
-                    state.value.selectedItemsCount.coerceAtLeast(1)
-                ),
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1
-            )
-        },
-        content2Actions = {
-            CustomIconButton(
-                icon = Icons.AutoMirrored.Outlined.DriveFileMove,
-                contentDescription = R.string.move_books_content_desc,
-                enabled = !state.value.isLoading
-                        && !state.value.isRefreshing
-                        && !state.value.showMoveDialog,
-                disableOnClick = false,
-
-                ) {
-                onEvent(LibraryEvent.OnShowHideMoveDialog)
-            }
-            CustomIconButton(
-                icon = Icons.Outlined.Delete,
-                contentDescription = R.string.delete_books_content_desc,
-                enabled = !state.value.isLoading
-                        && !state.value.isRefreshing
-                        && !state.value.showDeleteDialog,
-                disableOnClick = false
-            ) {
-                onEvent(LibraryEvent.OnShowHideDeleteDialog)
-            }
-        },
-
-        content3Visibility = state.value.showSearch && !state.value.hasSelectedItems,
-        content3NavigationIcon = {
-            CustomIconButton(
-                icon = Icons.AutoMirrored.Default.ArrowBack,
-                contentDescription = R.string.exit_search_content_desc,
-                disableOnClick = true
-            ) {
-                onEvent(
-                    LibraryEvent.OnSearchShowHide
-                )
-            }
-        },
-        content3Title = {
-            CustomSearchTextField(
-                modifier = Modifier
-                    .focusRequester(focusRequester)
-                    .onGloballyPositioned {
-                        onEvent(LibraryEvent.OnRequestFocus(focusRequester))
-                    },
-                query = state.value.searchQuery,
-                onQueryChange = {
-                    onEvent(LibraryEvent.OnSearchQueryChange(it))
+                    }
                 },
-                onSearch = {
-                    onEvent(LibraryEvent.OnSearch)
+                contentActions = {
+                    CustomIconButton(
+                        icon = Icons.Default.Search,
+                        contentDescription = R.string.search_content_desc,
+                        disableOnClick = true,
+                    ) {
+                        onEvent(LibraryEvent.OnSearchShowHide)
+                    }
+                    MoreDropDown()
+                }
+            ),
+
+            AnimatedTopAppBarData(
+                contentVisibility = state.value.hasSelectedItems,
+                contentNavigationIcon = {
+                    CustomIconButton(
+                        icon = Icons.Default.Clear,
+                        contentDescription = R.string.clear_selected_items_content_desc,
+                        disableOnClick = true
+                    ) {
+                        onEvent(LibraryEvent.OnClearSelectedBooks)
+                    }
                 },
-                placeholder = stringResource(
-                    id = R.string.search_query,
-                    stringResource(id = R.string.books)
-                )
+                contentTitle = {
+                    Text(
+                        stringResource(
+                            id = R.string.selected_items_count_query,
+                            state.value.selectedItemsCount.coerceAtLeast(1)
+                        ),
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1
+                    )
+                },
+                contentActions = {
+                    CustomIconButton(
+                        icon = Icons.AutoMirrored.Outlined.DriveFileMove,
+                        contentDescription = R.string.move_books_content_desc,
+                        enabled = !state.value.isLoading
+                                && !state.value.isRefreshing
+                                && !state.value.showMoveDialog,
+                        disableOnClick = false,
+
+                        ) {
+                        onEvent(LibraryEvent.OnShowHideMoveDialog)
+                    }
+                    CustomIconButton(
+                        icon = Icons.Outlined.Delete,
+                        contentDescription = R.string.delete_books_content_desc,
+                        enabled = !state.value.isLoading
+                                && !state.value.isRefreshing
+                                && !state.value.showDeleteDialog,
+                        disableOnClick = false
+                    ) {
+                        onEvent(LibraryEvent.OnShowHideDeleteDialog)
+                    }
+                }
+            ),
+
+            AnimatedTopAppBarData(
+                contentVisibility = state.value.showSearch && !state.value.hasSelectedItems,
+                contentNavigationIcon = {
+                    CustomIconButton(
+                        icon = Icons.AutoMirrored.Default.ArrowBack,
+                        contentDescription = R.string.exit_search_content_desc,
+                        disableOnClick = true
+                    ) {
+                        onEvent(
+                            LibraryEvent.OnSearchShowHide
+                        )
+                    }
+                },
+                contentTitle = {
+                    CustomSearchTextField(
+                        modifier = Modifier
+                            .focusRequester(focusRequester)
+                            .onGloballyPositioned {
+                                onEvent(LibraryEvent.OnRequestFocus(focusRequester))
+                            },
+                        query = state.value.searchQuery,
+                        onQueryChange = {
+                            onEvent(LibraryEvent.OnSearchQueryChange(it))
+                        },
+                        onSearch = {
+                            onEvent(LibraryEvent.OnSearch)
+                        },
+                        placeholder = stringResource(
+                            id = R.string.search_query,
+                            stringResource(id = R.string.books)
+                        )
+                    )
+                },
+                contentActions = {
+                    MoreDropDown()
+                },
             )
-        },
-        content3Actions = {
-            MoreDropDown()
-        },
+        ),
         customContent = {
             LibraryTabRow(
                 onEvent = onEvent,

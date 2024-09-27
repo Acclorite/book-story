@@ -23,6 +23,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 
+data class AnimatedTopAppBarData(
+    val contentVisibility: Boolean? = null,
+    val contentNavigationIcon: @Composable () -> Unit,
+    val contentTitle: @Composable () -> Unit,
+    val contentActions: @Composable RowScope.() -> Unit
+)
+
 /**
  * Animated top app bar.
  * Has up to 3 different top bars inside it. Follow [TopAppBar] for more info.
@@ -31,9 +38,7 @@ import androidx.compose.ui.graphics.lerp
  * @param scrolledContainerColor Scrolled container color of the TopBar.
  * @param scrollBehavior [TopAppBarScrollBehavior].
  * @param isTopBarScrolled Whether isScrolled state should be forced or not.
- * @param content1Visibility Whether first top app bar should be shown.
- * @param content2Visibility Whether second top app bar should be shown.
- * @param content3Visibility Whether third top app bar should be shown.
+ * @param animatedTopBars Pass a list of all [AnimatedTopAppBarData] to show.
  * @param customContent Custom content below [TopAppBar].
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,21 +50,7 @@ fun AnimatedTopAppBar(
     scrollBehavior: TopAppBarScrollBehavior?,
     isTopBarScrolled: Boolean?,
 
-    content1Visibility: Boolean? = null,
-    content1NavigationIcon: @Composable () -> Unit,
-    content1Title: @Composable () -> Unit,
-    content1Actions: @Composable RowScope.() -> Unit,
-
-    content2Visibility: Boolean? = null,
-    content2NavigationIcon: @Composable () -> Unit = {},
-    content2Title: @Composable () -> Unit = {},
-    content2Actions: @Composable RowScope.() -> Unit = {},
-
-    content3Visibility: Boolean? = null,
-    content3NavigationIcon: @Composable () -> Unit = {},
-    content3Title: @Composable () -> Unit = {},
-    content3Actions: @Composable RowScope.() -> Unit = {},
-
+    animatedTopBars: List<AnimatedTopAppBarData>,
     customContent: @Composable ColumnScope.() -> Unit = {}
 ) {
     val animatedContainerColor = lerp(
@@ -79,59 +70,17 @@ fun AnimatedTopAppBar(
             .background(animatedContainerColor)
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
-            CustomAnimatedVisibility(
-                visible = content1Visibility ?: true,
-                enter = fadeIn(spring(stiffness = Spring.StiffnessMediumLow)),
-                exit = fadeOut(spring(stiffness = Spring.StiffnessMediumLow))
-            ) {
-                TopAppBar(
-                    windowInsets = WindowInsets.statusBars,
-                    navigationIcon = content1NavigationIcon,
-                    title = content1Title,
-                    actions = content1Actions,
-                    scrollBehavior = scrollBehavior,
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = if (isTopBarScrolled != null) Color.Transparent
-                        else containerColor,
-                        scrolledContainerColor = scrolledContainerColor
-                    )
-                )
-            }
-
-            if (content2Visibility != null) {
+            animatedTopBars.forEach { data ->
                 CustomAnimatedVisibility(
-                    visible = content2Visibility,
+                    visible = data.contentVisibility ?: false,
                     enter = fadeIn(spring(stiffness = Spring.StiffnessMediumLow)),
                     exit = fadeOut(spring(stiffness = Spring.StiffnessMediumLow))
                 ) {
                     TopAppBar(
                         windowInsets = WindowInsets.statusBars,
-                        navigationIcon = content2NavigationIcon,
-                        title = content2Title,
-                        actions = content2Actions,
-                        scrollBehavior = scrollBehavior,
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = TopAppBarDefaults.topAppBarColors(
-                            containerColor = if (isTopBarScrolled != null) Color.Transparent
-                            else containerColor,
-                            scrolledContainerColor = scrolledContainerColor
-                        )
-                    )
-                }
-            }
-
-            if (content3Visibility != null) {
-                CustomAnimatedVisibility(
-                    visible = content3Visibility,
-                    enter = fadeIn(spring(stiffness = Spring.StiffnessMediumLow)),
-                    exit = fadeOut(spring(stiffness = Spring.StiffnessMediumLow))
-                ) {
-                    TopAppBar(
-                        windowInsets = WindowInsets.statusBars,
-                        navigationIcon = content3NavigationIcon,
-                        title = content3Title,
-                        actions = content3Actions,
+                        navigationIcon = data.contentNavigationIcon,
+                        title = data.contentTitle,
+                        actions = data.contentActions,
                         scrollBehavior = scrollBehavior,
                         modifier = Modifier.fillMaxWidth(),
                         colors = TopAppBarDefaults.topAppBarColors(
