@@ -638,7 +638,7 @@ class ReaderViewModel @Inject constructor(
 
             val currentIndex = index - startIndex
             val endIndex = endIndex - startIndex
-            currentIndex / endIndex.toFloat()
+            (currentIndex / endIndex.toFloat()).coerceIn(0f, 1f)
         }
 
         _state.update {
