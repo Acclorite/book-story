@@ -72,7 +72,7 @@ fun AnimatedTopAppBar(
         Box(modifier = Modifier.fillMaxWidth()) {
             animatedTopBars.forEach { data ->
                 CustomAnimatedVisibility(
-                    visible = data.contentVisibility ?: false,
+                    visible = data.contentVisibility == true,
                     enter = fadeIn(spring(stiffness = Spring.StiffnessMediumLow)),
                     exit = fadeOut(spring(stiffness = Spring.StiffnessMediumLow))
                 ) {

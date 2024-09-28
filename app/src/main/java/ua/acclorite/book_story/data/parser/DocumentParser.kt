@@ -7,11 +7,10 @@ import javax.inject.Inject
 class DocumentParser @Inject constructor() {
     /**
      * Parses document to get it's text.
-     * If [fragment] is not null, searches document for specific [fragment].
      *
      * @return Parsed text line by line.
      */
-    suspend fun Document.parseDocument(fragment: String?): List<String> {
+    suspend fun Document.parseDocument(): List<String> {
         val lines = mutableListOf<String>()
 
         yield()
@@ -32,10 +31,6 @@ class DocumentParser @Inject constructor() {
         yield()
 
         body()
-            .run {
-                fragment?.let { return@run getElementById(it) ?: this }
-                this
-            }
             .wholeText()
             .lines()
             .forEach { line ->

@@ -244,7 +244,7 @@ class Navigator @AssistedInject constructor(
             savedStateHandle[USE_BACK_ANIM] = useBackAnimation
             savedStateHandle[CURRENT_SCREEN] = backStack.value.last()
 
-            backStack.value.removeLast()
+            backStack.value.removeAt(backStack.value.lastIndex)
         }
     }
 

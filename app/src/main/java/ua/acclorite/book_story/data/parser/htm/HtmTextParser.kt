@@ -23,7 +23,7 @@ class HtmTextParser @Inject constructor(
         Log.i(HTM_TAG, "Started HTM parsing: ${file.name}.")
 
         return try {
-            val lines = documentParser.run { Jsoup.parse(file).parseDocument(null) }
+            val lines = documentParser.run { Jsoup.parse(file).parseDocument() }
 
             yield()
 

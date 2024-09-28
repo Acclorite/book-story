@@ -23,7 +23,7 @@ class HtmlTextParser @Inject constructor(
         Log.i(HTML_TAG, "Started HTML parsing: ${file.name}.")
 
         return try {
-            val lines = documentParser.run { Jsoup.parse(file).parseDocument(null) }
+            val lines = documentParser.run { Jsoup.parse(file).parseDocument() }
 
             yield()
 

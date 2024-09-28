@@ -107,7 +107,7 @@ class EpubTextParser @Inject constructor(
                     it.readText()
                 }
 
-            val chapter = documentParser.run { Jsoup.parse(content).parseDocument(fragment = null) }
+            val chapter = documentParser.run { Jsoup.parse(content).parseDocument() }
             if (chapter.isEmpty()) {
                 Log.w(EPUB_TAG, "Chapter ${entry.name} is empty.")
                 return@forEach
@@ -146,7 +146,7 @@ class EpubTextParser @Inject constructor(
     private suspend fun parseWithToc(tocEntry: ZipEntry, zip: ZipFile): List<ChapterWithText>? {
         Log.i(EPUB_TAG, "TOC Entry: ${tocEntry.name}")
 
-        val chapters = mutableListOf<ChapterWithText>()
+        val chapters = mutableMapOf<String, ChapterWithText>()
         var emptyChapters = 0
         var chapterTextIndex = -1
         var chapterIndex = 1
@@ -172,12 +172,22 @@ class EpubTextParser @Inject constructor(
                         return null
                     }
 
-                    val uri = Uri.parse(this) ?: return@run this to null
-                    (uri.path ?: this) to uri.fragment
+                    Uri.parse(this).path ?: this
                 }
 
+            if (chapters.containsKey(chapterSrc)) {
+                chapters[chapterSrc] = chapters[chapterSrc]!!.run {
+                    copy(
+                        chapter = chapter.copy(
+                            title = "${chapter.title} / $chapterTitle"
+                        )
+                    )
+                }
+                return@forEach
+            }
+
             zip.entries().asSequence().find { entry ->
-                entry.name.endsWith(chapterSrc.first)
+                entry.name.endsWith(chapterSrc)
             }.apply {
                 if (this == null) {
                     Log.e(EPUB_TAG, "No chapter entry found: $chapterTitle")
@@ -191,9 +201,7 @@ class EpubTextParser @Inject constructor(
                     }
 
                 val chapter = documentParser.run {
-                    Jsoup.parse(content).parseDocument(
-                        fragment = chapterSrc.second
-                    ).dropWhile {
+                    Jsoup.parse(content).parseDocument().dropWhile {
                         it == chapterTitle // Remove chapter title if present
                     }
                 }
@@ -203,8 +211,9 @@ class EpubTextParser @Inject constructor(
                     return@forEach
                 }
 
-                chapters.add(
-                    ChapterWithText(
+                chapters.put(
+                    key = chapterSrc,
+                    value = ChapterWithText(
                         chapter = Chapter(
                             index = chapters.size,
                             title = chapterTitle,
@@ -231,6 +240,6 @@ class EpubTextParser @Inject constructor(
             return null
         }
 
-        return chapters
+        return chapters.values.toList().sortedBy { it.chapter.index }
     }
 }

@@ -19,7 +19,7 @@ class BookMapperImpl @Inject constructor() : BookMapper {
             author = book.author.getAsString(),
             textPath = book.textPath,
             description = book.description,
-            image = if (book.coverImage != null) book.coverImage.toString() else null,
+            image = book.coverImage?.toString(),
             category = book.category,
             chapters = book.chapters
         )

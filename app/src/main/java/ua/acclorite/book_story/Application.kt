@@ -3,7 +3,6 @@ package ua.acclorite.book_story
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Context
 import dagger.hilt.android.HiltAndroidApp
 import ua.acclorite.book_story.data.local.notification.UpdatesNotificationService
 
@@ -23,7 +22,7 @@ class Application : Application() {
         )
 
         val notificationManager = getSystemService(
-            Context.NOTIFICATION_SERVICE
+            NOTIFICATION_SERVICE
         ) as NotificationManager
         notificationManager.createNotificationChannel(channel)
     }
