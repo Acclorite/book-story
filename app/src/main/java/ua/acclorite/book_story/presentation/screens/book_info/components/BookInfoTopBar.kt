@@ -60,9 +60,10 @@ fun BookInfoTopBar(
         scrollBehavior = null,
         isTopBarScrolled = listState.canScrollBackward,
 
-        animatedTopBars = listOf(
+        shownTopBar = 0,
+        topBars = listOf(
             AnimatedTopAppBarData(
-                contentVisibility = true,
+                contentID = 0,
                 contentNavigationIcon = {
                     if (
                         state.value.editTitle ||

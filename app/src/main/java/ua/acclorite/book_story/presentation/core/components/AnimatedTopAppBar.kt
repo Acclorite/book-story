@@ -22,9 +22,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
+import ua.acclorite.book_story.domain.util.ID
 
 data class AnimatedTopAppBarData(
-    val contentVisibility: Boolean? = null,
+    val contentID: ID,
     val contentNavigationIcon: @Composable () -> Unit,
     val contentTitle: @Composable () -> Unit,
     val contentActions: @Composable RowScope.() -> Unit
@@ -38,7 +39,8 @@ data class AnimatedTopAppBarData(
  * @param scrolledContainerColor Scrolled container color of the TopBar.
  * @param scrollBehavior [TopAppBarScrollBehavior].
  * @param isTopBarScrolled Whether isScrolled state should be forced or not.
- * @param animatedTopBars Pass a list of all [AnimatedTopAppBarData] to show.
+ * @param shownTopBar [ID] of the top bar to show.
+ * @param topBars Pass a list of all [AnimatedTopAppBarData] to show.
  * @param customContent Custom content below [TopAppBar].
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -50,7 +52,8 @@ fun AnimatedTopAppBar(
     scrollBehavior: TopAppBarScrollBehavior?,
     isTopBarScrolled: Boolean?,
 
-    animatedTopBars: List<AnimatedTopAppBarData>,
+    shownTopBar: ID,
+    topBars: List<AnimatedTopAppBarData>,
     customContent: @Composable ColumnScope.() -> Unit = {}
 ) {
     val animatedContainerColor = lerp(
@@ -70,9 +73,9 @@ fun AnimatedTopAppBar(
             .background(animatedContainerColor)
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
-            animatedTopBars.forEach { data ->
+            topBars.forEach { data ->
                 CustomAnimatedVisibility(
-                    visible = data.contentVisibility == true,
+                    visible = data.contentID == shownTopBar,
                     enter = fadeIn(spring(stiffness = Spring.StiffnessMediumLow)),
                     exit = fadeOut(spring(stiffness = Spring.StiffnessMediumLow))
                 ) {

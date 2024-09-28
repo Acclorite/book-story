@@ -56,9 +56,14 @@ fun LibraryTopBar(pagerState: PagerState) {
         scrollBehavior = null,
         isTopBarScrolled = state.value.hasSelectedItems,
 
-        animatedTopBars = listOf(
+        shownTopBar = when {
+            state.value.hasSelectedItems -> 2
+            state.value.showSearch -> 1
+            else -> 0
+        },
+        topBars = listOf(
             AnimatedTopAppBarData(
-                contentVisibility = !state.value.hasSelectedItems && !state.value.showSearch,
+                contentID = 0,
                 contentNavigationIcon = {},
                 contentTitle = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -90,7 +95,45 @@ fun LibraryTopBar(pagerState: PagerState) {
             ),
 
             AnimatedTopAppBarData(
-                contentVisibility = state.value.hasSelectedItems,
+                contentID = 1,
+                contentNavigationIcon = {
+                    CustomIconButton(
+                        icon = Icons.AutoMirrored.Default.ArrowBack,
+                        contentDescription = R.string.exit_search_content_desc,
+                        disableOnClick = true
+                    ) {
+                        onEvent(
+                            LibraryEvent.OnSearchShowHide
+                        )
+                    }
+                },
+                contentTitle = {
+                    CustomSearchTextField(
+                        modifier = Modifier
+                            .focusRequester(focusRequester)
+                            .onGloballyPositioned {
+                                onEvent(LibraryEvent.OnRequestFocus(focusRequester))
+                            },
+                        query = state.value.searchQuery,
+                        onQueryChange = {
+                            onEvent(LibraryEvent.OnSearchQueryChange(it))
+                        },
+                        onSearch = {
+                            onEvent(LibraryEvent.OnSearch)
+                        },
+                        placeholder = stringResource(
+                            id = R.string.search_query,
+                            stringResource(id = R.string.books)
+                        )
+                    )
+                },
+                contentActions = {
+                    MoreDropDown()
+                },
+            ),
+
+            AnimatedTopAppBarData(
+                contentID = 2,
                 contentNavigationIcon = {
                     CustomIconButton(
                         icon = Icons.Default.Clear,
@@ -134,44 +177,6 @@ fun LibraryTopBar(pagerState: PagerState) {
                     }
                 }
             ),
-
-            AnimatedTopAppBarData(
-                contentVisibility = state.value.showSearch && !state.value.hasSelectedItems,
-                contentNavigationIcon = {
-                    CustomIconButton(
-                        icon = Icons.AutoMirrored.Default.ArrowBack,
-                        contentDescription = R.string.exit_search_content_desc,
-                        disableOnClick = true
-                    ) {
-                        onEvent(
-                            LibraryEvent.OnSearchShowHide
-                        )
-                    }
-                },
-                contentTitle = {
-                    CustomSearchTextField(
-                        modifier = Modifier
-                            .focusRequester(focusRequester)
-                            .onGloballyPositioned {
-                                onEvent(LibraryEvent.OnRequestFocus(focusRequester))
-                            },
-                        query = state.value.searchQuery,
-                        onQueryChange = {
-                            onEvent(LibraryEvent.OnSearchQueryChange(it))
-                        },
-                        onSearch = {
-                            onEvent(LibraryEvent.OnSearch)
-                        },
-                        placeholder = stringResource(
-                            id = R.string.search_query,
-                            stringResource(id = R.string.books)
-                        )
-                    )
-                },
-                contentActions = {
-                    MoreDropDown()
-                },
-            )
         ),
         customContent = {
             LibraryTabRow(

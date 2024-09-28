@@ -102,9 +102,13 @@ private fun HistoryScreen() {
                 scrollBehavior = null,
                 isTopBarScrolled = state.value.listState.canScrollBackward,
 
-                animatedTopBars = listOf(
+                shownTopBar = when {
+                    state.value.showSearch -> 1
+                    else -> 0
+                },
+                topBars = listOf(
                     AnimatedTopAppBarData(
-                        contentVisibility = !state.value.showSearch,
+                        contentID = 0,
                         contentNavigationIcon = {},
                         contentTitle = {
                             Text(stringResource(id = R.string.history_screen))
@@ -133,7 +137,7 @@ private fun HistoryScreen() {
                     ),
 
                     AnimatedTopAppBarData(
-                        contentVisibility = state.value.showSearch,
+                        contentID = 1,
                         contentNavigationIcon = {
                             CustomIconButton(
                                 icon = Icons.AutoMirrored.Default.ArrowBack,

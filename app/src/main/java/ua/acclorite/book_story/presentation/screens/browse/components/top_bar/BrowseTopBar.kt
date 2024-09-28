@@ -78,13 +78,17 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
 
     AnimatedTopAppBar(
         scrollBehavior = null,
-        isTopBarScrolled = isScrolled.value || inNestedDirectory.value,
+        isTopBarScrolled = isScrolled.value || state.value.hasSelectedItems,
 
-        animatedTopBars = listOf(
+        shownTopBar = when {
+            state.value.hasSelectedItems -> 3
+            state.value.showSearch -> 2
+            state.value.inNestedDirectory -> 1
+            else -> 0
+        },
+        topBars = listOf(
             AnimatedTopAppBarData(
-                contentVisibility = !state.value.hasSelectedItems &&
-                        !state.value.showSearch &&
-                        !inNestedDirectory.value,
+                contentID = 0,
                 contentNavigationIcon = {},
                 contentTitle = {
                     Text(
@@ -120,7 +124,7 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
             ),
 
             AnimatedTopAppBarData(
-                contentVisibility = inNestedDirectory.value,
+                contentID = 1,
                 contentNavigationIcon = {
                     CustomIconButton(
                         icon = Icons.AutoMirrored.Default.ArrowBack,
@@ -165,7 +169,43 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
             ),
 
             AnimatedTopAppBarData(
-                contentVisibility = state.value.hasSelectedItems,
+                contentID = 2,
+                contentNavigationIcon = {
+                    CustomIconButton(
+                        icon = Icons.AutoMirrored.Default.ArrowBack,
+                        contentDescription = R.string.exit_search_content_desc,
+                        disableOnClick = true
+                    ) {
+                        onEvent(BrowseEvent.OnSearchShowHide)
+                    }
+                },
+                contentTitle = {
+                    CustomSearchTextField(
+                        modifier = Modifier
+                            .focusRequester(focusRequester)
+                            .onGloballyPositioned {
+                                onEvent(BrowseEvent.OnRequestFocus(focusRequester))
+                            },
+                        query = state.value.searchQuery,
+                        onQueryChange = {
+                            onEvent(BrowseEvent.OnSearchQueryChange(it))
+                        },
+                        onSearch = {
+                            onEvent(BrowseEvent.OnSearch)
+                        },
+                        placeholder = stringResource(
+                            id = R.string.search_query,
+                            stringResource(id = R.string.files)
+                        )
+                    )
+                },
+                contentActions = {
+                    MoreDropDown()
+                }
+            ),
+
+            AnimatedTopAppBarData(
+                contentID = 3,
                 contentNavigationIcon = {
                     CustomIconButton(
                         icon = Icons.Default.Clear,
@@ -206,42 +246,6 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
                     ) {
                         onEvent(BrowseEvent.OnAddingDialogRequest)
                     }
-                }
-            ),
-
-            AnimatedTopAppBarData(
-                contentVisibility = state.value.showSearch && !state.value.hasSelectedItems,
-                contentNavigationIcon = {
-                    CustomIconButton(
-                        icon = Icons.AutoMirrored.Default.ArrowBack,
-                        contentDescription = R.string.exit_search_content_desc,
-                        disableOnClick = true
-                    ) {
-                        onEvent(BrowseEvent.OnSearchShowHide)
-                    }
-                },
-                contentTitle = {
-                    CustomSearchTextField(
-                        modifier = Modifier
-                            .focusRequester(focusRequester)
-                            .onGloballyPositioned {
-                                onEvent(BrowseEvent.OnRequestFocus(focusRequester))
-                            },
-                        query = state.value.searchQuery,
-                        onQueryChange = {
-                            onEvent(BrowseEvent.OnSearchQueryChange(it))
-                        },
-                        onSearch = {
-                            onEvent(BrowseEvent.OnSearch)
-                        },
-                        placeholder = stringResource(
-                            id = R.string.search_query,
-                            stringResource(id = R.string.files)
-                        )
-                    )
-                },
-                contentActions = {
-                    MoreDropDown()
                 }
             )
         ),
