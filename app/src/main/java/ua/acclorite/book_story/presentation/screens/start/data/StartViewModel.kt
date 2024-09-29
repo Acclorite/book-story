@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
+import androidx.core.net.toUri
 import androidx.lifecycle.viewModelScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
@@ -203,8 +204,13 @@ class StartViewModel @Inject constructor(
                 if (!event.notificationsPermissionState.status.shouldShowRationale) {
                     event.notificationsPermissionState.launchPermissionRequest()
                 } else {
-                    val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-                    intent.putExtra(Settings.EXTRA_APP_PACKAGE, event.activity.packageName)
+                    val intent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                            .putExtra(Settings.EXTRA_APP_PACKAGE, event.activity.packageName)
+                    } else {
+                        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                            .setData("package:${event.activity.packageName}".toUri())
+                    }
 
                     var failure = false
                     intent.launchActivity(event.activity) {

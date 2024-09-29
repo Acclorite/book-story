@@ -20,6 +20,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import kotlinx.parcelize.Parcelize
 
@@ -99,8 +100,9 @@ fun BookStoryTheme(
             window.navigationBarColor = Color.Transparent.toArgb()
 
             // Disabling Autofill
-            window.decorView.importantForAutofill =
-                View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS
+            @Suppress("NewApi") // Constant is inlined
+            ViewCompat.setImportantForAutofill(window.decorView,
+                View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS)
 
             // Fix for nav bar being semi transparent in api 29+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId = "ua.acclorite.book_story"
-        minSdk = 26
+        minSdk = 23
         targetSdk = 34
         versionCode = 8
         versionName = "1.3.0"
@@ -51,6 +51,8 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
@@ -85,6 +87,8 @@ aboutLibraries {
 }
 
 dependencies {
+    // Required for using Jsoup on API levels < 26
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs_nio:2.1.2")
 
     // Default
     implementation("androidx.core:core-ktx:1.13.1")

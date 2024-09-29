@@ -1,13 +1,12 @@
 package ua.acclorite.book_story.data.local.notification
 
 import android.app.Application
-import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Icon
 import android.net.Uri
+import androidx.core.app.NotificationCompat
+import androidx.core.graphics.drawable.IconCompat
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.remote.dto.LatestReleaseInfo
 import ua.acclorite.book_story.presentation.core.constants.Constants
@@ -16,9 +15,7 @@ import javax.inject.Inject
 class UpdatesNotificationServiceImpl @Inject constructor(
     private val application: Application
 ) : UpdatesNotificationService {
-
-    private val notificationManager = application.getSystemService(Context.NOTIFICATION_SERVICE)
-            as NotificationManager
+    private val notificationManager = application.getSystemService(NotificationManager::class.java)
 
     /**
      * Sends notification about new update.
@@ -48,7 +45,7 @@ class UpdatesNotificationServiceImpl @Inject constructor(
             PendingIntent.FLAG_IMMUTABLE
         )
 
-        val notification = Notification.Builder(
+        val notification = NotificationCompat.Builder(
             application,
             UpdatesNotificationService.CHANNEL_ID
         )
@@ -62,8 +59,8 @@ class UpdatesNotificationServiceImpl @Inject constructor(
             )
             .setContentIntent(latestReleasePendingIntent)
             .addAction(
-                Notification.Action.Builder(
-                    Icon.createWithResource(application, R.drawable.notification_icon),
+                NotificationCompat.Action.Builder(
+                    IconCompat.createWithResource(application, R.drawable.notification_icon),
                     application.getString(R.string.updates_notification_action),
                     downloadLatestVersionPendingIntent
                 ).build()

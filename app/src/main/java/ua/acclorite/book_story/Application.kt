@@ -1,8 +1,8 @@
 package ua.acclorite.book_story
 
 import android.app.Application
-import android.app.NotificationChannel
-import android.app.NotificationManager
+import androidx.core.app.NotificationChannelCompat
+import androidx.core.app.NotificationManagerCompat
 import dagger.hilt.android.HiltAndroidApp
 import ua.acclorite.book_story.data.local.notification.UpdatesNotificationService
 
@@ -15,21 +15,13 @@ class Application : Application() {
     }
 
     private fun createNotificationChannel() {
-        val channel = NotificationChannel(
+        val channel = NotificationChannelCompat.Builder(
             UpdatesNotificationService.CHANNEL_ID,
-            getString(R.string.updates_notification_channel),
-            NotificationManager.IMPORTANCE_HIGH
+            NotificationManagerCompat.IMPORTANCE_HIGH
         )
+            .setName(getString(R.string.updates_notification_channel))
+            .build()
 
-        val notificationManager = getSystemService(
-            NOTIFICATION_SERVICE
-        ) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
+        NotificationManagerCompat.from(this).createNotificationChannel(channel)
     }
 }
-
-
-
-
-
-

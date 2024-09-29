@@ -51,19 +51,19 @@ import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private const val GET_BOOK_FROM_FILE = "GET BOOK FROM FILE, REPOSITORY"
-private const val GET_TEXT = "GET TEXT, REPOSITORY"
-private const val GET_BOOKS = "GET BOOKS, REPOSITORY"
-private const val GET_BOOKS_BY_ID = "GET BOOKS, REPOSITORY"
-private const val INSERT_BOOK = "INSERT BOOK, REPOSITORY"
-private const val UPDATE_BOOK = "UPDATE BOOK, REPOSITORY"
-private const val DELETE_BOOKS = "DELETE BOOKS, REPOSITORY"
-private const val CAN_RESET_COVER = "CAN RESET COVER, REPOSITORY"
-private const val RESET_COVER = "RESET COVER, REPOSITORY"
-private const val GET_ALL_SETTINGS = "GET ALL SETTINGS, REPOSITORY"
-private const val GET_FILES_FROM_DEVICE = "GET FILES FROM DEVICE, REPOSITORY"
-private const val CHECK_FOR_UPDATES = "CHECK FOR UPDATES, REPOSITORY"
-private const val CHECK_FOR_TEXT_UPDATE = "CHECK FOR TEXT UPDATE, REPOSITORY"
+private const val GET_BOOK_FROM_FILE = "GET BOOK FROM FILE"
+private const val GET_TEXT = "GET TEXT"
+private const val GET_BOOKS = "GET BOOKS"
+private const val GET_BOOKS_BY_ID = "GET BOOKS"
+private const val INSERT_BOOK = "INSERT BOOK"
+private const val UPDATE_BOOK = "UPDATE BOOK"
+private const val DELETE_BOOKS = "DELETE BOOKS"
+private const val CAN_RESET_COVER = "CAN RESET COVER"
+private const val RESET_COVER = "RESET COVER"
+private const val GET_ALL_SETTINGS = "GET ALL SETTINGS"
+private const val GET_FILES_FROM_DEVICE = "GET FILES FROM DEVICE"
+private const val CHECK_FOR_UPDATES = "CHECK FOR UPDATES"
+private const val CHECK_FOR_TEXT_UPDATE = "CHECK FOR TEXT UPDATE"
 
 @Suppress("DEPRECATION")
 @Singleton
