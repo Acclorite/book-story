@@ -133,7 +133,6 @@
     <string name="delete_books_description">Isto irá apagar todos os livros selecionados(%1$s) da base de dados. Isso não irá apagar os livros do seu dispositivo.</string>
     <string name="text_alignment_center">Centro</string>
     <string name="details_book">Detalhes</string>
-    <string name="loading">Carregando…</string>
     <string name="help_desc_how_to_customize_reader_2">Configurações</string>
     <string name="revert_content_desc">Reverter</string>
     <string name="start_permissions_granted">Permitir</string>

@@ -197,7 +197,6 @@
     <string name="filter_browse_settings">Filtro</string>
     <string name="font_style_normal">Normale</string>
     <string name="files_structure_all">Tutti i file</string>
-    <string name="loading">Caricamento…</string>
     <string name="delete_whole_history_content_desc">Elimina tutta la cronologia</string>
     <string name="yesterday">Ieri</string>
 </resources>
