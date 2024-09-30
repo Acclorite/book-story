@@ -226,7 +226,6 @@
     <string name="books_moved">成功移动所有已选择的书。</string>
     <string name="move_this_book">移动</string>
     <string name="file_name">文件名</string>
-    <string name="loading">加载中…</string>
     <string name="no_chapters">无章节</string>
     <string name="chapters">章节</string>
     <string name="app_version_option">应用版本</string>
