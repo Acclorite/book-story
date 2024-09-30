@@ -212,7 +212,6 @@
     <string name="file_size">Dosya boyutu</string>
     <string name="unknown">Bilinmiyor</string>
     <string name="internal_storage">Dahili Depolama</string>
-    <string name="loading">Yükleniyor…</string>
     <string name="app_version_option">Uygulama sürümü</string>
     <string name="app_version_option_desc_1">Book Story v%1$s</string>
     <string name="app_version_option_desc_2">Güncellemeleri kontrol etmek için tıklayın</string>

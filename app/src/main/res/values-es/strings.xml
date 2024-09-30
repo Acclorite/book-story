@@ -201,7 +201,6 @@
     <string name="nothing_changed">El texto está actualizado.</string>
     <string name="delete_this_book">Borrar</string>
     <string name="file_path">Ruta del archivo</string>
-    <string name="loading">Cargando…</string>
     <string name="help_desc_how_to_add_books_2">Navegar</string>
     <string name="whats_new_option">Novedades</string>
     <string name="report_bug_option">Informar de un error</string>

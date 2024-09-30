@@ -162,7 +162,6 @@
     <string name="file_size">Taille du fichier</string>
     <string name="unknown">Inconnu</string>
     <string name="internal_storage">Stockage interne</string>
-    <string name="loading">Chargement…</string>
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
     <string name="app_version_option_desc_2">Cliquez pour vérifier les mises à jour</string>
     <string name="report_bug_option">Signaler un bug</string>

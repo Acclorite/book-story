@@ -380,7 +380,6 @@
     <string name="internal_storage">Внутрішнє Сховище</string>
 
     <!-- Reader -->
-    <string name="loading">Завантаження…</string>
     <string name="no_chapters">Немає розділів</string>
     <string name="chapters">Розділи</string>
 

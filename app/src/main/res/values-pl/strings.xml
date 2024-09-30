@@ -205,7 +205,6 @@
     <string name="credits_updates">Zarządzanie nowymi aktualizacjami</string>
     <string name="credits_fonts">Czcionki</string>
     <string name="delete_books_content_desc">Usuń wybrane książki</string>
-    <string name="loading">Ładowanie…</string>
     <string name="browse_content_desc">Dodaj książki</string>
     <string name="show_dropdown_content_desc">Rozwijany</string>
     <string name="create_color_preset_content_desc">Utwórz nowe ustawienie koloru</string>

@@ -182,7 +182,6 @@
     <string name="unknown">غير معروف</string>
     <string name="browse_grid_size_option">حجم الشبكة</string>
     <string name="nothing_changed">نص الكتاب محدث.</string>
-    <string name="loading">يتم التحميل…</string>
     <string name="app_version_option">إصدار التطبيق</string>
     <string name="app_version_option_desc_1">قصة كتاب الإصدار%1$s</string>
     <string name="licenses_option">رخص مفتوحة المصدر</string>

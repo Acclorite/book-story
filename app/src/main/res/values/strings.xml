@@ -381,7 +381,6 @@
     <string name="internal_storage">Internal Storage</string>
 
     <!-- Reader -->
-    <string name="loading">Loading…</string>
     <string name="no_chapters">No chapters</string>
     <string name="chapters">Chapters</string>
 
