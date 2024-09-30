@@ -13,6 +13,7 @@ import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.domain.model.ChapterWithText
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.presentation.core.util.clearMarkdown
 import java.io.File
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
@@ -107,7 +108,12 @@ class EpubTextParser @Inject constructor(
                     it.readText()
                 }
 
-            val chapter = documentParser.run { Jsoup.parse(content).parseDocument() }
+            val chapter =
+                documentParser.run { Jsoup.parse(content).parseDocument() }.toMutableList()
+            val chapterTitle = chapter.firstOrNull()?.clearMarkdown()
+                ?: "Chapter $chapterIndex" // In case could not get first line(shouldn't happen)
+            chapter.removeFirstOrNull()
+
             if (chapter.isEmpty()) {
                 Log.w(EPUB_TAG, "Chapter ${entry.name} is empty.")
                 return@forEach
@@ -117,7 +123,7 @@ class EpubTextParser @Inject constructor(
                 ChapterWithText(
                     chapter = Chapter(
                         index = chapters.size,
-                        title = "Chapter $chapterIndex", // Generic name, but at least something
+                        title = chapterTitle,
                         startIndex = chapterTextIndex + 1,
                         endIndex = chapterTextIndex + chapter.size
                     ),

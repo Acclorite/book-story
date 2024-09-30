@@ -62,3 +62,7 @@ fun Modifier.noRippleClickable(
         onClick = onClick
     )
 }
+
+fun String.clearMarkdown(): String {
+    return replace(Regex("_|\\*\\*"), "").trim()
+}
