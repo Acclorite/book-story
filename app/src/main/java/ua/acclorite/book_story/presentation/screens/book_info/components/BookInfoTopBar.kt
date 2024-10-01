@@ -89,7 +89,7 @@ fun BookInfoTopBar(
                         }
                     } else {
                         GoBackButton(onNavigate = onNavigate, enabled = !state.value.updating) {
-                            onEvent(BookInfoEvent.OnCancelUpdate)
+                            onEvent(BookInfoEvent.OnCancelTextUpdate)
                         }
                     }
                 },
@@ -114,7 +114,7 @@ fun BookInfoTopBar(
                         enabled = !state.value.updating && !state.value.checkingForUpdate
                     ) {
                         onEvent(
-                            BookInfoEvent.OnCheckForUpdate(
+                            BookInfoEvent.OnCheckForTextUpdate(
                                 snackbarState,
                                 context
                             )

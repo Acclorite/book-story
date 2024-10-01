@@ -26,7 +26,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
-import ua.acclorite.book_story.domain.use_case.CheckTextForUpdate
+import ua.acclorite.book_story.domain.use_case.CheckForTextUpdate
 import ua.acclorite.book_story.domain.use_case.GetBookById
 import ua.acclorite.book_story.domain.use_case.GetLatestHistory
 import ua.acclorite.book_story.domain.use_case.GetText
@@ -47,7 +47,7 @@ class ReaderViewModel @Inject constructor(
     private val getText: GetText,
     private val getLatestHistory: GetLatestHistory,
     private val getBookById: GetBookById,
-    private val checkTextForUpdate: CheckTextForUpdate
+    private val checkForTextUpdate: CheckForTextUpdate
 ) : BaseViewModel<ReaderState, ReaderEvent>() {
 
     private val _state = MutableStateFlow(ReaderState())
@@ -420,7 +420,7 @@ class ReaderViewModel @Inject constructor(
 
                         yield()
 
-                        val result = checkTextForUpdate.execute(bookId = _state.value.book.id)
+                        val result = checkForTextUpdate.execute(bookId = _state.value.book.id)
                         when (result) {
                             is Resource.Success -> {
                                 if (result.data == null) {

@@ -102,7 +102,7 @@ private fun BookInfoScreen(snackbarState: SnackbarHostState) {
         refreshing = state.value.updating || state.value.checkingForUpdate,
         onRefresh = {
             onEvent(
-                BookInfoEvent.OnCheckForUpdate(
+                BookInfoEvent.OnCheckForTextUpdate(
                     snackbarState,
                     context
                 )
@@ -122,7 +122,7 @@ private fun BookInfoScreen(snackbarState: SnackbarHostState) {
     if (state.value.showMoveDialog) {
         BookInfoMoveDialog()
     }
-    if (state.value.showConfirmUpdateDialog) {
+    if (state.value.showConfirmTextUpdateDialog) {
         BookInfoConfirmUpdateDialog(snackbarHostState = snackbarState)
     }
 
@@ -261,7 +261,7 @@ private fun BookInfoScreen(snackbarState: SnackbarHostState) {
         }
 
         if (!state.value.updating) {
-            onEvent(BookInfoEvent.OnCancelUpdate)
+            onEvent(BookInfoEvent.OnCancelTextUpdate)
             onNavigate {
                 navigateBack()
             }

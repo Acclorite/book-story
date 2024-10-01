@@ -1,5 +1,6 @@
 package ua.acclorite.book_story.presentation.data
 
+import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.domain.use_case.ChangeLanguage
 import ua.acclorite.book_story.domain.use_case.CheckForUpdates
 import ua.acclorite.book_story.domain.use_case.GetAllSettings
@@ -20,9 +22,9 @@ import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
 import ua.acclorite.book_story.presentation.core.util.BaseViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
+import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseFilesStructure
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseLayout
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseSortOrder
-import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toFilesStructure
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.toReaderScreenOrientation
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.toTextAlignment
 import ua.acclorite.book_story.presentation.ui.toDarkTheme
@@ -31,9 +33,7 @@ import ua.acclorite.book_story.presentation.ui.toTheme
 import ua.acclorite.book_story.presentation.ui.toThemeContrast
 import javax.inject.Inject
 
-/**
- * Stores all variables such as theme, language etc
- */
+
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val stateHandle: SavedStateHandle,
@@ -56,494 +56,312 @@ class MainViewModel @Inject constructor(
     override val state = _state.asStateFlow()
 
     override fun onEvent(event: MainEvent) {
-        when (event) {
-            is MainEvent.OnChangeLanguage -> {
-                viewModelScope.launch(Dispatchers.Main) {
-                    changeLanguage.execute(event.lang)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            language = event.lang
-                        )
-                    }
-                }
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            when (event) {
+                is MainEvent.OnChangeLanguage -> handleLanguageUpdate(event.value)
 
-            is MainEvent.OnChangeDarkTheme -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.DARK_THEME, event.darkTheme)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            darkTheme = event.darkTheme.toDarkTheme()
-                        )
+                is MainEvent.OnChangeDarkTheme -> handleDatastoreUpdate(
+                    key = DataStoreConstants.DARK_THEME,
+                    value = event.value,
+                    updateState = {
+                        it.copy(darkTheme = toDarkTheme())
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangePureDark -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.PURE_DARK, event.pureDark)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            pureDark = event.pureDark.toPureDark()
-                        )
+                is MainEvent.OnChangePureDark -> handleDatastoreUpdate(
+                    key = DataStoreConstants.PURE_DARK,
+                    value = event.value,
+                    updateState = {
+                        it.copy(pureDark = toPureDark())
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeThemeContrast -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.THEME_CONTRAST, event.themeContrast)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            themeContrast = event.themeContrast.toThemeContrast()
-                        )
+                is MainEvent.OnChangeThemeContrast -> handleDatastoreUpdate(
+                    key = DataStoreConstants.THEME_CONTRAST,
+                    value = event.value,
+                    updateState = {
+                        it.copy(themeContrast = toThemeContrast())
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeTheme -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.THEME, event.theme)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            theme = event.theme.toTheme()
-                        )
+                is MainEvent.OnChangeTheme -> handleDatastoreUpdate(
+                    key = DataStoreConstants.THEME,
+                    value = event.value,
+                    updateState = {
+                        it.copy(theme = toTheme())
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeFontFamily -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.FONT, event.fontFamily)
-                    updateStateWithSavedHandle {
+                is MainEvent.OnChangeFontFamily -> handleDatastoreUpdate(
+                    key = DataStoreConstants.FONT,
+                    value = event.value,
+                    updateState = {
                         it.copy(
-                            fontFamily = Constants.FONTS.find { font -> font.id == event.fontFamily }?.id
+                            fontFamily = Constants.FONTS.find { font -> font.id == event.value }?.id
                                 ?: Constants.FONTS[0].id
                         )
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeFontStyle -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.IS_ITALIC, event.fontStyle)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            isItalic = event.fontStyle
-                        )
+                is MainEvent.OnChangeFontStyle -> handleDatastoreUpdate(
+                    key = DataStoreConstants.IS_ITALIC,
+                    value = event.value,
+                    updateState = {
+                        it.copy(isItalic = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeFontSize -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.FONT_SIZE, event.fontSize)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            fontSize = event.fontSize
-                        )
+                is MainEvent.OnChangeFontSize -> handleDatastoreUpdate(
+                    key = DataStoreConstants.FONT_SIZE,
+                    value = event.value,
+                    updateState = {
+                        it.copy(fontSize = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeLineHeight -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.LINE_HEIGHT, event.lineHeight)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            lineHeight = event.lineHeight
-                        )
+                is MainEvent.OnChangeLineHeight -> handleDatastoreUpdate(
+                    key = DataStoreConstants.LINE_HEIGHT,
+                    value = event.value,
+                    updateState = {
+                        it.copy(lineHeight = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeParagraphHeight -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.PARAGRAPH_HEIGHT, event.paragraphHeight)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            paragraphHeight = event.paragraphHeight
-                        )
+                is MainEvent.OnChangeParagraphHeight -> handleDatastoreUpdate(
+                    key = DataStoreConstants.PARAGRAPH_HEIGHT,
+                    value = event.value,
+                    updateState = {
+                        it.copy(paragraphHeight = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeParagraphIndentation -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.PARAGRAPH_INDENTATION,
-                        event.indentation
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            paragraphIndentation = event.indentation
-                        )
+                is MainEvent.OnChangeParagraphIndentation -> handleDatastoreUpdate(
+                    key = DataStoreConstants.PARAGRAPH_INDENTATION,
+                    value = event.value,
+                    updateState = {
+                        it.copy(paragraphIndentation = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeShowStartScreen -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.SHOW_START_SCREEN, event.bool)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            showStartScreen = event.bool
-                        )
+                is MainEvent.OnChangeShowStartScreen -> handleDatastoreUpdate(
+                    key = DataStoreConstants.SHOW_START_SCREEN,
+                    value = event.value,
+                    updateState = {
+                        it.copy(showStartScreen = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeCheckForUpdates -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.CHECK_FOR_UPDATES, event.bool)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            checkForUpdates = event.bool
-                        )
+                is MainEvent.OnChangeCheckForUpdates -> handleDatastoreUpdate(
+                    key = DataStoreConstants.CHECK_FOR_UPDATES,
+                    value = event.value,
+                    updateState = {
+                        it.copy(checkForUpdates = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeSidePadding -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.SIDE_PADDING, event.sidePadding)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            sidePadding = event.sidePadding
-                        )
+                is MainEvent.OnChangeSidePadding -> handleDatastoreUpdate(
+                    key = DataStoreConstants.SIDE_PADDING,
+                    value = event.value,
+                    updateState = {
+                        it.copy(sidePadding = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeDoubleClickTranslation -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.DOUBLE_CLICK_TRANSLATION, event.bool)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            doubleClickTranslation = event.bool
-                        )
+                is MainEvent.OnChangeDoubleClickTranslation -> handleDatastoreUpdate(
+                    key = DataStoreConstants.DOUBLE_CLICK_TRANSLATION,
+                    value = event.value,
+                    updateState = {
+                        it.copy(doubleClickTranslation = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeFastColorPresetChange -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.FAST_COLOR_PRESET_CHANGE, event.bool)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            fastColorPresetChange = event.bool
-                        )
+                is MainEvent.OnChangeFastColorPresetChange -> handleDatastoreUpdate(
+                    key = DataStoreConstants.FAST_COLOR_PRESET_CHANGE,
+                    value = event.value,
+                    updateState = {
+                        it.copy(fastColorPresetChange = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeBrowseFilesStructure -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.BROWSE_FILES_STRUCTURE, event.structure)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            browseFilesStructure = event.structure.toFilesStructure()
-                        )
+                is MainEvent.OnChangeBrowseFilesStructure -> handleDatastoreUpdate(
+                    key = DataStoreConstants.BROWSE_FILES_STRUCTURE,
+                    value = event.value,
+                    updateState = {
+                        it.copy(browseFilesStructure = toBrowseFilesStructure())
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeBrowseLayout -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.BROWSE_LAYOUT, event.layout)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            browseLayout = event.layout.toBrowseLayout()
-                        )
+                is MainEvent.OnChangeBrowseLayout -> handleDatastoreUpdate(
+                    key = DataStoreConstants.BROWSE_LAYOUT,
+                    value = event.value,
+                    updateState = {
+                        it.copy(browseLayout = toBrowseLayout())
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeBrowseAutoGridSize -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.BROWSE_AUTO_GRID_SIZE, event.bool)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            browseAutoGridSize = event.bool
-                        )
+                is MainEvent.OnChangeBrowseAutoGridSize -> handleDatastoreUpdate(
+                    key = DataStoreConstants.BROWSE_AUTO_GRID_SIZE,
+                    value = event.value,
+                    updateState = {
+                        it.copy(browseAutoGridSize = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeBrowseGridSize -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.BROWSE_GRID_SIZE, event.size)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            browseGridSize = event.size
-                        )
+                is MainEvent.OnChangeBrowseGridSize -> handleDatastoreUpdate(
+                    key = DataStoreConstants.BROWSE_GRID_SIZE,
+                    value = event.value,
+                    updateState = {
+                        it.copy(browseGridSize = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeBrowsePinFavoriteDirectories -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.BROWSE_PIN_FAVORITE_DIRECTORIES,
-                        event.bool
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            browsePinFavoriteDirectories = event.bool
-                        )
+                is MainEvent.OnChangeBrowsePinFavoriteDirectories -> handleDatastoreUpdate(
+                    key = DataStoreConstants.BROWSE_PIN_FAVORITE_DIRECTORIES,
+                    value = event.value,
+                    updateState = {
+                        it.copy(browsePinFavoriteDirectories = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeBrowseSortOrder -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(DataStoreConstants.BROWSE_SORT_ORDER, event.order)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            browseSortOrder = event.order.toBrowseSortOrder()
-                        )
+                is MainEvent.OnChangeBrowseSortOrder -> handleDatastoreUpdate(
+                    key = DataStoreConstants.BROWSE_SORT_ORDER,
+                    value = event.value,
+                    updateState = {
+                        it.copy(browseSortOrder = toBrowseSortOrder())
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeBrowseSortOrderDescending -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.BROWSE_SORT_ORDER_DESCENDING,
-                        event.bool
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            browseSortOrderDescending = event.bool
-                        )
+                is MainEvent.OnChangeBrowseSortOrderDescending -> handleDatastoreUpdate(
+                    key = DataStoreConstants.BROWSE_SORT_ORDER_DESCENDING,
+                    value = event.value,
+                    updateState = {
+                        it.copy(browseSortOrderDescending = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeBrowseIncludedFilterItem -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    val set = _state.value.browseIncludedFilterItems.toMutableSet()
-                    if (!set.add(event.item)) {
-                        set.remove(event.item)
-                    }
+                is MainEvent.OnChangeBrowseIncludedFilterItem -> handleBrowseIncludedFilterItemUpdate(
+                    event.value
+                )
 
-                    setDatastore.execute(DataStoreConstants.BROWSE_INCLUDED_FILTER_ITEMS, set)
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            browseIncludedFilterItems = set.toList()
-                        )
+                is MainEvent.OnChangeTextAlignment -> handleDatastoreUpdate(
+                    key = DataStoreConstants.TEXT_ALIGNMENT,
+                    value = event.value,
+                    updateState = {
+                        it.copy(textAlignment = toTextAlignment())
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeTextAlignment -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.TEXT_ALIGNMENT,
-                        event.alignment
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            textAlignment = event.alignment.toTextAlignment()
-                        )
+                is MainEvent.OnChangeDoublePressExit -> handleDatastoreUpdate(
+                    key = DataStoreConstants.DOUBLE_PRESS_EXIT,
+                    value = event.value,
+                    updateState = {
+                        it.copy(doublePressExit = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeDoublePressExit -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.DOUBLE_PRESS_EXIT,
-                        event.bool
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            doublePressExit = event.bool
-                        )
+                is MainEvent.OnChangeLetterSpacing -> handleDatastoreUpdate(
+                    key = DataStoreConstants.LETTER_SPACING,
+                    value = event.value,
+                    updateState = {
+                        it.copy(letterSpacing = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeLetterSpacing -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.LETTER_SPACING,
-                        event.spacing
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            letterSpacing = event.spacing
-                        )
+                is MainEvent.OnChangeAbsoluteDark -> handleDatastoreUpdate(
+                    key = DataStoreConstants.ABSOLUTE_DARK,
+                    value = event.value,
+                    updateState = {
+                        it.copy(absoluteDark = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeAbsoluteDark -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.ABSOLUTE_DARK,
-                        event.bool
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            absoluteDark = event.bool
-                        )
+                is MainEvent.OnChangeCutoutPadding -> handleDatastoreUpdate(
+                    key = DataStoreConstants.CUTOUT_PADDING,
+                    value = event.value,
+                    updateState = {
+                        it.copy(cutoutPadding = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeCutoutPadding -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.CUTOUT_PADDING,
-                        event.bool
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            cutoutPadding = event.bool
-                        )
+                is MainEvent.OnChangeFullscreen -> handleDatastoreUpdate(
+                    key = DataStoreConstants.FULLSCREEN,
+                    value = event.value,
+                    updateState = {
+                        it.copy(fullscreen = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeFullscreen -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.FULLSCREEN,
-                        event.bool
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            fullscreen = event.bool
-                        )
+                is MainEvent.OnChangeKeepScreenOn -> handleDatastoreUpdate(
+                    key = DataStoreConstants.KEEP_SCREEN_ON,
+                    value = event.value,
+                    updateState = {
+                        it.copy(keepScreenOn = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeKeepScreenOn -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.KEEP_SCREEN_ON,
-                        event.bool
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            keepScreenOn = event.bool
-                        )
+                is MainEvent.OnChangeVerticalPadding -> handleDatastoreUpdate(
+                    key = DataStoreConstants.VERTICAL_PADDING,
+                    value = event.value,
+                    updateState = {
+                        it.copy(verticalPadding = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeVerticalPadding -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.VERTICAL_PADDING,
-                        event.padding
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            verticalPadding = event.padding
-                        )
+                is MainEvent.OnChangeHideBarsOnFastScroll -> handleDatastoreUpdate(
+                    key = DataStoreConstants.HIDE_BARS_ON_FAST_SCROLL,
+                    value = event.value,
+                    updateState = {
+                        it.copy(hideBarsOnFastScroll = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeHideBarsOnFastScroll -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.HIDE_BARS_ON_FAST_SCROLL,
-                        event.bool
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            hideBarsOnFastScroll = event.bool
-                        )
+                is MainEvent.OnChangePerceptionExpander -> handleDatastoreUpdate(
+                    key = DataStoreConstants.PERCEPTION_EXPANDER,
+                    value = event.value,
+                    updateState = {
+                        it.copy(perceptionExpander = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangePerceptionExpander -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.PERCEPTION_EXPANDER,
-                        event.bool
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            perceptionExpander = event.bool
-                        )
+                is MainEvent.OnChangePerceptionExpanderPadding -> handleDatastoreUpdate(
+                    key = DataStoreConstants.PERCEPTION_EXPANDER_PADDING,
+                    value = event.value,
+                    updateState = {
+                        it.copy(perceptionExpanderPadding = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangePerceptionExpanderPadding -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.PERCEPTION_EXPANDER_PADDING,
-                        event.padding
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            perceptionExpanderPadding = event.padding
-                        )
+                is MainEvent.OnChangePerceptionExpanderThickness -> handleDatastoreUpdate(
+                    key = DataStoreConstants.PERCEPTION_EXPANDER_THICKNESS,
+                    value = event.value,
+                    updateState = {
+                        it.copy(perceptionExpanderThickness = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangePerceptionExpanderThickness -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.PERCEPTION_EXPANDER_THICKNESS,
-                        event.thickness
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            perceptionExpanderThickness = event.thickness
-                        )
+                is MainEvent.OnChangeCheckForTextUpdate -> handleDatastoreUpdate(
+                    key = DataStoreConstants.CHECK_FOR_TEXT_UPDATE,
+                    value = event.value,
+                    updateState = {
+                        it.copy(checkForTextUpdate = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeCheckForTextUpdate -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.CHECK_FOR_TEXT_UPDATE,
-                        event.bool
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            checkForTextUpdate = event.bool
-                        )
+                is MainEvent.OnChangeCheckForTextUpdateToast -> handleDatastoreUpdate(
+                    key = DataStoreConstants.CHECK_FOR_TEXT_UPDATE_TOAST,
+                    value = event.value,
+                    updateState = {
+                        it.copy(checkForTextUpdateToast = this)
                     }
-                }
-            }
+                )
 
-            is MainEvent.OnChangeCheckForTextUpdateToast -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.CHECK_FOR_TEXT_UPDATE_TOAST,
-                        event.bool
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            checkForTextUpdateToast = event.bool
-                        )
+                is MainEvent.OnChangeScreenOrientation -> handleDatastoreUpdate(
+                    key = DataStoreConstants.SCREEN_ORIENTATION,
+                    value = event.value,
+                    updateState = {
+                        it.copy(screenOrientation = toReaderScreenOrientation())
                     }
-                }
-            }
-
-            is MainEvent.OnChangeScreenOrientation -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    setDatastore.execute(
-                        DataStoreConstants.SCREEN_ORIENTATION,
-                        event.orientation
-                    )
-                    updateStateWithSavedHandle {
-                        it.copy(
-                            screenOrientation = event.orientation.toReaderScreenOrientation()
-                        )
-                    }
-                }
+                )
             }
         }
     }
@@ -565,6 +383,7 @@ class MainViewModel @Inject constructor(
                     )
                 }
             }
+            /* - - - - - - - - - - - */
 
             updateStateWithSavedHandle { settings }
             isSettingsReady.update { true }
@@ -602,6 +421,29 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    private suspend fun handleLanguageUpdate(value: String) {
+        withContext(Dispatchers.Main) {
+            changeLanguage.execute(value)
+            updateStateWithSavedHandle {
+                it.copy(language = value)
+            }
+        }
+    }
+
+    private suspend fun handleBrowseIncludedFilterItemUpdate(value: String) {
+        val set = _state.value.browseIncludedFilterItems.toMutableSet()
+        if (!set.add(value)) {
+            set.remove(value)
+        }
+        handleDatastoreUpdate(
+            key = DataStoreConstants.BROWSE_INCLUDED_FILTER_ITEMS,
+            value = set,
+            updateState = {
+                it.copy(browseIncludedFilterItems = toList())
+            }
+        )
+    }
+
     /**
      * Updates [MainState] along with [SavedStateHandle].
      */
@@ -611,6 +453,22 @@ class MainViewModel @Inject constructor(
         _state.update {
             stateHandle[Constants.MAIN_STATE] = function(it)
             function(it)
+        }
+    }
+
+    /**
+     * Handles and updates Datastore.
+     */
+    private suspend fun <V> handleDatastoreUpdate(
+        key: Preferences.Key<V>,
+        value: V,
+        updateState: V.(MainState) -> MainState
+    ) {
+        withContext(Dispatchers.IO) {
+            setDatastore.execute(key = key, value = value)
+            updateStateWithSavedHandle {
+                value.updateState(it)
+            }
         }
     }
 }

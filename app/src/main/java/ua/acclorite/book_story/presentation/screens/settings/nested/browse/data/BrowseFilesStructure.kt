@@ -7,6 +7,6 @@ enum class BrowseFilesStructure {
     ALL_FILES, DIRECTORIES
 }
 
-fun String.toFilesStructure(): BrowseFilesStructure {
+fun String.toBrowseFilesStructure(): BrowseFilesStructure {
     return BrowseFilesStructure.valueOf(this)
 }

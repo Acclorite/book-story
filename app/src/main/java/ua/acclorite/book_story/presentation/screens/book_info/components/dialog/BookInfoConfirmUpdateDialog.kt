@@ -36,10 +36,10 @@ fun BookInfoConfirmUpdateDialog(snackbarHostState: SnackbarHostState) {
         ),
         actionText = stringResource(id = R.string.confirm),
         isActionEnabled = true,
-        onDismiss = { onEvent(BookInfoEvent.OnDismissConfirmUpdateDialog) },
+        onDismiss = { onEvent(BookInfoEvent.OnDismissConfirmTextUpdateDialog) },
         onAction = {
             onEvent(
-                BookInfoEvent.OnConfirmUpdate(
+                BookInfoEvent.OnConfirmTextUpdate(
                     snackbarState = snackbarHostState,
                     context = context,
                     refreshList = {

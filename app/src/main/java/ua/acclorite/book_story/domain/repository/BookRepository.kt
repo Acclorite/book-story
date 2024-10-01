@@ -31,7 +31,7 @@ interface BookRepository {
         textPath: String
     ): List<AnnotatedString>
 
-    suspend fun checkTextForUpdate(bookId: Int): Resource<Pair<List<String>, List<Chapter>>?>
+    suspend fun checkForTextUpdate(bookId: Int): Resource<Pair<List<String>, List<Chapter>>?>
 
     suspend fun insertBook(
         bookWithTextAndCover: BookWithTextAndCover

@@ -26,7 +26,7 @@ import ua.acclorite.book_story.domain.model.BookWithText
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.use_case.CanResetCover
-import ua.acclorite.book_story.domain.use_case.CheckTextForUpdate
+import ua.acclorite.book_story.domain.use_case.CheckForTextUpdate
 import ua.acclorite.book_story.domain.use_case.DeleteBooks
 import ua.acclorite.book_story.domain.use_case.GetBookById
 import ua.acclorite.book_story.domain.use_case.InsertHistory
@@ -54,7 +54,7 @@ class BookInfoViewModel @Inject constructor(
     private val getBookById: GetBookById,
     private val canResetCover: CanResetCover,
     private val resetCoverImage: ResetCoverImage,
-    private val checkTextForUpdate: CheckTextForUpdate,
+    private val checkForTextUpdate: CheckForTextUpdate,
 ) : BaseViewModel<BookInfoState, BookInfoEvent>() {
 
     private val _state = MutableStateFlow(BookInfoState())
@@ -450,12 +450,12 @@ class BookInfoViewModel @Inject constructor(
                     }
                 }
 
-                is BookInfoEvent.OnCheckForUpdate -> {
+                is BookInfoEvent.OnCheckForTextUpdate -> {
                     updateJob?.cancel()
                     updateJob = launch(Dispatchers.IO) {
                         _state.update {
                             it.copy(
-                                showConfirmUpdateDialog = false,
+                                showConfirmTextUpdateDialog = false,
                                 checkingForUpdate = true,
                                 editTitle = false,
                                 editAuthor = false,
@@ -465,7 +465,7 @@ class BookInfoViewModel @Inject constructor(
 
                         yield()
 
-                        val result = checkTextForUpdate.execute(bookId = _state.value.book.id)
+                        val result = checkForTextUpdate.execute(bookId = _state.value.book.id)
                         when (result) {
                             is Resource.Success -> {
                                 if (result.data == null) {
@@ -486,7 +486,7 @@ class BookInfoViewModel @Inject constructor(
                                     return@launch
                                 } else {
                                     onEvent(
-                                        BookInfoEvent.OnShowConfirmUpdateDialog(
+                                        BookInfoEvent.OnShowConfirmTextUpdateDialog(
                                             updatedText = result.data.first,
                                             updatedChapters = result.data.second
                                         )
@@ -508,7 +508,7 @@ class BookInfoViewModel @Inject constructor(
                                         action = event.context.getString(R.string.retry),
                                         onAction = {
                                             onEvent(
-                                                BookInfoEvent.OnCheckForUpdate(
+                                                BookInfoEvent.OnCheckForTextUpdate(
                                                     snackbarState = event.snackbarState,
                                                     context = event.context
                                                 )
@@ -531,32 +531,32 @@ class BookInfoViewModel @Inject constructor(
                     }
                 }
 
-                is BookInfoEvent.OnDismissConfirmUpdateDialog -> {
+                is BookInfoEvent.OnDismissConfirmTextUpdateDialog -> {
                     _state.update {
                         it.copy(
-                            showConfirmUpdateDialog = false,
+                            showConfirmTextUpdateDialog = false,
                             updatedText = null,
                             updatedChapters = null
                         )
                     }
                 }
 
-                is BookInfoEvent.OnShowConfirmUpdateDialog -> {
+                is BookInfoEvent.OnShowConfirmTextUpdateDialog -> {
                     _state.update {
                         it.copy(
-                            showConfirmUpdateDialog = true,
+                            showConfirmTextUpdateDialog = true,
                             updatedText = event.updatedText,
                             updatedChapters = event.updatedChapters
                         )
                     }
                 }
 
-                is BookInfoEvent.OnConfirmUpdate -> {
+                is BookInfoEvent.OnConfirmTextUpdate -> {
                     launch(Dispatchers.IO) {
                         _state.update {
                             it.copy(
                                 updating = true,
-                                showConfirmUpdateDialog = false
+                                showConfirmTextUpdateDialog = false
                             )
                         }
 
@@ -569,7 +569,7 @@ class BookInfoViewModel @Inject constructor(
                                     action = event.context.getString(R.string.retry),
                                     onAction = {
                                         onEvent(
-                                            BookInfoEvent.OnCheckForUpdate(
+                                            BookInfoEvent.OnCheckForTextUpdate(
                                                 snackbarState = event.snackbarState,
                                                 context = event.context
                                             )
@@ -614,7 +614,7 @@ class BookInfoViewModel @Inject constructor(
                                     action = event.context.getString(R.string.retry),
                                     onAction = {
                                         onEvent(
-                                            BookInfoEvent.OnCheckForUpdate(
+                                            BookInfoEvent.OnCheckForTextUpdate(
                                                 snackbarState = event.snackbarState,
                                                 context = event.context
                                             )
@@ -646,7 +646,7 @@ class BookInfoViewModel @Inject constructor(
                                         action = event.context.getString(R.string.retry),
                                         onAction = {
                                             onEvent(
-                                                BookInfoEvent.OnCheckForUpdate(
+                                                BookInfoEvent.OnCheckForTextUpdate(
                                                     snackbarState = event.snackbarState,
                                                     context = event.context
                                                 )
@@ -696,12 +696,12 @@ class BookInfoViewModel @Inject constructor(
                     }
                 }
 
-                is BookInfoEvent.OnCancelUpdate -> {
+                is BookInfoEvent.OnCancelTextUpdate -> {
                     _state.update {
                         updateJob?.cancel()
 
                         it.copy(
-                            showConfirmUpdateDialog = false,
+                            showConfirmTextUpdateDialog = false,
                             checkingForUpdate = false,
                             updatedText = null,
                             updatedChapters = null
@@ -711,7 +711,7 @@ class BookInfoViewModel @Inject constructor(
 
                 is BookInfoEvent.OnNavigateToReaderScreen -> {
                     launch {
-                        onEvent(BookInfoEvent.OnCancelUpdate)
+                        onEvent(BookInfoEvent.OnCancelTextUpdate)
                         _state.value.book.id.let {
                             insertHistory.execute(
                                 History(
@@ -757,7 +757,7 @@ class BookInfoViewModel @Inject constructor(
 
             if (screen.startUpdate) {
                 onEvent(
-                    BookInfoEvent.OnCheckForUpdate(
+                    BookInfoEvent.OnCheckForTextUpdate(
                         snackbarState = snackbarState,
                         context = context
                     )

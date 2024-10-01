@@ -101,25 +101,25 @@ sealed class BookInfoEvent {
         val snackbarState: SnackbarHostState
     ) : BookInfoEvent()
 
-    data class OnCheckForUpdate(
-        val snackbarState: SnackbarHostState,
-        val context: Context
-    ) : BookInfoEvent()
-
     data class OnNavigateToReaderScreen(
         val onNavigate: OnNavigate
     ) : BookInfoEvent()
 
-    data object OnDismissConfirmUpdateDialog : BookInfoEvent()
+    data class OnCheckForTextUpdate(
+        val snackbarState: SnackbarHostState,
+        val context: Context
+    ) : BookInfoEvent()
 
-    data class OnShowConfirmUpdateDialog(
+    data object OnDismissConfirmTextUpdateDialog : BookInfoEvent()
+
+    data class OnShowConfirmTextUpdateDialog(
         val updatedText: List<String>,
         val updatedChapters: List<Chapter>
     ) : BookInfoEvent()
 
-    data object OnCancelUpdate : BookInfoEvent()
+    data object OnCancelTextUpdate : BookInfoEvent()
 
-    data class OnConfirmUpdate(
+    data class OnConfirmTextUpdate(
         val snackbarState: SnackbarHostState,
         val context: Context,
         val refreshList: (Book) -> Unit

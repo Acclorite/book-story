@@ -13,7 +13,7 @@ data class BookInfoState(
     val checkingForUpdate: Boolean = false,
     val updating: Boolean = false,
 
-    val showConfirmUpdateDialog: Boolean = false,
+    val showConfirmTextUpdateDialog: Boolean = false,
     val updatedText: List<String>? = null,
     val updatedChapters: List<Chapter>? = null,
 

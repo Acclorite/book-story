@@ -13,9 +13,9 @@ import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseLayout
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseSortOrder
+import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseFilesStructure
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseLayout
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseSortOrder
-import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toFilesStructure
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.ReaderScreenOrientation
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.ReaderTextAlignment
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.toReaderScreenOrientation
@@ -187,7 +187,7 @@ data class MainState(
                     ) { fastColorPresetChange },
 
                     browseFilesStructure = provideValue(
-                        BROWSE_FILES_STRUCTURE, convert = { toFilesStructure() }
+                        BROWSE_FILES_STRUCTURE, convert = { toBrowseFilesStructure() }
                     ) { browseFilesStructure },
 
                     browseLayout = provideValue(

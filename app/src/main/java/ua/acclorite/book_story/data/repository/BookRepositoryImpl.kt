@@ -162,7 +162,7 @@ class BookRepositoryImpl @Inject constructor(
      *
      * @return If [Resource.Success] and returns null, then the book is up-to-date.
      */
-    override suspend fun checkTextForUpdate(bookId: Int): Resource<Pair<List<String>, List<Chapter>>?> {
+    override suspend fun checkForTextUpdate(bookId: Int): Resource<Pair<List<String>, List<Chapter>>?> {
         yield()
 
         try {
