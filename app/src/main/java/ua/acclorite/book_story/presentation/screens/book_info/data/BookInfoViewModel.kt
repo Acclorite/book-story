@@ -26,11 +26,10 @@ import ua.acclorite.book_story.domain.model.BookWithText
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.use_case.CanResetCover
+import ua.acclorite.book_story.domain.use_case.CheckTextForUpdate
 import ua.acclorite.book_story.domain.use_case.DeleteBooks
 import ua.acclorite.book_story.domain.use_case.GetBookById
-import ua.acclorite.book_story.domain.use_case.GetText
 import ua.acclorite.book_story.domain.use_case.InsertHistory
-import ua.acclorite.book_story.domain.use_case.ParseText
 import ua.acclorite.book_story.domain.use_case.ResetCoverImage
 import ua.acclorite.book_story.domain.use_case.UpdateBook
 import ua.acclorite.book_story.domain.use_case.UpdateBookWithText
@@ -40,7 +39,6 @@ import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.BaseViewModel
-import java.io.File
 import java.util.Date
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -54,10 +52,9 @@ class BookInfoViewModel @Inject constructor(
     private val insertHistory: InsertHistory,
     private val deleteBooks: DeleteBooks,
     private val getBookById: GetBookById,
-    private val getText: GetText,
     private val canResetCover: CanResetCover,
     private val resetCoverImage: ResetCoverImage,
-    private val parseText: ParseText
+    private val checkTextForUpdate: CheckTextForUpdate,
 ) : BaseViewModel<BookInfoState, BookInfoEvent>() {
 
     private val _state = MutableStateFlow(BookInfoState())
@@ -468,14 +465,46 @@ class BookInfoViewModel @Inject constructor(
 
                         yield()
 
-                        val currentBook = _state.value.book.apply {
-                            if (!File(filePath).exists()) {
+                        val result = checkTextForUpdate.execute(bookId = _state.value.book.id)
+                        when (result) {
+                            is Resource.Success -> {
+                                if (result.data == null) {
+                                    onEvent(
+                                        BookInfoEvent.OnShowSnackbar(
+                                            event.context.getString(R.string.nothing_changed),
+                                            action = null,
+                                            durationMillis = 4000L,
+                                            snackbarState = event.snackbarState
+                                        )
+                                    )
+                                    delay(500)
+                                    _state.update {
+                                        it.copy(
+                                            checkingForUpdate = false
+                                        )
+                                    }
+                                    return@launch
+                                } else {
+                                    onEvent(
+                                        BookInfoEvent.OnShowConfirmUpdateDialog(
+                                            updatedText = result.data.first,
+                                            updatedChapters = result.data.second
+                                        )
+                                    )
+
+                                    _state.update {
+                                        it.copy(
+                                            checkingForUpdate = false
+                                        )
+                                    }
+                                    return@launch
+                                }
+                            }
+
+                            is Resource.Error -> {
                                 onEvent(
                                     BookInfoEvent.OnShowSnackbar(
-                                        text = event.context.getString(
-                                            R.string.file_not_found,
-                                            filePath.substringAfterLast("/").takeLast(25)
-                                        ),
+                                        text = result.message?.asString(event.context) ?: "",
                                         action = event.context.getString(R.string.retry),
                                         onAction = {
                                             onEvent(
@@ -498,83 +527,6 @@ class BookInfoViewModel @Inject constructor(
                                 }
                                 return@launch
                             }
-                        }
-                        val updatedBook = parseText.execute(File(currentBook.filePath)).apply {
-                            if (this is Resource.Error || data == null) {
-                                onEvent(
-                                    BookInfoEvent.OnShowSnackbar(
-                                        text = message?.asString(event.context)
-                                            ?: event.context.getString(
-                                                R.string.error_something_went_wrong_with_file
-                                            ),
-                                        action = event.context.getString(R.string.retry),
-                                        onAction = {
-                                            onEvent(
-                                                BookInfoEvent.OnCheckForUpdate(
-                                                    snackbarState = event.snackbarState,
-                                                    context = event.context
-                                                )
-                                            )
-                                        },
-                                        durationMillis = 4000L,
-                                        snackbarState = event.snackbarState
-                                    )
-                                )
-
-                                delay(500)
-                                _state.update {
-                                    it.copy(
-                                        checkingForUpdate = false
-                                    )
-                                }
-                                return@launch
-                            }
-                        }.data!!
-
-                        yield()
-
-                        val updatedText = updatedBook.map { it.text }.flatten()
-                        val text = getText.execute(currentBook.textPath)
-
-                        val updatedChapters = updatedBook.map { it.chapter }.run {
-                            if (size < 2) return@run emptyList()
-                            return@run this
-                        }
-                        val chapters = currentBook.chapters
-
-                        yield()
-
-                        if (updatedText == text && updatedChapters == chapters) {
-                            onEvent(
-                                BookInfoEvent.OnShowSnackbar(
-                                    event.context.getString(R.string.nothing_changed),
-                                    action = null,
-                                    durationMillis = 4000L,
-                                    snackbarState = event.snackbarState
-                                )
-                            )
-                            delay(500)
-                            _state.update {
-                                it.copy(
-                                    checkingForUpdate = false
-                                )
-                            }
-                            return@launch
-                        }
-
-                        yield()
-
-                        onEvent(
-                            BookInfoEvent.OnShowConfirmUpdateDialog(
-                                updatedText = updatedText,
-                                updatedChapters = updatedChapters
-                            )
-                        )
-
-                        _state.update {
-                            it.copy(
-                                checkingForUpdate = false
-                            )
                         }
                     }
                 }

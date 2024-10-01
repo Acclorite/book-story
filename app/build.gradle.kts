@@ -168,4 +168,8 @@ dependencies {
 
     // Gson
     implementation("com.google.code.gson:gson:2.11.0")
+
+    // Markdown
+    implementation("org.commonmark:commonmark:0.23.0")
+    implementation("org.commonmark:commonmark-ext-autolink:0.23.0")
 }

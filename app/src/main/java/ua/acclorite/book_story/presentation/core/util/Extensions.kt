@@ -31,6 +31,7 @@ fun Intent.launchActivity(
     try {
         activity.baseContext.startActivity(intent)
     } catch (e: Exception) {
+        e.printStackTrace()
         error()
         return
     }
@@ -64,5 +65,5 @@ fun Modifier.noRippleClickable(
 }
 
 fun String.clearMarkdown(): String {
-    return replace(Regex("_|\\*\\*"), "").trim()
+    return replace(Regex("_|\\*\\*"), "")
 }

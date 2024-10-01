@@ -494,7 +494,6 @@ private fun ReaderScreen(lazyListState: LazyListState) {
 
                     ReaderTextParagraph(
                         line = line,
-                        context = context,
                         fontFamily = fontFamily,
                         fontColor = fontColor.value,
                         lineHeight = lineHeight,

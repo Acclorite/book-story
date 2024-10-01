@@ -8,6 +8,14 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import org.commonmark.ext.autolink.AutolinkExtension
+import org.commonmark.node.BlockQuote
+import org.commonmark.node.FencedCodeBlock
+import org.commonmark.node.Heading
+import org.commonmark.node.HtmlBlock
+import org.commonmark.node.IndentedCodeBlock
+import org.commonmark.node.ThematicBreak
+import org.commonmark.parser.Parser
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import ua.acclorite.book_story.data.local.room.BookDao
@@ -31,6 +39,26 @@ object AppModule {
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
             .create(GithubAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCommonmarkParser(): Parser {
+        return Parser
+            .builder()
+            .extensions(listOf(AutolinkExtension.create()))
+            .enabledBlockTypes(
+                setOf(
+                    Heading::class.java,
+                    HtmlBlock::class.java,
+                    ThematicBreak::class.java,
+                    BlockQuote::class.java,
+                    FencedCodeBlock::class.java,
+                    IndentedCodeBlock::class.java,
+                    ThematicBreak::class.java
+                )
+            )
+            .build()
     }
 
     @Provides

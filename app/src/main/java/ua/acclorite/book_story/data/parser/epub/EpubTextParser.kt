@@ -208,7 +208,7 @@ class EpubTextParser @Inject constructor(
 
                 val chapter = documentParser.run {
                     Jsoup.parse(content).parseDocument().dropWhile {
-                        it == chapterTitle // Remove chapter title if present
+                        it.clearMarkdown().lowercase() == chapterTitle.lowercase()
                     }
                 }
                 if (chapter.isEmpty()) {

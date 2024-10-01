@@ -26,10 +26,10 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
+import ua.acclorite.book_story.domain.use_case.CheckTextForUpdate
 import ua.acclorite.book_story.domain.use_case.GetBookById
 import ua.acclorite.book_story.domain.use_case.GetLatestHistory
 import ua.acclorite.book_story.domain.use_case.GetText
-import ua.acclorite.book_story.domain.use_case.ParseText
 import ua.acclorite.book_story.domain.use_case.UpdateBook
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.Resource
@@ -37,7 +37,6 @@ import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.BaseViewModel
 import ua.acclorite.book_story.presentation.core.util.launchActivity
-import java.io.File
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -48,7 +47,7 @@ class ReaderViewModel @Inject constructor(
     private val getText: GetText,
     private val getLatestHistory: GetLatestHistory,
     private val getBookById: GetBookById,
-    private val parseText: ParseText
+    private val checkTextForUpdate: CheckTextForUpdate
 ) : BaseViewModel<ReaderState, ReaderEvent>() {
 
     private val _state = MutableStateFlow(ReaderState())
@@ -421,8 +420,33 @@ class ReaderViewModel @Inject constructor(
 
                         yield()
 
-                        val currentBook = _state.value.book.apply {
-                            if (!File(filePath).exists()) {
+                        val result = checkTextForUpdate.execute(bookId = _state.value.book.id)
+                        when (result) {
+                            is Resource.Success -> {
+                                if (result.data == null) {
+                                    withContext(Dispatchers.Main) {
+                                        event.noUpdateFound()
+                                    }
+                                    _state.update {
+                                        it.copy(
+                                            checkingForUpdate = false,
+                                            updateFound = false
+                                        )
+                                    }
+                                    return@launch
+                                } else {
+                                    _state.update {
+                                        it.copy(
+                                            updateFound = true,
+                                            checkingForUpdate = false
+                                        )
+                                    }
+                                    onEvent(ReaderEvent.OnShowHideUpdateDialog(true))
+                                    return@launch
+                                }
+                            }
+
+                            is Resource.Error -> {
                                 _state.update {
                                     it.copy(
                                         checkingForUpdate = false,
@@ -432,51 +456,6 @@ class ReaderViewModel @Inject constructor(
                                 return@launch
                             }
                         }
-                        val updatedBook = parseText.execute(File(currentBook.filePath)).apply {
-                            if (this is Resource.Error || data == null) {
-                                _state.update {
-                                    it.copy(
-                                        checkingForUpdate = false,
-                                        updateFound = false
-                                    )
-                                }
-                                return@launch
-                            }
-                        }.data!!
-
-                        yield()
-
-                        val updatedText = updatedBook.map { it.text }.flatten()
-                        val text = getText.execute(currentBook.textPath)
-
-                        val updatedChapters = updatedBook.map { it.chapter }.run {
-                            if (size < 2) return@run emptyList()
-                            return@run this
-                        }
-                        val chapters = currentBook.chapters
-
-                        yield()
-
-                        if (updatedText == text && updatedChapters == chapters) {
-                            withContext(Dispatchers.Main) {
-                                event.noUpdateFound()
-                            }
-                            _state.update {
-                                it.copy(
-                                    checkingForUpdate = false,
-                                    updateFound = false
-                                )
-                            }
-                            return@launch
-                        }
-
-                        _state.update {
-                            it.copy(
-                                updateFound = true,
-                                checkingForUpdate = false
-                            )
-                        }
-                        onEvent(ReaderEvent.OnShowHideUpdateDialog(true))
                     }
                 }
 

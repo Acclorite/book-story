@@ -7,12 +7,14 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import androidx.compose.ui.text.AnnotatedString
 import androidx.datastore.preferences.core.Preferences
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.local.data_store.DataStore
 import ua.acclorite.book_story.data.local.dto.FavoriteDirectoryEntity
@@ -22,13 +24,14 @@ import ua.acclorite.book_story.data.mapper.book.BookMapper
 import ua.acclorite.book_story.data.mapper.color_preset.ColorPresetMapper
 import ua.acclorite.book_story.data.mapper.history.HistoryMapper
 import ua.acclorite.book_story.data.parser.FileParser
+import ua.acclorite.book_story.data.parser.MarkdownParser
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.data.remote.GithubAPI
 import ua.acclorite.book_story.data.remote.dto.LatestReleaseInfo
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.BookWithText
 import ua.acclorite.book_story.domain.model.BookWithTextAndCover
-import ua.acclorite.book_story.domain.model.ChapterWithText
+import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.domain.model.ColorPreset
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
@@ -60,6 +63,7 @@ private const val RESET_COVER = "RESET COVER, REPOSITORY"
 private const val GET_ALL_SETTINGS = "GET ALL SETTINGS, REPOSITORY"
 private const val GET_FILES_FROM_DEVICE = "GET FILES FROM DEVICE, REPOSITORY"
 private const val CHECK_FOR_UPDATES = "CHECK FOR UPDATES, REPOSITORY"
+private const val CHECK_FOR_TEXT_UPDATE = "CHECK FOR TEXT UPDATE, REPOSITORY"
 
 @Suppress("DEPRECATION")
 @Singleton
@@ -77,6 +81,7 @@ class BookRepositoryImpl @Inject constructor(
 
     private val fileParser: FileParser,
     private val textParser: TextParser,
+    private val markdownParser: MarkdownParser
 ) : BookRepository {
 
     /**
@@ -123,27 +128,115 @@ class BookRepositoryImpl @Inject constructor(
      * Loads text from given path. Should be .txt.
      * Used to get text from book and load Reader.
      */
-    override suspend fun getBookText(textPath: String): List<String> {
+    override suspend fun getBookText(textPath: String): List<AnnotatedString> {
         val textFile = File(textPath)
-        val lines = mutableListOf<String>()
+        val markdownLines = mutableListOf<AnnotatedString>()
 
         if (textPath.isBlank() || !textFile.exists() || textFile.extension != "txt") {
             Log.w(GET_TEXT, "Failed to load file: $textPath")
             return emptyList()
         }
 
-        withContext(Dispatchers.IO) {
-            BufferedReader(FileReader(textFile)).forEachLine { line ->
-                if (line.isNotBlank()) {
-                    lines.add(
-                        line.trim()
+        try {
+            withContext(Dispatchers.IO) {
+                BufferedReader(FileReader(textFile)).forEachLine { line ->
+                    if (line.isNotBlank()) {
+                        markdownLines.add(
+                            markdownParser.parse(line.trim())
+                        )
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.e(GET_TEXT, "Could not get text with markdown.")
+            return emptyList()
+        }
+
+        Log.i(GET_TEXT, "Successfully loaded text with markdown.")
+        return markdownLines
+    }
+
+    /**
+     * Checks whether the text of the book([bookId]) is up-to-date and did not change.
+     *
+     * @return If [Resource.Success] and returns null, then the book is up-to-date.
+     */
+    override suspend fun checkTextForUpdate(bookId: Int): Resource<Pair<List<String>, List<Chapter>>?> {
+        yield()
+
+        try {
+            val book = database.findBookById(bookId)
+            Log.i(CHECK_FOR_TEXT_UPDATE, "Checking [${book.title}] for text update.")
+
+            yield()
+
+            val text = withContext(Dispatchers.IO) {
+                val lines = mutableListOf<String>()
+                BufferedReader(FileReader(book.textPath)).forEachLine { line ->
+                    if (line.isNotBlank()) {
+                        lines.add(line.trim())
+                    }
+                }
+                lines.toList()
+            }
+            val chapters = book.chapters
+            Log.i(CHECK_FOR_TEXT_UPDATE, "Got current text and chapters.")
+
+            yield()
+
+            val bookFile = File(book.filePath).apply {
+                if (!exists()) {
+                    Log.e(CHECK_FOR_TEXT_UPDATE, "Couldn't get book's file: does not exist.")
+                    return Resource.Error(
+                        message = UIText.StringResource(
+                            R.string.file_not_found,
+                            name.takeLast(50)
+                        )
                     )
                 }
             }
-        }
 
-        Log.i(GET_TEXT, "Successfully loaded text.")
-        return lines
+            yield()
+
+            val (updatedText, updatedChapters) = textParser.parse(bookFile).run {
+                if (this is Resource.Error) {
+                    Log.e(CHECK_FOR_TEXT_UPDATE, "Couldn't get updated book's text.")
+                    return Resource.Error(
+                        message = UIText.StringResource(
+                            R.string.error_file_empty
+                        )
+                    )
+                }
+
+                data!!.map { it.text }.flatten() to data.map { it.chapter }.run {
+                    if (size < 2) return@run emptyList()
+                    return@run this
+                }
+            }
+            Log.i(CHECK_FOR_TEXT_UPDATE, "Successfully got new text and chapters.")
+
+            yield()
+
+            return Resource.Success(
+                if (updatedText == text && updatedChapters == chapters) {
+                    Log.i(CHECK_FOR_TEXT_UPDATE, "Text is up-to-date(${book.title}).")
+                    null
+                } else {
+                    Log.i(CHECK_FOR_TEXT_UPDATE, "Found difference in ${book.title}.")
+                    updatedText to updatedChapters
+                }
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.e(CHECK_FOR_TEXT_UPDATE, "Check failed with the error: ${e.message}")
+            return Resource.Error(
+                UIText.StringResource(
+                    R.string.error_query,
+                    e.message ?: ""
+                )
+            )
+        }
     }
 
     /**
@@ -698,16 +791,6 @@ class BookRepositoryImpl @Inject constructor(
                 }.flatten()
             )
         )
-    }
-
-    /**
-     * Parse text from given [file].
-     * May give [Resource.Error] if something went wrong.
-     *
-     * @param file File to parse. Should be one of supported file formats.
-     */
-    override suspend fun parseText(file: File): Resource<List<ChapterWithText>> {
-        return textParser.parse(file)
     }
 
     /**

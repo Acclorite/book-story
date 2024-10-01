@@ -1,11 +1,12 @@
 package ua.acclorite.book_story.domain.repository
 
+import androidx.compose.ui.text.AnnotatedString
 import androidx.datastore.preferences.core.Preferences
 import ua.acclorite.book_story.data.remote.dto.LatestReleaseInfo
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.BookWithText
 import ua.acclorite.book_story.domain.model.BookWithTextAndCover
-import ua.acclorite.book_story.domain.model.ChapterWithText
+import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.domain.model.ColorPreset
 import ua.acclorite.book_story.domain.model.History
 import ua.acclorite.book_story.domain.model.NullableBook
@@ -28,7 +29,9 @@ interface BookRepository {
 
     suspend fun getBookText(
         textPath: String
-    ): List<String>
+    ): List<AnnotatedString>
+
+    suspend fun checkTextForUpdate(bookId: Int): Resource<Pair<List<String>, List<Chapter>>?>
 
     suspend fun insertBook(
         bookWithTextAndCover: BookWithTextAndCover
@@ -79,8 +82,6 @@ interface BookRepository {
     suspend fun getBookFromFile(
         file: File
     ): NullableBook
-
-    suspend fun parseText(file: File): Resource<List<ChapterWithText>>
     /* - - - - - - - - - - - - - - - - - - - - - - */
 
 

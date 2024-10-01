@@ -2,43 +2,58 @@ package ua.acclorite.book_story.data.parser
 
 import kotlinx.coroutines.yield
 import org.jsoup.nodes.Document
+import ua.acclorite.book_story.presentation.core.util.clearMarkdown
 import javax.inject.Inject
 
 class DocumentParser @Inject constructor() {
     /**
      * Parses document to get it's text.
+     * Fixes issues such as manual line breaking in <p>.
+     * Applies Markdown to the text: Bold(**), Italic(_), Section separator(---), and Links(a > href).
      *
-     * @return Parsed text line by line.
+     * @return Parsed text line by line with Markdown(all lines are not blank).
      */
     suspend fun Document.parseDocument(): List<String> {
         val lines = mutableListOf<String>()
 
         yield()
 
-        body()
-            .select("p")
-            .apply {
-                forEach { element ->
-                    yield()
-
-                    val cleanedText = element.html().replace(Regex("\\n+"), " ")
-                    element.html(cleanedText)
-                }
-
-                append("\n")
-            }
-
-        yield()
-
-        body()
-            .wholeText()
-            .lines()
-            .forEach { line ->
+        body().apply {
+            // Remove manual line breaks from all <p>
+            select("p").forEach { element ->
                 yield()
-                if (line.isNotBlank()) {
-                    lines.add(line.trim())
-                }
+                element.html(element.html().replace(Regex("\\n+"), " "))
+                element.append("\n")
             }
+
+            // Markdown
+            select("hr").append("\n---\n")
+            select("b").append("**").prepend("**")
+            select("h1").append("**").prepend("**")
+            select("h2").append("**").prepend("**")
+            select("h3").append("**").prepend("**")
+            select("strong").append("**").prepend("**")
+            select("em").append("_").prepend("_")
+            select("a").forEach { element ->
+                val link = element.attr("href")
+                if (!link.startsWith("http") || element.wholeText().isBlank()) return@forEach
+
+                element.prepend("[")
+                element.append("](${element.attr("href")})")
+            }
+        }.wholeText().lines().forEach { line ->
+            yield()
+
+            val formattedLine = line.replace(
+                Regex("""\*\*\s*(.*?)\s*\*\*"""), "**$1**"
+            ).replace(
+                Regex("""_\s*(.*?)\s*_"""), "_$1_"
+            ).trim()
+
+            if (formattedLine.clearMarkdown().isNotBlank()) {
+                lines.add(formattedLine)
+            }
+        }
 
         yield()
 
