@@ -552,7 +552,8 @@ private fun ReaderScreen(lazyListState: LazyListState) {
                 )
             } else {
                 CircularProgressIndicator(
-                    modifier = Modifier.size(36.dp)
+                    modifier = Modifier.size(48.dp),
+                    strokeWidth = 4.5.dp
                 )
             }
         }
