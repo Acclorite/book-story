@@ -26,11 +26,11 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
-import ua.acclorite.book_story.domain.use_case.CheckForTextUpdate
-import ua.acclorite.book_story.domain.use_case.GetBookById
-import ua.acclorite.book_story.domain.use_case.GetLatestHistory
-import ua.acclorite.book_story.domain.use_case.GetText
-import ua.acclorite.book_story.domain.use_case.UpdateBook
+import ua.acclorite.book_story.domain.use_case.book.CheckForTextUpdate
+import ua.acclorite.book_story.domain.use_case.book.GetBookById
+import ua.acclorite.book_story.domain.use_case.book.GetText
+import ua.acclorite.book_story.domain.use_case.book.UpdateBook
+import ua.acclorite.book_story.domain.use_case.history.GetLatestHistory
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText

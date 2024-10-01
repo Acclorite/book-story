@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.use_case.CheckForUpdates
+import ua.acclorite.book_story.domain.use_case.remote.CheckForUpdates
 import ua.acclorite.book_story.presentation.core.util.BaseViewModel
 import ua.acclorite.book_story.presentation.core.util.launchActivity
 import javax.inject.Inject

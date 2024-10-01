@@ -15,11 +15,11 @@ import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.GroupedHistory
 import ua.acclorite.book_story.domain.model.History
-import ua.acclorite.book_story.domain.use_case.DeleteHistory
-import ua.acclorite.book_story.domain.use_case.DeleteWholeHistory
-import ua.acclorite.book_story.domain.use_case.GetBooksById
-import ua.acclorite.book_story.domain.use_case.GetHistory
-import ua.acclorite.book_story.domain.use_case.InsertHistory
+import ua.acclorite.book_story.domain.use_case.book.GetBooksById
+import ua.acclorite.book_story.domain.use_case.history.DeleteHistory
+import ua.acclorite.book_story.domain.use_case.history.DeleteWholeHistory
+import ua.acclorite.book_story.domain.use_case.history.GetHistory
+import ua.acclorite.book_story.domain.use_case.history.InsertHistory
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.BaseViewModel
 import java.text.SimpleDateFormat

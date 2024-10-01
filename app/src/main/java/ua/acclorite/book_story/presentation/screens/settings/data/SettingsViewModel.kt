@@ -18,11 +18,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ColorPreset
-import ua.acclorite.book_story.domain.use_case.DeleteColorPreset
-import ua.acclorite.book_story.domain.use_case.GetColorPresets
-import ua.acclorite.book_story.domain.use_case.ReorderColorPresets
-import ua.acclorite.book_story.domain.use_case.SelectColorPreset
-import ua.acclorite.book_story.domain.use_case.UpdateColorPreset
+import ua.acclorite.book_story.domain.use_case.color_preset.DeleteColorPreset
+import ua.acclorite.book_story.domain.use_case.color_preset.GetColorPresets
+import ua.acclorite.book_story.domain.use_case.color_preset.ReorderColorPresets
+import ua.acclorite.book_story.domain.use_case.color_preset.SelectColorPreset
+import ua.acclorite.book_story.domain.use_case.color_preset.UpdateColorPreset
 import ua.acclorite.book_story.domain.util.ID
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.core.constants.Constants

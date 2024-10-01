@@ -24,10 +24,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.model.SelectableFile
-import ua.acclorite.book_story.domain.use_case.GetBookFromFile
-import ua.acclorite.book_story.domain.use_case.GetFilesFromDevice
-import ua.acclorite.book_story.domain.use_case.InsertBook
-import ua.acclorite.book_story.domain.use_case.UpdateFavoriteDirectory
+import ua.acclorite.book_story.domain.use_case.book.InsertBook
+import ua.acclorite.book_story.domain.use_case.favorite_directory.UpdateFavoriteDirectory
+import ua.acclorite.book_story.domain.use_case.file_system.GetBookFromFile
+import ua.acclorite.book_story.domain.use_case.file_system.GetFilesFromDevice
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.BaseViewModel
 import ua.acclorite.book_story.presentation.core.util.launchActivity

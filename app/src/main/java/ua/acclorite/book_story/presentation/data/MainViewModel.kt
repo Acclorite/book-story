@@ -13,10 +13,10 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import ua.acclorite.book_story.domain.use_case.ChangeLanguage
-import ua.acclorite.book_story.domain.use_case.CheckForUpdates
-import ua.acclorite.book_story.domain.use_case.GetAllSettings
-import ua.acclorite.book_story.domain.use_case.SetDatastore
+import ua.acclorite.book_story.domain.use_case.common.ChangeLanguage
+import ua.acclorite.book_story.domain.use_case.data_store.GetAllSettings
+import ua.acclorite.book_story.domain.use_case.data_store.SetDatastore
+import ua.acclorite.book_story.domain.use_case.remote.CheckForUpdates
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
 import ua.acclorite.book_story.presentation.core.util.BaseViewModel

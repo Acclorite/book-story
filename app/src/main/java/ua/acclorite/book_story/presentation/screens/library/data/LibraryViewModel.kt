@@ -13,10 +13,10 @@ import kotlinx.coroutines.yield
 import ua.acclorite.book_story.domain.model.CategorizedBooks
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.model.History
-import ua.acclorite.book_story.domain.use_case.DeleteBooks
-import ua.acclorite.book_story.domain.use_case.GetBooks
-import ua.acclorite.book_story.domain.use_case.InsertHistory
-import ua.acclorite.book_story.domain.use_case.UpdateBook
+import ua.acclorite.book_story.domain.use_case.book.DeleteBooks
+import ua.acclorite.book_story.domain.use_case.book.GetBooks
+import ua.acclorite.book_story.domain.use_case.book.UpdateBook
+import ua.acclorite.book_story.domain.use_case.history.InsertHistory
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.BaseViewModel
 import java.util.Date
