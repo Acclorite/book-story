@@ -19,7 +19,19 @@ import ua.acclorite.book_story.data.parser.FileParserImpl
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.data.parser.TextParserImpl
 import ua.acclorite.book_story.data.repository.BookRepositoryImpl
+import ua.acclorite.book_story.data.repository.ColorPresetRepositoryImpl
+import ua.acclorite.book_story.data.repository.DataStoreRepositoryImpl
+import ua.acclorite.book_story.data.repository.FavoriteDirectoryRepositoryImpl
+import ua.acclorite.book_story.data.repository.FileSystemRepositoryImpl
+import ua.acclorite.book_story.data.repository.HistoryRepositoryImpl
+import ua.acclorite.book_story.data.repository.RemoteRepositoryImpl
 import ua.acclorite.book_story.domain.repository.BookRepository
+import ua.acclorite.book_story.domain.repository.ColorPresetRepository
+import ua.acclorite.book_story.domain.repository.DataStoreRepository
+import ua.acclorite.book_story.domain.repository.FavoriteDirectoryRepository
+import ua.acclorite.book_story.domain.repository.FileSystemRepository
+import ua.acclorite.book_story.domain.repository.HistoryRepository
+import ua.acclorite.book_story.domain.repository.RemoteRepository
 import javax.inject.Singleton
 
 @Module
@@ -36,6 +48,42 @@ abstract class RepositoryModule {
     abstract fun bindBookRepository(
         bookRepositoryImpl: BookRepositoryImpl
     ): BookRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindHistoryRepository(
+        historyRepositoryImpl: HistoryRepositoryImpl
+    ): HistoryRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindColorPresetRepository(
+        colorPresetRepositoryImpl: ColorPresetRepositoryImpl
+    ): ColorPresetRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindDataStoreRepository(
+        dataStoreRepositoryImpl: DataStoreRepositoryImpl
+    ): DataStoreRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindFileSystemRepository(
+        fileSystemRepositoryImpl: FileSystemRepositoryImpl
+    ): FileSystemRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindRemoteRepository(
+        remoteRepositoryImpl: RemoteRepositoryImpl
+    ): RemoteRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindFavoriteDirectoryRepository(
+        favoriteDirectoryRepositoryImpl: FavoriteDirectoryRepositoryImpl
+    ): FavoriteDirectoryRepository
 
     @Binds
     @Singleton

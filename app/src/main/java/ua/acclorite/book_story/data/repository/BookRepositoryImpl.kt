@@ -4,44 +4,26 @@ import android.app.Application
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import androidx.compose.ui.text.AnnotatedString
-import androidx.datastore.preferences.core.Preferences
-import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.data.local.data_store.DataStore
-import ua.acclorite.book_story.data.local.dto.FavoriteDirectoryEntity
-import ua.acclorite.book_story.data.local.notification.UpdatesNotificationService
 import ua.acclorite.book_story.data.local.room.BookDao
 import ua.acclorite.book_story.data.mapper.book.BookMapper
-import ua.acclorite.book_story.data.mapper.color_preset.ColorPresetMapper
-import ua.acclorite.book_story.data.mapper.history.HistoryMapper
 import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.data.parser.MarkdownParser
 import ua.acclorite.book_story.data.parser.TextParser
-import ua.acclorite.book_story.data.remote.GithubAPI
-import ua.acclorite.book_story.data.remote.dto.LatestReleaseInfo
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.BookWithText
 import ua.acclorite.book_story.domain.model.BookWithTextAndCover
 import ua.acclorite.book_story.domain.model.Chapter
-import ua.acclorite.book_story.domain.model.ColorPreset
-import ua.acclorite.book_story.domain.model.History
-import ua.acclorite.book_story.domain.model.NullableBook
-import ua.acclorite.book_story.domain.model.SelectableFile
 import ua.acclorite.book_story.domain.repository.BookRepository
 import ua.acclorite.book_story.domain.util.CoverImage
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
-import ua.acclorite.book_story.presentation.core.constants.Constants
-import ua.acclorite.book_story.presentation.data.MainState
 import java.io.BufferedReader
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -51,33 +33,23 @@ import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private const val GET_BOOK_FROM_FILE = "GET BOOK FROM FILE, REPOSITORY"
-private const val GET_TEXT = "GET TEXT, REPOSITORY"
-private const val GET_BOOKS = "GET BOOKS, REPOSITORY"
-private const val GET_BOOKS_BY_ID = "GET BOOKS, REPOSITORY"
-private const val INSERT_BOOK = "INSERT BOOK, REPOSITORY"
-private const val UPDATE_BOOK = "UPDATE BOOK, REPOSITORY"
-private const val DELETE_BOOKS = "DELETE BOOKS, REPOSITORY"
-private const val CAN_RESET_COVER = "CAN RESET COVER, REPOSITORY"
-private const val RESET_COVER = "RESET COVER, REPOSITORY"
-private const val GET_ALL_SETTINGS = "GET ALL SETTINGS, REPOSITORY"
-private const val GET_FILES_FROM_DEVICE = "GET FILES FROM DEVICE, REPOSITORY"
-private const val CHECK_FOR_UPDATES = "CHECK FOR UPDATES, REPOSITORY"
-private const val CHECK_FOR_TEXT_UPDATE = "CHECK FOR TEXT UPDATE, REPOSITORY"
+private const val GET_TEXT = "GET TEXT, REPO"
+private const val GET_BOOKS = "GET BOOKS, REPO"
+private const val GET_BOOKS_BY_ID = "GET BOOKS, REPO"
+private const val INSERT_BOOK = "INSERT BOOK, REPO"
+private const val UPDATE_BOOK = "UPDATE BOOK, REPO"
+private const val DELETE_BOOKS = "DELETE BOOKS, REPO"
+private const val CAN_RESET_COVER = "CAN RESET COVER, REPO"
+private const val RESET_COVER = "RESET COVER, REPO"
+private const val CHECK_FOR_TEXT_UPDATE = "CHECK TEXT UPD, REPO"
 
 @Suppress("DEPRECATION")
 @Singleton
 class BookRepositoryImpl @Inject constructor(
     private val application: Application,
     private val database: BookDao,
-    private val dataStore: DataStore,
-
-    private val githubAPI: GithubAPI,
-    private val updatesNotificationService: UpdatesNotificationService,
 
     private val bookMapper: BookMapper,
-    private val historyMapper: HistoryMapper,
-    private val colorPresetMapper: ColorPresetMapper,
 
     private val fileParser: FileParser,
     private val textParser: TextParser,
@@ -609,356 +581,5 @@ class BookRepositoryImpl @Inject constructor(
 
         Log.i(RESET_COVER, "Successfully reset cover image.")
         return true
-    }
-
-    /**
-     * Puts DataStore constant to [DataStore].
-     */
-    override suspend fun <T> putDataToDataStore(key: Preferences.Key<T>, value: T) {
-        dataStore.putData(key, value)
-    }
-
-    /**
-     * Gets all settings from DataStore and returns [MainState].
-     */
-    override suspend fun getAllSettings(): MainState {
-        Log.i(GET_ALL_SETTINGS, "Getting all settings.")
-        val result = CompletableDeferred<MainState>()
-
-        withContext(Dispatchers.Default) {
-            val keys = dataStore.getAllData()
-            val data = mutableMapOf<String, Any>()
-
-            Log.i(GET_ALL_SETTINGS, "Got ${keys?.size} settings keys.")
-
-            val jobs = keys?.map { key ->
-                async {
-                    val nullableData = dataStore.getNullableData(key)
-
-                    if (nullableData == null) {
-                        data.remove(key.name)
-                    } else {
-                        data[key.name] = nullableData
-                    }
-                }
-            }
-            jobs?.awaitAll()
-
-            result.complete(MainState.initialize(data))
-        }
-
-        return result.await()
-    }
-
-    /**
-     * Get all matching files from device.
-     * Filters by [query] and sorts out not supported file formats and already added files.
-     */
-    override suspend fun getFilesFromDevice(query: String): List<SelectableFile> {
-        Log.i(GET_FILES_FROM_DEVICE, "Getting files from device by query: \"$query\".")
-
-        val existingBooks = database
-            .searchBooks("")
-            .map { bookMapper.toBook(it) }
-        val supportedExtensions = Constants.EXTENSIONS
-
-        fun File.isValid(): Boolean {
-            if (!exists()) {
-                return false
-            }
-
-            val isFileSupported = supportedExtensions.any { ext ->
-                name.endsWith(
-                    ext,
-                    ignoreCase = true
-                )
-            }
-
-            if (!isFileSupported) {
-                return false
-            }
-
-            val isFileNotAdded = existingBooks.all {
-                it.filePath.lowercase().trim() != path.lowercase().trim()
-            }
-
-            if (!isFileNotAdded) {
-                return false
-            }
-
-            val isQuery = if (query.isEmpty()) true else name.trim().lowercase()
-                .contains(query.trim().lowercase())
-
-            return isQuery
-        }
-
-        suspend fun File.getAllFiles(): List<SelectableFile> {
-            val filesList = mutableListOf<SelectableFile>()
-
-            val files = listFiles()
-            if (files != null) {
-                for (file in files) {
-                    if (!file.exists()) {
-                        continue
-                    }
-
-                    when {
-                        file.isFile -> {
-                            if (file.isValid()) {
-                                filesList.add(
-                                    SelectableFile(
-                                        fileOrDirectory = file,
-                                        parentDirectory = this,
-                                        isDirectory = false,
-                                        isFavorite = false,
-                                        isSelected = false
-                                    )
-                                )
-                            }
-                        }
-
-                        file.isDirectory -> {
-                            val subDirectoryFiles = file.getAllFiles()
-                            if (subDirectoryFiles.isNotEmpty()) {
-                                filesList.add(
-                                    SelectableFile(
-                                        fileOrDirectory = file,
-                                        parentDirectory = this,
-                                        isDirectory = true,
-                                        isFavorite = database.favoriteDirectoryExits(file.path),
-                                        isSelected = false
-                                    )
-                                )
-                                filesList.addAll(subDirectoryFiles)
-                            }
-                        }
-                    }
-                }
-            }
-
-            return filesList
-        }
-
-        val rootDirectory = Environment.getExternalStorageDirectory()
-        if (
-            !rootDirectory.exists() ||
-            !rootDirectory.isDirectory ||
-            (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED &&
-                    Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED_READ_ONLY)
-        ) {
-            Log.e(GET_FILES_FROM_DEVICE, "Could not correctly get root directory.")
-            return emptyList()
-        }
-
-        Log.i(GET_FILES_FROM_DEVICE, "Successfully got all matching files.")
-        return rootDirectory.getAllFiles()
-    }
-
-    /**
-     * Gets book from given file. If error happened, returns [NullableBook.Null].
-     */
-    override suspend fun getBookFromFile(file: File): NullableBook {
-        val parsedBook = fileParser.parse(file)
-        if (parsedBook == null) {
-            Log.e(GET_BOOK_FROM_FILE, "Parsed file(${file.name}) is null.")
-            return NullableBook.Null(
-                file.name,
-                UIText.StringResource(R.string.error_something_went_wrong)
-            )
-        }
-
-        val parsedText = textParser.parse(file)
-        if (parsedText is Resource.Error) {
-            Log.e(GET_BOOK_FROM_FILE, "Parsed text(${file.name}) has error.")
-            return NullableBook.Null(
-                file.name,
-                parsedText.message
-            )
-        }
-
-        Log.i(GET_BOOK_FROM_FILE, "Successfully got book from file.")
-        return NullableBook.NotNull(
-            bookWithTextAndCover = BookWithTextAndCover(
-                book = parsedBook.book.copy(
-                    chapters = parsedText.data!!.map { it.chapter }.run {
-                        if (this.size == 1) return@run emptyList()
-                        this
-                    }
-                ),
-                coverImage = parsedBook.coverImage,
-                text = parsedText.data.map {
-                    it.text
-                }.flatten()
-            )
-        )
-    }
-
-    /**
-     * Insert history in database.
-     */
-    override suspend fun insertHistory(history: History) {
-        database.insertHistory(
-            listOf(
-                historyMapper.toHistoryEntity(
-                    history
-                )
-            )
-        )
-    }
-
-    /**
-     * Get all history from database.
-     */
-    override suspend fun getHistory(): List<History> {
-        return database.getHistory().map {
-            historyMapper.toHistory(
-                it
-            )
-        }
-    }
-
-    /**
-     * Get latest history of the matching [bookId].
-     */
-    override suspend fun getLatestBookHistory(bookId: Int): History? {
-        val history = database.getLatestHistoryForBook(bookId)
-        return history?.let { historyMapper.toHistory(it) }
-    }
-
-    /**
-     * Delete whole history.
-     */
-    override suspend fun deleteWholeHistory() {
-        database.deleteWholeHistory()
-    }
-
-    /**
-     * Delete all history of the matching [bookId].
-     */
-    override suspend fun deleteBookHistory(bookId: Int) {
-        database.deleteBookHistory(bookId)
-    }
-
-    /**
-     * Delete specific history item.
-     */
-    override suspend fun deleteHistory(history: History) {
-        database.deleteHistory(
-            listOf(
-                historyMapper.toHistoryEntity(
-                    history
-                )
-            )
-        )
-    }
-
-    /**
-     * Check for updates from GitHub.
-     *
-     * @param postNotification Whether notification should be send.
-     */
-    override suspend fun checkForUpdates(postNotification: Boolean): LatestReleaseInfo? {
-        Log.i(CHECK_FOR_UPDATES, "Checking for updates. Post notification: $postNotification")
-
-        return withContext(Dispatchers.IO) {
-            try {
-                val result = githubAPI.getLatestRelease()
-
-                val version = result.tagName.substringAfter("v")
-                val currentVersion = application.getString(R.string.app_version)
-
-                if (version != currentVersion && postNotification) {
-                    Log.i(CHECK_FOR_UPDATES, "Posting notification.")
-                    updatesNotificationService.postNotification(
-                        result
-                    )
-                }
-
-                result
-            } catch (e: Exception) {
-                Log.e(CHECK_FOR_UPDATES, "Could not get latest release information.")
-                e.printStackTrace()
-                null
-            }
-        }
-    }
-
-    /**
-     * Update color preset.
-     */
-    override suspend fun updateColorPreset(colorPreset: ColorPreset) {
-        database.updateColorPreset(
-            colorPresetMapper.toColorPresetEntity(
-                colorPreset,
-                if (colorPreset.id != -1) database.getColorPresetOrder(colorPreset.id)
-                else database.getColorPresetsSize()
-            )
-        )
-    }
-
-    /**
-     * Select color preset. Only one can be selected at time.
-     */
-    override suspend fun selectColorPreset(colorPreset: ColorPreset) {
-        database.getColorPresets().map {
-            it.copy(
-                isSelected = it.id == colorPreset.id
-            )
-        }.forEach {
-            database.updateColorPreset(it)
-        }
-    }
-
-    /**
-     * Get all color presets.
-     * Sorted by order (either manual or newest ones at the end).
-     */
-    override suspend fun getColorPresets(): List<ColorPreset> {
-        return database.getColorPresets()
-            .sortedBy { it.order }
-            .map { colorPresetMapper.toColorPreset(it) }
-    }
-
-    /**
-     * Reorder color presets.
-     * Changes the order of the color presets.
-     */
-    override suspend fun reorderColorPresets(orderedColorPresets: List<ColorPreset>) {
-        database.deleteColorPresets()
-
-        orderedColorPresets.forEachIndexed { index, colorPreset ->
-            database.updateColorPreset(
-                colorPresetMapper.toColorPresetEntity(colorPreset, order = index)
-            )
-        }
-    }
-
-    /**
-     * Delete color preset.
-     */
-    override suspend fun deleteColorPreset(colorPreset: ColorPreset) {
-        database.deleteColorPreset(
-            colorPresetMapper.toColorPresetEntity(
-                colorPreset, -1
-            )
-        )
-    }
-
-    /**
-     * Create or delete favorite directory if already exists.
-     *
-     * @param path Path to directory.
-     */
-    override suspend fun updateFavoriteDirectory(path: String) {
-        if (database.favoriteDirectoryExits(path)) {
-            database.deleteFavoriteDirectory(
-                FavoriteDirectoryEntity(path)
-            )
-            return
-        }
-
-        database.insertFavoriteDirectory(
-            FavoriteDirectoryEntity(path)
-        )
     }
 }

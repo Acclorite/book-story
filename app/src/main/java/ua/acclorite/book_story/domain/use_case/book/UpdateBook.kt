@@ -4,7 +4,9 @@ import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.repository.BookRepository
 import javax.inject.Inject
 
-class UpdateBook @Inject constructor(private val repository: BookRepository) {
+class UpdateBook @Inject constructor(
+    private val repository: BookRepository
+) {
 
     suspend fun execute(book: Book) {
         repository.updateBook(book)

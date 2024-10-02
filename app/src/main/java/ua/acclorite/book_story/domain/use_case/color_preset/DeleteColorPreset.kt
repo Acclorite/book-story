@@ -1,10 +1,12 @@
 package ua.acclorite.book_story.domain.use_case.color_preset
 
 import ua.acclorite.book_story.domain.model.ColorPreset
-import ua.acclorite.book_story.domain.repository.BookRepository
+import ua.acclorite.book_story.domain.repository.ColorPresetRepository
 import javax.inject.Inject
 
-class DeleteColorPreset @Inject constructor(private val repository: BookRepository) {
+class DeleteColorPreset @Inject constructor(
+    private val repository: ColorPresetRepository
+) {
 
     suspend fun execute(colorPreset: ColorPreset) {
         repository.deleteColorPreset(colorPreset)

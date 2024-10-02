@@ -2,14 +2,18 @@ package ua.acclorite.book_story.domain.use_case.book
 
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.repository.BookRepository
+import ua.acclorite.book_story.domain.repository.HistoryRepository
 import javax.inject.Inject
 
-class DeleteBooks @Inject constructor(private val repository: BookRepository) {
+class DeleteBooks @Inject constructor(
+    private val bookRepository: BookRepository,
+    private val historyRepository: HistoryRepository
+) {
 
     suspend fun execute(books: List<Book>) {
-        repository.deleteBooks(books)
+        bookRepository.deleteBooks(books)
         books.forEach {
-            repository.deleteBookHistory(it.id)
+            historyRepository.deleteBookHistory(it.id)
         }
     }
 }
