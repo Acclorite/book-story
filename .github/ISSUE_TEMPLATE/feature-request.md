@@ -7,17 +7,22 @@ assignees: Acclorite
 
 ---
 
+**Please, follow _all_ of these checks (Issues that do not will be canceled):**
+- [ ] This feature is not implemented and does not have opened/closed Issues.
+- [ ] I propose ONLY one feature at a time. One feature - one Issue.
+- [ ] I use English. This repository's language is English.
+- [ ] I properly filled the template below(not necessarily all parts, but at least first two).
+- [ ] I did not use any placeholder such as [Feature] or [Bug] in the title of the Issue.
+<!--- Do not delete these checks. Please properly check every one of them. --->
+
 **Why you want this feature to be implemented? Please describe.**
-Describe why you'd like to see this feature in the app.
+<!--- Describe why you'd like to see this feature in the app. --->
 
 **Describe the feature you'd like to be implemented**
-Describe as good as you can how you would like this feature to be implemented and idea behind it.
+<!--- Describe as good as you can how you would like this feature to be implemented and idea behind it. --->
 
 **Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+<!--- A clear and concise description of any alternative solutions or features you've considered. --->
 
 **Additional context**
-Add any other context or screenshots about the feature request here.
-
-Please don't use titles like [Feature Request], use clear and well formatted titles like "New feature in Screen".
-Duplicates and invalid issues will be closed.
+<!--- Add any other context or screenshots about the feature request here. --->
