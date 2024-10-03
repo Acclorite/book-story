@@ -145,4 +145,5 @@
     <string name="help_desc_how_to_manage_history_2">Histórico</string>
     <string name="drag_content_desc">Arrastar</string>
     <string name="filter_content_desc">Filtro</string>
+    <string name="delete_book_description">Isso irá apagar o livro do banco de dados. Isso não irá apagar esse livro do dispositivo.</string>
 </resources>
