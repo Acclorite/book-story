@@ -36,6 +36,7 @@ import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.BaseViewModel
+import ua.acclorite.book_story.presentation.core.util.coerceAndPreventNaN
 import ua.acclorite.book_story.presentation.core.util.launchActivity
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -617,8 +618,8 @@ class ReaderViewModel @Inject constructor(
 
             val currentIndex = index - startIndex
             val endIndex = endIndex - startIndex
-            (currentIndex / endIndex.toFloat()).coerceIn(0f, 1f)
-        }
+            (currentIndex / endIndex.toFloat())
+        }.coerceAndPreventNaN()
 
         _state.update {
             it.copy(
@@ -647,8 +648,9 @@ class ReaderViewModel @Inject constructor(
                 return 1f
             }
 
-            return@run ((firstVisibleItemIndex ?: listState.firstVisibleItemIndex) /
-                    (text.lastIndex).toFloat()).coerceIn(0f, 1f)
+            return@run (firstVisibleItemIndex ?: listState.firstVisibleItemIndex)
+                .div(text.lastIndex.toFloat())
+                .coerceAndPreventNaN()
         }
     }
 

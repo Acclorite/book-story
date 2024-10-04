@@ -47,6 +47,11 @@ fun Float.calculateProgress(digits: Int): String {
         .dropWhile { it == '-' }
 }
 
+fun Float.coerceAndPreventNaN(): Float {
+    if (isNaN()) return 0f
+    return this.coerceIn(0f, 1f)
+}
+
 @OptIn(ExperimentalFoundationApi::class)
 fun Modifier.noRippleClickable(
     enabled: Boolean = true,
