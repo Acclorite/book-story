@@ -3,7 +3,6 @@ package ua.acclorite.book_story.data.parser
 import android.util.Log
 import ua.acclorite.book_story.data.parser.epub.EpubFileParser
 import ua.acclorite.book_story.data.parser.fb2.Fb2FileParser
-import ua.acclorite.book_story.data.parser.htm.HtmFileParser
 import ua.acclorite.book_story.data.parser.html.HtmlFileParser
 import ua.acclorite.book_story.data.parser.pdf.PdfFileParser
 import ua.acclorite.book_story.data.parser.txt.TxtFileParser
@@ -19,7 +18,6 @@ class FileParserImpl @Inject constructor(
     private val epubFileParser: EpubFileParser,
     private val fb2FileParser: Fb2FileParser,
     private val htmlFileParser: HtmlFileParser,
-    private val htmFileParser: HtmFileParser,
 ) : FileParser {
     override suspend fun parse(file: File): BookWithCover? {
         if (!file.exists()) {
@@ -54,7 +52,7 @@ class FileParserImpl @Inject constructor(
             }
 
             ".htm" -> {
-                htmFileParser.parse(file)
+                htmlFileParser.parse(file)
             }
 
             else -> {

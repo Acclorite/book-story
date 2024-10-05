@@ -4,7 +4,6 @@ import android.util.Log
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.epub.EpubTextParser
 import ua.acclorite.book_story.data.parser.fb2.Fb2TextParser
-import ua.acclorite.book_story.data.parser.htm.HtmTextParser
 import ua.acclorite.book_story.data.parser.html.HtmlTextParser
 import ua.acclorite.book_story.data.parser.pdf.PdfTextParser
 import ua.acclorite.book_story.data.parser.txt.TxtTextParser
@@ -22,7 +21,6 @@ class TextParserImpl @Inject constructor(
     private val epubTextParser: EpubTextParser,
     private val fb2TextParser: Fb2TextParser,
     private val htmlTextParser: HtmlTextParser,
-    private val htmTextParser: HtmTextParser,
 ) : TextParser {
     override suspend fun parse(file: File): Resource<List<ChapterWithText>> {
         if (!file.exists()) {
@@ -59,7 +57,7 @@ class TextParserImpl @Inject constructor(
             }
 
             ".htm" -> {
-                htmTextParser.parse(file)
+                htmlTextParser.parse(file)
             }
 
             else -> {

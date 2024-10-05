@@ -28,6 +28,7 @@ class HtmlTextParser @Inject constructor(
             yield()
 
             if (lines.isEmpty()) {
+                Log.e(HTML_TAG, "Could not extract text from HTML.")
                 return Resource.Error(UIText.StringResource(R.string.error_file_empty))
             }
 
