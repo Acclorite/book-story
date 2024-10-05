@@ -40,22 +40,13 @@ class EpubTextParser @Inject constructor(
                     zip.entries().asSequence().find { entry ->
                         entry.name.endsWith("toc.ncx", ignoreCase = true)
                     }.apply {
-                        if (this == null) {
-                            Log.w(EPUB_TAG, "toc.ncx was not found.")
-                            parseWithoutToc(zip)?.let { chapters.addAll(it) }
-                            return@withContext
-                        }
-
-                        parseWithToc(this, zip).apply {
-                            if (this == null) {
-                                parseWithoutToc(zip)?.let { chapters.addAll(it) }
+                        parseEpub(tocEntry = this, zip = zip).let {
+                            if (it == null) {
+                                Log.e(EPUB_TAG, "Could not parse EPUB.")
                                 return@withContext
                             }
-
-                            chapters.addAll(this)
+                            chapters.addAll(it)
                         }
-
-                        yield()
                     }
                 }
             }
@@ -80,44 +71,88 @@ class EpubTextParser @Inject constructor(
     }
 
     /**
-     * Parses text if no toc.ncx found, which is Table of Content.
+     * Parses text and chapters from EPUB.
+     * Uses toc.ncx(if present) to retrieve titles, otherwise uses first line as title.
      *
      * @return Null if could not parse.
      */
-    private suspend fun parseWithoutToc(zip: ZipFile): List<ChapterWithText>? {
-        val chapters = mutableListOf<ChapterWithText>()
-        var chapterTextIndex = -1
-        var chapterIndex = 1
+    private suspend fun parseEpub(tocEntry: ZipEntry?, zip: ZipFile): List<ChapterWithText>? {
+        Log.i(EPUB_TAG, "TOC Entry: ${tocEntry?.name ?: "NO TOC"}")
 
         yield()
 
-        zip.entries().asSequence().sortedBy { it.name }.forEach { entry ->
+        val chapters = mutableListOf<ChapterWithText>()
+        var chapterTextIndex = -1
+
+        val tocContent = tocEntry?.let {
+            withContext(Dispatchers.IO) {
+                zip.getInputStream(it)
+            }.bufferedReader().use { it.readText() }
+        }
+        val tocDocument = tocContent?.let { Jsoup.parse(it) }
+        val chaptersTitles = tocDocument.run {
+            if (this == null) return@run null
+            var titles = mutableMapOf<String, List<String>>()
+
+            select("navPoint").forEach { navPoint ->
+                val title = navPoint.selectFirst("navLabel > text")?.text()?.trim()
+                    ?: return@forEach
+                val source = navPoint.selectFirst("content")?.attr("src")?.trim().let {
+                    if (it == null) return@forEach
+                    Uri.parse(it).path ?: it
+                }.substringAfterLast("/")
+
+                titles[source] = (titles[source] ?: emptyList()) + title
+            }
+
+            titles
+        }
+
+        yield()
+
+        zip.entries().asSequence().sortedBy {
+            it.name.filter { it.isDigit() }.toIntOrNull()
+        }.forEach { entry ->
             yield()
 
             if (
                 !entry.name.endsWith(".xhtml")
                 && !entry.name.endsWith(".html")
-                && !entry.name.endsWith(".xml")
                 && !entry.name.endsWith(".htm")
-                || entry.name.endsWith("container.xml")
             ) return@forEach
 
-            val content = zip.getInputStream(entry)
-                .bufferedReader()
-                .use {
-                    it.readText()
-                }
+            yield()
 
-            val chapter =
-                documentParser.run { Jsoup.parse(content).parseDocument() }.toMutableList()
-            val chapterTitle = chapter.firstOrNull()?.clearMarkdown()
-                ?: "Chapter $chapterIndex" // In case could not get first line(shouldn't happen)
-            chapter.removeFirstOrNull()
+            val content = zip.getInputStream(entry).bufferedReader().use { it.readText() }
+            var chapter = documentParser.run {
+                Jsoup.parse(content).parseDocument()
+            }
 
             if (chapter.isEmpty()) {
                 Log.w(EPUB_TAG, "Chapter ${entry.name} is empty.")
                 return@forEach
             }
+
+            val chapterTitle = getChapterTitleFromToc(
+                chapterSource = entry.name,
+                chaptersTitles = chaptersTitles
+            ).run {
+                if (this != null) {
+                    return@run this
+                }
+                chapter.first().clearMarkdown()
+            }
+
+            chapter = chapter.dropWhile {
+                it.clearMarkdown().lowercase() == chapterTitle.lowercase()
+            }
+            
+            if (chapter.isEmpty()) {
+                Log.w(EPUB_TAG, "Chapter ${entry.name} is empty.")
+                return@forEach
+            }
+
+            yield()
 
             chapters.add(
                 ChapterWithText(
@@ -131,7 +166,6 @@ class EpubTextParser @Inject constructor(
                 )
             )
             chapterTextIndex += chapter.size
-            chapterIndex++
         }
 
         yield()
@@ -144,108 +178,14 @@ class EpubTextParser @Inject constructor(
         return chapters
     }
 
-    /**
-     * Parses text with toc.ncx. Extracts all chapters.
-     *
-     * @return Null if could not parse toc.ncx.
-     */
-    private suspend fun parseWithToc(tocEntry: ZipEntry, zip: ZipFile): List<ChapterWithText>? {
-        Log.i(EPUB_TAG, "TOC Entry: ${tocEntry.name}")
-
-        val chapters = mutableMapOf<String, ChapterWithText>()
-        var emptyChapters = 0
-        var chapterTextIndex = -1
-        var chapterIndex = 1
-
-        yield()
-
-        val tocContent = withContext(Dispatchers.IO) {
-            zip.getInputStream(tocEntry)
-        }.bufferedReader().use { it.readText() }
-        val tocDocument = Jsoup.parse(tocContent)
-
-        yield()
-
-        tocDocument.select("navPoint").forEach { navPoint ->
-            yield()
-
-            val chapterTitle = navPoint.selectFirst("navLabel > text")?.text()?.trim()
-                ?: "Chapter $chapterIndex"
-            val chapterSrc = navPoint.selectFirst("content")?.attr("src")?.trim()
-                .run {
-                    if (this == null) {
-                        Log.e(EPUB_TAG, "No source of the chapter found: $chapterTitle")
-                        return null
-                    }
-
-                    Uri.parse(this).path ?: this
-                }
-
-            if (chapters.containsKey(chapterSrc)) {
-                chapters[chapterSrc] = chapters[chapterSrc]!!.run {
-                    copy(
-                        chapter = chapter.copy(
-                            title = "${chapter.title} / $chapterTitle"
-                        )
-                    )
-                }
-                return@forEach
-            }
-
-            zip.entries().asSequence().find { entry ->
-                entry.name.endsWith(chapterSrc)
-            }.apply {
-                if (this == null) {
-                    Log.e(EPUB_TAG, "No chapter entry found: $chapterTitle")
-                    return null
-                }
-
-                val content = zip.getInputStream(this)
-                    .bufferedReader()
-                    .use {
-                        it.readText()
-                    }
-
-                val chapter = documentParser.run {
-                    Jsoup.parse(content).parseDocument().dropWhile {
-                        it.clearMarkdown().lowercase() == chapterTitle.lowercase()
-                    }
-                }
-                if (chapter.isEmpty()) {
-                    Log.w(EPUB_TAG, "Chapter $chapterTitle is empty.")
-                    emptyChapters += 1
-                    return@forEach
-                }
-
-                chapters.put(
-                    key = chapterSrc,
-                    value = ChapterWithText(
-                        chapter = Chapter(
-                            index = chapters.size,
-                            title = chapterTitle,
-                            startIndex = chapterTextIndex + 1,
-                            endIndex = chapterTextIndex + chapter.size
-                        ),
-                        text = chapter
-                    )
-                )
-                chapterTextIndex += chapter.size
-                chapterIndex++
-            }
-        }
-
-        yield()
-
-        if (chapters.isEmpty()) {
-            Log.e(EPUB_TAG, "Could not parse text with toc.ncx")
-            return null
-        }
-
-        if (emptyChapters >= ((emptyChapters + chapters.size) * 0.25f)) {
-            Log.e(EPUB_TAG, "More than 25% of the chapters are empty.")
-            return null
-        }
-
-        return chapters.values.toList().sortedBy { it.chapter.index }
+    private fun getChapterTitleFromToc(
+        chapterSource: String,
+        chaptersTitles: Map<String, List<String>>?
+    ): String? {
+        if (chaptersTitles.isNullOrEmpty()) return null
+        return chaptersTitles
+            .getOrElse(chapterSource.substringAfterLast("/")) { null }
+            ?.joinToString(separator = " / ")
+            ?.ifBlank { null }
     }
 }
