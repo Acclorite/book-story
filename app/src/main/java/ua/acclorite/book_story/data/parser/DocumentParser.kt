@@ -45,6 +45,8 @@ class DocumentParser @Inject constructor() {
             yield()
 
             val formattedLine = line.replace(
+                Regex("""\*\*\*\s*(.*?)\s*\*\*\*"""), "_**$1**_"
+            ).replace(
                 Regex("""\*\*\s*(.*?)\s*\*\*"""), "**$1**"
             ).replace(
                 Regex("""_\s*(.*?)\s*_"""), "_$1_"
