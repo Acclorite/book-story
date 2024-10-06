@@ -72,3 +72,7 @@ fun Modifier.noRippleClickable(
 fun String.clearMarkdown(): String {
     return replace(Regex("_|\\*\\*"), "")
 }
+
+fun <T> MutableList<T>.addAll(calculation: () -> List<T>) {
+    addAll(calculation())
+}
