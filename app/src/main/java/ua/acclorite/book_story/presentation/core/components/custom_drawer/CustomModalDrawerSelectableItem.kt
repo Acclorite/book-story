@@ -38,7 +38,7 @@ fun CustomModalDrawerSelectableItem(
 ) {
     Row(
         modifier = modifier
-            .padding(horizontal = 8.dp)
+            .padding(horizontal = 12.dp)
             .fillMaxWidth()
             .clip(CircleShape)
             .background(

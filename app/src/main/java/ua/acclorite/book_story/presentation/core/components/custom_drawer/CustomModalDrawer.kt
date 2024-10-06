@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
+import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 
 /**
@@ -126,6 +127,7 @@ fun CustomModalDrawer(
                 CustomLazyColumn(
                     state = rememberLazyListState(startIndex),
                     modifier = Modifier.fillMaxSize(),
+                    scrollbarSettings = Constants.PRIMARY_SCROLLBAR,
                     contentPadding = PaddingValues(vertical = 9.dp)
                 ) {
                     content()

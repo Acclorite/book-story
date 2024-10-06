@@ -664,9 +664,10 @@ private fun provideEmptyChapter() = Chapter(
 @Composable
 private fun providePrimaryScrollbar() = ScrollbarSettings(
     thumbUnselectedColor = MaterialTheme.colorScheme.primary,
+    thumbSelectedColor = MaterialTheme.colorScheme.primary.copy(0.8f),
     hideDelayMillis = 2000,
     durationAnimationMillis = 300,
-    selectionMode = ScrollbarSelectionMode.Disabled,
+    selectionMode = ScrollbarSelectionMode.Thumb,
     thumbThickness = 8.dp,
     scrollbarPadding = 4.dp
 )
