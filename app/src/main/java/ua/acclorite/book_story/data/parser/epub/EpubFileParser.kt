@@ -24,7 +24,7 @@ class EpubFileParser @Inject constructor() : FileParser {
             withContext(Dispatchers.IO) {
                 ZipFile(file).use { zip ->
                     val opfEntry = zip.entries().asSequence().find { entry ->
-                        entry.name.endsWith(".opf")
+                        entry.name.endsWith("content.opf")
                     } ?: return@withContext
 
                     val opfContent = zip
