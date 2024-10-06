@@ -10,6 +10,7 @@ import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.data.local.data_store.DataStore
 import ua.acclorite.book_story.domain.repository.DataStoreRepository
 import ua.acclorite.book_story.presentation.data.MainState
+import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -40,7 +41,7 @@ class DataStoreRepositoryImpl @Inject constructor(
 
         withContext(Dispatchers.Default) {
             val keys = dataStore.getAllData()
-            val data = mutableMapOf<String, Any>()
+            val data = ConcurrentHashMap<String, Any>()
 
             Log.i(GET_ALL_SETTINGS, "Got ${keys?.size} settings keys.")
 
