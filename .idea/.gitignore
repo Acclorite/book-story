@@ -2,7 +2,6 @@
 *
 
 # except
-!compiler.xml
 !kotlinc.xml
 !codeStyles
 !codeStyles/codeStyleConfig.xml
