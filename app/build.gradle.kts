@@ -171,5 +171,4 @@ dependencies {
 
     // Markdown
     implementation("org.commonmark:commonmark:0.23.0")
-    implementation("org.commonmark:commonmark-ext-autolink:0.23.0")
 }

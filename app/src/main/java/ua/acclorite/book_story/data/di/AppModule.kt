@@ -8,7 +8,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.commonmark.ext.autolink.AutolinkExtension
 import org.commonmark.node.BlockQuote
 import org.commonmark.node.FencedCodeBlock
 import org.commonmark.node.Heading
@@ -46,7 +45,6 @@ object AppModule {
     fun provideCommonmarkParser(): Parser {
         return Parser
             .builder()
-            .extensions(listOf(AutolinkExtension.create()))
             .enabledBlockTypes(
                 setOf(
                     Heading::class.java,
