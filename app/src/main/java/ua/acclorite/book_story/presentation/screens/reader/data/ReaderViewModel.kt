@@ -103,10 +103,10 @@ class ReaderViewModel @Inject constructor(
 
                                 event.checkForUpdate()
 
-                                delay(100)
                                 _state.update {
                                     it.copy(
-                                        loading = false
+                                        loading = false,
+                                        errorMessage = null
                                     )
                                 }
 
@@ -526,7 +526,7 @@ class ReaderViewModel @Inject constructor(
             }
 
             clear()
-            launch {
+            withContext(Dispatchers.Default) {
                 onEvent(
                     ReaderEvent.OnShowHideMenu(
                         show = false,
@@ -535,27 +535,28 @@ class ReaderViewModel @Inject constructor(
                         activity = activity
                     )
                 )
-                onEvent(
-                    ReaderEvent.OnLoadText(
-                        checkForUpdate = {
-                            if (checkForTextUpdate) {
-                                onEvent(
-                                    ReaderEvent.OnCheckTextForUpdate {
-                                        checkForTextUpdateToast()
-                                    }
-                                )
-                            }
-                        },
-                        refreshList = { refreshList(it) },
-                        onError = {
-                            onError(it)
-                        },
-                        onTextIsEmpty = {
-                            onEvent(ReaderEvent.OnTextIsEmpty)
-                        }
-                    )
-                )
             }
+
+            onEvent(
+                ReaderEvent.OnLoadText(
+                    checkForUpdate = {
+                        if (checkForTextUpdate) {
+                            onEvent(
+                                ReaderEvent.OnCheckTextForUpdate {
+                                    checkForTextUpdateToast()
+                                }
+                            )
+                        }
+                    },
+                    refreshList = { refreshList(it) },
+                    onError = {
+                        onError(it)
+                    },
+                    onTextIsEmpty = {
+                        onEvent(ReaderEvent.OnTextIsEmpty)
+                    }
+                )
+            )
         }
     }
 
