@@ -10,6 +10,7 @@ import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.domain.model.ChapterWithText
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.presentation.core.util.clearMarkdown
 import java.io.File
 import javax.inject.Inject
 
@@ -23,20 +24,30 @@ class HtmlTextParser @Inject constructor(
         Log.i(HTML_TAG, "Started HTML parsing: ${file.name}.")
 
         return try {
-            val lines = documentParser.run { Jsoup.parse(file).parseDocument() }
+            val lines = documentParser.run {
+                Jsoup.parse(file).parseDocument()
+            }.toMutableList()
 
             yield()
 
-            if (lines.isEmpty()) {
+            if (lines.size < 2) {
                 Log.e(HTML_TAG, "Could not extract text from HTML.")
                 return Resource.Error(UIText.StringResource(R.string.error_file_empty))
             }
+
+            val title = lines.first().clearMarkdown()
+            lines.removeAt(0)
 
             Log.i(HTML_TAG, "Successfully finished HTML parsing.")
             Resource.Success(
                 listOf(
                     ChapterWithText(
-                        chapter = Chapter(title = "", startIndex = 0, endIndex = 0),
+                        chapter = Chapter(
+                            index = 0,
+                            title = title,
+                            startIndex = 0,
+                            endIndex = lines.lastIndex
+                        ),
                         text = lines
                     )
                 )

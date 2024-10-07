@@ -8,10 +8,11 @@ import com.tom_roush.pdfbox.text.PDFTextStripper
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.TextParser
+import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.domain.model.ChapterWithText
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
-import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.util.clearMarkdown
 import java.io.File
 import javax.inject.Inject
 
@@ -116,15 +117,23 @@ class PdfTextParser @Inject constructor(
 
             yield()
 
-            if (strings.isEmpty()) {
+            if (strings.size < 2) {
                 return Resource.Error(UIText.StringResource(R.string.error_file_empty))
             }
+
+            val title = strings.first().clearMarkdown()
+            strings.removeAt(0)
 
             Log.i(PDF_TAG, "Successfully finished PDF parsing.")
             Resource.Success(
                 listOf(
                     ChapterWithText(
-                        chapter = Constants.EMPTY_CHAPTER,
+                        chapter = Chapter(
+                            index = 0,
+                            title = title,
+                            startIndex = 0,
+                            endIndex = strings.lastIndex
+                        ),
                         text = strings
                     )
                 )

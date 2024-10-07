@@ -167,10 +167,7 @@ class FileSystemRepositoryImpl @Inject constructor(
         return NotNull(
             bookWithTextAndCover = BookWithTextAndCover(
                 book = parsedBook.book.copy(
-                    chapters = parsedText.data!!.map { it.chapter }.run {
-                        if (this.size == 1) return@run emptyList()
-                        this
-                    }
+                    chapters = parsedText.data!!.map { it.chapter } //todo remove this and make every parser take first line as chapter title(exc epub ofc)
                 ),
                 coverImage = parsedBook.coverImage,
                 text = parsedText.data.map {

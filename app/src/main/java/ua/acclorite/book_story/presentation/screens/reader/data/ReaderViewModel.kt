@@ -596,7 +596,7 @@ class ReaderViewModel @Inject constructor(
                 .distinctUntilChanged()
                 .debounce(300)
                 .collectLatest { index ->
-                    if (_state.value.book.chapters.size < 2) {
+                    if (_state.value.book.chapters.isEmpty()) {
                         _state.update {
                             it.copy(
                                 currentChapter = null

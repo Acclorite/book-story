@@ -8,10 +8,11 @@ import org.w3c.dom.Element
 import org.w3c.dom.NodeList
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.TextParser
+import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.domain.model.ChapterWithText
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
-import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.util.clearMarkdown
 import java.io.File
 import javax.inject.Inject
 import javax.xml.parsers.DocumentBuilderFactory
@@ -114,15 +115,23 @@ class Fb2TextParser @Inject constructor() : TextParser {
 
             yield()
 
-            if (formattedLines.isEmpty()) {
+            if (formattedLines.size < 2) {
                 return Resource.Error(UIText.StringResource(R.string.error_file_empty))
             }
+
+            val title = formattedLines.first().clearMarkdown()
+            formattedLines.removeAt(0)
 
             Log.i(FB2_TAG, "Successfully finished FB2 parsing.")
             Resource.Success(
                 listOf(
                     ChapterWithText(
-                        chapter = Constants.EMPTY_CHAPTER,
+                        chapter = Chapter(
+                            index = 0,
+                            title = title,
+                            startIndex = 0,
+                            endIndex = formattedLines.lastIndex
+                        ),
                         text = formattedLines
                     )
                 )

@@ -181,10 +181,7 @@ class BookRepositoryImpl @Inject constructor(
                     )
                 }
 
-                data!!.map { it.text }.flatten() to data.map { it.chapter }.run {
-                    if (size < 2) return@run emptyList()
-                    return@run this
-                }
+                data!!.map { it.text }.flatten() to data.map { it.chapter }
             }
             Log.i(CHECK_FOR_TEXT_UPDATE, "Successfully got new text and chapters.")
 
