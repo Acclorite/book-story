@@ -67,7 +67,7 @@ fun BookInfoChangeCoverBottomSheet() {
         onDismissRequest = {
             onEvent(BookInfoEvent.OnShowHideChangeCoverBottomSheet)
         }
-    ) { padding ->
+    ) {
         LazyColumn(Modifier.fillMaxWidth()) {
             if (state.value.canResetCover) {
                 item {
@@ -125,11 +125,7 @@ fun BookInfoChangeCoverBottomSheet() {
             }
 
             item {
-                Spacer(
-                    modifier = Modifier.height(
-                        8.dp + padding
-                    )
-                )
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
     }

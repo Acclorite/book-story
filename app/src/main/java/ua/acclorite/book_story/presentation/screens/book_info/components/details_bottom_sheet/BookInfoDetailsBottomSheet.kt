@@ -124,10 +124,6 @@ fun BookInfoDetailsBottomSheet() {
             }
         }
 
-        Spacer(
-            modifier = Modifier.height(
-                8.dp + it
-            )
-        )
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }

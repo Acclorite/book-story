@@ -109,7 +109,7 @@ fun ReaderSettingsBottomSheet() {
                             titleColor = { MaterialTheme.colorScheme.onSurface },
                             showDivider = false,
                             topPadding = 22.dp,
-                            bottomPadding = 8.dp + it
+                            bottomPadding = 8.dp
                         )
                     }
                 }
@@ -130,7 +130,7 @@ fun ReaderSettingsBottomSheet() {
                             titleColor = { MaterialTheme.colorScheme.onSurface },
                             showDivider = false,
                             topPadding = 22.dp,
-                            bottomPadding = 8.dp + it
+                            bottomPadding = 8.dp
                         )
                     }
                 }
@@ -142,7 +142,7 @@ fun ReaderSettingsBottomSheet() {
                             showDivider = false,
                             backgroundColor = { MaterialTheme.colorScheme.surfaceContainer },
                             topPadding = 16.dp,
-                            bottomPadding = 8.dp + it
+                            bottomPadding = 8.dp
                         )
                     }
                 }

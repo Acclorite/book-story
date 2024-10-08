@@ -60,7 +60,7 @@ fun BrowseFilterBottomSheet() {
                             showTitle = false,
                             showDivider = false,
                             topPadding = 16.dp,
-                            bottomPadding = 8.dp + it
+                            bottomPadding = 8.dp
                         )
                     }
                 }
@@ -71,7 +71,7 @@ fun BrowseFilterBottomSheet() {
                             showTitle = false,
                             showDivider = false,
                             topPadding = 16.dp,
-                            bottomPadding = 8.dp + it
+                            bottomPadding = 8.dp
                         )
                     }
                 }
@@ -82,7 +82,7 @@ fun BrowseFilterBottomSheet() {
                             showTitle = false,
                             showDivider = false,
                             topPadding = 16.dp,
-                            bottomPadding = 8.dp + it
+                            bottomPadding = 8.dp
                         )
                     }
                 }
