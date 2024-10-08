@@ -68,7 +68,7 @@ import ua.acclorite.book_story.presentation.core.components.LocalSettingsViewMod
 import ua.acclorite.book_story.presentation.core.components.customItemsIndexed
 import ua.acclorite.book_story.presentation.core.components.is_messages.IsError
 import ua.acclorite.book_story.presentation.core.constants.Constants
-import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.core.util.showToast
@@ -94,7 +94,7 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
     val onHistoryEvent = LocalHistoryViewModel.current.onEvent
     val viewModel = LocalReaderViewModel.current.viewModel
     val context = LocalContext.current as ComponentActivity
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
 
 
     val lazyListState = rememberSaveable(
@@ -202,7 +202,7 @@ private fun ReaderScreen(lazyListState: LazyListState) {
     val onLibraryEvent = LocalLibraryViewModel.current.onEvent
     val onHistoryEvent = LocalHistoryViewModel.current.onEvent
     val context = LocalContext.current as ComponentActivity
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
 
     val nestedScrollConnection = remember(state) {
         object : NestedScrollConnection {

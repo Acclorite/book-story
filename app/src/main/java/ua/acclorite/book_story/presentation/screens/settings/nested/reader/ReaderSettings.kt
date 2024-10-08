@@ -19,7 +19,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.core.components.GoBackButton
 import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
-import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.ReaderSettingsCategory
 
 @Composable
@@ -30,7 +30,7 @@ fun ReaderSettingsRoot() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ReaderSettings() {
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
 
     Scaffold(

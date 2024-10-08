@@ -41,6 +41,9 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
@@ -54,13 +57,10 @@ private const val BACKSTACK = "back_stack"
 private const val USE_BACK_ANIM = "use_back_animation"
 private const val SCREENS = "screens"
 
-/**
- * Passed in [CompositionLocalProvider].
- */
-val LocalNavigator = compositionLocalOf<Navigator> {
+val LocalNavigatorInstance = compositionLocalOf<Navigator> {
     error("Cannot initialize Navigator.")
 }
-val LocalOnNavigate = compositionLocalOf<OnNavigate> {
+val LocalNavigator = compositionLocalOf<OnNavigate> {
     error("Cannot initialize Navigator.")
 }
 
@@ -161,6 +161,9 @@ class Navigator @AssistedInject constructor(
     val useBackAnimation = savedStateHandle.getStateFlow(USE_BACK_ANIM, false)
     private val backStack = savedStateHandle.getStateFlow(BACKSTACK, mutableListOf<Route>())
     val screens = savedStateHandle.getStateFlow(SCREENS, mutableListOf<Screen>())
+
+    private val _showNavigationBottomSheet = MutableStateFlow(false)
+    private val showNavigationBottomSheet = _showNavigationBottomSheet.asStateFlow()
 
     init {
         putScreen(startScreen)
@@ -277,6 +280,20 @@ class Navigator @AssistedInject constructor(
     }
 
     /**
+     * Shows navigation bottom sheet.
+     */
+    fun showNavigationBottomSheet() {
+        _showNavigationBottomSheet.update { true }
+    }
+
+    /**
+     * Hides navigation bottom sheet.
+     */
+    fun hideNavigationBottomSheet() {
+        _showNavigationBottomSheet.update { false }
+    }
+
+    /**
      * Animated Screen. Used in [NavigationHost].
      * Each [composable] should have unique [Screen].
      *
@@ -340,27 +357,36 @@ class Navigator @AssistedInject constructor(
         content: @Composable () -> Unit
     ) {
         val activity = LocalContext.current as ComponentActivity
-        val currentScreen = currentScreen.collectAsState()
-        val useBackAnimation by useBackAnimation.collectAsState()
-        val shouldShow by remember {
-            derivedStateOf {
-                screens.any { it == currentScreen.value }
-            }
-        }
-
         val windowClass = calculateWindowSizeClass(activity = activity)
         val tabletUI = remember(windowClass) {
             windowClass.widthSizeClass != WindowWidthSizeClass.Compact
         }
         val layoutDirection = LocalLayoutDirection.current
 
+        val currentScreen = currentScreen.collectAsState()
+        val useBackAnimation by useBackAnimation.collectAsState()
+        val showNavigation = remember {
+            derivedStateOf {
+                screens.any { it == currentScreen.value }
+            }
+        }
+        val showNavigationBottomSheet = showNavigationBottomSheet.collectAsState()
+
         CustomAnimatedVisibility(
-            visible = shouldShow,
+            visible = showNavigation.value,
             enter = if (useBackAnimation) backEnterBarAnim
             else enterBarAnim,
             exit = if (useBackAnimation) backExitBarAnim
             else exitBarAnim
         ) {
+            if (showNavigationBottomSheet.value) {
+                NavigationBottomSheet(
+                    onDismissRequest = {
+                        hideNavigationBottomSheet()
+                    }
+                )
+            }
+
             Scaffold(
                 bottomBar = {
                     if (!tabletUI) {
@@ -440,8 +466,8 @@ fun NavigationHost(
     )
 
     CompositionLocalProvider(
-        LocalNavigator provides navigator,
-        LocalOnNavigate provides { navigator.it() }
+        LocalNavigatorInstance provides navigator,
+        LocalNavigator provides { navigator.it() }
     ) {
         content(navigator)
     }

@@ -25,7 +25,7 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.util.Route
 import ua.acclorite.book_story.presentation.core.constants.Constants
-import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigatorInstance
 
 /**
  * Custom Navigation Rail. It is used to be shown on Tablets.
@@ -33,7 +33,7 @@ import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 @Composable
 fun CustomNavigationRail() {
     var currentScreen: Route? by remember { mutableStateOf(null) }
-    val navigator = LocalNavigator.current
+    val navigator = LocalNavigatorInstance.current
     val layoutDirection = LocalLayoutDirection.current
 
     LaunchedEffect(Unit) {

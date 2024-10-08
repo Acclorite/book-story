@@ -605,7 +605,6 @@
     <string name="sort_order_content_desc">Порядок сортування</string>
     <string name="path_arrow_icon_content_desc">Стрілка шляху</string>
     <string name="checkbox_content_desc">Галочка</string>
-    <string name="show_dropdown_content_desc">Випадаючий список</string>
     <string name="cover_image_not_found_content_desc">Обкладенка не знайдена</string>
     <string name="apply_changes_content_desc">Застосувати зміни</string>
     <string name="error_content_desc">Помилка</string>
@@ -641,5 +640,6 @@
     <string name="checkpoint_forward_content_desc">Чекпоінт вперед</string>
     <string name="chapters_content_desc">Розділи</string>
     <string name="update_text_content_desc">Оновити текст</string>
+    <string name="more_content_desc">Більше</string>
 
 </resources>

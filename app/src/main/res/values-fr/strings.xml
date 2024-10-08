@@ -227,7 +227,6 @@
     <string name="directory_icon_content_desc">Répertoire</string>
     <string name="path_arrow_icon_content_desc">Flèche du chemin</string>
     <string name="checkbox_content_desc">Case à cocher</string>
-    <string name="show_dropdown_content_desc">Menu déroulant</string>
     <string name="cover_image_not_found_content_desc">L\'image de couverture n\'a pas été trouvée</string>
     <string name="apply_changes_content_desc">Appliquer les changements</string>
     <string name="error_content_desc">Erreur</string>

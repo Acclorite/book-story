@@ -51,7 +51,7 @@ import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.core.components.customItems
 import ua.acclorite.book_story.presentation.core.components.header
 import ua.acclorite.book_story.presentation.core.components.is_messages.IsEmpty
-import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.library.components.LibraryBookItem
@@ -102,7 +102,7 @@ private fun LibraryScreen(
     val state = LocalLibraryViewModel.current.state
     val mainState = LocalMainViewModel.current.state
     val onEvent = LocalLibraryViewModel.current.onEvent
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
 
     var isScrollInProgress by remember { mutableStateOf(false) }
 

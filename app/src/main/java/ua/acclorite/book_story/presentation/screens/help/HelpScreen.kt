@@ -37,7 +37,7 @@ import ua.acclorite.book_story.presentation.core.components.LocalStartViewModel
 import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.core.components.customItems
 import ua.acclorite.book_story.presentation.core.constants.Constants
-import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
@@ -65,7 +65,7 @@ private fun HelpScreen() {
     val onMainEvent = LocalMainViewModel.current.onEvent
     val onBrowseEvent = LocalBrowseViewModel.current.onEvent
     val onStartEvent = LocalStartViewModel.current.onEvent
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
 
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
 

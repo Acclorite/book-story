@@ -31,7 +31,7 @@ import ua.acclorite.book_story.presentation.core.components.CustomIconButton
 import ua.acclorite.book_story.presentation.core.components.CustomSearchTextField
 import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.core.components.MoreDropDown
+import ua.acclorite.book_story.presentation.core.navigation.NavigationIconButton
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseLayout
@@ -119,7 +119,7 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
                     ) {
                         onEvent(BrowseEvent.OnShowHideFilterBottomSheet)
                     }
-                    MoreDropDown()
+                    NavigationIconButton()
                 }
             ),
 
@@ -164,7 +164,7 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
                     ) {
                         onEvent(BrowseEvent.OnShowHideFilterBottomSheet)
                     }
-                    MoreDropDown()
+                    NavigationIconButton()
                 }
             ),
 
@@ -200,7 +200,7 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
                     )
                 },
                 contentActions = {
-                    MoreDropDown()
+                    NavigationIconButton()
                 }
             ),
 

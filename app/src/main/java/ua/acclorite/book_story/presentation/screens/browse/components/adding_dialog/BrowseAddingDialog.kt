@@ -21,7 +21,7 @@ import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.core.components.customItems
 import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithLazyColumn
-import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
@@ -36,7 +36,7 @@ fun BrowseAddingDialog() {
     val state = LocalBrowseViewModel.current.state
     val onEvent = LocalBrowseViewModel.current.onEvent
     val onLibraryEvent = LocalLibraryViewModel.current.onEvent
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
 
     CustomDialogWithLazyColumn(
         title = stringResource(id = R.string.add_books),

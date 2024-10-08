@@ -36,7 +36,7 @@ import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBarDat
 import ua.acclorite.book_story.presentation.core.components.CustomIconButton
 import ua.acclorite.book_story.presentation.core.components.CustomSearchTextField
 import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
-import ua.acclorite.book_story.presentation.core.components.MoreDropDown
+import ua.acclorite.book_story.presentation.core.navigation.NavigationIconButton
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 
 /**
@@ -90,7 +90,7 @@ fun LibraryTopBar(pagerState: PagerState) {
                     ) {
                         onEvent(LibraryEvent.OnSearchShowHide)
                     }
-                    MoreDropDown()
+                    NavigationIconButton()
                 }
             ),
 
@@ -128,7 +128,7 @@ fun LibraryTopBar(pagerState: PagerState) {
                     )
                 },
                 contentActions = {
-                    MoreDropDown()
+                    NavigationIconButton()
                 },
             ),
 

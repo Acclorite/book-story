@@ -11,7 +11,7 @@ import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithContent
-import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
@@ -27,7 +27,7 @@ fun BookInfoDeleteDialog() {
     val onLibraryEvent = LocalLibraryViewModel.current.onEvent
     val onHistoryEvent = LocalHistoryViewModel.current.onEvent
     val onBrowseEvent = LocalBrowseViewModel.current.onEvent
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
     val context = LocalContext.current
 
     CustomDialogWithContent(
@@ -51,6 +51,7 @@ fun BookInfoDeleteDialog() {
                     }
                 )
             )
+            onEvent(BookInfoEvent.OnShowHideMoreBottomSheet(false))
             context.getString(R.string.book_deleted)
                 .showToast(context = context)
         }

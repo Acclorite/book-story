@@ -170,7 +170,6 @@
     <string name="open_reader_settings_content_desc">Reader-Einstellungen</string>
     <string name="file_icon_content_desc">Datei</string>
     <string name="checkbox_content_desc">Checkbox</string>
-    <string name="show_dropdown_content_desc">Dropdown</string>
     <string name="cover_image_not_found_content_desc">Titelbild nicht gefunden</string>
     <string name="apply_changes_content_desc">Änderungen übernehmen</string>
     <string name="error_content_desc">Fehler</string>

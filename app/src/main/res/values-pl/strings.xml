@@ -206,7 +206,6 @@
     <string name="credits_fonts">Czcionki</string>
     <string name="delete_books_content_desc">Usuń wybrane książki</string>
     <string name="browse_content_desc">Dodaj książki</string>
-    <string name="show_dropdown_content_desc">Rozwijany</string>
     <string name="create_color_preset_content_desc">Utwórz nowe ustawienie koloru</string>
     <string name="help_desc_how_to_customize_app_3">Możesz to zrobić z poziomu ekranu Biblioteka, Historia i Przeglądaj, klikając trzy kropki w prawym górnym rogu i wybierając « Ustawienia » z menu rozwijanego. Następnie zobaczysz wszystkie dostępne ustawienia tej aplikacji. Eksperymentuj z nimi!</string>
     <string name="continue_reading_content_desc">Kontynuuj czytanie</string>

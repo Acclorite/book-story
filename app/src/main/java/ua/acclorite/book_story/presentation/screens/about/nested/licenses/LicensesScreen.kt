@@ -30,7 +30,7 @@ import ua.acclorite.book_story.presentation.core.components.GoBackButton
 import ua.acclorite.book_story.presentation.core.components.LocalLicensesViewModel
 import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.core.components.customItems
-import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.screens.about.nested.licenses.components.LicenseItem
 
@@ -50,7 +50,7 @@ fun LicensesScreenRoot() {
 @Composable
 private fun LicensesScreen() {
     val state = LocalLicensesViewModel.current.state
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
 
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState(
         state.value.listState

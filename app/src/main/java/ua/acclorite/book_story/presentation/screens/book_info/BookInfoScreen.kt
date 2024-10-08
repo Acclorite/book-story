@@ -47,11 +47,12 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.CustomSnackbar
 import ua.acclorite.book_story.presentation.core.components.LocalBookInfoViewModel
-import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoBackground
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoDescriptionSection
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoInfoSection
+import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoMoreBottomSheet
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoStatisticSection
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoTopBar
 import ua.acclorite.book_story.presentation.screens.book_info.components.change_cover_bottom_sheet.BookInfoChangeCoverBottomSheet
@@ -64,7 +65,7 @@ import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 @Composable
 fun BookInfoScreenRoot(screen: Screen.BookInfo) {
     val viewModel = LocalBookInfoViewModel.current.viewModel
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
     val context = LocalContext.current
 
     val snackbarState = remember { SnackbarHostState() }
@@ -95,7 +96,7 @@ private fun BookInfoScreen(snackbarState: SnackbarHostState) {
     val context = LocalContext.current
     val state = LocalBookInfoViewModel.current.state
     val onEvent = LocalBookInfoViewModel.current.onEvent
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
 
     val listState = rememberLazyListState()
     val refreshState = rememberPullRefreshState(
@@ -124,6 +125,9 @@ private fun BookInfoScreen(snackbarState: SnackbarHostState) {
     }
     if (state.value.showConfirmTextUpdateDialog) {
         BookInfoConfirmUpdateDialog(snackbarHostState = snackbarState)
+    }
+    if (state.value.showMoreBottomSheet) {
+        BookInfoMoreBottomSheet(snackbarState = snackbarState)
     }
 
     Scaffold(

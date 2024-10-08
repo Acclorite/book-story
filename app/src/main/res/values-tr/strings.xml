@@ -298,7 +298,6 @@
     <string name="sort_order_content_desc">Sıralama düzeni</string>
     <string name="path_arrow_icon_content_desc">Yol oku</string>
     <string name="checkbox_content_desc">Onay kutusu</string>
-    <string name="show_dropdown_content_desc">Açılır menü</string>
     <string name="cover_image_not_found_content_desc">Kapak resmi bulunamadı</string>
     <string name="apply_changes_content_desc">Değişiklikleri uygula</string>
     <string name="error_content_desc">Hata</string>

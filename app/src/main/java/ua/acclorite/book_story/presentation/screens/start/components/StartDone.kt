@@ -44,7 +44,7 @@ fun StartDone() {
     val onEvent = LocalStartViewModel.current.onEvent
     val onMainEvent = LocalMainViewModel.current.onEvent
     val onBrowseEvent = LocalBrowseViewModel.current.onEvent
-    val navigator = LocalNavigator.current
+    val onNavigate = LocalNavigator.current
 
     StartNavigationTransition(
         modifier = Modifier
@@ -71,7 +71,7 @@ fun StartDone() {
                         onClick = {
                             onEvent(
                                 StartEvent.OnGoToBrowse(
-                                    onNavigate = { navigator.it() },
+                                    onNavigate = onNavigate,
                                     onCompletedStartGuide = {
                                         onBrowseEvent(BrowseEvent.OnLoadList)
                                         onMainEvent(
@@ -90,7 +90,7 @@ fun StartDone() {
                         shape = RoundedCornerShape(100),
                         onClick = {
                             onEvent(
-                                StartEvent.OnGoToHelp { navigator.it() }
+                                StartEvent.OnGoToHelp(onNavigate = onNavigate)
                             )
                         }
                     ) {

@@ -728,6 +728,14 @@ class BookInfoViewModel @Inject constructor(
                         }
                     }
                 }
+
+                is BookInfoEvent.OnShowHideMoreBottomSheet -> {
+                    _state.update {
+                        it.copy(
+                            showMoreBottomSheet = event.show
+                        )
+                    }
+                }
             }
         }
     }

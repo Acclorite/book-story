@@ -33,7 +33,7 @@ import ua.acclorite.book_story.presentation.core.components.GoBackButton
 import ua.acclorite.book_story.presentation.core.components.LocalAboutViewModel
 import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.core.constants.Constants
-import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.about.components.AboutItem
@@ -51,7 +51,7 @@ fun AboutScreenRoot() {
 private fun AboutScreen() {
     val state = LocalAboutViewModel.current.state
     val onEvent = LocalAboutViewModel.current.onEvent
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
     val context = LocalContext.current
 
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()

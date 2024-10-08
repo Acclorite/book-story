@@ -9,7 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import ua.acclorite.book_story.domain.util.Route
 import ua.acclorite.book_story.presentation.core.constants.Constants
-import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigatorInstance
 
 /**
  * Bottom navigation bar, uses default [NavigationBar].
@@ -17,7 +17,7 @@ import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 @Composable
 fun BottomNavigationBar() {
     var currentScreen: Route? by remember { mutableStateOf(null) }
-    val navigator = LocalNavigator.current
+    val navigator = LocalNavigatorInstance.current
 
     LaunchedEffect(Unit) {
         navigator.currentScreen.collect { route ->

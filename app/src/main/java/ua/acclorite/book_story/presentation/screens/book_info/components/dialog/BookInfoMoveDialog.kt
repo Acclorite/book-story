@@ -15,7 +15,7 @@ import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewMode
 import ua.acclorite.book_story.presentation.core.components.customItems
 import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithLazyColumn
 import ua.acclorite.book_story.presentation.core.components.custom_dialog.SelectableDialogItem
-import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
@@ -31,7 +31,7 @@ fun BookInfoMoveDialog() {
     val onEvent = LocalBookInfoViewModel.current.onEvent
     val onLibraryEvent = LocalLibraryViewModel.current.onEvent
     val onHistoryEvent = LocalHistoryViewModel.current.onEvent
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
     val context = LocalContext.current
 
     val categories = remember {
@@ -64,6 +64,7 @@ fun BookInfoMoveDialog() {
                     onNavigate = onNavigate
                 )
             )
+            onEvent(BookInfoEvent.OnShowHideMoreBottomSheet(false))
             context.getString(R.string.book_moved)
                 .showToast(context = context)
         },

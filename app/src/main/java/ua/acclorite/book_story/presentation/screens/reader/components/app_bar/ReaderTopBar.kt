@@ -42,7 +42,7 @@ import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewMode
 import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
-import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.core.util.showToast
@@ -64,7 +64,7 @@ fun ReaderTopBar() {
     val onLibraryEvent = LocalLibraryViewModel.current.onEvent
     val onHistoryEvent = LocalHistoryViewModel.current.onEvent
     val context = LocalContext.current as ComponentActivity
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
 
     val animatedChapterProgress = animateFloatAsState(
         targetValue = state.value.currentChapterProgress

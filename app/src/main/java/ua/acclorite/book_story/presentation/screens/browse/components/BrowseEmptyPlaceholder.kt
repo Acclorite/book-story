@@ -13,7 +13,7 @@ import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibi
 import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
 import ua.acclorite.book_story.presentation.core.components.is_messages.IsEmpty
 import ua.acclorite.book_story.presentation.core.components.is_messages.IsError
-import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.ui.Transitions
@@ -33,7 +33,7 @@ fun BoxScope.BrowseEmptyPlaceholder(
 ) {
     val state = LocalBrowseViewModel.current.state
     val onEvent = LocalBrowseViewModel.current.onEvent
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
 
     CustomAnimatedVisibility(
         visible = state.value.isError,

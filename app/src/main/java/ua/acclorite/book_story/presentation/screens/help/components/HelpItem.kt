@@ -30,7 +30,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.HelpTip
-import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.ui.ExpandingTransition
 
@@ -46,7 +46,7 @@ fun HelpItem(
     helpTip: HelpTip,
     fromStart: Boolean
 ) {
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
 
     val showDescription = rememberSaveable {
         mutableStateOf(false)

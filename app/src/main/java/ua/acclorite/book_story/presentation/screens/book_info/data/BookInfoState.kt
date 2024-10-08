@@ -37,4 +37,6 @@ data class BookInfoState(
     val showDeleteDialog: Boolean = false,
     val showMoveDialog: Boolean = false,
     val selectedCategory: Category = Category.READING,
+
+    val showMoreBottomSheet: Boolean = false,
 )

@@ -246,7 +246,6 @@
     <string name="go_back_content_desc">Regresar</string>
     <string name="cover_image_content_desc">Portada</string>
     <string name="file_icon_content_desc">Archivo</string>
-    <string name="show_dropdown_content_desc">Desplegable</string>
     <string name="cover_image_not_found_content_desc">Portada no encontrada</string>
     <string name="apply_changes_content_desc">Aplicar cambios</string>
     <string name="error_content_desc">Error</string>

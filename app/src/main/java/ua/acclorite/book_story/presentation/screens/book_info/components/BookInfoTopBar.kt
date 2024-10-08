@@ -27,7 +27,8 @@ import ua.acclorite.book_story.presentation.core.components.GoBackButton
 import ua.acclorite.book_story.presentation.core.components.LocalBookInfoViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
-import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
+import ua.acclorite.book_story.presentation.core.navigation.NavigationIconButton
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
@@ -50,7 +51,7 @@ fun BookInfoTopBar(
     val onEvent = LocalBookInfoViewModel.current.onEvent
     val onLibraryEvent = LocalLibraryViewModel.current.onEvent
     val onHistoryEvent = LocalHistoryViewModel.current.onEvent
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
     val context = LocalContext.current
 
     val firstVisibleItemIndex by remember { derivedStateOf { listState.firstVisibleItemIndex } }
@@ -127,7 +128,9 @@ fun BookInfoTopBar(
                                     !state.value.editAuthor &&
                                     !state.value.editDescription
                         ) {
-                            BookInfoMoreDropDown(snackbarState = snackbarState)
+                            NavigationIconButton {
+                                onEvent(BookInfoEvent.OnShowHideMoreBottomSheet(true))
+                            }
                         }
                         CustomAnimatedVisibility(
                             visible = state.value.editTitle ||

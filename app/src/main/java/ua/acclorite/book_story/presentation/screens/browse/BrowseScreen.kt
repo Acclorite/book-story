@@ -26,7 +26,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.SelectableFile
 import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.browse.components.BrowseEmptyPlaceholder
@@ -89,7 +89,7 @@ private fun BrowseScreen(
     val state = LocalBrowseViewModel.current.state
     val mainState = LocalMainViewModel.current.state
     val onEvent = LocalBrowseViewModel.current.onEvent
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
     val context = LocalContext.current
 
     val refreshState = rememberPullRefreshState(

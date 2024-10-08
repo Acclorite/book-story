@@ -605,7 +605,6 @@
     <string name="sort_order_content_desc">Sort order</string>
     <string name="path_arrow_icon_content_desc">Path arrow</string>
     <string name="checkbox_content_desc">Checkbox</string>
-    <string name="show_dropdown_content_desc">Dropdown</string>
     <string name="cover_image_not_found_content_desc">Cover image not found</string>
     <string name="apply_changes_content_desc">Apply changes</string>
     <string name="error_content_desc">Error</string>
@@ -644,5 +643,6 @@
     <string name="checkpoint_forward_content_desc">Checkpoint forward</string>
     <string name="chapters_content_desc">Chapters</string>
     <string name="update_text_content_desc">Update text</string>
+    <string name="more_content_desc">More</string>
 
 </resources>

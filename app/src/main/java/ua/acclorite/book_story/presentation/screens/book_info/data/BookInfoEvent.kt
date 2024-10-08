@@ -124,4 +124,6 @@ sealed class BookInfoEvent {
         val context: Context,
         val refreshList: (Book) -> Unit
     ) : BookInfoEvent()
+
+    data class OnShowHideMoreBottomSheet(val show: Boolean) : BookInfoEvent()
 }

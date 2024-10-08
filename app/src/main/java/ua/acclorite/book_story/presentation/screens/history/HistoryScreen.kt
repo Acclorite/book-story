@@ -44,10 +44,10 @@ import ua.acclorite.book_story.presentation.core.components.CustomSearchTextFiel
 import ua.acclorite.book_story.presentation.core.components.CustomSnackbar
 import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
-import ua.acclorite.book_story.presentation.core.components.MoreDropDown
 import ua.acclorite.book_story.presentation.core.components.customItems
 import ua.acclorite.book_story.presentation.core.components.is_messages.IsEmpty
-import ua.acclorite.book_story.presentation.core.navigation.LocalOnNavigate
+import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
+import ua.acclorite.book_story.presentation.core.navigation.NavigationIconButton
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.screens.history.components.HistoryDeleteWholeHistoryDialog
 import ua.acclorite.book_story.presentation.screens.history.components.HistoryItem
@@ -77,7 +77,7 @@ private fun HistoryScreen() {
     val state = LocalHistoryViewModel.current.state
     val onEvent = LocalHistoryViewModel.current.onEvent
     val onLibraryEvent = LocalLibraryViewModel.current.onEvent
-    val onNavigate = LocalOnNavigate.current
+    val onNavigate = LocalNavigator.current
 
     val refreshState = rememberPullRefreshState(
         refreshing = state.value.isRefreshing,
@@ -132,7 +132,7 @@ private fun HistoryScreen() {
                             ) {
                                 onEvent(HistoryEvent.OnShowHideDeleteWholeHistoryDialog)
                             }
-                            MoreDropDown()
+                            NavigationIconButton()
                         }
                     ),
 
@@ -168,7 +168,7 @@ private fun HistoryScreen() {
                             )
                         },
                         contentActions = {
-                            MoreDropDown()
+                            NavigationIconButton()
                         },
                     )
                 )
