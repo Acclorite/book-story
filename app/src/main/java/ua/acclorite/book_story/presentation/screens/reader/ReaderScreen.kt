@@ -168,7 +168,6 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
             onLibraryEvent(LibraryEvent.OnUpdateBook(it))
             onHistoryEvent(HistoryEvent.OnUpdateBook(it))
         }
-        viewModel.onUpdateCurrentChapter()
     }
     DisposableEffect(mainState.value.screenOrientation) {
         context.requestedOrientation = mainState.value.screenOrientation.code

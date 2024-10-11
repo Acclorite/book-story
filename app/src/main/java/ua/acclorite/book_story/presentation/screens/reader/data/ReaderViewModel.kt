@@ -26,6 +26,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
+import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.domain.use_case.book.CheckForTextUpdate
 import ua.acclorite.book_story.domain.use_case.book.GetBookById
 import ua.acclorite.book_story.domain.use_case.book.GetText
@@ -96,10 +97,13 @@ class ReaderViewModel @Inject constructor(
                             }.collectLatest { itemsCount ->
                                 if (itemsCount < _state.value.text.size) return@collectLatest
 
-                                _state.value.listState.requestScrollToItem(
-                                    _state.value.book.scrollIndex,
-                                    _state.value.book.scrollOffset
-                                )
+                                _state.value.book.apply {
+                                    _state.value.listState.requestScrollToItem(
+                                        scrollIndex,
+                                        scrollOffset
+                                    )
+                                    updateChapter(index = scrollIndex)
+                                }
 
                                 event.checkForUpdate()
 
@@ -564,53 +568,41 @@ class ReaderViewModel @Inject constructor(
     fun onUpdateProgress(refreshList: (Book) -> Unit) {
         viewModelScope.launch(Dispatchers.Main) {
             snapshotFlow {
-                _state.value.listState.firstVisibleItemIndex to _state.value.listState.firstVisibleItemScrollOffset
-            }
-                .distinctUntilChanged()
-                .debounce(300)
-                .collectLatest { (firstVisibleItemIndex, firstVisibleItemOffset) ->
-                    calculateProgress(firstVisibleItemIndex).apply {
-                        if (this == _state.value.book.progress) return@apply
+                _state.value.listState.run { firstVisibleItemIndex to firstVisibleItemScrollOffset }
+            }.distinctUntilChanged().debounce(300).collectLatest { (index, offset) ->
+                val progress = calculateProgress(index)
+                if (progress == _state.value.book.progress) return@collectLatest
+                val (currentChapter, currentChapterProgress) = calculateCurrentChapter(index)
 
-                        onEvent(
-                            ReaderEvent.OnChangeProgress(
-                                progress = this,
-                                firstVisibleItemIndex = firstVisibleItemIndex,
-                                firstVisibleItemOffset = firstVisibleItemOffset,
-                                refreshList = { book ->
-                                    refreshList(book)
-                                }
-                            )
-                        )
-                    }
+                _state.update {
+                    it.copy(
+                        book = it.book.copy(
+                            progress = progress,
+                            scrollIndex = index,
+                            scrollOffset = offset
+                        ),
+                        currentChapter = currentChapter,
+                        currentChapterProgress = currentChapterProgress
+                    )
                 }
-        }
-    }
 
-    @OptIn(FlowPreview::class)
-    fun onUpdateCurrentChapter() {
-        viewModelScope.launch(Dispatchers.Main) {
-            snapshotFlow {
-                _state.value.listState.firstVisibleItemIndex
+                updateBook.execute(_state.value.book)
+                refreshList(_state.value.book)
             }
-                .distinctUntilChanged()
-                .debounce(300)
-                .collectLatest { index ->
-                    if (_state.value.book.chapters.isEmpty()) {
-                        _state.update {
-                            it.copy(
-                                currentChapter = null
-                            )
-                        }
-                        return@collectLatest
-                    }
-
-                    updateChapter(index)
-                }
         }
     }
 
     private fun updateChapter(index: Int) {
+        val (currentChapter, currentChapterProgress) = calculateCurrentChapter(index)
+        _state.update {
+            it.copy(
+                currentChapter = currentChapter,
+                currentChapterProgress = currentChapterProgress
+            )
+        }
+    }
+
+    private fun calculateCurrentChapter(index: Int): Pair<Chapter?, Float> {
         val currentChapter = _state.value.book.chapters.find { chapter ->
             index in chapter.startIndex..chapter.endIndex
         }
@@ -622,12 +614,7 @@ class ReaderViewModel @Inject constructor(
             (currentIndex / endIndex.toFloat())
         }.coerceAndPreventNaN()
 
-        _state.update {
-            it.copy(
-                currentChapter = currentChapter,
-                currentChapterProgress = currentChapterProgress
-            )
-        }
+        return currentChapter to currentChapterProgress
     }
 
     private fun calculateProgress(firstVisibleItemIndex: Int? = null): Float {

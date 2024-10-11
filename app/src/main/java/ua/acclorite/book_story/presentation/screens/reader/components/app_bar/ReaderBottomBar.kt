@@ -53,11 +53,23 @@ fun ReaderBottomBar() {
     val onLibraryEvent = LocalLibraryViewModel.current.onEvent
     val onHistoryEvent = LocalHistoryViewModel.current.onEvent
 
-    val progress by remember {
+    val bookProgress by remember {
         derivedStateOf {
-            "${state.value.book.progress.calculateProgress(4)}%"
+            "${state.value.book.progress.calculateProgress(2)}%"
         }
     }
+    val chapterProgress by remember {
+        derivedStateOf {
+            if (state.value.currentChapter == null) return@derivedStateOf ""
+            " (${state.value.currentChapterProgress.calculateProgress(2)}%)"
+        }
+    }
+    val progress by remember {
+        derivedStateOf {
+            "$bookProgress$chapterProgress"
+        }
+    }
+
     val arrowDirection by remember {
         derivedStateOf {
             val checkpoint = state.value.checkpoint.first
