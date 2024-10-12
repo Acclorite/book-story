@@ -158,6 +158,11 @@ private fun HelpScreen() {
             ) { index, helpTip ->
                 HelpItem(
                     helpTip = helpTip,
+                    position = when (index) {
+                        0 -> Position.TOP
+                        Constants.HELP_TIPS.lastIndex -> Position.BOTTOM
+                        else -> Position.CENTER
+                    },
                     fromStart = state.value.fromStart
                 )
             }
