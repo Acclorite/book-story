@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -63,7 +64,6 @@ import ua.acclorite.book_story.presentation.core.components.CategoryTitle
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.CustomIconButton
 import ua.acclorite.book_story.presentation.core.components.LocalSettingsViewModel
-import ua.acclorite.book_story.presentation.core.components.customItemsIndexed
 import ua.acclorite.book_story.presentation.screens.settings.components.ColorPickerWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
 import ua.acclorite.book_story.presentation.ui.FadeTransitionPreservingSpace
@@ -107,9 +107,9 @@ fun ColorPresetSetting(
             state = state.value.colorPresetsListState,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            customItemsIndexed(
+            itemsIndexed(
                 state.value.colorPresets,
-                key = { item, _ -> item.id }
+                key = { _, colorPreset -> colorPreset.id }
             ) { index, colorPreset ->
                 ReorderableItem(
                     state = reorderableListState,

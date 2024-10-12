@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
@@ -29,7 +30,6 @@ import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.core.components.GoBackButton
 import ua.acclorite.book_story.presentation.core.components.LocalLicensesViewModel
 import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
-import ua.acclorite.book_story.presentation.core.components.customItems
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.screens.about.nested.licenses.components.LicenseItem
@@ -93,7 +93,7 @@ private fun LicensesScreen() {
                     Spacer(modifier = Modifier.height(12.dp))
                 }
 
-                customItems(state.value.licenses, key = { it.uniqueId }) {
+                items(state.value.licenses, key = { it.uniqueId }) {
                     LicenseItem(library = it) {
                         onNavigate {
                             navigate(Screen.About.LicenseInfo(it.uniqueId))

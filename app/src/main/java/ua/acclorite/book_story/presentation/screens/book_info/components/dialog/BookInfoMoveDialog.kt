@@ -1,5 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.book_info.components.dialog
 
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.DriveFileMove
 import androidx.compose.runtime.Composable
@@ -12,7 +13,6 @@ import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.presentation.core.components.LocalBookInfoViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
-import ua.acclorite.book_story.presentation.core.components.customItems
 import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithLazyColumn
 import ua.acclorite.book_story.presentation.core.components.custom_dialog.SelectableDialogItem
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
@@ -70,7 +70,7 @@ fun BookInfoMoveDialog() {
         },
         withDivider = false,
         items = {
-            customItems(categories, key = { it.name }) {
+            items(categories, key = { it.name }) {
                 val category = when (it) {
                     Category.READING -> stringResource(id = R.string.reading_tab)
                     Category.ALREADY_READ -> stringResource(id = R.string.already_read_tab)

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -44,7 +45,6 @@ import ua.acclorite.book_story.presentation.core.components.CustomSearchTextFiel
 import ua.acclorite.book_story.presentation.core.components.CustomSnackbar
 import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
-import ua.acclorite.book_story.presentation.core.components.customItems
 import ua.acclorite.book_story.presentation.core.components.is_messages.IsEmpty
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.NavigationIconButton
@@ -212,8 +212,9 @@ private fun HistoryScreen() {
                             Spacer(modifier = Modifier.height(8.dp))
                         }
 
-                        customItems(
-                            groupedHistory.history, key = { it.id }
+                        items(
+                            groupedHistory.history,
+                            key = { it.id }
                         ) {
                             HistoryItem(
                                 modifier = Modifier.animateItem(),

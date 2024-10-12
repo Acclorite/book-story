@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowRight
@@ -28,7 +29,6 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.core.components.customItemsIndexed
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
@@ -99,7 +99,10 @@ fun BrowseTopBarDirectoryPath() {
             state = listState,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            customItemsIndexed(directories, key = { _, index -> index }) { index, directory ->
+            itemsIndexed(
+                directories,
+                key = { index, _ -> index }
+            ) { index, directory ->
                 if (index == 0) {
                     Spacer(modifier = Modifier.width(16.dp))
                 }

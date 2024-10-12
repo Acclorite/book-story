@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
@@ -48,7 +49,6 @@ import ua.acclorite.book_story.domain.util.Selected
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.core.components.customItems
 import ua.acclorite.book_story.presentation.core.components.header
 import ua.acclorite.book_story.presentation.core.components.is_messages.IsEmpty
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
@@ -162,7 +162,10 @@ private fun LibraryScreen(
                                 Spacer(modifier = Modifier.height(8.dp))
                             }
 
-                            customItems(books, key = { it.first.id }) {
+                            items(
+                                books,
+                                key = { it.first.id }
+                            ) {
                                 LibraryBookItem(
                                     book = it,
                                     modifier = Modifier.animateItem(

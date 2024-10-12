@@ -2,6 +2,7 @@ package ua.acclorite.book_story.presentation.screens.reader.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -13,7 +14,6 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
-import ua.acclorite.book_story.presentation.core.components.customItems
 import ua.acclorite.book_story.presentation.core.components.custom_drawer.CustomModalDrawer
 import ua.acclorite.book_story.presentation.core.components.custom_drawer.CustomModalDrawerSelectableItem
 import ua.acclorite.book_story.presentation.core.components.custom_drawer.CustomModalDrawerTitleItem
@@ -43,7 +43,7 @@ fun ReaderChaptersDrawer() {
             )
         }
     ) {
-        customItems(state.value.book.chapters, key = { it.index }) { chapter ->
+        items(state.value.book.chapters, key = { it.index }) { chapter ->
             val selected = rememberSaveable(state.value.currentChapter) {
                 chapter.index == state.value.currentChapter?.index
             }

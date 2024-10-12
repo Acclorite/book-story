@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -18,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.core.components.customItems
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.data.MainEvent
 
@@ -27,7 +27,7 @@ import ua.acclorite.book_story.presentation.data.MainEvent
  * Lets user choose which items to filter in Browse.
  */
 fun LazyListScope.BrowseFilterSetting() {
-    customItems(Constants.EXTENSIONS, key = { it }) {
+    items(Constants.EXTENSIONS, key = { it }) {
         val state = LocalMainViewModel.current.state
         val onMainEvent = LocalMainViewModel.current.onEvent
 

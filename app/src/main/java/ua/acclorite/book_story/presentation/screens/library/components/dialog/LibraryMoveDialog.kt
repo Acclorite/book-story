@@ -1,5 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.library.components.dialog
 
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.DriveFileMove
@@ -10,7 +11,6 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
-import ua.acclorite.book_story.presentation.core.components.customItems
 import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithLazyColumn
 import ua.acclorite.book_story.presentation.core.components.custom_dialog.SelectableDialogItem
 import ua.acclorite.book_story.presentation.core.util.showToast
@@ -51,7 +51,7 @@ fun LibraryMoveDialog(pagerState: PagerState) {
         },
         withDivider = false,
         items = {
-            customItems(state.value.categories, key = { it.name }) {
+            items(state.value.categories, key = { it.name }) {
                 val category = when (it) {
                     Category.READING -> stringResource(id = R.string.reading_tab)
                     Category.ALREADY_READ -> stringResource(id = R.string.already_read_tab)

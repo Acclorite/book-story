@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsIgnoringVisibility
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -65,7 +66,6 @@ import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewMode
 import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.core.components.LocalSettingsViewModel
-import ua.acclorite.book_story.presentation.core.components.customItemsIndexed
 import ua.acclorite.book_story.presentation.core.components.is_messages.IsError
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
@@ -482,8 +482,8 @@ private fun ReaderScreen(lazyListState: LazyListState) {
                         .coerceAtLeast(18.dp),
                 )
             ) {
-                customItemsIndexed(
-                    state.value.text, key = { _, index -> index }
+                itemsIndexed(
+                    state.value.text, key = { index, _ -> index }
                 ) { index, line ->
                     ReaderChapter(
                         chapter = chapters[index], // Shows only when matching startIndex of chapter.
