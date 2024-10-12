@@ -38,17 +38,17 @@ fun NavigationItem(
     val shape = remember(position) {
         when (position) {
             Position.TOP -> largeShape.copy(
-                bottomStart = CornerSize(0.dp),
-                bottomEnd = CornerSize(0.dp)
+                bottomStart = CornerSize(3.dp),
+                bottomEnd = CornerSize(3.dp)
             )
 
-            Position.CENTER -> RoundedCornerShape(0.dp)
+            Position.CENTER -> RoundedCornerShape(3.dp)
 
             Position.SOLO -> largeShape
 
             Position.BOTTOM -> largeShape.copy(
-                topStart = CornerSize(0.dp),
-                topEnd = CornerSize(0.dp)
+                topStart = CornerSize(3.dp),
+                topEnd = CornerSize(3.dp)
             )
         }
     }
