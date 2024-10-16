@@ -3,6 +3,7 @@ package ua.acclorite.book_story.presentation.screens.settings.data
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
+import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewModelScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
@@ -26,7 +27,7 @@ import ua.acclorite.book_story.domain.use_case.color_preset.UpdateColorPreset
 import ua.acclorite.book_story.domain.util.ID
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.core.constants.Constants
-import ua.acclorite.book_story.presentation.core.util.BaseViewModel
+import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import ua.acclorite.book_story.presentation.core.util.launchActivity
 import javax.inject.Inject
 import kotlin.random.Random
@@ -39,7 +40,15 @@ class SettingsViewModel @Inject constructor(
     private val deleteColorPreset: DeleteColorPreset,
     private val selectColorPreset: SelectColorPreset,
     private val reorderColorPresets: ReorderColorPresets
-) : BaseViewModel<SettingsState, SettingsEvent>() {
+) : UiViewModel<SettingsState, SettingsEvent>() {
+
+    companion object {
+        @Composable
+        fun getState() = getState<SettingsViewModel, SettingsState, SettingsEvent>()
+
+        @Composable
+        fun getEvent() = getEvent<SettingsViewModel, SettingsState, SettingsEvent>()
+    }
 
     private val _state = MutableStateFlow(SettingsState())
     override val state = _state.asStateFlow()
@@ -169,8 +178,9 @@ class SettingsViewModel @Inject constructor(
                                 selectedPresetIndex - 1
                             }
                         }
-                        val previousColorPreset = colorPresets.getOrNull(previousColorPresetIndex)
-                            ?: return@launch
+                        val previousColorPreset =
+                            colorPresets.getOrNull(previousColorPresetIndex)
+                                ?: return@launch
 
                         yield()
 
@@ -290,11 +300,12 @@ class SettingsViewModel @Inject constructor(
                             return@launch
                         }
 
-                        val nextPosition = if (position == _state.value.colorPresets.lastIndex) {
-                            position - 1
-                        } else {
-                            position
-                        }
+                        val nextPosition =
+                            if (position == _state.value.colorPresets.lastIndex) {
+                                position - 1
+                            } else {
+                                position
+                            }
 
                         yield()
 

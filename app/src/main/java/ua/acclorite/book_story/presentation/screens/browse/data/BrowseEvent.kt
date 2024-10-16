@@ -16,6 +16,8 @@ import java.io.File
 
 @Immutable
 sealed class BrowseEvent {
+    data object OnClearViewModel : BrowseEvent()
+
     data class OnStoragePermissionRequest(
         val activity: ComponentActivity,
         val storagePermissionState: PermissionState

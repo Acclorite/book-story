@@ -36,26 +36,32 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.CustomIconButton
 import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.core.components.GoBackButton
-import ua.acclorite.book_story.presentation.core.components.LocalLicenseInfoViewModel
 import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoEvent
+import ua.acclorite.book_story.presentation.screens.about.nested.license_info.data.LicenseInfoViewModel
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.SlidingTransition
 
 @Composable
 fun LicenseInfoScreenRoot(screen: Screen.About.LicenseInfo) {
-    val viewModel = LocalLicenseInfoViewModel.current.viewModel
+    val onEvent = LicenseInfoViewModel.getEvent()
     val onNavigate = LocalNavigator.current
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        viewModel.init(
-            screen = screen,
-            onNavigate = onNavigate,
-            context = context
+        onEvent(
+            LicenseInfoEvent.OnInit(
+                screen = screen,
+                navigateBack = {
+                    onNavigate {
+                        navigateBack()
+                    }
+                },
+                context = context
+            )
         )
     }
 
@@ -65,8 +71,8 @@ fun LicenseInfoScreenRoot(screen: Screen.About.LicenseInfo) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun LicenseInfoScreen() {
-    val state = LocalLicenseInfoViewModel.current.state
-    val onEvent = LocalLicenseInfoViewModel.current.onEvent
+    val state = LicenseInfoViewModel.getState()
+    val onEvent = LicenseInfoViewModel.getEvent()
     val context = LocalContext.current
     val onNavigate = LocalNavigator.current
 

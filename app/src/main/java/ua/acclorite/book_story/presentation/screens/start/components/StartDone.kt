@@ -27,23 +27,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalStartViewModel
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.data.MainEvent
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
+import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.start.data.StartEvent
+import ua.acclorite.book_story.presentation.screens.start.data.StartViewModel
 
 /**
  * Start Done screen.
  */
 @Composable
 fun StartDone() {
-    val state = LocalStartViewModel.current.state
-    val onEvent = LocalStartViewModel.current.onEvent
-    val onMainEvent = LocalMainViewModel.current.onEvent
-    val onBrowseEvent = LocalBrowseViewModel.current.onEvent
+    val state = StartViewModel.getState()
+    val onEvent = StartViewModel.getEvent()
+    val onMainEvent = MainViewModel.getEvent()
+    val onBrowseEvent = BrowseViewModel.getEvent()
     val onNavigate = LocalNavigator.current
 
     StartNavigationTransition(

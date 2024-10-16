@@ -174,7 +174,7 @@ class Navigator @AssistedInject constructor(
      *
      * @param screen [Screen].
      */
-    fun putScreen(screen: Screen) {
+    fun putScreen(screen: Screen) = viewModelScope.launch(Dispatchers.Main.immediate) {
         var found = false
 
         for ((index, arg) in screens.value.withIndex()) {
@@ -219,7 +219,7 @@ class Navigator @AssistedInject constructor(
         screen: Screen,
         useBackAnimation: Boolean = false,
         saveInBackStack: Boolean = true
-    ) = viewModelScope.launch(Dispatchers.Default) {
+    ) = viewModelScope.launch(Dispatchers.Main.immediate) {
         if (screen.getRoute() == currentScreen.value) {
             return@launch
         }
@@ -242,7 +242,7 @@ class Navigator @AssistedInject constructor(
      */
     fun navigateBack(
         useBackAnimation: Boolean = true
-    ) = viewModelScope.launch(Dispatchers.Default) {
+    ) = viewModelScope.launch(Dispatchers.Main.immediate) {
         if (canGoBack()) {
             savedStateHandle[USE_BACK_ANIM] = useBackAnimation
             savedStateHandle[CURRENT_SCREEN] = backStack.value.last()

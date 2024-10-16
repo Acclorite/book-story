@@ -35,9 +35,9 @@ import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBar
 import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBarData
 import ua.acclorite.book_story.presentation.core.components.CustomIconButton
 import ua.acclorite.book_story.presentation.core.components.CustomSearchTextField
-import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.core.navigation.NavigationIconButton
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 
 /**
  * Library Top Bar.
@@ -48,8 +48,8 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LibraryTopBar(pagerState: PagerState) {
-    val state = LocalLibraryViewModel.current.state
-    val onEvent = LocalLibraryViewModel.current.onEvent
+    val state = LibraryViewModel.getState()
+    val onEvent = LibraryViewModel.getEvent()
     val focusRequester = remember { FocusRequester() }
 
     AnimatedTopAppBar(

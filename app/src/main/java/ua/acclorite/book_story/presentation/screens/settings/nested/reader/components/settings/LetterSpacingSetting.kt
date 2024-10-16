@@ -3,8 +3,8 @@ package ua.acclorite.book_story.presentation.screens.settings.nested.reader.comp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.data.MainEvent
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.settings.components.SliderWithTitle
 
 /**
@@ -13,8 +13,8 @@ import ua.acclorite.book_story.presentation.screens.settings.components.SliderWi
  */
 @Composable
 fun LetterSpacingSetting() {
-    val state = LocalMainViewModel.current.state
-    val onMainEvent = LocalMainViewModel.current.onEvent
+    val state = MainViewModel.getState()
+    val onMainEvent = MainViewModel.getEvent()
 
     SliderWithTitle(
         value = state.value.letterSpacing to "pt",

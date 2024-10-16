@@ -7,8 +7,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import ua.acclorite.book_story.domain.util.UIText
-import ua.acclorite.book_story.presentation.core.components.LocalSettingsViewModel
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
 
 /**
  * Reader Fast Color Preset Change.
@@ -24,7 +24,7 @@ fun Modifier.readerFastColorPresetChange(
     isLoading: Boolean,
     presetChanged: (UIText) -> Unit
 ): Modifier {
-    val onSettingsEvent = LocalSettingsViewModel.current.onEvent
+    val onSettingsEvent = SettingsViewModel.getEvent()
 
     val offset = remember { mutableFloatStateOf(0f) }
     return this.then(

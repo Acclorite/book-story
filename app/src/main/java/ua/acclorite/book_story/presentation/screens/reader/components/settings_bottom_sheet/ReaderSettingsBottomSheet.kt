@@ -20,10 +20,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.core.components.custom_bottom_sheet.CustomBottomSheet
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
+import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.subcategories.ColorsSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.FontSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.MiscSubcategory
@@ -39,9 +39,9 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.reader.compo
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReaderSettingsBottomSheet() {
-    val state = LocalReaderViewModel.current.state
-    val mainState = LocalMainViewModel.current.state
-    val onEvent = LocalReaderViewModel.current.onEvent
+    val state = ReaderViewModel.getState()
+    val mainState = MainViewModel.getState()
+    val onEvent = ReaderViewModel.getEvent()
     val context = LocalContext.current
 
     val pagerState = rememberPagerState(state.value.currentPage) { 3 }

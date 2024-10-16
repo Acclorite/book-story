@@ -18,15 +18,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.LocalBookInfoViewModel
 import ua.acclorite.book_story.presentation.core.util.calculateProgress
+import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
 
 /**
  * Statistic section.
  */
 @Composable
 fun BookInfoStatisticSection() {
-    val state = LocalBookInfoViewModel.current.state
+    val state = BookInfoViewModel.getState()
 
     val progress by remember {
         derivedStateOf {

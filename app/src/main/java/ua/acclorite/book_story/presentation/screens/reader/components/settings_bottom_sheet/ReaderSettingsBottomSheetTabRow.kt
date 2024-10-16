@@ -4,9 +4,9 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.core.components.custom_bottom_sheet.CustomBottomSheetTabRow
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
+import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 
 /**
  * Settings bottom sheet tab row.
@@ -16,8 +16,7 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
  */
 @Composable
 fun ReaderSettingsBottomSheetTabRow(pagerState: PagerState) {
-    val onEvent = LocalReaderViewModel.current.onEvent
-
+    val onEvent = ReaderViewModel.getEvent()
     val tabItems = listOf(
         stringResource(id = R.string.general_tab),
         stringResource(id = R.string.reader_tab),

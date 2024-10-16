@@ -7,19 +7,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.LocalAboutViewModel
 import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithContent
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
+import ua.acclorite.book_story.presentation.screens.about.data.AboutViewModel
 
 /**
  * Update dialog. If there is app update transfers to the download page.
  */
 @Composable
 fun AboutUpdateDialog() {
-    val state = LocalAboutViewModel.current.state
-    val onEvent = LocalAboutViewModel.current.onEvent
+    val state = AboutViewModel.getState()
+    val onEvent = AboutViewModel.getEvent()
     val context = LocalContext.current
 
     val update = remember(state.value.showUpdateDialog) {

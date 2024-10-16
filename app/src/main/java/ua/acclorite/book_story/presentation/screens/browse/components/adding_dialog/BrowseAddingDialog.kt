@@ -18,13 +18,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.NullableBook
-import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithLazyColumn
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
+import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import java.util.UUID
 
 /**
@@ -34,9 +34,9 @@ import java.util.UUID
 @Composable
 fun BrowseAddingDialog() {
     val context = LocalContext.current
-    val state = LocalBrowseViewModel.current.state
-    val onEvent = LocalBrowseViewModel.current.onEvent
-    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
+    val state = BrowseViewModel.getState()
+    val onEvent = BrowseViewModel.getEvent()
+    val onLibraryEvent = LibraryViewModel.getEvent()
     val onNavigate = LocalNavigator.current
 
     CustomDialogWithLazyColumn(

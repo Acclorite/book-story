@@ -28,19 +28,20 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.core.components.GoBackButton
-import ua.acclorite.book_story.presentation.core.components.LocalLicensesViewModel
 import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.screens.about.nested.licenses.components.LicenseItem
+import ua.acclorite.book_story.presentation.screens.about.nested.licenses.data.LicensesEvent
+import ua.acclorite.book_story.presentation.screens.about.nested.licenses.data.LicensesViewModel
 
 @Composable
 fun LicensesScreenRoot() {
-    val viewModel = LocalLicensesViewModel.current.viewModel
+    val onEvent = LicensesViewModel.getEvent()
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        viewModel.init(context)
+        onEvent(LicensesEvent.OnInit(context = context))
     }
 
     LicensesScreen()
@@ -49,7 +50,7 @@ fun LicensesScreenRoot() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun LicensesScreen() {
-    val state = LocalLicensesViewModel.current.state
+    val state = LicensesViewModel.getState()
     val onNavigate = LocalNavigator.current
 
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState(

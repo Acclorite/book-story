@@ -10,9 +10,19 @@ import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.presentation.core.navigation.Screen
 
 @Immutable
 sealed class BookInfoEvent {
+    data class OnInit(
+        val screen: Screen.BookInfo,
+        val snackbarState: SnackbarHostState,
+        val context: Context,
+        val onNavigate: OnNavigate
+    ) : BookInfoEvent()
+
+    data object OnClearViewModel : BookInfoEvent()
+
     data object OnShowHideChangeCoverBottomSheet : BookInfoEvent()
 
     data object OnShowHideDetailsBottomSheet : BookInfoEvent()

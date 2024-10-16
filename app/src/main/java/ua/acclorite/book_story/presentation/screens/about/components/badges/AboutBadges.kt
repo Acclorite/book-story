@@ -13,10 +13,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.LocalAboutViewModel
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
+import ua.acclorite.book_story.presentation.screens.about.data.AboutViewModel
 
 /**
  * About Badges.
@@ -26,7 +26,7 @@ import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
  */
 @Composable
 fun AboutBadges(verticalPadding: Dp = 18.dp) {
-    val onEvent = LocalAboutViewModel.current.onEvent
+    val onEvent = AboutViewModel.getEvent()
     val context = LocalContext.current
 
     Box(

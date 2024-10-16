@@ -43,8 +43,6 @@ import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibi
 import ua.acclorite.book_story.presentation.core.components.CustomIconButton
 import ua.acclorite.book_story.presentation.core.components.CustomSearchTextField
 import ua.acclorite.book_story.presentation.core.components.CustomSnackbar
-import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.core.components.is_messages.IsEmpty
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.NavigationIconButton
@@ -52,13 +50,15 @@ import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.screens.history.components.HistoryDeleteWholeHistoryDialog
 import ua.acclorite.book_story.presentation.screens.history.components.HistoryItem
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.Transitions
 
 @Composable
 fun HistoryScreenRoot() {
-    val onEvent = LocalHistoryViewModel.current.onEvent
+    val onEvent = HistoryViewModel.getEvent()
 
     LaunchedEffect(Unit) {
         onEvent(HistoryEvent.OnUpdateScrollOffset)
@@ -74,9 +74,9 @@ fun HistoryScreenRoot() {
 @Composable
 private fun HistoryScreen() {
     val context = LocalContext.current
-    val state = LocalHistoryViewModel.current.state
-    val onEvent = LocalHistoryViewModel.current.onEvent
-    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
+    val state = HistoryViewModel.getState()
+    val onEvent = HistoryViewModel.getEvent()
+    val onLibraryEvent = LibraryViewModel.getEvent()
     val onNavigate = LocalNavigator.current
 
     val refreshState = rememberPullRefreshState(

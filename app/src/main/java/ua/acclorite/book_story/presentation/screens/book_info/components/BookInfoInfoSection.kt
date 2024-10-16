@@ -36,17 +36,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.CustomCoverImage
-import ua.acclorite.book_story.presentation.core.components.LocalBookInfoViewModel
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
+import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
 
 /**
  * BookInfo's Info section.
  */
 @Composable
 fun BookInfoInfoSection() {
-    val state = LocalBookInfoViewModel.current.state
-    val onEvent = LocalBookInfoViewModel.current.onEvent
+    val state = BookInfoViewModel.getState()
+    val onEvent = BookInfoViewModel.getEvent()
 
     val titleFocusRequester = remember { FocusRequester() }
     val authorFocusRequester = remember { FocusRequester() }

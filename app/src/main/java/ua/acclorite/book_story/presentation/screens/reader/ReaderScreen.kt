@@ -61,19 +61,17 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.CustomSelectionContainer
-import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalSettingsViewModel
 import ua.acclorite.book_story.presentation.core.components.is_messages.IsError
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.core.util.showToast
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderChapter
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderChaptersDrawer
 import ua.acclorite.book_story.presentation.screens.reader.components.ReaderPerceptionExpander
@@ -83,16 +81,17 @@ import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.Re
 import ua.acclorite.book_story.presentation.screens.reader.components.app_bar.ReaderTopBar
 import ua.acclorite.book_story.presentation.screens.reader.components.settings_bottom_sheet.ReaderSettingsBottomSheet
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
+import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.ReaderTextAlignment
 
 @Composable
 fun ReaderScreenRoot(screen: Screen.Reader) {
-    val state = LocalReaderViewModel.current.state
-    val mainState = LocalMainViewModel.current.state
-    val onEvent = LocalReaderViewModel.current.onEvent
-    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
-    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
-    val viewModel = LocalReaderViewModel.current.viewModel
+    val state = ReaderViewModel.getState()
+    val mainState = MainViewModel.getState()
+    val onEvent = ReaderViewModel.getEvent()
+    val onLibraryEvent = LibraryViewModel.getEvent()
+    val onHistoryEvent = HistoryViewModel.getEvent()
     val context = LocalContext.current as ComponentActivity
     val onNavigate = LocalNavigator.current
 
@@ -110,28 +109,34 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
     }
 
     LaunchedEffect(Unit) {
-        viewModel.init(
-            screen = screen,
-            onNavigate = onNavigate,
-            fullscreenMode = mainState.value.fullscreen,
-            checkForTextUpdate = mainState.value.checkForTextUpdate,
-            checkForTextUpdateToast = {
-                if (mainState.value.checkForTextUpdateToast) {
-                    context.getString(R.string.nothing_changed).showToast(
-                        context = context,
-                        longToast = false
-                    )
+        onEvent(
+            ReaderEvent.OnInit(
+                screen = screen,
+                navigateBack = {
+                    onNavigate {
+                        navigateBack()
+                    }
+                },
+                fullscreenMode = mainState.value.fullscreen,
+                checkForTextUpdate = mainState.value.checkForTextUpdate,
+                checkForTextUpdateToast = {
+                    if (mainState.value.checkForTextUpdateToast) {
+                        context.getString(R.string.nothing_changed).showToast(
+                            context = context,
+                            longToast = false
+                        )
+                    }
+                },
+                activity = context,
+                refreshList = {
+                    onLibraryEvent(LibraryEvent.OnUpdateBook(it))
+                    onHistoryEvent(HistoryEvent.OnLoadList)
+                },
+                onError = {
+                    it.asString(context)
+                        .showToast(context = context)
                 }
-            },
-            activity = context,
-            refreshList = {
-                onLibraryEvent(LibraryEvent.OnUpdateBook(it))
-                onHistoryEvent(HistoryEvent.OnLoadList)
-            },
-            onError = {
-                it.asString(context)
-                    .showToast(context = context)
-            }
+            )
         )
     }
     LaunchedEffect(canScroll) {
@@ -164,10 +169,14 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
         }
     }
     LaunchedEffect(lazyListState) {
-        viewModel.onUpdateProgress {
-            onLibraryEvent(LibraryEvent.OnUpdateBook(it))
-            onHistoryEvent(HistoryEvent.OnUpdateBook(it))
-        }
+        onEvent(
+            ReaderEvent.OnUpdateProgress(
+                refreshList = {
+                    onLibraryEvent(LibraryEvent.OnUpdateBook(it))
+                    onHistoryEvent(HistoryEvent.OnUpdateBook(it))
+                }
+            )
+        )
     }
     DisposableEffect(mainState.value.screenOrientation) {
         context.requestedOrientation = mainState.value.screenOrientation.code
@@ -180,7 +189,7 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
 
     DisposableEffect(Unit) {
         onDispose {
-            viewModel.clearViewModel()
+            onEvent(ReaderEvent.OnClearViewModel)
             WindowCompat.getInsetsController(
                 context.window,
                 context.window.decorView
@@ -194,12 +203,12 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 private fun ReaderScreen(lazyListState: LazyListState) {
-    val state = LocalReaderViewModel.current.state
-    val mainState = LocalMainViewModel.current.state
-    val settingsState = LocalSettingsViewModel.current.state
-    val onEvent = LocalReaderViewModel.current.onEvent
-    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
-    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
+    val state = ReaderViewModel.getState()
+    val mainState = MainViewModel.getState()
+    val settingsState = SettingsViewModel.getState()
+    val onEvent = ReaderViewModel.getEvent()
+    val onLibraryEvent = LibraryViewModel.getEvent()
+    val onHistoryEvent = HistoryViewModel.getEvent()
     val context = LocalContext.current as ComponentActivity
     val onNavigate = LocalNavigator.current
 

@@ -30,12 +30,12 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalStartViewModel
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.start.components.permissions.startPermissionsScreen
 import ua.acclorite.book_story.presentation.screens.start.data.StartEvent
 import ua.acclorite.book_story.presentation.screens.start.data.StartNavigationScreen
+import ua.acclorite.book_story.presentation.screens.start.data.StartViewModel
 
 /**
  * Start Settings.
@@ -49,10 +49,10 @@ fun StartSettings(
     storagePermissionState: PermissionState,
     notificationsPermissionState: PermissionState
 ) {
-    val state = LocalStartViewModel.current.state
-    val mainState = LocalMainViewModel.current.state
-    val onEvent = LocalStartViewModel.current.onEvent
-    val onMainEvent = LocalMainViewModel.current.onEvent
+    val state = StartViewModel.getState()
+    val mainState = MainViewModel.getState()
+    val onEvent = StartViewModel.getEvent()
+    val onMainEvent = MainViewModel.getEvent()
     val activity = LocalContext.current as ComponentActivity
 
     val languages = remember(mainState.value.language) {

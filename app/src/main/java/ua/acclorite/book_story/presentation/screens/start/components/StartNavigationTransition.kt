@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.LocalStartViewModel
+import ua.acclorite.book_story.presentation.screens.start.data.StartViewModel
 import ua.acclorite.book_story.presentation.ui.Transitions
 
 /**
@@ -26,7 +26,7 @@ fun StartNavigationTransition(
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    val state = LocalStartViewModel.current.state
+    val state = StartViewModel.getState()
 
     CustomAnimatedVisibility(
         visible = visible,

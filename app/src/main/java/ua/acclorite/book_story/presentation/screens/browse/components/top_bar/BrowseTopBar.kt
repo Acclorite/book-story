@@ -29,10 +29,10 @@ import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBar
 import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBarData
 import ua.acclorite.book_story.presentation.core.components.CustomIconButton
 import ua.acclorite.book_story.presentation.core.components.CustomSearchTextField
-import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.core.navigation.NavigationIconButton
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
+import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseLayout
 
@@ -44,9 +44,9 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
-    val state = LocalBrowseViewModel.current.state
-    val mainState = LocalMainViewModel.current.state
-    val onEvent = LocalBrowseViewModel.current.onEvent
+    val state = BrowseViewModel.getState()
+    val mainState = MainViewModel.getState()
+    val onEvent = BrowseViewModel.getEvent()
 
     val focusRequester = remember { FocusRequester() }
     val selectedDirectoryName = remember {

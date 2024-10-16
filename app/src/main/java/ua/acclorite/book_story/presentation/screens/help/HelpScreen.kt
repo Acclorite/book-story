@@ -32,26 +32,31 @@ import ua.acclorite.book_story.domain.util.Position
 import ua.acclorite.book_story.presentation.core.components.CustomIconButton
 import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.core.components.GoBackButton
-import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalHelpViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalStartViewModel
 import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.data.MainEvent
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
+import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.help.components.HelpItem
 import ua.acclorite.book_story.presentation.screens.help.components.items.HelpClickMeNoteItem
+import ua.acclorite.book_story.presentation.screens.help.data.HelpEvent
+import ua.acclorite.book_story.presentation.screens.help.data.HelpViewModel
 import ua.acclorite.book_story.presentation.screens.start.data.StartEvent
+import ua.acclorite.book_story.presentation.screens.start.data.StartViewModel
 
 @Composable
 fun HelpScreenRoot(screen: Screen.Help) {
-    val viewModel = LocalHelpViewModel.current.viewModel
+    val onEvent = HelpViewModel.getEvent()
 
     LaunchedEffect(Unit) {
-        viewModel.init(screen = screen)
+        onEvent(
+            HelpEvent.OnInit(
+                screen = screen
+            )
+        )
     }
 
     HelpScreen()
@@ -62,10 +67,10 @@ fun HelpScreenRoot(screen: Screen.Help) {
 )
 @Composable
 private fun HelpScreen() {
-    val state = LocalHelpViewModel.current.state
-    val onMainEvent = LocalMainViewModel.current.onEvent
-    val onBrowseEvent = LocalBrowseViewModel.current.onEvent
-    val onStartEvent = LocalStartViewModel.current.onEvent
+    val state = HelpViewModel.getState()
+    val onMainEvent = MainViewModel.getEvent()
+    val onBrowseEvent = BrowseViewModel.getEvent()
+    val onStartEvent = StartViewModel.getEvent()
     val onNavigate = LocalNavigator.current
 
     val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()

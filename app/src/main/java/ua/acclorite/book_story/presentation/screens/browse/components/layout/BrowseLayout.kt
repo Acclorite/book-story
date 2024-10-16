@@ -2,7 +2,7 @@ package ua.acclorite.book_story.presentation.screens.browse.components.layout
 
 import androidx.compose.runtime.Composable
 import ua.acclorite.book_story.domain.model.SelectableFile
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.browse.components.layout.grid.BrowseGridLayout
 import ua.acclorite.book_story.presentation.screens.browse.components.layout.list.BrowseListLayout
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseLayout
@@ -23,7 +23,7 @@ fun BrowseLayout(
     onFavoriteItemClick: (SelectableFile) -> Unit,
     onItemClick: (SelectableFile) -> Unit
 ) {
-    val mainState = LocalMainViewModel.current.state
+    val mainState = MainViewModel.getState()
 
     when (mainState.value.browseLayout) {
         BrowseLayout.LIST -> {

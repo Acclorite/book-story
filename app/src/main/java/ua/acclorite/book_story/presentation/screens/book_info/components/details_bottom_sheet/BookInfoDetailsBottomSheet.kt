@@ -10,10 +10,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.LocalBookInfoViewModel
 import ua.acclorite.book_story.presentation.core.components.custom_bottom_sheet.CustomBottomSheet
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
+import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -24,8 +24,8 @@ import java.util.Locale
  */
 @Composable
 fun BookInfoDetailsBottomSheet() {
-    val state = LocalBookInfoViewModel.current.state
-    val onEvent = LocalBookInfoViewModel.current.onEvent
+    val state = BookInfoViewModel.getState()
+    val onEvent = BookInfoViewModel.getEvent()
     val context = LocalContext.current
 
     val pattern = remember {

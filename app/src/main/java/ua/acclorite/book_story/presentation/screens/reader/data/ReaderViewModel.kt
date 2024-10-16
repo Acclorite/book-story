@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.ComponentActivity
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshotFlow
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -25,18 +26,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.domain.use_case.book.CheckForTextUpdate
 import ua.acclorite.book_story.domain.use_case.book.GetBookById
 import ua.acclorite.book_story.domain.use_case.book.GetText
 import ua.acclorite.book_story.domain.use_case.book.UpdateBook
 import ua.acclorite.book_story.domain.use_case.history.GetLatestHistory
-import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.core.navigation.Screen
-import ua.acclorite.book_story.presentation.core.util.BaseViewModel
+import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import ua.acclorite.book_story.presentation.core.util.coerceAndPreventNaN
 import ua.acclorite.book_story.presentation.core.util.launchActivity
 import javax.inject.Inject
@@ -50,7 +49,15 @@ class ReaderViewModel @Inject constructor(
     private val getLatestHistory: GetLatestHistory,
     private val getBookById: GetBookById,
     private val checkForTextUpdate: CheckForTextUpdate
-) : BaseViewModel<ReaderState, ReaderEvent>() {
+) : UiViewModel<ReaderState, ReaderEvent>() {
+
+    companion object {
+        @Composable
+        fun getState() = getState<ReaderViewModel, ReaderState, ReaderEvent>()
+
+        @Composable
+        fun getEvent() = getEvent<ReaderViewModel, ReaderState, ReaderEvent>()
+    }
 
     private val _state = MutableStateFlow(ReaderState())
     override val state = _state.asStateFlow()
@@ -62,6 +69,12 @@ class ReaderViewModel @Inject constructor(
     override fun onEvent(event: ReaderEvent) {
         viewModelScope.launch(eventJob + Dispatchers.Main) {
             when (event) {
+                is ReaderEvent.OnInit -> init(event)
+
+                is ReaderEvent.OnUpdateProgress -> updateProgress(event)
+
+                is ReaderEvent.OnClearViewModel -> clearViewModel()
+
                 is ReaderEvent.OnTextIsEmpty -> {
                     _state.update {
                         it.copy(
@@ -505,23 +518,12 @@ class ReaderViewModel @Inject constructor(
         }
     }
 
-    fun init(
-        screen: Screen.Reader,
-        onNavigate: OnNavigate,
-        fullscreenMode: Boolean,
-        checkForTextUpdate: Boolean,
-        checkForTextUpdateToast: () -> Unit,
-        activity: ComponentActivity,
-        refreshList: (Book) -> Unit,
-        onError: (UIText) -> Unit
-    ) {
+    private fun init(event: ReaderEvent.OnInit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val book = getBookById.execute(screen.bookId)
+            val book = getBookById.execute(event.screen.bookId)
 
             if (book == null) {
-                onNavigate {
-                    navigateBack()
-                }
+                event.navigateBack()
                 return@launch
             }
 
@@ -530,13 +532,13 @@ class ReaderViewModel @Inject constructor(
             }
 
             clear()
-            withContext(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
                 onEvent(
                     ReaderEvent.OnShowHideMenu(
                         show = false,
-                        fullscreenMode = fullscreenMode,
+                        fullscreenMode = event.fullscreenMode,
                         saveCheckpoint = false,
-                        activity = activity
+                        activity = event.activity
                     )
                 )
             }
@@ -544,17 +546,17 @@ class ReaderViewModel @Inject constructor(
             onEvent(
                 ReaderEvent.OnLoadText(
                     checkForUpdate = {
-                        if (checkForTextUpdate) {
+                        if (event.checkForTextUpdate) {
                             onEvent(
                                 ReaderEvent.OnCheckTextForUpdate {
-                                    checkForTextUpdateToast()
+                                    event.checkForTextUpdateToast()
                                 }
                             )
                         }
                     },
-                    refreshList = { refreshList(it) },
+                    refreshList = { event.refreshList(it) },
                     onError = {
-                        onError(it)
+                        event.onError(it)
                     },
                     onTextIsEmpty = {
                         onEvent(ReaderEvent.OnTextIsEmpty)
@@ -565,7 +567,7 @@ class ReaderViewModel @Inject constructor(
     }
 
     @OptIn(FlowPreview::class)
-    fun onUpdateProgress(refreshList: (Book) -> Unit) {
+    private fun updateProgress(event: ReaderEvent.OnUpdateProgress) {
         viewModelScope.launch(Dispatchers.Main) {
             snapshotFlow {
                 _state.value.listState.run { firstVisibleItemIndex to firstVisibleItemScrollOffset }
@@ -587,8 +589,20 @@ class ReaderViewModel @Inject constructor(
                 }
 
                 updateBook.execute(_state.value.book)
-                refreshList(_state.value.book)
+                event.refreshList(_state.value.book)
             }
+        }
+    }
+
+    private fun clearViewModel() {
+        viewModelScope.launch(Dispatchers.Main) {
+            _state.update {
+                ReaderState()
+            }
+
+            eventJob.cancel()
+            eventJob.join()
+            eventJob = SupervisorJob()
         }
     }
 
@@ -663,17 +677,5 @@ class ReaderViewModel @Inject constructor(
         eventJob.cancel()
         eventJob.join()
         eventJob = SupervisorJob()
-    }
-
-    fun clearViewModel() {
-        viewModelScope.launch(Dispatchers.Main) {
-            _state.update {
-                ReaderState()
-            }
-
-            eventJob.cancel()
-            eventJob.join()
-            eventJob = SupervisorJob()
-        }
     }
 }

@@ -24,11 +24,10 @@ import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.rememberPermissionState
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.SelectableFile
-import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.showToast
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.browse.components.BrowseEmptyPlaceholder
 import ua.acclorite.book_story.presentation.screens.browse.components.BrowseStoragePermissionDialog
 import ua.acclorite.book_story.presentation.screens.browse.components.adding_dialog.BrowseAddingDialog
@@ -36,16 +35,16 @@ import ua.acclorite.book_story.presentation.screens.browse.components.filter_bot
 import ua.acclorite.book_story.presentation.screens.browse.components.layout.BrowseLayout
 import ua.acclorite.book_story.presentation.screens.browse.components.top_bar.BrowseTopBar
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
+import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun BrowseScreenRoot() {
-    val state = LocalBrowseViewModel.current.state
-    val mainState = LocalMainViewModel.current.state
-    val onEvent = LocalBrowseViewModel.current.onEvent
-    val viewModel = LocalBrowseViewModel.current.viewModel
+    val state = BrowseViewModel.getState()
+    val mainState = MainViewModel.getState()
+    val onEvent = BrowseViewModel.getEvent()
 
     val permissionState = rememberPermissionState(
         permission = Manifest.permission.READ_EXTERNAL_STORAGE
@@ -55,7 +54,10 @@ fun BrowseScreenRoot() {
         state.value.selectedDirectory
     ) {
         derivedStateOf {
-            viewModel.filterList(mainState.value)
+            BrowseViewModel.filterList(
+                browseState = state.value,
+                mainState = mainState.value
+            )
         }
     }
 
@@ -72,7 +74,7 @@ fun BrowseScreenRoot() {
 
     DisposableEffect(Unit) {
         onDispose {
-            viewModel.clearViewModel()
+            onEvent(BrowseEvent.OnClearViewModel)
         }
     }
 }
@@ -86,9 +88,9 @@ private fun BrowseScreen(
     permissionState: PermissionState,
     filteredFiles: List<SelectableFile>
 ) {
-    val state = LocalBrowseViewModel.current.state
-    val mainState = LocalMainViewModel.current.state
-    val onEvent = LocalBrowseViewModel.current.onEvent
+    val state = BrowseViewModel.getState()
+    val mainState = MainViewModel.getState()
+    val onEvent = BrowseViewModel.getEvent()
     val onNavigate = LocalNavigator.current
     val context = LocalContext.current
 

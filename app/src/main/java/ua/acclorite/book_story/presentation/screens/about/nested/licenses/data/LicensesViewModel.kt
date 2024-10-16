@@ -1,6 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.about.nested.licenses.data
 
-import android.content.Context
+import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewModelScope
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.util.withJson
@@ -11,20 +11,34 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.util.BaseViewModel
+import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class LicensesViewModel @Inject constructor(
 
-) : BaseViewModel<LicensesState, LicensesEvent>() {
+) : UiViewModel<LicensesState, LicensesEvent>() {
+
+    companion object {
+        @Composable
+        fun getState() = getState<LicensesViewModel, LicensesState, LicensesEvent>()
+
+        @Composable
+        fun getEvent() = getEvent<LicensesViewModel, LicensesState, LicensesEvent>()
+    }
 
     private val _state = MutableStateFlow(LicensesState())
     override val state = _state.asStateFlow()
 
-    override fun onEvent(event: LicensesEvent) {}
+    override fun onEvent(event: LicensesEvent) {
+        viewModelScope.launch(Dispatchers.Main) {
+            when (event) {
+                is LicensesEvent.OnInit -> init(event)
+            }
+        }
+    }
 
-    fun init(context: Context) {
+    private fun init(event: LicensesEvent.OnInit) {
         viewModelScope.launch(Dispatchers.IO) {
             if (_state.value.licenses.isNotEmpty()) {
                 return@launch
@@ -32,7 +46,7 @@ class LicensesViewModel @Inject constructor(
 
             val licenses = Libs
                 .Builder()
-                .withJson(context, R.raw.aboutlibraries)
+                .withJson(event.context, R.raw.aboutlibraries)
                 .build()
                 .libraries
                 .toList()

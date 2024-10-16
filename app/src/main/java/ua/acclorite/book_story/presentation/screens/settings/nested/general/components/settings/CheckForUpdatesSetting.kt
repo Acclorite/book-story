@@ -13,12 +13,12 @@ import androidx.compose.ui.res.stringResource
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalSettingsViewModel
 import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithContent
 import ua.acclorite.book_story.presentation.data.MainEvent
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
 
 /**
  * Check For Updates setting.
@@ -28,9 +28,9 @@ import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
 @SuppressLint("InlinedApi")
 @Composable
 fun CheckForUpdatesSetting() {
-    val state = LocalMainViewModel.current.state
-    val onMainEvent = LocalMainViewModel.current.onEvent
-    val onSettingsEvent = LocalSettingsViewModel.current.onEvent
+    val state = MainViewModel.getState()
+    val onMainEvent = MainViewModel.getEvent()
+    val onSettingsEvent = SettingsViewModel.getEvent()
     val activity = LocalContext.current as ComponentActivity
 
     val notificationsPermissionState = rememberPermissionState(

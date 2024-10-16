@@ -27,18 +27,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
+import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
 import java.io.File
 
 @Composable
 fun BrowseTopBarDirectoryPath() {
-    val state = LocalBrowseViewModel.current.state
-    val mainState = LocalMainViewModel.current.state
-    val onEvent = LocalBrowseViewModel.current.onEvent
+    val state = BrowseViewModel.getState()
+    val mainState = MainViewModel.getState()
+    val onEvent = BrowseViewModel.getEvent()
     val context = LocalContext.current
 
     val rootDirectory = remember {

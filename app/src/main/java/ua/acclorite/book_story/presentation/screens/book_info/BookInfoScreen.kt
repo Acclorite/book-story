@@ -46,7 +46,6 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.CustomSnackbar
-import ua.acclorite.book_story.presentation.core.components.LocalBookInfoViewModel
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoBackground
@@ -61,21 +60,24 @@ import ua.acclorite.book_story.presentation.screens.book_info.components.dialog.
 import ua.acclorite.book_story.presentation.screens.book_info.components.dialog.BookInfoDeleteDialog
 import ua.acclorite.book_story.presentation.screens.book_info.components.dialog.BookInfoMoveDialog
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
+import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
 
 @Composable
 fun BookInfoScreenRoot(screen: Screen.BookInfo) {
-    val viewModel = LocalBookInfoViewModel.current.viewModel
+    val onEvent = BookInfoViewModel.getEvent()
     val onNavigate = LocalNavigator.current
     val context = LocalContext.current
 
     val snackbarState = remember { SnackbarHostState() }
 
     LaunchedEffect(Unit) {
-        viewModel.init(
-            screen = screen,
-            snackbarState = snackbarState,
-            onNavigate = onNavigate,
-            context = context
+        onEvent(
+            BookInfoEvent.OnInit(
+                screen = screen,
+                snackbarState = snackbarState,
+                onNavigate = onNavigate,
+                context = context
+            )
         )
     }
 
@@ -85,7 +87,7 @@ fun BookInfoScreenRoot(screen: Screen.BookInfo) {
 
     DisposableEffect(Unit) {
         onDispose {
-            viewModel.clearViewModel()
+            onEvent(BookInfoEvent.OnClearViewModel)
         }
     }
 }
@@ -94,8 +96,8 @@ fun BookInfoScreenRoot(screen: Screen.BookInfo) {
 @Composable
 private fun BookInfoScreen(snackbarState: SnackbarHostState) {
     val context = LocalContext.current
-    val state = LocalBookInfoViewModel.current.state
-    val onEvent = LocalBookInfoViewModel.current.onEvent
+    val state = BookInfoViewModel.getState()
+    val onEvent = BookInfoViewModel.getEvent()
     val onNavigate = LocalNavigator.current
 
     val listState = rememberLazyListState()

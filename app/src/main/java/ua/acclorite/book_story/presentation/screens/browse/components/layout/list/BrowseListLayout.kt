@@ -9,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.model.SelectableFile
-import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
 import ua.acclorite.book_story.presentation.screens.browse.components.layout.BrowseItem
+import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseLayout
 
 @Composable
@@ -20,7 +20,7 @@ fun BrowseListLayout(
     onFavoriteItemClick: (SelectableFile) -> Unit,
     onItemClick: (SelectableFile) -> Unit,
 ) {
-    val state = LocalBrowseViewModel.current.state
+    val state = BrowseViewModel.getState()
 
     LazyColumn(
         state = state.value.listState,

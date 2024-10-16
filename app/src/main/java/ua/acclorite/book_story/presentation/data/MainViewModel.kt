@@ -1,5 +1,6 @@
 package ua.acclorite.book_story.presentation.data
 
+import androidx.compose.runtime.Composable
 import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
@@ -12,16 +13,13 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.domain.use_case.data_store.ChangeLanguage
 import ua.acclorite.book_story.domain.use_case.data_store.GetAllSettings
 import ua.acclorite.book_story.domain.use_case.data_store.SetDatastore
 import ua.acclorite.book_story.domain.use_case.remote.CheckForUpdates
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
-import ua.acclorite.book_story.presentation.core.util.BaseViewModel
-import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
-import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
+import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseFilesStructure
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseLayout
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseSortOrder
@@ -42,7 +40,15 @@ class MainViewModel @Inject constructor(
     private val changeLanguage: ChangeLanguage,
     private val checkForUpdates: CheckForUpdates,
     private val getAllSettings: GetAllSettings
-) : BaseViewModel<MainState, MainEvent>() {
+) : UiViewModel<MainState, MainEvent>() {
+
+    companion object {
+        @Composable
+        fun getState() = getState<MainViewModel, MainState, MainEvent>()
+
+        @Composable
+        fun getEvent() = getEvent<MainViewModel, MainState, MainEvent>()
+    }
 
     private val _isReady = MutableStateFlow(false)
     val isReady = _isReady.asStateFlow()
@@ -56,320 +62,317 @@ class MainViewModel @Inject constructor(
     override val state = _state.asStateFlow()
 
     override fun onEvent(event: MainEvent) {
-        viewModelScope.launch(Dispatchers.IO) {
-            when (event) {
-                is MainEvent.OnChangeLanguage -> handleLanguageUpdate(event.value)
+        when (event) {
+            is MainEvent.OnInit -> init(event)
 
-                is MainEvent.OnChangeDarkTheme -> handleDatastoreUpdate(
-                    key = DataStoreConstants.DARK_THEME,
-                    value = event.value,
-                    updateState = {
-                        it.copy(darkTheme = toDarkTheme())
-                    }
-                )
+            is MainEvent.OnChangeLanguage -> handleLanguageUpdate(event)
 
-                is MainEvent.OnChangePureDark -> handleDatastoreUpdate(
-                    key = DataStoreConstants.PURE_DARK,
-                    value = event.value,
-                    updateState = {
-                        it.copy(pureDark = toPureDark())
-                    }
-                )
+            is MainEvent.OnChangeDarkTheme -> handleDatastoreUpdate(
+                key = DataStoreConstants.DARK_THEME,
+                value = event.value,
+                updateState = {
+                    it.copy(darkTheme = toDarkTheme())
+                }
+            )
 
-                is MainEvent.OnChangeThemeContrast -> handleDatastoreUpdate(
-                    key = DataStoreConstants.THEME_CONTRAST,
-                    value = event.value,
-                    updateState = {
-                        it.copy(themeContrast = toThemeContrast())
-                    }
-                )
+            is MainEvent.OnChangePureDark -> handleDatastoreUpdate(
+                key = DataStoreConstants.PURE_DARK,
+                value = event.value,
+                updateState = {
+                    it.copy(pureDark = toPureDark())
+                }
+            )
 
-                is MainEvent.OnChangeTheme -> handleDatastoreUpdate(
-                    key = DataStoreConstants.THEME,
-                    value = event.value,
-                    updateState = {
-                        it.copy(theme = toTheme())
-                    }
-                )
+            is MainEvent.OnChangeThemeContrast -> handleDatastoreUpdate(
+                key = DataStoreConstants.THEME_CONTRAST,
+                value = event.value,
+                updateState = {
+                    it.copy(themeContrast = toThemeContrast())
+                }
+            )
 
-                is MainEvent.OnChangeFontFamily -> handleDatastoreUpdate(
-                    key = DataStoreConstants.FONT,
-                    value = event.value,
-                    updateState = {
-                        it.copy(
-                            fontFamily = Constants.FONTS.find { font -> font.id == event.value }?.id
-                                ?: Constants.FONTS[0].id
-                        )
-                    }
-                )
+            is MainEvent.OnChangeTheme -> handleDatastoreUpdate(
+                key = DataStoreConstants.THEME,
+                value = event.value,
+                updateState = {
+                    it.copy(theme = toTheme())
+                }
+            )
 
-                is MainEvent.OnChangeFontStyle -> handleDatastoreUpdate(
-                    key = DataStoreConstants.IS_ITALIC,
-                    value = event.value,
-                    updateState = {
-                        it.copy(isItalic = this)
-                    }
-                )
+            is MainEvent.OnChangeFontFamily -> handleDatastoreUpdate(
+                key = DataStoreConstants.FONT,
+                value = event.value,
+                updateState = {
+                    it.copy(
+                        fontFamily = Constants.FONTS.find { font -> font.id == event.value }?.id
+                            ?: Constants.FONTS[0].id
+                    )
+                }
+            )
 
-                is MainEvent.OnChangeFontSize -> handleDatastoreUpdate(
-                    key = DataStoreConstants.FONT_SIZE,
-                    value = event.value,
-                    updateState = {
-                        it.copy(fontSize = this)
-                    }
-                )
+            is MainEvent.OnChangeFontStyle -> handleDatastoreUpdate(
+                key = DataStoreConstants.IS_ITALIC,
+                value = event.value,
+                updateState = {
+                    it.copy(isItalic = this)
+                }
+            )
 
-                is MainEvent.OnChangeLineHeight -> handleDatastoreUpdate(
-                    key = DataStoreConstants.LINE_HEIGHT,
-                    value = event.value,
-                    updateState = {
-                        it.copy(lineHeight = this)
-                    }
-                )
+            is MainEvent.OnChangeFontSize -> handleDatastoreUpdate(
+                key = DataStoreConstants.FONT_SIZE,
+                value = event.value,
+                updateState = {
+                    it.copy(fontSize = this)
+                }
+            )
 
-                is MainEvent.OnChangeParagraphHeight -> handleDatastoreUpdate(
-                    key = DataStoreConstants.PARAGRAPH_HEIGHT,
-                    value = event.value,
-                    updateState = {
-                        it.copy(paragraphHeight = this)
-                    }
-                )
+            is MainEvent.OnChangeLineHeight -> handleDatastoreUpdate(
+                key = DataStoreConstants.LINE_HEIGHT,
+                value = event.value,
+                updateState = {
+                    it.copy(lineHeight = this)
+                }
+            )
 
-                is MainEvent.OnChangeParagraphIndentation -> handleDatastoreUpdate(
-                    key = DataStoreConstants.PARAGRAPH_INDENTATION,
-                    value = event.value,
-                    updateState = {
-                        it.copy(paragraphIndentation = this)
-                    }
-                )
+            is MainEvent.OnChangeParagraphHeight -> handleDatastoreUpdate(
+                key = DataStoreConstants.PARAGRAPH_HEIGHT,
+                value = event.value,
+                updateState = {
+                    it.copy(paragraphHeight = this)
+                }
+            )
 
-                is MainEvent.OnChangeShowStartScreen -> handleDatastoreUpdate(
-                    key = DataStoreConstants.SHOW_START_SCREEN,
-                    value = event.value,
-                    updateState = {
-                        it.copy(showStartScreen = this)
-                    }
-                )
+            is MainEvent.OnChangeParagraphIndentation -> handleDatastoreUpdate(
+                key = DataStoreConstants.PARAGRAPH_INDENTATION,
+                value = event.value,
+                updateState = {
+                    it.copy(paragraphIndentation = this)
+                }
+            )
 
-                is MainEvent.OnChangeCheckForUpdates -> handleDatastoreUpdate(
-                    key = DataStoreConstants.CHECK_FOR_UPDATES,
-                    value = event.value,
-                    updateState = {
-                        it.copy(checkForUpdates = this)
-                    }
-                )
+            is MainEvent.OnChangeShowStartScreen -> handleDatastoreUpdate(
+                key = DataStoreConstants.SHOW_START_SCREEN,
+                value = event.value,
+                updateState = {
+                    it.copy(showStartScreen = this)
+                }
+            )
 
-                is MainEvent.OnChangeSidePadding -> handleDatastoreUpdate(
-                    key = DataStoreConstants.SIDE_PADDING,
-                    value = event.value,
-                    updateState = {
-                        it.copy(sidePadding = this)
-                    }
-                )
+            is MainEvent.OnChangeCheckForUpdates -> handleDatastoreUpdate(
+                key = DataStoreConstants.CHECK_FOR_UPDATES,
+                value = event.value,
+                updateState = {
+                    it.copy(checkForUpdates = this)
+                }
+            )
 
-                is MainEvent.OnChangeDoubleClickTranslation -> handleDatastoreUpdate(
-                    key = DataStoreConstants.DOUBLE_CLICK_TRANSLATION,
-                    value = event.value,
-                    updateState = {
-                        it.copy(doubleClickTranslation = this)
-                    }
-                )
+            is MainEvent.OnChangeSidePadding -> handleDatastoreUpdate(
+                key = DataStoreConstants.SIDE_PADDING,
+                value = event.value,
+                updateState = {
+                    it.copy(sidePadding = this)
+                }
+            )
 
-                is MainEvent.OnChangeFastColorPresetChange -> handleDatastoreUpdate(
-                    key = DataStoreConstants.FAST_COLOR_PRESET_CHANGE,
-                    value = event.value,
-                    updateState = {
-                        it.copy(fastColorPresetChange = this)
-                    }
-                )
+            is MainEvent.OnChangeDoubleClickTranslation -> handleDatastoreUpdate(
+                key = DataStoreConstants.DOUBLE_CLICK_TRANSLATION,
+                value = event.value,
+                updateState = {
+                    it.copy(doubleClickTranslation = this)
+                }
+            )
 
-                is MainEvent.OnChangeBrowseFilesStructure -> handleDatastoreUpdate(
-                    key = DataStoreConstants.BROWSE_FILES_STRUCTURE,
-                    value = event.value,
-                    updateState = {
-                        it.copy(browseFilesStructure = toBrowseFilesStructure())
-                    }
-                )
+            is MainEvent.OnChangeFastColorPresetChange -> handleDatastoreUpdate(
+                key = DataStoreConstants.FAST_COLOR_PRESET_CHANGE,
+                value = event.value,
+                updateState = {
+                    it.copy(fastColorPresetChange = this)
+                }
+            )
 
-                is MainEvent.OnChangeBrowseLayout -> handleDatastoreUpdate(
-                    key = DataStoreConstants.BROWSE_LAYOUT,
-                    value = event.value,
-                    updateState = {
-                        it.copy(browseLayout = toBrowseLayout())
-                    }
-                )
+            is MainEvent.OnChangeBrowseFilesStructure -> handleDatastoreUpdate(
+                key = DataStoreConstants.BROWSE_FILES_STRUCTURE,
+                value = event.value,
+                updateState = {
+                    it.copy(browseFilesStructure = toBrowseFilesStructure())
+                }
+            )
 
-                is MainEvent.OnChangeBrowseAutoGridSize -> handleDatastoreUpdate(
-                    key = DataStoreConstants.BROWSE_AUTO_GRID_SIZE,
-                    value = event.value,
-                    updateState = {
-                        it.copy(browseAutoGridSize = this)
-                    }
-                )
+            is MainEvent.OnChangeBrowseLayout -> handleDatastoreUpdate(
+                key = DataStoreConstants.BROWSE_LAYOUT,
+                value = event.value,
+                updateState = {
+                    it.copy(browseLayout = toBrowseLayout())
+                }
+            )
 
-                is MainEvent.OnChangeBrowseGridSize -> handleDatastoreUpdate(
-                    key = DataStoreConstants.BROWSE_GRID_SIZE,
-                    value = event.value,
-                    updateState = {
-                        it.copy(browseGridSize = this)
-                    }
-                )
+            is MainEvent.OnChangeBrowseAutoGridSize -> handleDatastoreUpdate(
+                key = DataStoreConstants.BROWSE_AUTO_GRID_SIZE,
+                value = event.value,
+                updateState = {
+                    it.copy(browseAutoGridSize = this)
+                }
+            )
 
-                is MainEvent.OnChangeBrowsePinFavoriteDirectories -> handleDatastoreUpdate(
-                    key = DataStoreConstants.BROWSE_PIN_FAVORITE_DIRECTORIES,
-                    value = event.value,
-                    updateState = {
-                        it.copy(browsePinFavoriteDirectories = this)
-                    }
-                )
+            is MainEvent.OnChangeBrowseGridSize -> handleDatastoreUpdate(
+                key = DataStoreConstants.BROWSE_GRID_SIZE,
+                value = event.value,
+                updateState = {
+                    it.copy(browseGridSize = this)
+                }
+            )
 
-                is MainEvent.OnChangeBrowseSortOrder -> handleDatastoreUpdate(
-                    key = DataStoreConstants.BROWSE_SORT_ORDER,
-                    value = event.value,
-                    updateState = {
-                        it.copy(browseSortOrder = toBrowseSortOrder())
-                    }
-                )
+            is MainEvent.OnChangeBrowsePinFavoriteDirectories -> handleDatastoreUpdate(
+                key = DataStoreConstants.BROWSE_PIN_FAVORITE_DIRECTORIES,
+                value = event.value,
+                updateState = {
+                    it.copy(browsePinFavoriteDirectories = this)
+                }
+            )
 
-                is MainEvent.OnChangeBrowseSortOrderDescending -> handleDatastoreUpdate(
-                    key = DataStoreConstants.BROWSE_SORT_ORDER_DESCENDING,
-                    value = event.value,
-                    updateState = {
-                        it.copy(browseSortOrderDescending = this)
-                    }
-                )
+            is MainEvent.OnChangeBrowseSortOrder -> handleDatastoreUpdate(
+                key = DataStoreConstants.BROWSE_SORT_ORDER,
+                value = event.value,
+                updateState = {
+                    it.copy(browseSortOrder = toBrowseSortOrder())
+                }
+            )
 
-                is MainEvent.OnChangeBrowseIncludedFilterItem -> handleBrowseIncludedFilterItemUpdate(
-                    event.value
-                )
+            is MainEvent.OnChangeBrowseSortOrderDescending -> handleDatastoreUpdate(
+                key = DataStoreConstants.BROWSE_SORT_ORDER_DESCENDING,
+                value = event.value,
+                updateState = {
+                    it.copy(browseSortOrderDescending = this)
+                }
+            )
 
-                is MainEvent.OnChangeTextAlignment -> handleDatastoreUpdate(
-                    key = DataStoreConstants.TEXT_ALIGNMENT,
-                    value = event.value,
-                    updateState = {
-                        it.copy(textAlignment = toTextAlignment())
-                    }
-                )
+            is MainEvent.OnChangeBrowseIncludedFilterItem -> handleBrowseIncludedFilterItemUpdate(
+                event
+            )
 
-                is MainEvent.OnChangeDoublePressExit -> handleDatastoreUpdate(
-                    key = DataStoreConstants.DOUBLE_PRESS_EXIT,
-                    value = event.value,
-                    updateState = {
-                        it.copy(doublePressExit = this)
-                    }
-                )
+            is MainEvent.OnChangeTextAlignment -> handleDatastoreUpdate(
+                key = DataStoreConstants.TEXT_ALIGNMENT,
+                value = event.value,
+                updateState = {
+                    it.copy(textAlignment = toTextAlignment())
+                }
+            )
 
-                is MainEvent.OnChangeLetterSpacing -> handleDatastoreUpdate(
-                    key = DataStoreConstants.LETTER_SPACING,
-                    value = event.value,
-                    updateState = {
-                        it.copy(letterSpacing = this)
-                    }
-                )
+            is MainEvent.OnChangeDoublePressExit -> handleDatastoreUpdate(
+                key = DataStoreConstants.DOUBLE_PRESS_EXIT,
+                value = event.value,
+                updateState = {
+                    it.copy(doublePressExit = this)
+                }
+            )
 
-                is MainEvent.OnChangeAbsoluteDark -> handleDatastoreUpdate(
-                    key = DataStoreConstants.ABSOLUTE_DARK,
-                    value = event.value,
-                    updateState = {
-                        it.copy(absoluteDark = this)
-                    }
-                )
+            is MainEvent.OnChangeLetterSpacing -> handleDatastoreUpdate(
+                key = DataStoreConstants.LETTER_SPACING,
+                value = event.value,
+                updateState = {
+                    it.copy(letterSpacing = this)
+                }
+            )
 
-                is MainEvent.OnChangeCutoutPadding -> handleDatastoreUpdate(
-                    key = DataStoreConstants.CUTOUT_PADDING,
-                    value = event.value,
-                    updateState = {
-                        it.copy(cutoutPadding = this)
-                    }
-                )
+            is MainEvent.OnChangeAbsoluteDark -> handleDatastoreUpdate(
+                key = DataStoreConstants.ABSOLUTE_DARK,
+                value = event.value,
+                updateState = {
+                    it.copy(absoluteDark = this)
+                }
+            )
 
-                is MainEvent.OnChangeFullscreen -> handleDatastoreUpdate(
-                    key = DataStoreConstants.FULLSCREEN,
-                    value = event.value,
-                    updateState = {
-                        it.copy(fullscreen = this)
-                    }
-                )
+            is MainEvent.OnChangeCutoutPadding -> handleDatastoreUpdate(
+                key = DataStoreConstants.CUTOUT_PADDING,
+                value = event.value,
+                updateState = {
+                    it.copy(cutoutPadding = this)
+                }
+            )
 
-                is MainEvent.OnChangeKeepScreenOn -> handleDatastoreUpdate(
-                    key = DataStoreConstants.KEEP_SCREEN_ON,
-                    value = event.value,
-                    updateState = {
-                        it.copy(keepScreenOn = this)
-                    }
-                )
+            is MainEvent.OnChangeFullscreen -> handleDatastoreUpdate(
+                key = DataStoreConstants.FULLSCREEN,
+                value = event.value,
+                updateState = {
+                    it.copy(fullscreen = this)
+                }
+            )
 
-                is MainEvent.OnChangeVerticalPadding -> handleDatastoreUpdate(
-                    key = DataStoreConstants.VERTICAL_PADDING,
-                    value = event.value,
-                    updateState = {
-                        it.copy(verticalPadding = this)
-                    }
-                )
+            is MainEvent.OnChangeKeepScreenOn -> handleDatastoreUpdate(
+                key = DataStoreConstants.KEEP_SCREEN_ON,
+                value = event.value,
+                updateState = {
+                    it.copy(keepScreenOn = this)
+                }
+            )
 
-                is MainEvent.OnChangeHideBarsOnFastScroll -> handleDatastoreUpdate(
-                    key = DataStoreConstants.HIDE_BARS_ON_FAST_SCROLL,
-                    value = event.value,
-                    updateState = {
-                        it.copy(hideBarsOnFastScroll = this)
-                    }
-                )
+            is MainEvent.OnChangeVerticalPadding -> handleDatastoreUpdate(
+                key = DataStoreConstants.VERTICAL_PADDING,
+                value = event.value,
+                updateState = {
+                    it.copy(verticalPadding = this)
+                }
+            )
 
-                is MainEvent.OnChangePerceptionExpander -> handleDatastoreUpdate(
-                    key = DataStoreConstants.PERCEPTION_EXPANDER,
-                    value = event.value,
-                    updateState = {
-                        it.copy(perceptionExpander = this)
-                    }
-                )
+            is MainEvent.OnChangeHideBarsOnFastScroll -> handleDatastoreUpdate(
+                key = DataStoreConstants.HIDE_BARS_ON_FAST_SCROLL,
+                value = event.value,
+                updateState = {
+                    it.copy(hideBarsOnFastScroll = this)
+                }
+            )
 
-                is MainEvent.OnChangePerceptionExpanderPadding -> handleDatastoreUpdate(
-                    key = DataStoreConstants.PERCEPTION_EXPANDER_PADDING,
-                    value = event.value,
-                    updateState = {
-                        it.copy(perceptionExpanderPadding = this)
-                    }
-                )
+            is MainEvent.OnChangePerceptionExpander -> handleDatastoreUpdate(
+                key = DataStoreConstants.PERCEPTION_EXPANDER,
+                value = event.value,
+                updateState = {
+                    it.copy(perceptionExpander = this)
+                }
+            )
 
-                is MainEvent.OnChangePerceptionExpanderThickness -> handleDatastoreUpdate(
-                    key = DataStoreConstants.PERCEPTION_EXPANDER_THICKNESS,
-                    value = event.value,
-                    updateState = {
-                        it.copy(perceptionExpanderThickness = this)
-                    }
-                )
+            is MainEvent.OnChangePerceptionExpanderPadding -> handleDatastoreUpdate(
+                key = DataStoreConstants.PERCEPTION_EXPANDER_PADDING,
+                value = event.value,
+                updateState = {
+                    it.copy(perceptionExpanderPadding = this)
+                }
+            )
 
-                is MainEvent.OnChangeCheckForTextUpdate -> handleDatastoreUpdate(
-                    key = DataStoreConstants.CHECK_FOR_TEXT_UPDATE,
-                    value = event.value,
-                    updateState = {
-                        it.copy(checkForTextUpdate = this)
-                    }
-                )
+            is MainEvent.OnChangePerceptionExpanderThickness -> handleDatastoreUpdate(
+                key = DataStoreConstants.PERCEPTION_EXPANDER_THICKNESS,
+                value = event.value,
+                updateState = {
+                    it.copy(perceptionExpanderThickness = this)
+                }
+            )
 
-                is MainEvent.OnChangeCheckForTextUpdateToast -> handleDatastoreUpdate(
-                    key = DataStoreConstants.CHECK_FOR_TEXT_UPDATE_TOAST,
-                    value = event.value,
-                    updateState = {
-                        it.copy(checkForTextUpdateToast = this)
-                    }
-                )
+            is MainEvent.OnChangeCheckForTextUpdate -> handleDatastoreUpdate(
+                key = DataStoreConstants.CHECK_FOR_TEXT_UPDATE,
+                value = event.value,
+                updateState = {
+                    it.copy(checkForTextUpdate = this)
+                }
+            )
 
-                is MainEvent.OnChangeScreenOrientation -> handleDatastoreUpdate(
-                    key = DataStoreConstants.SCREEN_ORIENTATION,
-                    value = event.value,
-                    updateState = {
-                        it.copy(screenOrientation = toReaderScreenOrientation())
-                    }
-                )
-            }
+            is MainEvent.OnChangeCheckForTextUpdateToast -> handleDatastoreUpdate(
+                key = DataStoreConstants.CHECK_FOR_TEXT_UPDATE_TOAST,
+                value = event.value,
+                updateState = {
+                    it.copy(checkForTextUpdateToast = this)
+                }
+            )
+
+            is MainEvent.OnChangeScreenOrientation -> handleDatastoreUpdate(
+                key = DataStoreConstants.SCREEN_ORIENTATION,
+                value = event.value,
+                updateState = {
+                    it.copy(screenOrientation = toReaderScreenOrientation())
+                }
+            )
         }
     }
 
-    fun init(
-        libraryViewModel: LibraryViewModel,
-        settingsViewModel: SettingsViewModel,
-    ) {
+    private fun init(event: MainEvent.OnInit) {
         viewModelScope.launch(Dispatchers.Main) {
             val settings = getAllSettings.execute()
 
@@ -391,8 +394,8 @@ class MainViewModel @Inject constructor(
 
         viewModelScope.launch(Dispatchers.IO) {
             combine(
-                libraryViewModel.isReady,
-                settingsViewModel.isReady
+                event.libraryViewModelReady,
+                event.settingsViewModelReady
             ) { (libraryViewModelReady, settingsViewModelReady) ->
                 libraryViewModelReady && settingsViewModelReady
             }.collectLatest { ready ->
@@ -421,19 +424,21 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private suspend fun handleLanguageUpdate(value: String) {
-        withContext(Dispatchers.Main) {
-            changeLanguage.execute(value)
+    private fun handleLanguageUpdate(event: MainEvent.OnChangeLanguage) {
+        viewModelScope.launch(Dispatchers.Main) {
+            changeLanguage.execute(event.value)
             updateStateWithSavedHandle {
-                it.copy(language = value)
+                it.copy(language = event.value)
             }
         }
     }
 
-    private suspend fun handleBrowseIncludedFilterItemUpdate(value: String) {
+    private fun handleBrowseIncludedFilterItemUpdate(
+        event: MainEvent.OnChangeBrowseIncludedFilterItem
+    ) {
         val set = _state.value.browseIncludedFilterItems.toMutableSet()
-        if (!set.add(value)) {
-            set.remove(value)
+        if (!set.add(event.value)) {
+            set.remove(event.value)
         }
         handleDatastoreUpdate(
             key = DataStoreConstants.BROWSE_INCLUDED_FILTER_ITEMS,
@@ -445,6 +450,22 @@ class MainViewModel @Inject constructor(
     }
 
     /**
+     * Handles and updates Datastore.
+     */
+    private fun <V> handleDatastoreUpdate(
+        key: Preferences.Key<V>,
+        value: V,
+        updateState: V.(MainState) -> MainState
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            setDatastore.execute(key = key, value = value)
+            updateStateWithSavedHandle {
+                value.updateState(it)
+            }
+        }
+    }
+
+    /**
      * Updates [MainState] along with [SavedStateHandle].
      */
     private fun updateStateWithSavedHandle(
@@ -453,22 +474,6 @@ class MainViewModel @Inject constructor(
         _state.update {
             stateHandle[Constants.MAIN_STATE] = function(it)
             function(it)
-        }
-    }
-
-    /**
-     * Handles and updates Datastore.
-     */
-    private suspend fun <V> handleDatastoreUpdate(
-        key: Preferences.Key<V>,
-        value: V,
-        updateState: V.(MainState) -> MainState
-    ) {
-        withContext(Dispatchers.IO) {
-            setDatastore.execute(key = key, value = value)
-            updateStateWithSavedHandle {
-                value.updateState(it)
-            }
         }
     }
 }

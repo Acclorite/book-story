@@ -10,12 +10,12 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
 import ua.acclorite.book_story.presentation.core.components.is_messages.IsEmpty
 import ua.acclorite.book_story.presentation.core.components.is_messages.IsError
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
+import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.ui.Transitions
 
 /**
@@ -31,8 +31,8 @@ fun BoxScope.BrowseEmptyPlaceholder(
     isFilesEmpty: Boolean,
     storagePermissionState: PermissionState
 ) {
-    val state = LocalBrowseViewModel.current.state
-    val onEvent = LocalBrowseViewModel.current.onEvent
+    val state = BrowseViewModel.getState()
+    val onEvent = BrowseViewModel.getEvent()
     val onNavigate = LocalNavigator.current
 
     CustomAnimatedVisibility(

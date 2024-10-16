@@ -10,9 +10,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
-import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
 import ua.acclorite.book_story.presentation.core.components.custom_bottom_sheet.CustomBottomSheet
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
+import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.components.subcategories.BrowseFilterSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.components.subcategories.BrowseGeneralSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.components.subcategories.BrowseSortSubcategory
@@ -23,8 +23,8 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.browse.compo
  */
 @Composable
 fun BrowseFilterBottomSheet() {
-    val state = LocalBrowseViewModel.current.state
-    val onEvent = LocalBrowseViewModel.current.onEvent
+    val state = BrowseViewModel.getState()
+    val onEvent = BrowseViewModel.getEvent()
 
     val pagerState = rememberPagerState(state.value.currentPage) { 3 }
 

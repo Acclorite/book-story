@@ -18,9 +18,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.data.MainEvent
+import ua.acclorite.book_story.presentation.data.MainViewModel
 
 /**
  * Browse Filter setting.
@@ -28,8 +28,8 @@ import ua.acclorite.book_story.presentation.data.MainEvent
  */
 fun LazyListScope.BrowseFilterSetting() {
     items(Constants.EXTENSIONS, key = { it }) {
-        val state = LocalMainViewModel.current.state
-        val onMainEvent = LocalMainViewModel.current.onEvent
+        val state = MainViewModel.getState()
+        val onMainEvent = MainViewModel.getEvent()
 
         FilterItem(
             item = it,

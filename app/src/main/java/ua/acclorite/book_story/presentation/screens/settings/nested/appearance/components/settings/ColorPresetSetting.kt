@@ -63,9 +63,9 @@ import ua.acclorite.book_story.domain.util.Selected
 import ua.acclorite.book_story.presentation.core.components.CategoryTitle
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.CustomIconButton
-import ua.acclorite.book_story.presentation.core.components.LocalSettingsViewModel
 import ua.acclorite.book_story.presentation.screens.settings.components.ColorPickerWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
+import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
 import ua.acclorite.book_story.presentation.ui.FadeTransitionPreservingSpace
 import ua.acclorite.book_story.presentation.ui.Transitions
 
@@ -80,8 +80,8 @@ fun ColorPresetSetting(
     verticalPadding: Dp = 8.dp,
     horizontalPadding: Dp = 18.dp
 ) {
-    val state = LocalSettingsViewModel.current.state
-    val onEvent = LocalSettingsViewModel.current.onEvent
+    val state = SettingsViewModel.getState()
+    val onEvent = SettingsViewModel.getEvent()
     val context = LocalContext.current
 
     val reorderableListState = rememberReorderableLazyListState(

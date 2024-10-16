@@ -9,6 +9,7 @@ import android.os.Environment
 import android.provider.Settings
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.grid.LazyGridState
+import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewModelScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
@@ -29,7 +30,7 @@ import ua.acclorite.book_story.domain.use_case.favorite_directory.UpdateFavorite
 import ua.acclorite.book_story.domain.use_case.file_system.GetBookFromFile
 import ua.acclorite.book_story.domain.use_case.file_system.GetFilesFromDevice
 import ua.acclorite.book_story.presentation.core.navigation.Screen
-import ua.acclorite.book_story.presentation.core.util.BaseViewModel
+import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import ua.acclorite.book_story.presentation.core.util.launchActivity
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
@@ -43,7 +44,115 @@ class BrowseViewModel @Inject constructor(
     private val getFilesFromDevice: GetFilesFromDevice,
     private val insertBook: InsertBook,
     private val updateFavoriteDirectory: UpdateFavoriteDirectory,
-) : BaseViewModel<BrowseState, BrowseEvent>() {
+) : UiViewModel<BrowseState, BrowseEvent>() {
+
+    companion object {
+        @Composable
+        fun getState() = getState<BrowseViewModel, BrowseState, BrowseEvent>()
+
+        @Composable
+        fun getEvent() = getEvent<BrowseViewModel, BrowseState, BrowseEvent>()
+
+        fun filterList(browseState: BrowseState, mainState: MainState): List<SelectableFile> {
+            fun <T> thenCompareBy(
+                selector: (T) -> Comparable<*>?
+            ): Comparator<T> {
+                return if (mainState.browseSortOrderDescending) {
+                    compareByDescending(selector)
+                } else {
+                    compareBy(selector)
+                }
+            }
+
+            fun List<SelectableFile>.filterFiles(): List<SelectableFile> {
+                if (mainState.browseIncludedFilterItems.isEmpty()) {
+                    return this
+                }
+
+                return filter { file ->
+                    when (file.isDirectory) {
+                        true -> {
+                            return@filter this.filter {
+                                if (file == it) {
+                                    return@filter false
+                                }
+
+                                it.fileOrDirectory.path.startsWith(file.fileOrDirectory.path)
+                            }.filterFiles().isNotEmpty()
+                        }
+
+                        false -> {
+                            return@filter mainState.browseIncludedFilterItems.any {
+                                file.fileOrDirectory.path.endsWith(
+                                    it, ignoreCase = true
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
+            return browseState.selectableFiles
+                .filterFiles()
+                .filter {
+                    if (
+                        browseState.hasSearched
+                        || mainState.browseFilesStructure == BrowseFilesStructure.ALL_FILES
+                    ) {
+                        return@filter !it.isDirectory
+                    }
+
+                    if (
+                        Environment.getExternalStorageDirectory() == browseState.selectedDirectory
+                        && it.isFavorite
+                        && mainState.browsePinFavoriteDirectories
+                    ) {
+                        return@filter true
+                    }
+
+                    it.parentDirectory == browseState.selectedDirectory
+                }
+                .sortedWith(
+                    compareByDescending<SelectableFile> {
+                        when (mainState.browsePinFavoriteDirectories) {
+                            true -> it.isFavorite
+                            false -> true
+                        }
+                    }.then(
+                        compareByDescending {
+                            when (mainState.browseSortOrder != BrowseSortOrder.FILE_TYPE) {
+                                true -> it.isDirectory
+                                false -> true
+                            }
+                        }
+                    ).then(
+                        thenCompareBy {
+                            when (mainState.browseSortOrder) {
+                                BrowseSortOrder.NAME -> {
+                                    it.fileOrDirectory.name.lowercase().trim()
+                                }
+
+                                BrowseSortOrder.FILE_TYPE -> {
+                                    it.isDirectory
+                                }
+
+                                BrowseSortOrder.FILE_FORMAT -> {
+                                    it.fileOrDirectory.extension
+                                }
+
+                                BrowseSortOrder.FILE_SIZE -> {
+                                    it.fileOrDirectory.length()
+                                }
+
+                                BrowseSortOrder.LAST_MODIFIED -> {
+                                    it.fileOrDirectory.lastModified()
+                                }
+                            }
+                        }
+                    )
+                )
+        }
+    }
 
     private val _state = MutableStateFlow(BrowseState())
     override val state = _state.asStateFlow()
@@ -69,6 +178,8 @@ class BrowseViewModel @Inject constructor(
 
     override fun onEvent(event: BrowseEvent) {
         when (event) {
+            is BrowseEvent.OnClearViewModel -> clearViewModel()
+
             is BrowseEvent.OnStoragePermissionRequest -> {
                 val legacyStoragePermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
 
@@ -605,104 +716,12 @@ class BrowseViewModel @Inject constructor(
         }
     }
 
-    fun filterList(mainState: MainState): List<SelectableFile> {
-        fun <T> thenCompareBy(
-            selector: (T) -> Comparable<*>?
-        ): Comparator<T> {
-            return if (mainState.browseSortOrderDescending) {
-                compareByDescending(selector)
-            } else {
-                compareBy(selector)
+    private fun clearViewModel() {
+        viewModelScope.launch(Dispatchers.Main) {
+            _state.update {
+                it.copy(isError = false)
             }
         }
-
-        fun List<SelectableFile>.filterFiles(): List<SelectableFile> {
-            if (mainState.browseIncludedFilterItems.isEmpty()) {
-                return this
-            }
-
-            return filter { file ->
-                when (file.isDirectory) {
-                    true -> {
-                        return@filter this.filter {
-                            if (file == it) {
-                                return@filter false
-                            }
-
-                            it.fileOrDirectory.path.startsWith(file.fileOrDirectory.path)
-                        }.filterFiles().isNotEmpty()
-                    }
-
-                    false -> {
-                        return@filter mainState.browseIncludedFilterItems.any {
-                            file.fileOrDirectory.path.endsWith(
-                                it, ignoreCase = true
-                            )
-                        }
-                    }
-                }
-            }
-        }
-
-        return _state.value.selectableFiles
-            .filterFiles()
-            .filter {
-                if (
-                    _state.value.hasSearched
-                    || mainState.browseFilesStructure == BrowseFilesStructure.ALL_FILES
-                ) {
-                    return@filter !it.isDirectory
-                }
-
-                if (
-                    Environment.getExternalStorageDirectory() == _state.value.selectedDirectory
-                    && it.isFavorite
-                    && mainState.browsePinFavoriteDirectories
-                ) {
-                    return@filter true
-                }
-
-                it.parentDirectory == _state.value.selectedDirectory
-            }
-            .sortedWith(
-                compareByDescending<SelectableFile> {
-                    when (mainState.browsePinFavoriteDirectories) {
-                        true -> it.isFavorite
-                        false -> true
-                    }
-                }.then(
-                    compareByDescending {
-                        when (mainState.browseSortOrder != BrowseSortOrder.FILE_TYPE) {
-                            true -> it.isDirectory
-                            false -> true
-                        }
-                    }
-                ).then(
-                    thenCompareBy {
-                        when (mainState.browseSortOrder) {
-                            BrowseSortOrder.NAME -> {
-                                it.fileOrDirectory.name.lowercase().trim()
-                            }
-
-                            BrowseSortOrder.FILE_TYPE -> {
-                                it.isDirectory
-                            }
-
-                            BrowseSortOrder.FILE_FORMAT -> {
-                                it.fileOrDirectory.extension
-                            }
-
-                            BrowseSortOrder.FILE_SIZE -> {
-                                it.fileOrDirectory.length()
-                            }
-
-                            BrowseSortOrder.LAST_MODIFIED -> {
-                                it.fileOrDirectory.lastModified()
-                            }
-                        }
-                    }
-                )
-            )
     }
 
     private suspend fun getFilesFromDownloads(
@@ -718,14 +737,6 @@ class BrowseViewModel @Inject constructor(
                     hasSelectedItems = false,
                     isLoading = false
                 )
-            }
-        }
-    }
-
-    fun clearViewModel() {
-        viewModelScope.launch(Dispatchers.Main) {
-            _state.update {
-                it.copy(isError = false)
             }
         }
     }

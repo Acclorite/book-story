@@ -26,10 +26,10 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.FontWithName
-import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
+import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.data.ReaderTextAlignment
 
 /**
@@ -65,7 +65,7 @@ fun LazyItemScope.ReaderTextParagraph(
     doubleClickTranslationEnabled: Boolean,
     toolbarHidden: Boolean
 ) {
-    val onEvent = LocalReaderViewModel.current.onEvent
+    val onEvent = ReaderViewModel.getEvent()
     val context = LocalContext.current
 
     Column(

@@ -41,9 +41,9 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.core.components.CategoryTitle
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.data.MainEvent
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.ui.Theme
 import ua.acclorite.book_story.presentation.ui.ThemeContrast
 import ua.acclorite.book_story.presentation.ui.animatedColorScheme
@@ -59,8 +59,8 @@ fun ThemeSetting(
     verticalPadding: Dp = 8.dp,
     horizontalPadding: Dp = 18.dp
 ) {
-    val state = LocalMainViewModel.current.state
-    val onMainEvent = LocalMainViewModel.current.onEvent
+    val state = MainViewModel.getState()
+    val onMainEvent = MainViewModel.getEvent()
 
     val themes = remember {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Constants.THEMES

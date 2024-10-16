@@ -38,18 +38,18 @@ import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.CustomIconButton
-import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.core.util.showToast
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.reader.components.readerFastColorPresetChange
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
+import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 import ua.acclorite.book_story.presentation.ui.Colors
 
 /**
@@ -58,11 +58,11 @@ import ua.acclorite.book_story.presentation.ui.Colors
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReaderTopBar() {
-    val state = LocalReaderViewModel.current.state
-    val mainState = LocalMainViewModel.current.state
-    val onEvent = LocalReaderViewModel.current.onEvent
-    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
-    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
+    val state = ReaderViewModel.getState()
+    val mainState = MainViewModel.getState()
+    val onEvent = ReaderViewModel.getEvent()
+    val onLibraryEvent = LibraryViewModel.getEvent()
+    val onHistoryEvent = HistoryViewModel.getEvent()
     val context = LocalContext.current as ComponentActivity
     val onNavigate = LocalNavigator.current
 

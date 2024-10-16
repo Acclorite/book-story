@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.core.components.GoBackButton
-import ua.acclorite.book_story.presentation.core.components.LocalAboutViewModel
 import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
@@ -40,6 +39,7 @@ import ua.acclorite.book_story.presentation.screens.about.components.AboutItem
 import ua.acclorite.book_story.presentation.screens.about.components.AboutUpdateDialog
 import ua.acclorite.book_story.presentation.screens.about.components.badges.AboutBadges
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
+import ua.acclorite.book_story.presentation.screens.about.data.AboutViewModel
 
 @Composable
 fun AboutScreenRoot() {
@@ -49,8 +49,8 @@ fun AboutScreenRoot() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AboutScreen() {
-    val state = LocalAboutViewModel.current.state
-    val onEvent = LocalAboutViewModel.current.onEvent
+    val state = AboutViewModel.getState()
+    val onEvent = AboutViewModel.getEvent()
     val onNavigate = LocalNavigator.current
     val context = LocalContext.current
 

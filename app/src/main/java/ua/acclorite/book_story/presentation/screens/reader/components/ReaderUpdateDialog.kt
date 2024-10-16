@@ -7,10 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithContent
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
+import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 
 /**
  * Reader Update Dialog.
@@ -18,7 +18,7 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
  */
 @Composable
 fun ReaderUpdateDialog() {
-    val onEvent = LocalReaderViewModel.current.onEvent
+    val onEvent = ReaderViewModel.getEvent()
     val onNavigate = LocalNavigator.current
     val context = LocalContext.current
 

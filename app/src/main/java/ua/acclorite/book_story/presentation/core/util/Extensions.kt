@@ -20,7 +20,6 @@ fun Intent.launchActivity(
     activity: ComponentActivity,
     createChooser: Boolean = false,
     openInNewWindow: Boolean = true,
-    success: (() -> Unit)? = null,
     error: () -> Unit
 ) {
     val intent = if (createChooser) Intent.createChooser(this, "") else this
@@ -35,8 +34,6 @@ fun Intent.launchActivity(
         error()
         return
     }
-
-    success?.invoke()
 }
 
 fun Float.calculateProgress(digits: Int): String {

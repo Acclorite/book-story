@@ -47,25 +47,25 @@ import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.util.Selected
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.core.components.header
 import ua.acclorite.book_story.presentation.core.components.is_messages.IsEmpty
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.showToast
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.library.components.LibraryBookItem
 import ua.acclorite.book_story.presentation.screens.library.components.LibraryTopBar
 import ua.acclorite.book_story.presentation.screens.library.components.dialog.LibraryDeleteDialog
 import ua.acclorite.book_story.presentation.screens.library.components.dialog.LibraryMoveDialog
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.Transitions
 
 @Composable
 fun LibraryScreenRoot() {
-    val state = LocalLibraryViewModel.current.state
-    val onEvent = LocalLibraryViewModel.current.onEvent
+    val state = LibraryViewModel.getState()
+    val onEvent = LibraryViewModel.getEvent()
 
     val pagerState = rememberPagerState(
         initialPage = state.value.currentPage,
@@ -99,9 +99,9 @@ private fun LibraryScreen(
     pagerState: PagerState,
     refreshState: PullRefreshState
 ) {
-    val state = LocalLibraryViewModel.current.state
-    val mainState = LocalMainViewModel.current.state
-    val onEvent = LocalLibraryViewModel.current.onEvent
+    val state = LibraryViewModel.getState()
+    val mainState = MainViewModel.getState()
+    val onEvent = LibraryViewModel.getEvent()
     val onNavigate = LocalNavigator.current
 
     var isScrollInProgress by remember { mutableStateOf(false) }

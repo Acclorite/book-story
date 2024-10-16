@@ -9,13 +9,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithLazyColumn
 import ua.acclorite.book_story.presentation.core.components.custom_dialog.SelectableDialogItem
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 
 /**
  * Move dialog. Moves all selected books to the selected category.
@@ -23,9 +23,9 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 @Composable
 fun LibraryMoveDialog(pagerState: PagerState) {
     val context = LocalContext.current
-    val state = LocalLibraryViewModel.current.state
-    val onEvent = LocalLibraryViewModel.current.onEvent
-    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
+    val state = LibraryViewModel.getState()
+    val onEvent = LibraryViewModel.getEvent()
+    val onHistoryEvent = HistoryViewModel.getEvent()
 
     CustomDialogWithLazyColumn(
         title = stringResource(id = R.string.move_books),

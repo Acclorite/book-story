@@ -2,6 +2,7 @@ package ua.acclorite.book_story.presentation.screens.history.data
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.SnackbarResult
+import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +22,7 @@ import ua.acclorite.book_story.domain.use_case.history.DeleteWholeHistory
 import ua.acclorite.book_story.domain.use_case.history.GetHistory
 import ua.acclorite.book_story.domain.use_case.history.InsertHistory
 import ua.acclorite.book_story.presentation.core.navigation.Screen
-import ua.acclorite.book_story.presentation.core.util.BaseViewModel
+import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -35,7 +36,15 @@ class HistoryViewModel @Inject constructor(
     private val deleteWholeHistory: DeleteWholeHistory,
     private val deleteHistory: DeleteHistory,
     private val getBooksById: GetBooksById
-) : BaseViewModel<HistoryState, HistoryEvent>() {
+) : UiViewModel<HistoryState, HistoryEvent>() {
+
+    companion object {
+        @Composable
+        fun getState() = getState<HistoryViewModel, HistoryState, HistoryEvent>()
+
+        @Composable
+        fun getEvent() = getEvent<HistoryViewModel, HistoryState, HistoryEvent>()
+    }
 
     private val _state = MutableStateFlow(HistoryState())
     override val state = _state.asStateFlow()
@@ -137,7 +146,7 @@ class HistoryViewModel @Inject constructor(
                     job2?.cancel()
                     event.snackbarState.currentSnackbarData?.dismiss()
 
-                    job2 = viewModelScope.launch(Dispatchers.IO) {
+                    job2 = launch(Dispatchers.IO) {
                         yield()
                         delay(10000)
                         yield()

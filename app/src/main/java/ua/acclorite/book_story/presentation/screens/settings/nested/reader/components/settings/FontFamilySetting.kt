@@ -6,9 +6,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.data.MainEvent
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
 
 /**
@@ -17,8 +17,8 @@ import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWit
  */
 @Composable
 fun FontFamilySetting() {
-    val state = LocalMainViewModel.current.state
-    val onMainEvent = LocalMainViewModel.current.onEvent
+    val state = MainViewModel.getState()
+    val onMainEvent = MainViewModel.getEvent()
 
     val fontFamily = remember(state.value.fontFamily) {
         Constants.FONTS.find {

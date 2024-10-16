@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.ime
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -18,12 +17,13 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.core.components.bottom_navigation_bar.BottomNavigationBar
 import ua.acclorite.book_story.presentation.core.components.custom_navigation_rail.CustomNavigationRail
 import ua.acclorite.book_story.presentation.core.navigation.NavigationHost
 import ua.acclorite.book_story.presentation.core.navigation.Screen
+import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.about.AboutScreenRoot
 import ua.acclorite.book_story.presentation.screens.about.nested.credits.CreditsScreenRoot
@@ -76,7 +76,12 @@ class Activity : AppCompatActivity() {
         }
 
         // Initializing all variables
-        mainViewModel.init(libraryViewModel, settingsViewModel)
+        mainViewModel.onEvent(
+            MainEvent.OnInit(
+                libraryViewModelReady = libraryViewModel.isReady,
+                settingsViewModelReady = settingsViewModel.isReady
+            )
+        )
 
         // Splash screen
         installSplashScreen().apply {
@@ -90,8 +95,8 @@ class Activity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            val state = LocalMainViewModel.current.state
-            val isLoaded = mainViewModel.isReady.collectAsState()
+            val state = MainViewModel.getState()
+            val isLoaded = mainViewModel.isReady.collectAsStateWithLifecycle()
 
             val density = LocalDensity.current
             val imeInsets = WindowInsets.ime

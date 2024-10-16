@@ -11,16 +11,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalReaderViewModel
 import ua.acclorite.book_story.presentation.core.components.custom_drawer.CustomModalDrawer
 import ua.acclorite.book_story.presentation.core.components.custom_drawer.CustomModalDrawerSelectableItem
 import ua.acclorite.book_story.presentation.core.components.custom_drawer.CustomModalDrawerTitleItem
 import ua.acclorite.book_story.presentation.core.util.calculateProgress
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
+import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
 
 /**
  * Reader Chapters Drawer.
@@ -28,10 +28,10 @@ import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
  */
 @Composable
 fun ReaderChaptersDrawer() {
-    val state = LocalReaderViewModel.current.state
-    val onEvent = LocalReaderViewModel.current.onEvent
-    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
-    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
+    val state = ReaderViewModel.getState()
+    val onEvent = ReaderViewModel.getEvent()
+    val onLibraryEvent = LibraryViewModel.getEvent()
+    val onHistoryEvent = HistoryViewModel.getEvent()
 
     CustomModalDrawer(
         show = state.value.showChaptersDrawer,

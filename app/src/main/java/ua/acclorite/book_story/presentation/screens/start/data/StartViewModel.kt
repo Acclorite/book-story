@@ -5,9 +5,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
+import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewModelScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.shouldShowRationale
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.presentation.core.navigation.Screen
-import ua.acclorite.book_story.presentation.core.util.BaseViewModel
+import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import ua.acclorite.book_story.presentation.core.util.launchActivity
 import javax.inject.Inject
 
@@ -28,7 +28,15 @@ import javax.inject.Inject
 @HiltViewModel
 class StartViewModel @Inject constructor(
 
-) : BaseViewModel<StartState, StartEvent>() {
+) : UiViewModel<StartState, StartEvent>() {
+
+    companion object {
+        @Composable
+        fun getState() = getState<StartViewModel, StartState, StartEvent>()
+
+        @Composable
+        fun getEvent() = getEvent<StartViewModel, StartState, StartEvent>()
+    }
 
     private val _state = MutableStateFlow(StartState())
     override val state = _state.asStateFlow()
@@ -38,6 +46,8 @@ class StartViewModel @Inject constructor(
 
     override fun onEvent(event: StartEvent) {
         when (event) {
+            is StartEvent.OnCheckPermissions -> checkPermissions(event)
+
             is StartEvent.OnGoBack -> {
                 storagePermissionJob?.cancel()
                 notificationsPermissionJob?.cancel()
@@ -258,10 +268,7 @@ class StartViewModel @Inject constructor(
         }
     }
 
-    fun checkPermissions(
-        storagePermissionState: PermissionState,
-        notificationPermissionState: PermissionState
-    ) {
+    private fun checkPermissions(event: StartEvent.OnCheckPermissions) {
         viewModelScope.launch(Dispatchers.IO) {
             val legacyStoragePermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
             val legacyNotificationPermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU
@@ -269,10 +276,10 @@ class StartViewModel @Inject constructor(
             val storagePermissionGranted = if (!legacyStoragePermission) {
                 Environment.isExternalStorageManager()
             } else {
-                storagePermissionState.status.isGranted
+                event.storagePermissionState.status.isGranted
             }
             val notificationPermissionGranted = if (!legacyNotificationPermission) {
-                notificationPermissionState.status.isGranted
+                event.notificationPermissionState.status.isGranted
             } else {
                 true
             }

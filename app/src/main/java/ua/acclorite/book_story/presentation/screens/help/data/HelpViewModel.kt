@@ -1,32 +1,40 @@
 package ua.acclorite.book_story.presentation.screens.help.data
 
-import androidx.lifecycle.viewModelScope
+import androidx.compose.runtime.Composable
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-import ua.acclorite.book_story.presentation.core.navigation.Screen
-import ua.acclorite.book_story.presentation.core.util.BaseViewModel
+import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class HelpViewModel @Inject constructor(
 
-) : BaseViewModel<HelpState, HelpEvent>() {
+) : UiViewModel<HelpState, HelpEvent>() {
+
+    companion object {
+        @Composable
+        fun getState() = getState<HelpViewModel, HelpState, HelpEvent>()
+
+        @Composable
+        fun getEvent() = getEvent<HelpViewModel, HelpState, HelpEvent>()
+    }
 
     private val _state = MutableStateFlow(HelpState())
     override val state = _state.asStateFlow()
 
-    override fun onEvent(event: HelpEvent) {}
+    override fun onEvent(event: HelpEvent) {
+        when (event) {
+            is HelpEvent.OnInit -> init(event)
+        }
+    }
 
-    fun init(screen: Screen.Help) {
-        viewModelScope.launch {
-            _state.update {
-                it.copy(
-                    fromStart = screen.fromStart
-                )
-            }
+    private fun init(event: HelpEvent.OnInit) {
+        _state.update {
+            it.copy(
+                fromStart = event.screen.fromStart
+            )
         }
     }
 }

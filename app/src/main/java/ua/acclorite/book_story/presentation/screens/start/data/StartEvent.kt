@@ -10,8 +10,17 @@ import ua.acclorite.book_story.domain.util.OnNavigate
 
 @Immutable
 sealed class StartEvent {
-    data class OnGoBack(val onQuit: () -> Unit) : StartEvent()
+    data class OnCheckPermissions(
+        val storagePermissionState: PermissionState,
+        val notificationPermissionState: PermissionState
+    ) : StartEvent()
+
+    data class OnGoBack(
+        val onQuit: () -> Unit
+    ) : StartEvent()
+
     data object OnGoForward : StartEvent()
+
     data class OnStoragePermissionRequest(
         val activity: ComponentActivity,
         val legacyStoragePermissionState: PermissionState
@@ -22,10 +31,14 @@ sealed class StartEvent {
         val notificationsPermissionState: PermissionState
     ) : StartEvent()
 
-    data class OnGoToBrowse(val onNavigate: OnNavigate, val onCompletedStartGuide: () -> Unit) :
-        StartEvent()
+    data class OnGoToBrowse(
+        val onNavigate: OnNavigate,
+        val onCompletedStartGuide: () -> Unit
+    ) : StartEvent()
 
-    data class OnGoToHelp(val onNavigate: OnNavigate) : StartEvent()
+    data class OnGoToHelp(
+        val onNavigate: OnNavigate
+    ) : StartEvent()
 
     data object OnResetStartScreen : StartEvent()
 }

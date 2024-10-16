@@ -25,8 +25,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.data.MainEvent
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseSortOrder
 
 /**
@@ -35,8 +35,8 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.
  */
 fun LazyListScope.BrowseSortOrderSetting() {
     items(BrowseSortOrder.entries, key = { it.name }) {
-        val state = LocalMainViewModel.current.state
-        val onMainEvent = LocalMainViewModel.current.onEvent
+        val state = MainViewModel.getState()
+        val onMainEvent = MainViewModel.getEvent()
 
         SortItem(
             item = it,

@@ -12,15 +12,15 @@ import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.rememberPermissionState
-import ua.acclorite.book_story.presentation.core.components.LocalStartViewModel
 import ua.acclorite.book_story.presentation.screens.start.components.StartDone
 import ua.acclorite.book_story.presentation.screens.start.components.StartSettings
 import ua.acclorite.book_story.presentation.screens.start.data.StartEvent
+import ua.acclorite.book_story.presentation.screens.start.data.StartViewModel
 
 @SuppressLint("InlinedApi")
 @Composable
 fun StartScreenRoot() {
-    val viewModel = LocalStartViewModel.current.viewModel
+    val onEvent = StartViewModel.getEvent()
 
     val storagePermissionState = rememberPermissionState(
         permission = Manifest.permission.READ_EXTERNAL_STORAGE
@@ -30,9 +30,11 @@ fun StartScreenRoot() {
     )
 
     LaunchedEffect(Unit) {
-        viewModel.checkPermissions(
-            storagePermissionState = storagePermissionState,
-            notificationPermissionState = notificationsPermissionState
+        onEvent(
+            StartEvent.OnCheckPermissions(
+                storagePermissionState = storagePermissionState,
+                notificationPermissionState = notificationsPermissionState
+            )
         )
     }
 
@@ -49,7 +51,7 @@ private fun StartScreen(
     storagePermissionState: PermissionState,
     notificationsPermissionState: PermissionState
 ) {
-    val onEvent = LocalStartViewModel.current.onEvent
+    val onEvent = StartViewModel.getEvent()
     val activity = LocalContext.current as ComponentActivity
 
     // Settings

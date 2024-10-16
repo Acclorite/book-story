@@ -20,12 +20,12 @@ import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.core.components.GoBackButton
-import ua.acclorite.book_story.presentation.core.components.LocalAboutViewModel
 import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
+import ua.acclorite.book_story.presentation.screens.about.data.AboutViewModel
 import ua.acclorite.book_story.presentation.screens.about.nested.credits.components.CreditItem
 
 @Composable
@@ -36,7 +36,7 @@ fun CreditsScreenRoot() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CreditsScreen() {
-    val onEvent = LocalAboutViewModel.current.onEvent
+    val onEvent = AboutViewModel.getEvent()
     val onNavigate = LocalNavigator.current
     val context = LocalContext.current
 

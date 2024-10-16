@@ -4,12 +4,11 @@ package ua.acclorite.book_story.presentation.screens.book_info.data
 
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.content.Context
 import android.content.Context.CLIPBOARD_SERVICE
 import android.graphics.BitmapFactory
 import android.os.Build
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
+import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -34,11 +33,10 @@ import ua.acclorite.book_story.domain.use_case.book.UpdateBook
 import ua.acclorite.book_story.domain.use_case.book.UpdateBookWithText
 import ua.acclorite.book_story.domain.use_case.book.UpdateCoverImageOfBook
 import ua.acclorite.book_story.domain.use_case.history.InsertHistory
-import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.core.navigation.Screen
-import ua.acclorite.book_story.presentation.core.util.BaseViewModel
+import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import java.util.Date
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -55,7 +53,15 @@ class BookInfoViewModel @Inject constructor(
     private val canResetCover: CanResetCover,
     private val resetCoverImage: ResetCoverImage,
     private val checkForTextUpdate: CheckForTextUpdate,
-) : BaseViewModel<BookInfoState, BookInfoEvent>() {
+) : UiViewModel<BookInfoState, BookInfoEvent>() {
+
+    companion object {
+        @Composable
+        fun getState() = getState<BookInfoViewModel, BookInfoState, BookInfoEvent>()
+
+        @Composable
+        fun getEvent() = getEvent<BookInfoViewModel, BookInfoState, BookInfoEvent>()
+    }
 
     private val _state = MutableStateFlow(BookInfoState())
     override val state = _state.asStateFlow()
@@ -68,6 +74,10 @@ class BookInfoViewModel @Inject constructor(
     override fun onEvent(event: BookInfoEvent) {
         viewModelScope.launch(eventJob + Dispatchers.Main) {
             when (event) {
+                is BookInfoEvent.OnInit -> init(event)
+
+                is BookInfoEvent.OnClearViewModel -> clearViewModel()
+
                 is BookInfoEvent.OnShowHideChangeCoverBottomSheet -> {
                     _state.update {
                         it.copy(
@@ -740,17 +750,12 @@ class BookInfoViewModel @Inject constructor(
         }
     }
 
-    fun init(
-        screen: Screen.BookInfo,
-        snackbarState: SnackbarHostState,
-        context: Context,
-        onNavigate: OnNavigate
-    ) {
+    private fun init(event: BookInfoEvent.OnInit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val book = getBookById.execute(screen.bookId)
+            val book = getBookById.execute(event.screen.bookId)
 
             if (book == null) {
-                onNavigate {
+                event.onNavigate {
                     navigateBack()
                 }
                 return@launch
@@ -763,17 +768,17 @@ class BookInfoViewModel @Inject constructor(
             }
             clear()
 
-            if (screen.startUpdate) {
+            if (event.screen.startUpdate) {
                 onEvent(
                     BookInfoEvent.OnCheckForTextUpdate(
-                        snackbarState = snackbarState,
-                        context = context
+                        snackbarState = event.snackbarState,
+                        context = event.context
                     )
                 )
-                onNavigate {
+                event.onNavigate {
                     putScreen(
                         Screen.BookInfo(
-                            screen.bookId,
+                            event.screen.bookId,
                             false
                         )
                     )
@@ -783,13 +788,7 @@ class BookInfoViewModel @Inject constructor(
         }
     }
 
-    private suspend fun clear() {
-        eventJob.cancel()
-        eventJob.join()
-        eventJob = SupervisorJob()
-    }
-
-    fun clearViewModel() {
+    private fun clearViewModel() {
         viewModelScope.launch(Dispatchers.Main) {
             _state.update {
                 BookInfoState()
@@ -799,5 +798,11 @@ class BookInfoViewModel @Inject constructor(
             eventJob.join()
             eventJob = SupervisorJob()
         }
+    }
+
+    private suspend fun clear() {
+        eventJob.cancel()
+        eventJob.join()
+        eventJob = SupervisorJob()
     }
 }

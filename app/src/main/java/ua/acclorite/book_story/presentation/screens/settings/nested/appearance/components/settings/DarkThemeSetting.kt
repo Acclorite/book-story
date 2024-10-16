@@ -5,8 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
-import ua.acclorite.book_story.presentation.core.components.LocalMainViewModel
 import ua.acclorite.book_story.presentation.data.MainEvent
+import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.settings.components.SegmentedButtonWithTitle
 import ua.acclorite.book_story.presentation.ui.DarkTheme
 
@@ -16,8 +16,8 @@ import ua.acclorite.book_story.presentation.ui.DarkTheme
  */
 @Composable
 fun DarkThemeSetting() {
-    val state = LocalMainViewModel.current.state
-    val onMainEvent = LocalMainViewModel.current.onEvent
+    val state = MainViewModel.getState()
+    val onMainEvent = MainViewModel.getEvent()
 
     SegmentedButtonWithTitle(
         title = stringResource(id = R.string.dark_theme_option),

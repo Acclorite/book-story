@@ -3,6 +3,7 @@ package ua.acclorite.book_story.presentation.screens.about.data
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.ComponentActivity
+import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,14 +12,22 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.use_case.remote.CheckForUpdates
-import ua.acclorite.book_story.presentation.core.util.BaseViewModel
+import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import ua.acclorite.book_story.presentation.core.util.launchActivity
 import javax.inject.Inject
 
 @HiltViewModel
 class AboutViewModel @Inject constructor(
     private val checkForUpdates: CheckForUpdates,
-) : BaseViewModel<AboutState, AboutEvent>() {
+) : UiViewModel<AboutState, AboutEvent>() {
+
+    companion object {
+        @Composable
+        fun getState() = getState<AboutViewModel, AboutState, AboutEvent>()
+
+        @Composable
+        fun getEvent() = getEvent<AboutViewModel, AboutState, AboutEvent>()
+    }
 
     private val _state = MutableStateFlow(AboutState())
     override val state = _state.asStateFlow()
@@ -91,11 +100,3 @@ class AboutViewModel @Inject constructor(
         }
     }
 }
-
-
-
-
-
-
-
-

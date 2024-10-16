@@ -6,14 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.LocalBrowseViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithContent
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
+import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 
 /**
  * Delete dialog. Deletes all selected books.
@@ -21,10 +21,10 @@ import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 @Composable
 fun LibraryDeleteDialog() {
     val context = LocalContext.current
-    val state = LocalLibraryViewModel.current.state
-    val onEvent = LocalLibraryViewModel.current.onEvent
-    val onBrowseEvent = LocalBrowseViewModel.current.onEvent
-    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
+    val state = LibraryViewModel.getState()
+    val onEvent = LibraryViewModel.getEvent()
+    val onBrowseEvent = BrowseViewModel.getEvent()
+    val onHistoryEvent = HistoryViewModel.getEvent()
 
     CustomDialogWithContent(
         title = stringResource(id = R.string.delete_books),

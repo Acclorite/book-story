@@ -24,14 +24,14 @@ import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBarDat
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.CustomIconButton
 import ua.acclorite.book_story.presentation.core.components.GoBackButton
-import ua.acclorite.book_story.presentation.core.components.LocalBookInfoViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalHistoryViewModel
-import ua.acclorite.book_story.presentation.core.components.LocalLibraryViewModel
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.NavigationIconButton
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
+import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
+import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
+import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.Transitions
 
@@ -47,10 +47,10 @@ fun BookInfoTopBar(
     listState: LazyListState,
     snackbarState: SnackbarHostState
 ) {
-    val state = LocalBookInfoViewModel.current.state
-    val onEvent = LocalBookInfoViewModel.current.onEvent
-    val onLibraryEvent = LocalLibraryViewModel.current.onEvent
-    val onHistoryEvent = LocalHistoryViewModel.current.onEvent
+    val state = BookInfoViewModel.getState()
+    val onEvent = BookInfoViewModel.getEvent()
+    val onLibraryEvent = LibraryViewModel.getEvent()
+    val onHistoryEvent = HistoryViewModel.getEvent()
     val onNavigate = LocalNavigator.current
     val context = LocalContext.current
 

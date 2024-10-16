@@ -1,5 +1,6 @@
 package ua.acclorite.book_story.presentation.screens.library.data
 
+import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +19,7 @@ import ua.acclorite.book_story.domain.use_case.book.GetBooks
 import ua.acclorite.book_story.domain.use_case.book.UpdateBook
 import ua.acclorite.book_story.domain.use_case.history.InsertHistory
 import ua.acclorite.book_story.presentation.core.navigation.Screen
-import ua.acclorite.book_story.presentation.core.util.BaseViewModel
+import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import java.util.Date
 import javax.inject.Inject
 
@@ -28,7 +29,15 @@ class LibraryViewModel @Inject constructor(
     private val updateBook: UpdateBook,
     private val deleteBooks: DeleteBooks,
     private val insertHistory: InsertHistory
-) : BaseViewModel<LibraryState, LibraryEvent>() {
+) : UiViewModel<LibraryState, LibraryEvent>() {
+
+    companion object {
+        @Composable
+        fun getState() = getState<LibraryViewModel, LibraryState, LibraryEvent>()
+
+        @Composable
+        fun getEvent() = getEvent<LibraryViewModel, LibraryState, LibraryEvent>()
+    }
 
     private val _state = MutableStateFlow(LibraryState())
     override val state = _state.asStateFlow()
@@ -382,15 +391,3 @@ class LibraryViewModel @Inject constructor(
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

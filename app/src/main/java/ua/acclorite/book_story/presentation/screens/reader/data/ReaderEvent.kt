@@ -6,9 +6,27 @@ import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.presentation.core.navigation.Screen
 
 @Immutable
 sealed class ReaderEvent {
+    data class OnInit(
+        val screen: Screen.Reader,
+        val navigateBack: () -> Unit,
+        val fullscreenMode: Boolean,
+        val checkForTextUpdate: Boolean,
+        val checkForTextUpdateToast: () -> Unit,
+        val activity: ComponentActivity,
+        val refreshList: (Book) -> Unit,
+        val onError: (UIText) -> Unit
+    ) : ReaderEvent()
+
+    data class OnUpdateProgress(
+        val refreshList: (Book) -> Unit
+    ) : ReaderEvent()
+
+    data object OnClearViewModel : ReaderEvent()
+
     data object OnTextIsEmpty : ReaderEvent()
 
     data class OnLoadText(

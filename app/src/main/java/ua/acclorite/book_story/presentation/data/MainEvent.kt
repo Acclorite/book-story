@@ -1,9 +1,15 @@
 package ua.acclorite.book_story.presentation.data
 
 import androidx.compose.runtime.Immutable
+import kotlinx.coroutines.flow.StateFlow
 
 @Immutable
 sealed class MainEvent {
+    data class OnInit(
+        val libraryViewModelReady: StateFlow<Boolean>,
+        val settingsViewModelReady: StateFlow<Boolean>
+    ) : MainEvent()
+
     data class OnChangeLanguage(val value: String) : MainEvent()
     data class OnChangeTheme(val value: String) : MainEvent()
     data class OnChangeDarkTheme(val value: String) : MainEvent()
