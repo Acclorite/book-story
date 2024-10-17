@@ -167,7 +167,7 @@ class FileSystemRepositoryImpl @Inject constructor(
         return NotNull(
             bookWithTextAndCover = BookWithTextAndCover(
                 book = parsedBook.book.copy(
-                    chapters = parsedText.data!!.map { it.chapter } //todo remove this and make every parser take first line as chapter title(exc epub ofc)
+                    chapters = parsedText.data!!.map { it.chapter }
                 ),
                 coverImage = parsedBook.coverImage,
                 text = parsedText.data.map {
