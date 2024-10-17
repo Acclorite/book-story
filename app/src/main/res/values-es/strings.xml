@@ -364,4 +364,5 @@
     <string name="help_title_how_to_use_perception_expander_1">El expansor de percepción puede ayudarte a leer más rápido. En primer lugar, actívelo en los ajustes del Lector (consulte: ¿Cómo personalizo el Lector?). Una vez activado, aparecerán dos líneas verticales a cada lado del Reader. Para optimizar aún más su velocidad de lectura, ajuste el relleno para crear menos espacio alrededor del centro. Para utilizarlo, concéntrate en el centro de la pantalla y deja que tu visión periférica capte el texto de los lados. Mientras lees, mantén la atención en el centro sin mirar directamente a los lados después de cada línea.</string>
     <string name="perception_expander_padding_option">Sangrías en la línea de mejoran la percepción.</string>
     <string name="perception_expander_thickness_option">Grosor de la línea mejora la percepción</string>
+    <string name="more_content_desc">Más</string>
 </resources>
