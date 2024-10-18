@@ -1,4 +1,4 @@
-package ua.acclorite.book_story.presentation.core.components.is_messages
+package ua.acclorite.book_story.presentation.core.components.placeholder
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 
 
 /**
- * Is Empty message. It usually placed when the list is empty.
+ * Empty placeholder. It usually is placed when the list is empty.
  *
  * @param modifier Modifier to be applied.
  * @param message The message.
@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
  * @param action On click action.
  */
 @Composable
-fun IsEmpty(
+fun EmptyPlaceholder(
     modifier: Modifier = Modifier,
     message: String,
     icon: Painter,
@@ -49,10 +49,10 @@ fun IsEmpty(
         Icon(
             painter = icon,
             contentDescription = message,
-            modifier = Modifier.size(190.dp),
+            modifier = Modifier.size(150.dp),
             tint = MaterialTheme.colorScheme.primary
         )
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = message,
             style = MaterialTheme.typography.bodyLarge,
@@ -60,7 +60,7 @@ fun IsEmpty(
             textAlign = TextAlign.Center
         )
         if (actionTitle != null) {
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             TextButton(
                 onClick = {
                     action()

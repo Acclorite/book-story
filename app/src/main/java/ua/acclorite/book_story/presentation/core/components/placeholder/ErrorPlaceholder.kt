@@ -1,4 +1,4 @@
-package ua.acclorite.book_story.presentation.core.components.is_messages
+package ua.acclorite.book_story.presentation.core.components.placeholder
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,7 +21,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 /**
- * Is Empty message. It usually placed when something went wrong and you need to display large error message.
+ * Empty placeholder.
+ * It usually placed when something went wrong and you need to display large error message.
  *
  * @param modifier Modifier to be applied.
  * @param errorMessage The error message.
@@ -30,7 +31,7 @@ import androidx.compose.ui.unit.dp
  * @param action On click action.
  */
 @Composable
-fun IsError(
+fun ErrorPlaceholder(
     modifier: Modifier = Modifier,
     errorMessage: String,
     icon: Painter,
@@ -48,10 +49,10 @@ fun IsError(
         Icon(
             painter = icon,
             contentDescription = errorMessage,
-            modifier = Modifier.size(140.dp),
+            modifier = Modifier.size(150.dp),
             tint = MaterialTheme.colorScheme.error
         )
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = errorMessage,
             style = MaterialTheme.typography.bodyLarge,
@@ -59,7 +60,7 @@ fun IsError(
             textAlign = TextAlign.Center
         )
         if (actionTitle != null) {
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             TextButton(
                 onClick = {
                     action()
