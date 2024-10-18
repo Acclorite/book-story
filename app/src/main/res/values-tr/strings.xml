@@ -364,4 +364,5 @@
     <string name="contributors_option">Katkıda bulunanlar</string>
     <string name="help_title_how_to_use_perception_expander">Algı iyileştirici nedir ve nasıl kullanılır?</string>
     <string name="help_title_how_to_use_perception_expander_1">Algı iyileştirici daha hızlı okumanıza yardımcı olabilir. Öncelikle, Okuyucu ayarlarında etkinleştirin (bkz: Okuyucuyu nasıl özelleştiririm?). Etkinleştirildiğinde, Okuyucu\'nun her iki tarafında iki dikey çizgi görünecektir. Okuma hızınızı daha da iyileştirmek için, merkezin etrafında daha az boşluk oluşturmak üzere dolguyu ayarlayın. Bunu kullanmak için, çevresel görüşünüzün yanlardaki metni almasına izin verirken ekranın merkezine odaklanın. Okurken, her satırdan sonra doğrudan yanlara bakmadan merkeze odaklanmaya devam edin.</string>
+    <string name="more_content_desc">Daha fazla</string>
 </resources>
