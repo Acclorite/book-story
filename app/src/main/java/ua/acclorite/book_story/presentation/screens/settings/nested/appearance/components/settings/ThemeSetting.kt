@@ -42,6 +42,7 @@ import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.core.components.CategoryTitle
 import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideThemes
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.ui.Theme
@@ -52,7 +53,7 @@ import ua.acclorite.book_story.presentation.ui.isPureDark
 
 /**
  * Theme setting.
- * Lets user change app's theme from available in [Constants.THEMES].
+ * Lets user change app's theme from available in [provideThemes].
  */
 @Composable
 fun ThemeSetting(
@@ -63,8 +64,8 @@ fun ThemeSetting(
     val onMainEvent = MainViewModel.getEvent()
 
     val themes = remember {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Constants.THEMES
-        else Constants.THEMES.dropWhile { it.first == Theme.DYNAMIC }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Constants.provideThemes()
+        else Constants.provideThemes().dropWhile { it.first == Theme.DYNAMIC }
     }
 
     Column(

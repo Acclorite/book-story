@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideSupportedExtensions
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
 
@@ -27,7 +28,7 @@ import ua.acclorite.book_story.presentation.data.MainViewModel
  * Lets user choose which items to filter in Browse.
  */
 fun LazyListScope.BrowseFilterSetting() {
-    items(Constants.EXTENSIONS, key = { it }) {
+    items(Constants.provideSupportedExtensions(), key = { it }) {
         val state = MainViewModel.getState()
         val onMainEvent = MainViewModel.getEvent()
 

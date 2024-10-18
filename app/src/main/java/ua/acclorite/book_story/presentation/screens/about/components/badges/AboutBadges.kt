@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideAboutBadges
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
 import ua.acclorite.book_story.presentation.screens.about.data.AboutViewModel
@@ -39,7 +40,7 @@ fun AboutBadges(verticalPadding: Dp = 18.dp) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(13.dp)
         ) {
-            items(Constants.ABOUT_BADGES, key = { it.id }) { badge ->
+            items(Constants.provideAboutBadges(), key = { it.id }) { badge ->
                 AboutBadgeItem(badge = badge) {
                     when (badge.id) {
                         "tryzub" -> {

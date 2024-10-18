@@ -63,6 +63,7 @@ import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibi
 import ua.acclorite.book_story.presentation.core.components.CustomSelectionContainer
 import ua.acclorite.book_story.presentation.core.components.is_messages.IsError
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideFonts
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
@@ -240,9 +241,9 @@ private fun ReaderScreen(lazyListState: LazyListState) {
     }
 
     val fontFamily = remember(mainState.value.fontFamily) {
-        Constants.FONTS.find {
+        Constants.provideFonts(withRandom = true).find {
             it.id == mainState.value.fontFamily
-        } ?: Constants.FONTS[0]
+        } ?: Constants.provideFonts(withRandom = false)[0]
     }
     val backgroundColor = animateColorAsState(
         settingsState.value.selectedColorPreset.backgroundColor,

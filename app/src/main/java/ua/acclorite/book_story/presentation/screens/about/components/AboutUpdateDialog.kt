@@ -9,6 +9,7 @@ import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithContent
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideReleasesPage
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
 import ua.acclorite.book_story.presentation.screens.about.data.AboutViewModel
@@ -39,7 +40,7 @@ fun AboutUpdateDialog() {
         onAction = {
             onEvent(
                 AboutEvent.OnNavigateToBrowserPage(
-                    page = Constants.RELEASES_PAGE,
+                    page = Constants.provideReleasesPage(),
                     context = context,
                     noAppsFound = {
                         context.getString(R.string.error_no_browser).showToast(

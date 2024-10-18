@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import ua.acclorite.book_story.domain.util.Route
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideNavigationItems
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigatorInstance
 
 /**
@@ -22,7 +23,7 @@ fun BottomNavigationBar() {
     LaunchedEffect(Unit) {
         navigator.currentScreen.collect { route ->
             if (
-                Constants.NAVIGATION_ITEMS.any {
+                Constants.provideNavigationItems().any {
                     navigator.run { it.screen.getRoute() } == route
                 }
             ) {
@@ -32,7 +33,7 @@ fun BottomNavigationBar() {
     }
 
     NavigationBar {
-        Constants.NAVIGATION_ITEMS.forEach {
+        Constants.provideNavigationItems().forEach {
             BottomNavigationBarItem(
                 item = it,
                 isSelected = currentScreen == navigator.run { it.screen.getRoute() }

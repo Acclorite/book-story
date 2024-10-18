@@ -6,6 +6,7 @@ import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideLanguages
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
@@ -21,7 +22,7 @@ fun AppLanguageSetting() {
 
     ChipsWithTitle(
         title = stringResource(id = R.string.language_option),
-        chips = Constants.LANGUAGES.sortedBy { it.second }.map {
+        chips = Constants.provideLanguages().sortedBy { it.second }.map {
             ButtonItem(
                 it.first,
                 it.second,

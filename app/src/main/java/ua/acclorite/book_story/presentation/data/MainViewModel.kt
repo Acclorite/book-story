@@ -19,6 +19,8 @@ import ua.acclorite.book_story.domain.use_case.data_store.SetDatastore
 import ua.acclorite.book_story.domain.use_case.remote.CheckForUpdates
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
+import ua.acclorite.book_story.presentation.core.constants.provideFonts
+import ua.acclorite.book_story.presentation.core.constants.provideMainState
 import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseFilesStructure
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseLayout
@@ -57,7 +59,7 @@ class MainViewModel @Inject constructor(
     private val isViewModelReady = MutableStateFlow(false)
 
     private val _state: MutableStateFlow<MainState> = MutableStateFlow(
-        stateHandle[Constants.MAIN_STATE] ?: MainState()
+        stateHandle[Constants.provideMainState()] ?: MainState()
     )
     override val state = _state.asStateFlow()
 
@@ -104,8 +106,9 @@ class MainViewModel @Inject constructor(
                 value = event.value,
                 updateState = {
                     it.copy(
-                        fontFamily = Constants.FONTS.find { font -> font.id == event.value }?.id
-                            ?: Constants.FONTS[0].id
+                        fontFamily = Constants.provideFonts(withRandom = true)
+                            .find { font -> font.id == event.value }?.id
+                            ?: Constants.provideFonts(withRandom = false)[0].id
                     )
                 }
             )
@@ -472,7 +475,7 @@ class MainViewModel @Inject constructor(
         function: (MainState) -> MainState
     ) {
         _state.update {
-            stateHandle[Constants.MAIN_STATE] = function(it)
+            stateHandle[Constants.provideMainState()] = function(it)
             function(it)
         }
     }

@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import my.nanihadesuka.compose.InternalLazyColumnScrollbar
 import my.nanihadesuka.compose.ScrollbarSettings
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideSecondaryScrollbar
 
 /**
  * Custom Lazy Column.
@@ -22,7 +23,7 @@ import ua.acclorite.book_story.presentation.core.constants.Constants
  *
  * @param modifier Modifier.
  * @param state [LazyListState].
- * @param scrollbarSettings [ScrollbarSettings]. [Constants.SECONDARY_SCROLLBAR] by default.
+ * @param scrollbarSettings [ScrollbarSettings]. [provideSecondaryScrollbar] by default.
  * @param enableScrollbar Whether scrollbar is enabled.
  * @param contentPadding [PaddingValues].
  * @param verticalArrangement Vertical item arrangement.
@@ -32,7 +33,7 @@ import ua.acclorite.book_story.presentation.core.constants.Constants
 fun CustomLazyColumn(
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
-    scrollbarSettings: ScrollbarSettings = Constants.SECONDARY_SCROLLBAR,
+    scrollbarSettings: ScrollbarSettings = Constants.provideSecondaryScrollbar(),
     enableScrollbar: Boolean = true,
     contentPadding: PaddingValues = PaddingValues(0.dp),
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,

@@ -16,6 +16,7 @@ import ua.acclorite.book_story.domain.repository.FileSystemRepository
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideSupportedExtensions
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -47,7 +48,7 @@ class FileSystemRepositoryImpl @Inject constructor(
         val existingBooks = database
             .searchBooks("")
             .map { bookMapper.toBook(it) }
-        val supportedExtensions = Constants.EXTENSIONS
+        val supportedExtensions = Constants.provideSupportedExtensions()
 
         fun File.isValid(): Boolean {
             if (!exists()) {

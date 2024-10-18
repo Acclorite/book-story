@@ -34,6 +34,7 @@ import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.core.components.GoBackButton
 import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideHelpTips
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.data.MainEvent
@@ -158,14 +159,14 @@ private fun HelpScreen() {
             }
 
             itemsIndexed(
-                Constants.HELP_TIPS,
+                Constants.provideHelpTips(),
                 key = { _, helpTip -> helpTip.title }
             ) { index, helpTip ->
                 HelpItem(
                     helpTip = helpTip,
                     position = when (index) {
                         0 -> Position.TOP
-                        Constants.HELP_TIPS.lastIndex -> Position.BOTTOM
+                        Constants.provideHelpTips().lastIndex -> Position.BOTTOM
                         else -> Position.CENTER
                     },
                     fromStart = state.value.fromStart

@@ -5,10 +5,11 @@ import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideEmptyBook
 
 @Immutable
 data class BookInfoState(
-    val book: Book = Constants.EMPTY_BOOK,
+    val book: Book = Constants.provideEmptyBook(),
 
     val checkingForUpdate: Boolean = false,
     val updating: Boolean = false,

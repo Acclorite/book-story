@@ -27,6 +27,7 @@ import ua.acclorite.book_story.domain.use_case.color_preset.UpdateColorPreset
 import ua.acclorite.book_story.domain.util.ID
 import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideDefaultColorPreset
 import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import ua.acclorite.book_story.presentation.core.util.launchActivity
 import javax.inject.Inject
@@ -69,7 +70,7 @@ class SettingsViewModel @Inject constructor(
             var colorPresets = getColorPresets.execute()
 
             if (colorPresets.isEmpty()) {
-                updateColorPreset.execute(Constants.DEFAULT_COLOR_PRESET)
+                updateColorPreset.execute(Constants.provideDefaultColorPreset())
                 onSelectColorPreset(getColorPresets.execute().first())
                 colorPresets = getColorPresets.execute()
             }
@@ -409,7 +410,7 @@ class SettingsViewModel @Inject constructor(
                     addColorPresetJob = launch {
                         yield()
 
-                        val newColorPreset = Constants.DEFAULT_COLOR_PRESET.copy(
+                        val newColorPreset = Constants.provideDefaultColorPreset().copy(
                             backgroundColor = event.backgroundColor,
                             fontColor = event.fontColor
                         )
@@ -523,7 +524,7 @@ class SettingsViewModel @Inject constructor(
         val selectedPreset = presets.firstOrNull { it.isSelected }
 
         if (selectedPreset == null) {
-            return Constants.DEFAULT_COLOR_PRESET
+            return Constants.provideDefaultColorPreset()
         }
 
         return selectedPreset

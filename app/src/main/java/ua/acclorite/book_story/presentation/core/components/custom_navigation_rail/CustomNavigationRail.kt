@@ -25,6 +25,7 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.util.Route
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideNavigationItems
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigatorInstance
 
 /**
@@ -39,7 +40,7 @@ fun CustomNavigationRail() {
     LaunchedEffect(Unit) {
         navigator.currentScreen.collect { route ->
             if (
-                Constants.NAVIGATION_ITEMS.any {
+                Constants.provideNavigationItems().any {
                     navigator.run { it.screen.getRoute() } == route
                 }
             ) {
@@ -70,7 +71,7 @@ fun CustomNavigationRail() {
             verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Constants.NAVIGATION_ITEMS.forEach {
+            Constants.provideNavigationItems().forEach {
                 CustomNavigationRailItem(
                     item = it,
                     isSelected = currentScreen == navigator.run { it.screen.getRoute() }

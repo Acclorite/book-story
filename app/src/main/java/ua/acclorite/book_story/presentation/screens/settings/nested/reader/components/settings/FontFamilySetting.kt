@@ -4,16 +4,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideFonts
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
 
 /**
  * Font Family setting.
- * Changes Reader's font, uses fonts from [Constants.FONTS].
+ * Changes Reader's font, uses fonts from [provideFonts].
  */
 @Composable
 fun FontFamilySetting() {
@@ -21,20 +23,23 @@ fun FontFamilySetting() {
     val onMainEvent = MainViewModel.getEvent()
 
     val fontFamily = remember(state.value.fontFamily) {
-        Constants.FONTS.find {
+        Constants.provideFonts(withRandom = true).find {
             it.id == state.value.fontFamily
-        } ?: Constants.FONTS[0]
+        } ?: Constants.provideFonts(withRandom = false)[0]
     }
 
     ChipsWithTitle(
         title = stringResource(id = R.string.font_family_option),
-        chips = Constants.FONTS
+        chips = Constants.provideFonts(withRandom = true)
             .map {
                 ButtonItem(
                     id = it.id,
                     title = it.fontName.asString(),
                     textStyle = MaterialTheme.typography.labelLarge.copy(
-                        fontFamily = it.font
+                        fontFamily = when (it.id) {
+                            "random" -> FontFamily.Default
+                            else -> it.font
+                        }
                     ),
                     selected = it.id == fontFamily.id
                 )

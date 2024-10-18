@@ -10,6 +10,8 @@ import androidx.datastore.preferences.core.Preferences
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
+import ua.acclorite.book_story.presentation.core.constants.provideFonts
+import ua.acclorite.book_story.presentation.core.constants.provideLanguages
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseLayout
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseSortOrder
@@ -42,7 +44,7 @@ data class MainState(
     // General Settings
     val language: String = provideDefaultValue {
         val locale = Locale.getDefault().language.take(2)
-        Constants.LANGUAGES.any { locale == it.first }.run {
+        Constants.provideLanguages().any { locale == it.first }.run {
             if (this) locale
             else "en"// Default language.
         }
@@ -60,7 +62,7 @@ data class MainState(
     val doublePressExit: Boolean = provideDefaultValue { false },
 
     // Reader Settings
-    val fontFamily: String = provideDefaultValue { Constants.FONTS[0].id },
+    val fontFamily: String = provideDefaultValue { Constants.provideFonts(withRandom = false)[0].id },
     val isItalic: Boolean = provideDefaultValue { false },
     val fontSize: Int = provideDefaultValue { 16 },
     val lineHeight: Int = provideDefaultValue { 4 },

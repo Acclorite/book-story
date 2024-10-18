@@ -2,6 +2,7 @@
 <resources>
     <!-- Basic Strings -->
     <string name="default_string">За замовчуванням</string>
+    <string name="random_string">Випадково</string>
 
     <!-- Notifications -->
     <string name="updates_notification_channel">Нові оновлення</string>

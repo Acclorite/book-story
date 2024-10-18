@@ -22,6 +22,7 @@ import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.core.components.GoBackButton
 import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideCredits
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.about.data.AboutEvent
@@ -70,7 +71,7 @@ private fun CreditsScreen() {
                 .padding(top = paddingValues.calculateTopPadding()),
             state = scrollState.second
         ) {
-            items(Constants.CREDITS, key = { it.name }) {
+            items(Constants.provideCredits(), key = { it.name }) {
                 CreditItem(credit = it) {
                     it.website?.let { website ->
                         onEvent(

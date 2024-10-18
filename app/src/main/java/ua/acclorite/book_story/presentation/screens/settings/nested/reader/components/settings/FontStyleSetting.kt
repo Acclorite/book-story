@@ -8,6 +8,7 @@ import androidx.compose.ui.text.font.FontStyle
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideFonts
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.settings.components.SegmentedButtonWithTitle
@@ -22,9 +23,9 @@ fun FontStyleSetting() {
     val onMainEvent = MainViewModel.getEvent()
 
     val fontFamily = remember(state.value.fontFamily) {
-        Constants.FONTS.find {
+        Constants.provideFonts(withRandom = false).find {
             it.id == state.value.fontFamily
-        } ?: Constants.FONTS[0]
+        } ?: Constants.provideFonts(withRandom = false)[0]
     }
 
     SegmentedButtonWithTitle(

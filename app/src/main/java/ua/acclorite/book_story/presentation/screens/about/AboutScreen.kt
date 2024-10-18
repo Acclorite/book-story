@@ -32,6 +32,10 @@ import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
 import ua.acclorite.book_story.presentation.core.components.GoBackButton
 import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
 import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideContributorsPage
+import ua.acclorite.book_story.presentation.core.constants.provideIssuesPage
+import ua.acclorite.book_story.presentation.core.constants.provideReleasesPage
+import ua.acclorite.book_story.presentation.core.constants.provideTranslationPage
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.showToast
@@ -159,7 +163,7 @@ private fun AboutScreen() {
                 ) {
                     onEvent(
                         AboutEvent.OnNavigateToBrowserPage(
-                            Constants.ISSUES_PAGE,
+                            Constants.provideIssuesPage(),
                             context,
                             noAppsFound = {
                                 context.getString(R.string.error_no_browser)
@@ -178,7 +182,7 @@ private fun AboutScreen() {
                 ) {
                     onEvent(
                         AboutEvent.OnNavigateToBrowserPage(
-                            Constants.CONTRIBUTORS_PAGE,
+                            Constants.provideContributorsPage(),
                             context,
                             noAppsFound = {
                                 context.getString(R.string.error_no_browser)
@@ -196,7 +200,7 @@ private fun AboutScreen() {
                 ) {
                     onEvent(
                         AboutEvent.OnNavigateToBrowserPage(
-                            Constants.RELEASES_PAGE,
+                            Constants.provideReleasesPage(),
                             context,
                             noAppsFound = {
                                 context.getString(R.string.error_no_browser)
@@ -236,7 +240,7 @@ private fun AboutScreen() {
                 ) {
                     onEvent(
                         AboutEvent.OnNavigateToBrowserPage(
-                            Constants.TRANSLATION_PAGE,
+                            Constants.provideTranslationPage(),
                             context,
                             noAppsFound = {
                                 context.getString(R.string.error_no_browser)
