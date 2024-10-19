@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithContent
+import ua.acclorite.book_story.presentation.core.components.dialog.DialogWithContent
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
@@ -22,7 +22,7 @@ fun ReaderUpdateDialog() {
     val onNavigate = LocalNavigator.current
     val context = LocalContext.current
 
-    CustomDialogWithContent(
+    DialogWithContent(
         title = stringResource(id = R.string.update_book),
         imageVectorIcon = Icons.Rounded.Upgrade,
         description = stringResource(

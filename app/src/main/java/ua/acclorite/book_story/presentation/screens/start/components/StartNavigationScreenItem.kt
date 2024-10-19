@@ -7,8 +7,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
+import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.presentation.screens.start.data.StartNavigationScreen
 import ua.acclorite.book_story.presentation.screens.start.data.StartViewModel
 import ua.acclorite.book_story.presentation.ui.Transitions
@@ -24,14 +24,14 @@ fun StartNavigationScreenItem(
     val state = StartViewModel.getState()
     val listState = rememberLazyListState()
 
-    CustomAnimatedVisibility(
+    AnimatedVisibility(
         visible = state.value.currentScreen == screen,
         enter = if (state.value.useBackAnimation) Transitions.BackSlidingTransitionIn
         else Transitions.SlidingTransitionIn,
         exit = if (state.value.useBackAnimation) Transitions.BackSlidingTransitionOut
         else Transitions.SlidingTransitionOut
     ) {
-        CustomLazyColumn(
+        LazyColumnWithScrollbar(
             Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surfaceContainerLow),

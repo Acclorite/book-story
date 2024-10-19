@@ -7,7 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithContent
+import ua.acclorite.book_story.presentation.core.components.dialog.DialogWithContent
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideReleasesPage
 import ua.acclorite.book_story.presentation.core.util.showToast
@@ -27,7 +27,7 @@ fun AboutUpdateDialog() {
         state.value.updateInfo!!
     }
 
-    CustomDialogWithContent(
+    DialogWithContent(
         title = stringResource(id = R.string.update_query, update.tagName),
         imageVectorIcon = Icons.Default.Update,
         description = stringResource(

@@ -26,7 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
@@ -84,7 +84,7 @@ fun BrowseTopBarDirectoryPath() {
         }
     }
 
-    CustomAnimatedVisibility(
+    AnimatedVisibility(
         visible = !state.value.hasSelectedItems
                 && !state.value.hasSearched
                 && !state.value.isError

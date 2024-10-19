@@ -10,8 +10,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithLazyColumn
-import ua.acclorite.book_story.presentation.core.components.custom_dialog.SelectableDialogItem
+import ua.acclorite.book_story.presentation.core.components.dialog.DialogWithLazyColumn
+import ua.acclorite.book_story.presentation.core.components.dialog.SelectableDialogItem
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
@@ -42,7 +42,7 @@ fun BookInfoMoveDialog() {
         onEvent(BookInfoEvent.OnSelectCategory(categories[0]))
     }
 
-    CustomDialogWithLazyColumn(
+    DialogWithLazyColumn(
         title = stringResource(id = R.string.move_book),
         imageVectorIcon = Icons.AutoMirrored.Outlined.DriveFileMove,
         description = stringResource(

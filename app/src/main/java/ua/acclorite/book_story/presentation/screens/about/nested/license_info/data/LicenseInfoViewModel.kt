@@ -13,14 +13,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ua.acclorite.book_story.presentation.core.util.UiViewModel
+import ua.acclorite.book_story.domain.util.UIViewModel
 import ua.acclorite.book_story.presentation.core.util.launchActivity
 import javax.inject.Inject
 
 @HiltViewModel
 class LicenseInfoViewModel @Inject constructor(
 
-) : UiViewModel<LicenseInfoState, LicenseInfoEvent>() {
+) : UIViewModel<LicenseInfoState, LicenseInfoEvent>() {
 
     companion object {
         @Composable

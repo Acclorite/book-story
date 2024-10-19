@@ -19,11 +19,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBar
-import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBarData
-import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.CustomIconButton
-import ua.acclorite.book_story.presentation.core.components.GoBackButton
+import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.common.GoBackButton
+import ua.acclorite.book_story.presentation.core.components.common.IconButton
+import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBar
+import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBarData
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.NavigationIconButton
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
@@ -56,14 +56,14 @@ fun BookInfoTopBar(
 
     val firstVisibleItemIndex by remember { derivedStateOf { listState.firstVisibleItemIndex } }
 
-    AnimatedTopAppBar(
+    TopAppBar(
         containerColor = MaterialTheme.colorScheme.surface.copy(0f),
         scrollBehavior = null,
         isTopBarScrolled = listState.canScrollBackward,
 
         shownTopBar = 0,
         topBars = listOf(
-            AnimatedTopAppBarData(
+            TopAppBarData(
                 contentID = 0,
                 contentNavigationIcon = {
                     if (
@@ -71,7 +71,7 @@ fun BookInfoTopBar(
                         state.value.editAuthor ||
                         state.value.editDescription
                     ) {
-                        CustomIconButton(
+                        IconButton(
                             icon = Icons.AutoMirrored.Outlined.ArrowBack,
                             contentDescription = R.string.exit_editing_content_desc,
                             disableOnClick = true
@@ -108,7 +108,7 @@ fun BookInfoTopBar(
                     }
                 },
                 contentActions = {
-                    CustomIconButton(
+                    IconButton(
                         icon = Icons.Outlined.Refresh,
                         contentDescription = R.string.refresh_book_content_desc,
                         disableOnClick = false,
@@ -132,14 +132,14 @@ fun BookInfoTopBar(
                                 onEvent(BookInfoEvent.OnShowHideMoreBottomSheet(true))
                             }
                         }
-                        CustomAnimatedVisibility(
+                        AnimatedVisibility(
                             visible = state.value.editTitle ||
                                     state.value.editAuthor ||
                                     state.value.editDescription,
                             enter = Transitions.DefaultTransitionIn,
                             exit = fadeOut(tween(200))
                         ) {
-                            CustomIconButton(
+                            IconButton(
                                 icon = Icons.Outlined.Done,
                                 contentDescription = R.string.apply_changes_content_desc,
                                 disableOnClick = true,

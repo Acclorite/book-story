@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.core.components.CategoryTitle
+import ua.acclorite.book_story.presentation.screens.settings.components.SettingsCategoryTitle
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.FontSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.MiscSubcategory
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.subcategories.PaddingSubcategory
@@ -21,7 +21,7 @@ import ua.acclorite.book_story.presentation.screens.settings.nested.reader.compo
  * Reader Settings Category.
  * Contains all Reader settings.
  *
- * @param titleColor Color that [CategoryTitle] has.
+ * @param titleColor Color that [SettingsCategoryTitle] has.
  * @param topPadding Top padding to be applied.
  * @param bottomPadding Bottom padding to be applied.
  */

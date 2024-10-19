@@ -44,8 +44,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.CustomSnackbar
+import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.common.Snackbar
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.screens.book_info.components.BookInfoBackground
@@ -146,7 +146,7 @@ private fun BookInfoScreen(snackbarState: SnackbarHostState) {
             )
         },
         bottomBar = {
-            CustomSnackbar(
+            Snackbar(
                 modifier = Modifier.padding(bottom = 70.dp),
                 snackbarState = snackbarState
             )
@@ -212,7 +212,7 @@ private fun BookInfoScreen(snackbarState: SnackbarHostState) {
                             contentDescription = stringResource(id = R.string.continue_reading_content_desc),
                             Modifier.size(24.dp)
                         )
-                        CustomAnimatedVisibility(
+                        AnimatedVisibility(
                             visible = !listState.canScrollBackward,
                             enter = fadeIn() + expandHorizontally(),
                             exit = fadeOut() + shrinkHorizontally()

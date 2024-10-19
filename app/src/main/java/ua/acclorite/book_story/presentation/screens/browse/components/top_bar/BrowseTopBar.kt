@@ -25,10 +25,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.SelectableFile
-import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBar
-import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBarData
-import ua.acclorite.book_story.presentation.core.components.CustomIconButton
-import ua.acclorite.book_story.presentation.core.components.CustomSearchTextField
+import ua.acclorite.book_story.presentation.core.components.common.IconButton
+import ua.acclorite.book_story.presentation.core.components.common.SearchTextField
+import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBar
+import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBarData
 import ua.acclorite.book_story.presentation.core.navigation.NavigationIconButton
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
@@ -76,7 +76,7 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
         }
     }
 
-    AnimatedTopAppBar(
+    TopAppBar(
         scrollBehavior = null,
         isTopBarScrolled = isScrolled.value || state.value.hasSelectedItems,
 
@@ -87,7 +87,7 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
             else -> 0
         },
         topBars = listOf(
-            AnimatedTopAppBarData(
+            TopAppBarData(
                 contentID = 0,
                 contentNavigationIcon = {},
                 contentTitle = {
@@ -98,14 +98,14 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
                     )
                 },
                 contentActions = {
-                    CustomIconButton(
+                    IconButton(
                         icon = Icons.Default.Search,
                         contentDescription = R.string.search_content_desc,
                         disableOnClick = true
                     ) {
                         onEvent(BrowseEvent.OnSearchShowHide)
                     }
-                    CustomIconButton(
+                    IconButton(
                         icon = Icons.Default.FilterList,
                         contentDescription = R.string.filter_content_desc,
                         disableOnClick = false,
@@ -123,10 +123,10 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
                 }
             ),
 
-            AnimatedTopAppBarData(
+            TopAppBarData(
                 contentID = 1,
                 contentNavigationIcon = {
-                    CustomIconButton(
+                    IconButton(
                         icon = Icons.AutoMirrored.Default.ArrowBack,
                         contentDescription = R.string.go_back_content_desc,
                         disableOnClick = false,
@@ -143,14 +143,14 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
                     )
                 },
                 contentActions = {
-                    CustomIconButton(
+                    IconButton(
                         icon = Icons.Default.Search,
                         contentDescription = R.string.search_content_desc,
                         disableOnClick = true
                     ) {
                         onEvent(BrowseEvent.OnSearchShowHide)
                     }
-                    CustomIconButton(
+                    IconButton(
                         icon = Icons.Default.FilterList,
                         contentDescription = R.string.filter_content_desc,
                         disableOnClick = false,
@@ -168,10 +168,10 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
                 }
             ),
 
-            AnimatedTopAppBarData(
+            TopAppBarData(
                 contentID = 2,
                 contentNavigationIcon = {
-                    CustomIconButton(
+                    IconButton(
                         icon = Icons.AutoMirrored.Default.ArrowBack,
                         contentDescription = R.string.exit_search_content_desc,
                         disableOnClick = true
@@ -180,7 +180,7 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
                     }
                 },
                 contentTitle = {
-                    CustomSearchTextField(
+                    SearchTextField(
                         modifier = Modifier
                             .focusRequester(focusRequester)
                             .onGloballyPositioned {
@@ -192,11 +192,7 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
                         },
                         onSearch = {
                             onEvent(BrowseEvent.OnSearch)
-                        },
-                        placeholder = stringResource(
-                            id = R.string.search_query,
-                            stringResource(id = R.string.files)
-                        )
+                        }
                     )
                 },
                 contentActions = {
@@ -204,10 +200,10 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
                 }
             ),
 
-            AnimatedTopAppBarData(
+            TopAppBarData(
                 contentID = 3,
                 contentNavigationIcon = {
-                    CustomIconButton(
+                    IconButton(
                         icon = Icons.Default.Clear,
                         contentDescription = R.string.clear_selected_items_content_desc,
                         disableOnClick = true
@@ -226,7 +222,7 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
                     )
                 },
                 contentActions = {
-                    CustomIconButton(
+                    IconButton(
                         icon = Icons.Default.SelectAll,
                         contentDescription = R.string.select_all_files_content_desc,
                         disableOnClick = false,
@@ -238,7 +234,7 @@ fun BrowseTopBar(filteredFiles: List<SelectableFile>) {
                             )
                         )
                     }
-                    CustomIconButton(
+                    IconButton(
                         icon = Icons.Default.Check,
                         contentDescription = R.string.add_files_content_desc,
                         disableOnClick = false,

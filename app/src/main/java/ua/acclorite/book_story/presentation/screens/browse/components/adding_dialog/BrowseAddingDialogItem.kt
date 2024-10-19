@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.domain.util.Selected
-import ua.acclorite.book_story.presentation.core.components.CustomCheckbox
+import ua.acclorite.book_story.presentation.core.components.common.CircularCheckbox
 
 /**
  * Adding dialog item.
@@ -62,7 +62,7 @@ fun BrowseAddingDialogItem(result: Pair<NullableBook, Selected>, onClick: (Boole
             }
             Row {
                 Spacer(modifier = Modifier.width(24.dp))
-                CustomCheckbox(
+                CircularCheckbox(
                     selected = result.second,
                     containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
                 )

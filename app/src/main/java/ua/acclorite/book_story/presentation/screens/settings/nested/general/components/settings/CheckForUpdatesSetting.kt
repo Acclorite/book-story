@@ -13,10 +13,10 @@ import androidx.compose.ui.res.stringResource
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithContent
+import ua.acclorite.book_story.presentation.core.components.dialog.DialogWithContent
+import ua.acclorite.book_story.presentation.core.components.settings.SwitchWithTitle
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
-import ua.acclorite.book_story.presentation.screens.settings.components.SwitchWithTitle
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
 
@@ -39,7 +39,7 @@ fun CheckForUpdatesSetting() {
     val showConfirmation = remember { mutableStateOf(false) }
 
     if (showConfirmation.value) {
-        CustomDialogWithContent(
+        DialogWithContent(
             title = stringResource(id = R.string.enable_check_for_updates),
             description = stringResource(id = R.string.enable_check_for_updates_description),
             actionText = stringResource(id = R.string.enable),

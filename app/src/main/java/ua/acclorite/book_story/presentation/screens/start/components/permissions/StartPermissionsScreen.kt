@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.CategoryTitle
+import ua.acclorite.book_story.presentation.screens.settings.components.SettingsCategoryTitle
 import ua.acclorite.book_story.presentation.screens.start.data.StartState
 
 /**
@@ -24,7 +24,7 @@ fun LazyListScope.startPermissionsScreen(
         Spacer(modifier = Modifier.height(16.dp))
     }
     item {
-        CategoryTitle(
+        SettingsCategoryTitle(
             modifier = Modifier,
             title = stringResource(id = R.string.start_permissions_preferences),
             color = MaterialTheme.colorScheme.primary

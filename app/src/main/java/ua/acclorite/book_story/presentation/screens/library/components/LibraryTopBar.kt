@@ -31,17 +31,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBar
-import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBarData
-import ua.acclorite.book_story.presentation.core.components.CustomIconButton
-import ua.acclorite.book_story.presentation.core.components.CustomSearchTextField
+import ua.acclorite.book_story.presentation.core.components.common.IconButton
+import ua.acclorite.book_story.presentation.core.components.common.SearchTextField
+import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBar
+import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBarData
 import ua.acclorite.book_story.presentation.core.navigation.NavigationIconButton
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
 
 /**
  * Library Top Bar.
- * Contains [AnimatedTopAppBar] and [LibraryTabRow].
+ * Contains [TopAppBar] and [LibraryTabRow].
  *
  * @param pagerState [PagerState].
  */
@@ -52,7 +52,7 @@ fun LibraryTopBar(pagerState: PagerState) {
     val onEvent = LibraryViewModel.getEvent()
     val focusRequester = remember { FocusRequester() }
 
-    AnimatedTopAppBar(
+    TopAppBar(
         scrollBehavior = null,
         isTopBarScrolled = state.value.hasSelectedItems,
 
@@ -62,7 +62,7 @@ fun LibraryTopBar(pagerState: PagerState) {
             else -> 0
         },
         topBars = listOf(
-            AnimatedTopAppBarData(
+            TopAppBarData(
                 contentID = 0,
                 contentNavigationIcon = {},
                 contentTitle = {
@@ -83,7 +83,7 @@ fun LibraryTopBar(pagerState: PagerState) {
                     }
                 },
                 contentActions = {
-                    CustomIconButton(
+                    IconButton(
                         icon = Icons.Default.Search,
                         contentDescription = R.string.search_content_desc,
                         disableOnClick = true,
@@ -94,10 +94,10 @@ fun LibraryTopBar(pagerState: PagerState) {
                 }
             ),
 
-            AnimatedTopAppBarData(
+            TopAppBarData(
                 contentID = 1,
                 contentNavigationIcon = {
-                    CustomIconButton(
+                    IconButton(
                         icon = Icons.AutoMirrored.Default.ArrowBack,
                         contentDescription = R.string.exit_search_content_desc,
                         disableOnClick = true
@@ -108,7 +108,7 @@ fun LibraryTopBar(pagerState: PagerState) {
                     }
                 },
                 contentTitle = {
-                    CustomSearchTextField(
+                    SearchTextField(
                         modifier = Modifier
                             .focusRequester(focusRequester)
                             .onGloballyPositioned {
@@ -120,11 +120,7 @@ fun LibraryTopBar(pagerState: PagerState) {
                         },
                         onSearch = {
                             onEvent(LibraryEvent.OnSearch)
-                        },
-                        placeholder = stringResource(
-                            id = R.string.search_query,
-                            stringResource(id = R.string.books)
-                        )
+                        }
                     )
                 },
                 contentActions = {
@@ -132,10 +128,10 @@ fun LibraryTopBar(pagerState: PagerState) {
                 },
             ),
 
-            AnimatedTopAppBarData(
+            TopAppBarData(
                 contentID = 2,
                 contentNavigationIcon = {
-                    CustomIconButton(
+                    IconButton(
                         icon = Icons.Default.Clear,
                         contentDescription = R.string.clear_selected_items_content_desc,
                         disableOnClick = true
@@ -154,7 +150,7 @@ fun LibraryTopBar(pagerState: PagerState) {
                     )
                 },
                 contentActions = {
-                    CustomIconButton(
+                    IconButton(
                         icon = Icons.AutoMirrored.Outlined.DriveFileMove,
                         contentDescription = R.string.move_books_content_desc,
                         enabled = !state.value.isLoading
@@ -165,7 +161,7 @@ fun LibraryTopBar(pagerState: PagerState) {
                         ) {
                         onEvent(LibraryEvent.OnShowHideMoveDialog)
                     }
-                    CustomIconButton(
+                    IconButton(
                         icon = Icons.Outlined.Delete,
                         contentDescription = R.string.delete_books_content_desc,
                         enabled = !state.value.isLoading

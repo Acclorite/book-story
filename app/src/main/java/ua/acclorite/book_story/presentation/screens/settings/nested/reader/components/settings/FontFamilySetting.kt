@@ -7,11 +7,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
+import ua.acclorite.book_story.presentation.core.components.settings.ChipsWithTitle
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideFonts
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
-import ua.acclorite.book_story.presentation.screens.settings.components.ChipsWithTitle
 
 /**
  * Font Family setting.

@@ -10,7 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
 import ua.acclorite.book_story.presentation.screens.start.data.StartViewModel
 import ua.acclorite.book_story.presentation.ui.Transitions
 
@@ -28,7 +28,7 @@ fun StartNavigationTransition(
 ) {
     val state = StartViewModel.getState()
 
-    CustomAnimatedVisibility(
+    AnimatedVisibility(
         visible = visible,
         enter = if (state.value.useBackAnimation) Transitions.BackSlidingTransitionIn
         else Transitions.SlidingTransitionIn,

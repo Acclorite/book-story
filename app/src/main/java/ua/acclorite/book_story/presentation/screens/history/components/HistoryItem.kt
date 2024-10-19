@@ -32,8 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.History
-import ua.acclorite.book_story.presentation.core.components.CustomCoverImage
-import ua.acclorite.book_story.presentation.core.components.CustomIconButton
+import ua.acclorite.book_story.presentation.core.components.common.AsyncImage
+import ua.acclorite.book_story.presentation.core.components.common.IconButton
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -88,7 +88,7 @@ fun HistoryItem(
                     )
             ) {
                 if (history.book?.coverImage != null) {
-                    CustomCoverImage(
+                    AsyncImage(
                         uri = history.book.coverImage,
                         modifier = Modifier
                             .fillMaxSize()
@@ -141,7 +141,7 @@ fun HistoryItem(
             }
         }
         Box(modifier = Modifier.weight(0.11f), contentAlignment = Alignment.CenterEnd) {
-            CustomIconButton(
+            IconButton(
                 icon = Icons.Outlined.Delete,
                 contentDescription = R.string.delete_history_element_content_desc,
                 disableOnClick = true,

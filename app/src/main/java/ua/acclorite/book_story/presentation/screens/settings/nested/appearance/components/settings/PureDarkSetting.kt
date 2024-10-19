@@ -5,9 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
+import ua.acclorite.book_story.presentation.core.components.settings.SegmentedButtonWithTitle
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
-import ua.acclorite.book_story.presentation.screens.settings.components.SegmentedButtonWithTitle
 import ua.acclorite.book_story.presentation.ui.ExpandingTransition
 import ua.acclorite.book_story.presentation.ui.PureDark
 import ua.acclorite.book_story.presentation.ui.isDark

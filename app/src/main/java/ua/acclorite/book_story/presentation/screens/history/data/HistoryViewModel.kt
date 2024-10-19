@@ -21,8 +21,8 @@ import ua.acclorite.book_story.domain.use_case.history.DeleteHistory
 import ua.acclorite.book_story.domain.use_case.history.DeleteWholeHistory
 import ua.acclorite.book_story.domain.use_case.history.GetHistory
 import ua.acclorite.book_story.domain.use_case.history.InsertHistory
+import ua.acclorite.book_story.domain.util.UIViewModel
 import ua.acclorite.book_story.presentation.core.navigation.Screen
-import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -36,7 +36,7 @@ class HistoryViewModel @Inject constructor(
     private val deleteWholeHistory: DeleteWholeHistory,
     private val deleteHistory: DeleteHistory,
     private val getBooksById: GetBooksById
-) : UiViewModel<HistoryState, HistoryEvent>() {
+) : UIViewModel<HistoryState, HistoryEvent>() {
 
     companion object {
         @Composable

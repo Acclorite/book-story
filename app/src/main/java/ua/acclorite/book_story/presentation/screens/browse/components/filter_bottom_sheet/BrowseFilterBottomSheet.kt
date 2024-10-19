@@ -9,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
-import ua.acclorite.book_story.presentation.core.components.custom_bottom_sheet.CustomBottomSheet
+import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.core.components.modal_bottom_sheet.ModalBottomSheet
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.components.subcategories.BrowseFilterSubcategory
@@ -37,7 +37,7 @@ fun BrowseFilterBottomSheet() {
         )
     }
 
-    CustomBottomSheet(
+    ModalBottomSheet(
         hasFixedHeight = true,
         modifier = Modifier
             .fillMaxWidth()
@@ -55,7 +55,7 @@ fun BrowseFilterBottomSheet() {
         HorizontalPager(state = pagerState, modifier = Modifier.fillMaxSize()) { page ->
             when (page) {
                 0 -> {
-                    CustomLazyColumn(Modifier.fillMaxSize()) {
+                    LazyColumnWithScrollbar(Modifier.fillMaxSize()) {
                         BrowseGeneralSubcategory(
                             showTitle = false,
                             showDivider = false,
@@ -66,7 +66,7 @@ fun BrowseFilterBottomSheet() {
                 }
 
                 1 -> {
-                    CustomLazyColumn(Modifier.fillMaxSize()) {
+                    LazyColumnWithScrollbar(Modifier.fillMaxSize()) {
                         BrowseFilterSubcategory(
                             showTitle = false,
                             showDivider = false,
@@ -77,7 +77,7 @@ fun BrowseFilterBottomSheet() {
                 }
 
                 2 -> {
-                    CustomLazyColumn(Modifier.fillMaxSize()) {
+                    LazyColumnWithScrollbar(Modifier.fillMaxSize()) {
                         BrowseSortSubcategory(
                             showTitle = false,
                             showDivider = false,

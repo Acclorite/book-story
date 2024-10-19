@@ -13,12 +13,9 @@
     <string name="confirm">Potwierdź</string>
     <string name="next">Dalej</string>
     <string name="no">Nie</string>
-    <string name="download">Pobierz</string>
     <string name="done">Gotowe</string>
     <string name="enable">Włącz</string>
     <string name="share">Udostępnij</string>
-    <string name="books">książki</string>
-    <string name="history">historia</string>
     <string name="unknown_author">Nieznany</string>
     <string name="author">Autor</string>
     <string name="general_tab">Ogólne</string>
@@ -42,7 +39,6 @@
     <string name="delete">Usuń</string>
     <string name="start">Rozpocznij</string>
     <string name="add">Dodaj</string>
-    <string name="files">pliki</string>
     <string name="sort_browse_settings">Sortuj</string>
     <string name="red_color">Czerwony</string>
     <string name="general_settings">Ogólne</string>
@@ -94,7 +90,6 @@
     <string name="library_empty">Przeczytaj swoje ulubione książki i posortuj je między kategoriami</string>
     <string name="history_empty">Niech ostatnia czytana książka otworzy strony nowej wspaniałej historii twojej czytelniczej podróży</string>
     <string name="selected_items_count_query">Wybrano %1$s</string>
-    <string name="search_query">Wyszukaj %1$s…</string>
     <string name="file_path_query">Ścieżka pliku: %1$s</string>
     <string name="update_query">Zaktualizuj %1$s</string>
     <string name="web_search">Wyszukiwanie w sieci</string>

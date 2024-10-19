@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithContent
+import ua.acclorite.book_story.presentation.core.components.dialog.DialogWithContent
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
@@ -30,7 +30,7 @@ fun BookInfoDeleteDialog() {
     val onNavigate = LocalNavigator.current
     val context = LocalContext.current
 
-    CustomDialogWithContent(
+    DialogWithContent(
         title = stringResource(id = R.string.delete_book),
         imageVectorIcon = Icons.Outlined.DeleteOutline,
         description = stringResource(

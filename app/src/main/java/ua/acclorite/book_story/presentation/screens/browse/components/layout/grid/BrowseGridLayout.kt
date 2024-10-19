@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.model.SelectableFile
-import ua.acclorite.book_story.presentation.core.components.header
+import ua.acclorite.book_story.presentation.core.components.common.header
 import ua.acclorite.book_story.presentation.screens.browse.components.layout.BrowseItem
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseLayout

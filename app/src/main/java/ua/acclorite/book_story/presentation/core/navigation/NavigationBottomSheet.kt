@@ -10,7 +10,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.Position
-import ua.acclorite.book_story.presentation.core.components.custom_bottom_sheet.CustomBottomSheet
+import ua.acclorite.book_story.presentation.core.components.modal_bottom_sheet.ModalBottomSheet
 
 /**
  * Navigation Bottom Sheet.
@@ -23,7 +23,7 @@ import ua.acclorite.book_story.presentation.core.components.custom_bottom_sheet.
 fun NavigationBottomSheet(onDismissRequest: () -> Unit) {
     val onNavigate = LocalNavigator.current
 
-    CustomBottomSheet(
+    ModalBottomSheet(
         modifier = Modifier.fillMaxWidth(),
         onDismissRequest = onDismissRequest
     ) {

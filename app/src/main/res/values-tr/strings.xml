@@ -48,7 +48,6 @@
     <string name="library_empty">Favori kitaplarınızı okuyun ve kategoriler arasında sıralayın</string>
     <string name="history_empty">Son okuduğunuz kitabın, okuma yolculuğunuzun yeni harika hikayesinin sayfalarını açmasına izin verin</string>
     <string name="selected_items_count_query">%1$s seçildi</string>
-    <string name="search_query">%1$s ara…</string>
     <string name="file_path_query">Dosya yolu: %1$s</string>
     <string name="update_query">%1$s güncelle</string>
     <string name="color_preset_query">Ön ayar %1$s</string>
@@ -74,14 +73,10 @@
     <string name="next">İleri</string>
     <string name="yes_go_to_help">Evet, Yardım\'a git</string>
     <string name="no">Hayır</string>
-    <string name="download">İndir</string>
     <string name="done">Tamam</string>
     <string name="enable">Etkinleştir</string>
     <string name="web_search">Web\'de ara</string>
     <string name="share">Paylaş</string>
-    <string name="files">dosyalar</string>
-    <string name="books">kitaplar</string>
-    <string name="history">geçmiş</string>
     <string name="unknown_author">Bilinmiyor</string>
     <string name="read_more">Daha fazla okumanız gerekiyor!</string>
     <string name="read_keep">Devam edin!</string>

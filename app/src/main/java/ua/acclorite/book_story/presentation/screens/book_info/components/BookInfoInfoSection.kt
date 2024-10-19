@@ -35,7 +35,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.CustomCoverImage
+import ua.acclorite.book_story.presentation.core.components.common.AsyncImage
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
@@ -73,7 +73,7 @@ fun BookInfoInfoSection() {
                 )
         ) {
             if (state.value.book.coverImage != null) {
-                CustomCoverImage(
+                AsyncImage(
                     uri = state.value.book.coverImage!!,
                     modifier = Modifier
                         .fillMaxSize()

@@ -29,7 +29,6 @@
     <string name="library_empty">Lesen Sie Ihre Lieblingsbücher und sortieren Sie sie nach Kategorien</string>
     <string name="history_empty">Lassen Sie Ihr letztes gelesenes Buch die Seiten einer neuen großartigen Geschichte Ihrer Lesereise öffnen</string>
     <string name="selected_items_count_query">%1$s ausgewählt</string>
-    <string name="search_query">Suche %1$s…</string>
     <string name="file_path_query">Dateipfad: %1$s</string>
     <string name="update_query">%1$s aktualisieren</string>
     <string name="color_preset_selected_query">Ausgewählt «%1$s»</string>
@@ -52,12 +51,8 @@
     <string name="confirm">Bestätigen</string>
     <string name="next">Nächste</string>
     <string name="no">Nein</string>
-    <string name="download">Herunterladen</string>
     <string name="done">Fertig</string>
     <string name="enable">Aktivieren</string>
-    <string name="books">Bücher</string>
-    <string name="files">Dateien</string>
-    <string name="history">Verlauf</string>
     <string name="unknown_author">Unbekannt</string>
     <string name="read_more">Sie müssen mehr lesen!</string>
     <string name="read_keep">Weiter so!</string>

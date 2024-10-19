@@ -33,10 +33,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.CustomIconButton
-import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
-import ua.acclorite.book_story.presentation.core.components.GoBackButton
-import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.core.components.common.GoBackButton
+import ua.acclorite.book_story.presentation.core.components.common.IconButton
+import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.core.components.top_bar.collapsibleTopAppBarScrollBehavior
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.showToast
@@ -76,7 +76,7 @@ private fun LicenseInfoScreen() {
     val context = LocalContext.current
     val onNavigate = LocalNavigator.current
 
-    val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
+    val (scrollBehavior, lazyListState) = TopAppBarDefaults.collapsibleTopAppBarScrollBehavior()
     val licenses = remember(state.value.license?.licenses) {
         state.value.license?.licenses?.toList()
     }
@@ -84,7 +84,7 @@ private fun LicenseInfoScreen() {
     Scaffold(
         Modifier
             .fillMaxSize()
-            .nestedScroll(scrollState.first.nestedScrollConnection)
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
             .windowInsetsPadding(WindowInsets.navigationBars),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
@@ -105,7 +105,7 @@ private fun LicenseInfoScreen() {
                 },
                 actions = {
                     if (state.value.license?.website?.isNotBlank() == true) {
-                        CustomIconButton(
+                        IconButton(
                             icon = Icons.Outlined.Language,
                             contentDescription = R.string.open_in_web_content_desc,
                             disableOnClick = false
@@ -130,7 +130,7 @@ private fun LicenseInfoScreen() {
                         }
                     }
                 },
-                scrollBehavior = scrollState.first,
+                scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.largeTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -141,11 +141,11 @@ private fun LicenseInfoScreen() {
         DefaultTransition(
             visible = state.value.license != null
         ) {
-            CustomLazyColumn(
+            LazyColumnWithScrollbar(
                 Modifier
                     .fillMaxSize()
                     .padding(top = paddingValues.calculateTopPadding()),
-                state = scrollState.second,
+                state = lazyListState,
                 contentPadding = PaddingValues(horizontal = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {

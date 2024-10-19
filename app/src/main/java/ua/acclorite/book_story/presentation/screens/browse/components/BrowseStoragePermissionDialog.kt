@@ -9,7 +9,7 @@ import androidx.compose.ui.res.stringResource
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithContent
+import ua.acclorite.book_story.presentation.core.components.dialog.DialogWithContent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
 
@@ -26,7 +26,7 @@ fun BrowseStoragePermissionDialog(
     val activity = LocalContext.current as ComponentActivity
     val onEvent = BrowseViewModel.getEvent()
 
-    CustomDialogWithContent(
+    DialogWithContent(
         title = stringResource(id = R.string.storage_permission),
         description = stringResource(id = R.string.storage_permission_description),
         actionText = stringResource(id = R.string.grant),

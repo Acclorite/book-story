@@ -36,8 +36,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.CustomIconButton
+import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.common.IconButton
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
@@ -91,7 +91,7 @@ fun ReaderTopBar() {
     ) {
         TopAppBar(
             navigationIcon = {
-                CustomIconButton(
+                IconButton(
                     icon = Icons.AutoMirrored.Outlined.ArrowBack,
                     contentDescription = R.string.go_back_content_desc,
                     disableOnClick = true
@@ -167,7 +167,7 @@ fun ReaderTopBar() {
                 }
             },
             actions = {
-                CustomAnimatedVisibility(
+                AnimatedVisibility(
                     visible = state.value.checkingForUpdate || state.value.updateFound,
                     enter = fadeIn(),
                     exit = shrinkHorizontally() + fadeOut()
@@ -177,7 +177,7 @@ fun ReaderTopBar() {
                         contentAlignment = Alignment.Center
                     ) {
                         if (state.value.updateFound) {
-                            CustomIconButton(
+                            IconButton(
                                 icon = Icons.Rounded.Upgrade,
                                 contentDescription = R.string.update_text_content_desc,
                                 color = MaterialTheme.colorScheme.primary,
@@ -202,7 +202,7 @@ fun ReaderTopBar() {
                 }
 
                 if (state.value.currentChapter != null) {
-                    CustomIconButton(
+                    IconButton(
                         icon = Icons.Rounded.Menu,
                         contentDescription = R.string.chapters_content_desc,
                         disableOnClick = false,
@@ -214,7 +214,7 @@ fun ReaderTopBar() {
                     }
                 }
 
-                CustomIconButton(
+                IconButton(
                     icon = Icons.Default.Settings,
                     contentDescription = R.string.open_reader_settings_content_desc,
                     disableOnClick = false,

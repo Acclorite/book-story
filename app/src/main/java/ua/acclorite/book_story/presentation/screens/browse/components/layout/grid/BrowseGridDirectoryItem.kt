@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.SelectableFile
-import ua.acclorite.book_story.presentation.core.components.CustomCheckbox
+import ua.acclorite.book_story.presentation.core.components.common.CircularCheckbox
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import java.text.SimpleDateFormat
@@ -73,7 +73,7 @@ fun BrowseGridDirectoryItem(
                     .align(Alignment.TopStart)
                     .padding(12.dp)
             ) {
-                CustomCheckbox(
+                CircularCheckbox(
                     selected = file.isSelected,
                     containerColor = MaterialTheme.colorScheme.surface,
                     size = 18.dp

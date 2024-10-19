@@ -29,8 +29,8 @@ import ua.acclorite.book_story.domain.use_case.book.InsertBook
 import ua.acclorite.book_story.domain.use_case.favorite_directory.UpdateFavoriteDirectory
 import ua.acclorite.book_story.domain.use_case.file_system.GetBookFromFile
 import ua.acclorite.book_story.domain.use_case.file_system.GetFilesFromDevice
+import ua.acclorite.book_story.domain.util.UIViewModel
 import ua.acclorite.book_story.presentation.core.navigation.Screen
-import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import ua.acclorite.book_story.presentation.core.util.launchActivity
 import ua.acclorite.book_story.presentation.data.MainState
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.BrowseFilesStructure
@@ -44,7 +44,7 @@ class BrowseViewModel @Inject constructor(
     private val getFilesFromDevice: GetFilesFromDevice,
     private val insertBook: InsertBook,
     private val updateFavoriteDirectory: UpdateFavoriteDirectory,
-) : UiViewModel<BrowseState, BrowseEvent>() {
+) : UIViewModel<BrowseState, BrowseEvent>() {
 
     companion object {
         @Composable

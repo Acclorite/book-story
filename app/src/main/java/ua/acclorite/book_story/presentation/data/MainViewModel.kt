@@ -17,11 +17,11 @@ import ua.acclorite.book_story.domain.use_case.data_store.ChangeLanguage
 import ua.acclorite.book_story.domain.use_case.data_store.GetAllSettings
 import ua.acclorite.book_story.domain.use_case.data_store.SetDatastore
 import ua.acclorite.book_story.domain.use_case.remote.CheckForUpdates
+import ua.acclorite.book_story.domain.util.UIViewModel
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
 import ua.acclorite.book_story.presentation.core.constants.provideFonts
 import ua.acclorite.book_story.presentation.core.constants.provideMainState
-import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseFilesStructure
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseLayout
 import ua.acclorite.book_story.presentation.screens.settings.nested.browse.data.toBrowseSortOrder
@@ -42,7 +42,7 @@ class MainViewModel @Inject constructor(
     private val changeLanguage: ChangeLanguage,
     private val checkForUpdates: CheckForUpdates,
     private val getAllSettings: GetAllSettings
-) : UiViewModel<MainState, MainEvent>() {
+) : UIViewModel<MainState, MainEvent>() {
 
     companion object {
         @Composable

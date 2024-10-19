@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.CustomTooltip
+import ua.acclorite.book_story.presentation.core.components.common.Tooltip
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.ui.ExpandingTransition
 
@@ -33,7 +33,7 @@ fun HelpClickableNote(text: AnnotatedString) {
     val showNote = rememberSaveable { mutableStateOf(true) }
 
     Column(Modifier.padding(horizontal = 18.dp)) {
-        CustomTooltip(text = stringResource(R.string.note_content_desc)) {
+        Tooltip(text = stringResource(R.string.note_content_desc)) {
             Icon(
                 imageVector = Icons.Outlined.Info,
                 modifier = Modifier

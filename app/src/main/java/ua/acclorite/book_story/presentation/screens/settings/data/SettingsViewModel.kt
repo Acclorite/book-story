@@ -26,9 +26,9 @@ import ua.acclorite.book_story.domain.use_case.color_preset.SelectColorPreset
 import ua.acclorite.book_story.domain.use_case.color_preset.UpdateColorPreset
 import ua.acclorite.book_story.domain.util.ID
 import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.domain.util.UIViewModel
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideDefaultColorPreset
-import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import ua.acclorite.book_story.presentation.core.util.launchActivity
 import javax.inject.Inject
 import kotlin.random.Random
@@ -41,7 +41,7 @@ class SettingsViewModel @Inject constructor(
     private val deleteColorPreset: DeleteColorPreset,
     private val selectColorPreset: SelectColorPreset,
     private val reorderColorPresets: ReorderColorPresets
-) : UiViewModel<SettingsState, SettingsEvent>() {
+) : UIViewModel<SettingsState, SettingsEvent>() {
 
     companion object {
         @Composable

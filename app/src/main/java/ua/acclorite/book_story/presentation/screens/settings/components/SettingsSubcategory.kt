@@ -13,7 +13,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.core.components.CategoryTitle
 
 /**
  * Settings Subcategory.
@@ -38,7 +37,7 @@ fun LazyListScope.SettingsSubcategory(
 ) {
     item {
         if (showTitle) {
-            CategoryTitle(
+            SettingsCategoryTitle(
                 title = title.invoke(),
                 color = titleColor.invoke(),
                 modifier = Modifier

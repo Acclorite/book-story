@@ -59,9 +59,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Chapter
-import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.CustomSelectionContainer
-import ua.acclorite.book_story.presentation.core.components.is_messages.IsError
+import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.common.SelectionContainer
+import ua.acclorite.book_story.presentation.core.components.placeholder.ErrorPlaceholder
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideFonts
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
@@ -381,7 +381,7 @@ private fun ReaderScreen(lazyListState: LazyListState) {
             .nestedScroll(nestedScrollConnection),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
-            CustomAnimatedVisibility(
+            AnimatedVisibility(
                 visible = state.value.showMenu,
                 enter = slideInVertically { -it },
                 exit = slideOutVertically { -it }
@@ -390,7 +390,7 @@ private fun ReaderScreen(lazyListState: LazyListState) {
             }
         },
         bottomBar = {
-            CustomAnimatedVisibility(
+            AnimatedVisibility(
                 modifier = Modifier.fillMaxWidth(),
                 visible = state.value.showMenu,
                 enter = slideInVertically { it },
@@ -400,7 +400,7 @@ private fun ReaderScreen(lazyListState: LazyListState) {
             }
         }
     ) {
-        CustomSelectionContainer(
+        SelectionContainer(
             onCopyRequested = {
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
                     context.getString(R.string.copied)
@@ -537,7 +537,7 @@ private fun ReaderScreen(lazyListState: LazyListState) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (!state.value.loading) {
-                IsError(
+                ErrorPlaceholder(
                     errorMessage = state.value.errorMessage!!.asString(),
                     icon = painterResource(id = R.drawable.error),
                     actionTitle = stringResource(id = R.string.go_back),

@@ -49,7 +49,7 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import ua.acclorite.book_story.domain.util.OnNavigate
 import ua.acclorite.book_story.domain.util.Route
-import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
 import ua.acclorite.book_story.presentation.ui.Transitions
 
 private const val CURRENT_SCREEN = "current_screen"
@@ -320,7 +320,7 @@ class Navigator @AssistedInject constructor(
             }
         }
 
-        CustomAnimatedVisibility(
+        AnimatedVisibility(
             visible = shouldShow,
             enter = if (!useBackAnimation) enterAnim else backEnterAnim,
             exit = if (!useBackAnimation) exitAnim else backExitAnim
@@ -372,7 +372,7 @@ class Navigator @AssistedInject constructor(
         }
         val showNavigationBottomSheet = showNavigationBottomSheet.collectAsState()
 
-        CustomAnimatedVisibility(
+        AnimatedVisibility(
             visible = showNavigation.value,
             enter = if (useBackAnimation) backEnterBarAnim
             else enterBarAnim,
@@ -428,7 +428,7 @@ class Navigator @AssistedInject constructor(
 
 /**
  * Custom Navigation Host. Contains [Navigator.composable]s in [content].
- * Based on [CustomAnimatedVisibility].
+ * Based on [AnimatedVisibility].
  *
  * @param startScreen Start Screen. Be sure to pass [Screen] that uses in one of your [Navigator.composable]s.
  * @param colorBetweenAnimations The color, that using between animations, recommended to set this to background or navigation bar color.

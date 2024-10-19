@@ -30,7 +30,6 @@
     <string name="error_no_browser">No se encontró ninguna aplicación de navegador.</string>
     <string name="error_closed_source">Fuente cerrada</string>
     <string name="selected_items_count_query">%1$s seleccionado</string>
-    <string name="search_query">Buscar %1$s…</string>
     <string name="cancel">Cancelar</string>
     <string name="grant">Conceder</string>
     <string name="get_help">Necesito ayuda</string>
@@ -38,7 +37,6 @@
     <string name="move">Mover</string>
     <string name="retry">Reintentar</string>
     <string name="read_more">¡Necesitas leer más!</string>
-    <string name="history">historial</string>
     <string name="read_done">¡Bien hecho, has leído todo el libro!</string>
     <string name="change_cover">Cambiar portada</string>
     <string name="change_cover_desc">Elegir nueva portada de sus fotos</string>
@@ -115,14 +113,11 @@
     <string name="copy">Copiar</string>
     <string name="confirm">Confirmar</string>
     <string name="done">Hecho</string>
-    <string name="files">archivos</string>
     <string name="undo">Deshacer</string>
     <string name="next">Siguiente</string>
     <string name="no">No</string>
     <string name="yes_go_to_help">Sí, ir a Ayuda</string>
     <string name="dictionary">Diccionario</string>
-    <string name="download">Descargar</string>
-    <string name="books">libros</string>
     <string name="enable">Habilitar</string>
     <string name="unknown_author">Desconocido</string>
     <string name="delete_cover">Borrar portada</string>

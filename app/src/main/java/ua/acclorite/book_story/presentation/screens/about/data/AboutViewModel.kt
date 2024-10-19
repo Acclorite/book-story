@@ -12,14 +12,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.use_case.remote.CheckForUpdates
-import ua.acclorite.book_story.presentation.core.util.UiViewModel
+import ua.acclorite.book_story.domain.util.UIViewModel
 import ua.acclorite.book_story.presentation.core.util.launchActivity
 import javax.inject.Inject
 
 @HiltViewModel
 class AboutViewModel @Inject constructor(
     private val checkForUpdates: CheckForUpdates,
-) : UiViewModel<AboutState, AboutEvent>() {
+) : UIViewModel<AboutState, AboutEvent>() {
 
     companion object {
         @Composable

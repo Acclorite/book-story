@@ -39,12 +39,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.UIText
-import ua.acclorite.book_story.presentation.core.components.CategoryTitle
-import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideThemes
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
+import ua.acclorite.book_story.presentation.screens.settings.components.SettingsCategoryTitle
 import ua.acclorite.book_story.presentation.ui.Theme
 import ua.acclorite.book_story.presentation.ui.ThemeContrast
 import ua.acclorite.book_story.presentation.ui.animatedColorScheme
@@ -73,7 +73,7 @@ fun ThemeSetting(
             .fillMaxWidth()
             .padding(vertical = verticalPadding)
     ) {
-        CategoryTitle(
+        SettingsCategoryTitle(
             title = stringResource(id = R.string.app_theme_option),
             padding = horizontalPadding
         )
@@ -172,7 +172,7 @@ private fun ThemeSettingItem(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
 
-                CustomAnimatedVisibility(
+                AnimatedVisibility(
                     visible = selected,
                     enter = scaleIn(tween(300), initialScale = 0.5f) +
                             fadeIn(tween(300)),

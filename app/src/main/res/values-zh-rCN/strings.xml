@@ -4,11 +4,9 @@
     <string name="delete_history">删除阅读历史？</string>
     <string name="delete_book">删除书？</string>
     <string name="no">不</string>
-    <string name="download">下载</string>
     <string name="enable">启用</string>
     <string name="web_search">网络搜索</string>
     <string name="share">分享</string>
-    <string name="files">文件</string>
     <string name="done">完成</string>
     <string name="change_cover_desc">从你的图库中选择新封面</string>
     <string name="delete_cover">删除封面图片</string>
@@ -53,7 +51,6 @@
     <string name="browse_empty">通过您的下载来拓展库中的书集</string>
     <string name="library_empty">阅读您喜欢的书并对其进行分类</string>
     <string name="history_empty">让您读完的最后一本书为您打开阅读之旅的新篇章</string>
-    <string name="search_query">搜索 %1$s…</string>
     <string name="file_path_query">文件路径：%1$s</string>
     <string name="color_preset_selected_query">已选择《%1$s》</string>
     <string name="grant">授予</string>
@@ -63,7 +60,6 @@
     <string name="retry">重试</string>
     <string name="confirm">确认</string>
     <string name="next">下一个</string>
-    <string name="history">历史</string>
     <string name="unknown_author">未知</string>
     <string name="read_done">干得好，你已经读完了整本书！</string>
     <string name="change_cover">修改封面图片</string>
@@ -86,7 +82,6 @@
     <string name="translate">翻译</string>
     <string name="copy">复制</string>
     <string name="selected_items_count_query">已选择 %1$s</string>
-    <string name="books">书</string>
     <string name="start">开始</string>
     <string name="enable_check_for_updates">启用检查更新？</string>
     <string name="delete_books">删除书？</string>

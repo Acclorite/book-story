@@ -19,8 +19,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
+import ua.acclorite.book_story.domain.util.UIViewModel
 import ua.acclorite.book_story.presentation.core.navigation.Screen
-import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import ua.acclorite.book_story.presentation.core.util.launchActivity
 import javax.inject.Inject
 
@@ -28,7 +28,7 @@ import javax.inject.Inject
 @HiltViewModel
 class StartViewModel @Inject constructor(
 
-) : UiViewModel<StartState, StartEvent>() {
+) : UIViewModel<StartState, StartEvent>() {
 
     companion object {
         @Composable

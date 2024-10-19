@@ -34,8 +34,8 @@ import ua.acclorite.book_story.domain.use_case.book.UpdateBook
 import ua.acclorite.book_story.domain.use_case.history.GetLatestHistory
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.domain.util.UIViewModel
 import ua.acclorite.book_story.presentation.core.navigation.Screen
-import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import ua.acclorite.book_story.presentation.core.util.coerceAndPreventNaN
 import ua.acclorite.book_story.presentation.core.util.launchActivity
 import javax.inject.Inject
@@ -49,7 +49,7 @@ class ReaderViewModel @Inject constructor(
     private val getLatestHistory: GetLatestHistory,
     private val getBookById: GetBookById,
     private val checkForTextUpdate: CheckForTextUpdate
-) : UiViewModel<ReaderState, ReaderEvent>() {
+) : UIViewModel<ReaderState, ReaderEvent>() {
 
     companion object {
         @Composable

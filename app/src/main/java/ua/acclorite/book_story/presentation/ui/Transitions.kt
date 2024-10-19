@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
 import kotlin.math.roundToInt
 
 object Transitions {
@@ -54,7 +54,7 @@ fun DefaultTransition(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
-    CustomAnimatedVisibility(
+    AnimatedVisibility(
         visible = visible,
         modifier = modifier,
         enter = Transitions.DefaultTransitionIn,
@@ -71,7 +71,7 @@ fun SlidingTransition(
     content: @Composable () -> Unit
 ) {
     val density = LocalDensity.current
-    CustomAnimatedVisibility(
+    AnimatedVisibility(
         visible = visible,
         modifier = modifier,
         enter = slideInVertically(tween(300)) {
@@ -90,7 +90,7 @@ fun ExpandingTransition(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
-    CustomAnimatedVisibility(
+    AnimatedVisibility(
         visible = visible,
         modifier = modifier,
         enter = expandVertically(tween(400)) +
@@ -117,7 +117,7 @@ fun HorizontalExpandingTransition(
         else shrinkHorizontally() + fadeOut() + slideOutHorizontally { it }
     }
 
-    CustomAnimatedVisibility(
+    AnimatedVisibility(
         visible = visible,
         modifier = modifier,
         enter = enterAnimation,

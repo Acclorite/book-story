@@ -36,14 +36,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBar
-import ua.acclorite.book_story.presentation.core.components.AnimatedTopAppBarData
-import ua.acclorite.book_story.presentation.core.components.CategoryTitle
-import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.CustomIconButton
-import ua.acclorite.book_story.presentation.core.components.CustomSearchTextField
-import ua.acclorite.book_story.presentation.core.components.CustomSnackbar
-import ua.acclorite.book_story.presentation.core.components.is_messages.IsEmpty
+import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.common.IconButton
+import ua.acclorite.book_story.presentation.core.components.common.SearchTextField
+import ua.acclorite.book_story.presentation.core.components.common.Snackbar
+import ua.acclorite.book_story.presentation.core.components.placeholder.EmptyPlaceholder
+import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBar
+import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBarData
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.NavigationIconButton
 import ua.acclorite.book_story.presentation.core.navigation.Screen
@@ -53,6 +52,7 @@ import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryEvent
 import ua.acclorite.book_story.presentation.screens.library.data.LibraryViewModel
+import ua.acclorite.book_story.presentation.screens.settings.components.SettingsCategoryTitle
 import ua.acclorite.book_story.presentation.ui.DefaultTransition
 import ua.acclorite.book_story.presentation.ui.Transitions
 
@@ -98,7 +98,7 @@ private fun HistoryScreen() {
             .pullRefresh(refreshState),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
-            AnimatedTopAppBar(
+            TopAppBar(
                 scrollBehavior = null,
                 isTopBarScrolled = state.value.listState.canScrollBackward,
 
@@ -107,21 +107,21 @@ private fun HistoryScreen() {
                     else -> 0
                 },
                 topBars = listOf(
-                    AnimatedTopAppBarData(
+                    TopAppBarData(
                         contentID = 0,
                         contentNavigationIcon = {},
                         contentTitle = {
                             Text(stringResource(id = R.string.history_screen))
                         },
                         contentActions = {
-                            CustomIconButton(
+                            IconButton(
                                 icon = Icons.Default.Search,
                                 contentDescription = R.string.search_content_desc,
                                 disableOnClick = true,
                             ) {
                                 onEvent(HistoryEvent.OnSearchShowHide)
                             }
-                            CustomIconButton(
+                            IconButton(
                                 icon = Icons.Outlined.DeleteSweep,
                                 contentDescription = R.string.delete_whole_history_content_desc,
                                 disableOnClick = false,
@@ -136,10 +136,10 @@ private fun HistoryScreen() {
                         }
                     ),
 
-                    AnimatedTopAppBarData(
+                    TopAppBarData(
                         contentID = 1,
                         contentNavigationIcon = {
-                            CustomIconButton(
+                            IconButton(
                                 icon = Icons.AutoMirrored.Default.ArrowBack,
                                 contentDescription = R.string.exit_search_content_desc,
                                 disableOnClick = true
@@ -148,7 +148,7 @@ private fun HistoryScreen() {
                             }
                         },
                         contentTitle = {
-                            CustomSearchTextField(
+                            SearchTextField(
                                 modifier = Modifier
                                     .focusRequester(focusRequester)
                                     .onGloballyPositioned {
@@ -160,11 +160,7 @@ private fun HistoryScreen() {
                                 },
                                 onSearch = {
                                     onEvent(HistoryEvent.OnSearch)
-                                },
-                                placeholder = stringResource(
-                                    id = R.string.search_query,
-                                    stringResource(id = R.string.history)
-                                )
+                                }
                             )
                         },
                         contentActions = {
@@ -175,7 +171,7 @@ private fun HistoryScreen() {
             )
         },
         bottomBar = {
-            CustomSnackbar(snackbarState = snackbarState)
+            Snackbar(snackbarState = snackbarState)
         }
     ) { paddingValues ->
         Box(
@@ -199,7 +195,7 @@ private fun HistoryScreen() {
                                 Spacer(modifier = Modifier.height(8.dp))
                             }
 
-                            CategoryTitle(
+                            SettingsCategoryTitle(
                                 modifier = Modifier.animateItem(),
                                 title = when (groupedHistory.title) {
                                     "today" -> stringResource(id = R.string.today)
@@ -263,7 +259,7 @@ private fun HistoryScreen() {
                 }
             }
 
-            CustomAnimatedVisibility(
+            AnimatedVisibility(
                 visible = !state.value.isLoading
                         && state.value.history.isEmpty()
                         && !state.value.isRefreshing,
@@ -271,7 +267,7 @@ private fun HistoryScreen() {
                 enter = Transitions.DefaultTransitionIn,
                 exit = fadeOut(tween(0))
             ) {
-                IsEmpty(
+                EmptyPlaceholder(
                     modifier = Modifier.align(Alignment.Center),
                     message = stringResource(id = R.string.history_empty),
                     icon = painterResource(id = R.drawable.empty_history)

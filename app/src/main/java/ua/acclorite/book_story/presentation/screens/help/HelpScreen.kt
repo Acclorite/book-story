@@ -29,10 +29,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.Position
-import ua.acclorite.book_story.presentation.core.components.CustomIconButton
-import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
-import ua.acclorite.book_story.presentation.core.components.GoBackButton
-import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.core.components.common.GoBackButton
+import ua.acclorite.book_story.presentation.core.components.common.IconButton
+import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.core.components.top_bar.collapsibleTopAppBarScrollBehavior
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideHelpTips
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
@@ -74,12 +74,12 @@ private fun HelpScreen() {
     val onStartEvent = StartViewModel.getEvent()
     val onNavigate = LocalNavigator.current
 
-    val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
+    val (scrollBehavior, lazyListState) = TopAppBarDefaults.collapsibleTopAppBarScrollBehavior()
 
     Scaffold(
         Modifier
             .fillMaxSize()
-            .nestedScroll(scrollState.first.nestedScrollConnection)
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
             .windowInsetsPadding(WindowInsets.navigationBars),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
@@ -94,7 +94,7 @@ private fun HelpScreen() {
                 },
                 actions = {
                     if (!state.value.fromStart) {
-                        CustomIconButton(
+                        IconButton(
                             icon = Icons.Outlined.RestartAlt,
                             contentDescription = R.string.reset_start_content_desc,
                             disableOnClick = false
@@ -108,7 +108,7 @@ private fun HelpScreen() {
                         }
                     }
                 },
-                scrollBehavior = scrollState.first,
+                scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.largeTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -140,11 +140,11 @@ private fun HelpScreen() {
             }
         }
     ) { paddingValues ->
-        CustomLazyColumn(
+        LazyColumnWithScrollbar(
             Modifier
                 .fillMaxSize()
                 .padding(paddingValues),
-            state = scrollState.second
+            state = lazyListState
         ) {
             item {
                 Spacer(modifier = Modifier.height(16.dp))

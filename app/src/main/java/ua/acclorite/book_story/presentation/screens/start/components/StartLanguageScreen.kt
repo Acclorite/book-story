@@ -10,9 +10,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ButtonItem
-import ua.acclorite.book_story.presentation.core.components.CategoryTitle
-import ua.acclorite.book_story.presentation.core.components.custom_dialog.SelectableDialogItem
+import ua.acclorite.book_story.presentation.core.components.dialog.SelectableDialogItem
 import ua.acclorite.book_story.presentation.data.MainEvent
+import ua.acclorite.book_story.presentation.screens.settings.components.SettingsCategoryTitle
 
 /**
  * Language settings.
@@ -23,7 +23,7 @@ fun LazyListScope.startLanguageScreen(
 ) {
     item {
         Spacer(modifier = Modifier.height(16.dp))
-        CategoryTitle(
+        SettingsCategoryTitle(
             title = stringResource(id = R.string.start_language_preferences),
             color = MaterialTheme.colorScheme.primary
         )

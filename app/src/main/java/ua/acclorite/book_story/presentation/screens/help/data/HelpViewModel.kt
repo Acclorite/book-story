@@ -5,13 +5,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import ua.acclorite.book_story.presentation.core.util.UiViewModel
+import ua.acclorite.book_story.domain.util.UIViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class HelpViewModel @Inject constructor(
 
-) : UiViewModel<HelpState, HelpEvent>() {
+) : UIViewModel<HelpState, HelpEvent>() {
 
     companion object {
         @Composable

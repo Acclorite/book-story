@@ -9,8 +9,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithLazyColumn
-import ua.acclorite.book_story.presentation.core.components.custom_dialog.SelectableDialogItem
+import ua.acclorite.book_story.presentation.core.components.dialog.DialogWithLazyColumn
+import ua.acclorite.book_story.presentation.core.components.dialog.SelectableDialogItem
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
@@ -27,7 +27,7 @@ fun LibraryMoveDialog(pagerState: PagerState) {
     val onEvent = LibraryViewModel.getEvent()
     val onHistoryEvent = HistoryViewModel.getEvent()
 
-    CustomDialogWithLazyColumn(
+    DialogWithLazyColumn(
         title = stringResource(id = R.string.move_books),
         imageVectorIcon = Icons.AutoMirrored.Outlined.DriveFileMove,
         description = stringResource(

@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithContent
+import ua.acclorite.book_story.presentation.core.components.dialog.DialogWithContent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoViewModel
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
@@ -28,7 +28,7 @@ fun BookInfoConfirmUpdateDialog(snackbarHostState: SnackbarHostState) {
     val onHistoryEvent = HistoryViewModel.getEvent()
     val context = LocalContext.current
 
-    CustomDialogWithContent(
+    DialogWithContent(
         title = stringResource(id = R.string.confirm_update),
         imageVectorIcon = Icons.Default.Update,
         description = stringResource(

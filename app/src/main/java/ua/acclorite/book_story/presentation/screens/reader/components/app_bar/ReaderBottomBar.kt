@@ -30,7 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.util.Direction
-import ua.acclorite.book_story.presentation.core.components.CustomIconButton
+import ua.acclorite.book_story.presentation.core.components.common.IconButton
 import ua.acclorite.book_story.presentation.core.util.calculateProgress
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
@@ -112,7 +112,7 @@ fun ReaderBottomBar() {
                 visible = arrowDirection == Direction.START,
                 startDirection = true
             ) {
-                CustomIconButton(
+                IconButton(
                     icon = Icons.AutoMirrored.Default.ArrowBack,
                     contentDescription = R.string.checkpoint_back_content_desc,
                     modifier = Modifier.size(24.dp),
@@ -143,7 +143,7 @@ fun ReaderBottomBar() {
                 visible = arrowDirection == Direction.END,
                 startDirection = false
             ) {
-                CustomIconButton(
+                IconButton(
                     icon = Icons.AutoMirrored.Default.ArrowForward,
                     contentDescription = R.string.checkpoint_forward_content_desc,
                     modifier = Modifier.size(24.dp),

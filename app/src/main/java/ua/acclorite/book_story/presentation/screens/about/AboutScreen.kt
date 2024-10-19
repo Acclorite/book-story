@@ -28,9 +28,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
-import ua.acclorite.book_story.presentation.core.components.GoBackButton
-import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.core.components.common.GoBackButton
+import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.core.components.top_bar.collapsibleTopAppBarScrollBehavior
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideContributorsPage
 import ua.acclorite.book_story.presentation.core.constants.provideIssuesPage
@@ -58,7 +58,7 @@ private fun AboutScreen() {
     val onNavigate = LocalNavigator.current
     val context = LocalContext.current
 
-    val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState()
+    val (scrollBehavior, lazyListState) = TopAppBarDefaults.collapsibleTopAppBarScrollBehavior()
 
     if (state.value.showUpdateDialog) {
         AboutUpdateDialog()
@@ -67,7 +67,7 @@ private fun AboutScreen() {
     Scaffold(
         Modifier
             .fillMaxSize()
-            .nestedScroll(scrollState.first.nestedScrollConnection)
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
             .windowInsetsPadding(WindowInsets.navigationBars),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
@@ -78,7 +78,7 @@ private fun AboutScreen() {
                 navigationIcon = {
                     GoBackButton(onNavigate = onNavigate)
                 },
-                scrollBehavior = scrollState.first,
+                scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.largeTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -86,11 +86,11 @@ private fun AboutScreen() {
             )
         }
     ) { paddingValues ->
-        CustomLazyColumn(
+        LazyColumnWithScrollbar(
             Modifier
                 .fillMaxSize()
                 .padding(top = paddingValues.calculateTopPadding()),
-            state = scrollState.second
+            state = lazyListState
         ) {
             item {
                 Spacer(modifier = Modifier.height(16.dp))

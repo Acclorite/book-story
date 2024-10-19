@@ -46,9 +46,9 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.model.Category
 import ua.acclorite.book_story.domain.util.Selected
-import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.header
-import ua.acclorite.book_story.presentation.core.components.is_messages.IsEmpty
+import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.common.header
+import ua.acclorite.book_story.presentation.core.components.placeholder.EmptyPlaceholder
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.showToast
@@ -208,7 +208,7 @@ private fun LibraryScreen(
                         }
                     }
 
-                    CustomAnimatedVisibility(
+                    AnimatedVisibility(
                         visible = !state.value.isLoading
                                 && !state.value.isRefreshing
                                 && books.isEmpty(),
@@ -216,7 +216,7 @@ private fun LibraryScreen(
                         enter = Transitions.DefaultTransitionIn,
                         exit = fadeOut(tween(0))
                     ) {
-                        IsEmpty(
+                        EmptyPlaceholder(
                             message = stringResource(id = R.string.library_empty),
                             icon = painterResource(id = R.drawable.empty_library),
                             modifier = Modifier.align(Alignment.Center),

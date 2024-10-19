@@ -35,8 +35,8 @@ import ua.acclorite.book_story.domain.use_case.book.UpdateCoverImageOfBook
 import ua.acclorite.book_story.domain.use_case.history.InsertHistory
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.domain.util.UIViewModel
 import ua.acclorite.book_story.presentation.core.navigation.Screen
-import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import java.util.Date
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -53,7 +53,7 @@ class BookInfoViewModel @Inject constructor(
     private val canResetCover: CanResetCover,
     private val resetCoverImage: ResetCoverImage,
     private val checkForTextUpdate: CheckForTextUpdate,
-) : UiViewModel<BookInfoState, BookInfoEvent>() {
+) : UIViewModel<BookInfoState, BookInfoEvent>() {
 
     companion object {
         @Composable

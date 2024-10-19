@@ -19,8 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
-import ua.acclorite.book_story.presentation.core.components.custom_bottom_sheet.CustomBottomSheet
+import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.core.components.modal_bottom_sheet.ModalBottomSheet
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderEvent
 import ua.acclorite.book_story.presentation.screens.reader.data.ReaderViewModel
@@ -73,7 +73,7 @@ fun ReaderSettingsBottomSheet() {
         )
     }
 
-    CustomBottomSheet(
+    ModalBottomSheet(
         hasFixedHeight = true,
         scrimColor = animatedScrimColor,
         modifier = Modifier
@@ -89,7 +89,7 @@ fun ReaderSettingsBottomSheet() {
         HorizontalPager(state = pagerState) { page ->
             when (page) {
                 0 -> {
-                    CustomLazyColumn(Modifier.fillMaxSize()) {
+                    LazyColumnWithScrollbar(Modifier.fillMaxSize()) {
                         PaddingSubcategory(
                             titleColor = { MaterialTheme.colorScheme.onSurface },
                             topPadding = 22.dp,
@@ -115,7 +115,7 @@ fun ReaderSettingsBottomSheet() {
                 }
 
                 1 -> {
-                    CustomLazyColumn(Modifier.fillMaxSize()) {
+                    LazyColumnWithScrollbar(Modifier.fillMaxSize()) {
                         FontSubcategory(
                             titleColor = { MaterialTheme.colorScheme.onSurface },
                             topPadding = 16.dp,
@@ -136,7 +136,7 @@ fun ReaderSettingsBottomSheet() {
                 }
 
                 2 -> {
-                    CustomLazyColumn(Modifier.fillMaxSize()) {
+                    LazyColumnWithScrollbar(Modifier.fillMaxSize()) {
                         ColorsSubcategory(
                             showTitle = false,
                             showDivider = false,

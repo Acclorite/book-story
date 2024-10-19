@@ -9,9 +9,9 @@ import androidx.compose.ui.res.stringResource
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.is_messages.IsEmpty
-import ua.acclorite.book_story.presentation.core.components.is_messages.IsError
+import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.placeholder.EmptyPlaceholder
+import ua.acclorite.book_story.presentation.core.components.placeholder.ErrorPlaceholder
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
@@ -35,13 +35,13 @@ fun BoxScope.BrowseEmptyPlaceholder(
     val onEvent = BrowseViewModel.getEvent()
     val onNavigate = LocalNavigator.current
 
-    CustomAnimatedVisibility(
+    AnimatedVisibility(
         visible = state.value.isError,
         modifier = Modifier.align(Alignment.Center),
         enter = Transitions.DefaultTransitionIn,
         exit = Transitions.NoExitAnimation
     ) {
-        IsError(
+        ErrorPlaceholder(
             modifier = Modifier.align(Alignment.Center),
             errorMessage = stringResource(id = R.string.error_permission),
             icon = painterResource(id = R.drawable.error),
@@ -53,7 +53,7 @@ fun BoxScope.BrowseEmptyPlaceholder(
         }
     }
 
-    CustomAnimatedVisibility(
+    AnimatedVisibility(
         visible = !state.value.isLoading
                 && isFilesEmpty
                 && !state.value.isError
@@ -63,7 +63,7 @@ fun BoxScope.BrowseEmptyPlaceholder(
         enter = Transitions.DefaultTransitionIn,
         exit = Transitions.NoExitAnimation
     ) {
-        IsEmpty(
+        EmptyPlaceholder(
             message = stringResource(id = R.string.browse_empty),
             icon = painterResource(id = R.drawable.empty_browse),
             actionTitle = stringResource(id = R.string.get_help),

@@ -25,7 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.SelectableFile
-import ua.acclorite.book_story.presentation.core.components.CustomCheckbox
+import ua.acclorite.book_story.presentation.core.components.common.CircularCheckbox
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.ui.FadeTransitionPreservingSpace
 
@@ -68,7 +68,7 @@ fun BrowseListItem(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Spacer(modifier = Modifier.width(16.dp))
 
-                        CustomCheckbox(
+                        CircularCheckbox(
                             selected = file.isSelected,
                             containerColor = MaterialTheme.colorScheme.surface,
                             size = 18.dp
@@ -87,7 +87,7 @@ fun BrowseListItem(
 
                     Box(contentAlignment = Alignment.Center) {
                         FadeTransitionPreservingSpace(hasSelectedFiles) {
-                            CustomCheckbox(
+                            CircularCheckbox(
                                 selected = file.isSelected,
                                 containerColor = MaterialTheme.colorScheme.surface,
                                 size = 18.dp

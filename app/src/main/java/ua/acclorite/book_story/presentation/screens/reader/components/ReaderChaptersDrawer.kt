@@ -11,9 +11,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.custom_drawer.CustomModalDrawer
-import ua.acclorite.book_story.presentation.core.components.custom_drawer.CustomModalDrawerSelectableItem
-import ua.acclorite.book_story.presentation.core.components.custom_drawer.CustomModalDrawerTitleItem
+import ua.acclorite.book_story.presentation.core.components.modal_drawer.ModalDrawer
+import ua.acclorite.book_story.presentation.core.components.modal_drawer.ModalDrawerSelectableItem
+import ua.acclorite.book_story.presentation.core.components.modal_drawer.ModalDrawerTitleItem
 import ua.acclorite.book_story.presentation.core.util.calculateProgress
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryViewModel
@@ -33,12 +33,12 @@ fun ReaderChaptersDrawer() {
     val onLibraryEvent = LibraryViewModel.getEvent()
     val onHistoryEvent = HistoryViewModel.getEvent()
 
-    CustomModalDrawer(
+    ModalDrawer(
         show = state.value.showChaptersDrawer,
         startIndex = state.value.currentChapter?.index ?: 0,
         onDismissRequest = { onEvent(ReaderEvent.OnShowHideChaptersDrawer(false)) },
         header = {
-            CustomModalDrawerTitleItem(
+            ModalDrawerTitleItem(
                 title = stringResource(id = R.string.chapters)
             )
         }
@@ -48,7 +48,7 @@ fun ReaderChaptersDrawer() {
                 chapter.index == state.value.currentChapter?.index
             }
 
-            CustomModalDrawerSelectableItem(
+            ModalDrawerSelectableItem(
                 selected = selected,
                 onClick = {
                     onEvent(

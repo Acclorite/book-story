@@ -25,10 +25,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.CustomLazyColumn
-import ua.acclorite.book_story.presentation.core.components.GoBackButton
-import ua.acclorite.book_story.presentation.core.components.collapsibleUntilExitScrollBehaviorWithLazyListState
+import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.common.GoBackButton
+import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.core.components.top_bar.collapsibleTopAppBarScrollBehavior
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.screens.about.nested.licenses.components.LicenseItem
@@ -53,14 +53,14 @@ private fun LicensesScreen() {
     val state = LicensesViewModel.getState()
     val onNavigate = LocalNavigator.current
 
-    val scrollState = TopAppBarDefaults.collapsibleUntilExitScrollBehaviorWithLazyListState(
-        state.value.listState
+    val (scrollBehavior, lazyListState) = TopAppBarDefaults.collapsibleTopAppBarScrollBehavior(
+        listState = state.value.listState
     )
 
     Scaffold(
         Modifier
             .fillMaxSize()
-            .nestedScroll(scrollState.first.nestedScrollConnection)
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
             .windowInsetsPadding(WindowInsets.navigationBars),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
@@ -71,7 +71,7 @@ private fun LicensesScreen() {
                 navigationIcon = {
                     GoBackButton(onNavigate = onNavigate)
                 },
-                scrollBehavior = scrollState.first,
+                scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.largeTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -79,16 +79,16 @@ private fun LicensesScreen() {
             )
         }
     ) { paddingValues ->
-        CustomAnimatedVisibility(
+        AnimatedVisibility(
             visible = state.value.licenses.isNotEmpty(),
             enter = fadeIn(tween(300)),
             exit = fadeOut(tween(300))
         ) {
-            CustomLazyColumn(
+            LazyColumnWithScrollbar(
                 Modifier
                     .fillMaxSize()
                     .padding(top = paddingValues.calculateTopPadding()),
-                state = scrollState.second
+                state = lazyListState
             ) {
                 item {
                     Spacer(modifier = Modifier.height(12.dp))

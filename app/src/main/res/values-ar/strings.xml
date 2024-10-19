@@ -71,7 +71,6 @@
     <string name="error_something_went_wrong_with_file">حدث خطأ ما. من فضلك تحقق إن كان ملف الكتاب ليس تالف.</string>
     <string name="browse_empty">قم بتوسيع مجموعة كتب مكتبتك باستخدام تنزيلاتك</string>
     <string name="selected_items_count_query">تم اختيار %1$s</string>
-    <string name="search_query">البحث عن %1$s…</string>
     <string name="general_settings_desc">لغة التطبيق</string>
     <string name="appearance_settings_desc">السمات، الألوان</string>
     <string name="font_reader_settings">خط</string>
@@ -83,14 +82,10 @@
     <string name="text_reader_settings">نص</string>
     <string name="yes_go_to_help">نعم، اذهب إلى المساعدة</string>
     <string name="colors_appearance_settings">الألوان</string>
-    <string name="download">تحميل</string>
     <string name="done">تم</string>
     <string name="enable">تفعيل</string>
     <string name="no">لا</string>
-    <string name="files">الملفات</string>
     <string name="color_preset_selected_query">تم اختيار «%1$s»</string>
-    <string name="books">الكتب</string>
-    <string name="history">التاريخ</string>
     <string name="unknown_author">غير معروف</string>
     <string name="delete">حذف</string>
     <string name="move">نقل</string>

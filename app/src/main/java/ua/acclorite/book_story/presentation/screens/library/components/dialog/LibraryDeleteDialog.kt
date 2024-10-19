@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithContent
+import ua.acclorite.book_story.presentation.core.components.dialog.DialogWithContent
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseViewModel
@@ -26,7 +26,7 @@ fun LibraryDeleteDialog() {
     val onBrowseEvent = BrowseViewModel.getEvent()
     val onHistoryEvent = HistoryViewModel.getEvent()
 
-    CustomDialogWithContent(
+    DialogWithContent(
         title = stringResource(id = R.string.delete_books),
         imageVectorIcon = Icons.Outlined.DeleteOutline,
         description = stringResource(

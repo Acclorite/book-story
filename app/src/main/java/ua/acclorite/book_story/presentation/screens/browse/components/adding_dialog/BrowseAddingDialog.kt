@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.NullableBook
-import ua.acclorite.book_story.presentation.core.components.custom_dialog.CustomDialogWithLazyColumn
+import ua.acclorite.book_story.presentation.core.components.dialog.DialogWithLazyColumn
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
@@ -39,7 +39,7 @@ fun BrowseAddingDialog() {
     val onLibraryEvent = LibraryViewModel.getEvent()
     val onNavigate = LocalNavigator.current
 
-    CustomDialogWithLazyColumn(
+    DialogWithLazyColumn(
         title = stringResource(id = R.string.add_books),
         imageVectorIcon = Icons.Default.AddChart,
         description = stringResource(id = R.string.add_books_description),

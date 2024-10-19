@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.model.Badge
-import ua.acclorite.book_story.presentation.core.components.CustomIconButton
+import ua.acclorite.book_story.presentation.core.components.common.IconButton
 
 /**
  * About Badge Item.
@@ -20,7 +20,7 @@ fun AboutBadgeItem(
     onClick: () -> Unit
 ) {
     if (badge.imageVector == null && badge.drawable != null) {
-        CustomIconButton(
+        IconButton(
             modifier = Modifier.size(22.dp),
             icon = badge.drawable,
             contentDescription = badge.contentDescription,
@@ -30,7 +30,7 @@ fun AboutBadgeItem(
             onClick()
         }
     } else if (badge.imageVector != null && badge.drawable == null) {
-        CustomIconButton(
+        IconButton(
             modifier = Modifier.size(22.dp),
             icon = badge.imageVector,
             contentDescription = badge.contentDescription,

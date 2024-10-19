@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Book
 import ua.acclorite.book_story.domain.util.Selected
-import ua.acclorite.book_story.presentation.core.components.CustomCoverImage
+import ua.acclorite.book_story.presentation.core.components.common.AsyncImage
 import ua.acclorite.book_story.presentation.core.util.calculateProgress
 
 /**
@@ -101,7 +101,7 @@ fun LibraryBookItem(
                 )
         ) {
             if (book.first.coverImage != null) {
-                CustomCoverImage(
+                AsyncImage(
                     uri = book.first.coverImage!!,
                     modifier = Modifier
                         .fillMaxSize()

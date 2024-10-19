@@ -60,10 +60,10 @@ import sh.calvin.reorderable.rememberReorderableLazyListState
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.ColorPreset
 import ua.acclorite.book_story.domain.util.Selected
-import ua.acclorite.book_story.presentation.core.components.CategoryTitle
-import ua.acclorite.book_story.presentation.core.components.CustomAnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.CustomIconButton
-import ua.acclorite.book_story.presentation.screens.settings.components.ColorPickerWithTitle
+import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
+import ua.acclorite.book_story.presentation.core.components.common.IconButton
+import ua.acclorite.book_story.presentation.core.components.settings.ColorPickerWithTitle
+import ua.acclorite.book_story.presentation.screens.settings.components.SettingsCategoryTitle
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsEvent
 import ua.acclorite.book_story.presentation.screens.settings.data.SettingsViewModel
 import ua.acclorite.book_story.presentation.ui.FadeTransitionPreservingSpace
@@ -97,7 +97,7 @@ fun ColorPresetSetting(
             .fillMaxWidth()
             .padding(vertical = verticalPadding)
     ) {
-        CategoryTitle(
+        SettingsCategoryTitle(
             title = stringResource(id = R.string.color_preset_option),
             padding = horizontalPadding
         )
@@ -313,7 +313,7 @@ private fun ReorderableCollectionItemScope.ColorPresetSettingItem(
             .padding(horizontal = 16.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        CustomAnimatedVisibility(
+        AnimatedVisibility(
             visible = isSelected,
             enter = if (enableAnimation) expandHorizontally() + fadeIn()
             else Transitions.NoEnterAnimation,
@@ -338,7 +338,7 @@ private fun ReorderableCollectionItemScope.ColorPresetSettingItem(
             maxLines = 1
         )
 
-        CustomAnimatedVisibility(
+        AnimatedVisibility(
             visible = isSelected && canDrag,
             enter = if (enableAnimation) expandHorizontally() + fadeIn()
             else Transitions.NoEnterAnimation,
@@ -437,7 +437,7 @@ private fun ColorPresetSettingConfigurationItem(
         Spacer(modifier = Modifier.width(12.dp))
 
         FadeTransitionPreservingSpace(visible = canDelete) {
-            CustomIconButton(
+            IconButton(
                 modifier = Modifier.size(24.dp),
                 icon = Icons.Default.DeleteOutline,
                 contentDescription = R.string.delete_color_preset_content_desc,
@@ -449,7 +449,7 @@ private fun ColorPresetSettingConfigurationItem(
             }
         }
 
-        CustomIconButton(
+        IconButton(
             modifier = Modifier.size(24.dp),
             icon = Icons.Default.Shuffle,
             contentDescription = R.string.shuffle_color_preset_content_desc,
@@ -459,7 +459,7 @@ private fun ColorPresetSettingConfigurationItem(
             onShuffle()
         }
 
-        CustomIconButton(
+        IconButton(
             modifier = Modifier.size(24.dp),
             icon = Icons.Default.Add,
             contentDescription = R.string.create_color_preset_content_desc,

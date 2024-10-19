@@ -19,8 +19,8 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import ua.acclorite.book_story.presentation.core.components.bottom_navigation_bar.BottomNavigationBar
-import ua.acclorite.book_story.presentation.core.components.custom_navigation_rail.CustomNavigationRail
+import ua.acclorite.book_story.presentation.core.components.navigation_bar.NavigationBar
+import ua.acclorite.book_story.presentation.core.components.navigation_rail.NavigationRail
 import ua.acclorite.book_story.presentation.core.navigation.NavigationHost
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.data.MainEvent
@@ -131,10 +131,10 @@ class Activity : AppCompatActivity() {
                                 Screen.Browse.getRoute()
                             ),
                             bottomBar = {
-                                BottomNavigationBar()
+                                NavigationBar()
                             },
                             navigationRail = {
-                                CustomNavigationRail()
+                                NavigationRail()
                             }
                         ) {
                             // Library

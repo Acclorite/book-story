@@ -18,8 +18,8 @@ import ua.acclorite.book_story.domain.use_case.book.DeleteBooks
 import ua.acclorite.book_story.domain.use_case.book.GetBooks
 import ua.acclorite.book_story.domain.use_case.book.UpdateBook
 import ua.acclorite.book_story.domain.use_case.history.InsertHistory
+import ua.acclorite.book_story.domain.util.UIViewModel
 import ua.acclorite.book_story.presentation.core.navigation.Screen
-import ua.acclorite.book_story.presentation.core.util.UiViewModel
 import java.util.Date
 import javax.inject.Inject
 
@@ -29,7 +29,7 @@ class LibraryViewModel @Inject constructor(
     private val updateBook: UpdateBook,
     private val deleteBooks: DeleteBooks,
     private val insertHistory: InsertHistory
-) : UiViewModel<LibraryState, LibraryEvent>() {
+) : UIViewModel<LibraryState, LibraryEvent>() {
 
     companion object {
         @Composable

@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.core.components.CustomCoverImage
+import ua.acclorite.book_story.presentation.core.components.common.AsyncImage
 
 /**
  * Background of the BookInfoScreen.
@@ -21,7 +21,7 @@ import ua.acclorite.book_story.presentation.core.components.CustomCoverImage
 fun BookInfoBackground(height: Dp, image: Uri) {
     val background = MaterialTheme.colorScheme.surface
 
-    CustomCoverImage(
+    AsyncImage(
         uri = image,
         animationDurationMillis = 300,
         contentDescription = null,
