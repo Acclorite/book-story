@@ -41,11 +41,7 @@
     <string name="retry">Tentar novamente</string>
     <string name="confirm">Confirmar</string>
     <string name="next">Próximo</string>
-    <string name="download">Baixar</string>
     <string name="share">Compartilhar</string>
-    <string name="files">arquivos</string>
-    <string name="books">livros</string>
-    <string name="history">histórico</string>
     <string name="unknown_author">Desconhecido</string>
     <string name="reading_tab">Lendo</string>
     <string name="planning_tab">Planejando</string>

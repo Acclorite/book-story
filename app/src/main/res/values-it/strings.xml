@@ -57,7 +57,6 @@
     <string name="enable">Abilita</string>
     <string name="web_search">Ricerca web</string>
     <string name="dark_theme_on">Abilitato</string>
-    <string name="download">Scarica</string>
     <string name="confirm">Conferma</string>
     <string name="start_permissions_notifications">Permesso per le notifiche</string>
     <string name="credits_icon">Icone</string>
@@ -67,7 +66,6 @@
     <string name="storage_permission">Concedi permesso?</string>
     <string name="font_style_italic">Corsivo</string>
     <string name="read_more">Devi leggere di più!</string>
-    <string name="files">file</string>
     <string name="error_query">Errore: %1$s</string>
     <string name="read_done">Ben fatto, hai letto tutto il libro!</string>
     <string name="error_no_translator">Nessuna app traduttore trovata.</string>
@@ -84,7 +82,6 @@
     <string name="error_no_dictionary">Nessuna app dizionario trovata.</string>
     <string name="storage_permission_description">Abbiamo bisogno dei permessi di archiviazione per cercare i tuoi libri nel dispositivo. Senza questo permesso, non sarai in grado di aggiungere i libri.</string>
     <string name="error_something_went_wrong_with_file">Qualcosa è andato storto. Per favore controllare che il file di questo libro non sia danneggiato.</string>
-    <string name="history">cronologia</string>
     <string name="done">Fatto</string>
     <string name="retry">Riprova</string>
     <string name="share">Condividi</string>
@@ -92,7 +89,6 @@
     <string name="no">No</string>
     <string name="delete_color_preset_content_desc">Elimina preset di colori</string>
     <string name="files_structure_directory">Cartelle</string>
-    <string name="search_query">Cerca %1$s…</string>
     <string name="pure_dark_on">Abilitato</string>
     <string name="confirm_update">Conferma aggiornamento?</string>
     <string name="help_screen">Aiuto</string>
@@ -173,7 +169,6 @@
     <string name="browse_layout_list">Lista</string>
     <string name="credits_translation">Traduzione</string>
     <string name="directory_icon_content_desc">Cartella</string>
-    <string name="books">libri</string>
     <string name="move_book">Spostare libro?</string>
     <string name="settings_screen">Impostazioni</string>
     <string name="add_books">Aggiungere libri?</string>
