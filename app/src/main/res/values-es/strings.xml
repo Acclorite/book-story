@@ -365,4 +365,6 @@
     <string name="perception_expander_padding_option">Sangrías en la línea de mejoran la percepción.</string>
     <string name="perception_expander_thickness_option">Grosor de la línea mejora la percepción</string>
     <string name="more_content_desc">Más</string>
+    <string name="random_string">Aleatorio</string>
+    <string name="search_field_empty">Buscar…</string>
 </resources>
