@@ -29,7 +29,6 @@
     <string name="library_empty">अपनी पसंदीदा पुस्तकें पढ़ें और उन्हें श्रेणियों के बीच क्रमित करें</string>
     <string name="history_empty">अपनी आखिरी पढ़ी हुई किताब से अपनी पढ़ने की यात्रा की एक नई महान कहानी के पन्ने खोलिए</string>
     <string name="selected_items_count_query">%1$s चुना हुआ है</string>
-    <string name="search_query">%1$s खोजें…</string>
     <string name="color_preset_selected_query">«%1$s» चुना गया है</string>
     <string name="cancel">रद्द करें</string>
     <string name="grant_permission">अनुमति दें</string>
@@ -49,13 +48,11 @@
     <string name="next">अगला</string>
     <string name="yes_go_to_help">हां, सहायता पर जाएं</string>
     <string name="no">नहीं</string>
-    <string name="download">डाउनलोड</string>
     <string name="done">समाप्त</string>
     <string name="enable">सक्षम करें</string>
     <string name="web_search">वेब खोज</string>
     <string name="share">शेयर करें</string>
     <string name="proceed">आगे बढ़ें</string>
-    <string name="files">फ़ाइलें</string>
     <string name="unknown_author">अज्ञात</string>
     <string name="read_more">आपको अधिक पढ़ना चाहिए !</string>
     <string name="read_keep">इसे जारी रखो!</string>
@@ -123,8 +120,6 @@
     <string name="move">हटाना</string>
     <string name="delete">मिटाना</string>
     <string name="start">शुरू</string>
-    <string name="books">किताबें</string>
-    <string name="history">इतिहास</string>
     <string name="reset_cover">कवर छवि रीसेट करें</string>
     <string name="change_cover">कवर छवि बदलें</string>
     <string name="dark_theme_option">डार्क थीम</string>
