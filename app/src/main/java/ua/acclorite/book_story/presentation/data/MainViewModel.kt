@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.domain.use_case.data_store.ChangeLanguage
 import ua.acclorite.book_story.domain.use_case.data_store.GetAllSettings
 import ua.acclorite.book_story.domain.use_case.data_store.SetDatastore
@@ -395,7 +396,7 @@ class MainViewModel @Inject constructor(
             isSettingsReady.update { true }
         }
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Main) {
             combine(
                 event.libraryViewModelReady,
                 event.settingsViewModelReady
@@ -415,7 +416,7 @@ class MainViewModel @Inject constructor(
             values.all { it }
         }
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Main) {
             isReady.first { bool ->
                 if (bool) {
                     _isReady.update {
@@ -428,7 +429,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun handleLanguageUpdate(event: MainEvent.OnChangeLanguage) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.Main.immediate) {
             changeLanguage.execute(event.value)
             updateStateWithSavedHandle {
                 it.copy(language = event.value)
@@ -460,7 +461,7 @@ class MainViewModel @Inject constructor(
         value: V,
         updateState: V.(MainState) -> MainState
     ) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Main.immediate) {
             setDatastore.execute(key = key, value = value)
             updateStateWithSavedHandle {
                 value.updateState(it)
@@ -471,12 +472,14 @@ class MainViewModel @Inject constructor(
     /**
      * Updates [MainState] along with [SavedStateHandle].
      */
-    private fun updateStateWithSavedHandle(
+    private suspend fun updateStateWithSavedHandle(
         function: (MainState) -> MainState
     ) {
-        _state.update {
-            stateHandle[Constants.provideMainState()] = function(it)
-            function(it)
+        withContext(Dispatchers.Main.immediate) {
+            _state.update {
+                stateHandle[Constants.provideMainState()] = function(it)
+                function(it)
+            }
         }
     }
 }
