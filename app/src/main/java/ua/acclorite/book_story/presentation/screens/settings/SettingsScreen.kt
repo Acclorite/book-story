@@ -8,10 +8,10 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.MenuBook
-import androidx.compose.material.icons.filled.DisplaySettings
-import androidx.compose.material.icons.filled.Explore
-import androidx.compose.material.icons.filled.Palette
+import androidx.compose.material.icons.outlined.DisplaySettings
+import androidx.compose.material.icons.outlined.Explore
+import androidx.compose.material.icons.outlined.LocalLibrary
+import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
@@ -76,8 +76,8 @@ private fun SettingsScreen() {
 
             item {
                 SettingsCategoryItem(
-                    icon = Icons.Default.DisplaySettings,
-                    text = stringResource(id = R.string.general_settings),
+                    icon = Icons.Outlined.DisplaySettings,
+                    title = stringResource(id = R.string.general_settings),
                     description = stringResource(id = R.string.general_settings_desc)
                 ) {
                     onNavigate {
@@ -88,8 +88,8 @@ private fun SettingsScreen() {
 
             item {
                 SettingsCategoryItem(
-                    icon = Icons.Default.Palette,
-                    text = stringResource(id = R.string.appearance_settings),
+                    icon = Icons.Outlined.Palette,
+                    title = stringResource(id = R.string.appearance_settings),
                     description = stringResource(id = R.string.appearance_settings_desc)
                 ) {
                     onNavigate {
@@ -100,8 +100,8 @@ private fun SettingsScreen() {
 
             item {
                 SettingsCategoryItem(
-                    icon = Icons.AutoMirrored.Filled.MenuBook,
-                    text = stringResource(id = R.string.reader_settings),
+                    icon = Icons.Outlined.LocalLibrary,
+                    title = stringResource(id = R.string.reader_settings),
                     description = stringResource(id = R.string.reader_settings_desc)
                 ) {
                     onNavigate {
@@ -112,8 +112,8 @@ private fun SettingsScreen() {
 
             item {
                 SettingsCategoryItem(
-                    icon = Icons.Default.Explore,
-                    text = stringResource(id = R.string.browse_settings),
+                    icon = Icons.Outlined.Explore,
+                    title = stringResource(id = R.string.browse_settings),
                     description = stringResource(id = R.string.browse_settings_desc)
                 ) {
                     onNavigate {
