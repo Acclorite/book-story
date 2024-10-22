@@ -21,7 +21,7 @@
     <string name="browse_screen">Огляд</string>
     <string name="settings_screen">Налаштування</string>
     <string name="about_screen">Про застосунок</string>
-    <string name="help_screen">Допомога</string>
+    <string name="help_screen">Довідка</string>
 
     <!-- Dialog Labels -->
     <string name="storage_permission">Надати Дозвіл?</string>
@@ -158,7 +158,7 @@
     <string name="retry">Ще раз</string>
     <string name="confirm">Підтвердити</string>
     <string name="next">Далі</string>
-    <string name="yes_go_to_help">Так, перейти в Допомога</string>
+    <string name="yes_go_to_help">Так, перейти в Довідку</string>
     <string name="no">Ні</string>
     <string name="done">Готово</string>
     <string name="enable">Увімкнути</string>
@@ -583,7 +583,7 @@
     <string name="start_done">Все готово!</string>
     <string name="start_done_desc">
         Ви успішно закінчили базове налаштовування застосунку.
-        Бажаєте дізнатися, як користуватися застосунком, прочитавши екран Допомоги?
+        Бажаєте дізнатися, як користуватися застосунком, прочитавши екран Довідки?
     </string>
 
     <!-- History -->
