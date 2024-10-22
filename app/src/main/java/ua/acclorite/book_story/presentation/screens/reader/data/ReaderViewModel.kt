@@ -439,6 +439,9 @@ class ReaderViewModel @Inject constructor(
                         yield()
 
                         val result = checkForTextUpdate.execute(bookId = _state.value.book.id)
+
+                        yield()
+
                         when (result) {
                             is Resource.Success -> {
                                 if (result.data == null) {
@@ -601,7 +604,6 @@ class ReaderViewModel @Inject constructor(
             }
 
             eventJob.cancel()
-            eventJob.join()
             eventJob = SupervisorJob()
         }
     }
@@ -673,9 +675,8 @@ class ReaderViewModel @Inject constructor(
         return show || !fullscreenMode
     }
 
-    private suspend fun clear() {
+    private fun clear() {
         eventJob.cancel()
-        eventJob.join()
         eventJob = SupervisorJob()
     }
 }
