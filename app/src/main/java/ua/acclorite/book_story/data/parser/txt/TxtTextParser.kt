@@ -10,7 +10,7 @@ import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.domain.model.ChapterWithText
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
-import ua.acclorite.book_story.presentation.core.util.clearMarkdown
+import ua.acclorite.book_story.presentation.core.util.clearAllMarkdown
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -42,8 +42,11 @@ class TxtTextParser @Inject constructor() : TextParser {
                 return Resource.Error(UIText.StringResource(R.string.error_file_empty))
             }
 
-            val title = lines.first().clearMarkdown()
-            lines.removeAt(0)
+            val title = lines.first().clearAllMarkdown().let { title ->
+                lines.removeAt(0)
+                if (title.isBlank()) return@let "Chapter 1"
+                return@let title
+            }
 
             Log.i(TXT_TAG, "Successfully finished TXT parsing.")
             Resource.Success(

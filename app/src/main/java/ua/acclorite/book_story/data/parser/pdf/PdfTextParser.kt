@@ -12,7 +12,7 @@ import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.domain.model.ChapterWithText
 import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.domain.util.UIText
-import ua.acclorite.book_story.presentation.core.util.clearMarkdown
+import ua.acclorite.book_story.presentation.core.util.clearAllMarkdown
 import java.io.File
 import javax.inject.Inject
 
@@ -121,8 +121,11 @@ class PdfTextParser @Inject constructor(
                 return Resource.Error(UIText.StringResource(R.string.error_file_empty))
             }
 
-            val title = strings.first().clearMarkdown()
-            strings.removeAt(0)
+            val title = strings.first().clearAllMarkdown().let { title ->
+                strings.removeAt(0)
+                if (title.isBlank()) return@let "Chapter 1"
+                return@let title
+            }
 
             Log.i(PDF_TAG, "Successfully finished PDF parsing.")
             Resource.Success(

@@ -24,5 +24,9 @@ fun Float.coerceAndPreventNaN(): Float {
 }
 
 fun String.clearMarkdown(): String {
-    return replace(Regex("_|\\*\\*"), "")
+    return replace(Regex("(_+)|(\\*+)"), "")
+}
+
+fun String.clearAllMarkdown(): String {
+    return replace(Regex("(_+)|(\\*+)|(#+)"), "").trim()
 }
