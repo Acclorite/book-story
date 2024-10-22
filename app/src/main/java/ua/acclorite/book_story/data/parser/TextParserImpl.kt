@@ -60,6 +60,10 @@ class TextParserImpl @Inject constructor(
                 htmlTextParser.parse(file)
             }
 
+            ".md" -> {
+                htmlTextParser.parse(file)
+            }
+
             else -> {
                 Log.e(TEXT_PARSER, "Wrong file format, could not find supported extension.")
                 Resource.Error(UIText.StringResource(R.string.error_wrong_file_format))

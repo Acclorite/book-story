@@ -55,6 +55,10 @@ class FileParserImpl @Inject constructor(
                 htmlFileParser.parse(file)
             }
 
+            ".md" -> {
+                txtFileParser.parse(file)
+            }
+
             else -> {
                 Log.e(FILE_PARSER, "Wrong file format, could not find supported extension.")
                 null

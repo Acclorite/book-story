@@ -7,5 +7,6 @@ fun Constants.provideSupportedExtensions() = listOf(
     ".txt",
     ".zip",
     ".html",
-    ".htm"
+    ".htm",
+    ".md"
 )
