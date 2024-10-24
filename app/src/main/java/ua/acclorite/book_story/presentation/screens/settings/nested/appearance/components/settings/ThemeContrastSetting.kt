@@ -14,7 +14,6 @@ import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.ui.BookStoryTheme
 import ua.acclorite.book_story.presentation.ui.ExpandingTransition
-import ua.acclorite.book_story.presentation.ui.Theme
 import ua.acclorite.book_story.presentation.ui.ThemeContrast
 import ua.acclorite.book_story.presentation.ui.isDark
 import ua.acclorite.book_story.presentation.ui.isPureDark
@@ -31,7 +30,7 @@ fun ThemeContrastSetting() {
     val themeContrastTheme = remember { mutableStateOf(state.value.theme) }
 
     LaunchedEffect(state.value.theme) {
-        if (themeContrastTheme.value != state.value.theme && state.value.theme != Theme.DYNAMIC) {
+        if (state.value.theme.hasThemeContrast) {
             themeContrastTheme.value = state.value.theme
         }
     }
@@ -42,10 +41,10 @@ fun ThemeContrastSetting() {
         isPureDark = state.value.pureDark.isPureDark(context = LocalContext.current),
         themeContrast = state.value.themeContrast
     ) {
-        ExpandingTransition(visible = state.value.theme != Theme.DYNAMIC) {
+        ExpandingTransition(visible = state.value.theme.hasThemeContrast) {
             SegmentedButtonWithTitle(
                 title = stringResource(id = R.string.theme_contrast_option),
-                enabled = state.value.theme != Theme.DYNAMIC,
+                enabled = state.value.theme.hasThemeContrast,
                 buttons = ThemeContrast.entries.map {
                     ButtonItem(
                         id = it.toString(),

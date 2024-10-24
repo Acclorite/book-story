@@ -2,7 +2,6 @@
 
 package ua.acclorite.book_story.presentation.data
 
-import android.os.Build
 import android.os.Parcelable
 import androidx.annotation.Keep
 import androidx.compose.runtime.Immutable
@@ -49,10 +48,7 @@ data class MainState(
             else "en"// Default language.
         }
     },
-    val theme: Theme = provideDefaultValue {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Theme.DYNAMIC
-        else Theme.BLUE
-    },
+    val theme: Theme = provideDefaultValue { Theme.entries().first() },
     val darkTheme: DarkTheme = provideDefaultValue { DarkTheme.FOLLOW_SYSTEM },
     val pureDark: PureDark = provideDefaultValue { PureDark.OFF },
     val absoluteDark: Boolean = provideDefaultValue { false },

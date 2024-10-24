@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.screens.settings.nested.appearance.components.settings
 
-import android.os.Build
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -11,6 +10,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,7 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -28,7 +28,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,10 +37,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
-import ua.acclorite.book_story.presentation.core.constants.Constants
-import ua.acclorite.book_story.presentation.core.constants.provideThemes
 import ua.acclorite.book_story.presentation.data.MainEvent
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.settings.components.SettingsCategoryTitle
@@ -53,7 +49,7 @@ import ua.acclorite.book_story.presentation.ui.isPureDark
 
 /**
  * Theme setting.
- * Lets user change app's theme from available in [provideThemes].
+ * Lets user change app's theme from available in [Theme.entries].
  */
 @Composable
 fun ThemeSetting(
@@ -62,11 +58,6 @@ fun ThemeSetting(
 ) {
     val state = MainViewModel.getState()
     val onMainEvent = MainViewModel.getEvent()
-
-    val themes = remember {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Constants.provideThemes()
-        else Constants.provideThemes().dropWhile { it.first == Theme.DYNAMIC }
-    }
 
     Column(
         Modifier
@@ -80,28 +71,21 @@ fun ThemeSetting(
         Spacer(modifier = Modifier.height(10.dp))
         LazyRow(
             Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(horizontal = horizontalPadding)
         ) {
-            itemsIndexed(
-                themes,
-                key = { _, themeEntry -> themeEntry.first.name }
-            ) { index, themeEntry ->
-                if (index == 0) {
-                    Spacer(modifier = Modifier.width(horizontalPadding))
-                }
-
+            items(
+                Theme.entries(),
+                key = { theme -> theme.name }
+            ) { theme ->
                 ThemeSettingItem(
-                    theme = themeEntry,
+                    theme = theme,
                     darkTheme = state.value.darkTheme.isDark(),
                     themeContrast = state.value.themeContrast,
                     isPureDark = state.value.pureDark.isPureDark(context = LocalContext.current),
-                    selected = state.value.theme == themeEntry.first
+                    selected = state.value.theme == theme
                 ) {
-                    onMainEvent(MainEvent.OnChangeTheme(themeEntry.first.toString()))
-                }
-
-                if (index == themes.lastIndex) {
-                    Spacer(modifier = Modifier.width(horizontalPadding))
+                    onMainEvent(MainEvent.OnChangeTheme(theme.name))
                 }
             }
         }
@@ -121,7 +105,7 @@ fun ThemeSetting(
  */
 @Composable
 private fun ThemeSettingItem(
-    theme: Pair<Theme, UIText>,
+    theme: Theme,
     darkTheme: Boolean,
     isPureDark: Boolean,
     themeContrast: ThemeContrast,
@@ -129,10 +113,10 @@ private fun ThemeSettingItem(
     onClick: () -> Unit
 ) {
     val colorScheme = animatedColorScheme(
-        theme.first,
-        darkTheme,
-        isPureDark,
-        themeContrast
+        theme = theme,
+        isDark = darkTheme,
+        isPureDark = isPureDark,
+        themeContrast = themeContrast
     )
 
     Column(
@@ -227,7 +211,7 @@ private fun ThemeSettingItem(
         }
         Spacer(modifier = Modifier.height(6.dp))
         Text(
-            text = theme.second.asString(),
+            text = stringResource(id = theme.title),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             style = MaterialTheme.typography.labelLarge,
             overflow = TextOverflow.Ellipsis,

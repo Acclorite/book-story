@@ -1,8 +1,11 @@
 package ua.acclorite.book_story.presentation.ui
 
+import android.os.Build
+import androidx.annotation.StringRes
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.ui.theme.aquaTheme
 import ua.acclorite.book_story.presentation.ui.theme.blackTheme
 import ua.acclorite.book_story.presentation.ui.theme.blueTheme
@@ -15,18 +18,31 @@ import ua.acclorite.book_story.presentation.ui.theme.purpleTheme
 import ua.acclorite.book_story.presentation.ui.theme.redTheme
 import ua.acclorite.book_story.presentation.ui.theme.yellowTheme
 
+
 @Immutable
-enum class Theme {
-    DYNAMIC,
-    BLUE,
-    GREEN,
-    RED,
-    PURPLE,
-    PINK,
-    YELLOW,
-    AQUA,
-    MARSH,
-    LAVENDER,
+enum class Theme(
+    val hasThemeContrast: Boolean,
+    @StringRes val title: Int
+) {
+    DYNAMIC(hasThemeContrast = false, title = R.string.dynamic_theme),
+    BLUE(hasThemeContrast = true, title = R.string.blue_theme),
+    GREEN(hasThemeContrast = true, title = R.string.green_theme),
+    MARSH(hasThemeContrast = true, title = R.string.marsh_theme),
+    RED(hasThemeContrast = true, title = R.string.red_theme),
+    PURPLE(hasThemeContrast = true, title = R.string.purple_theme),
+    LAVENDER(hasThemeContrast = true, title = R.string.lavender_theme),
+    PINK(hasThemeContrast = false, title = R.string.pink_theme),
+    YELLOW(hasThemeContrast = true, title = R.string.yellow_theme),
+    AQUA(hasThemeContrast = true, title = R.string.aqua_theme);
+
+    companion object {
+        fun entries(): List<Theme> {
+            return when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> Theme.entries
+                else -> Theme.entries.dropWhile { it == DYNAMIC }
+            }
+        }
+    }
 }
 
 /**
