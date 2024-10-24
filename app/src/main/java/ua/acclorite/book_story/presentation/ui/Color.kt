@@ -73,7 +73,7 @@ fun colorScheme(
     val colorScheme = when (theme) {
         Theme.DYNAMIC -> {
             /* Dynamic Theme */
-            dynamicTheme(isDark = darkTheme).logTheme(darkTheme = darkTheme)
+            dynamicTheme(isDark = darkTheme)
         }
 
         Theme.BLUE -> {
