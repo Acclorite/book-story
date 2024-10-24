@@ -5,8 +5,8 @@
     <string name="storage_permission_description">نحتاج إذن التخزين لفحص جهازك من أجل الكتب. من دون هذا الإذن، لن تكون قادرا على إضافة كتاب.</string>
     <string name="updates_notification_desc">التحديث %1$s تم نشره للتو! انقر للذهاب الى صفحة الإصدار.</string>
     <string name="move_book_description">اختر الفئة التي تريد نقل هذا الكتاب إليها. سيتم نقل هذا الكتاب إلى الفئة المختارة.</string>
-    <string name="confirm_update_description">بتأكيد هذا، سيتم تحديث نص الكتاب. من فضلك تذكر أين كنت قبل تحديث النص.</string>
-    <string name="update_app_description">تم العثور على إصدار جديد من Book\'s Story. هل تريد تحميله؟ بنقر زر \"تحميل\" سيتم نقلك إلى متصفحك و تحميل آخر تحديث تلقائيا.</string>
+    <string name="confirm_update_description">تحديث نص و فصول هذا الكتاب. ينبغي ان يظل التقدم كما هو ما لم يتم تغيير الفقرات.</string>
+    <string name="update_app_description">تم العثور على إصدار جديد من Book\'s Story. هل تريد الإنتقال الى صفحة الاصدار ؟</string>
     <string name="updates_notification_channel">التحديثات الجديدة</string>
     <string name="updates_notification_title">تحديث جديد ل Book\'s Story!</string>
     <string name="updates_notification_action">تحميل</string>
@@ -240,4 +240,12 @@
     <string name="misc_reader_settings">متنوع</string>
     <string name="padding_reader_settings">مسافة اضافية</string>
     <string name="vertical_padding_option">الحشو العمودي</string>
+    <string name="reading_speed_reader_settings">سرعة القراءة</string>
+    <string name="default_string">الافتراضي</string>
+    <string name="update_book">تحديث الكتاب؟</string>
+    <string name="update_book_description">تم ايجاد تحديث للنص ، التحديث مطلوب لضمان ان احدث اساليب الفرز يتم استخدامها ، لن تفقد تقدمك ما لم تحدث تغييرات كبيرة . هل تريد</string>
+    <string name="proceed">المضي قدما</string>
+    <string name="system_reader_settings">النظام</string>
+    <string name="random_string">عشوائي</string>
+    <string name="search_field_empty">بحث…</string>
 </resources>
