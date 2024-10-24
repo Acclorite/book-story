@@ -10,9 +10,11 @@ import ua.acclorite.book_story.presentation.ui.theme.aquaTheme
 import ua.acclorite.book_story.presentation.ui.theme.blackTheme
 import ua.acclorite.book_story.presentation.ui.theme.blueTheme
 import ua.acclorite.book_story.presentation.ui.theme.dynamicTheme
+import ua.acclorite.book_story.presentation.ui.theme.grayTheme
 import ua.acclorite.book_story.presentation.ui.theme.greenTheme
 import ua.acclorite.book_story.presentation.ui.theme.lavenderTheme
 import ua.acclorite.book_story.presentation.ui.theme.marshTheme
+import ua.acclorite.book_story.presentation.ui.theme.pink2Theme
 import ua.acclorite.book_story.presentation.ui.theme.pinkTheme
 import ua.acclorite.book_story.presentation.ui.theme.purpleTheme
 import ua.acclorite.book_story.presentation.ui.theme.redTheme
@@ -29,9 +31,11 @@ enum class Theme(
     GREEN(hasThemeContrast = true, title = R.string.green_theme),
     MARSH(hasThemeContrast = true, title = R.string.marsh_theme),
     RED(hasThemeContrast = true, title = R.string.red_theme),
+    GRAY(hasThemeContrast = false, title = R.string.gray_theme),
     PURPLE(hasThemeContrast = true, title = R.string.purple_theme),
     LAVENDER(hasThemeContrast = true, title = R.string.lavender_theme),
-    PINK(hasThemeContrast = false, title = R.string.pink_theme),
+    PINK(hasThemeContrast = true, title = R.string.pink_theme),
+    PINK2(hasThemeContrast = false, title = R.string.pink2_theme),
     YELLOW(hasThemeContrast = true, title = R.string.yellow_theme),
     AQUA(hasThemeContrast = true, title = R.string.aqua_theme);
 
@@ -69,7 +73,7 @@ fun colorScheme(
     val colorScheme = when (theme) {
         Theme.DYNAMIC -> {
             /* Dynamic Theme */
-            dynamicTheme(isDark = darkTheme)
+            dynamicTheme(isDark = darkTheme).logTheme(darkTheme = darkTheme)
         }
 
         Theme.BLUE -> {
@@ -97,6 +101,11 @@ fun colorScheme(
             pinkTheme(isDark = darkTheme, themeContrast = themeContrast)
         }
 
+        Theme.PINK2 -> {
+            /* Pink2 Theme */
+            pink2Theme(isDark = darkTheme)
+        }
+
         Theme.LAVENDER -> {
             /* Lavender Theme */
             lavenderTheme(isDark = darkTheme, themeContrast = themeContrast)
@@ -110,6 +119,11 @@ fun colorScheme(
         Theme.RED -> {
             /* Red Theme */
             redTheme(isDark = darkTheme, themeContrast = themeContrast)
+        }
+
+        Theme.GRAY -> {
+            /* Gray Theme */
+            grayTheme(isDark = darkTheme)
         }
 
         Theme.AQUA -> {

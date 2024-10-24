@@ -113,7 +113,7 @@ fun BookStoryTheme(
     }
 
     val colorScheme = colorScheme(
-        theme = Theme.entries().find { it == theme } ?: Theme.BLUE,
+        theme = Theme.entries().find { it == theme } ?: Theme.entries().first(),
         darkTheme = isDark,
         isPureDark = isPureDark,
         themeContrast = themeContrast

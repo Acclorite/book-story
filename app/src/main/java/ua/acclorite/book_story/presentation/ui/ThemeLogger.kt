@@ -27,7 +27,7 @@ fun ColorScheme.logTheme(darkTheme: Boolean): ColorScheme {
 
     Log.i(
         THEME,
-        "Theme:\n" +
+        "Theme $suffix:\n" +
                 "------------------------\n" +
                 primary.convertToVal("primary") +
                 onPrimary.convertToVal("onPrimary") +
