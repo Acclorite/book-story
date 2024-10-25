@@ -1,9 +1,8 @@
 package ua.acclorite.book_story.presentation.screens.settings
 
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -68,12 +67,9 @@ private fun SettingsScreen() {
             Modifier
                 .fillMaxSize()
                 .padding(top = paddingValues.calculateTopPadding()),
-            state = lazyListState
+            state = lazyListState,
+            contentPadding = PaddingValues(top = 16.dp, bottom = 48.dp)
         ) {
-            item {
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-
             item {
                 SettingsCategoryItem(
                     icon = Icons.Outlined.DisplaySettings,
@@ -121,8 +117,6 @@ private fun SettingsScreen() {
                     }
                 }
             }
-
-            item { Spacer(modifier = Modifier.height(48.dp)) }
         }
     }
 }

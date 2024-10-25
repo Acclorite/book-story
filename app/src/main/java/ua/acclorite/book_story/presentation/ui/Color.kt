@@ -28,10 +28,10 @@ enum class Theme(
 ) {
     DYNAMIC(hasThemeContrast = false, title = R.string.dynamic_theme),
     BLUE(hasThemeContrast = true, title = R.string.blue_theme),
+    GRAY(hasThemeContrast = false, title = R.string.gray_theme),
     GREEN(hasThemeContrast = true, title = R.string.green_theme),
     MARSH(hasThemeContrast = true, title = R.string.marsh_theme),
     RED(hasThemeContrast = true, title = R.string.red_theme),
-    GRAY(hasThemeContrast = false, title = R.string.gray_theme),
     PURPLE(hasThemeContrast = true, title = R.string.purple_theme),
     LAVENDER(hasThemeContrast = true, title = R.string.lavender_theme),
     PINK(hasThemeContrast = true, title = R.string.pink_theme),
