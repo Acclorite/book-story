@@ -263,6 +263,8 @@
     <string name="check_for_text_update_option_desc">Automatically check whether there is text update</string>
     <string name="check_for_text_update_toast_option">Show \"text is up-to-date\" toast</string>
     <string name="screen_orientation_option">Screen orientation</string>
+    <string name="custom_screen_brightness_option">Custom brightness</string>
+    <string name="screen_brightness_option">Brightness</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>

@@ -1,6 +1,7 @@
 package ua.acclorite.book_story.presentation.core.util
 
 import android.content.Intent
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 
 fun Intent.launchActivity(
@@ -20,5 +21,12 @@ fun Intent.launchActivity(
         e.printStackTrace()
         error()
         return
+    }
+}
+
+fun ComponentActivity.setBrightness(brightness: Float?) {
+    window.attributes.apply {
+        screenBrightness = brightness ?: WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE
+        window.attributes = this
     }
 }

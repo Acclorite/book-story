@@ -262,6 +262,8 @@
     <string name="check_for_text_update_option_desc">Автоматично перевіряти чи є оновлення тексту</string>
     <string name="check_for_text_update_toast_option">Показувати повідомлення \"текст актуальний\"</string>
     <string name="screen_orientation_option">Орієнтація екрана</string>
+    <string name="custom_screen_brightness_option">Користувацька яскравість</string>
+    <string name="screen_brightness_option">Яскравість</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>

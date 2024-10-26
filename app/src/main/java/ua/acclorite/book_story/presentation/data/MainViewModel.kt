@@ -373,6 +373,22 @@ class MainViewModel @Inject constructor(
                     it.copy(screenOrientation = toReaderScreenOrientation())
                 }
             )
+
+            is MainEvent.OnChangeCustomScreenBrightness -> handleDatastoreUpdate(
+                key = DataStoreConstants.CUSTOM_SCREEN_BRIGHTNESS,
+                value = event.value,
+                updateState = {
+                    it.copy(customScreenBrightness = this)
+                }
+            )
+
+            is MainEvent.OnChangeScreenBrightness -> handleDatastoreUpdate(
+                key = DataStoreConstants.SCREEN_BRIGHTNESS,
+                value = event.value.toDouble(),
+                updateState = {
+                    it.copy(screenBrightness = this.toFloat())
+                }
+            )
         }
     }
 

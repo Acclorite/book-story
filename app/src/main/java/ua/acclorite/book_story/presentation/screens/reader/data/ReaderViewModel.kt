@@ -38,6 +38,7 @@ import ua.acclorite.book_story.domain.util.UIViewModel
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.coerceAndPreventNaN
 import ua.acclorite.book_story.presentation.core.util.launchActivity
+import ua.acclorite.book_story.presentation.core.util.setBrightness
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -216,6 +217,7 @@ class ReaderViewModel @Inject constructor(
                             event.context.window,
                             event.context.window.decorView
                         ).show(WindowInsetsCompat.Type.systemBars())
+                        event.context.setBrightness(brightness = null)
 
                         event.navigate()
                     }

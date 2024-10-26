@@ -49,4 +49,6 @@ sealed class MainEvent {
     data class OnChangeCheckForTextUpdate(val value: Boolean) : MainEvent()
     data class OnChangeCheckForTextUpdateToast(val value: Boolean) : MainEvent()
     data class OnChangeScreenOrientation(val value: String) : MainEvent()
+    data class OnChangeCustomScreenBrightness(val value: Boolean) : MainEvent()
+    data class OnChangeScreenBrightness(val value: Float) : MainEvent()
 }

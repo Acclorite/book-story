@@ -55,8 +55,6 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
@@ -67,6 +65,7 @@ import ua.acclorite.book_story.presentation.core.constants.provideFonts
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
+import ua.acclorite.book_story.presentation.core.util.setBrightness
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.data.MainViewModel
 import ua.acclorite.book_story.presentation.screens.history.data.HistoryEvent
@@ -161,14 +160,6 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
             )
         )
     }
-    LaunchedEffect(mainState.value.keepScreenOn) {
-        withContext(Dispatchers.Main) {
-            when (mainState.value.keepScreenOn) {
-                true -> context.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-                false -> context.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-            }
-        }
-    }
     LaunchedEffect(lazyListState) {
         onEvent(
             ReaderEvent.OnUpdateProgress(
@@ -185,6 +176,28 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
             context.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         }
     }
+    DisposableEffect(
+        mainState.value.screenBrightness,
+        mainState.value.customScreenBrightness
+    ) {
+        when (mainState.value.customScreenBrightness) {
+            true -> context.setBrightness(brightness = mainState.value.screenBrightness)
+            false -> context.setBrightness(brightness = null)
+        }
+
+        onDispose {
+            context.setBrightness(brightness = null)
+        }
+    }
+    DisposableEffect(mainState.value.keepScreenOn) {
+        when (mainState.value.keepScreenOn) {
+            true -> context.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            false -> context.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        }
+        onDispose {
+            context.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        }
+    }
 
     ReaderScreen(lazyListState = lazyListState)
 
@@ -195,7 +208,6 @@ fun ReaderScreenRoot(screen: Screen.Reader) {
                 context.window,
                 context.window.decorView
             ).show(WindowInsetsCompat.Type.systemBars())
-            context.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
     }
 }

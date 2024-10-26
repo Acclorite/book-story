@@ -82,6 +82,8 @@ data class MainState(
     val screenOrientation: ReaderScreenOrientation = provideDefaultValue {
         ReaderScreenOrientation.DEFAULT
     },
+    val customScreenBrightness: Boolean = provideDefaultValue { false },
+    val screenBrightness: Float = provideDefaultValue { 0.5f },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -271,6 +273,14 @@ data class MainState(
                     screenOrientation = provideValue(
                         SCREEN_ORIENTATION, convert = { toReaderScreenOrientation() }
                     ) { screenOrientation },
+
+                    customScreenBrightness = provideValue(
+                        CUSTOM_SCREEN_BRIGHTNESS
+                    ) { customScreenBrightness },
+
+                    screenBrightness = provideValue(
+                        SCREEN_BRIGHTNESS, convert = { this.toFloat() }
+                    ) { screenBrightness },
                 )
             }
         }

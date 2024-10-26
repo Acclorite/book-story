@@ -1,6 +1,7 @@
 package ua.acclorite.book_story.presentation.core.constants
 
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
@@ -40,6 +41,8 @@ object DataStoreConstants {
     val CHECK_FOR_TEXT_UPDATE = booleanPreferencesKey("check_for_text_update")
     val CHECK_FOR_TEXT_UPDATE_TOAST = booleanPreferencesKey("check_for_text_update_toast")
     val SCREEN_ORIENTATION = stringPreferencesKey("screen_orientation")
+    val CUSTOM_SCREEN_BRIGHTNESS = booleanPreferencesKey("custom_screen_brightness")
+    val SCREEN_BRIGHTNESS = doublePreferencesKey("screen_brightness")
 
     // Browse settings
     val BROWSE_FILES_STRUCTURE = stringPreferencesKey("browse_files_structure")

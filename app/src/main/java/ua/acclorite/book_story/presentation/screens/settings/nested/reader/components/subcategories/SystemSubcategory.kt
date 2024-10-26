@@ -10,6 +10,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.screens.settings.components.SettingsSubcategory
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.CustomScreenBrightnessSetting
+import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.ScreenBrightnessSetting
 import ua.acclorite.book_story.presentation.screens.settings.nested.reader.components.settings.ScreenOrientationSetting
 
 /**
@@ -32,6 +34,14 @@ fun LazyListScope.SystemSubcategory(
         topPadding = topPadding,
         bottomPadding = bottomPadding
     ) {
+        item {
+            CustomScreenBrightnessSetting()
+        }
+
+        item {
+            ScreenBrightnessSetting()
+        }
+
         item {
             ScreenOrientationSetting()
         }

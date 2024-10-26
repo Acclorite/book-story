@@ -1,3 +1,5 @@
+@file:Suppress("SameReturnValue")
+
 package ua.acclorite.book_story.presentation.core.constants
 
 import androidx.compose.ui.graphics.Color
