@@ -176,7 +176,7 @@
     <string name="file_size">حجم الملف</string>
     <string name="unknown">غير معروف</string>
     <string name="browse_grid_size_option">حجم الشبكة</string>
-    <string name="nothing_changed">نص الكتاب محدث.</string>
+    <string name="nothing_changed">النص محدث.</string>
     <string name="app_version_option">إصدار التطبيق</string>
     <string name="app_version_option_desc_1">قصة كتاب الإصدار%1$s</string>
     <string name="licenses_option">رخص مفتوحة المصدر</string>
@@ -203,7 +203,7 @@
     <string name="color_preset_query">المحدد مسبقا %1$s</string>
     <string name="press_again_toast">الضغط مرة أخرى لإغلاق التطبيق</string>
     <string name="fast_color_preset_change_option">تغيير اللون السريع</string>
-    <string name="fast_color_preset_change_option_desc">مرر لليسار أو اليمين لتغيير اللون</string>
+    <string name="fast_color_preset_change_option_desc">مرر الشريط العلوي لليسار أو اليمين لتغيير اللون</string>
     <string name="color_preset_placeholder">تسمية إعداد محدد مسبقا…</string>
     <string name="pure_dark_power_saver">توفير</string>
     <string name="browse_sort_order_last_modified">آخر تعديل</string>
@@ -243,9 +243,26 @@
     <string name="reading_speed_reader_settings">سرعة القراءة</string>
     <string name="default_string">الافتراضي</string>
     <string name="update_book">تحديث الكتاب؟</string>
-    <string name="update_book_description">تم ايجاد تحديث للنص ، التحديث مطلوب لضمان ان احدث اساليب الفرز يتم استخدامها ، لن تفقد تقدمك ما لم تحدث تغييرات كبيرة . هل تريد</string>
+    <string name="update_book_description">تم ايجاد تحديث للنص ، التحديث مطلوب لضمان ان احدث اساليب الفرز يتم استخدامها ، لا تحتاج الى اتصال انترنت ، لن تفقد تقدمك ما لم تحدث تغييرات كبيرة . هل تريد المضي قدما بالتحديث؟</string>
     <string name="proceed">المضي قدما</string>
     <string name="system_reader_settings">النظام</string>
     <string name="random_string">عشوائي</string>
     <string name="search_field_empty">بحث…</string>
+    <string name="check_for_text_update_option">التحقق من تحديث النص</string>
+    <string name="check_for_text_update_option_desc">تحقق تلقائيا ان كان هناك تحديث للنص</string>
+    <string name="screen_orientation_option">اتجاه الشاشة</string>
+    <string name="screen_orientation_free">حر</string>
+    <string name="contributors_option">المساهمون</string>
+    <string name="browse_layout_option">وضع الشاشة</string>
+    <string name="perception_expander_option_desc">زد من سرعة قرائتك بالتركيز على الوسط</string>
+    <string name="fullscreen_option">الشاشة كاملة</string>
+    <string name="theme_contrast_standard">الافتراضي</string>
+    <string name="screen_brightness_option">السطوع</string>
+    <string name="pink2_theme">غانيميد</string>
+    <string name="internal_storage">التخزين الداخلي</string>
+    <string name="file_last_opened">اخر مرة تم فيها فتح الملف</string>
+    <string name="chapters">فصول</string>
+    <string name="gray_theme">كاليستو</string>
+    <string name="lavender_theme">ايريس</string>
+    <string name="no_chapters">لا يوجد فصول</string>
 </resources>
