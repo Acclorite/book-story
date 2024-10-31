@@ -13,12 +13,12 @@ plugins {
 
 android {
     namespace = "ua.acclorite.book_story"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "ua.acclorite.book_story"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 8
         versionName = "1.3.0"
 
@@ -87,26 +87,26 @@ aboutLibraries {
 dependencies {
 
     // Default
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.6")
-    implementation("androidx.activity:activity-compose:1.9.2")
+    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+    implementation("androidx.activity:activity-compose:1.9.3")
 
     // Compose BOM libraries
     // Compose BOM was eliminated - it is recognized as Closed Source in AboutLibraries.
-    implementation("androidx.compose.foundation:foundation:1.7.3")
-    implementation("androidx.compose.animation:animation:1.7.3")
-    implementation("androidx.compose.animation:animation-android:1.7.3")
-    implementation("androidx.compose.foundation:foundation-layout:1.7.3")
-    implementation("androidx.compose.ui:ui:1.7.3")
-    implementation("androidx.compose.ui:ui-graphics:1.7.3")
-    implementation("androidx.compose.ui:ui-android:1.7.3")
-    implementation("androidx.compose.material3:material3:1.3.0")
-    implementation("androidx.compose.material3:material3-window-size-class:1.3.0")
-    implementation("androidx.compose.material:material-icons-extended:1.7.3")
-    implementation("androidx.compose.material:material:1.7.3")
+    implementation("androidx.compose.foundation:foundation:1.7.5")
+    implementation("androidx.compose.animation:animation:1.7.5")
+    implementation("androidx.compose.animation:animation-android:1.7.5")
+    implementation("androidx.compose.foundation:foundation-layout:1.7.5")
+    implementation("androidx.compose.ui:ui:1.7.5")
+    implementation("androidx.compose.ui:ui-graphics:1.7.5")
+    implementation("androidx.compose.ui:ui-android:1.7.5")
+    implementation("androidx.compose.material3:material3:1.4.0-alpha03")
+    implementation("androidx.compose.material3:material3-window-size-class:1.3.1")
+    implementation("androidx.compose.material:material-icons-extended:1.7.5")
+    implementation("androidx.compose.material:material:1.7.5")
 
     // All dependencies
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
     implementation("com.google.accompanist:accompanist-swiperefresh:0.34.0")
 
     // Dagger - Hilt
