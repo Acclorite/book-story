@@ -7,7 +7,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,8 +17,8 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material.icons.rounded.Upgrade
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -30,14 +29,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.common.IconButton
+import ua.acclorite.book_story.presentation.core.components.progress_indicator.CircularProgressIndicator
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.navigation.Screen
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
@@ -55,7 +53,7 @@ import ua.acclorite.book_story.presentation.ui.Colors
 /**
  * Reader top bar. Displays title of the book.
  */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun ReaderTopBar() {
     val state = ReaderViewModel.getState()
@@ -113,58 +111,56 @@ fun ReaderTopBar() {
                 }
             },
             title = {
-                Column(verticalArrangement = Arrangement.Center) {
-                    Text(
-                        state.value.book.title,
-                        fontFamily = FontFamily.Default,
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 20.sp,
-                        lineHeight = 20.sp,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 1,
-                        modifier = Modifier
-                            .padding(end = 8.dp)
-                            .noRippleClickable(
-                                enabled = !state.value.lockMenu,
-                                onClick = {
-                                    onEvent(
-                                        ReaderEvent.OnGoBack(
-                                            context = context,
-                                            refreshList = {
-                                                onLibraryEvent(LibraryEvent.OnUpdateBook(it))
-                                                onHistoryEvent(HistoryEvent.OnUpdateBook(it))
-                                            },
-                                            navigate = {
-                                                onNavigate {
-                                                    navigate(
-                                                        Screen.BookInfo(
-                                                            bookId = state.value.book.id,
-                                                            startUpdate = false
-                                                        ),
-                                                        useBackAnimation = true,
-                                                        saveInBackStack = false
-                                                    )
-                                                }
+                Text(
+                    text = state.value.book.title,
+                    fontSize = 20.sp,
+                    lineHeight = 20.sp,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                    modifier = Modifier
+                        .padding(end = 8.dp)
+                        .noRippleClickable(
+                            enabled = !state.value.lockMenu,
+                            onClick = {
+                                onEvent(
+                                    ReaderEvent.OnGoBack(
+                                        context = context,
+                                        refreshList = {
+                                            onLibraryEvent(LibraryEvent.OnUpdateBook(it))
+                                            onHistoryEvent(HistoryEvent.OnUpdateBook(it))
+                                        },
+                                        navigate = {
+                                            onNavigate {
+                                                navigate(
+                                                    Screen.BookInfo(
+                                                        bookId = state.value.book.id,
+                                                        startUpdate = false
+                                                    ),
+                                                    useBackAnimation = true,
+                                                    saveInBackStack = false
+                                                )
                                             }
-                                        )
+                                        }
                                     )
-                                }
-                            )
-                            .then(
-                                if (state.value.checkingForUpdate || state.value.updateFound) Modifier
-                                else Modifier.basicMarquee(iterations = Int.MAX_VALUE)
-                            )
-                    )
-                    Text(
-                        state.value.currentChapter?.title
-                            ?: context.getString(R.string.no_chapters),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        style = MaterialTheme.typography.bodyLarge,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
+                                )
+                            }
+                        )
+                        .then(
+                            if (state.value.checkingForUpdate || state.value.updateFound) Modifier
+                            else Modifier.basicMarquee(iterations = Int.MAX_VALUE)
+                        )
+                )
+            },
+            subtitle = {
+                Text(
+                    text = state.value.currentChapter?.title
+                        ?: context.getString(R.string.no_chapters),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodyLarge,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
             },
             actions = {
                 AnimatedVisibility(

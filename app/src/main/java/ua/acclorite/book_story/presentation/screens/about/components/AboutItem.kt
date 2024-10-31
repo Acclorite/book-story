@@ -10,18 +10,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ua.acclorite.book_story.presentation.core.components.progress_indicator.CircularProgressIndicator
 import ua.acclorite.book_story.presentation.ui.FadeTransitionPreservingSpace
 
 /**
@@ -80,7 +79,6 @@ fun AboutItem(
                 Spacer(modifier = Modifier.width(18.dp))
                 CircularProgressIndicator(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    strokeCap = StrokeCap.Round,
                     modifier = Modifier.size(28.dp)
                 )
             }

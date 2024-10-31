@@ -7,18 +7,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddChart
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.NullableBook
 import ua.acclorite.book_story.presentation.core.components.dialog.DialogWithLazyColumn
+import ua.acclorite.book_story.presentation.core.components.progress_indicator.CircularProgressIndicator
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.browse.data.BrowseEvent
@@ -76,8 +74,6 @@ fun BrowseAddingDialog() {
                             .padding(top = 16.dp)
                     ) {
                         CircularProgressIndicator(
-                            color = MaterialTheme.colorScheme.primary,
-                            strokeCap = StrokeCap.Round,
                             modifier = Modifier
                                 .align(Alignment.Center)
                                 .size(36.dp)

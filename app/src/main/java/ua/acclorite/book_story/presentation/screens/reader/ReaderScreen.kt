@@ -27,7 +27,6 @@ import androidx.compose.foundation.layout.systemBarsIgnoringVisibility
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -60,6 +59,7 @@ import ua.acclorite.book_story.domain.model.Chapter
 import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.common.SelectionContainer
 import ua.acclorite.book_story.presentation.core.components.placeholder.ErrorPlaceholder
+import ua.acclorite.book_story.presentation.core.components.progress_indicator.CircularProgressIndicator
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideFonts
 import ua.acclorite.book_story.presentation.core.navigation.LocalNavigator
