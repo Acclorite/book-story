@@ -12,8 +12,6 @@ fun Constants.provideLanguages() = listOf(
     Pair("it", "Italiano"),
     Pair("zh", "汉语"),
     Pair("hi", "हिन्दी"),
-    Pair(
-        "pt",
-        "português brasileiro"
-    ), // Currently as "pt" (which is Portuguese) instead of "pt-BR"
+    // Currently as "pt" (which is Portuguese) instead of "pt-BR"
+    Pair("pt", "Português Brasileiro"),
 )
