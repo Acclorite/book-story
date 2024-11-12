@@ -1,0 +1,9 @@
+* New languages (Hindi, Portuguese(Brazil))
+* Markdown support
+* ".md" file format support
+* New app themes
+* Android 15 support (tested)
+* Screen brightness option in Reader
+* Improve chapter & EPUB parsing
+* Improve chapter naming
+* More..
