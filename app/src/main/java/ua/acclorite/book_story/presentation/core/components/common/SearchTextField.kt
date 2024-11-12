@@ -1,7 +1,6 @@
 package ua.acclorite.book_story.presentation.core.components.common
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -60,10 +59,7 @@ fun SearchTextField(
         ),
         cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurfaceVariant)
     ) { innerText ->
-        Box(
-            modifier = Modifier.fillMaxHeight(),
-            contentAlignment = Alignment.CenterStart
-        ) {
+        Box(contentAlignment = Alignment.CenterStart) {
             if (query.isEmpty()) {
                 Text(
                     text = stringResource(id = R.string.search_field_empty),
