@@ -81,8 +81,8 @@ _Don't see your favorite app store? Create an [Issue](https://github.com/Acclori
 <!------------ Features ------------>
 
 ## ✨ Features
-- 7 supported file formats(.pdf, .txt, .epub, .fb2, .zip, .html, .htm)
-- Chapters in Reader(.epub, .zip)
+- 8 supported file formats(.pdf, .txt, .epub, .fb2, .zip, .html, .htm, .md)
+- Chapters in Reader
 - Color Presets for Reader
 - Categories to organize your Library
 - Check for app updates on app startup
