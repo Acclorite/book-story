@@ -45,7 +45,8 @@ fun BrowseFilterBottomSheet() {
         dragHandle = {},
         onDismissRequest = {
             onEvent(BrowseEvent.OnShowHideFilterBottomSheet)
-        }
+        },
+        sheetGesturesEnabled = false
     ) {
         BrowseFilterBottomSheetTabRow(
             onEvent = onEvent,
@@ -55,7 +56,7 @@ fun BrowseFilterBottomSheet() {
         HorizontalPager(state = pagerState, modifier = Modifier.fillMaxSize()) { page ->
             when (page) {
                 0 -> {
-                    LazyColumnWithScrollbar(Modifier.fillMaxSize()) {
+                    LazyColumnWithScrollbar(modifier = Modifier.fillMaxSize()) {
                         BrowseGeneralSubcategory(
                             showTitle = false,
                             showDivider = false,
@@ -66,7 +67,7 @@ fun BrowseFilterBottomSheet() {
                 }
 
                 1 -> {
-                    LazyColumnWithScrollbar(Modifier.fillMaxSize()) {
+                    LazyColumnWithScrollbar(modifier = Modifier.fillMaxSize()) {
                         BrowseFilterSubcategory(
                             showTitle = false,
                             showDivider = false,
@@ -77,7 +78,7 @@ fun BrowseFilterBottomSheet() {
                 }
 
                 2 -> {
-                    LazyColumnWithScrollbar(Modifier.fillMaxSize()) {
+                    LazyColumnWithScrollbar(modifier = Modifier.fillMaxSize()) {
                         BrowseSortSubcategory(
                             showTitle = false,
                             showDivider = false,

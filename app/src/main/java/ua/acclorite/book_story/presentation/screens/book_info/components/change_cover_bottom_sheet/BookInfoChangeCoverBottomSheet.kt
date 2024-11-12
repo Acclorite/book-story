@@ -66,9 +66,10 @@ fun BookInfoChangeCoverBottomSheet() {
         modifier = Modifier.fillMaxWidth(),
         onDismissRequest = {
             onEvent(BookInfoEvent.OnShowHideChangeCoverBottomSheet)
-        }
+        },
+        sheetGesturesEnabled = true
     ) {
-        LazyColumn(Modifier.fillMaxWidth()) {
+        LazyColumn(modifier = Modifier.fillMaxWidth()) {
             if (state.value.canResetCover) {
                 item {
                     BookInfoChangeCoverBottomSheetItem(

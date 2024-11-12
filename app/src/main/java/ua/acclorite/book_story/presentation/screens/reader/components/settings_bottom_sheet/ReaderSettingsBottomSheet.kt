@@ -82,7 +82,8 @@ fun ReaderSettingsBottomSheet() {
         dragHandle = {},
         onDismissRequest = {
             onEvent(ReaderEvent.OnShowHideSettingsBottomSheet(false))
-        }
+        },
+        sheetGesturesEnabled = false
     ) {
         ReaderSettingsBottomSheetTabRow(pagerState = pagerState)
 

@@ -25,9 +25,10 @@ fun NavigationBottomSheet(onDismissRequest: () -> Unit) {
 
     ModalBottomSheet(
         modifier = Modifier.fillMaxWidth(),
-        onDismissRequest = onDismissRequest
+        onDismissRequest = onDismissRequest,
+        sheetGesturesEnabled = true
     ) {
-        LazyColumn(Modifier.fillMaxWidth()) {
+        LazyColumn(modifier = Modifier.fillMaxWidth()) {
             item {
                 NavigationItem(
                     title = stringResource(id = R.string.about_screen),

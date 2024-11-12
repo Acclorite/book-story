@@ -1,8 +1,7 @@
 package ua.acclorite.book_story.presentation.screens.book_info.components.details_bottom_sheet
 
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -10,6 +9,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.presentation.core.components.modal_bottom_sheet.ModalBottomSheet
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.presentation.screens.book_info.data.BookInfoEvent
@@ -59,71 +59,86 @@ fun BookInfoDetailsBottomSheet() {
         modifier = Modifier.fillMaxWidth(),
         onDismissRequest = {
             onEvent(BookInfoEvent.OnShowHideDetailsBottomSheet)
-        }
+        },
+        sheetGesturesEnabled = true
     ) {
-        BookInfoDetailsBottomSheetItem(
-            title = stringResource(id = R.string.file_name),
-            description = state.value.book.filePath.substringAfterLast("/").trim()
+        LazyColumnWithScrollbar(
+            modifier = Modifier.fillMaxWidth(),
+            contentPadding = PaddingValues(bottom = 8.dp)
         ) {
-            onEvent(
-                BookInfoEvent.OnCopyToClipboard(
-                    context,
-                    state.value.book.filePath.substringAfterLast("/").trim(),
-                    success = {
-                        context.getString(R.string.copied)
-                            .showToast(context = context, longToast = false)
-                    }
-                ))
-        }
-        BookInfoDetailsBottomSheetItem(
-            title = stringResource(id = R.string.file_path),
-            description = state.value.book.filePath.trim()
-        ) {
-            onEvent(
-                BookInfoEvent.OnCopyToClipboard(
-                    context,
-                    state.value.book.filePath.trim(),
-                    success = {
-                        context.getString(R.string.copied)
-                            .showToast(context = context, longToast = false)
-                    }
-                ))
-        }
-        BookInfoDetailsBottomSheetItem(
-            title = stringResource(id = R.string.file_last_opened),
-            description = if (state.value.book.lastOpened != null) lastOpened
-            else stringResource(id = R.string.never)
-        ) {
-            if (state.value.book.lastOpened != null) {
-                onEvent(
-                    BookInfoEvent.OnCopyToClipboard(
-                        context,
-                        lastOpened,
-                        success = {
-                            context.getString(R.string.copied)
-                                .showToast(context = context, longToast = false)
-                        }
-                    ))
+            item {
+                BookInfoDetailsBottomSheetItem(
+                    title = stringResource(id = R.string.file_name),
+                    description = state.value.book.filePath.substringAfterLast("/").trim()
+                ) {
+                    onEvent(
+                        BookInfoEvent.OnCopyToClipboard(
+                            context,
+                            state.value.book.filePath.substringAfterLast("/").trim(),
+                            success = {
+                                context.getString(R.string.copied)
+                                    .showToast(context = context, longToast = false)
+                            }
+                        ))
+                }
             }
-        }
-        BookInfoDetailsBottomSheetItem(
-            title = stringResource(id = R.string.file_size),
-            description = fileSize.ifBlank { stringResource(id = R.string.unknown) }
-        ) {
-            if (fileSize.isNotBlank()) {
-                onEvent(
-                    BookInfoEvent.OnCopyToClipboard(
-                        context,
-                        fileSize,
-                        success = {
-                            context.getString(R.string.copied)
-                                .showToast(context = context, longToast = false)
-                        }
-                    )
-                )
-            }
-        }
 
-        Spacer(modifier = Modifier.height(8.dp))
+            item {
+                BookInfoDetailsBottomSheetItem(
+                    title = stringResource(id = R.string.file_path),
+                    description = state.value.book.filePath.trim()
+                ) {
+                    onEvent(
+                        BookInfoEvent.OnCopyToClipboard(
+                            context,
+                            state.value.book.filePath.trim(),
+                            success = {
+                                context.getString(R.string.copied)
+                                    .showToast(context = context, longToast = false)
+                            }
+                        ))
+                }
+            }
+
+            item {
+                BookInfoDetailsBottomSheetItem(
+                    title = stringResource(id = R.string.file_last_opened),
+                    description = if (state.value.book.lastOpened != null) lastOpened
+                    else stringResource(id = R.string.never)
+                ) {
+                    if (state.value.book.lastOpened != null) {
+                        onEvent(
+                            BookInfoEvent.OnCopyToClipboard(
+                                context,
+                                lastOpened,
+                                success = {
+                                    context.getString(R.string.copied)
+                                        .showToast(context = context, longToast = false)
+                                }
+                            ))
+                    }
+                }
+            }
+
+            item {
+                BookInfoDetailsBottomSheetItem(
+                    title = stringResource(id = R.string.file_size),
+                    description = fileSize.ifBlank { stringResource(id = R.string.unknown) }
+                ) {
+                    if (fileSize.isNotBlank()) {
+                        onEvent(
+                            BookInfoEvent.OnCopyToClipboard(
+                                context,
+                                fileSize,
+                                success = {
+                                    context.getString(R.string.copied)
+                                        .showToast(context = context, longToast = false)
+                                }
+                            )
+                        )
+                    }
+                }
+            }
+        }
     }
 }

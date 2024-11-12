@@ -30,9 +30,10 @@ fun BookInfoMoreBottomSheet(snackbarState: SnackbarHostState) {
         modifier = Modifier.fillMaxWidth(),
         onDismissRequest = {
             onEvent(BookInfoEvent.OnShowHideMoreBottomSheet(false))
-        }
+        },
+        sheetGesturesEnabled = true
     ) {
-        LazyColumn(Modifier.fillMaxWidth()) {
+        LazyColumn(modifier = Modifier.fillMaxWidth()) {
             item {
                 NavigationItem(
                     title = stringResource(id = R.string.details_book),
