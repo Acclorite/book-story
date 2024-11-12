@@ -35,7 +35,7 @@
         <activity
             android:name=".Activity"
             android:windowSoftInputMode="adjustResize"
-            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|locale|density"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|locale|density|uiMode"
             android:exported="true"
             android:theme="@style/Theme.Start.Splash">
             <intent-filter>

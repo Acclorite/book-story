@@ -329,8 +329,8 @@ class HistoryViewModel @Inject constructor(
             return
         }
 
-        val history = historyWithoutBooks.map {
-            val book = books.find { book -> book.id == it.bookId }!!
+        val history = historyWithoutBooks.mapNotNull {
+            val book = books.find { book -> book.id == it.bookId } ?: return@mapNotNull null
             it.copy(
                 book = book
             )
@@ -340,8 +340,8 @@ class HistoryViewModel @Inject constructor(
 
         history
             .filter {
-                val book = books.find { book -> book.id == it.bookId }!!
-                book.title.lowercase().trim().contains(query.lowercase().trim())
+                val book = books.find { book -> book.id == it.bookId }
+                book?.title?.lowercase()?.trim()?.contains(query.lowercase().trim()) == true
             }.groupBy { item ->
                 val calendar = Calendar.getInstance().apply {
                     timeInMillis = item.time

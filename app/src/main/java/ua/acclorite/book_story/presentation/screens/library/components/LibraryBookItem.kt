@@ -21,7 +21,6 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,18 +54,10 @@ fun LibraryBookItem(
     onLongClick: () -> Unit,
     onButtonClick: () -> Unit
 ) {
-    val primaryColor = MaterialTheme.colorScheme.primary
-    val onPrimaryColor = MaterialTheme.colorScheme.onPrimary
-    val onSurfaceColor = MaterialTheme.colorScheme.onSurface
-
-    val backgroundColor = remember(book.second) {
-        if (book.second) primaryColor
-        else Color.Transparent
-    }
-    val fontColor = remember(book.second) {
-        if (book.second) onPrimaryColor
-        else onSurfaceColor
-    }
+    val backgroundColor = if (book.second) MaterialTheme.colorScheme.primary
+    else Color.Transparent
+    val fontColor = if (book.second) MaterialTheme.colorScheme.onPrimary
+    else MaterialTheme.colorScheme.onSurface
 
     val progress = rememberSaveable(book.first.progress) {
         "${book.first.progress.calculateProgress(1)}%"
