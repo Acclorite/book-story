@@ -366,14 +366,4 @@
     <string name="chapters">Chapitres</string>
     <string name="random_string">Aléatoire</string>
     <string name="search_field_empty">Rechercher…</string>
-    <string name="app_name" translatable="false"></string>
-    <string name="gray_theme"></string>
-    <string name="pink2_theme"></string>
-    <string name="custom_screen_brightness_option"></string>
-    <string name="screen_brightness_option"></string>
-    <string name="more_content_desc"></string>
-    <string name="app_version" translatable="false"></string>
-    <string name="reddit_content_desc" translatable="false"></string>
-    <string name="x_content_desc" translatable="false"></string>
-    <string name="patreon_content_desc" translatable="false"></string>
 </resources>
