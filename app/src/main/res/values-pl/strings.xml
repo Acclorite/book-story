@@ -333,4 +333,47 @@
     <string name="screen_orientation_landscape">Krajobraz</string>
     <string name="note_content_desc">Notatka</string>
     <string name="lavender_theme">Eris</string>
+    <string name="perception_expander_option"></string>
+    <string name="reading_speed_reader_settings"></string>
+    <string name="vertical_padding_option"></string>
+    <string name="check_for_text_update_toast_option"></string>
+    <string name="screen_orientation_locked_portrait"></string>
+    <string name="help_title_how_to_use_perception_expander"></string>
+    <string name="update_book"></string>
+    <string name="random_string"></string>
+    <string name="check_for_text_update_option"></string>
+    <string name="more_content_desc"></string>
+    <string name="perception_expander_padding_option"></string>
+    <string name="screen_orientation_option"></string>
+    <string name="perception_expander_thickness_option"></string>
+    <string name="screen_orientation_locked_landscape"></string>
+    <string name="screen_orientation_free"></string>
+    <string name="update_text_content_desc"></string>
+    <string name="checkpoint_forward_content_desc"></string>
+    <string name="cutout_padding_option"></string>
+    <string name="cutout_padding_option_desc"></string>
+    <string name="x_content_desc" translatable="false"></string>
+    <string name="double_press_exit_option"></string>
+    <string name="app_version_option_desc_1"></string>
+    <string name="screen_brightness_option"></string>
+    <string name="help_title_how_to_use_double_click_translation"></string>
+    <string name="help_title_how_to_use_perception_expander_1"></string>
+    <string name="patreon_content_desc" translatable="false"></string>
+    <string name="reddit_content_desc" translatable="false"></string>
+    <string name="checkpoint_back_content_desc"></string>
+    <string name="tryzub_content_desc"></string>
+    <string name="fullscreen_option_desc"></string>
+    <string name="pure_dark_power_saver"></string>
+    <string name="side_padding_option"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="app_version" translatable="false"></string>
+    <string name="search_field_empty"></string>
+    <string name="pink2_theme"></string>
+    <string name="update_book_description"></string>
+    <string name="slava_ukraini"></string>
+    <string name="double_click_translation_option"></string>
+    <string name="check_for_text_update_option_desc"></string>
+    <string name="credits_design"></string>
+    <string name="gray_theme"></string>
+    <string name="custom_screen_brightness_option"></string>
 </resources>
