@@ -371,4 +371,9 @@
     <string name="gray_theme">Calisto</string>
     <string name="custom_screen_brightness_option">Brillo personalizado</string>
     <string name="pink2_theme">Ganimedes</string>
+    <string name="app_name" translatable="false"></string>
+    <string name="app_version" translatable="false"></string>
+    <string name="x_content_desc" translatable="false"></string>
+    <string name="reddit_content_desc" translatable="false"></string>
+    <string name="patreon_content_desc" translatable="false"></string>
 </resources>
