@@ -51,14 +51,14 @@ class EpubTextParser @Inject constructor(
                         entry.name.endsWith("toc.ncx", ignoreCase = true)
                     }
                     val opfEntry = zip.entries().toList().find { entry ->
-                        entry.name.endsWith("content.opf", ignoreCase = true)
+                        entry.name.endsWith(".opf", ignoreCase = true)
                     }
 
                     val chapterEntries = zip.getChapterEntries(opfEntry)
                     val chapterTitleEntries = zip.getChapterTitleMapFromToc(tocEntry)
 
                     Log.i(EPUB_TAG, "TOC Entry: ${tocEntry?.name ?: "no toc.ncx"}")
-                    Log.i(EPUB_TAG, "OPF Entry: ${opfEntry?.name ?: "no content.opf"}")
+                    Log.i(EPUB_TAG, "OPF Entry: ${opfEntry?.name ?: "no .opf entry"}")
                     Log.i(EPUB_TAG, "Chapter entries, size: ${chapterEntries.size}")
                     Log.i(EPUB_TAG, "Title entries, size: ${chapterTitleEntries?.size}")
 
