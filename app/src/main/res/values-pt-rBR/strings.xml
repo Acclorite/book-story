@@ -205,4 +205,5 @@
     <string name="more_content_desc">Mais</string>
     <string name="file_path">Caminho do arquivo</string>
     <string name="tryzub_content_desc">Tryzub</string>
+    <string name="enable_check_for_updates_description">Ativando «Verificação de atualizações» o aplicativo receberá as informações mais recentes de «api.github.com» toda vez que ele for iniciado. Deseja prosseguir e ativar «Verificação de atualizações»?</string>
 </resources>
