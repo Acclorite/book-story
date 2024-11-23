@@ -206,4 +206,19 @@
     <string name="file_path">Caminho do arquivo</string>
     <string name="tryzub_content_desc">Tryzub</string>
     <string name="enable_check_for_updates_description">Ativando «Verificação de atualizações» o aplicativo receberá as informações mais recentes de «api.github.com» toda vez que ele for iniciado. Deseja prosseguir e ativar «Verificação de atualizações»?</string>
+    <string name="start_theme_preferences">Prefêrencia de temas</string>
+    <string name="sort_order_content_desc">Ordem de classificação</string>
+    <string name="continue_reading_content_desc">Continuar a ler</string>
+    <string name="go_back_content_desc">Voltar</string>
+    <string name="start_language_preferences">Prefêrencias linguísticas</string>
+    <string name="start_permissions_storage">Permissão de armazenamento</string>
+    <string name="whats_new_option">O que há de novo</string>
+    <string name="help_translate_option">Ajude a traduzir</string>
+    <string name="help_clickable_note_action">Eu sou pressionável!</string>
+    <string name="start_permissions_notifications">Permissão de notificações</string>
+    <string name="start_done">Está tudo feito!</string>
+    <string name="refresh_book_content_desc">Atualizar livro</string>
+    <string name="cover_image_content_desc">Imagem da capa</string>
+    <string name="open_reader_settings_content_desc">Configurações do leitor</string>
+    <string name="favorite_directory_content_desc">Diretório favorito</string>
 </resources>
