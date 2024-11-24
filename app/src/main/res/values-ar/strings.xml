@@ -265,4 +265,8 @@
     <string name="gray_theme">كاليستو</string>
     <string name="lavender_theme">ايريس</string>
     <string name="no_chapters">لا يوجد فصول</string>
+    <string name="hide_bars_on_fast_scroll_option">اخفاء الشرائط عند التمرير السريع</string>
+    <string name="screen_orientation_portrait">عمودي</string>
+    <string name="screen_orientation_landscape">أفقي</string>
+    <string name="custom_screen_brightness_option">سطوع مخصص</string>
 </resources>
