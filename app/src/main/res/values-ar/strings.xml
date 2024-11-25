@@ -269,4 +269,18 @@
     <string name="screen_orientation_portrait">عمودي</string>
     <string name="screen_orientation_landscape">أفقي</string>
     <string name="custom_screen_brightness_option">سطوع مخصص</string>
+    <string name="library_content_desc">مكتبتك</string>
+    <string name="slava_ukraini">المجد لأوكرانيا!</string>
+    <string name="cutout_padding_option">قطع هوامش</string>
+    <string name="refresh_book_content_desc">تحديث الكتاب</string>
+    <string name="side_padding_option">هامش جانبي</string>
+    <string name="apply_changes_content_desc">تأكيد التغييرات</string>
+    <string name="history_content_desc">قراءتك الماضية</string>
+    <string name="browse_content_desc">إضافة كتب</string>
+    <string name="add_files_content_desc">إضافة ملفات</string>
+    <string name="help_desc_how_to_read_book_1">اذهب الى</string>
+    <string name="drag_content_desc">جر</string>
+    <string name="update_text_content_desc">تحديث النص</string>
+    <string name="help_desc_how_to_move_or_delete_books_3">اضغط باستمرار على صورة غلاف الكتاب الأول حتى يتم تحديدها، والآن يمكنك ببساطة النقر فوق جميع صور أغلفة الكتب التي تريد تحديدها. يمكنك أيضًا تحديد الكتب في فئات متعددة. بعد تحديد جميع الكتب المطلوبة، يمكنك النقر فوق رمز السهم لنقلها ورمز سلة المهملات لحذف الكتب.</string>
+    <string name="help_desc_how_to_read_book_3">لبدء قراءة الكتاب اضغط على الزر الموجود في الزاوية اليمنى السفلية للكتاب الذي تريد قراءته. كما يمكنك البدء في قراءة الكتاب بالنقر على صورة غلافه لرؤية تفاصيل الكتاب ثم اضغط على الزر الموجود في الزاوية اليمنى السفلية. سيتم حفظ مكان القراءة واستعادته تلقائيًا. يمكنك تحريك الشريطين العلوي والسفلي بالنقر في أي مكان على الشاشة. بالنقر فوق عنوان الكتاب سيتم نقلك إلى تفاصيل الكتاب. إذا قمت بالنقر فوق رمز الترس سترى إعدادات القراءة. يمكنك استخدام شريط التمرير في الشريط السفلي للتحرك للأمام أو للخلف.</string>
 </resources>
