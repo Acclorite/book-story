@@ -48,7 +48,7 @@ class EpubTextParser @Inject constructor(
             withContext(Dispatchers.IO) {
                 ZipFile(file).use { zip ->
                     val tocEntry = zip.entries().toList().find { entry ->
-                        entry.name.endsWith("toc.ncx", ignoreCase = true)
+                        entry.name.endsWith(".ncx", ignoreCase = true)
                     }
                     val opfEntry = zip.entries().toList().find { entry ->
                         entry.name.endsWith(".opf", ignoreCase = true)
