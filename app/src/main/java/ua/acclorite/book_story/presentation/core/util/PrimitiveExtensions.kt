@@ -30,3 +30,32 @@ fun String.clearMarkdown(): String {
 fun String.clearAllMarkdown(): String {
     return replace(Regex("(_+)|(\\*+)|(#+)"), "").trim()
 }
+
+fun String.containsVisibleText(): Boolean {
+    return any { it.isVisibleCharacter() }
+}
+
+fun Char.isVisibleCharacter(): Boolean {
+    return when (this.category) {
+        CharCategory.UPPERCASE_LETTER,
+        CharCategory.LOWERCASE_LETTER,
+        CharCategory.TITLECASE_LETTER,
+        CharCategory.MODIFIER_LETTER,
+        CharCategory.OTHER_LETTER,
+        CharCategory.DECIMAL_DIGIT_NUMBER,
+        CharCategory.LETTER_NUMBER,
+        CharCategory.OTHER_NUMBER,
+        CharCategory.MATH_SYMBOL,
+        CharCategory.CURRENCY_SYMBOL,
+        CharCategory.OTHER_SYMBOL,
+        CharCategory.INITIAL_QUOTE_PUNCTUATION,
+        CharCategory.FINAL_QUOTE_PUNCTUATION,
+        CharCategory.CONNECTOR_PUNCTUATION,
+        CharCategory.DASH_PUNCTUATION,
+        CharCategory.START_PUNCTUATION,
+        CharCategory.END_PUNCTUATION,
+        CharCategory.OTHER_PUNCTUATION -> true
+
+        else -> false
+    }
+}

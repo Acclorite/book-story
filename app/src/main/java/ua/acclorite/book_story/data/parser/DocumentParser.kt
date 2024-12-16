@@ -3,6 +3,7 @@ package ua.acclorite.book_story.data.parser
 import kotlinx.coroutines.yield
 import org.jsoup.nodes.Document
 import ua.acclorite.book_story.presentation.core.util.clearMarkdown
+import ua.acclorite.book_story.presentation.core.util.containsVisibleText
 import javax.inject.Inject
 
 class DocumentParser @Inject constructor() {
@@ -25,6 +26,9 @@ class DocumentParser @Inject constructor() {
                 element.html(element.html().replace(Regex("\\n+"), " "))
                 element.append("\n")
             }
+
+            // Remove <head>'s title
+            select("title").remove()
 
             // Markdown
             select("hr").append("\n---\n")
@@ -52,7 +56,7 @@ class DocumentParser @Inject constructor() {
                 Regex("""_\s*(.*?)\s*_"""), "_$1_"
             ).trim()
 
-            if (formattedLine.clearMarkdown().isNotBlank()) {
+            if (formattedLine.clearMarkdown().containsVisibleText()) {
                 lines.add(formattedLine)
             }
         }
