@@ -82,20 +82,15 @@ _Don't see your favorite app store? Create an [Issue](https://github.com/Acclori
 
 ## ✨ Features
 - 8 supported file formats(.pdf, .txt, .epub, .fb2, .zip, .html, .htm, .md)
-- Chapters in Reader
-- Color Presets for Reader
+- Material You
+- Lots of unique themes
+- Color Presets in the Reader
+- Chapters in the Reader
 - Categories to organize your Library
-- Check for app updates on app startup
-- Anti error protection(you cannot add/update a book if it is not valid)
+- Check for the app's update on the app's startup
 - Highly customizable Reader
-- Double click translation(sends to the external translator)
-- Translate and Dictionary options when text is selected in Reader
-- Material3 latest design guidelines
-- 10 unique themes
-- MaterialYou Dynamic Theme support
-- Simple UI
+- Double click translation(sends to an external translator)
 - Tablet UI support
-- Help screen
 - More..
 
 <!------------ Roadmap ------------>
