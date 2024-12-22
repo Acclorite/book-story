@@ -17,18 +17,6 @@ import my.nanihadesuka.compose.ScrollbarSettings
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideSecondaryScrollbar
 
-/**
- * Lazy Column.
- * Has a scrollbar.
- *
- * @param modifier Modifier.
- * @param state [LazyListState].
- * @param scrollbarSettings [ScrollbarSettings]. [provideSecondaryScrollbar] by default.
- * @param enableScrollbar Whether scrollbar is enabled.
- * @param contentPadding [PaddingValues].
- * @param verticalArrangement Vertical item arrangement.
- * @param content Content of the column.
- */
 @Composable
 fun LazyColumnWithScrollbar(
     modifier: Modifier = Modifier,
@@ -45,8 +33,9 @@ fun LazyColumnWithScrollbar(
         }
     }
 
-    Box(modifier = modifier) {
+    Box {
         LazyColumn(
+            modifier = modifier,
             state = state,
             verticalArrangement = verticalArrangement,
             contentPadding = contentPadding

@@ -2,7 +2,7 @@ package ua.acclorite.book_story.data.repository
 
 import ua.acclorite.book_story.data.local.room.BookDao
 import ua.acclorite.book_story.data.mapper.color_preset.ColorPresetMapper
-import ua.acclorite.book_story.domain.model.ColorPreset
+import ua.acclorite.book_story.domain.reader.ColorPreset
 import ua.acclorite.book_story.domain.repository.ColorPresetRepository
 import javax.inject.Inject
 import javax.inject.Singleton

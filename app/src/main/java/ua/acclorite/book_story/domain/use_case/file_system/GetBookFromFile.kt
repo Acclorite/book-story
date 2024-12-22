@@ -1,6 +1,6 @@
 package ua.acclorite.book_story.domain.use_case.file_system
 
-import ua.acclorite.book_story.domain.model.NullableBook
+import ua.acclorite.book_story.domain.library.book.NullableBook
 import ua.acclorite.book_story.domain.repository.FileSystemRepository
 import java.io.File
 import javax.inject.Inject

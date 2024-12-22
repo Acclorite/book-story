@@ -6,7 +6,7 @@ import ua.acclorite.book_story.data.parser.fb2.Fb2FileParser
 import ua.acclorite.book_story.data.parser.html.HtmlFileParser
 import ua.acclorite.book_story.data.parser.pdf.PdfFileParser
 import ua.acclorite.book_story.data.parser.txt.TxtFileParser
-import ua.acclorite.book_story.domain.model.BookWithCover
+import ua.acclorite.book_story.domain.library.book.BookWithCover
 import java.io.File
 import javax.inject.Inject
 

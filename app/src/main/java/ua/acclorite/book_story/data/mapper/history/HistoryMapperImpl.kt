@@ -1,7 +1,7 @@
 package ua.acclorite.book_story.data.mapper.history
 
 import ua.acclorite.book_story.data.local.dto.HistoryEntity
-import ua.acclorite.book_story.domain.model.History
+import ua.acclorite.book_story.domain.history.History
 import javax.inject.Inject
 
 class HistoryMapperImpl @Inject constructor() : HistoryMapper {

@@ -1,6 +1,6 @@
 package ua.acclorite.book_story.domain.repository
 
-import ua.acclorite.book_story.domain.model.ColorPreset
+import ua.acclorite.book_story.domain.reader.ColorPreset
 
 interface ColorPresetRepository {
 

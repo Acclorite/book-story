@@ -12,21 +12,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.domain.model.NavigationItem
+import ua.acclorite.book_story.domain.navigator.NavigatorItem
 import ua.acclorite.book_story.presentation.core.components.common.Tooltip
 
-/**
- * Navigation Rail item.
- *
- * @param modifier Modifier.
- * @param item [NavigationItem].
- * @param isSelected Whether this screen is currently selected.
- * @param onClick OnClick callback.
- */
 @Composable
 fun NavigationRailItem(
     modifier: Modifier = Modifier,
-    item: NavigationItem,
+    item: NavigatorItem,
     isSelected: Boolean,
     onClick: () -> Unit
 ) {

@@ -1,7 +1,7 @@
 package ua.acclorite.book_story.domain.repository
 
-import ua.acclorite.book_story.domain.model.NullableBook
-import ua.acclorite.book_story.domain.model.SelectableFile
+import ua.acclorite.book_story.domain.browse.SelectableFile
+import ua.acclorite.book_story.domain.library.book.NullableBook
 import java.io.File
 
 interface FileSystemRepository {

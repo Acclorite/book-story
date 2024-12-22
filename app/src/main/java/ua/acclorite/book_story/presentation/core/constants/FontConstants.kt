@@ -5,8 +5,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.FontWithName
-import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.domain.reader.FontWithName
+import ua.acclorite.book_story.domain.ui.UIText
 
 fun Constants.provideFonts(withRandom: Boolean): List<FontWithName> {
     return mutableListOf(

@@ -8,10 +8,10 @@ import com.tom_roush.pdfbox.text.PDFTextStripper
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.TextParser
-import ua.acclorite.book_story.domain.model.Chapter
-import ua.acclorite.book_story.domain.model.ChapterWithText
+import ua.acclorite.book_story.domain.reader.Chapter
+import ua.acclorite.book_story.domain.reader.ChapterWithText
+import ua.acclorite.book_story.domain.ui.UIText
 import ua.acclorite.book_story.domain.util.Resource
-import ua.acclorite.book_story.domain.util.UIText
 import ua.acclorite.book_story.presentation.core.util.clearAllMarkdown
 import java.io.File
 import javax.inject.Inject

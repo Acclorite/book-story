@@ -8,12 +8,12 @@ import my.nanihadesuka.compose.ScrollbarSelectionMode
 import my.nanihadesuka.compose.ScrollbarSettings
 
 @Composable
-fun Constants.providePrimaryScrollbar() = ScrollbarSettings(
+fun Constants.providePrimaryScrollbar(canSelect: Boolean = true) = ScrollbarSettings(
     thumbUnselectedColor = MaterialTheme.colorScheme.primary,
     thumbSelectedColor = MaterialTheme.colorScheme.primary.copy(0.8f),
     hideDelayMillis = 2000,
     durationAnimationMillis = 300,
-    selectionMode = ScrollbarSelectionMode.Thumb,
+    selectionMode = if (canSelect) ScrollbarSelectionMode.Thumb else ScrollbarSelectionMode.Disabled,
     thumbThickness = 8.dp,
     scrollbarPadding = 4.dp
 )

@@ -2,43 +2,22 @@ package ua.acclorite.book_story.presentation.core.components.navigation_bar
 
 import androidx.compose.material3.NavigationBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import ua.acclorite.book_story.domain.util.Route
-import ua.acclorite.book_story.presentation.core.constants.Constants
-import ua.acclorite.book_story.presentation.core.constants.provideNavigationItems
-import ua.acclorite.book_story.presentation.core.navigation.LocalNavigatorInstance
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import ua.acclorite.book_story.domain.navigator.NavigatorItem
+import ua.acclorite.book_story.presentation.navigator.LocalNavigator
 
-/**
- * Navigation bar, uses default [NavigationBar].
- */
 @Composable
-fun NavigationBar() {
-    var currentScreen: Route? by remember { mutableStateOf(null) }
-    val navigator = LocalNavigatorInstance.current
-
-    LaunchedEffect(Unit) {
-        navigator.currentScreen.collect { route ->
-            if (
-                Constants.provideNavigationItems().any {
-                    navigator.run { it.screen.getRoute() } == route
-                }
-            ) {
-                currentScreen = route
-            }
-        }
-    }
+fun NavigationBar(tabs: List<NavigatorItem>) {
+    val navigator = LocalNavigator.current
+    val currentTab = navigator.lastItem.collectAsStateWithLifecycle()
 
     NavigationBar {
-        Constants.provideNavigationItems().forEach {
+        tabs.forEach { tab ->
             NavigationBarItem(
-                item = it,
-                isSelected = currentScreen == navigator.run { it.screen.getRoute() }
+                item = tab,
+                isSelected = currentTab.value::class == tab.screen::class
             ) {
-                navigator.navigate(it.screen, false)
+                navigator.push(tab.screen)
             }
         }
     }

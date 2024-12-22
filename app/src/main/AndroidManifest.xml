@@ -24,7 +24,7 @@
         android:roundIcon="@mipmap/app_icon_round"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Start.Splash"
+        android:theme="@style/Splash"
         android:requestLegacyExternalStorage="true"
         android:enableOnBackInvokedCallback="true"
         android:usesCleartextTraffic="false"
@@ -33,11 +33,11 @@
         tools:ignore="DataExtractionRules">
 
         <activity
-            android:name=".Activity"
+            android:name=".ui.main.MainActivity"
             android:windowSoftInputMode="adjustResize"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|locale|density|uiMode"
             android:exported="true"
-            android:theme="@style/Theme.Start.Splash">
+            android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

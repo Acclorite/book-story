@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.screens.settings.components.SettingsCategoryTitle
+import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategoryTitle
 import kotlin.math.roundToInt
 
 /**
@@ -70,7 +70,7 @@ fun SliderWithTitle(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(Modifier.fillMaxWidth(0.2f)) {
-            SettingsCategoryTitle(title = title, padding = 0.dp)
+            SettingsSubcategoryTitle(title = title, padding = 0.dp)
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = placeholder.value,
@@ -158,7 +158,7 @@ fun SliderWithTitle(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(Modifier.fillMaxWidth(0.2f)) {
-            SettingsCategoryTitle(title = title, padding = 0.dp)
+            SettingsSubcategoryTitle(title = title, padding = 0.dp)
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = placeholder.value,

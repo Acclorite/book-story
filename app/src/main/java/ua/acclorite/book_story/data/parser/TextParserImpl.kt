@@ -7,9 +7,9 @@ import ua.acclorite.book_story.data.parser.fb2.Fb2TextParser
 import ua.acclorite.book_story.data.parser.html.HtmlTextParser
 import ua.acclorite.book_story.data.parser.pdf.PdfTextParser
 import ua.acclorite.book_story.data.parser.txt.TxtTextParser
-import ua.acclorite.book_story.domain.model.ChapterWithText
+import ua.acclorite.book_story.domain.reader.ChapterWithText
+import ua.acclorite.book_story.domain.ui.UIText
 import ua.acclorite.book_story.domain.util.Resource
-import ua.acclorite.book_story.domain.util.UIText
 import java.io.File
 import javax.inject.Inject
 
@@ -71,11 +71,3 @@ class TextParserImpl @Inject constructor(
         }
     }
 }
-
-
-
-
-
-
-
-

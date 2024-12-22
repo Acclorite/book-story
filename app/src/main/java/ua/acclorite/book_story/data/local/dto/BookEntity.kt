@@ -5,8 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import ua.acclorite.book_story.data.local.converter.ChapterConverter
-import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.domain.model.Chapter
+import ua.acclorite.book_story.domain.library.category.Category
+import ua.acclorite.book_story.domain.reader.Chapter
 
 @Entity
 @TypeConverters(ChapterConverter::class)

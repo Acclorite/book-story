@@ -1,6 +1,6 @@
 package ua.acclorite.book_story.domain.repository
 
-import ua.acclorite.book_story.domain.model.History
+import ua.acclorite.book_story.domain.history.History
 
 interface HistoryRepository {
 

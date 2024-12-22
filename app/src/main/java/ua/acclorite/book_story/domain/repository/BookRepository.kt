@@ -1,10 +1,10 @@
 package ua.acclorite.book_story.domain.repository
 
 import androidx.compose.ui.text.AnnotatedString
-import ua.acclorite.book_story.domain.model.Book
-import ua.acclorite.book_story.domain.model.BookWithText
-import ua.acclorite.book_story.domain.model.BookWithTextAndCover
-import ua.acclorite.book_story.domain.model.Chapter
+import ua.acclorite.book_story.domain.library.book.Book
+import ua.acclorite.book_story.domain.library.book.BookWithText
+import ua.acclorite.book_story.domain.library.book.BookWithTextAndCover
+import ua.acclorite.book_story.domain.reader.Chapter
 import ua.acclorite.book_story.domain.util.CoverImage
 import ua.acclorite.book_story.domain.util.Resource
 

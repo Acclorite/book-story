@@ -1,8 +1,8 @@
 package ua.acclorite.book_story.presentation.core.constants
 
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.Credit
-import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.domain.about.Credit
+import ua.acclorite.book_story.domain.ui.UIText
 
 fun Constants.provideCredits() = listOf(
     Credit(

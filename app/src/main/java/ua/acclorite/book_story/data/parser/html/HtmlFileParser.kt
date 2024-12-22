@@ -3,10 +3,10 @@ package ua.acclorite.book_story.data.parser.html
 import org.jsoup.Jsoup
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.FileParser
-import ua.acclorite.book_story.domain.model.Book
-import ua.acclorite.book_story.domain.model.BookWithCover
-import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.domain.library.book.Book
+import ua.acclorite.book_story.domain.library.book.BookWithCover
+import ua.acclorite.book_story.domain.library.category.Category
+import ua.acclorite.book_story.domain.ui.UIText
 import java.io.File
 import javax.inject.Inject
 

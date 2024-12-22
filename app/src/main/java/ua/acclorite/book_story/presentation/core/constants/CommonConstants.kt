@@ -3,10 +3,10 @@
 package ua.acclorite.book_story.presentation.core.constants
 
 import androidx.compose.ui.graphics.Color
-import ua.acclorite.book_story.domain.model.Book
-import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.domain.model.ColorPreset
-import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.domain.library.book.Book
+import ua.acclorite.book_story.domain.library.category.Category
+import ua.acclorite.book_story.domain.reader.ColorPreset
+import ua.acclorite.book_story.domain.ui.UIText
 
 // Main State
 fun Constants.provideMainState() = "main_state"

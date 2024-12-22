@@ -18,15 +18,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-/**
- * Selectable dialog item.
- * Perfectly combines with [DialogWithLazyColumn].
- *
- * @param selected Whether item is selected.
- * @param title Title of the item.
- * @param horizontalPadding Horizontal padding of the item.
- * @param onClick OnClick callback.
- */
 @Composable
 fun SelectableDialogItem(
     selected: Boolean,

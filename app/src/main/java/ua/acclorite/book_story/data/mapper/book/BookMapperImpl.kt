@@ -3,8 +3,8 @@ package ua.acclorite.book_story.data.mapper.book
 import android.net.Uri
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.local.dto.BookEntity
-import ua.acclorite.book_story.domain.model.Book
-import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.domain.library.book.Book
+import ua.acclorite.book_story.domain.ui.UIText
 import javax.inject.Inject
 
 class BookMapperImpl @Inject constructor() : BookMapper {

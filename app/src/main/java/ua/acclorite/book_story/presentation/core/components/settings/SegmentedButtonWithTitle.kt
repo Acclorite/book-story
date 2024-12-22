@@ -38,9 +38,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.ButtonItem
+import ua.acclorite.book_story.domain.ui.ButtonItem
 import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
-import ua.acclorite.book_story.presentation.screens.settings.components.SettingsCategoryTitle
+import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategoryTitle
 
 /**
  * Segmented Button with Title.
@@ -70,7 +70,7 @@ fun SegmentedButtonWithTitle(
             .fillMaxWidth()
             .padding(horizontal = horizontalPadding, vertical = verticalPadding)
     ) {
-        SettingsCategoryTitle(title = title, padding = 0.dp)
+        SettingsSubcategoryTitle(title = title, padding = 0.dp)
 
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -183,9 +183,3 @@ private fun SegmentedButton(
         )
     }
 }
-
-
-
-
-
-

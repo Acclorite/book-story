@@ -14,40 +14,19 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationRail
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.domain.util.Route
-import ua.acclorite.book_story.presentation.core.constants.Constants
-import ua.acclorite.book_story.presentation.core.constants.provideNavigationItems
-import ua.acclorite.book_story.presentation.core.navigation.LocalNavigatorInstance
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import ua.acclorite.book_story.domain.navigator.NavigatorItem
+import ua.acclorite.book_story.presentation.navigator.LocalNavigator
 
-/**
- * Navigation Rail. It is used to be shown on Tablets.
- */
 @Composable
-fun NavigationRail() {
-    var currentScreen: Route? by remember { mutableStateOf(null) }
-    val navigator = LocalNavigatorInstance.current
+fun NavigationRail(tabs: List<NavigatorItem>) {
+    val navigator = LocalNavigator.current
+    val currentTab = navigator.lastItem.collectAsStateWithLifecycle()
     val layoutDirection = LocalLayoutDirection.current
-
-    LaunchedEffect(Unit) {
-        navigator.currentScreen.collect { route ->
-            if (
-                Constants.provideNavigationItems().any {
-                    navigator.run { it.screen.getRoute() } == route
-                }
-            ) {
-                currentScreen = route
-            }
-        }
-    }
 
     NavigationRail(
         modifier = Modifier
@@ -71,12 +50,12 @@ fun NavigationRail() {
             verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Constants.provideNavigationItems().forEach {
+            tabs.forEach { tab ->
                 NavigationRailItem(
-                    item = it,
-                    isSelected = currentScreen == navigator.run { it.screen.getRoute() }
+                    item = tab,
+                    isSelected = currentTab.value::class == tab.screen::class
                 ) {
-                    navigator.navigate(it.screen, false)
+                    navigator.push(tab.screen)
                 }
             }
         }

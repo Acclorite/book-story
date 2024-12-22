@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
-import ua.acclorite.book_story.domain.model.Chapter
+import ua.acclorite.book_story.domain.reader.Chapter
 
 class ChapterConverter {
     @TypeConverter

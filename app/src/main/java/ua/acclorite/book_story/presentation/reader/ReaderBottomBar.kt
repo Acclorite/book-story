@@ -1,0 +1,154 @@
+package ua.acclorite.book_story.presentation.reader
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.unit.dp
+import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.library.book.Book
+import ua.acclorite.book_story.domain.reader.Chapter
+import ua.acclorite.book_story.domain.reader.Checkpoint
+import ua.acclorite.book_story.domain.util.Direction
+import ua.acclorite.book_story.presentation.core.components.common.IconButton
+import ua.acclorite.book_story.presentation.core.util.calculateProgress
+import ua.acclorite.book_story.presentation.core.util.noRippleClickable
+import ua.acclorite.book_story.ui.reader.ReaderEvent
+import ua.acclorite.book_story.ui.theme.Colors
+import ua.acclorite.book_story.ui.theme.HorizontalExpandingTransition
+
+@Composable
+fun ReaderBottomBar(
+    book: Book,
+    text: List<AnnotatedString>,
+    listState: LazyListState,
+    lockMenu: Boolean,
+    currentChapter: Chapter?,
+    currentChapterProgress: Float,
+    checkpoint: Checkpoint,
+    restoreCheckpoint: (ReaderEvent.OnRestoreCheckpoint) -> Unit,
+    scroll: (ReaderEvent.OnScroll) -> Unit,
+    changeProgress: (ReaderEvent.OnChangeProgress) -> Unit
+) {
+    val bookProgress = remember(book.progress) {
+        derivedStateOf {
+            "${book.progress.calculateProgress(2)}%"
+        }
+    }
+    val chapterProgress = remember(currentChapter, currentChapterProgress) {
+        derivedStateOf {
+            if (currentChapter == null) return@derivedStateOf ""
+            " (${currentChapterProgress.calculateProgress(2)}%)"
+        }
+    }
+    val progress = remember(bookProgress.value, chapterProgress.value) {
+        derivedStateOf {
+            "${bookProgress.value}${chapterProgress.value}"
+        }
+    }
+
+    val arrowDirection by remember {
+        derivedStateOf {
+            val checkpointIndex = checkpoint.index
+            val index = listState.firstVisibleItemIndex
+
+            when {
+                checkpointIndex > index -> Direction.END
+                checkpointIndex < index -> Direction.START
+                else -> Direction.NEUTRAL
+            }
+        }
+    }
+    val checkpointProgress by remember {
+        derivedStateOf {
+            (checkpoint.index / text.lastIndex.toFloat()) * 0.987f
+        }
+    }
+
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .background(Colors.readerSystemBarsColor)
+            .noRippleClickable(onClick = {})
+            .navigationBarsPadding()
+            .padding(horizontal = 18.dp)
+            .padding(top = 16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = progress.value,
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.titleLarge
+        )
+        Row(
+            modifier = Modifier.padding(top = 3.dp, bottom = 5.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            HorizontalExpandingTransition(
+                visible = arrowDirection == Direction.START,
+                startDirection = true
+            ) {
+                IconButton(
+                    icon = Icons.AutoMirrored.Default.ArrowBack,
+                    contentDescription = R.string.checkpoint_back_content_desc,
+                    modifier = Modifier.size(24.dp),
+                    color = MaterialTheme.colorScheme.primary,
+                    disableOnClick = false
+                ) {
+                    restoreCheckpoint(ReaderEvent.OnRestoreCheckpoint)
+                }
+            }
+
+            Box(
+                modifier = Modifier.weight(1f),
+                contentAlignment = Alignment.CenterStart
+            ) {
+                ReaderBottomBarSlider(
+                    book = book,
+                    lockMenu = lockMenu,
+                    listState = listState,
+                    scroll = scroll,
+                    changeProgress = changeProgress
+                )
+
+                if (arrowDirection != Direction.NEUTRAL) {
+                    ReaderBottomBarSliderIndicator(progress = checkpointProgress)
+                }
+            }
+
+            HorizontalExpandingTransition(
+                visible = arrowDirection == Direction.END,
+                startDirection = false
+            ) {
+                IconButton(
+                    icon = Icons.AutoMirrored.Default.ArrowForward,
+                    contentDescription = R.string.checkpoint_forward_content_desc,
+                    modifier = Modifier.size(24.dp),
+                    color = MaterialTheme.colorScheme.primary,
+                    disableOnClick = false
+                ) {
+                    restoreCheckpoint(ReaderEvent.OnRestoreCheckpoint)
+                }
+            }
+        }
+    }
+}

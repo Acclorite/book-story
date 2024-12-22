@@ -3,12 +3,17 @@ package ua.acclorite.book_story.presentation.core.util
 import android.content.Intent
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ProvidableCompositionLocal
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.ui.platform.LocalContext
 
-fun Intent.launchActivity(
+inline fun Intent.launchActivity(
     activity: ComponentActivity,
     createChooser: Boolean = false,
     openInNewWindow: Boolean = true,
-    error: () -> Unit
+    success: () -> Unit = {},
+    error: () -> Unit = {}
 ) {
     val intent = if (createChooser) Intent.createChooser(this, "") else this
     if (openInNewWindow) {
@@ -22,6 +27,8 @@ fun Intent.launchActivity(
         error()
         return
     }
+
+    success()
 }
 
 fun ComponentActivity.setBrightness(brightness: Float?) {
@@ -30,3 +37,10 @@ fun ComponentActivity.setBrightness(brightness: Float?) {
         window.attributes = this
     }
 }
+
+val LocalActivity: ProvidableCompositionLocal<ComponentActivity>
+    @Composable get() {
+        (LocalContext.current as ComponentActivity).let { activity ->
+            return compositionLocalOf { activity }
+        }
+    }

@@ -6,10 +6,10 @@ import org.w3c.dom.Document
 import org.w3c.dom.Element
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.FileParser
-import ua.acclorite.book_story.domain.model.Book
-import ua.acclorite.book_story.domain.model.BookWithCover
-import ua.acclorite.book_story.domain.model.Category
-import ua.acclorite.book_story.domain.util.UIText
+import ua.acclorite.book_story.domain.library.book.Book
+import ua.acclorite.book_story.domain.library.book.BookWithCover
+import ua.acclorite.book_story.domain.library.category.Category
+import ua.acclorite.book_story.domain.ui.UIText
 import java.io.File
 import javax.inject.Inject
 import javax.xml.parsers.DocumentBuilderFactory

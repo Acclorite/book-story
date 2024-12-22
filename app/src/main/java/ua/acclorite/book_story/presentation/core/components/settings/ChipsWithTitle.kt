@@ -14,8 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.domain.model.ButtonItem
-import ua.acclorite.book_story.presentation.screens.settings.components.SettingsCategoryTitle
+import ua.acclorite.book_story.domain.ui.ButtonItem
+import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategoryTitle
 
 /**
  * Chips with title. Use list of [ButtonItem]s to display chips.
@@ -35,7 +35,7 @@ fun ChipsWithTitle(
             .fillMaxWidth()
             .padding(horizontal = horizontalPadding, vertical = verticalPadding)
     ) {
-        SettingsCategoryTitle(title = title, padding = 0.dp)
+        SettingsSubcategoryTitle(title = title, padding = 0.dp)
         Spacer(modifier = Modifier.height(8.dp))
 
         FlowRow(

@@ -3,7 +3,7 @@ package ua.acclorite.book_story.presentation.core.constants
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.Badge
+import ua.acclorite.book_story.domain.about.Badge
 
 fun Constants.provideAboutBadges() = listOf(
     Badge(

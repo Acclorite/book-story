@@ -1,6 +1,6 @@
 package ua.acclorite.book_story.domain.use_case.book
 
-import ua.acclorite.book_story.domain.model.BookWithTextAndCover
+import ua.acclorite.book_story.domain.library.book.BookWithTextAndCover
 import ua.acclorite.book_story.domain.repository.BookRepository
 import javax.inject.Inject
 
