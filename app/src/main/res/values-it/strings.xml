@@ -80,7 +80,7 @@
     <string name="delete_history">Cancellare la cronologia di lettura?</string>
     <string name="enable_check_for_updates">Abilita controlli degli aggiornamenti?</string>
     <string name="error_no_dictionary">Nessuna app dizionario trovata.</string>
-    <string name="storage_permission_description">Abbiamo bisogno dei permessi di archiviazione per cercare i tuoi libri nel dispositivo. Senza questo permesso, non sarai in grado di aggiungere i libri.</string>
+    <string name="storage_permission_description">Abbiamo bisogno del permesso di archiviazione per la scansione del Tuo Dispositivo per i libri. Senza questo permesso, non sarai in grado di aggiungere i libri.</string>
     <string name="error_something_went_wrong_with_file">Qualcosa è andato storto. Per favore controllare che il file di questo libro non sia danneggiato.</string>
     <string name="done">Fatto</string>
     <string name="retry">Riprova</string>
@@ -194,4 +194,5 @@
     <string name="files_structure_all">Tutti i file</string>
     <string name="delete_whole_history_content_desc">Elimina tutta la cronologia</string>
     <string name="yesterday">Ieri</string>
+    <string name="random_string">Random</string>
 </resources>
