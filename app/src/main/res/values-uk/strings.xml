@@ -406,14 +406,6 @@
     <string name="credits_ideas">Ідеї</string>
 
     <!-- Help -->
-    <string name="help_clickable_note_1">Будь ласка, зверніть увагу, що на</string>
-    <string name="help_clickable_note_2">такий виділений текст</string>
-    <string name="help_clickable_note_3">
-        можна натиснути.
-        Також ви можете приховати цю примітку, натиснувши на іконку, спробуйте!
-    </string>
-    <string name="help_clickable_note_action">На мене можна натиснути!</string>
-
     <string name="help_title_how_to_add_books">Як мені додати книги в Бібліотеку?</string>
     <string name="help_desc_how_to_add_books_1">Перейдіть в</string>
     <string name="help_desc_how_to_add_books_2">Огляд</string>
@@ -620,7 +612,6 @@
     <string name="revert_content_desc">Повернути</string>
     <string name="selected_content_desc">Вибрано</string>
     <string name="app_icon_content_desc">Іконка застосунку</string>
-    <string name="note_content_desc">Примітка</string>
     <string name="delete_history_element_content_desc">Видалити елемент історії</string>
     <string name="library_content_desc">Ваша бібліотека</string>
     <string name="history_content_desc">Історія читання</string>

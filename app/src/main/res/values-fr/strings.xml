@@ -170,9 +170,6 @@
     <string name="credits_updates">Gestion de nouvelles mises à jour</string>
     <string name="credits_fonts">Polices</string>
     <string name="credits_ideas">Idées</string>
-    <string name="help_clickable_note_1">Veuillez noter, que</string>
-    <string name="help_clickable_note_2">tel texte surligné</string>
-    <string name="help_clickable_note_action">Je suis cliquable !</string>
     <string name="help_title_how_to_add_books">Comment ajouter des livres à la librairie ?</string>
     <string name="help_desc_how_to_add_books_1">Allez à la page</string>
     <string name="help_desc_how_to_add_books_2">Naviguer</string>
@@ -237,7 +234,6 @@
     <string name="revert_content_desc">Revenir en arrière</string>
     <string name="selected_content_desc">Sélectionné</string>
     <string name="app_icon_content_desc">Icône de l\'application</string>
-    <string name="note_content_desc">Note</string>
     <string name="delete_history_element_content_desc">Effacer l\'élément de l\'historique</string>
     <string name="library_content_desc">Votre librairie</string>
     <string name="browse_content_desc">Ajouter les livres</string>
@@ -303,7 +299,6 @@
     <string name="app_version_option">Version de l\'application</string>
     <string name="credits_design">Design</string>
     <string name="credits_translation">Traduction</string>
-    <string name="help_clickable_note_3">peut être cliqué. Vous pouvez également masquer cette note en cliquant sur l\'icône, essayez donc !</string>
     <string name="credits_contribution">Contribution</string>
     <string name="help_title_how_to_customize_app">Comment personnaliser l\'application ?</string>
     <string name="help_desc_how_to_customize_app_1">Allez vers la page des</string>

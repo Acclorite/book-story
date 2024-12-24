@@ -37,7 +37,6 @@
     <string name="file_icon_content_desc">File</string>
     <string name="favorite_directory_content_desc">Cartella preferita</string>
     <string name="sort_order_content_desc">Criterio di ordinamento</string>
-    <string name="note_content_desc">Nota</string>
     <string name="github_profile_content_desc">Profilo GitHub</string>
     <string name="browse_grid_size_option">Dimensioni griglia</string>
     <string name="open_in_web_content_desc">Apri sul web</string>
@@ -221,5 +220,4 @@
     <string name="custom_screen_brightness_option">Luminosità personalizzata</string>
     <string name="screen_brightness_option">Luminosità</string>
     <string name="sort_browse_settings">Ordinamento</string>
-    <string name="random_string">Random</string>
 </resources>

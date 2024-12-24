@@ -182,7 +182,6 @@
     <string name="books_added">Wszystkie wybrane książki zostały pomyślnie dodane.</string>
     <string name="help_title_how_to_customize_app">Jak mogę dostosować aplikację?</string>
     <string name="start_welcome">Witamy w Book\'s Story!</string>
-    <string name="help_clickable_note_3">można kliknąć. Możesz także ukryć tę notatkę, klikając na ikonę. Wypróbuj ją!</string>
     <string name="help_title_how_to_add_books">Jak mogę dodać książki do biblioteki?</string>
     <string name="help_desc_how_to_add_books_1">Idź do</string>
     <string name="help_title_how_to_move_or_delete_books">Jak mogę przenieść lub usunąć książki?</string>
@@ -193,7 +192,6 @@
     <string name="help_title_how_to_read_book">Jak mogę przeczytać książkę?</string>
     <string name="help_desc_how_to_read_book_1">Idź do</string>
     <string name="help_desc_how_to_use_tooltip_1">Większość przycisków ikon ma podpowiedzi, mogą ci pomóc, jeśli nie wiesz, co robi przycisk ikon. Aby wyświetlić podpowiedź, możesz przytrzymać przycisk ikony.</string>
-    <string name="help_clickable_note_action">Jestem klikalny!</string>
     <string name="copied">Skopiowano</string>
     <string name="file_name">Nazwa pliku</string>
     <string name="file_path">Ścieżka pliku</string>
@@ -289,7 +287,6 @@
     <string name="app_version_option_desc_2">Kliknij, aby sprawdzić aktualizacje</string>
     <string name="help_desc_how_to_add_books_3">Jeśli nie widzisz pobranych książek, spróbuj odświeżyć listę, przeciągając ją w dół. Upewnij się, że Twoje książki posiadają obsługiwany format pliku. Następnie kliknij książkę, aby ją wybrać lub przytrzymaj, aby pokazać jej lokalizację. Po wybraniu wszystkich książek, które chcesz, kliknij ikonę znacznika wyboru w prawym górnym rogu, poczekaj na załadowanie wszystkich książek i kliknij « Dodaj ». Teraz powinieneś zobaczyć wszystkie książki, które dodałeś do</string>
     <string name="history_content_desc">Historia czytania</string>
-    <string name="help_clickable_note_2">tak podkreślony tekst</string>
     <string name="delete_this_book">Usuń</string>
     <string name="exit_search_content_desc">Opuść wyszukiwanie</string>
     <string name="confirm_update_description">Kliknięcie przycisku potwierdź spowoduje, że tekst tej książki zostanie zaktualizowany. Zapamiętaj, w którym miejscu przestałeś czytać przed aktualizacją tekstu.</string>
@@ -297,7 +294,6 @@
     <string name="delete_whole_history_content_desc">Usuń całą historię</string>
     <string name="help_desc_how_to_add_books_2">Przeglądaj</string>
     <string name="details_book">Szczegóły</string>
-    <string name="help_clickable_note_1">Pamiętaj, że</string>
     <string name="help_desc_how_to_add_books_4">Biblioteka</string>
     <string name="help_desc_how_to_customize_app_1">Idź do</string>
     <string name="help_desc_how_to_customize_app_2">Ustawienia</string>
@@ -331,6 +327,5 @@
     <string name="system_reader_settings">Ustawienia systemu</string>
     <string name="screen_orientation_portrait">Portret</string>
     <string name="screen_orientation_landscape">Krajobraz</string>
-    <string name="note_content_desc">Notatka</string>
     <string name="lavender_theme">Eris</string>
 </resources>

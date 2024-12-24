@@ -127,8 +127,6 @@
     <string name="app_version_option">App-Version</string>
     <string name="app_version_option_desc_1">Buchgeschichte v%1$s</string>
     <string name="report_bug_option">Fehler melden</string>
-    <string name="help_clickable_note_3">kann angeklickt werden. Du kannst diese Notiz auch ausblenden, indem du auf das Symbol klickst, probier es aus!</string>
-    <string name="help_clickable_note_action">Ich bin anklickbar!</string>
     <string name="help_title_how_to_add_books">Wie füge ich Bücher zur Bibliothek hinzu?</string>
     <string name="help_desc_how_to_add_books_1">Gehen Sie zum</string>
     <string name="help_desc_how_to_add_books_2">Durchsuchen</string>
@@ -228,11 +226,9 @@
     <string name="licenses_option">Open Source-Lizenzen</string>
     <string name="credits_option">Credits</string>
     <string name="slava_ukraini">Slava Ukraini!</string>
-    <string name="help_clickable_note_2">solcher hervorgehobener Text</string>
     <string name="credits_design">Design</string>
     <string name="credits_icon">Symbole</string>
     <string name="credits_updates">Neue Updates verwalten</string>
-    <string name="help_clickable_note_1">Bitte beachten Sie, dass</string>
     <string name="pure_dark_power_saver">Sparer</string>
     <string name="help_desc_how_to_customize_app_3">Sie können dies von den Bildschirmen „Bibliothek“, „Verlauf“ und „Durchsuchen“ aus tun, indem Sie auf die drei Punkte in der oberen rechten Ecke klicken und im Dropdown-Menü „Einstellungen“ auswählen. Dann werden Ihnen alle verfügbaren Einstellungen für diese App angezeigt. Experimentieren Sie ruhig damit!</string>
     <string name="help_desc_how_to_move_or_delete_books_1">Gehen Sie zum</string>
@@ -259,7 +255,6 @@
     <string name="start_language_preferences">Spracheinstellungen</string>
     <string name="start_theme_preferences">Themeneinstellungen</string>
     <string name="start_permissions_preferences">Berechtigungen</string>
-    <string name="note_content_desc">Notiz</string>
     <string name="delete_history_element_content_desc">Lösche Verlaufselement</string>
     <string name="library_content_desc">Deine Bibliothek</string>
     <string name="history_content_desc">Leseverlauf</string>

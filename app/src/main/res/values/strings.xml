@@ -407,14 +407,6 @@
     <string name="credits_ideas">Ideas</string>
 
     <!-- Help -->
-    <string name="help_clickable_note_1">Please note, that</string>
-    <string name="help_clickable_note_2">such highlighted text</string>
-    <string name="help_clickable_note_3">
-        can be clicked.
-        Also you can hide this note by clicking the icon, try it out!
-    </string>
-    <string name="help_clickable_note_action">I\'m clickable!</string>
-
     <string name="help_title_how_to_add_books">How do I add books to the Library?</string>
     <string name="help_desc_how_to_add_books_1">Go to the</string>
     <string name="help_desc_how_to_add_books_2">Browse</string>
@@ -620,7 +612,6 @@
     <string name="revert_content_desc">Revert</string>
     <string name="selected_content_desc">Selected</string>
     <string name="app_icon_content_desc">App icon</string>
-    <string name="note_content_desc">Note</string>
     <string name="delete_history_element_content_desc">Delete history element</string>
     <string name="library_content_desc">Your library</string>
     <string name="history_content_desc">Reading history</string>

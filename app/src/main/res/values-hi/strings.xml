@@ -241,10 +241,7 @@
     <string name="slava_ukraini">स्लावा यूक्रेनी!</string>
     <string name="credits_option">क्रेडिट</string>
     <string name="credits_design">डिज़ाइन</string>
-    <string name="help_clickable_note_1">कृपया ध्यान दें कि</string>
-    <string name="help_clickable_note_action">मैं क्लिक करने योग्य हूँ!</string>
     <string name="credits_ideas">विचारों</string>
-    <string name="help_clickable_note_2">ऐसा हाइलाइट किया गया टेक्स्ट</string>
     <string name="help_title_how_to_customize_app">मैं ऐप को कैसे अनुकूलित करूं?</string>
     <string name="help_desc_how_to_customize_app_1">के पास जाओ</string>
     <string name="app_version_option_desc_1">किताब की कहानी v%1$s</string>
@@ -266,7 +263,6 @@
     <string name="internal_storage">आंतरिक स्टोरेज</string>
     <string name="report_bug_option">एक बग रिपोर्ट करो</string>
     <string name="credits_updates">नए अपडेट का प्रबंधन</string>
-    <string name="help_clickable_note_3">क्लिक किया जा सकता है. इसके अलावा आप आइकन पर क्लिक करके इस नोट को छिपा भी सकते हैं, इसे आज़माएं!</string>
     <string name="help_desc_how_to_add_books_3">यदि आपको डाउनलोड की गई पुस्तकें दिखाई नहीं देती हैं तो सूची को नीचे खींचकर ताज़ा करने का प्रयास करें। सुनिश्चित करें कि आपकी पुस्तकों में फ़ाइल स्वरूप समर्थित है। फिर पुस्तक को चुनने के लिए उस पर क्लिक करें या उसका स्थान दिखाने के लिए उसे दबाए रखें। अपनी इच्छित सभी पुस्तकों का चयन करने के बाद, ऊपरी दाएं कोने में चेकमार्क आइकन पर क्लिक करें, सभी पुस्तकों के लोड होने की प्रतीक्षा करें और \"जोड़ें\" पर क्लिक करें। अब आपको वे सभी पुस्तकें दिखनी चाहिए जिन्हें आपने इसमें जोड़ा है</string>
     <string name="help_desc_how_to_customize_app_2">सेटिंग्स</string>
 </resources>

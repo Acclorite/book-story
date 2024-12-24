@@ -222,10 +222,7 @@
     <string name="help_desc_how_to_edit_book_1">اذهب إلى</string>
     <string name="help_desc_how_to_edit_book_2">المكتبة</string>
     <string name="credits_design">التصميم</string>
-    <string name="help_clickable_note_1">يرجى ملاحظة أن</string>
     <string name="help_desc_how_to_customize_app_3">يمكنك فعل هذا من قسم المكتبة ، السجل و تصفح عبر النقر على النقاط الثلاث في الزاوية العلوية اليمنى و اختيار «الإعدادات» من القائمة المنسدلة ، ثم سيمكنك ان ترى جميع الاعدادات المتوفرة لهذا التطبيق. لا تتردد في تجربة هذا !</string>
-    <string name="help_clickable_note_3">يمكن النقر عليه. يمكنك ايضا إخفاء هذه الملاحظة عبر الضغط على الأيقونة،جربها!</string>
-    <string name="help_clickable_note_action">يمكنك النقر علي!</string>
     <string name="help_title_how_to_add_books">كيف أضيف كتاب الى المكتبة؟</string>
     <string name="help_desc_how_to_add_books_1">اذهب إلى</string>
     <string name="help_desc_how_to_add_books_2">تصفح</string>

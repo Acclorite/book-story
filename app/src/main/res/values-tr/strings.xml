@@ -223,10 +223,6 @@
     <string name="credits_translation">Çeviri</string>
     <string name="credits_contribution">Katkı</string>
     <string name="credits_ideas">Fikirler</string>
-    <string name="help_clickable_note_1">Lütfen dikkat edin,</string>
-    <string name="help_clickable_note_2">bu şekilde vurgulanmış metin</string>
-    <string name="help_clickable_note_3">tıklanabilir. Ayrıca ikona tıklayarak bu notu gizleyebilirsiniz, deneyin!</string>
-    <string name="help_clickable_note_action">Ben tıklanabiliyorum!</string>
     <string name="help_title_how_to_add_books">Kitapları Kütüphane\'ye nasıl eklerim?</string>
     <string name="help_desc_how_to_add_books_1">Şuraya gidin:</string>
     <string name="help_desc_how_to_add_books_2">Göz At</string>
@@ -307,7 +303,6 @@
     <string name="revert_content_desc">Geri al</string>
     <string name="selected_content_desc">Seçili</string>
     <string name="app_icon_content_desc">Uygulama simgesi</string>
-    <string name="note_content_desc">Not</string>
     <string name="delete_history_element_content_desc">Geçmiş öğesini sil</string>
     <string name="library_content_desc">Kütüphaneniz</string>
     <string name="history_content_desc">Okuma geçmişi</string>

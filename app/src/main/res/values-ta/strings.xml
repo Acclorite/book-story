@@ -65,7 +65,6 @@
     <string name="credits_translation">மொழிபெயர்ப்பு</string>
     <string name="credits_contribution">பங்களிப்பு</string>
     <string name="credits_ideas">சிந்தனைகள்</string>
-    <string name="help_clickable_note_1">தயவுசெய்து கவனிக்கவும், அதை</string>
     <string name="help_desc_how_to_customize_app_1">செல்லுங்கள்</string>
     <string name="help_desc_how_to_customize_app_2">அமைப்புகள்</string>
     <string name="help_desc_how_to_edit_book_1">செல்லுங்கள்</string>
@@ -320,9 +319,6 @@
     <string name="slava_ukraini">ச்லாவா உக்ரேனி!</string>
     <string name="credits_design">வடிவமைப்பு</string>
     <string name="credits_updates">புதிய புதுப்பிப்புகள் நிர்வகித்தல்</string>
-    <string name="help_clickable_note_2">அத்தகைய சிறப்பம்சமான உரை</string>
-    <string name="help_clickable_note_3">சொடுக்கு செய்யலாம். ஐகானைக் சொடுக்கு செய்வதன் மூலம் இந்த குறிப்பை மறைக்கலாம், முயற்சி செய்யுங்கள்!</string>
-    <string name="help_clickable_note_action">நான் சொடுக்கு செய்யக்கூடியவன்!</string>
     <string name="help_title_how_to_add_books">நூலகத்தில் புத்தகங்களை எவ்வாறு சேர்ப்பது?</string>
     <string name="help_desc_how_to_add_books_1">செல்லுங்கள்</string>
     <string name="help_desc_how_to_add_books_2">உலாவு</string>
@@ -369,6 +365,5 @@
     <string name="revert_content_desc">மாற்றியமைக்கவும்</string>
     <string name="selected_content_desc">தேர்ந்தெடுக்கப்பட்டது</string>
     <string name="app_icon_content_desc">பயன்பாட்டு படவுரு</string>
-    <string name="note_content_desc">குறிப்பு</string>
     <string name="history_content_desc">படித்தல் வரலாறு</string>
 </resources>

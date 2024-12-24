@@ -84,7 +84,6 @@
     <string name="blue_color">Azul</string>
     <string name="browse_layout_grid">Grade</string>
     <string name="today">Hoje</string>
-    <string name="note_content_desc">Nota</string>
     <string name="browse_grid_size_auto">Automático</string>
     <string name="text_alignment_start">Começar</string>
     <string name="text_alignment_end">Fim</string>
@@ -214,7 +213,6 @@
     <string name="start_permissions_storage">Permissão de armazenamento</string>
     <string name="whats_new_option">O que há de novo</string>
     <string name="help_translate_option">Ajude a traduzir</string>
-    <string name="help_clickable_note_action">Eu sou pressionável!</string>
     <string name="start_permissions_notifications">Permissão de notificações</string>
     <string name="start_done">Está tudo feito!</string>
     <string name="refresh_book_content_desc">Atualizar livro</string>

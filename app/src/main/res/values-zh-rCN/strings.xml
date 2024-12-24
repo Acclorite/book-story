@@ -233,12 +233,10 @@
     <string name="credits_option">鸣谢</string>
     <string name="credits_design">设计</string>
     <string name="credits_fonts">字体</string>
-    <string name="help_clickable_note_1">请注意，</string>
     <string name="contributors_option">贡献者</string>
     <string name="credits_updates">新更新管理</string>
     <string name="credits_contribution">贡献</string>
     <string name="credits_ideas">想法</string>
-    <string name="help_clickable_note_3">是可以点击的。你也可以通过点击图标来隐藏这个提示，试试看吧！</string>
     <string name="help_title_how_to_add_books">我应该如何添加书到库中？</string>
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
     <string name="app_version_option_desc_2">点击检查更新</string>
@@ -254,9 +252,7 @@
     <string name="internal_storage">内部存储</string>
     <string name="help_translate_option">帮助翻译</string>
     <string name="credits_translation">翻译</string>
-    <string name="help_clickable_note_action">我是可以点击的！</string>
     <string name="help_desc_how_to_add_books_3">如果你没有看见已下载的书可以尝试下拉刷新列表。确保你的书拥有所支持的文件格式。点击书来选择它或者按住来显示它的位置。当你选择了所有想选择的书之后，点击右上角的对勾图标，等待所有的书加载好后点击“添加”。所有你已经添加的书都应该显示在</string>
-    <string name="help_clickable_note_2">这样高亮的文本</string>
     <string name="file_size">文件大小</string>
     <string name="details_book">详细</string>
     <string name="whats_new_option">新内容</string>
