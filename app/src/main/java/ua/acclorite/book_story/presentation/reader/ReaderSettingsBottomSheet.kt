@@ -27,6 +27,7 @@ import ua.acclorite.book_story.presentation.settings.appearance.colors.ColorsSub
 import ua.acclorite.book_story.presentation.settings.reader.font.FontSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.misc.MiscSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.padding.PaddingSubcategory
+import ua.acclorite.book_story.presentation.settings.reader.reading_mode.ReadingModeSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.reading_speed.ReadingSpeedSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.system.SystemSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.text.TextSubcategory
@@ -93,6 +94,11 @@ fun ReaderSettingsBottomSheet(
             when (page) {
                 0 -> {
                     LazyColumnWithScrollbar(Modifier.fillMaxSize()) {
+                        ReadingModeSubcategory(
+                            titleColor = { MaterialTheme.colorScheme.onSurface },
+                            topPadding = 22.dp,
+                            bottomPadding = 0.dp
+                        )
                         PaddingSubcategory(
                             titleColor = { MaterialTheme.colorScheme.onSurface },
                             topPadding = 22.dp,

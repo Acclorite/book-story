@@ -316,6 +316,8 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             chapters = chapters,
             contentPadding = contentPadding,
             verticalPadding = verticalPadding,
+            horizontalGesture = mainState.value.horizontalGesture,
+            horizontalGestureScroll = mainState.value.horizontalGestureScroll,
             paragraphHeight = paragraphHeight,
             sidePadding = sidePadding,
             backgroundColor = backgroundColor.value,

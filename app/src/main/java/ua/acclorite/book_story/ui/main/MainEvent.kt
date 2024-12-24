@@ -45,4 +45,6 @@ sealed class MainEvent {
     data class OnChangeScreenOrientation(val value: String) : MainEvent()
     data class OnChangeCustomScreenBrightness(val value: Boolean) : MainEvent()
     data class OnChangeScreenBrightness(val value: Float) : MainEvent()
+    data class OnChangeHorizontalGesture(val value: String) : MainEvent()
+    data class OnChangeHorizontalGestureScroll(val value: Float) : MainEvent()
 }

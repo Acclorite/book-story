@@ -17,6 +17,7 @@ import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.domain.browse.toBrowseFilesStructure
 import ua.acclorite.book_story.domain.browse.toBrowseLayout
 import ua.acclorite.book_story.domain.browse.toBrowseSortOrder
+import ua.acclorite.book_story.domain.reader.toHorizontalGesture
 import ua.acclorite.book_story.domain.reader.toReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.toTextAlignment
 import ua.acclorite.book_story.domain.use_case.data_store.ChangeLanguage
@@ -375,6 +376,22 @@ class MainModel @Inject constructor(
                 value = event.value.toDouble(),
                 updateState = {
                     it.copy(screenBrightness = this.toFloat())
+                }
+            )
+
+            is MainEvent.OnChangeHorizontalGesture -> handleDatastoreUpdate(
+                key = DataStoreConstants.HORIZONTAL_GESTURE,
+                value = event.value,
+                updateState = {
+                    it.copy(horizontalGesture = toHorizontalGesture())
+                }
+            )
+
+            is MainEvent.OnChangeHorizontalGestureScroll -> handleDatastoreUpdate(
+                key = DataStoreConstants.HORIZONTAL_GESTURE_SCROLL,
+                value = event.value.toDouble(),
+                updateState = {
+                    it.copy(horizontalGestureScroll = this.toFloat())
                 }
             )
         }

@@ -207,6 +207,7 @@
     <string name="padding_reader_settings">Відступи</string>
     <string name="misc_reader_settings">Інше</string>
     <string name="reading_speed_reader_settings">Швидкість читання</string>
+    <string name="reading_mode_reader_settings">Режим читання</string>
     <string name="system_reader_settings">Система</string>
     <string name="theme_appearance_settings">Налаштування теми</string>
     <string name="colors_appearance_settings">Кольори</string>
@@ -264,6 +265,8 @@
     <string name="screen_orientation_option">Орієнтація екрана</string>
     <string name="custom_screen_brightness_option">Користувацька яскравість</string>
     <string name="screen_brightness_option">Яскравість</string>
+    <string name="horizontal_gesture_option">Горизонтальний жест</string>
+    <string name="horizontal_gesture_scroll_option">Частка прокрутки</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>
@@ -330,6 +333,11 @@
     <string name="screen_orientation_landscape">Альбом</string>
     <string name="screen_orientation_locked_portrait">Заблокований портрет</string>
     <string name="screen_orientation_locked_landscape">Заблокований альбом</string>
+
+    <!-- Horizontal Gesture properties -->
+    <string name="horizontal_gesture_off">Вимкнений</string>
+    <string name="horizontal_gesture_on">Ввімкнений</string>
+    <string name="horizontal_gesture_inverse">Ввімкнений (Інвертований)</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Меркурій</string>

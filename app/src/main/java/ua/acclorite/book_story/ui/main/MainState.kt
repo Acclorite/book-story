@@ -13,8 +13,10 @@ import ua.acclorite.book_story.domain.browse.BrowseSortOrder
 import ua.acclorite.book_story.domain.browse.toBrowseFilesStructure
 import ua.acclorite.book_story.domain.browse.toBrowseLayout
 import ua.acclorite.book_story.domain.browse.toBrowseSortOrder
+import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
 import ua.acclorite.book_story.domain.reader.ReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
+import ua.acclorite.book_story.domain.reader.toHorizontalGesture
 import ua.acclorite.book_story.domain.reader.toReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.toTextAlignment
 import ua.acclorite.book_story.presentation.core.constants.Constants
@@ -84,6 +86,10 @@ data class MainState(
     },
     val customScreenBrightness: Boolean = provideDefaultValue { false },
     val screenBrightness: Float = provideDefaultValue { 0.5f },
+    val horizontalGesture: ReaderHorizontalGesture = provideDefaultValue {
+        ReaderHorizontalGesture.OFF
+    },
+    val horizontalGestureScroll: Float = provideDefaultValue { 0.7f },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -281,6 +287,14 @@ data class MainState(
                     screenBrightness = provideValue(
                         SCREEN_BRIGHTNESS, convert = { this.toFloat() }
                     ) { screenBrightness },
+
+                    horizontalGesture = provideValue(
+                        HORIZONTAL_GESTURE, convert = { toHorizontalGesture() }
+                    ) { horizontalGesture },
+
+                    horizontalGestureScroll = provideValue(
+                        HORIZONTAL_GESTURE_SCROLL, convert = { toFloat() }
+                    ) { horizontalGestureScroll },
                 )
             }
         }

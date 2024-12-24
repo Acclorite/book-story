@@ -13,6 +13,7 @@ import ua.acclorite.book_story.domain.library.book.Book
 import ua.acclorite.book_story.domain.reader.Chapter
 import ua.acclorite.book_story.domain.reader.Checkpoint
 import ua.acclorite.book_story.domain.reader.FontWithName
+import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.domain.ui.UIText
 import ua.acclorite.book_story.domain.util.BottomSheet
@@ -46,6 +47,8 @@ fun ReaderContent(
     chapters: Map<Int, Chapter>,
     contentPadding: PaddingValues,
     verticalPadding: Dp,
+    horizontalGesture: ReaderHorizontalGesture,
+    horizontalGestureScroll: Float,
     paragraphHeight: Dp,
     sidePadding: Dp,
     backgroundColor: Color,
@@ -117,6 +120,8 @@ fun ReaderContent(
         chapters = chapters,
         contentPadding = contentPadding,
         verticalPadding = verticalPadding,
+        horizontalGesture = horizontalGesture,
+        horizontalGestureScroll = horizontalGestureScroll,
         paragraphHeight = paragraphHeight,
         sidePadding = sidePadding,
         backgroundColor = backgroundColor,

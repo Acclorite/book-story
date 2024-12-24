@@ -208,6 +208,7 @@
     <string name="padding_reader_settings">Padding</string>
     <string name="misc_reader_settings">Misc</string>
     <string name="reading_speed_reader_settings">Reading speed</string>
+    <string name="reading_mode_reader_settings">Reading mode</string>
     <string name="system_reader_settings">System</string>
     <string name="theme_appearance_settings">Theme preferences</string>
     <string name="colors_appearance_settings">Colors</string>
@@ -265,6 +266,8 @@
     <string name="screen_orientation_option">Screen orientation</string>
     <string name="custom_screen_brightness_option">Custom brightness</string>
     <string name="screen_brightness_option">Brightness</string>
+    <string name="horizontal_gesture_option">Horizontal gesture</string>
+    <string name="horizontal_gesture_scroll_option">Scroll fraction</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>
@@ -331,6 +334,11 @@
     <string name="screen_orientation_landscape">Landscape</string>
     <string name="screen_orientation_locked_portrait">Locked portrait</string>
     <string name="screen_orientation_locked_landscape">Locked landscape</string>
+
+    <!-- Horizontal Gesture properties -->
+    <string name="horizontal_gesture_off">Off</string>
+    <string name="horizontal_gesture_on">On</string>
+    <string name="horizontal_gesture_inverse">On (Inverse)</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Mercury</string>

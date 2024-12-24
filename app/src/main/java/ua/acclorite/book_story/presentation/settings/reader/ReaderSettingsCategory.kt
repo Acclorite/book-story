@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.settings.reader.font.FontSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.misc.MiscSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.padding.PaddingSubcategory
+import ua.acclorite.book_story.presentation.settings.reader.reading_mode.ReadingModeSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.reading_speed.ReadingSpeedSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.system.SystemSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.text.TextSubcategory
@@ -27,6 +28,11 @@ fun LazyListScope.ReaderSettingsCategory(
         bottomPadding = 0.dp
     )
     TextSubcategory(
+        titleColor = titleColor,
+        topPadding = 22.dp,
+        bottomPadding = 0.dp
+    )
+    ReadingModeSubcategory(
         titleColor = titleColor,
         topPadding = 22.dp,
         bottomPadding = 0.dp
