@@ -263,4 +263,22 @@
     <string name="custom_screen_brightness_option">自定义亮度</string>
     <string name="screen_brightness_option">亮度</string>
     <string name="search_field_empty">搜索…</string>
+    <string name="help_desc_how_to_move_or_delete_books_2">书库</string>
+    <string name="help_title_how_to_customize_app">如何自定义应用？</string>
+    <string name="help_desc_how_to_move_or_delete_books_1">前往</string>
+    <string name="help_desc_how_to_read_book_2">书库</string>
+    <string name="help_desc_how_to_customize_app_2">设置</string>
+    <string name="help_desc_how_to_move_or_delete_books_3">长按书籍封面直到选中\n即可在不同分类中选择书籍\n选择你要处理的书籍后\n你可以点击箭头来移动书籍\n点击垃圾桶来删除书籍。</string>
+    <string name="help_desc_how_to_edit_book_1">前往</string>
+    <string name="help_desc_how_to_edit_book_2">书库</string>
+    <string name="help_title_how_to_read_book">如何阅读一本书？</string>
+    <string name="text_alignment_justify">证明合法</string>
+    <string name="help_desc_how_to_add_books_1">前往</string>
+    <string name="help_desc_how_to_customize_app_1">前往</string>
+    <string name="help_desc_how_to_customize_app_3">您可以在 \"资料库\"、\"历史记录 \"和 \"浏览 \"界面点击右上角的三个点，然后从下拉菜单中选择 \"设置\"。 然后你就会看到此应用程序的所有可用设置。 请随意尝试！</string>
+    <string name="help_title_how_to_move_or_delete_books">如何移动或删除书籍？</string>
+    <string name="help_title_how_to_edit_book">如何编辑一本书？</string>
+    <string name="help_desc_how_to_edit_book_3">并单击图书的封面查看详细信息。 现在，您可以按住书名、作者或描述进行编辑，或按住封面进行更改、重置或删除封面图片。</string>
+    <string name="help_desc_how_to_read_book_1">前往</string>
+    <string name="random_string">随机</string>
 </resources>
