@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.presentation.core.components.modal_bottom_sheet.ModalBottomSheet
@@ -54,9 +53,7 @@ fun BrowseFilterBottomSheet(
                     LazyColumnWithScrollbar(modifier = Modifier.fillMaxSize()) {
                         BrowseGeneralSubcategory(
                             showTitle = false,
-                            showDivider = false,
-                            topPadding = 16.dp,
-                            bottomPadding = 8.dp
+                            showDivider = false
                         )
                     }
                 }
@@ -65,9 +62,7 @@ fun BrowseFilterBottomSheet(
                     LazyColumnWithScrollbar(modifier = Modifier.fillMaxSize()) {
                         BrowseFilterSubcategory(
                             showTitle = false,
-                            showDivider = false,
-                            topPadding = 16.dp,
-                            bottomPadding = 8.dp
+                            showDivider = false
                         )
                     }
                 }
@@ -76,9 +71,7 @@ fun BrowseFilterBottomSheet(
                     LazyColumnWithScrollbar(modifier = Modifier.fillMaxSize()) {
                         BrowseSortSubcategory(
                             showTitle = false,
-                            showDivider = false,
-                            topPadding = 16.dp,
-                            bottomPadding = 8.dp
+                            showDivider = false
                         )
                     }
                 }

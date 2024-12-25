@@ -18,7 +18,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.presentation.core.components.modal_bottom_sheet.ModalBottomSheet
@@ -95,30 +94,20 @@ fun ReaderSettingsBottomSheet(
                 0 -> {
                     LazyColumnWithScrollbar(Modifier.fillMaxSize()) {
                         ReadingModeSubcategory(
-                            titleColor = { MaterialTheme.colorScheme.onSurface },
-                            topPadding = 22.dp,
-                            bottomPadding = 0.dp
+                            titleColor = { MaterialTheme.colorScheme.onSurface }
                         )
                         PaddingSubcategory(
-                            titleColor = { MaterialTheme.colorScheme.onSurface },
-                            topPadding = 22.dp,
-                            bottomPadding = 0.dp
+                            titleColor = { MaterialTheme.colorScheme.onSurface }
                         )
                         SystemSubcategory(
-                            titleColor = { MaterialTheme.colorScheme.onSurface },
-                            topPadding = 22.dp,
-                            bottomPadding = 0.dp
+                            titleColor = { MaterialTheme.colorScheme.onSurface }
                         )
                         ReadingSpeedSubcategory(
-                            titleColor = { MaterialTheme.colorScheme.onSurface },
-                            topPadding = 22.dp,
-                            bottomPadding = 0.dp
+                            titleColor = { MaterialTheme.colorScheme.onSurface }
                         )
                         MiscSubcategory(
                             titleColor = { MaterialTheme.colorScheme.onSurface },
-                            showDivider = false,
-                            topPadding = 22.dp,
-                            bottomPadding = 8.dp
+                            showDivider = false
                         )
                     }
                 }
@@ -126,20 +115,14 @@ fun ReaderSettingsBottomSheet(
                 1 -> {
                     LazyColumnWithScrollbar(Modifier.fillMaxSize()) {
                         FontSubcategory(
-                            titleColor = { MaterialTheme.colorScheme.onSurface },
-                            topPadding = 16.dp,
-                            bottomPadding = 0.dp
+                            titleColor = { MaterialTheme.colorScheme.onSurface }
                         )
                         TextSubcategory(
-                            titleColor = { MaterialTheme.colorScheme.onSurface },
-                            topPadding = 22.dp,
-                            bottomPadding = 0.dp
+                            titleColor = { MaterialTheme.colorScheme.onSurface }
                         )
                         TranslatorSubcategory(
                             titleColor = { MaterialTheme.colorScheme.onSurface },
-                            showDivider = false,
-                            topPadding = 22.dp,
-                            bottomPadding = 8.dp
+                            showDivider = false
                         )
                     }
                 }
@@ -149,9 +132,7 @@ fun ReaderSettingsBottomSheet(
                         ColorsSubcategory(
                             showTitle = false,
                             showDivider = false,
-                            backgroundColor = { MaterialTheme.colorScheme.surfaceContainer },
-                            topPadding = 16.dp,
-                            bottomPadding = 8.dp
+                            backgroundColor = { MaterialTheme.colorScheme.surfaceContainer }
                         )
                     }
                 }

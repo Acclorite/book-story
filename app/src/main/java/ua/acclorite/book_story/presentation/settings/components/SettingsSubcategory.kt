@@ -10,8 +10,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 
 fun LazyListScope.SettingsSubcategory(
@@ -19,8 +17,6 @@ fun LazyListScope.SettingsSubcategory(
     title: @Composable () -> String,
     showTitle: Boolean,
     showDivider: Boolean,
-    topPadding: Dp,
-    bottomPadding: Dp,
     content: LazyListScope.() -> Unit
 ) {
     item {
@@ -30,25 +26,19 @@ fun LazyListScope.SettingsSubcategory(
                 color = titleColor.invoke(),
                 modifier = Modifier
                     .padding(
-                        top = topPadding,
+                        top = 18.dp,
                         bottom = 8.dp
                     )
             )
         } else {
-            Spacer(
-                modifier = Modifier.height((topPadding - 8.dp).coerceAtLeast(0.dp))
-            )
+            Spacer(modifier = Modifier.height(18.dp))
         }
     }
 
     content()
 
     item {
-        if (showDivider) {
-            Spacer(modifier = Modifier.height(10.dp))
-            HorizontalDivider()
-        }
-
-        Spacer(modifier = Modifier.height(bottomPadding))
+        Spacer(modifier = Modifier.height(18.dp))
+        if (showDivider) HorizontalDivider()
     }
 }
