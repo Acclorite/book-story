@@ -258,8 +258,8 @@
     <string name="perception_expander_option_desc">
         Increase your reading speed by focusing on center
     </string>
-    <string name="perception_expander_padding_option">Perception expander line padding</string>
-    <string name="perception_expander_thickness_option">Perception expander line thickness</string>
+    <string name="perception_expander_padding_option">Line padding</string>
+    <string name="perception_expander_thickness_option">Line thickness</string>
     <string name="check_for_text_update_option">Check for text update</string>
     <string name="check_for_text_update_option_desc">Automatically check whether there is text update</string>
     <string name="check_for_text_update_toast_option">Show \"text is up-to-date\" toast</string>
