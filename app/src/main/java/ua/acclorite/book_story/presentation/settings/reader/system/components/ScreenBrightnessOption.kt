@@ -8,20 +8,23 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.settings.SliderWithTitle
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.main.MainModel
+import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
 fun ScreenBrightnessOption() {
     val mainModel = hiltViewModel<MainModel>()
     val state = mainModel.state.collectAsStateWithLifecycle()
 
-    SliderWithTitle(
-        value = state.value.screenBrightness to "",
-        toValue = 100,
-        title = stringResource(id = R.string.screen_brightness_option),
-        onValueChange = {
-            mainModel.onEvent(
-                MainEvent.OnChangeScreenBrightness(it)
-            )
-        }
-    )
+    ExpandingTransition(visible = state.value.customScreenBrightness) {
+        SliderWithTitle(
+            value = state.value.screenBrightness to "",
+            toValue = 100,
+            title = stringResource(id = R.string.screen_brightness_option),
+            onValueChange = {
+                mainModel.onEvent(
+                    MainEvent.OnChangeScreenBrightness(it)
+                )
+            }
+        )
+    }
 }
