@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -22,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.library.book.Book
@@ -44,6 +47,7 @@ fun ReaderBottomBar(
     currentChapter: Chapter?,
     currentChapterProgress: Float,
     checkpoint: Checkpoint,
+    bottomBarPadding: Dp,
     restoreCheckpoint: (ReaderEvent.OnRestoreCheckpoint) -> Unit,
     scroll: (ReaderEvent.OnScroll) -> Unit,
     changeProgress: (ReaderEvent.OnChangeProgress) -> Unit
@@ -89,20 +93,21 @@ fun ReaderBottomBar(
             .background(Colors.readerSystemBarsColor)
             .noRippleClickable(onClick = {})
             .navigationBarsPadding()
-            .padding(horizontal = 18.dp)
-            .padding(top = 16.dp),
+            .padding(horizontal = 18.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        Spacer(Modifier.height(16.dp))
+
         Text(
             text = progress.value,
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleLarge
         )
-        Row(
-            modifier = Modifier.padding(top = 3.dp, bottom = 5.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+
+        Spacer(Modifier.height(6.dp))
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
             HorizontalExpandingTransition(
                 visible = arrowDirection == Direction.START,
                 startDirection = true
@@ -150,5 +155,7 @@ fun ReaderBottomBar(
                 }
             }
         }
+
+        Spacer(Modifier.height(8.dp + bottomBarPadding))
     }
 }

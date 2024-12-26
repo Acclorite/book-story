@@ -267,6 +267,7 @@
     <string name="screen_brightness_option">Яскравість</string>
     <string name="horizontal_gesture_option">Горизонтальний жест</string>
     <string name="horizontal_gesture_scroll_option">Частка прокрутки</string>
+    <string name="bottom_bar_padding_option">Відступ нижньої панелі</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>

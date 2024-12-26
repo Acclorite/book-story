@@ -218,6 +218,9 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
                 }
             )
         }
+        val bottomBarPadding = remember(mainState.value.bottomBarPadding) {
+            (mainState.value.bottomBarPadding * 4f).dp
+        }
 
         val chapters = remember(state.value.book.chapters) {
             val chapters = mutableMapOf<Int, Chapter>()
@@ -320,6 +323,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             horizontalGestureScroll = mainState.value.horizontalGestureScroll,
             paragraphHeight = paragraphHeight,
             sidePadding = sidePadding,
+            bottomBarPadding = bottomBarPadding,
             backgroundColor = backgroundColor.value,
             fontColor = fontColor.value,
             fontFamily = fontFamily,

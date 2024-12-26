@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategory
+import ua.acclorite.book_story.presentation.settings.reader.padding.components.BottomBarPaddingOption
 import ua.acclorite.book_story.presentation.settings.reader.padding.components.CutoutPaddingOption
 import ua.acclorite.book_story.presentation.settings.reader.padding.components.SidePaddingOption
 import ua.acclorite.book_story.presentation.settings.reader.padding.components.VerticalPaddingOption
@@ -35,6 +36,10 @@ fun LazyListScope.PaddingSubcategory(
 
         item {
             CutoutPaddingOption()
+        }
+
+        item {
+            BottomBarPaddingOption()
         }
     }
 }

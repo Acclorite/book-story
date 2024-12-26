@@ -90,6 +90,7 @@ data class MainState(
         ReaderHorizontalGesture.OFF
     },
     val horizontalGestureScroll: Float = provideDefaultValue { 0.7f },
+    val bottomBarPadding: Int = provideDefaultValue { 0 },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -295,6 +296,10 @@ data class MainState(
                     horizontalGestureScroll = provideValue(
                         HORIZONTAL_GESTURE_SCROLL, convert = { toFloat() }
                     ) { horizontalGestureScroll },
+
+                    bottomBarPadding = provideValue(
+                        BOTTOM_BAR_PADDING
+                    ) { bottomBarPadding },
                 )
             }
         }

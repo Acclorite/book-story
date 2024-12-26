@@ -56,6 +56,7 @@ fun ReaderScaffold(
     horizontalGestureScroll: Float,
     paragraphHeight: Dp,
     sidePadding: Dp,
+    bottomBarPadding: Dp,
     backgroundColor: Color,
     fontColor: Color,
     fontFamily: FontWithName,
@@ -132,6 +133,7 @@ fun ReaderScaffold(
                     currentChapter = currentChapter,
                     currentChapterProgress = currentChapterProgress,
                     checkpoint = checkpoint,
+                    bottomBarPadding = bottomBarPadding,
                     restoreCheckpoint = restoreCheckpoint,
                     scroll = scroll,
                     changeProgress = changeProgress

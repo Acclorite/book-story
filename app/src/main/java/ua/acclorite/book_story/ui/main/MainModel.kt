@@ -394,6 +394,14 @@ class MainModel @Inject constructor(
                     it.copy(horizontalGestureScroll = this.toFloat())
                 }
             )
+
+            is MainEvent.OnChangeBottomBarPadding -> handleDatastoreUpdate(
+                key = DataStoreConstants.BOTTOM_BAR_PADDING,
+                value = event.value,
+                updateState = {
+                    it.copy(bottomBarPadding = this)
+                }
+            )
         }
     }
 
