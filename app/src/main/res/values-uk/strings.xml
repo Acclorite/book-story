@@ -192,7 +192,7 @@
     <string name="font_reader_settings">Шрифт</string>
     <string name="text_reader_settings">Текст</string>
     <string name="translator_reader_settings">Перекладач</string>
-    <string name="padding_reader_settings">Відступи</string>
+    <string name="padding_reader_settings">Поля</string>
     <string name="misc_reader_settings">Інше</string>
     <string name="reading_speed_reader_settings">Швидкість читання</string>
     <string name="reading_mode_reader_settings">Режим читання</string>
@@ -225,18 +225,18 @@
     <string name="color_preset_option">Пресет кольорів</string>
     <string name="background_color_option">Колір фона</string>
     <string name="font_color_option">Колір шрифта</string>
-    <string name="side_padding_option">Бокові відступи</string>
-    <string name="vertical_padding_option">Вертикальні відступи</string>
+    <string name="side_padding_option">Бічні поля</string>
+    <string name="vertical_padding_option">Вертикальні поля</string>
     <string name="double_click_translation_option">Переклад подвійним кліком</string>
     <string name="double_click_translation_option_desc">Двічі клацніть на абзац, щоб перекласти його</string>
     <string name="fast_color_preset_change_option">Швидка зміна пресета кольорів</string>
     <string name="fast_color_preset_change_option_desc">Проведіть верхню панель вліво або вправо, щоб змінити пресет кольорів</string>
     <string name="text_alignment_option">Розташування текста</string>
     <string name="letter_spacing_option">Відстань між літерами</string>
-    <string name="cutout_padding_option">Відступ від виїмки</string>
-    <string name="cutout_padding_option_desc">Застосувати відступ до ділянки виїмки</string>
+    <string name="cutout_padding_option">Поле вирізу</string>
+    <string name="cutout_padding_option_desc">Додайте поле до області вирізу</string>
     <string name="fullscreen_option">Повний екран</string>
-    <string name="fullscreen_option_desc">Сховати системні панелі та прибрати відступи</string>
+    <string name="fullscreen_option_desc">Приховати системні панелі та видалити поля</string>
     <string name="keep_screen_on_option">Тримати екран увімкненим</string>
     <string name="hide_bars_on_fast_scroll_option">Ховати панелі при швидкому прокручуванні</string>
     <string name="perception_expander_option">Розширення сприйняття</string>
@@ -511,7 +511,7 @@
     <string name="help_title_how_to_use_perception_expander">
         Що таке та як використовувати розширення сприйняття?
     </string>
-    <string name="help_title_how_to_use_perception_expander_1">Розширення сприйняття може допомогти вам читати швидше. Спочатку увімкніть його в налаштуваннях Читача(див: Як мені налаштувати Читач?). Після увімкнення дві вертикальні лінії з\'являться по обидва боки Читача. Щоб підвищити вашу швидкість читання, відкоригуйте відступи, щоб створити менше простору навколо центра. Для використання цього режиму фокусуйтеся на центрі екрану, дозволяючи вашому периферійному зору сприймати текст з боків. Під час читання підтримуйте фокус на центрі, не дивлячись прямо на боки після кожного рядка.</string>
+    <string name="help_title_how_to_use_perception_expander_1">Розширювач сприйняття може допомогти вам швидше читати. Спочатку ввімкніть його в налаштуваннях Reader (див.: Як налаштувати Reader?). Після ввімкнення дві вертикальні лінії з’являться з обох боків Reader. Щоб ще більше оптимізувати швидкість читання, відрегулюйте поля, щоб залишити менше місця навколо центру. Щоб скористатися нею, сфокусуйтеся на центрі екрана, дозволяючи периферійному зору вловити текст з боків. Під час читання зосередьтеся на центрі, не дивлячись безпосередньо на сторони після кожного рядка.</string>
     <!-- Start -->
     <string name="start_welcome">Вітаємо в Book\'s Story!</string>
     <string name="start_welcome_desc">
