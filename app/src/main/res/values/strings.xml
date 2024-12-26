@@ -205,7 +205,7 @@
     <string name="font_reader_settings">Font</string>
     <string name="text_reader_settings">Text</string>
     <string name="translator_reader_settings">Translator</string>
-    <string name="padding_reader_settings">Padding</string>
+    <string name="padding_reader_settings">Margins</string>
     <string name="misc_reader_settings">Misc</string>
     <string name="reading_speed_reader_settings">Reading speed</string>
     <string name="reading_mode_reader_settings">Reading mode</string>
@@ -240,25 +240,25 @@
     <string name="color_preset_option">Color preset</string>
     <string name="background_color_option">Background color</string>
     <string name="font_color_option">Font color</string>
-    <string name="side_padding_option">Side padding</string>
-    <string name="vertical_padding_option">Vertical padding</string>
+    <string name="side_padding_option">Side margins</string>
+    <string name="vertical_padding_option">Vertical margins</string>
     <string name="double_click_translation_option">Double click translation</string>
     <string name="double_click_translation_option_desc">Double click on paragraph to translate it</string>
     <string name="fast_color_preset_change_option">Fast color preset change</string>
     <string name="fast_color_preset_change_option_desc">Swipe top bar left or right to change color preset</string>
     <string name="text_alignment_option">Text alignment</string>
     <string name="letter_spacing_option">Letter spacing</string>
-    <string name="cutout_padding_option">Cutout padding</string>
-    <string name="cutout_padding_option_desc">Apply padding to cutout area</string>
+    <string name="cutout_padding_option">Cutout margin</string>
+    <string name="cutout_padding_option_desc">Apply margin to the cutout area</string>
     <string name="fullscreen_option">Fullscreen</string>
-    <string name="fullscreen_option_desc">Hide system bars and remove padding</string>
+    <string name="fullscreen_option_desc">Hide system bars and remove margins</string>
     <string name="keep_screen_on_option">Keep screen on</string>
     <string name="hide_bars_on_fast_scroll_option">Hide bars on fast scroll</string>
     <string name="perception_expander_option">Perception expander</string>
     <string name="perception_expander_option_desc">
         Increase your reading speed by focusing on center
     </string>
-    <string name="perception_expander_padding_option">Line padding</string>
+    <string name="perception_expander_padding_option">Line side margin</string>
     <string name="perception_expander_thickness_option">Line thickness</string>
     <string name="check_for_text_update_option">Check for text update</string>
     <string name="check_for_text_update_option_desc">Automatically check whether there is text update</string>
@@ -562,7 +562,7 @@
         First, enable it in the Reader settings(see: How do I customize the Reader?).
         Once enabled, two vertical lines will appear on either side of the Reader.
         To optimize your reading speed further,
-        adjust the padding to create less space around the center.
+        adjust the margin to create less space around the center.
         To use it, focus on the center of the screen while
         allowing your peripheral vision to pick up the text on the sides.
         As you read, maintain your focus on the center without directly
