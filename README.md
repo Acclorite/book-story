@@ -1,18 +1,15 @@
 <!------------ Header ------------>
 
 <div align="center">
-
   <img src="https://github.com/Acclorite/book-story/blob/master/assets/readme/app_icon.png" width="120" />
+  <h1>Book's Story</h1>
+  <h3>Material You eBook Reader for Android</h3>
+  <p>Dive into the world of adventure as you discover your favorite book's story!</p>
 </div>
-
-# <p align="center">Book's Story</p>
-### <p align="center">Material3 Book Reader for Android</p>
-<p align="center">Dive into the world of adventure as you discover your favorite book's story!</p>
 
 <!------------ Badges ------------>
 
 <div align="center">
-
 
   <a href="">[![Latest Stable Release](https://img.shields.io/github/release/Acclorite/book-story.svg?labelColor=27303D&color=3f719b&label=Release&logo=GitHub)](https://github.com/Acclorite/book-story/releases)</a>
   <a href="">[![F-Droid Release](https://img.shields.io/f-droid/v/ua.acclorite.book_story?labelColor=27303D&color=3f9b5a&label=F-Droid&logo=f-droid)](https://f-droid.org/packages/ua.acclorite.book_story/)</a>
@@ -32,8 +29,9 @@
 
 # <p align="center">Overview</p>
 
-<img src="https://github.com/Acclorite/book-story/blob/master/assets/readme/github_overview.png">
-Built using Jetpack Compose and Kotlin.
+<img src="https://github.com/Acclorite/book-story/blob/master/fastlane/metadata/android/en-US/images/featureGraphic.png">
+
+Enjoy a sleek, customizable **reading app** with modern design, built with Jetpack Compose. It’s open-source, offering you a personalized, ad-free journey through your favorite books!
 
 <!------------ Screenshots ------------>
 
@@ -51,7 +49,13 @@ Built using Jetpack Compose and Kotlin.
 </div>
 </br>
 
-_You can find more screenshots in [assets](https://github.com/Acclorite/book-story/tree/master/assets) folder._
+<!------------ Features ------------>
+
+## ✨ Features
+- 8 supported file formats(.pdf, .txt, .epub, .fb2, .zip, .html, .htm, .md)
+- Material You design with unique themes and color presets
+- Organized Library with categories and chapters in Reader
+- Highly customizable
 
 <!------------ Download guide ------------>
 
@@ -65,62 +69,36 @@ _You can find more screenshots in [assets](https://github.com/Acclorite/book-sto
   [<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Get it on IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/ua.acclorite.book_story)
 </div>
 
-_Don't see your favorite app store? Create an [Issue](https://github.com/Acclorite/book-story/issues)! (Except Play Store, this app won't be there)_
+_Don't see your favorite app store? Create an [Issue](https://github.com/Acclorite/book-story/issues)!_
 
 ### 📲 How to download and install
- - _**Install from Github**_: Click on the "Get it on GitHub" badge above, scroll down and download **book-story.apk** or download the last apk from GitHub [here](https://github.com/Acclorite/book-story/releases/latest/download/book-story.apk). After that, find downloaded APK and install it.
- - _**Install from F-Droid**_: Click on the "Get it on F-Droid" badge above, scroll down and click "Download APK" under desired Release Version to download the APK file. After that, find downloaded APK and install it.
- - _**Install from IzzyOnDroid**_: Click on the "Get it on IzzyOnDroid" badge above, scroll down and click "Download" to download the last APK from IzzyOnDroid. After that, find downloaded APK and install it.
- - If you don't know how to install APK file, follow [this guide](https://www.lifewire.com/install-apk-on-android-4177185).
+ - _**Installing from Github**_: Click the "Get it on GitHub" badge above, scroll down, and download **book-story.apk**, or grab the latest APK directly [here](https://github.com/Acclorite/book-story/releases/latest/download/book-story.apk). Once downloaded, locate the APK file and install it.
+ - _**Installing from F-Droid**_: Click the "Get it on F-Droid" badge above, scroll down, and click "Download APK" under your desired release version to download the APK file. Once downloaded, locate the file and install it.
+ - _**Installing from IzzyOnDroid**_: Click the "Get it on IzzyOnDroid" badge above, scroll down, and click "Download" to get the latest APK from IzzyOnDroid. Once downloaded, locate the file and install it.
+ - If you're unsure how to install an APK file, follow [this](https://www.lifewire.com/install-apk-on-android-4177185) guide.
 
 ### 🧭 Afterwards
- - Open the app and follow basic instructions.
- - If you don't understand how to use the app, please read everything in the app's Help Screen. (You can find it in: Library, History, Browse → Three Dots → Help)
- - If you still have questions, please feel free to ask in [Discussions](https://github.com/Acclorite/book-story/discussions/categories/q-a), or create an [Issue](https://github.com/Acclorite/book-story/issues) if you feel like some area should be documented better.
-
-<!------------ Features ------------>
-
-## ✨ Features
-- 8 supported file formats(.pdf, .txt, .epub, .fb2, .zip, .html, .htm, .md)
-- Material You
-- Lots of unique themes
-- Color Presets in the Reader
-- Chapters in the Reader
-- Categories to organize your Library
-- Check for the app's update on the app's startup
-- Highly customizable Reader
-- Double click translation(sends to an external translator)
-- Tablet UI support
-- More..
-
-<!------------ Roadmap ------------>
-
-## 😵‍💫 Upcoming features / Roadmap
- - _You can track project's progress, see what's coming and what is already implemented in [Book's Story: Development Roadmap](https://github.com/users/Acclorite/projects/1)._
- - Some features may not be in Roadmap due to small size or other factors.
+Open the app and follow the basic instructions. If you're unsure how to use the app, refer to the Help screen (accessible via: Library, History, Browse → Three Dots → Help). If you still have questions, feel free to ask in the [Discussions](https://github.com/Acclorite/book-story/discussions/categories/q-a) or create an [Issue](https://github.com/Acclorite/book-story/issues) for areas you think need better documentation.
 
 <!------------ Translation ------------>
 
 ## 🌐 Translation
 
-[<img src="https://hosted.weblate.org/widget/book-story/book-story-translation/multi-blue.svg" alt="Translation progress" width=70%>](https://hosted.weblate.org/engage/book-story/)
+[<img src="https://hosted.weblate.org/widget/book-story/book-story-translation/horizontal-auto.svg" alt="Translation progress">](https://hosted.weblate.org/engage/book-story/)
 <br/>
 
-_You can help translating the app on [Hosted Weblate](https://hosted.weblate.org/engage/book-story/)._
+_Help translate the app on [Hosted Weblate](https://hosted.weblate.org/engage/book-story/)._
 
 <!------------ Contribution ------------>
 
 ## 🤝 How to contribute
- - **The most improtant thing is I do not want someone's code.** This project is maintaining only by me and I want it to be this way. Creating Pull Requests will not have much sense as they will probably be closed.
-- **Place your suggestions on Issues
-  with [Suggestion Needed](https://github.com/Acclorite/book-story/labels/%F0%9F%93%9D%20Suggestion%20needed)
-  label.** When the issue has this label that means I seek new ideas on how to improve what I
-  already propose. Feel free to tell me what's on your mind!
- - **Join Matrix server**. You can share your ideas, make bug reports and just chat with me on my [Matrix](https://matrix.to/#/#book-story:matrix.org) server!
- - **Share your ideas and suggestions.** Your ideas and suggestions are always welcome, if you miss some feature or got an interesting idea, feel free to create a new [Issue](https://github.com/Acclorite/book-story/issues).
- - **Report bugs**. Had a crash or something went wrong? Create a new [Issue](https://github.com/Acclorite/book-story/issues), the more information you can give the better it is.
- - **Translate the app**. You can do what I physically cannot - translate the app on multiple languages. For this you can use [Hosted Weblate](https://hosted.weblate.org/engage/book-story/).
- - **Enjoy the app**. Your best contribution is using my app and enjoying it!
+ - **The most important thing is that I do not want anyone else's code.** This project is maintained solely by me, and I intend to keep it that way. Pull requests will likely be closed, as they don’t align with the project's vision.
+ - **Submit your suggestions on Issues with the [Suggestion Needed](https://github.com/Acclorite/book-story/labels/%F0%9F%93%9D%20Suggestion%20needed) label.** When an issue has this label, it means I'm looking for ideas on how to improve what I’ve already proposed. Feel free to share your thoughts!
+ - **Join the Matrix server** to share your ideas, report bugs, or just chat with me on [this server](https://matrix.to/#/#book-story:matrix.org)!
+ - **Share your ideas and suggestions.** If you’re missing a feature or have an interesting idea, feel free to create a new [Issue](https://github.com/Acclorite/book-story/issues).
+ - **Report bugs.** Encountered a crash or something went wrong? Create a new [Issue](https://github.com/Acclorite/book-story/issues) with as much detail as possible to help resolve it.
+ - **Translate the app.** You can help make the app accessible in multiple languages. To contribute, visit [Hosted Weblate](https://hosted.weblate.org/engage/book-story/).
+ - **Enjoy the app.** The best contribution is simply using and enjoying the app I spent so much time on!
    
 <!------------ Credits and License ------------>
 
