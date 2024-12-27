@@ -25,6 +25,14 @@ fun Constants.provideCredits() = listOf(
         website = "https://www.github.com/Drumber/Kitsune"
     ),
     Credit(
+        name = "Voyager",
+        source = "Voyager website",
+        credits = listOf(
+            UIText.StringResource(R.string.credits_ideas)
+        ),
+        website = "https://voyager.adriel.cafe/"
+    ),
+    Credit(
         name = "Material Design Icons",
         source = "Google Fonts",
         credits = listOf(
