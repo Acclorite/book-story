@@ -161,6 +161,9 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
         ) {
             (mainState.value.perceptionExpanderThickness * 0.25f).dp
         }
+        val horizontalGestureSensitivity = remember(mainState.value.horizontalGestureSensitivity) {
+            (36f + mainState.value.horizontalGestureSensitivity * (4f - 36f)).dp
+        }
 
         val density = LocalDensity.current
         val layoutDirection = LocalLayoutDirection.current
@@ -321,6 +324,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             verticalPadding = verticalPadding,
             horizontalGesture = mainState.value.horizontalGesture,
             horizontalGestureScroll = mainState.value.horizontalGestureScroll,
+            horizontalGestureSensitivity = horizontalGestureSensitivity,
             paragraphHeight = paragraphHeight,
             sidePadding = sidePadding,
             bottomBarPadding = bottomBarPadding,

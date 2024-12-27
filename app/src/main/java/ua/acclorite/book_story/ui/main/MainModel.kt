@@ -395,6 +395,14 @@ class MainModel @Inject constructor(
                 }
             )
 
+            is MainEvent.OnChangeHorizontalGestureSensitivity -> handleDatastoreUpdate(
+                key = DataStoreConstants.HORIZONTAL_GESTURE_SENSITIVITY,
+                value = event.value.toDouble(),
+                updateState = {
+                    it.copy(horizontalGestureSensitivity = this.toFloat())
+                }
+            )
+
             is MainEvent.OnChangeBottomBarPadding -> handleDatastoreUpdate(
                 key = DataStoreConstants.BOTTOM_BAR_PADDING,
                 value = event.value,

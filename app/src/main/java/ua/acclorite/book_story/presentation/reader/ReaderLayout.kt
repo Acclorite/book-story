@@ -41,6 +41,7 @@ fun ReaderLayout(
     verticalPadding: Dp,
     horizontalGesture: ReaderHorizontalGesture,
     horizontalGestureScroll: Float,
+    horizontalGestureSensitivity: Dp,
     paragraphHeight: Dp,
     sidePadding: Dp,
     backgroundColor: Color,
@@ -132,6 +133,7 @@ fun ReaderLayout(
                     listState = listState,
                     horizontalGesture = horizontalGesture,
                     horizontalGestureScroll = horizontalGestureScroll,
+                    horizontalGestureSensitivity = horizontalGestureSensitivity,
                     isLoading = isLoading
                 ),
             verticalArrangement = Arrangement.spacedBy(paragraphHeight),

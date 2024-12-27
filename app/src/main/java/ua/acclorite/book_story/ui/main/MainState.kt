@@ -90,6 +90,7 @@ data class MainState(
         ReaderHorizontalGesture.OFF
     },
     val horizontalGestureScroll: Float = provideDefaultValue { 0.7f },
+    val horizontalGestureSensitivity: Float = provideDefaultValue { 0.6f },
     val bottomBarPadding: Int = provideDefaultValue { 0 },
 
     // Browse Settings
@@ -296,6 +297,10 @@ data class MainState(
                     horizontalGestureScroll = provideValue(
                         HORIZONTAL_GESTURE_SCROLL, convert = { toFloat() }
                     ) { horizontalGestureScroll },
+
+                    horizontalGestureSensitivity = provideValue(
+                        HORIZONTAL_GESTURE_SENSITIVITY, convert = { toFloat() }
+                    ) { horizontalGestureSensitivity },
 
                     bottomBarPadding = provideValue(
                         BOTTOM_BAR_PADDING

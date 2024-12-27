@@ -268,6 +268,7 @@
     <string name="screen_brightness_option">Brightness</string>
     <string name="horizontal_gesture_option">Horizontal gesture</string>
     <string name="horizontal_gesture_scroll_option">Scroll fraction</string>
+    <string name="horizontal_gesture_sensitivity_option">Sensitivity</string>
     <string name="bottom_bar_padding_option">Bottom bar margin</string>
 
     <!-- Browse -->

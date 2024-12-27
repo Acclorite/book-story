@@ -15,8 +15,8 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
 import kotlin.math.abs
@@ -27,10 +27,12 @@ fun Modifier.readerHorizontalGesture(
     listState: LazyListState,
     horizontalGesture: ReaderHorizontalGesture,
     horizontalGestureScroll: Float,
+    horizontalGestureSensitivity: Dp,
     isLoading: Boolean
 ): Modifier {
     if (horizontalGesture == ReaderHorizontalGesture.OFF || isLoading) return this
     val inverted = rememberUpdatedState(horizontalGesture == ReaderHorizontalGesture.INVERSE)
+    val sensitivity = rememberUpdatedState(horizontalGestureSensitivity)
 
     val scope = rememberCoroutineScope()
     val density = LocalDensity.current
@@ -61,7 +63,7 @@ fun Modifier.readerHorizontalGesture(
     @Composable
     fun calculateAlpha(): Float {
         return animateFloatAsState(
-            1f - (abs(with(density) { horizontalOffset.floatValue.toDp() }.value) / 16f)
+            1f - (abs(with(density) { horizontalOffset.floatValue.toDp() }.value) / sensitivity.value.value)
         ).value
     }
 
@@ -91,12 +93,12 @@ fun Modifier.readerHorizontalGesture(
                     val horizontalOffsetDp = with(density) { horizontalOffset.floatValue.toDp() }
 
                     when {
-                        horizontalOffsetDp > 16.dp -> {
+                        horizontalOffsetDp > sensitivity.value -> {
                             if (inverted.value) scrollForward()
                             else scrollBackward()
                         }
 
-                        horizontalOffsetDp < (-16).dp -> {
+                        horizontalOffsetDp < -sensitivity.value -> {
                             if (inverted.value) scrollBackward()
                             else scrollForward()
                         }
