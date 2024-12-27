@@ -1,11 +1,13 @@
 <!------------ Header ------------>
 
 <div align="center">
-  <img src="https://github.com/Acclorite/book-story/blob/master/assets/readme/app_icon.png" width="120" />
+  <img src="https://github.com/Acclorite/book-story/blob/master/fastlane/metadata/android/en-US/images/icon_2.png" width="120" />
   <h1>Book's Story</h1>
   <h3>Material You eBook Reader for Android</h3>
   <p>Dive into the world of adventure as you discover your favorite book's story!</p>
 </div>
+
+---
 
 <!------------ Badges ------------>
 
@@ -33,6 +35,8 @@
 
 Enjoy a sleek, customizable **reading app** with modern design, built with Jetpack Compose. It’s open-source, offering you a personalized, ad-free journey through your favorite books!
 
+---
+
 <!------------ Screenshots ------------>
 
 ## 🖌️ Screenshots
@@ -40,14 +44,13 @@ Enjoy a sleek, customizable **reading app** with modern design, built with Jetpa
 <div>
   <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="30%" />
   <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="30%" />
-  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/9.png" width="30%" />
+  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="30%" />
   <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="30%" />
   <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" width="30%" />
-  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/8.png" width="30%" />
-  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="45%" />
-  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/6.png" width="45%" />
+  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/6.png" width="30%" />
 </div>
-</br>
+
+---
 
 <!------------ Features ------------>
 
@@ -56,6 +59,8 @@ Enjoy a sleek, customizable **reading app** with modern design, built with Jetpa
 - Material You design with unique themes and color presets
 - Organized Library with categories and chapters in Reader
 - Highly customizable
+
+---
 
 <!------------ Download guide ------------>
 
@@ -71,14 +76,20 @@ Enjoy a sleek, customizable **reading app** with modern design, built with Jetpa
 
 _Don't see your favorite app store? Create an [Issue](https://github.com/Acclorite/book-story/issues)!_
 
+---
+
 ### 📲 How to download and install
  - _**Installing from Github**_: Click the "Get it on GitHub" badge above, scroll down, and download **book-story.apk**, or grab the latest APK directly [here](https://github.com/Acclorite/book-story/releases/latest/download/book-story.apk). Once downloaded, locate the APK file and install it.
  - _**Installing from F-Droid**_: Click the "Get it on F-Droid" badge above, scroll down, and click "Download APK" under your desired release version to download the APK file. Once downloaded, locate the file and install it.
  - _**Installing from IzzyOnDroid**_: Click the "Get it on IzzyOnDroid" badge above, scroll down, and click "Download" to get the latest APK from IzzyOnDroid. Once downloaded, locate the file and install it.
  - If you're unsure how to install an APK file, follow [this](https://www.lifewire.com/install-apk-on-android-4177185) guide.
 
+---
+
 ### 🧭 Afterwards
 Open the app and follow the basic instructions. If you're unsure how to use the app, refer to the Help screen (accessible via: Library, History, Browse → Three Dots → Help). If you still have questions, feel free to ask in the [Discussions](https://github.com/Acclorite/book-story/discussions/categories/q-a) or create an [Issue](https://github.com/Acclorite/book-story/issues) for areas you think need better documentation.
+
+---
 
 <!------------ Translation ------------>
 
@@ -88,6 +99,8 @@ Open the app and follow the basic instructions. If you're unsure how to use the 
 <br/>
 
 _Help translate the app on [Hosted Weblate](https://hosted.weblate.org/engage/book-story/)._
+
+---
 
 <!------------ Contribution ------------>
 
@@ -99,7 +112,9 @@ _Help translate the app on [Hosted Weblate](https://hosted.weblate.org/engage/bo
  - **Report bugs.** Encountered a crash or something went wrong? Create a new [Issue](https://github.com/Acclorite/book-story/issues) with as much detail as possible to help resolve it.
  - **Translate the app.** You can help make the app accessible in multiple languages. To contribute, visit [Hosted Weblate](https://hosted.weblate.org/engage/book-story/).
  - **Enjoy the app.** The best contribution is simply using and enjoying the app I spent so much time on!
-   
+
+---
+
 <!------------ Credits and License ------------>
 
 ## 🤗 Credits
@@ -109,6 +124,8 @@ _Help translate the app on [Hosted Weblate](https://hosted.weblate.org/engage/bo
 - [Material Design Fonts](https://fonts.google.com) (Google Fonts)
 - [Weblate Translators](https://hosted.weblate.org/projects/book-story) (Hosted Weblate)
 - Also listed in About > Credits.
+
+---
 
 ## 🧾 License
 <div align="center">
