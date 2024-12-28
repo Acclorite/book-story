@@ -31,18 +31,18 @@ object Transitions {
     val DefaultTransitionIn = fadeIn(tween(300))
     val DefaultTransitionOut = fadeOut(tween(300))
 
-    val FadeTransitionIn = fadeIn(tween(400)) + scaleIn(tween(400), initialScale = 0.975f)
-    val FadeTransitionOut = fadeOut(tween(400))
+    val FadeTransitionIn = fadeIn(tween(250)) + scaleIn(tween(250), initialScale = 0.975f)
+    val FadeTransitionOut = fadeOut(tween(250))
 
-    val SlidingTransitionIn = fadeIn(tween(400)) +
-            slideInHorizontally(tween(400)) { it / 16 }
-    val BackSlidingTransitionIn = fadeIn(tween(400)) +
-            slideInHorizontally(tween(400)) { -it / 16 }
+    val SlidingTransitionIn = fadeIn(tween(300)) +
+            slideInHorizontally(tween(300)) { it / 16 }
+    val BackSlidingTransitionIn = fadeIn(tween(300)) +
+            slideInHorizontally(tween(300)) { -it / 16 }
 
-    val SlidingTransitionOut = fadeOut(tween(400)) +
-            slideOutHorizontally(tween(400)) { -it / 16 }
-    val BackSlidingTransitionOut = fadeOut(tween(400)) +
-            slideOutHorizontally(tween(400)) { it / 16 }
+    val SlidingTransitionOut = fadeOut(tween(300)) +
+            slideOutHorizontally(tween(300)) { -it / 16 }
+    val BackSlidingTransitionOut = fadeOut(tween(300)) +
+            slideOutHorizontally(tween(300)) { it / 16 }
 
     val NoEnterAnimation = fadeIn(tween(0))
     val NoExitAnimation = fadeOut(tween(0))
