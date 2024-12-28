@@ -40,7 +40,7 @@ object LibraryScreen : Screen, Parcelable {
     const val DELETE_DIALOG = "delete_dialog"
 
     @IgnoredOnParcel
-    val refreshListChannel: Channel<Unit> = Channel(Channel.CONFLATED)
+    val refreshListChannel: Channel<Long> = Channel(Channel.CONFLATED)
 
     @IgnoredOnParcel
     val scrollToPageCompositionChannel: Channel<Int> = Channel(Channel.CONFLATED)

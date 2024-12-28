@@ -4,13 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -27,7 +25,6 @@ import ua.acclorite.book_story.ui.browse.BrowseScreen
 import ua.acclorite.book_story.ui.history.HistoryScreen
 import javax.inject.Inject
 
-@OptIn(FlowPreview::class)
 @HiltViewModel
 class LibraryModel @Inject constructor(
     private val getBooks: GetBooks,
@@ -45,7 +42,10 @@ class LibraryModel @Inject constructor(
 
         /* Observe channel - - - - - - - - - - - */
         viewModelScope.launch(Dispatchers.IO) {
-            LibraryScreen.refreshListChannel.receiveAsFlow().debounce(200).collectLatest {
+            LibraryScreen.refreshListChannel.receiveAsFlow().collectLatest {
+                delay(it)
+                yield()
+
                 onEvent(LibraryEvent.OnRefreshList(showIndicator = false, hideSearch = false))
             }
         }
@@ -197,7 +197,7 @@ class LibraryModel @Inject constructor(
                         )
                     }
 
-                    HistoryScreen.refreshListChannel.trySend(Unit)
+                    HistoryScreen.refreshListChannel.trySend(0)
                     LibraryScreen.scrollToPageCompositionChannel.trySend(
                         event.categories.dropLastWhile {
                             it.category != event.selectedCategory
@@ -237,7 +237,7 @@ class LibraryModel @Inject constructor(
                         )
                     }
 
-                    HistoryScreen.refreshListChannel.trySend(Unit)
+                    HistoryScreen.refreshListChannel.trySend(0)
                     BrowseScreen.refreshListChannel.trySend(Unit)
 
                     withContext(Dispatchers.Main) {

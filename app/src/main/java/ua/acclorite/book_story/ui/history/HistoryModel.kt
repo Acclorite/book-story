@@ -5,13 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -35,7 +33,6 @@ import javax.inject.Inject
 import kotlin.collections.component1
 import kotlin.collections.component2
 
-@OptIn(FlowPreview::class)
 @HiltViewModel
 class HistoryModel @Inject constructor(
     private val getHistory: GetHistory,
@@ -60,24 +57,29 @@ class HistoryModel @Inject constructor(
 
         /* Observe channel - - - - - - - - - - - */
         viewModelScope.launch(Dispatchers.IO) {
-            HistoryScreen.refreshListChannel.receiveAsFlow().debounce(200).collectLatest {
+            HistoryScreen.refreshListChannel.receiveAsFlow().collectLatest {
+                delay(it)
+                yield()
+
                 onEvent(HistoryEvent.OnRefreshList(showIndicator = false, hideSearch = false))
             }
         }
         viewModelScope.launch(Dispatchers.IO) {
-            HistoryScreen.insertHistoryChannel.receiveAsFlow().debounce(200)
-                .collectLatest {
-                    insertHistory.execute(
-                        History(
-                            bookId = it,
-                            book = null,
-                            time = Date().time
-                        )
+            HistoryScreen.insertHistoryChannel.receiveAsFlow().collectLatest {
+                insertHistory.execute(
+                    History(
+                        bookId = it,
+                        book = null,
+                        time = Date().time
                     )
+                )
 
-                    getHistoryFromDatabase()
-                    LibraryScreen.refreshListChannel.trySend(Unit)
-                }
+                delay(500)
+                yield()
+
+                getHistoryFromDatabase()
+                LibraryScreen.refreshListChannel.trySend(0)
+            }
         }
         /* - - - - - - - - - - - - - - - - - - - */
     }
@@ -172,7 +174,7 @@ class HistoryModel @Inject constructor(
                     getHistoryFromDatabase()
                     _state.update { it.copy(isRefreshing = false) }
 
-                    LibraryScreen.refreshListChannel.trySend(Unit)
+                    LibraryScreen.refreshListChannel.trySend(0)
 
                     deleteHistoryEntry?.cancel()
                     event.snackbarState.currentSnackbarData?.dismiss()
@@ -195,7 +197,7 @@ class HistoryModel @Inject constructor(
                         SnackbarResult.Dismissed -> Unit
                         SnackbarResult.ActionPerformed -> {
                             insertHistory.execute(event.history)
-                            LibraryScreen.refreshListChannel.trySend(Unit)
+                            LibraryScreen.refreshListChannel.trySend(0)
 
                             _state.update { it.copy(isRefreshing = true) }
                             getHistoryFromDatabase()
@@ -224,7 +226,7 @@ class HistoryModel @Inject constructor(
                     }
 
                     deleteWholeHistory.execute()
-                    LibraryScreen.refreshListChannel.trySend(Unit)
+                    LibraryScreen.refreshListChannel.trySend(0)
                     getHistoryFromDatabase("")
 
                     withContext(Dispatchers.Main) {

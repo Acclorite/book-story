@@ -89,8 +89,8 @@ class ReaderModel @Inject constructor(
 
                         updateBook.execute(_state.value.book)
 
-                        LibraryScreen.refreshListChannel.trySend(Unit)
-                        HistoryScreen.refreshListChannel.trySend(Unit)
+                        LibraryScreen.refreshListChannel.trySend(0)
+                        HistoryScreen.refreshListChannel.trySend(0)
 
                         launch {
                             snapshotFlow {
@@ -170,8 +170,8 @@ class ReaderModel @Inject constructor(
 
                         updateBook.execute(_state.value.book)
 
-                        LibraryScreen.refreshListChannel.trySend(Unit)
-                        HistoryScreen.refreshListChannel.trySend(Unit)
+                        LibraryScreen.refreshListChannel.trySend(300)
+                        HistoryScreen.refreshListChannel.trySend(300)
                     }
                 }
 
@@ -251,8 +251,8 @@ class ReaderModel @Inject constructor(
 
                             updateBook.execute(_state.value.book)
 
-                            LibraryScreen.refreshListChannel.trySend(Unit)
-                            HistoryScreen.refreshListChannel.trySend(Unit)
+                            LibraryScreen.refreshListChannel.trySend(0)
+                            HistoryScreen.refreshListChannel.trySend(0)
                         }
 
                         WindowCompat.getInsetsController(
@@ -599,8 +599,8 @@ class ReaderModel @Inject constructor(
 
                 updateBook.execute(_state.value.book)
 
-                LibraryScreen.refreshListChannel.trySend(Unit)
-                HistoryScreen.refreshListChannel.trySend(Unit)
+                LibraryScreen.refreshListChannel.trySend(0)
+                HistoryScreen.refreshListChannel.trySend(0)
             }
         }
     }

@@ -224,8 +224,8 @@ class BookInfoModel @Inject constructor(
                             )
                         }
 
-                        LibraryScreen.refreshListChannel.trySend(Unit)
-                        HistoryScreen.refreshListChannel.trySend(Unit)
+                        LibraryScreen.refreshListChannel.trySend(0)
+                        HistoryScreen.refreshListChannel.trySend(0)
 
                         if (_state.value.editTitle) {
                             onEvent(BookInfoEvent.OnEditTitleMode(false))
@@ -302,8 +302,8 @@ class BookInfoModel @Inject constructor(
                             )
                         }
 
-                        LibraryScreen.refreshListChannel.trySend(Unit)
-                        HistoryScreen.refreshListChannel.trySend(Unit)
+                        LibraryScreen.refreshListChannel.trySend(0)
+                        HistoryScreen.refreshListChannel.trySend(0)
 
                         withContext(Dispatchers.Main) {
                             event.context.getString(R.string.cover_image_changed)
@@ -347,8 +347,8 @@ class BookInfoModel @Inject constructor(
                                 .showToast(context = event.context)
                         }
 
-                        LibraryScreen.refreshListChannel.trySend(Unit)
-                        HistoryScreen.refreshListChannel.trySend(Unit)
+                        LibraryScreen.refreshListChannel.trySend(0)
+                        HistoryScreen.refreshListChannel.trySend(0)
                     }
                 }
 
@@ -372,8 +372,8 @@ class BookInfoModel @Inject constructor(
                             )
                         }
 
-                        LibraryScreen.refreshListChannel.trySend(Unit)
-                        HistoryScreen.refreshListChannel.trySend(Unit)
+                        LibraryScreen.refreshListChannel.trySend(0)
+                        HistoryScreen.refreshListChannel.trySend(0)
 
                         withContext(Dispatchers.Main) {
                             event.context.getString(R.string.cover_image_deleted)
@@ -437,8 +437,8 @@ class BookInfoModel @Inject constructor(
 
                         deleteBooks.execute(listOf(_state.value.book))
 
-                        LibraryScreen.refreshListChannel.trySend(Unit)
-                        HistoryScreen.refreshListChannel.trySend(Unit)
+                        LibraryScreen.refreshListChannel.trySend(0)
+                        HistoryScreen.refreshListChannel.trySend(0)
                         BrowseScreen.refreshListChannel.trySend(Unit)
 
                         withContext(Dispatchers.Main) {
@@ -476,13 +476,13 @@ class BookInfoModel @Inject constructor(
                         }
                         updateBook.execute(_state.value.book)
 
-                        LibraryScreen.refreshListChannel.trySend(Unit)
+                        LibraryScreen.refreshListChannel.trySend(0)
                         LibraryScreen.scrollToPageCompositionChannel.trySend(
                             Category.entries.dropLastWhile {
                                 it != event.category
                             }.size - 1
                         )
-                        HistoryScreen.refreshListChannel.trySend(Unit)
+                        HistoryScreen.refreshListChannel.trySend(0)
 
                         withContext(Dispatchers.Main) {
                             event.context.getString(R.string.book_moved)
@@ -717,8 +717,8 @@ class BookInfoModel @Inject constructor(
                                 )
                             }
 
-                            LibraryScreen.refreshListChannel.trySend(Unit)
-                            HistoryScreen.refreshListChannel.trySend(Unit)
+                            LibraryScreen.refreshListChannel.trySend(0)
+                            HistoryScreen.refreshListChannel.trySend(0)
 
                             onEvent(
                                 BookInfoEvent.OnShowSnackbar(

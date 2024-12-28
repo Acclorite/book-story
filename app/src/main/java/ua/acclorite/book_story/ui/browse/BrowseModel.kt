@@ -12,13 +12,11 @@ import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.shouldShowRationale
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -41,7 +39,6 @@ import java.io.File
 import javax.inject.Inject
 import kotlin.collections.map
 
-@OptIn(FlowPreview::class)
 @HiltViewModel
 class BrowseModel @Inject constructor(
     private val getFilesFromDevice: GetFilesFromDevice,
@@ -60,7 +57,7 @@ class BrowseModel @Inject constructor(
 
         /* Observe channel - - - - - - - - - - - */
         viewModelScope.launch(Dispatchers.IO) {
-            BrowseScreen.refreshListChannel.receiveAsFlow().debounce(200).collectLatest {
+            BrowseScreen.refreshListChannel.receiveAsFlow().collectLatest {
                 onEvent(BrowseEvent.OnRefreshList(showIndicator = false, hideSearch = false))
             }
         }
@@ -532,7 +529,7 @@ class BrowseModel @Inject constructor(
                         return@launch
                     }
 
-                    LibraryScreen.refreshListChannel.trySend(Unit)
+                    LibraryScreen.refreshListChannel.trySend(0)
                     LibraryScreen.scrollToPageCompositionChannel.trySend(0)
 
                     event.navigateToLibrary()
