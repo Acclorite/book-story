@@ -14,6 +14,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationRail
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -25,8 +28,15 @@ import ua.acclorite.book_story.presentation.navigator.LocalNavigator
 @Composable
 fun NavigationRail(tabs: List<NavigatorItem>) {
     val navigator = LocalNavigator.current
-    val currentTab = navigator.lastItem.collectAsStateWithLifecycle()
     val layoutDirection = LocalLayoutDirection.current
+    val lastItem = navigator.lastItem.collectAsStateWithLifecycle()
+
+    val currentTab = remember { mutableStateOf(lastItem.value) }
+    LaunchedEffect(lastItem.value) {
+        if (tabs.any { it.screen::class == lastItem.value::class }) {
+            currentTab.value = lastItem.value
+        }
+    }
 
     NavigationRail(
         modifier = Modifier
