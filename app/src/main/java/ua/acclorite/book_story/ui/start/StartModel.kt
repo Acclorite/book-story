@@ -16,8 +16,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.presentation.core.util.launchActivity
 import javax.inject.Inject
@@ -26,6 +27,8 @@ import javax.inject.Inject
 class StartModel @Inject constructor(
 
 ) : ViewModel() {
+
+    private val mutex = Mutex()
 
     private val _state = MutableStateFlow(StartState())
     val state = _state.asStateFlow()
@@ -59,110 +62,114 @@ class StartModel @Inject constructor(
             }
 
             is StartEvent.OnStoragePermissionRequest -> {
-                val legacyStoragePermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
+                viewModelScope.launch {
+                    val legacyStoragePermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
 
-                val isPermissionGranted = if (legacyStoragePermission) {
-                    event.storagePermissionState.status.isGranted
-                } else Environment.isExternalStorageManager()
+                    val isPermissionGranted = if (legacyStoragePermission) {
+                        event.storagePermissionState.status.isGranted
+                    } else Environment.isExternalStorageManager()
 
-                if (isPermissionGranted) {
-                    _state.update {
-                        it.copy(
-                            storagePermissionGranted = true
-                        )
-                    }
-                    return
-                }
-
-                if (legacyStoragePermission) {
-                    if (!event.storagePermissionState.status.shouldShowRationale) {
-                        event.storagePermissionState.launchPermissionRequest()
-                    } else {
-                        val uri = Uri.parse("package:${event.activity.packageName}")
-                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri)
-
-                        intent.launchActivity(event.activity) {
-                            return
-                        }
-                    }
-                }
-
-                if (!legacyStoragePermission) {
-                    val uri = Uri.parse("package:${event.activity.packageName}")
-                    val intent = Intent(
-                        Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-                        uri
-                    )
-
-                    intent.launchActivity(event.activity) {
-                        return
-                    }
-                }
-
-                storagePermissionJob?.cancel()
-                storagePermissionJob = viewModelScope.launch {
-                    while (true) {
-                        val granted = if (legacyStoragePermission) {
-                            event.storagePermissionState.status.isGranted
-                        } else Environment.isExternalStorageManager()
-
-                        if (!granted) {
-                            delay(1000)
-                            yield()
-                            continue
-                        }
-
-                        yield()
-
+                    if (isPermissionGranted) {
                         _state.update {
                             it.copy(
                                 storagePermissionGranted = true
                             )
                         }
-                        break
+                        return@launch
+                    }
+
+                    if (legacyStoragePermission) {
+                        if (!event.storagePermissionState.status.shouldShowRationale) {
+                            event.storagePermissionState.launchPermissionRequest()
+                        } else {
+                            val uri = Uri.parse("package:${event.activity.packageName}")
+                            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri)
+
+                            intent.launchActivity(event.activity) {
+                                return@launch
+                            }
+                        }
+                    }
+
+                    if (!legacyStoragePermission) {
+                        val uri = Uri.parse("package:${event.activity.packageName}")
+                        val intent = Intent(
+                            Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
+                            uri
+                        )
+
+                        intent.launchActivity(event.activity) {
+                            return@launch
+                        }
+                    }
+
+                    storagePermissionJob?.cancel()
+                    storagePermissionJob = viewModelScope.launch {
+                        while (true) {
+                            val granted = if (legacyStoragePermission) {
+                                event.storagePermissionState.status.isGranted
+                            } else Environment.isExternalStorageManager()
+
+                            if (!granted) {
+                                delay(1000)
+                                yield()
+                                continue
+                            }
+
+                            yield()
+
+                            _state.update {
+                                it.copy(
+                                    storagePermissionGranted = true
+                                )
+                            }
+                            break
+                        }
                     }
                 }
             }
 
             is StartEvent.OnNotificationsPermissionRequest -> {
-                if (event.notificationsPermissionState.status.isGranted) {
-                    _state.update {
-                        it.copy(
-                            notificationsPermissionGranted = true
-                        )
-                    }
-                    return
-                }
-
-                if (!event.notificationsPermissionState.status.shouldShowRationale) {
-                    event.notificationsPermissionState.launchPermissionRequest()
-                } else {
-                    val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-                    intent.putExtra(Settings.EXTRA_APP_PACKAGE, event.activity.packageName)
-
-                    intent.launchActivity(event.activity) {
-                        return
-                    }
-                }
-
-                notificationsPermissionJob?.cancel()
-                notificationsPermissionJob = viewModelScope.launch {
-                    while (true) {
-                        if (!event.notificationsPermissionState.status.isGranted) {
-                            delay(1000)
-                            yield()
-                            continue
-                        }
-
-                        yield()
-
+                viewModelScope.launch {
+                    if (event.notificationsPermissionState.status.isGranted) {
                         _state.update {
                             it.copy(
                                 notificationsPermissionGranted = true
                             )
                         }
+                        return@launch
+                    }
 
-                        break
+                    if (!event.notificationsPermissionState.status.shouldShowRationale) {
+                        event.notificationsPermissionState.launchPermissionRequest()
+                    } else {
+                        val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                        intent.putExtra(Settings.EXTRA_APP_PACKAGE, event.activity.packageName)
+
+                        intent.launchActivity(event.activity) {
+                            return@launch
+                        }
+                    }
+
+                    notificationsPermissionJob?.cancel()
+                    notificationsPermissionJob = viewModelScope.launch {
+                        while (true) {
+                            if (!event.notificationsPermissionState.status.isGranted) {
+                                delay(1000)
+                                yield()
+                                continue
+                            }
+
+                            yield()
+
+                            _state.update {
+                                it.copy(
+                                    notificationsPermissionGranted = true
+                                )
+                            }
+
+                            break
+                        }
                     }
                 }
             }
@@ -170,11 +177,19 @@ class StartModel @Inject constructor(
     }
 
     fun resetScreen() {
-        _state.update {
-            storagePermissionJob?.cancel()
-            notificationsPermissionJob?.cancel()
+        viewModelScope.launch {
+            _state.update {
+                storagePermissionJob?.cancel()
+                notificationsPermissionJob?.cancel()
 
-            StartState()
+                StartState()
+            }
+        }
+    }
+
+    private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
+        mutex.withLock {
+            this.value = function(this.value)
         }
     }
 }

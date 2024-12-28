@@ -11,8 +11,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.domain.browse.toBrowseFilesStructure
 import ua.acclorite.book_story.domain.browse.toBrowseLayout
@@ -44,6 +45,8 @@ class MainModel @Inject constructor(
     private val checkForUpdates: CheckForUpdates,
     private val getAllSettings: GetAllSettings
 ) : ViewModel() {
+
+    private val mutex = Mutex()
 
     private val _isReady = MutableStateFlow(false)
     val isReady = _isReady.asStateFlow()
@@ -504,6 +507,12 @@ class MainModel @Inject constructor(
                 stateHandle[Constants.provideMainState()] = function(it)
                 function(it)
             }
+        }
+    }
+
+    private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
+        mutex.withLock {
+            this.value = function(this.value)
         }
     }
 }

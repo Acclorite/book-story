@@ -18,8 +18,9 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
@@ -54,6 +55,8 @@ class BookInfoModel @Inject constructor(
     private val deleteBooks: DeleteBooks,
     private val updateBookWithText: UpdateBookWithText
 ) : ViewModel() {
+
+    private val mutex = Mutex()
 
     private val _state = MutableStateFlow(BookInfoState())
     val state = _state.asStateFlow()
@@ -384,12 +387,13 @@ class BookInfoModel @Inject constructor(
 
                 is BookInfoEvent.OnCheckCoverReset -> {
                     launch(Dispatchers.IO) {
-                        _state.update {
-                            it.copy(
-                                canResetCover = canResetCover.execute(
-                                    _state.value.book.id
+                        if (_state.value.book.id == -1) return@launch
+                        canResetCover.execute(_state.value.book.id).apply {
+                            _state.update {
+                                it.copy(
+                                    canResetCover = this
                                 )
-                            )
+                            }
                         }
                     }
                 }
@@ -780,15 +784,15 @@ class BookInfoModel @Inject constructor(
                 return@launch
             }
 
+            eventJob.cancel()
+            eventJob.join()
+            eventJob = SupervisorJob()
+
             _state.update {
                 BookInfoState(
                     book = book
                 )
             }
-
-            eventJob.cancel()
-            eventJob.join()
-            eventJob = SupervisorJob()
 
             if (startUpdate) {
                 onEvent(
@@ -804,13 +808,14 @@ class BookInfoModel @Inject constructor(
 
     fun resetScreen() {
         viewModelScope.launch(Dispatchers.Main) {
-            _state.update {
-                BookInfoState()
-            }
-
             eventJob.cancel()
-            eventJob.join()
             eventJob = SupervisorJob()
+        }
+    }
+
+    private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
+        mutex.withLock {
+            this.value = function(this.value)
         }
     }
 }

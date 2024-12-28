@@ -15,8 +15,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
@@ -41,6 +42,8 @@ class SettingsModel @Inject constructor(
     private val reorderColorPresets: ReorderColorPresets,
     private val deleteColorPreset: DeleteColorPreset
 ) : ViewModel() {
+
+    private val mutex = Mutex()
 
     private val _state = MutableStateFlow(SettingsState())
     val state = _state.asStateFlow()
@@ -535,5 +538,11 @@ class SettingsModel @Inject constructor(
         shuffleColorPresetJob?.cancel()
         updateColorColorPresetJob?.cancel()
         deleteColorPresetJob?.cancel()
+    }
+
+    private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
+        mutex.withLock {
+            this.value = function(this.value)
+        }
     }
 }

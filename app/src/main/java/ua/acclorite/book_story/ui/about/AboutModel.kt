@@ -10,8 +10,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.use_case.remote.CheckForUpdates
@@ -24,6 +25,8 @@ import javax.inject.Inject
 class AboutModel @Inject constructor(
     private val checkForUpdates: CheckForUpdates
 ) : ViewModel() {
+
+    private val mutex = Mutex()
 
     private val _state = MutableStateFlow(AboutState())
     val state = _state.asStateFlow()
@@ -100,10 +103,18 @@ class AboutModel @Inject constructor(
             }
 
             is AboutEvent.OnDismissDialog -> {
-                _state.update {
-                    it.copy(dialog = null)
+                viewModelScope.launch {
+                    _state.update {
+                        it.copy(dialog = null)
+                    }
                 }
             }
+        }
+    }
+
+    private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
+        mutex.withLock {
+            this.value = function(this.value)
         }
     }
 }

@@ -11,8 +11,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
@@ -41,6 +42,8 @@ class HistoryModel @Inject constructor(
     private val deleteHistory: DeleteHistory,
     private val deleteWholeHistory: DeleteWholeHistory
 ) : ViewModel() {
+
+    private val mutex = Mutex()
 
     private val _state = MutableStateFlow(HistoryState())
     val state = _state.asStateFlow()
@@ -136,27 +139,31 @@ class HistoryModel @Inject constructor(
             }
 
             is HistoryEvent.OnRequestFocus -> {
-                if (!_state.value.hasFocused) {
-                    event.focusRequester.requestFocus()
-                    _state.update {
-                        it.copy(
-                            hasFocused = true
-                        )
+                viewModelScope.launch(Dispatchers.Main) {
+                    if (!_state.value.hasFocused) {
+                        event.focusRequester.requestFocus()
+                        _state.update {
+                            it.copy(
+                                hasFocused = true
+                            )
+                        }
                     }
                 }
             }
 
             is HistoryEvent.OnSearchQueryChange -> {
-                _state.update {
-                    it.copy(
-                        searchQuery = event.query
-                    )
-                }
-                searchQueryChange?.cancel()
-                searchQueryChange = viewModelScope.launch(Dispatchers.IO) {
-                    delay(500)
-                    yield()
-                    onEvent(HistoryEvent.OnSearch)
+                viewModelScope.launch {
+                    _state.update {
+                        it.copy(
+                            searchQuery = event.query
+                        )
+                    }
+                    searchQueryChange?.cancel()
+                    searchQueryChange = launch(Dispatchers.IO) {
+                        delay(500)
+                        yield()
+                        onEvent(HistoryEvent.OnSearch)
+                    }
                 }
             }
 
@@ -209,10 +216,12 @@ class HistoryModel @Inject constructor(
             }
 
             is HistoryEvent.OnShowDeleteWholeHistoryDialog -> {
-                _state.update {
-                    it.copy(
-                        dialog = HistoryScreen.DELETE_WHOLE_HISTORY_DIALOG
-                    )
+                viewModelScope.launch {
+                    _state.update {
+                        it.copy(
+                            dialog = HistoryScreen.DELETE_WHOLE_HISTORY_DIALOG
+                        )
+                    }
                 }
             }
 
@@ -238,10 +247,12 @@ class HistoryModel @Inject constructor(
             }
 
             is HistoryEvent.OnDismissDialog -> {
-                _state.update {
-                    it.copy(
-                        dialog = null
-                    )
+                viewModelScope.launch {
+                    _state.update {
+                        it.copy(
+                            dialog = null
+                        )
+                    }
                 }
             }
         }
@@ -312,6 +323,12 @@ class HistoryModel @Inject constructor(
                 history = history,
                 isLoading = false,
             )
+        }
+    }
+
+    private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
+        mutex.withLock {
+            this.value = function(this.value)
         }
     }
 }
