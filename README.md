@@ -45,6 +45,7 @@ Enjoy a sleek, customizable **reading app** with modern design, built with Jetpa
   <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="30%" />
   <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="30%" />
   <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="30%" />
+  <hr width=91%>
   <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="30%" />
   <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" width="30%" />
   <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/6.png" width="30%" />
