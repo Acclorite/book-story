@@ -210,13 +210,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.5.0-alpha05",
+      "artifactVersion": "1.4.5",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "collections",
-      "website": "https://developer.android.com/jetpack/androidx/releases/collection#1.5.0-alpha05",
+      "website": "https://developer.android.com/jetpack/androidx/releases/collection#1.4.5",
       "licenses": [
         "Apache-2.0"
       ],
@@ -231,13 +231,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.5.0-alpha05",
+      "artifactVersion": "1.4.5",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Collections Kotlin Extensions",
-      "website": "https://developer.android.com/jetpack/androidx/releases/collection#1.5.0-alpha05",
+      "website": "https://developer.android.com/jetpack/androidx/releases/collection#1.4.5",
       "licenses": [
         "Apache-2.0"
       ],
@@ -252,13 +252,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.7.5",
+      "artifactVersion": "1.7.6",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose Animation",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-animation#1.7.5",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-animation#1.7.6",
       "licenses": [
         "Apache-2.0"
       ],
@@ -273,13 +273,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.7.5",
+      "artifactVersion": "1.7.6",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose Animation Core",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-animation#1.7.5",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-animation#1.7.6",
       "licenses": [
         "Apache-2.0"
       ],
@@ -294,13 +294,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.7.5",
+      "artifactVersion": "1.7.6",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose Foundation",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.7.5",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.7.6",
       "licenses": [
         "Apache-2.0"
       ],
@@ -315,13 +315,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.7.5",
+      "artifactVersion": "1.7.6",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose Layouts",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.7.5",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.7.6",
       "licenses": [
         "Apache-2.0"
       ],
@@ -336,13 +336,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.4.0-alpha03",
+      "artifactVersion": "1.4.0-alpha05",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose Material3 Components",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-alpha03",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-alpha05",
       "licenses": [
         "Apache-2.0"
       ],
@@ -357,13 +357,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.4.0-alpha03",
+      "artifactVersion": "1.4.0-alpha05",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose Material 3 Window Size Class",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-alpha03",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-alpha05",
       "licenses": [
         "Apache-2.0"
       ],
@@ -378,13 +378,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.7.5",
+      "artifactVersion": "1.7.6",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose Material Components",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-material#1.7.5",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-material#1.7.6",
       "licenses": [
         "Apache-2.0"
       ],
@@ -399,13 +399,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.7.5",
+      "artifactVersion": "1.7.6",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose Material Icons Core",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-material#1.7.5",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-material#1.7.6",
       "licenses": [
         "Apache-2.0"
       ],
@@ -420,13 +420,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.7.5",
+      "artifactVersion": "1.7.6",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose Material Icons Extended",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-material#1.7.5",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-material#1.7.6",
       "licenses": [
         "Apache-2.0"
       ],
@@ -441,13 +441,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.7.5",
+      "artifactVersion": "1.7.6",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose Material Ripple",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-material#1.7.5",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-material#1.7.6",
       "licenses": [
         "Apache-2.0"
       ],
@@ -462,13 +462,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.8.0-alpha05",
+      "artifactVersion": "1.7.6",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose Runtime",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.8.0-alpha05",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.7.6",
       "licenses": [
         "Apache-2.0"
       ],
@@ -483,13 +483,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.8.0-alpha05",
+      "artifactVersion": "1.7.6",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose Saveable",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.8.0-alpha05",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.7.6",
       "licenses": [
         "Apache-2.0"
       ],
@@ -504,13 +504,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.7.5",
+      "artifactVersion": "1.7.6",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose UI",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.7.5",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.7.6",
       "licenses": [
         "Apache-2.0"
       ],
@@ -525,13 +525,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.7.5",
+      "artifactVersion": "1.7.6",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose Geometry",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.7.5",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.7.6",
       "licenses": [
         "Apache-2.0"
       ],
@@ -546,13 +546,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.7.5",
+      "artifactVersion": "1.7.6",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose Graphics",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.7.5",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.7.6",
       "licenses": [
         "Apache-2.0"
       ],
@@ -567,13 +567,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.7.5",
+      "artifactVersion": "1.7.6",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose UI Text",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.7.5",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.7.6",
       "licenses": [
         "Apache-2.0"
       ],
@@ -588,13 +588,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.7.5",
+      "artifactVersion": "1.7.6",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose UI Preview Tooling",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.7.5",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.7.6",
       "licenses": [
         "Apache-2.0"
       ],
@@ -609,13 +609,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.7.5",
+      "artifactVersion": "1.7.6",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose Unit",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.7.5",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.7.6",
       "licenses": [
         "Apache-2.0"
       ],
@@ -630,13 +630,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.7.5",
+      "artifactVersion": "1.7.6",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Compose Util",
-      "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.7.5",
+      "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.7.6",
       "licenses": [
         "Apache-2.0"
       ],
@@ -1808,7 +1808,7 @@
           "name": "Google"
         }
       ],
-      "artifactVersion": "0.34.0",
+      "artifactVersion": "0.37.0",
       "scm": {
         "connection": "scm:git:git://github.com/google/accompanist.git",
         "url": "https://github.com/google/accompanist/",
@@ -1827,7 +1827,7 @@
           "name": "Google"
         }
       ],
-      "artifactVersion": "0.34.0",
+      "artifactVersion": "0.36.0",
       "scm": {
         "connection": "scm:git:git://github.com/google/accompanist.git",
         "url": "https://github.com/google/accompanist/",
@@ -1875,7 +1875,7 @@
       "uniqueId": "com.google.dagger:dagger",
       "developers": [
       ],
-      "artifactVersion": "2.52",
+      "artifactVersion": "2.54",
       "scm": {
         "connection": "scm:git:git://github.com/google/dagger.git",
         "url": "https://github.com/google/dagger/",
@@ -1895,7 +1895,7 @@
       "uniqueId": "com.google.dagger:dagger-compiler",
       "developers": [
       ],
-      "artifactVersion": "2.52",
+      "artifactVersion": "2.54",
       "scm": {
         "connection": "scm:git:git://github.com/google/dagger.git",
         "url": "https://github.com/google/dagger/",
@@ -1915,7 +1915,7 @@
       "uniqueId": "com.google.dagger:dagger-lint-aar",
       "developers": [
       ],
-      "artifactVersion": "2.52",
+      "artifactVersion": "2.54",
       "scm": {
         "connection": "scm:git:git://github.com/google/dagger.git",
         "url": "https://github.com/google/dagger/",
@@ -1935,7 +1935,7 @@
       "uniqueId": "com.google.dagger:dagger-spi",
       "developers": [
       ],
-      "artifactVersion": "2.52",
+      "artifactVersion": "2.54",
       "scm": {
         "connection": "scm:git:git://github.com/google/dagger.git",
         "url": "https://github.com/google/dagger/",
@@ -1955,7 +1955,7 @@
       "uniqueId": "com.google.dagger:hilt-android",
       "developers": [
       ],
-      "artifactVersion": "2.52",
+      "artifactVersion": "2.54",
       "scm": {
         "connection": "scm:git:git://github.com/google/dagger.git",
         "url": "https://github.com/google/dagger/",
@@ -1975,7 +1975,7 @@
       "uniqueId": "com.google.dagger:hilt-compiler",
       "developers": [
       ],
-      "artifactVersion": "2.52",
+      "artifactVersion": "2.54",
       "scm": {
         "connection": "scm:git:git://github.com/google/dagger.git",
         "url": "https://github.com/google/dagger/",
@@ -1995,7 +1995,7 @@
       "uniqueId": "com.google.dagger:hilt-core",
       "developers": [
       ],
-      "artifactVersion": "2.52",
+      "artifactVersion": "2.54",
       "scm": {
         "connection": "scm:git:git://github.com/google/dagger.git",
         "url": "https://github.com/google/dagger/",
@@ -2018,7 +2018,7 @@
           "name": "KSP Team"
         }
       ],
-      "artifactVersion": "1.9.24-1.0.20",
+      "artifactVersion": "2.0.21-1.0.28",
       "scm": {
         "connection": "scm:git:https://github.com/google/ksp.git",
         "url": "https://github.com/google/ksp",
@@ -2179,7 +2179,7 @@
           "name": "Square, Inc."
         }
       ],
-      "artifactVersion": "1.15.1",
+      "artifactVersion": "1.15.2",
       "scm": {
         "connection": "scm:git:git://github.com/square/moshi.git",
         "url": "https://github.com/square/moshi/",
@@ -2198,7 +2198,7 @@
           "name": "Square, Inc."
         }
       ],
-      "artifactVersion": "1.15.1",
+      "artifactVersion": "1.15.2",
       "scm": {
         "connection": "scm:git:git://github.com/square/moshi.git",
         "url": "https://github.com/square/moshi/",
@@ -2612,7 +2612,7 @@
       "uniqueId": "org.commonmark:commonmark",
       "developers": [
       ],
-      "artifactVersion": "0.23.0",
+      "artifactVersion": "0.24.0",
       "scm": {
         "connection": "scm:git:https://github.com/commonmark/commonmark-java",
         "url": "https://github.com/commonmark/commonmark-java",
@@ -2745,6 +2745,24 @@
       ]
     },
     {
+      "uniqueId": "org.jetbrains.kotlinx:atomicfu-jvm",
+      "developers": [
+        {
+          "organisationUrl": "https://www.jetbrains.com",
+          "name": "JetBrains Team"
+        }
+      ],
+      "artifactVersion": "0.23.2",
+      "scm": {
+        "url": "https://github.com/Kotlin/kotlinx.atomicfu"
+      },
+      "name": "atomicfu",
+      "website": "https://github.com/Kotlin/kotlinx.atomicfu",
+      "licenses": [
+        "Apache-2.0"
+      ]
+    },
+    {
       "uniqueId": "org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm",
       "developers": [
         {
@@ -2824,7 +2842,7 @@
           "name": "JetBrains Team"
         }
       ],
-      "artifactVersion": "1.7.1",
+      "artifactVersion": "1.7.3",
       "scm": {
         "url": "https://github.com/Kotlin/kotlinx.serialization"
       },
@@ -2842,7 +2860,7 @@
           "name": "JetBrains Team"
         }
       ],
-      "artifactVersion": "1.7.1",
+      "artifactVersion": "1.7.3",
       "scm": {
         "url": "https://github.com/Kotlin/kotlinx.serialization"
       },
@@ -2860,7 +2878,7 @@
           "name": "JetBrains Team"
         }
       ],
-      "artifactVersion": "1.7.1",
+      "artifactVersion": "1.7.3",
       "scm": {
         "url": "https://github.com/Kotlin/kotlinx.serialization"
       },
@@ -2897,7 +2915,7 @@
           "name": "Jonathan Hedley"
         }
       ],
-      "artifactVersion": "1.18.1",
+      "artifactVersion": "1.18.3",
       "scm": {
         "connection": "scm:git:https://github.com/jhy/jsoup.git",
         "url": "https://github.com/jhy/jsoup"
@@ -2913,13 +2931,32 @@
       }
     },
     {
+      "uniqueId": "org.jspecify:jspecify",
+      "developers": [
+        {
+          "name": "Kevin Bourrillion"
+        }
+      ],
+      "artifactVersion": "1.0.0",
+      "scm": {
+        "connection": "scm:git:git@github.com:jspecify/jspecify.git",
+        "url": "https://github.com/jspecify/jspecify/",
+        "developerConnection": "scm:git:git@github.com:jspecify/jspecify.git"
+      },
+      "name": "JSpecify annotations",
+      "website": "http://jspecify.org/",
+      "licenses": [
+        "Apache-2.0"
+      ]
+    },
+    {
       "uniqueId": "sh.calvin.reorderable:reorderable-android",
       "developers": [
         {
           "name": "Calvin Liang"
         }
       ],
-      "artifactVersion": "2.3.1",
+      "artifactVersion": "2.4.2",
       "scm": {
         "connection": "scm:git:git://github.com/Calvin-LL/Reorderable.git",
         "url": "https://github.com/Calvin-LL/Reorderable",
