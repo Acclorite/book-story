@@ -19,7 +19,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -69,7 +68,7 @@ fun ReaderBottomBar(
         }
     }
 
-    val arrowDirection by remember {
+    val arrowDirection = remember(checkpoint.index, listState.firstVisibleItemIndex) {
         derivedStateOf {
             val checkpointIndex = checkpoint.index
             val index = listState.firstVisibleItemIndex
@@ -81,7 +80,7 @@ fun ReaderBottomBar(
             }
         }
     }
-    val checkpointProgress by remember {
+    val checkpointProgress = remember(checkpoint.index, text.lastIndex) {
         derivedStateOf {
             (checkpoint.index / text.lastIndex.toFloat()) * 0.987f
         }
@@ -109,7 +108,7 @@ fun ReaderBottomBar(
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             HorizontalExpandingTransition(
-                visible = arrowDirection == Direction.START,
+                visible = arrowDirection.value == Direction.START,
                 startDirection = true
             ) {
                 IconButton(
@@ -135,13 +134,13 @@ fun ReaderBottomBar(
                     changeProgress = changeProgress
                 )
 
-                if (arrowDirection != Direction.NEUTRAL) {
-                    ReaderBottomBarSliderIndicator(progress = checkpointProgress)
+                if (arrowDirection.value != Direction.NEUTRAL) {
+                    ReaderBottomBarSliderIndicator(progress = checkpointProgress.value)
                 }
             }
 
             HorizontalExpandingTransition(
-                visible = arrowDirection == Direction.END,
+                visible = arrowDirection.value == Direction.END,
                 startDirection = false
             ) {
                 IconButton(
