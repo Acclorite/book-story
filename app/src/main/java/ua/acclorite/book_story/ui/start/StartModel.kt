@@ -189,6 +189,7 @@ class StartModel @Inject constructor(
 
     private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
         mutex.withLock {
+            yield()
             this.value = function(this.value)
         }
     }

@@ -72,6 +72,8 @@ class ReaderModel @Inject constructor(
                     launch(Dispatchers.IO) {
                         val text = getText.execute(_state.value.book.textPath)
 
+                        yield()
+
                         if (text.isEmpty()) {
                             _state.update {
                                 it.copy(
@@ -81,14 +83,22 @@ class ReaderModel @Inject constructor(
                             }
                         }
 
+                        yield()
+
+                        val lastOpened = getLatestHistory.execute(_state.value.book.id)?.time
+
+                        yield()
+
                         _state.update {
                             it.copy(
                                 book = it.book.copy(
-                                    lastOpened = getLatestHistory.execute(_state.value.book.id)?.time
+                                    lastOpened = lastOpened
                                 ),
                                 text = text
                             )
                         }
+
+                        yield()
 
                         updateBook.execute(_state.value.book)
 
@@ -680,11 +690,14 @@ class ReaderModel @Inject constructor(
         viewModelScope.launch(Dispatchers.Main) {
             eventJob.cancel()
             eventJob = SupervisorJob()
+
+            _state.update { ReaderState() }
         }
     }
 
     private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
         mutex.withLock {
+            yield()
             this.value = function(this.value)
         }
     }

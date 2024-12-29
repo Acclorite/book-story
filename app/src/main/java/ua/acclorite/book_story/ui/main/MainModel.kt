@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.yield
 import ua.acclorite.book_story.domain.browse.toBrowseFilesStructure
 import ua.acclorite.book_story.domain.browse.toBrowseLayout
 import ua.acclorite.book_story.domain.browse.toBrowseSortOrder
@@ -512,6 +513,7 @@ class MainModel @Inject constructor(
 
     private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
         mutex.withLock {
+            yield()
             this.value = function(this.value)
         }
     }

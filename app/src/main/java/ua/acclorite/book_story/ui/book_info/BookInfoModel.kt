@@ -810,11 +810,14 @@ class BookInfoModel @Inject constructor(
         viewModelScope.launch(Dispatchers.Main) {
             eventJob.cancel()
             eventJob = SupervisorJob()
+
+            _state.update { BookInfoState() }
         }
     }
 
     private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
         mutex.withLock {
+            yield()
             this.value = function(this.value)
         }
     }
