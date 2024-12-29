@@ -18,6 +18,7 @@ import ua.acclorite.book_story.ui.theme.color.pink2Theme
 import ua.acclorite.book_story.ui.theme.color.pinkTheme
 import ua.acclorite.book_story.ui.theme.color.purpleTheme
 import ua.acclorite.book_story.ui.theme.color.redTheme
+import ua.acclorite.book_story.ui.theme.color.yellow2Theme
 import ua.acclorite.book_story.ui.theme.color.yellowTheme
 
 
@@ -37,6 +38,7 @@ enum class Theme(
     PINK(hasThemeContrast = true, title = R.string.pink_theme),
     PINK2(hasThemeContrast = false, title = R.string.pink2_theme),
     YELLOW(hasThemeContrast = true, title = R.string.yellow_theme),
+    YELLOW2(hasThemeContrast = false, title = R.string.yellow2_theme),
     AQUA(hasThemeContrast = true, title = R.string.aqua_theme);
 
     companion object {
@@ -114,6 +116,11 @@ fun colorScheme(
         Theme.YELLOW -> {
             /* Yellow Theme */
             yellowTheme(isDark = darkTheme, themeContrast = themeContrast)
+        }
+
+        Theme.YELLOW2 -> {
+            /* Yellow22 Theme */
+            yellow2Theme(isDark = darkTheme)
         }
 
         Theme.RED -> {
