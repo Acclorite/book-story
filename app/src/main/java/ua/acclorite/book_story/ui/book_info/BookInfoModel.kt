@@ -62,6 +62,7 @@ class BookInfoModel @Inject constructor(
     val state = _state.asStateFlow()
 
     private var eventJob = SupervisorJob()
+    private var resetJob: Job? = null
 
     private var updateJob: Job? = null
     private var snackBarJob: Job? = null
@@ -785,7 +786,9 @@ class BookInfoModel @Inject constructor(
             }
 
             eventJob.cancel()
+            resetJob?.cancel()
             eventJob.join()
+            resetJob?.join()
             eventJob = SupervisorJob()
 
             _state.update {
@@ -807,10 +810,11 @@ class BookInfoModel @Inject constructor(
     }
 
     fun resetScreen() {
-        viewModelScope.launch(Dispatchers.Main) {
+        resetJob = viewModelScope.launch(Dispatchers.Main) {
             eventJob.cancel()
             eventJob = SupervisorJob()
 
+            yield()
             _state.update { BookInfoState() }
         }
     }
