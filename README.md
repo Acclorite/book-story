@@ -121,6 +121,7 @@ _Help translate the app on [Hosted Weblate](https://hosted.weblate.org/engage/bo
 ## 🤗 Credits
 - [Tachiyomi (Mihon)](https://github.com/mihonapp/mihon) (Github)
 - [Kitsune](https://github.com/Drumber/Kitsune) (Github)
+- [Voyager](https://voyager.adriel.cafe/) (Voyager site)
 - [Material Design Icons](https://fonts.google.com/icons) (Google Fonts)
 - [Material Design Fonts](https://fonts.google.com) (Google Fonts)
 - [Weblate Translators](https://hosted.weblate.org/projects/book-story) (Hosted Weblate)
