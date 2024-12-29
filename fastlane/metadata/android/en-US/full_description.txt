@@ -1,16 +1,9 @@
-Material3 eBook reader - Book's Story. Built with Jetpack Compose. Multiple languages, multiple supported file formats. Lots of customization. More is coming!
+Book's Story — Material You eBook reader built with Jetpack Compose. Free & Open source & Ad-free, with extensive customization options and support for multiple file formats.
 
 Main Features:
 * 8 supported file formats(.pdf, .txt, .epub, .fb2, .zip, .html, .htm, .md)
-* Material You
-* Lots of unique themes
-* Color Presets in the Reader
-* Chapters in the Reader
-* Categories to organize your Library
-* Check for the app's update on the app's startup
-* Highly customizable Reader
-* Double click translation(sends to an external translator)
-* Tablet UI support
-* More..
+* Material You design with unique themes and color presets
+* Organized Library with categories and chapters in Reader
+* Highly customizable
 
-If you have any ideas please feel free to create new Feature Request(see Issue tracker), I will always gladly accept new ideas!
+Enjoy a sleek, customizable reading app with modern design, built with Jetpack Compose. It’s open-source, offering you a personalized, ad-free journey through your favorite books!
