@@ -1,0 +1,8 @@
+* New languages: Tamil & Malayalam
+* Reader horizontal gesture option
+* Code reformat of presentation layer
+* Bottom bar padding option
+* New theme: Yellow "Makemake"
+* Various UI changes
+* Bug fixes
+* Improve parsers
