@@ -96,20 +96,6 @@ fun Constants.provideHelpTips() = listOf(
     ),
 
     HelpTip(
-        title = R.string.help_title_how_to_update_book,
-        description = {
-            append(stringResource(id = R.string.help_desc_how_to_update_book_1) + " ")
-
-            HelpAnnotation {
-                append(stringResource(id = R.string.help_desc_how_to_update_book_2))
-            }
-            append(" ")
-
-            append(stringResource(id = R.string.help_desc_how_to_update_book_3))
-        }
-    ),
-
-    HelpTip(
         title = R.string.help_title_how_to_manage_history,
         description = {
             append(stringResource(id = R.string.help_desc_how_to_manage_history_1) + " ")

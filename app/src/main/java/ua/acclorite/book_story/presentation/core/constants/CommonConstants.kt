@@ -17,7 +17,6 @@ fun Constants.provideEmptyBook() = Book(
     title = "",
     author = UIText.StringValue(""),
     description = null,
-    textPath = "",
     filePath = "",
     coverImage = null,
     scrollIndex = 0,

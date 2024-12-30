@@ -21,7 +21,6 @@ class TxtFileParser @Inject constructor() : FileParser {
                     title = title,
                     author = author,
                     description = null,
-                    textPath = "",
                     scrollIndex = 0,
                     scrollOffset = 0,
                     progress = 0f,

@@ -518,7 +518,7 @@ class BrowseModel @Inject constructor(
 
                     var failed = false
                     for (book in booksToInsert) {
-                        if (!insertBook.execute(book.bookWithTextAndCover!!)) {
+                        if (!insertBook.execute(book.bookWithCover!!)) {
                             failed = true
                             break
                         }

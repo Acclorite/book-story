@@ -17,7 +17,6 @@
     <string name="delete_book">Kitap silinsin mi?</string>
     <string name="move_book">Kitap taşınsın mı?</string>
     <string name="delete_history">Okuma geçmişi silinsin mi?</string>
-    <string name="confirm_update">Güncelleme onaylansın mı?</string>
     <string name="enable_check_for_updates">Güncelleme kontrolü etkinleştirilsin mi?</string>
     <string name="storage_permission_description">Cihazınızdaki kitapları taramak için depolama izni gerekiyor. Bu izin olmadan kitap ekleyemezsiniz.</string>
     <string name="add_books_description">Hangi kitapları eklemek istediğinizi seçebilirsiniz. Kitabın Başlığını ve Kapak resmini daha sonra düzenleyebilirsiniz. Yükleme işlemi birkaç dakika sürebilir.</string>
@@ -26,7 +25,6 @@
     <string name="delete_book_description">Bu, kitabı veritabanından silecektir. Bu kitabı cihazınızdan silmeyecektir.</string>
     <string name="move_book_description">Bu kitabı taşımak istediğiniz kategoriyi seçin. Bu kitap seçilen kategoriye taşınacaktır.</string>
     <string name="delete_history_description">Bu, tüm geçmişi veritabanından silecektir. Tüm geçmişi sildikten sonra, kitapların sırası sıfırlanacaktır.</string>
-    <string name="confirm_update_description">Bu kitabın metnini ve bölümlerini güncelleyin. Paragrafların sırası değişmediği sürece ilerleme değişmeden kalacaktır.</string>
     <string name="update_app_description">Yeni uygulama sürümü bulundu. Devam etmek ve yayın sayfasına gitmek istiyor musunuz?</string>
     <string name="enable_check_for_updates_description">«Güncellemeleri kontrol et» seçeneğini etkinleştirerek uygulama her başlatıldığında «api.github.com» adresinden en son sürüm bilgilerini alacaktır. Devam edip «Güncellemeleri kontrol et» seçeneğini etkinleştirmek istiyor musunuz?</string>
     <string name="error_permission">Cihazınızdaki kitapları taramak için depolama izni gerekiyor</string>
@@ -68,8 +66,6 @@
     <string name="copy">Kopyala</string>
     <string name="translate">Çevir</string>
     <string name="dictionary">Sözlük</string>
-    <string name="retry">Tekrar Dene</string>
-    <string name="confirm">Onayla</string>
     <string name="next">İleri</string>
     <string name="yes_go_to_help">Evet, Yardım\'a git</string>
     <string name="no">Hayır</string>
@@ -195,9 +191,6 @@
     <string name="no_updates">Uygulamanın en son sürümü zaten yüklü.</string>
     <string name="cover_reset">Kapak resmi başarıyla sıfırlandı.</string>
     <string name="history_element_deleted">Geçmiş öğesi başarıyla silindi.</string>
-    <string name="file_not_found">\"%1$s\" dosyası bulunamadı.</string>
-    <string name="book_updated">Kitabın metni başarıyla güncellendi.</string>
-    <string name="nothing_changed">Metin güncel.</string>
     <string name="move_this_book">Taşı</string>
     <string name="delete_this_book">Sil</string>
     <string name="details_book">Ayrıntılar</string>
@@ -248,10 +241,6 @@
     <string name="help_desc_how_to_customize_reader_1">Kitabı okumaya başlayın (bkz: Bir kitabı nasıl okurum?), ardından ekrana herhangi bir yere tıklayarak üst ve alt çubukları getirin. Sonra sağ üst köşedeki dişli simgesine tıklayın. Bu, tüm Okuyucu ayarlarını gösterecektir. İkinci yol şuraya gitmektir:</string>
     <string name="help_desc_how_to_customize_reader_2">Ayarlar</string>
     <string name="help_desc_how_to_customize_reader_3">ve Genel ayarları özelleştirmek için Okuyucu kategorisini, veya Renk ayarlarını özelleştirmek için Görünüm kategorisini seçin.</string>
-    <string name="help_title_how_to_update_book">Bir kitabı nasıl güncellerim?</string>
-    <string name="help_desc_how_to_update_book_1">Şuraya gidin:</string>
-    <string name="help_desc_how_to_update_book_2">Kütüphane</string>
-    <string name="help_desc_how_to_update_book_3">ve kitabın ayrıntılarını görmek için kitabın kapak görselini tıklayın. Kitabı güncellemek için ekranı aşağı çekin veya sağ üst köşedeki yenileme simgesine tıklayın. Kitap dosyası değiştiyse, kitabı onaylayıp güncelleyebilir veya güncellemeyi iptal edebilirsiniz.</string>
     <string name="help_title_how_to_manage_history">Geçmişi nasıl yönetirim?</string>
     <string name="help_desc_how_to_manage_history_1">Şuraya gidin:</string>
     <string name="help_desc_how_to_manage_history_2">Geçmiş</string>
@@ -278,7 +267,6 @@
     <string name="start_done_desc">Uygulamanın temel ayarlarını başarıyla tamamladınız. Yardım ekranını okuyarak uygulamayı nasıl kullanacağınızı öğrenmek ister misiniz?</string>
     <string name="today">Bugün</string>
     <string name="yesterday">Dün</string>
-    <string name="refresh_book_content_desc">Kitabı yenile</string>
     <string name="continue_reading_content_desc">Okumaya devam et</string>
     <string name="go_back_content_desc">Geri git</string>
     <string name="cover_image_content_desc">Kapak resmi</string>
@@ -330,18 +318,12 @@
     <string name="cutout_padding_option_desc">Kesme alanına dolgu uygulayın</string>
     <string name="vertical_padding_option">Dikey dolgu</string>
     <string name="keep_screen_on_option">Ekranı açık tut</string>
-    <string name="update_book">Kitap güncellensin mi?</string>
     <string name="reading_speed_reader_settings">Okuma hızı</string>
     <string name="perception_expander_option_desc">Merkeze odaklanarak okuma hızınızı artırın</string>
     <string name="perception_expander_thickness_option">Algı iyileştirici satır kalınlığı</string>
-    <string name="check_for_text_update_option_desc">Metin güncellemesi olup olmadığını otomatik olarak denetle</string>
     <string name="chapters">Bölümler</string>
-    <string name="update_text_content_desc">Metni güncelle</string>
-    <string name="update_book_description">Metin güncellemesi bulundu. En son ayrıştırıcı yöntemlerinin kullanıldığından emin olmak için güncelleme gereklidir. Bu çevrim dışı bir işlemdir. Büyük değişiklikler olmadıkça ilerlemeniz etkilenmeyecektir. Güncellemeye devam etmek istiyor musunuz?</string>
     <string name="proceed">Devam et</string>
     <string name="perception_expander_option">Algı iyileştirici</string>
-    <string name="check_for_text_update_option">Metin güncellemesini denetle</string>
-    <string name="check_for_text_update_toast_option">\"metin güncel\" bildirimi göster</string>
     <string name="no_chapters">Bölüm yok</string>
     <string name="perception_expander_padding_option">Algı iyileştirici satır dolgusu</string>
     <string name="hide_bars_on_fast_scroll_option">Hızlı kaydırmada çubukları gizle</string>

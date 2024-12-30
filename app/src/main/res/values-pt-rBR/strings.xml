@@ -4,7 +4,6 @@
     <string name="move_book">Mover livro?</string>
     <string name="delete_book">Apagar livro?</string>
     <string name="default_string">Padrão</string>
-    <string name="confirm_update">Confirmar atualização?</string>
     <string name="enable_check_for_updates">Habilitar verificação de atualizações?</string>
     <string name="cancel">Cancelar</string>
     <string name="add">Adicionar</string>
@@ -38,8 +37,6 @@
     <string name="copy">Copiar</string>
     <string name="translate">Traduzir</string>
     <string name="dictionary">Dicionário</string>
-    <string name="retry">Tentar novamente</string>
-    <string name="confirm">Confirmar</string>
     <string name="next">Próximo</string>
     <string name="share">Compartilhar</string>
     <string name="unknown_author">Desconhecido</string>
@@ -62,7 +59,6 @@
     <string name="updates_notification_desc">A atualização %1$s acabou de lançar! Clique para ir à página de lançamento.</string>
     <string name="updates_notification_title">Novo update do Book\'s Story!</string>
     <string name="add_books">Adicionar livros?</string>
-    <string name="update_book">Atualizar livro?</string>
     <string name="storage_permission_description">Precisamos de permissão de acesso ao armazenamento para procurar livros no seu dispositivo. Sem essa permissão, você não será capaz de adicionar um livro.</string>
     <string name="start">Começar</string>
     <string name="delete">Apagar</string>
@@ -119,7 +115,6 @@
     <string name="error_content_desc">Erro</string>
     <string name="search_content_desc">Pesquisar</string>
     <string name="start_permissions_preferences">Permissões</string>
-    <string name="help_desc_how_to_update_book_2">Biblioteca</string>
     <string name="copied">Copiado</string>
     <string name="required_content_desc">Requerido</string>
     <string name="text_alignment_justify">Justificar</string>
@@ -148,7 +143,6 @@
     <string name="dark_theme_option">Tema escuro</string>
     <string name="move_book_description">Escolha a categoria para qual você quer mover este livro. Esse livro será movido para tal categoria.</string>
     <string name="delete_history_description">Isto irá deletar todo o histórico da base de dados. Após deletá-lo, a ordem dos livros será restaurada.</string>
-    <string name="confirm_update_description">Atualizar os capítulos e o texto deste livro. O progresso deve se manter, a não ser que a ordem dos parágrafos mudaram.</string>
     <string name="paragraph_indentation_option">Recuo de parágrafo</string>
     <string name="letter_spacing_option">Espaçamento das letras</string>
     <string name="file_name">Nome do arquivo</string>
@@ -215,7 +209,6 @@
     <string name="help_translate_option">Ajude a traduzir</string>
     <string name="start_permissions_notifications">Permissão de notificações</string>
     <string name="start_done">Está tudo feito!</string>
-    <string name="refresh_book_content_desc">Atualizar livro</string>
     <string name="cover_image_content_desc">Imagem da capa</string>
     <string name="open_reader_settings_content_desc">Configurações do leitor</string>
     <string name="favorite_directory_content_desc">Diretório favorito</string>
@@ -238,7 +231,6 @@
     <string name="browse_settings_desc">Geral, filtro, ordem</string>
     <string name="check_for_updates_option">Procurar atualizações</string>
     <string name="keep_screen_on_option">Manter a tela ligada</string>
-    <string name="nothing_changed">O texto está atualizado.</string>
     <string name="apply_changes_content_desc">Aplicar alterações</string>
     <string name="add_files_content_desc">Adicionar arquivos</string>
     <string name="library_content_desc">Sua biblioteca</string>
@@ -246,7 +238,6 @@
     <string name="browse_content_desc">Adicionar livros</string>
     <string name="no_chapters">Sem capítulos</string>
     <string name="reading_speed_reader_settings">Velocidade de leitura</string>
-    <string name="update_text_content_desc">Atualizar texto</string>
     <string name="screen_orientation_locked_portrait">Vertical travado</string>
     <string name="screen_orientation_locked_landscape">Horizontal travado</string>
     <string name="custom_screen_brightness_option">Iluminação customizada</string>

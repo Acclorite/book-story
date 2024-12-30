@@ -17,7 +17,6 @@ import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.domain.ui.UIText
 import ua.acclorite.book_story.domain.util.BottomSheet
-import ua.acclorite.book_story.domain.util.Dialog
 import ua.acclorite.book_story.domain.util.Drawer
 import ua.acclorite.book_story.ui.reader.ReaderEvent
 import ua.acclorite.book_story.ui.settings.SettingsEvent
@@ -26,7 +25,6 @@ import ua.acclorite.book_story.ui.settings.SettingsEvent
 fun ReaderContent(
     book: Book,
     text: List<AnnotatedString>,
-    dialog: Dialog?,
     bottomSheet: BottomSheet?,
     drawer: Drawer?,
     listState: LazyListState,
@@ -40,8 +38,6 @@ fun ReaderContent(
     isLoading: Boolean,
     errorMessage: UIText?,
     checkpoint: Checkpoint,
-    checkingForUpdate: Boolean,
-    updateFound: Boolean,
     showMenu: Boolean,
     lockMenu: Boolean,
     chapters: Map<Int, Chapter>,
@@ -76,24 +72,13 @@ fun ReaderContent(
     openTranslator: (ReaderEvent.OnOpenTranslator) -> Unit,
     openDictionary: (ReaderEvent.OnOpenDictionary) -> Unit,
     scrollToChapter: (ReaderEvent.OnScrollToChapter) -> Unit,
-    updateText: (ReaderEvent.OnUpdateText) -> Unit,
-    dismissDialog: (ReaderEvent.OnDismissDialog) -> Unit,
-    cancelCheckForTextUpdate: (ReaderEvent.OnCancelCheckForTextUpdate) -> Unit,
-    showUpdateDialog: (ReaderEvent.OnShowUpdateDialog) -> Unit,
     showSettingsBottomSheet: (ReaderEvent.OnShowSettingsBottomSheet) -> Unit,
     dismissBottomSheet: (ReaderEvent.OnDismissBottomSheet) -> Unit,
     showChaptersDrawer: (ReaderEvent.OnShowChaptersDrawer) -> Unit,
     dismissDrawer: (ReaderEvent.OnDismissDrawer) -> Unit,
     navigateBack: () -> Unit,
-    navigateToBookInfo: (startUpdate: Boolean) -> Unit
+    navigateToBookInfo: () -> Unit
 ) {
-    ReaderDialog(
-        dialog = dialog,
-        updateText = updateText,
-        dismissDialog = dismissDialog,
-        navigateToBookInfo = navigateToBookInfo
-    )
-
     ReaderBottomSheet(
         bottomSheet = bottomSheet,
         fullscreenMode = fullscreenMode,
@@ -115,8 +100,6 @@ fun ReaderContent(
         isLoading = isLoading,
         errorMessage = errorMessage,
         checkpoint = checkpoint,
-        checkingForUpdate = checkingForUpdate,
-        updateFound = updateFound,
         showMenu = showMenu,
         lockMenu = lockMenu,
         chapters = chapters,
@@ -150,8 +133,6 @@ fun ReaderContent(
         openWebBrowser = openWebBrowser,
         openTranslator = openTranslator,
         openDictionary = openDictionary,
-        cancelCheckForTextUpdate = cancelCheckForTextUpdate,
-        showUpdateDialog = showUpdateDialog,
         showSettingsBottomSheet = showSettingsBottomSheet,
         showChaptersDrawer = showChaptersDrawer,
         navigateBack = navigateBack,

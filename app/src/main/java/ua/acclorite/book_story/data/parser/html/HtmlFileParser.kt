@@ -27,7 +27,6 @@ class HtmlFileParser @Inject constructor() : FileParser {
                     title = title,
                     author = UIText.StringResource(R.string.unknown_author),
                     description = null,
-                    textPath = "",
                     scrollIndex = 0,
                     scrollOffset = 0,
                     progress = 0f,

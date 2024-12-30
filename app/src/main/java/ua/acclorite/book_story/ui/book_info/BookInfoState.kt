@@ -2,7 +2,6 @@ package ua.acclorite.book_story.ui.book_info
 
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.domain.reader.Chapter
 import ua.acclorite.book_story.domain.util.BottomSheet
 import ua.acclorite.book_story.domain.util.Dialog
 import ua.acclorite.book_story.presentation.core.constants.Constants
@@ -11,11 +10,6 @@ import ua.acclorite.book_story.presentation.core.constants.provideEmptyBook
 @Immutable
 data class BookInfoState(
     val book: Book = Constants.provideEmptyBook(),
-
-    val checkingForUpdate: Boolean = false,
-    val isUpdating: Boolean = false,
-    val updatedText: List<String>? = null,
-    val updatedChapters: List<Chapter>? = null,
 
     val editTitle: Boolean = false,
     val hasTitleFocused: Boolean = false,

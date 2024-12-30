@@ -17,7 +17,6 @@
     <string name="updates_notification_title">¡Nueva actualización de Book\'s Story!</string>
     <string name="move_book">¿Mover libro?</string>
     <string name="delete_history">¿Borrar el historial de lectura?</string>
-    <string name="confirm_update">¿Confirmar actualización?</string>
     <string name="enable_check_for_updates">¿Comprobar actualizaciones?</string>
     <string name="move_books_description">Elija la categoría a la que desea mover todos los libros seleccionados (%1$s). Todos los libros seleccionados serán trasladados a la categoría seleccionada.</string>
     <string name="move_book_description">Elija la categoría a la que quiere mover este libro. Este libro será trasladado a la categoría seleccionada.</string>
@@ -35,7 +34,6 @@
     <string name="get_help">Necesito ayuda</string>
     <string name="add_book">Añadir un libro</string>
     <string name="move">Mover</string>
-    <string name="retry">Reintentar</string>
     <string name="read_more">¡Necesitas leer más!</string>
     <string name="read_done">¡Bien hecho, has leído todo el libro!</string>
     <string name="change_cover">Cambiar portada</string>
@@ -111,7 +109,6 @@
     <string name="never">Nunca</string>
     <string name="go_back">Regresar</string>
     <string name="copy">Copiar</string>
-    <string name="confirm">Confirmar</string>
     <string name="done">Hecho</string>
     <string name="undo">Deshacer</string>
     <string name="next">Siguiente</string>
@@ -158,7 +155,6 @@
     <string name="blue_theme">Neptuno</string>
     <string name="green_theme">Tierra</string>
     <string name="red_theme">Marte</string>
-    <string name="confirm_update_description">Actualizar el texto y los capítulos de este libro. El progreso debe permanecer inalterado a menos que se haya modificado el orden de los párrafos.</string>
     <string name="color_preset_query">Por defecto %1$s</string>
     <string name="color_preset_selected_query">Seleccionado « %1$s »</string>
     <string name="color_preset_option">Color preestablecido</string>
@@ -167,8 +163,6 @@
     <string name="color_preset_placeholder">Nombrar un preajuste…</string>
     <string name="book_moved">Este libro se movió correctamente.</string>
     <string name="history_element_deleted">El elemento del historial se eliminó correctamente.</string>
-    <string name="file_not_found">No se ha encontrado el archivo \"%1$s\".</string>
-    <string name="book_updated">El texto del libro se ha actualizado correctamente.</string>
     <string name="details_book">Detalles</string>
     <string name="file_name">Nombre del archivo</string>
     <string name="file_last_opened">Último archivo abierto</string>
@@ -192,7 +186,6 @@
     <string name="help_desc_how_to_edit_book_3">y haz clic en la imagen de la portada del libro para ver los detalles del libro. Ahora puedes mantener presionado el título, el autor o la descripción del libro para editarlo o la imagen de la portada para cambiarla, restablecerla o eliminarla.</string>
     <string name="help_title_how_to_customize_reader">¿Cómo personalizo el lector?</string>
     <string name="move_this_book">Mover</string>
-    <string name="nothing_changed">El texto está actualizado.</string>
     <string name="delete_this_book">Borrar</string>
     <string name="file_path">Ruta del archivo</string>
     <string name="help_desc_how_to_add_books_2">Navegar</string>
@@ -216,23 +209,18 @@
     <string name="start_permissions_storage">Permiso de almacenamiento</string>
     <string name="help_desc_how_to_use_double_click_translation_1">En primer lugar, vaya a los ajustes del lector (ver: ¿Cómo personalizo el lector?), luego encienda el ajuste correspondiente. Después de eso, comienza a leer el libro (ver: ¿Cómo leo un libro?). Ahora si hace doble clic en el párrafo deseado, el traductor externo se abrirá con el texto del párrafo.</string>
     <string name="start_permissions_storage_desc">Necesario para escanear tu dispositivo y encontrar los libros</string>
-    <string name="help_title_how_to_update_book">¿Cómo actualizo un libro?</string>
     <string name="help_desc_how_to_customize_reader_2">Ajustes</string>
-    <string name="help_desc_how_to_update_book_2">Biblioteca</string>
-    <string name="help_desc_how_to_update_book_1">Ir al</string>
     <string name="help_desc_how_to_manage_history_1">Ir al</string>
     <string name="help_desc_how_to_manage_history_2">Historial</string>
     <string name="help_title_how_to_manage_history">¿Cómo administro el historial?</string>
     <string name="help_title_how_to_use_tooltip">¿Cómo utilizo las herramientas?</string>
     <string name="help_desc_how_to_manage_history_3">Al hacer clic en el botón eliminar a la derecha del elemento del historial, se eliminará. El historial afecta el orden de libros en la Biblioteca, eliminando el historial también reordenará el libro. El último libro abierto es siempre el primero en Biblioteca e Historial.</string>
     <string name="help_desc_how_to_use_tooltip_1">La mayoría de los botones con íconos tienen información sobre herramientas que pueden ayudarte si no sabes qué hace un botón. Para mostrar la información sobre las herramientas, puedes mantener presionado el botón.</string>
-    <string name="help_desc_how_to_update_book_3">y haz clic en la imagen de la portada del libro para ver los detalles del libro. Desliza hacia abajo la pantalla o haz clic en el icono de la actualización en la esquina superior derecha para actualizar el libro. Si el archivo del libro cambió, puedes confirmar y actualizar el libro o cancelar la actualización.</string>
     <string name="help_desc_how_to_customize_reader_1">Comienza a leer el libro (consulta: ¿Cómo leo un libro?), luego haz clic en cualquier parte de la pantalla para abrir las barras superior e inferior. Luego, haz clic en el ícono del engranaje en la esquina superior derecha. Esto mostrará todas las configuraciones del lector. La segunda forma es ir a los</string>
     <string name="help_desc_how_to_customize_reader_3">y selecciona la categoría Lector para personalizar la configuración general, o la categoría Apariencia para personalizar los temas.</string>
     <string name="today">Hoy</string>
     <string name="yesterday">Ayer</string>
     <string name="start_done_desc">Has completado correctamente la configuración básica de la aplicación. ¿Te gustaría aprender a usar la aplicación leyendo la ayuda?</string>
-    <string name="refresh_book_content_desc">Actualizar libro</string>
     <string name="continue_reading_content_desc">Seguir leyendo</string>
     <string name="go_back_content_desc">Regresar</string>
     <string name="cover_image_content_desc">Portada</string>
@@ -339,8 +327,6 @@
     <string name="reading_speed_reader_settings">Velocidad de lectura</string>
     <string name="perception_expander_option">Ampliador de percepción</string>
     <string name="perception_expander_option_desc">Aumente su velocidad de lectura centrándose en los principal</string>
-    <string name="update_book">¿Actualizar libro?</string>
-    <string name="update_book_description">Se encontró una actualización del texto del libro. La actualización es necesaria para garantizar que se utilicen los métodos de análisis más recientes. Este es un proceso autónomo y en la mayoría de los casos está asociado con la actualización del analizador de texto. Su progreso no se verá afectado a menos que haya cambios significativos. ¿Quieres continuar con la actualización?</string>
     <string name="proceed">Proceder</string>
     <string name="default_string">Por defecto</string>
     <string name="system_reader_settings">Sistema</string>
@@ -348,12 +334,8 @@
     <string name="screen_orientation_portrait">Vertical</string>
     <string name="screen_orientation_landscape">Apaisada</string>
     <string name="screen_orientation_locked_portrait">Bloquear en vertical</string>
-    <string name="update_text_content_desc">Actualizar texto</string>
-    <string name="check_for_text_update_option_desc">Comprobar automáticamente si hay actualización del texto</string>
-    <string name="check_for_text_update_option">Buscar actualizaciones del texto</string>
     <string name="screen_orientation_option">Orientación de la pantalla</string>
     <string name="screen_orientation_locked_landscape">Bloqueado en apaisado</string>
-    <string name="check_for_text_update_toast_option">Mostrar mensaje emergente \"El texto está actualizado\"</string>
     <string name="contributors_option">Colaboradores</string>
     <string name="help_title_how_to_use_perception_expander">¿Qué es un potenciador de la percepción y cómo utilizarlo?</string>
     <string name="help_title_how_to_use_perception_expander_1">El expansor de percepción puede ayudarte a leer más rápido. En primer lugar, actívelo en los ajustes del Lector (consulte: ¿Cómo personalizo el Lector?). Una vez activado, aparecerán dos líneas verticales a cada lado del Reader. Para optimizar aún más su velocidad de lectura, ajuste el relleno para crear menos espacio alrededor del centro. Para utilizarlo, concéntrate en el centro de la pantalla y deja que tu visión periférica capte el texto de los lados. Mientras lees, mantén la atención en el centro sin mirar directamente a los lados después de cada línea.</string>

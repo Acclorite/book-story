@@ -50,7 +50,6 @@ import ua.acclorite.book_story.ui.settings.SettingsModel
 data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
 
     companion object {
-        const val UPDATE_DIALOG = "update_dialog"
         const val CHAPTERS_DRAWER = "chapters_drawer"
         const val SETTINGS_BOTTOM_SHEET = "settings_bottom_sheet"
     }
@@ -225,9 +224,9 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             (mainState.value.bottomBarPadding * 4f).dp
         }
 
-        val chapters = remember(state.value.book.chapters) {
+        val chapters = remember(state.value.chapters) {
             val chapters = mutableMapOf<Int, Chapter>()
-            state.value.book.chapters.forEach {
+            state.value.chapters.forEach {
                 chapters[it.startIndex] = it
             }
             chapters
@@ -237,8 +236,6 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             screenModel.init(
                 bookId = bookId,
                 fullscreenMode = mainState.value.fullscreen,
-                checkForTextUpdate = mainState.value.checkForTextUpdate,
-                checkForTextUpdateToast = mainState.value.checkForTextUpdateToast,
                 activity = activity,
                 navigateBack = {
                     navigator.pop()
@@ -301,7 +298,6 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
         ReaderContent(
             book = state.value.book,
             text = state.value.text,
-            dialog = state.value.dialog,
             bottomSheet = state.value.bottomSheet,
             drawer = state.value.drawer,
             listState = listState,
@@ -315,8 +311,6 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             isLoading = state.value.isLoading,
             errorMessage = state.value.errorMessage,
             checkpoint = state.value.checkpoint,
-            checkingForUpdate = state.value.checkingForUpdate,
-            updateFound = state.value.updateFound,
             showMenu = state.value.showMenu,
             lockMenu = state.value.lockMenu,
             chapters = chapters,
@@ -351,10 +345,6 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             openTranslator = screenModel::onEvent,
             openDictionary = screenModel::onEvent,
             scrollToChapter = screenModel::onEvent,
-            updateText = screenModel::onEvent,
-            cancelCheckForTextUpdate = screenModel::onEvent,
-            showUpdateDialog = screenModel::onEvent,
-            dismissDialog = screenModel::onEvent,
             showSettingsBottomSheet = screenModel::onEvent,
             dismissBottomSheet = screenModel::onEvent,
             showChaptersDrawer = screenModel::onEvent,
@@ -362,8 +352,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             navigateBack = {
                 navigator.pop()
             },
-            navigateToBookInfo = { startUpdate ->
-                if (startUpdate) BookInfoScreen.startUpdateChannel.trySend(true)
+            navigateToBookInfo = {
                 navigator.push(
                     BookInfoScreen(
                         bookId = bookId,

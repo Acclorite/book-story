@@ -8,8 +8,6 @@ import androidx.compose.runtime.Immutable
 sealed class ReaderEvent {
 
     data class OnLoadText(
-        val checkForTextUpdate: Boolean,
-        val checkForTextUpdateToast: Boolean,
         val context: Context
     ) : ReaderEvent()
 
@@ -61,22 +59,6 @@ sealed class ReaderEvent {
         val textToDefine: String,
         val activity: ComponentActivity
     ) : ReaderEvent()
-
-    data class OnCheckTextForUpdate(
-        val showToast: Boolean,
-        val context: Context
-    ) : ReaderEvent()
-
-    data class OnUpdateText(
-        val activity: ComponentActivity,
-        val navigateToBookInfo: () -> Unit
-    ) : ReaderEvent()
-
-    data object OnCancelCheckForTextUpdate : ReaderEvent()
-
-    data object OnShowUpdateDialog : ReaderEvent()
-
-    data object OnDismissDialog : ReaderEvent()
 
     data object OnShowSettingsBottomSheet : ReaderEvent()
 

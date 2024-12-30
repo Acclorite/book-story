@@ -20,8 +20,8 @@ interface BookDao {
 
     /* ------ BookEntity ------------------------ */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertBooks(
-        books: List<BookEntity>
+    suspend fun insertBook(
+        book: BookEntity
     )
 
     @Query(

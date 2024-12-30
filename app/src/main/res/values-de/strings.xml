@@ -13,13 +13,11 @@
     <string name="delete_book">Buch löschen?</string>
     <string name="move_book">Buch verschieben?</string>
     <string name="delete_history">Leseverlauf löschen?</string>
-    <string name="confirm_update">Update bestätigen?</string>
     <string name="enable_check_for_updates">Überprüfen von Updates aktivieren?</string>
     <string name="add_books_description">Sie können auswählen, welche Bücher Sie hinzufügen möchten. Titel und Coverbild des Buches können Sie später bearbeiten. Der Ladevorgang kann mehrere Minuten dauern.</string>
     <string name="move_books_description">Wählen Sie die Kategorie, in die Sie alle ausgewählten Bücher verschieben möchten (%1$s). Alle ausgewählten Bücher werden in die ausgewählte Kategorie verschoben.</string>
     <string name="delete_book_description">Dadurch wird das Buch aus der Datenbank gelöscht. Von Ihrem Gerät wird das Buch jedoch nicht gelöscht.</string>
     <string name="move_book_description">Wählen Sie die Kategorie aus, in die Sie dieses Buch verschieben möchten. Dieses Buch wird in die ausgewählte Kategorie verschoben.</string>
-    <string name="confirm_update_description">Aktualisieren Sie den Text und die Kapitel dieses Buches. Der Fortschritt sollte unverändert bleiben, sofern die Reihenfolge der Absätze nicht geändert wurde.</string>
     <string name="enable_check_for_updates_description">Durch Aktivieren von „Nach Updates suchen“ ruft die App bei jedem Start der App die neuesten Versionsinformationen von „api.github.com“ ab. Möchten Sie fortfahren und „Nach Updates suchen“ aktivieren?</string>
     <string name="error_no_description">Keine Beschreibung.</string>
     <string name="error_no_text">Der Buchinhalt ist leer. Bitte stellen Sie sicher, dass der Buchinhalt nicht leer ist und aktualisieren Sie ihn.</string>
@@ -47,8 +45,6 @@
     <string name="copy">Kopieren</string>
     <string name="translate">Übersetzen</string>
     <string name="dictionary">Wörterbuch</string>
-    <string name="retry">Wiederholen</string>
-    <string name="confirm">Bestätigen</string>
     <string name="next">Nächste</string>
     <string name="no">Nein</string>
     <string name="done">Fertig</string>
@@ -114,9 +110,6 @@
     <string name="no_updates">Die neuste Version der App ist bereits installiert.</string>
     <string name="cover_reset">Das Titelbild wurde erfolgreich zurückgesetzt.</string>
     <string name="history_element_deleted">Das Verlaufselement wurde erfolgreich gelöscht.</string>
-    <string name="file_not_found">Die Datei „%1$s“ wurde nicht gefunden.</string>
-    <string name="book_updated">Der Buchtext wurde erfolgreich aktualisiert.</string>
-    <string name="nothing_changed">Der Text ist aktuell.</string>
     <string name="move_this_book">Verschieben</string>
     <string name="delete_this_book">Löschen</string>
     <string name="dynamic_theme">Quecksilber</string>
@@ -144,9 +137,6 @@
     <string name="help_desc_how_to_read_book_2">Bibliothek</string>
     <string name="help_title_how_to_customize_reader">Wie passe ich den Reader an?</string>
     <string name="help_desc_how_to_customize_reader_1">Beginnen Sie mit dem Lesen des Buches (siehe: Wie lese ich ein Buch?), und bringen Sie dann die oberen und unteren Balken zum Vorschein, indem Sie irgendwo auf den Bildschirm klicken. Klicken Sie dann auf das Zahnradsymbol in der oberen rechten Ecke. Dadurch werden alle Reader-Einstellungen angezeigt. Der zweite Weg ist, zu den</string>
-    <string name="help_desc_how_to_update_book_1">Gehen Sie zum</string>
-    <string name="help_desc_how_to_update_book_2">Bibliothek</string>
-    <string name="help_desc_how_to_update_book_3">und klicken Sie auf das Coverbild des Buches, um die Buchdetails anzuzeigen. Ziehen Sie den Bildschirm nach unten oder klicken Sie auf das Aktualisierungssymbol in der oberen rechten Ecke, um das Buch zu aktualisieren. Wenn sich die Buchdatei geändert hat, können Sie das Buch bestätigen und aktualisieren oder die Aktualisierung abbrechen.</string>
     <string name="start_permissions_granted">Gewährt</string>
     <string name="start_permissions_storage">Speicherberechtigung</string>
     <string name="start_permissions_storage_desc">Erforderlich, um Ihr Gerät zu scannen und Bücher zu finden</string>
@@ -156,7 +146,6 @@
     <string name="start_done_desc">Sie haben die Grundeinstellungen der App erfolgreich abgeschlossen. Möchten Sie anhand des Hilfebildschirms erfahren, wie Sie die App verwenden?</string>
     <string name="today">Heute</string>
     <string name="yesterday">Gestern</string>
-    <string name="refresh_book_content_desc">Buch aktualisieren</string>
     <string name="continue_reading_content_desc">Weiterlesen</string>
     <string name="go_back_content_desc">Geh zurück</string>
     <string name="cover_image_content_desc">Titelbild</string>
@@ -236,7 +225,6 @@
     <string name="help_title_how_to_edit_book">Wie bearbeite ich ein Buch?</string>
     <string name="help_desc_how_to_read_book_3">Um mit dem Lesen des Buches zu beginnen, klicken Sie auf die Schaltfläche in der unteren rechten Ecke des Buches, das Sie lesen möchten. Sie können das Buch auch lesen, indem Sie auf das Coverbild klicken, um die Buchdetails anzuzeigen, und dann auf die Schaltfläche in der unteren rechten Ecke klicken. Der Fortschritt wird automatisch gespeichert und wiederhergestellt. Sie können die oberen und unteren Leisten einblenden, indem Sie irgendwo auf den Bildschirm klicken. Wenn Sie auf den Titel des Buches klicken, gelangen Sie zu den Buchdetails. Wenn Sie auf das Zahnradsymbol klicken, werden die Reader-Einstellungen angezeigt. Sie können den Schieberegler der unteren Leiste verwenden, um den Fortschritt zu ändern.</string>
     <string name="help_desc_how_to_customize_reader_2">Einstellungen</string>
-    <string name="help_title_how_to_update_book">Wie aktualisiere ich ein Buch?</string>
     <string name="help_desc_how_to_manage_history_1">Gehen Sie zum</string>
     <string name="help_desc_how_to_use_tooltip_1">Die meisten Symbolschaltflächen haben Tooltips. Diese können Ihnen helfen, wenn Sie nicht wissen, was eine Symbolschaltfläche macht. Um den Tooltip anzuzeigen, können Sie eine Symbolschaltfläche gedrückt halten.</string>
     <string name="help_desc_how_to_customize_reader_3">und wählen Sie die Kategorie „Reader“, um die allgemeinen Einstellungen anzupassen, oder die Kategorie „Darstellung“, um die Farbeinstellungen anzupassen.</string>
@@ -330,16 +318,10 @@
     <string name="fullscreen_option_desc">Systemleisten ausblenden und Polsterung entfernen</string>
     <string name="cutout_padding_option_desc">Polsterung auf Ausschnittbereich auftragen</string>
     <string name="cutout_padding_option">Aussparungspolster</string>
-    <string name="check_for_text_update_option">Auf Textaktualisierungen prüfen</string>
-    <string name="update_text_content_desc">Text aktualisieren</string>
     <string name="default_string">Standard</string>
-    <string name="update_book">Bücher updaten?</string>
-    <string name="update_book_description">Es wurde ein Update des Textes gefunden. Das Update ist erforderlich, um sicherzustellen, dass die neuesten Parsermethoden verwendet werden. Es handelt sich um einen Offline-Prozess. Ihr Fortschritt wird nicht beeinträchtigt, sofern keine großen Änderungen auftreten. Möchten Sie mit dem Update fortfahren?</string>
     <string name="proceed">Fortfahren</string>
     <string name="perception_expander_padding_option">Zeilenauffüllung des Perception Expander</string>
     <string name="perception_expander_thickness_option">Linienstärke des Perception Expander</string>
-    <string name="check_for_text_update_option_desc">Automatisch prüfen, ob ein Text-Update vorliegt</string>
-    <string name="check_for_text_update_toast_option">Toast „Text ist aktuell“ anzeigen</string>
     <string name="screen_orientation_option">Bildschirmausrichtung</string>
     <string name="screen_orientation_free">Frei</string>
     <string name="screen_orientation_portrait">Porträt</string>

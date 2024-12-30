@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.book_info
 
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import ua.acclorite.book_story.domain.library.book.Book
 import ua.acclorite.book_story.domain.util.BottomSheet
@@ -11,7 +10,6 @@ import ua.acclorite.book_story.ui.book_info.BookInfoScreen
 fun BookInfoBottomSheet(
     bottomSheet: BottomSheet?,
     book: Book,
-    snackbarState: SnackbarHostState,
     canResetCover: Boolean,
     changeCover: (BookInfoEvent.OnChangeCover) -> Unit,
     resetCover: (BookInfoEvent.OnResetCover) -> Unit,
@@ -38,7 +36,6 @@ fun BookInfoBottomSheet(
 
         BookInfoScreen.MORE_BOTTOM_SHEET -> {
             BookInfoMoreBottomSheet(
-                snackbarState = snackbarState,
                 showDetailsBottomSheet = showDetailsBottomSheet,
                 showDeleteDialog = showDeleteDialog,
                 showMoveDialog = showMoveDialog,

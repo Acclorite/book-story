@@ -9,11 +9,9 @@ fun BookInfoBackHandler(
     editTitle: Boolean,
     editAuthor: Boolean,
     editDescription: Boolean,
-    isUpdating: Boolean,
     editTitleMode: (BookInfoEvent.OnEditTitleMode) -> Unit,
     editAuthorMode: (BookInfoEvent.OnEditAuthorMode) -> Unit,
     editDescriptionMode: (BookInfoEvent.OnEditDescriptionMode) -> Unit,
-    cancelTextUpdate: (BookInfoEvent.OnCancelTextUpdate) -> Unit,
     navigateBack: () -> Unit
 ) {
     BackHandler {
@@ -38,9 +36,6 @@ fun BookInfoBackHandler(
             return@BackHandler
         }
 
-        if (!isUpdating) {
-            cancelTextUpdate(BookInfoEvent.OnCancelTextUpdate)
-            navigateBack()
-        }
+        navigateBack()
     }
 }

@@ -29,7 +29,6 @@
     <string name="about_screen">关于 app</string>
     <string name="storage_permission">授予权限？</string>
     <string name="move_book">移动书？</string>
-    <string name="confirm_update">确认更新？</string>
     <string name="storage_permission_description">我们需要存储权限以扫描您的设备上的书。没有此权限，您将无法添加书。</string>
     <string name="delete_books_description">所有已选择的书（%1$s）将会从数据库中删除，但不会从您的设备上删除。</string>
     <string name="delete_book_description">这本书将会从数据库中删除，但不会从您的设备上删除。</string>
@@ -57,8 +56,6 @@
     <string name="grant_permission">授予权限</string>
     <string name="go_back">返回</string>
     <string name="undo">撤销</string>
-    <string name="retry">重试</string>
-    <string name="confirm">确认</string>
     <string name="next">下一个</string>
     <string name="unknown_author">未知</string>
     <string name="read_done">干得好，你已经读完了整本书！</string>
@@ -88,7 +85,6 @@
     <string name="updates_notification_channel">新更新</string>
     <string name="add_books_description">您可以挑选您想添加哪些书。您可以在之后编辑书的标题与封面图片。加载过程可能会花费数分钟。</string>
     <string name="move_books_description">选择你想将所选的书（%1$s）移动到的分类。所有被选择的书将会被移动到指定的分类。</string>
-    <string name="confirm_update_description">更新这本书的文本及章节。除非段落顺序发生改变，否则进度将不会改变。</string>
     <string name="reading_speed_reader_settings">阅读速度</string>
     <string name="dark_theme_option">暗黑主题</string>
     <string name="absolute_dark_option">绝对黑暗</string>
@@ -97,8 +93,6 @@
     <string name="cutout_padding_option_desc">将填充应用于镂空区域</string>
     <string name="browse_pin_favorite_directories_option_desc">在屏幕顶端固定您的收藏目录</string>
     <string name="browse_pin_favorite_directories_option">固定收藏目录</string>
-    <string name="check_for_text_update_option_desc">自动检查文本是否更新</string>
-    <string name="check_for_text_update_toast_option">显示“文本已更新”通知</string>
     <string name="browse_grid_size_option">网格大小</string>
     <string name="dark_theme_follow_system">系统</string>
     <string name="font_style_normal">正常</string>
@@ -123,7 +117,6 @@
     <string name="fast_color_preset_change_option_desc">向左或向右滑动顶栏以更改颜色预设</string>
     <string name="text_alignment_option">文本对齐</string>
     <string name="letter_spacing_option">字母间距</string>
-    <string name="check_for_text_update_option">检查文本更新</string>
     <string name="browse_layout_option">显示模式</string>
     <string name="perception_expander_padding_option">感知扩展器行填充</string>
     <string name="app_theme_option">应用主题</string>
@@ -173,7 +166,6 @@
     <string name="theme_contrast_high">高</string>
     <string name="red_theme">火星</string>
     <string name="default_string">默认</string>
-    <string name="update_book">更新书？</string>
     <string name="proceed">继续</string>
     <string name="screen_orientation_option">屏幕方向</string>
     <string name="browse_layout_list">列表</string>
@@ -192,7 +184,6 @@
     <string name="yellow_theme">金星</string>
     <string name="aqua_theme">天王星</string>
     <string name="press_again_toast">再次点击返回退出</string>
-    <string name="update_book_description">已发现文本更新。需要更新以确保最新的解析器方法被使用。这是个离线过程。触发发生重大改变否则您的进度将不会被影响。您想继续更新吗？</string>
     <string name="system_reader_settings">系统</string>
     <string name="browse_sort_order_name">字母顺序</string>
     <string name="screen_orientation_portrait">竖屏</string>
@@ -242,11 +233,9 @@
     <string name="app_version_option_desc_2">点击检查更新</string>
     <string name="help_desc_how_to_add_books_4">库中</string>
     <string name="file_path">文件路径</string>
-    <string name="file_not_found">没有找到文件“%1$s”。</string>
     <string name="credits_icon">图标</string>
     <string name="help_desc_how_to_add_books_2">浏览</string>
     <string name="slava_ukraini">荣耀属于乌克兰！</string>
-    <string name="book_updated">已成功更新了书的文本。</string>
     <string name="file_last_opened">文件最后打开</string>
     <string name="unknown">未知</string>
     <string name="internal_storage">内部存储</string>
@@ -257,7 +246,6 @@
     <string name="details_book">详细</string>
     <string name="whats_new_option">新内容</string>
     <string name="licenses_option">开源许可证</string>
-    <string name="nothing_changed">文本已是最新。</string>
     <string name="delete_this_book">删除</string>
     <string name="pure_dark_power_saver">保存</string>
     <string name="custom_screen_brightness_option">自定义亮度</string>

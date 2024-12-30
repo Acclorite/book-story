@@ -5,31 +5,21 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.pullrefresh.PullRefreshState
-import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.presentation.core.components.common.Snackbar
 import ua.acclorite.book_story.ui.book_info.BookInfoEvent
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun BookInfoScaffold(
     book: Book,
-    refreshState: PullRefreshState,
     listState: LazyListState,
-    snackbarState: SnackbarHostState,
-    isUpdating: Boolean,
-    checkingForUpdate: Boolean,
     editTitle: Boolean,
     titleValue: String,
     editAuthor: Boolean,
@@ -48,8 +38,6 @@ fun BookInfoScaffold(
     showChangeCoverBottomSheet: (BookInfoEvent.OnShowChangeCoverBottomSheet) -> Unit,
     showMoreBottomSheet: (BookInfoEvent.OnShowMoreBottomSheet) -> Unit,
     updateData: (BookInfoEvent.OnUpdateData) -> Unit,
-    checkForTextUpdate: (BookInfoEvent.OnCheckForTextUpdate) -> Unit,
-    cancelTextUpdate: (BookInfoEvent.OnCancelTextUpdate) -> Unit,
     navigateToReader: () -> Unit,
     navigateBack: () -> Unit
 ) {
@@ -57,16 +45,12 @@ fun BookInfoScaffold(
         Modifier
             .fillMaxSize()
             .imePadding()
-            .windowInsetsPadding(WindowInsets.navigationBars)
-            .pullRefresh(refreshState),
+            .windowInsetsPadding(WindowInsets.navigationBars),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             BookInfoTopBar(
                 book = book,
                 listState = listState,
-                snackbarState = snackbarState,
-                isUpdating = isUpdating,
-                checkingForUpdate = checkingForUpdate,
                 editTitle = editTitle,
                 titleValue = titleValue,
                 editAuthor = editAuthor,
@@ -78,15 +62,7 @@ fun BookInfoScaffold(
                 editDescriptionMode = editDescriptionMode,
                 updateData = updateData,
                 showMoreBottomSheet = showMoreBottomSheet,
-                checkForTextUpdate = checkForTextUpdate,
-                cancelTextUpdate = cancelTextUpdate,
                 navigateBack = navigateBack
-            )
-        },
-        bottomBar = {
-            Snackbar(
-                modifier = Modifier.padding(bottom = 70.dp),
-                snackbarState = snackbarState
             )
         }
     ) { paddingValues ->
@@ -116,15 +92,7 @@ fun BookInfoScaffold(
             BookInfoFloatingActionButton(
                 book = book,
                 listState = listState,
-                isUpdating = isUpdating,
                 navigateToReader = navigateToReader
-            )
-
-            BookInfoRefreshIndicator(
-                isUpdating = isUpdating,
-                checkingForUpdate = checkingForUpdate,
-                refreshState = refreshState,
-                paddingValues = paddingValues
             )
         }
     }

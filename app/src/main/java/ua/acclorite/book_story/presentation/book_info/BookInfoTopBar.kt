@@ -7,15 +7,12 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Done
-import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.library.book.Book
@@ -34,9 +31,6 @@ import ua.acclorite.book_story.ui.theme.Transitions
 fun BookInfoTopBar(
     book: Book,
     listState: LazyListState,
-    snackbarState: SnackbarHostState,
-    isUpdating: Boolean,
-    checkingForUpdate: Boolean,
     editTitle: Boolean,
     titleValue: String,
     editAuthor: Boolean,
@@ -48,12 +42,8 @@ fun BookInfoTopBar(
     editDescriptionMode: (BookInfoEvent.OnEditDescriptionMode) -> Unit,
     updateData: (BookInfoEvent.OnUpdateData) -> Unit,
     showMoreBottomSheet: (BookInfoEvent.OnShowMoreBottomSheet) -> Unit,
-    checkForTextUpdate: (BookInfoEvent.OnCheckForTextUpdate) -> Unit,
-    cancelTextUpdate: (BookInfoEvent.OnCancelTextUpdate) -> Unit,
     navigateBack: () -> Unit
 ) {
-    val context = LocalContext.current
-
     val firstVisibleItemIndex = remember {
         derivedStateOf {
             listState.firstVisibleItemIndex
@@ -99,8 +89,7 @@ fun BookInfoTopBar(
                             }
                         }
                     } else {
-                        NavigatorBackIconButton(enabled = !isUpdating) {
-                            cancelTextUpdate(BookInfoEvent.OnCancelTextUpdate)
+                        NavigatorBackIconButton {
                             navigateBack()
                         }
                     }
@@ -117,20 +106,6 @@ fun BookInfoTopBar(
                     }
                 },
                 contentActions = {
-                    IconButton(
-                        icon = Icons.Outlined.Refresh,
-                        contentDescription = R.string.refresh_book_content_desc,
-                        disableOnClick = false,
-                        enabled = !isUpdating && !checkingForUpdate
-                    ) {
-                        checkForTextUpdate(
-                            BookInfoEvent.OnCheckForTextUpdate(
-                                snackbarState = snackbarState,
-                                context = context
-                            )
-                        )
-                    }
-
                     Box {
                         DefaultTransition(
                             visible = !editTitle &&
@@ -152,8 +127,7 @@ fun BookInfoTopBar(
                                 icon = Icons.Outlined.Done,
                                 contentDescription = R.string.apply_changes_content_desc,
                                 disableOnClick = true,
-                                enabled = !isUpdating &&
-                                        titleChanged ||
+                                enabled = titleChanged ||
                                         authorChanged ||
                                         descriptionChanged,
                                 color = if (

@@ -20,7 +20,7 @@ import ua.acclorite.book_story.data.local.dto.HistoryEntity
         ColorPresetEntity::class,
         FavoriteDirectoryEntity::class,
     ],
-    version = 7,
+    version = 8,
     autoMigrations = [
         AutoMigration(1, 2),
         AutoMigration(2, 3),
@@ -28,6 +28,7 @@ import ua.acclorite.book_story.data.local.dto.HistoryEntity
         AutoMigration(4, 5),
         AutoMigration(5, 6),
         AutoMigration(6, 7),
+        AutoMigration(7, 8, spec = DatabaseHelper.MIGRATION_7_8::class)
     ],
     exportSchema = true
 )
@@ -83,4 +84,8 @@ object DatabaseHelper {
             )
         }
     }
+
+    @DeleteColumn("BookEntity", "textPath")
+    @DeleteColumn("BookEntity", "chapters")
+    class MIGRATION_7_8 : AutoMigrationSpec
 }

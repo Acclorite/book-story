@@ -12,7 +12,6 @@
     <string name="translate">Traduci</string>
     <string name="grant_permission">Concedi permesso</string>
     <string name="add">Aggiungi</string>
-    <string name="update_book">Aggiornare libro?</string>
     <string name="browse_settings">Esplora</string>
     <string name="proceed">Procedi</string>
     <string name="read_keep">Continua così!</string>
@@ -30,7 +29,6 @@
     <string name="report_bug_option">Segnala un errore</string>
     <string name="chapters_content_desc">Capitoli</string>
     <string name="help_desc_how_to_edit_book_2">Libreria</string>
-    <string name="refresh_book_content_desc">Aggiorna libro</string>
     <string name="cover_image_content_desc">Copertina</string>
     <string name="browse_content_desc">Aggiungi libri</string>
     <string name="open_reader_settings_content_desc">Impostazioni lettore</string>
@@ -56,7 +54,6 @@
     <string name="enable">Abilita</string>
     <string name="web_search">Ricerca web</string>
     <string name="dark_theme_on">Abilitato</string>
-    <string name="confirm">Conferma</string>
     <string name="start_permissions_notifications">Permesso per le notifiche</string>
     <string name="credits_icon">Icone</string>
     <string name="theme_appearance_settings">Preferenze tema</string>
@@ -82,14 +79,12 @@
     <string name="storage_permission_description">Abbiamo bisogno del permesso di archiviazione per la scansione del Tuo Dispositivo per i libri. Senza questo permesso, non sarai in grado di aggiungere i libri.</string>
     <string name="error_something_went_wrong_with_file">Qualcosa è andato storto. Per favore controllare che il file di questo libro non sia danneggiato.</string>
     <string name="done">Fatto</string>
-    <string name="retry">Riprova</string>
     <string name="share">Condividi</string>
     <string name="yes_go_to_help">Sì, vai ad Aiuto</string>
     <string name="no">No</string>
     <string name="delete_color_preset_content_desc">Elimina preset di colori</string>
     <string name="files_structure_directory">Cartelle</string>
     <string name="pure_dark_on">Abilitato</string>
-    <string name="confirm_update">Conferma aggiornamento?</string>
     <string name="help_screen">Aiuto</string>
     <string name="error_content_desc">Errore</string>
     <string name="reader_settings_desc">Carattere, testo, traduttore</string>
@@ -117,7 +112,6 @@
     <string name="books_added">Tutti i libri selezionati sono stati aggiunti correttamente.</string>
     <string name="delete_book_description">Eliminerà questo libro dal database. Non eliminerà questo libro dal tuo dispositivo.</string>
     <string name="add_books_description">Puoi scegliere quali libri vuoi aggiungere. È possibile modificare il titolo e l\'immagine di copertina in seguito. Il processo di caricamento può richiedere fino a diversi minuti.</string>
-    <string name="confirm_update_description">Aggiorna il testo e i capitoli di questo libro. I progressi dovrebbero rimanere invariati a meno che l\'ordine dei paragrafi non sia stato modificato.</string>
     <string name="delete_history_description">Elimina l\'intera cronologia dal database. Dopo avere eliminato la cronologia, l\'ordine dei libri sarà reimpostato.</string>
     <string name="delete_books_description">Eliminerà tutti i libri selezionati (%1$s) dal database. Non eliminerà i libri selezionati dal tuo dispositivo.</string>
     <string name="update_app_description">Nuova versione dell\'app trovata. Vuoi procedere alla pagina di rilascio?</string>
@@ -215,7 +209,6 @@
     <string name="search_field_empty">Cerca…</string>
     <string name="color_preset_selected_query">Selezionato «%1$s»</string>
     <string name="translator_reader_settings">Traduttore</string>
-    <string name="update_book_description">È stato trovato un aggiornamento del testo. L\'aggiornamento è necessario per garantire che vengano utilizzati i metodi parser più recenti. È un processo offline. I tuoi progressi non saranno influenzati a meno che non si verifichino grandi cambiamenti. Vuoi procedere con l\'aggiornamento?</string>
     <string name="selected_items_count_query">%1$s selezionato</string>
     <string name="custom_screen_brightness_option">Luminosità personalizzata</string>
     <string name="screen_brightness_option">Luminosità</string>

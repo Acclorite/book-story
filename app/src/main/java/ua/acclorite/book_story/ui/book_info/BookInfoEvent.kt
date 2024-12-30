@@ -2,11 +2,9 @@ package ua.acclorite.book_story.ui.book_info
 
 import android.content.Context
 import android.net.Uri
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.domain.library.category.Category
-import ua.acclorite.book_story.domain.reader.Chapter
 
 @Immutable
 sealed class BookInfoEvent {
@@ -54,14 +52,6 @@ sealed class BookInfoEvent {
 
     data object OnUpdateData : BookInfoEvent()
 
-    data class OnShowSnackbar(
-        val text: String,
-        val action: String?,
-        val onAction: () -> Unit = {},
-        val durationMillis: Long,
-        val snackbarState: SnackbarHostState
-    ) : BookInfoEvent()
-
     data object OnShowChangeCoverBottomSheet : BookInfoEvent()
 
     data class OnChangeCover(
@@ -101,23 +91,4 @@ sealed class BookInfoEvent {
     ) : BookInfoEvent()
 
     data object OnDismissDialog : BookInfoEvent()
-
-    data class OnCheckForTextUpdate(
-        val snackbarState: SnackbarHostState,
-        val context: Context
-    ) : BookInfoEvent()
-
-    data class OnShowUpdateDialog(
-        val updatedText: List<String>,
-        val updatedChapters: List<Chapter>
-    ) : BookInfoEvent()
-
-    data class OnActionUpdateDialog(
-        val snackbarState: SnackbarHostState,
-        val context: Context
-    ) : BookInfoEvent()
-
-    data object OnDismissUpdateDialog : BookInfoEvent()
-
-    data object OnCancelTextUpdate : BookInfoEvent()
 }

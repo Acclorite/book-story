@@ -5,7 +5,6 @@
     <string name="storage_permission_description">نحتاج إذن التخزين لفحص جهازك من أجل الكتب. من دون هذا الإذن، لن تكون قادرا على إضافة كتاب.</string>
     <string name="updates_notification_desc">التحديث %1$s تم نشره للتو! انقر للذهاب الى صفحة الإصدار.</string>
     <string name="move_book_description">اختر الفئة التي تريد نقل هذا الكتاب إليها. سيتم نقل هذا الكتاب إلى الفئة المختارة.</string>
-    <string name="confirm_update_description">تحديث نص و فصول هذا الكتاب. ينبغي ان يظل التقدم كما هو ما لم يتم تغيير الفقرات.</string>
     <string name="update_app_description">تم العثور على إصدار جديد من Book\'s Story. هل تريد الإنتقال الى صفحة الاصدار ؟</string>
     <string name="updates_notification_channel">التحديثات الجديدة</string>
     <string name="updates_notification_title">تحديث جديد ل Book\'s Story!</string>
@@ -22,7 +21,6 @@
     <string name="delete_book">حذف الكتاب؟</string>
     <string name="move_book">نقل الكتاب؟</string>
     <string name="delete_history">حذف سجل القراءة؟</string>
-    <string name="confirm_update">تأكيد التحديث؟</string>
     <string name="enable_check_for_updates">تفعيل التحقق من التنبيهات؟</string>
     <string name="move_books_description">اختر الفئة التي تريد نقل جميع الكتب%1$s المختارة إليها. جميع الكتب المختارة سيتم نقلها إلى الفئة المختارة.</string>
     <string name="delete_books_description">هذا سيحذف جميع الكتب%1$sالمختارة من قاعدة البيانات. هذا لن يحذف الكتب المختارة من جهازك.</string>
@@ -77,7 +75,6 @@
     <string name="copy">نسخ</string>
     <string name="translate">ترجمة</string>
     <string name="dictionary">القاموس</string>
-    <string name="retry">أعد المحاولة</string>
     <string name="next">التالي</string>
     <string name="text_reader_settings">نص</string>
     <string name="yes_go_to_help">نعم، اذهب إلى المساعدة</string>
@@ -89,7 +86,6 @@
     <string name="unknown_author">غير معروف</string>
     <string name="delete">حذف</string>
     <string name="move">نقل</string>
-    <string name="confirm">تأكيد</string>
     <string name="reset_cover_desc">إعادة ضبط صورة غلاف الكتاب الى الافتراضي</string>
     <string name="change_cover">تغيير صورة الغلاف</string>
     <string name="change_cover_desc">اختر غلاف جديد من صورك</string>
@@ -172,11 +168,9 @@
     <string name="books_added">تم اضافة جميع الكتب المختارة بنجاح.</string>
     <string name="font_style_normal">عادي</string>
     <string name="history_element_deleted">تم محو عناصر السجل بنجاح.</string>
-    <string name="book_updated">تم تحديث نص الكتاب بنجاح.</string>
     <string name="file_size">حجم الملف</string>
     <string name="unknown">غير معروف</string>
     <string name="browse_grid_size_option">حجم الشبكة</string>
-    <string name="nothing_changed">النص محدث.</string>
     <string name="app_version_option">إصدار التطبيق</string>
     <string name="app_version_option_desc_1">قصة كتاب الإصدار%1$s</string>
     <string name="licenses_option">رخص مفتوحة المصدر</string>
@@ -184,7 +178,6 @@
     <string name="credits_updates">إدارة التحديثات الجديدة</string>
     <string name="text_alignment_start">ابدأ</string>
     <string name="text_alignment_center">المركز</string>
-    <string name="file_not_found">لم يتم العثور على الملف \"%1$s\"</string>
     <string name="move_this_book">نقل</string>
     <string name="delete_this_book">حذف</string>
     <string name="details_book">التفاصيل</string>
@@ -239,14 +232,10 @@
     <string name="vertical_padding_option">الحشو العمودي</string>
     <string name="reading_speed_reader_settings">سرعة القراءة</string>
     <string name="default_string">الافتراضي</string>
-    <string name="update_book">تحديث الكتاب؟</string>
-    <string name="update_book_description">تم ايجاد تحديث للنص ، التحديث مطلوب لضمان ان احدث اساليب الفرز يتم استخدامها ، لا تحتاج الى اتصال انترنت ، لن تفقد تقدمك ما لم تحدث تغييرات كبيرة . هل تريد المضي قدما بالتحديث؟</string>
     <string name="proceed">المضي قدما</string>
     <string name="system_reader_settings">النظام</string>
     <string name="random_string">عشوائي</string>
     <string name="search_field_empty">بحث…</string>
-    <string name="check_for_text_update_option">التحقق من تحديث النص</string>
-    <string name="check_for_text_update_option_desc">تحقق تلقائيا ان كان هناك تحديث للنص</string>
     <string name="screen_orientation_option">اتجاه الشاشة</string>
     <string name="screen_orientation_free">حر</string>
     <string name="contributors_option">المساهمون</string>
@@ -269,7 +258,6 @@
     <string name="library_content_desc">مكتبتك</string>
     <string name="slava_ukraini">المجد لأوكرانيا!</string>
     <string name="cutout_padding_option">قطع هوامش</string>
-    <string name="refresh_book_content_desc">تحديث الكتاب</string>
     <string name="side_padding_option">هامش جانبي</string>
     <string name="apply_changes_content_desc">تأكيد التغييرات</string>
     <string name="history_content_desc">قراءتك الماضية</string>
@@ -277,10 +265,8 @@
     <string name="add_files_content_desc">إضافة ملفات</string>
     <string name="help_desc_how_to_read_book_1">اذهب الى</string>
     <string name="drag_content_desc">جر</string>
-    <string name="update_text_content_desc">تحديث النص</string>
     <string name="help_desc_how_to_move_or_delete_books_3">اضغط باستمرار على صورة غلاف الكتاب الأول حتى يتم تحديدها، والآن يمكنك ببساطة النقر فوق جميع صور أغلفة الكتب التي تريد تحديدها. يمكنك أيضًا تحديد الكتب في فئات متعددة. بعد تحديد جميع الكتب المطلوبة، يمكنك النقر فوق رمز السهم لنقلها ورمز سلة المهملات لحذف الكتب.</string>
     <string name="help_desc_how_to_read_book_3">لبدء قراءة الكتاب اضغط على الزر الموجود في الزاوية اليمنى السفلية للكتاب الذي تريد قراءته. كما يمكنك البدء في قراءة الكتاب بالنقر على صورة غلافه لرؤية تفاصيل الكتاب ثم اضغط على الزر الموجود في الزاوية اليمنى السفلية. سيتم حفظ مكان القراءة واستعادته تلقائيًا. يمكنك تحريك الشريطين العلوي والسفلي بالنقر في أي مكان على الشاشة. بالنقر فوق عنوان الكتاب سيتم نقلك إلى تفاصيل الكتاب. إذا قمت بالنقر فوق رمز الترس سترى إعدادات القراءة. يمكنك استخدام شريط التمرير في الشريط السفلي للتحرك للأمام أو للخلف.</string>
-    <string name="help_title_how_to_update_book">كيف أقوم بتحديث كتاب؟?</string>
     <string name="help_desc_how_to_customize_reader_2">الاعدادات</string>
     <string name="help_desc_how_to_manage_history_1">اذهب الى</string>
     <string name="help_title_how_to_manage_history">كيف أدير السجل؟</string>
@@ -292,9 +278,6 @@
     <string name="screen_orientation_locked_landscape">الوضع الافقي المقفل</string>
     <string name="help_desc_how_to_read_book_2">المكتبة</string>
     <string name="help_desc_how_to_customize_reader_3">و اختر فئة القارئ لتخصيص الاعدادات العامة، أو فئة المظهر لتخصيص اعدادات الألوان.</string>
-    <string name="help_desc_how_to_update_book_1">اذهب الى</string>
-    <string name="help_desc_how_to_update_book_2">المكتبة</string>
     <string name="credits_option">الاعتمادات</string>
     <string name="help_desc_how_to_customize_reader_1">ابدأ بقراءة الكتاب (انظر: كيف أقرأ كتاباً؟ ) بعد ذلك أحضر الاشرطة العلوية و السفلية بالنقر في أي مكان على الشاشة ثم اضغط على أيقونة الاعدادات في الزاوية اليمنى. هذا سيظهر كل اعدادات القارئ. الطريقة الثانية هي الذهاب إلى</string>
-    <string name="help_desc_how_to_update_book_3">و انقر على غلاف الكتاب لرؤية تفاصيل الكتاب اسحب الشاشة أو اضغط على أيقونة إعادة التحميل في الزاوية العلوية اليمنى لتحديث الكتاب. إذا تغير ملف الكتاب يمكنك تأكيد و تحديث الكتاب أو إلغاء التحديث.</string>
 </resources>

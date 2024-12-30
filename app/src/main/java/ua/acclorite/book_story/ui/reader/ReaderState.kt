@@ -8,7 +8,6 @@ import ua.acclorite.book_story.domain.reader.Chapter
 import ua.acclorite.book_story.domain.reader.Checkpoint
 import ua.acclorite.book_story.domain.ui.UIText
 import ua.acclorite.book_story.domain.util.BottomSheet
-import ua.acclorite.book_story.domain.util.Dialog
 import ua.acclorite.book_story.domain.util.Drawer
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideEmptyBook
@@ -16,6 +15,7 @@ import ua.acclorite.book_story.presentation.core.constants.provideEmptyBook
 @Immutable
 data class ReaderState(
     val book: Book = Constants.provideEmptyBook(),
+    val chapters: List<Chapter> = emptyList(),
     val text: List<AnnotatedString> = emptyList(),
     val listState: LazyListState = LazyListState(),
 
@@ -29,10 +29,6 @@ data class ReaderState(
     val checkpoint: Checkpoint = Checkpoint(0, 0),
     val lockMenu: Boolean = false,
 
-    val checkingForUpdate: Boolean = false,
-    val updateFound: Boolean = false,
-
-    val dialog: Dialog? = null,
     val bottomSheet: BottomSheet? = null,
     val drawer: Drawer? = null
 )

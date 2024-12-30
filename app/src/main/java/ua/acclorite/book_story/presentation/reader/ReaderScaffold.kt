@@ -45,8 +45,6 @@ fun ReaderScaffold(
     isLoading: Boolean,
     errorMessage: UIText?,
     checkpoint: Checkpoint,
-    checkingForUpdate: Boolean,
-    updateFound: Boolean,
     showMenu: Boolean,
     lockMenu: Boolean,
     chapters: Map<Int, Chapter>,
@@ -80,12 +78,10 @@ fun ReaderScaffold(
     openWebBrowser: (ReaderEvent.OnOpenWebBrowser) -> Unit,
     openTranslator: (ReaderEvent.OnOpenTranslator) -> Unit,
     openDictionary: (ReaderEvent.OnOpenDictionary) -> Unit,
-    cancelCheckForTextUpdate: (ReaderEvent.OnCancelCheckForTextUpdate) -> Unit,
-    showUpdateDialog: (ReaderEvent.OnShowUpdateDialog) -> Unit,
     showSettingsBottomSheet: (ReaderEvent.OnShowSettingsBottomSheet) -> Unit,
     showChaptersDrawer: (ReaderEvent.OnShowChaptersDrawer) -> Unit,
     navigateBack: () -> Unit,
-    navigateToBookInfo: (startUpdate: Boolean) -> Unit
+    navigateToBookInfo: () -> Unit
 ) {
     Scaffold(
         Modifier
@@ -104,14 +100,10 @@ fun ReaderScaffold(
                     fastColorPresetChange = fastColorPresetChange,
                     currentChapterProgress = currentChapterProgress,
                     isLoading = isLoading,
-                    checkingForUpdate = checkingForUpdate,
-                    updateFound = updateFound,
                     lockMenu = lockMenu,
                     leave = leave,
                     selectPreviousPreset = selectPreviousPreset,
                     selectNextPreset = selectNextPreset,
-                    cancelCheckForTextUpdate = cancelCheckForTextUpdate,
-                    showUpdateDialog = showUpdateDialog,
                     showSettingsBottomSheet = showSettingsBottomSheet,
                     showChaptersDrawer = showChaptersDrawer,
                     navigateBack = navigateBack,
