@@ -330,4 +330,10 @@
     <string name="clear_selected_items_content_desc">清除选中项目</string>
     <string name="horizontal_gesture_on">开启</string>
     <string name="horizontal_gesture_off">关闭</string>
+    <string name="horizontal_gesture_option">水平手势</string>
+    <string name="horizontal_gesture_scroll_option">滚动比例</string>
+    <string name="start_welcome_desc">来一起通往一个言辞迷人、启发思考并带领我们踏上奇妙冒险的世界！现在让我们开始一些准备吧！</string>
+    <string name="horizontal_gesture_sensitivity_option">灵敏度</string>
+    <string name="bottom_bar_padding_option">底部边距</string>
+    <string name="horizontal_gesture_inverse">已启用（反转）</string>
 </resources>
