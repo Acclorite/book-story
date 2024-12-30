@@ -346,7 +346,6 @@
     <string name="checkpoint_back_content_desc">检查点撤回</string>
     <string name="library_content_desc">你的书库</string>
     <string name="delete_history_element_content_desc">删除历史元素</string>
-    <string name="gray_theme"></string>
     <string name="selected_content_desc">已选</string>
     <string name="history_content_desc">阅读历史</string>
     <string name="browse_content_desc">添加书籍</string>
