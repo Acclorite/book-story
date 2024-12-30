@@ -199,7 +199,7 @@
     <string name="pink_theme">土星</string>
     <string name="text_alignment_center">居中</string>
     <string name="dynamic_theme">水星</string>
-    <string name="lavender_theme">厄里斯</string>
+    <string name="lavender_theme">阋神星</string>
     <string name="files_structure_directory">目录</string>
     <string name="browse_sort_order_file_size">文件大小</string>
     <string name="browse_sort_order_last_modified">最后修改</string>
@@ -303,8 +303,8 @@
     <string name="help_desc_how_to_read_book_3">1.要开始阅读图书，请单击要阅读图书右下角的按钮。\n2.点击书籍的封面可查看书籍的详细信息，然后点击右下角的按钮开始阅读。\n3.阅读进度会自动保存和恢复。\n4.点击屏幕上任意位置，即可调出顶栏和底栏。\n5.点击书名，就会跳转到该书的详细信息。 点击齿轮图标，即可看到阅读器设置。 你可以使用底栏的滑块来改变进度。</string>
     <string name="help_title_how_to_update_book">如何更新书籍？</string>
     <string name="help_desc_how_to_create_color_presets_1">进入外观设置（参见：如何自定义阅读器？） 你可以在 \"颜色 \"子类中 \"颜色预设 \"下的框中修改所有颜色预设的设置。 要创建新的颜色预设，请点击 \"添加 \"按钮。 修改颜色预设有多种方法：点击文本框可以更改颜色预设的名称，移动滑块可以更改颜色预设的颜色，点击 \"Shuffle（洗牌）\"按钮可以洗牌所有颜色。 如果要删除颜色预设，请点击 \"删除 \"按钮。</string>
-    <string name="start_welcome">欢迎来到 \"书的故事\"！</string>
-    <string name="help_title_how_to_use_perception_expander_1">Perception Expander可以帮助你加快阅读速度。 首先，在阅读器设置中启用它（请参阅：如何自定义阅读器？） 启用后，阅读器两侧会出现两条竖线。 要进一步优化阅读速度，可以调整填充，减少屏幕四周的空间。 要使用它，请将注意力集中在屏幕中央，同时让你的余光捕捉到两侧的文字。 阅读时，请将注意力集中在中心位置，不要在每一行之后直接看两侧。</string>
+    <string name="start_welcome">欢迎来到“Book\'s Story”！</string>
+    <string name="help_title_how_to_use_perception_expander_1">Perception Expander可以帮助你加快阅读速度。 首先，在阅读器设置中启用它（请参阅：如何自定义阅读器？） 启用后，阅读器两侧会出现两条竖线。 要进一步优化阅读速度，可以调整边距以减少屏幕四周的空间。 要使用它，请将注意力集中在屏幕中央，同时让你的余光捕捉到两侧的文字。 阅读时，请将注意力集中在中心位置，不要在每一行之后直接看两侧</string>
     <string name="reading_mode_reader_settings">阅读模式</string>
     <string name="directory_icon_content_desc">阅读器设置</string>
     <string name="today">今天</string>
@@ -335,7 +335,7 @@
     <string name="start_welcome_desc">来一起通往一个言辞迷人、启发思考并带领我们踏上奇妙冒险的世界！现在让我们开始一些准备吧！</string>
     <string name="horizontal_gesture_sensitivity_option">灵敏度</string>
     <string name="bottom_bar_padding_option">底部边距</string>
-    <string name="horizontal_gesture_inverse">已启用（反转）</string>
+    <string name="horizontal_gesture_inverse">开启（反转）</string>
     <string name="app_icon_content_desc">APP图标</string>
     <string name="exit_search_content_desc">退出搜索</string>
     <string name="move_books_content_desc">移动所选书籍</string>
@@ -370,4 +370,7 @@
     <string name="more_content_desc">更多</string>
     <string name="shuffle_color_preset_content_desc">随机颜色</string>
     <string name="filter_content_desc">过滤</string>
+    <string name="gray_theme">木卫一</string>
+    <string name="pink2_theme">木卫三</string>
+    <string name="yellow2_theme">鸟神星</string>
 </resources>
