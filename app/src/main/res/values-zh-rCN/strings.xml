@@ -373,4 +373,6 @@
     <string name="gray_theme">木卫一</string>
     <string name="pink2_theme">木卫三</string>
     <string name="yellow2_theme">鸟神星</string>
+    <string name="tryzub_content_desc">三叉戟</string>
+    <string name="checkpoint_forward_content_desc">取消检查点撤回</string>
 </resources>
