@@ -355,4 +355,7 @@
     <string name="hide_bars_on_fast_scroll_option"></string>
     <string name="grant"></string>
     <string name="selected_items_count_query"></string>
+    <string name="updates_notification_channel"></string>
+    <string name="default_string"></string>
+    <string name="random_string"></string>
 </resources>
