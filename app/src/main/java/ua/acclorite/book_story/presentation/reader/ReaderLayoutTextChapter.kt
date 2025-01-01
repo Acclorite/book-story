@@ -11,24 +11,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.domain.reader.Chapter
+import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
 
 @Composable
-fun ReaderLayoutChapter(
-    chapter: Chapter?,
+fun ReaderLayoutTextChapter(
+    chapter: Chapter,
     fontColor: Color,
     sidePadding: Dp
 ) {
-    chapter?.let {
-        Spacer(modifier = Modifier.height(22.dp))
-        Text(
-            text = chapter.title,
-            style = MaterialTheme.typography.headlineMedium,
-            color = fontColor,
-            modifier = Modifier.padding(horizontal = sidePadding)
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        HorizontalDivider(color = fontColor.copy(0.4f))
-        Spacer(modifier = Modifier.height(16.dp))
-    }
+    Spacer(modifier = Modifier.height(22.dp))
+    Text(
+        text = chapter.title,
+        style = MaterialTheme.typography.headlineMedium,
+        color = fontColor,
+        modifier = Modifier.padding(horizontal = sidePadding)
+    )
+    Spacer(modifier = Modifier.height(16.dp))
+    HorizontalDivider(color = fontColor.copy(0.4f))
+    Spacer(modifier = Modifier.height(16.dp))
 }

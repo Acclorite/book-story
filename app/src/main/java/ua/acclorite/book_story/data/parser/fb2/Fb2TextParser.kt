@@ -6,12 +6,9 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import org.w3c.dom.Element
 import org.w3c.dom.NodeList
-import ua.acclorite.book_story.R
+import ua.acclorite.book_story.data.parser.MarkdownParser
 import ua.acclorite.book_story.data.parser.TextParser
-import ua.acclorite.book_story.domain.reader.Chapter
-import ua.acclorite.book_story.domain.reader.ChapterWithText
-import ua.acclorite.book_story.domain.ui.UIText
-import ua.acclorite.book_story.domain.util.Resource
+import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.presentation.core.util.clearAllMarkdown
 import java.io.File
 import javax.inject.Inject
@@ -19,9 +16,11 @@ import javax.xml.parsers.DocumentBuilderFactory
 
 private const val FB2_TAG = "FB2 Parser"
 
-class Fb2TextParser @Inject constructor() : TextParser {
+class Fb2TextParser @Inject constructor(
+    private val markdownParser: MarkdownParser
+) : TextParser {
 
-    override suspend fun parse(file: File): Resource<List<ChapterWithText>> {
+    override suspend fun parse(file: File): List<ReaderText> {
         Log.i(FB2_TAG, "Started FB2 parsing: ${file.name}.")
 
         return try {
@@ -31,13 +30,11 @@ class Fb2TextParser @Inject constructor() : TextParser {
                 builder.parse(file)
             }
 
-            val formattedLines = mutableListOf<String>()
+            val readerText = mutableListOf<ReaderText>()
 
             val bodyNodes = document.getElementsByTagName("body")
             if (bodyNodes.length == 0) {
-                return Resource.Error(
-                    UIText.StringResource(R.string.error_file_empty)
-                )
+                return emptyList()
             }
 
             yield()
@@ -108,45 +105,49 @@ class Fb2TextParser @Inject constructor() : TextParser {
 
             yield()
 
+            var chapterAdded = false
             lines.forEach { line ->
                 yield()
-                formattedLines.add(line.trim())
+
+                if (line.isNotBlank()) {
+                    when (line) {
+                        "***", "---" -> readerText.add(
+                            ReaderText.Separator
+                        )
+
+                        else -> {
+                            if (!chapterAdded && line.clearAllMarkdown().isNotBlank()) {
+                                readerText.add(
+                                    0, ReaderText.Chapter(
+                                        title = line.clearAllMarkdown()
+                                    )
+                                )
+                                chapterAdded = true
+                            } else readerText.add(
+                                ReaderText.Text(
+                                    line = markdownParser.parse(line)
+                                )
+                            )
+                        }
+                    }
+                }
             }
 
             yield()
 
-            if (formattedLines.size < 2) {
-                return Resource.Error(UIText.StringResource(R.string.error_file_empty))
-            }
-
-            val title = formattedLines.first().clearAllMarkdown().let { title ->
-                formattedLines.removeAt(0)
-                if (title.isBlank()) return@let "Chapter 1"
-                return@let title
+            if (
+                readerText.filterIsInstance<ReaderText.Text>().isEmpty() ||
+                readerText.filterIsInstance<ReaderText.Chapter>().isEmpty()
+            ) {
+                Log.e(FB2_TAG, "Could not extract text from FB2.")
+                return emptyList()
             }
 
             Log.i(FB2_TAG, "Successfully finished FB2 parsing.")
-            Resource.Success(
-                listOf(
-                    ChapterWithText(
-                        chapter = Chapter(
-                            index = 0,
-                            title = title,
-                            startIndex = 0,
-                            endIndex = formattedLines.lastIndex
-                        ),
-                        text = formattedLines
-                    )
-                )
-            )
+            readerText
         } catch (e: Exception) {
             e.printStackTrace()
-            Resource.Error(
-                UIText.StringResource(
-                    R.string.error_query,
-                    e.message?.take(40)?.trim() ?: ""
-                )
-            )
+            emptyList()
         }
     }
 

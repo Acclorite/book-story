@@ -6,20 +6,17 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
-import androidx.compose.ui.text.AnnotatedString
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.data.local.room.BookDao
 import ua.acclorite.book_story.data.mapper.book.BookMapper
 import ua.acclorite.book_story.data.parser.FileParser
-import ua.acclorite.book_story.data.parser.MarkdownParser
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.domain.library.book.Book
 import ua.acclorite.book_story.domain.library.book.BookWithCover
-import ua.acclorite.book_story.domain.reader.ChaptersAndText
+import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.domain.repository.BookRepository
 import ua.acclorite.book_story.domain.util.CoverImage
-import ua.acclorite.book_story.domain.util.Resource
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -45,8 +42,7 @@ class BookRepositoryImpl @Inject constructor(
     private val bookMapper: BookMapper,
 
     private val fileParser: FileParser,
-    private val textParser: TextParser,
-    private val markdownParser: MarkdownParser
+    private val textParser: TextParser
 ) : BookRepository {
 
     /**
@@ -90,43 +86,31 @@ class BookRepositoryImpl @Inject constructor(
     }
 
     /**
-     * Loads text from the book.
+     * Loads text from the book. Already formatted.
      */
-    override suspend fun getBookText(bookId: Int): ChaptersAndText {
-        if (bookId == -1) return ChaptersAndText(chapters = emptyList(), text = emptyList())
+    override suspend fun getBookText(bookId: Int): List<ReaderText> {
+        if (bookId == -1) return emptyList()
 
         val book = database.findBookById(bookId)
         val file = File(book.filePath)
 
         if (!file.exists()) {
             Log.e(GET_TEXT, "File [$bookId] does not exist")
-            return ChaptersAndText(chapters = emptyList(), text = emptyList())
+            return emptyList()
         }
 
-        val parsedText = textParser.parse(file)
-        if (parsedText is Resource.Error) {
-            Log.e(GET_TEXT, "Failed to load text: $bookId")
-            return ChaptersAndText(chapters = emptyList(), text = emptyList())
-        }
+        val readerText = textParser.parse(file)
 
-        val chapters = parsedText.data!!.map { it.chapter }
-        val markdownLines = mutableListOf<AnnotatedString>()
-
-        withContext(Dispatchers.IO) {
-            for (line in parsedText.data.map { it.text }.flatten()) {
-                if (line.isNotBlank()) {
-                    markdownLines.add(
-                        markdownParser.parse(line.trim())
-                    )
-                }
-            }
+        if (
+            readerText.filterIsInstance<ReaderText.Text>().isEmpty() ||
+            readerText.filterIsInstance<ReaderText.Chapter>().isEmpty()
+        ) {
+            Log.e(GET_TEXT, "Could not load text from [$bookId].")
+            return emptyList()
         }
 
         Log.i(GET_TEXT, "Successfully loaded text of [$bookId] with markdown.")
-        return ChaptersAndText(
-            chapters = chapters,
-            text = markdownLines
-        )
+        return readerText
     }
 
     /**

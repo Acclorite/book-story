@@ -2,16 +2,18 @@ package ua.acclorite.book_story.presentation.reader
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.reader.Chapter
+import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
 import ua.acclorite.book_story.presentation.core.components.modal_drawer.ModalDrawer
 import ua.acclorite.book_story.presentation.core.components.modal_drawer.ModalDrawerSelectableItem
 import ua.acclorite.book_story.presentation.core.components.modal_drawer.ModalDrawerTitleItem
@@ -27,9 +29,15 @@ fun ReaderChaptersDrawer(
     scrollToChapter: (ReaderEvent.OnScrollToChapter) -> Unit,
     dismissDrawer: (ReaderEvent.OnDismissDrawer) -> Unit
 ) {
+    val currentChapterIndex = remember(chapters, currentChapter) {
+        derivedStateOf {
+            chapters.indexOf(currentChapter).takeIf { it != -1 } ?: 0
+        }
+    }
+
     ModalDrawer(
         show = show,
-        startIndex = currentChapter?.index ?: 0,
+        startIndex = currentChapterIndex.value,
         onDismissRequest = { dismissDrawer(ReaderEvent.OnDismissDrawer) },
         header = {
             ModalDrawerTitleItem(
@@ -37,9 +45,9 @@ fun ReaderChaptersDrawer(
             )
         }
     ) {
-        items(chapters, key = { it.index }) { chapter ->
-            val selected = rememberSaveable(currentChapter) {
-                chapter.index == currentChapter?.index
+        itemsIndexed(chapters, key = { index, _ -> index }) { index, chapter ->
+            val selected = rememberSaveable(index, currentChapterIndex) {
+                index == currentChapterIndex.value
             }
 
             ModalDrawerSelectableItem(
@@ -47,7 +55,7 @@ fun ReaderChaptersDrawer(
                 onClick = {
                     scrollToChapter(
                         ReaderEvent.OnScrollToChapter(
-                            chapterStartIndex = chapter.startIndex
+                            chapter = chapter
                         )
                     )
                     dismissDrawer(ReaderEvent.OnDismissDrawer)

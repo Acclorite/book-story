@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.domain.reader.Chapter
+import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
 import ua.acclorite.book_story.presentation.core.components.common.IconButton
 import ua.acclorite.book_story.presentation.core.util.LocalActivity
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable

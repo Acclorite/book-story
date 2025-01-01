@@ -3,6 +3,7 @@ package ua.acclorite.book_story.ui.reader
 import android.content.Context
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Immutable
+import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
 
 @Immutable
 sealed class ReaderEvent {
@@ -25,7 +26,7 @@ sealed class ReaderEvent {
     ) : ReaderEvent()
 
     data class OnScrollToChapter(
-        val chapterStartIndex: Int
+        val chapter: Chapter
     ) : ReaderEvent()
 
     data class OnScroll(

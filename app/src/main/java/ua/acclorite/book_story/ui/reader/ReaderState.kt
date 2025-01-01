@@ -2,10 +2,10 @@ package ua.acclorite.book_story.ui.reader
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.text.AnnotatedString
 import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.domain.reader.Chapter
 import ua.acclorite.book_story.domain.reader.Checkpoint
+import ua.acclorite.book_story.domain.reader.ReaderText
+import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
 import ua.acclorite.book_story.domain.ui.UIText
 import ua.acclorite.book_story.domain.util.BottomSheet
 import ua.acclorite.book_story.domain.util.Drawer
@@ -15,8 +15,7 @@ import ua.acclorite.book_story.presentation.core.constants.provideEmptyBook
 @Immutable
 data class ReaderState(
     val book: Book = Constants.provideEmptyBook(),
-    val chapters: List<Chapter> = emptyList(),
-    val text: List<AnnotatedString> = emptyList(),
+    val text: List<ReaderText> = emptyList(),
     val listState: LazyListState = LazyListState(),
 
     val currentChapter: Chapter? = null,

@@ -34,7 +34,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.domain.navigator.Screen
-import ua.acclorite.book_story.domain.reader.Chapter
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideFonts
@@ -224,14 +223,6 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             (mainState.value.bottomBarPadding * 4f).dp
         }
 
-        val chapters = remember(state.value.chapters) {
-            val chapters = mutableMapOf<Int, Chapter>()
-            state.value.chapters.forEach {
-                chapters[it.startIndex] = it
-            }
-            chapters
-        }
-
         LaunchedEffect(Unit) {
             screenModel.init(
                 bookId = bookId,
@@ -313,7 +304,6 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             checkpoint = state.value.checkpoint,
             showMenu = state.value.showMenu,
             lockMenu = state.value.lockMenu,
-            chapters = chapters,
             contentPadding = contentPadding,
             verticalPadding = verticalPadding,
             horizontalGesture = mainState.value.horizontalGesture,

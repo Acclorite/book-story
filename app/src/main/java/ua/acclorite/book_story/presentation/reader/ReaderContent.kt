@@ -3,17 +3,18 @@ package ua.acclorite.book_story.presentation.reader
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.domain.reader.Chapter
 import ua.acclorite.book_story.domain.reader.Checkpoint
 import ua.acclorite.book_story.domain.reader.FontWithName
 import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
+import ua.acclorite.book_story.domain.reader.ReaderText
+import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.domain.ui.UIText
 import ua.acclorite.book_story.domain.util.BottomSheet
@@ -24,7 +25,7 @@ import ua.acclorite.book_story.ui.settings.SettingsEvent
 @Composable
 fun ReaderContent(
     book: Book,
-    text: List<AnnotatedString>,
+    text: List<ReaderText>,
     bottomSheet: BottomSheet?,
     drawer: Drawer?,
     listState: LazyListState,
@@ -40,7 +41,6 @@ fun ReaderContent(
     checkpoint: Checkpoint,
     showMenu: Boolean,
     lockMenu: Boolean,
-    chapters: Map<Int, Chapter>,
     contentPadding: PaddingValues,
     verticalPadding: Dp,
     horizontalGesture: ReaderHorizontalGesture,
@@ -102,7 +102,6 @@ fun ReaderContent(
         checkpoint = checkpoint,
         showMenu = showMenu,
         lockMenu = lockMenu,
-        chapters = chapters,
         contentPadding = contentPadding,
         verticalPadding = verticalPadding,
         horizontalGesture = horizontalGesture,
@@ -141,7 +140,7 @@ fun ReaderContent(
 
     ReaderDrawer(
         drawer = drawer,
-        chapters = chapters.values.toList(),
+        chapters = remember(text) { text.filterIsInstance<Chapter>() },
         currentChapter = currentChapter,
         currentChapterProgress = currentChapterProgress,
         scrollToChapter = scrollToChapter,

@@ -14,15 +14,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.domain.reader.Chapter
 import ua.acclorite.book_story.domain.reader.Checkpoint
 import ua.acclorite.book_story.domain.reader.FontWithName
 import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
+import ua.acclorite.book_story.domain.reader.ReaderText
+import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.domain.ui.UIText
 import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
@@ -33,7 +33,7 @@ import ua.acclorite.book_story.ui.settings.SettingsEvent
 @Composable
 fun ReaderScaffold(
     book: Book,
-    text: List<AnnotatedString>,
+    text: List<ReaderText>,
     listState: LazyListState,
     currentChapter: Chapter?,
     nestedScrollConnection: NestedScrollConnection,
@@ -47,7 +47,6 @@ fun ReaderScaffold(
     checkpoint: Checkpoint,
     showMenu: Boolean,
     lockMenu: Boolean,
-    chapters: Map<Int, Chapter>,
     contentPadding: PaddingValues,
     verticalPadding: Dp,
     horizontalGesture: ReaderHorizontalGesture,
@@ -136,7 +135,6 @@ fun ReaderScaffold(
     ) {
         ReaderLayout(
             text = text,
-            chapters = chapters,
             listState = listState,
             contentPadding = contentPadding,
             verticalPadding = verticalPadding,

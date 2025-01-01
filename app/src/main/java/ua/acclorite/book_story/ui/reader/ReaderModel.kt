@@ -3,6 +3,7 @@ package ua.acclorite.book_story.ui.reader
 import android.app.SearchManager
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.snapshotFlow
@@ -28,8 +29,8 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.reader.Chapter
 import ua.acclorite.book_story.domain.reader.Checkpoint
+import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
 import ua.acclorite.book_story.domain.ui.UIText
 import ua.acclorite.book_story.domain.use_case.book.GetBookById
 import ua.acclorite.book_story.domain.use_case.book.GetText
@@ -43,6 +44,8 @@ import ua.acclorite.book_story.ui.history.HistoryScreen
 import ua.acclorite.book_story.ui.library.LibraryScreen
 import javax.inject.Inject
 import kotlin.math.roundToInt
+
+private const val READER = "READER, MODEL"
 
 @HiltViewModel
 class ReaderModel @Inject constructor(
@@ -67,20 +70,19 @@ class ReaderModel @Inject constructor(
             when (event) {
                 is ReaderEvent.OnLoadText -> {
                     launch(Dispatchers.IO) {
-                        val chaptersAndText = getText.execute(_state.value.book.id)
+                        val text = getText.execute(_state.value.book.id)
                         yield()
 
-                        if (chaptersAndText.text.isEmpty()) {
+                        if (text.isEmpty()) {
                             _state.update {
                                 it.copy(
                                     isLoading = false,
-                                    errorMessage = UIText.StringResource(R.string.error_no_text) //todo rename
+                                    errorMessage = UIText.StringResource(R.string.error_no_text)
                                 )
                             }
                             return@launch
                         }
 
-                        yield()
                         val lastOpened = getLatestHistory.execute(_state.value.book.id)?.time
                         yield()
 
@@ -89,8 +91,7 @@ class ReaderModel @Inject constructor(
                                 book = it.book.copy(
                                     lastOpened = lastOpened
                                 ),
-                                chapters = chaptersAndText.chapters,
-                                text = chaptersAndText.text
+                                text = text
                             )
                         }
 
@@ -177,17 +178,23 @@ class ReaderModel @Inject constructor(
 
                 is ReaderEvent.OnScrollToChapter -> {
                     launch {
-                        _state.value.listState.requestScrollToItem(
-                            event.chapterStartIndex
-                        )
-                        updateChapter(index = event.chapterStartIndex)
-                        onEvent(
-                            ReaderEvent.OnChangeProgress(
-                                progress = calculateProgress(event.chapterStartIndex),
-                                firstVisibleItemIndex = event.chapterStartIndex,
-                                firstVisibleItemOffset = 0
+                        _state.value.apply {
+                            val chapterIndex = text.indexOf(event.chapter).takeIf { it != -1 }
+
+                            if (chapterIndex == null) {
+                                return@launch
+                            }
+
+                            listState.requestScrollToItem(chapterIndex)
+                            updateChapter(index = chapterIndex)
+                            onEvent(
+                                ReaderEvent.OnChangeProgress(
+                                    progress = calculateProgress(chapterIndex),
+                                    firstVisibleItemIndex = chapterIndex,
+                                    firstVisibleItemOffset = 0
+                                )
                             )
-                        )
+                        }
                     }
                 }
 
@@ -195,7 +202,6 @@ class ReaderModel @Inject constructor(
                     scrollJob?.cancel()
                     scrollJob = launch {
                         delay(300)
-
                         yield()
 
                         val scrollTo = (_state.value.text.size * event.progress).roundToInt()
@@ -211,6 +217,7 @@ class ReaderModel @Inject constructor(
                                 checkpoint.offset
                             )
 
+                            updateChapter(checkpoint.index)
                             onEvent(
                                 ReaderEvent.OnChangeProgress(
                                     progress = calculateProgress(checkpoint.index),
@@ -234,9 +241,9 @@ class ReaderModel @Inject constructor(
 
                         _state.value.listState.apply {
                             if (
-                                _state.value.isLoading
-                                || layoutInfo.totalItemsCount < 1
-                                || _state.value.text.isEmpty()
+                                _state.value.isLoading ||
+                                layoutInfo.totalItemsCount < 1 ||
+                                _state.value.text.isEmpty()
                             ) return@apply
 
                             _state.update {
@@ -284,6 +291,8 @@ class ReaderModel @Inject constructor(
                             "translate: ${event.textToTranslate.trim()}"
                         )
 
+                        yield()
+
                         translatorIntent.launchActivity(
                             activity = event.activity,
                             createChooser = !event.translateWholeParagraph,
@@ -320,6 +329,8 @@ class ReaderModel @Inject constructor(
                             event.textToShare.trim()
                         )
 
+                        yield()
+
                         shareIntent.launchActivity(
                             activity = event.activity,
                             createChooser = true,
@@ -344,6 +355,8 @@ class ReaderModel @Inject constructor(
                             SearchManager.QUERY,
                             event.textToSearch
                         )
+
+                        yield()
 
                         browserIntent.launchActivity(
                             activity = event.activity,
@@ -375,6 +388,8 @@ class ReaderModel @Inject constructor(
                         browserIntent.action = Intent.ACTION_VIEW
                         val text = event.textToDefine.trim().replace(" ", "+")
                         browserIntent.data = Uri.parse("https://www.onelook.com/?w=$text")
+
+                        yield()
 
                         dictionaryIntent.launchActivity(
                             activity = event.activity,
@@ -485,6 +500,10 @@ class ReaderModel @Inject constructor(
                 if (progress == _state.value.book.progress) return@collectLatest
                 val (currentChapter, currentChapterProgress) = calculateCurrentChapter(index)
 
+                Log.i(
+                    READER,
+                    "Changed progress|currentChapter: $progress; ${currentChapter?.title}"
+                )
                 _state.update {
                     it.copy(
                         book = it.book.copy(
@@ -509,6 +528,11 @@ class ReaderModel @Inject constructor(
         viewModelScope.launch {
             val (currentChapter, currentChapterProgress) = calculateCurrentChapter(index)
             _state.update {
+                Log.i(
+                    READER,
+                    "Changed currentChapter|currentChapterProgress:" +
+                            " ${currentChapter?.title}($currentChapterProgress)"
+                )
                 it.copy(
                     currentChapter = currentChapter,
                     currentChapterProgress = currentChapterProgress
@@ -518,18 +542,31 @@ class ReaderModel @Inject constructor(
     }
 
     private fun calculateCurrentChapter(index: Int): Pair<Chapter?, Float> {
-        val currentChapter = _state.value.chapters.find { chapter ->
-            index in chapter.startIndex..chapter.endIndex
-        }
-        val currentChapterProgress = currentChapter.run {
-            if (this == null) return@run 0f
+        val currentChapter = findCurrentChapter(index)
+        val currentChapterProgress = currentChapter?.let { chapter ->
+            _state.value.text.run {
+                val startIndex = (indexOf(chapter) + 1).coerceAtMost(count())
+                val endIndex = (indexOfFirst {
+                    it is Chapter && indexOf(it) > startIndex
+                }.takeIf { it != -1 }?.minus(1)) ?: lastIndex
 
-            val currentIndex = index - startIndex
-            val endIndex = endIndex - startIndex
-            (currentIndex / endIndex.toFloat())
+                val currentIndexInChapter = index - startIndex
+                val chapterLength = endIndex - startIndex
+                (currentIndexInChapter / chapterLength.toFloat())
+            }
         }.coerceAndPreventNaN()
 
         return currentChapter to currentChapterProgress
+    }
+
+    private fun findCurrentChapter(index: Int): Chapter? {
+        for (textIndex in index downTo 0) {
+            val readerText = _state.value.text[textIndex]
+            if (readerText is Chapter) {
+                return readerText
+            }
+        }
+        return null
     }
 
     private fun calculateProgress(firstVisibleItemIndex: Int? = null): Float {

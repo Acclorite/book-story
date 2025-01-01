@@ -14,16 +14,15 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.reader.Chapter
 import ua.acclorite.book_story.domain.reader.FontWithName
 import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
+import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.presentation.core.components.common.SelectionContainer
@@ -34,8 +33,7 @@ import ua.acclorite.book_story.ui.reader.ReaderEvent
 
 @Composable
 fun ReaderLayout(
-    text: List<AnnotatedString>,
-    chapters: Map<Int, Chapter>,
+    text: List<ReaderText>,
     listState: LazyListState,
     contentPadding: PaddingValues,
     verticalPadding: Dp,
@@ -148,17 +146,11 @@ fun ReaderLayout(
         ) {
             itemsIndexed(
                 text, key = { index, _ -> index }
-            ) { index, line ->
-                ReaderLayoutChapter(
-                    chapter = chapters[index], // Shows only when matching startIndex of chapter.
-                    fontColor = fontColor,
-                    sidePadding = sidePadding
-                )
-
-                ReaderLayoutParagraph(
+            ) { index, textEntry ->
+                ReaderLayoutText(
                     activity = activity,
                     showMenu = showMenu,
-                    line = line,
+                    textEntry = textEntry,
                     fontFamily = fontFamily,
                     fontColor = fontColor,
                     lineHeight = lineHeight,

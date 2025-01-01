@@ -1,15 +1,12 @@
 package ua.acclorite.book_story.data.parser
 
 import android.util.Log
-import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.epub.EpubTextParser
 import ua.acclorite.book_story.data.parser.fb2.Fb2TextParser
 import ua.acclorite.book_story.data.parser.html.HtmlTextParser
 import ua.acclorite.book_story.data.parser.pdf.PdfTextParser
 import ua.acclorite.book_story.data.parser.txt.TxtTextParser
-import ua.acclorite.book_story.domain.reader.ChapterWithText
-import ua.acclorite.book_story.domain.ui.UIText
-import ua.acclorite.book_story.domain.util.Resource
+import ua.acclorite.book_story.domain.reader.ReaderText
 import java.io.File
 import javax.inject.Inject
 
@@ -20,14 +17,12 @@ class TextParserImpl @Inject constructor(
     private val pdfTextParser: PdfTextParser,
     private val epubTextParser: EpubTextParser,
     private val fb2TextParser: Fb2TextParser,
-    private val htmlTextParser: HtmlTextParser,
+    private val htmlTextParser: HtmlTextParser
 ) : TextParser {
-    override suspend fun parse(file: File): Resource<List<ChapterWithText>> {
+    override suspend fun parse(file: File): List<ReaderText> {
         if (!file.exists()) {
             Log.e(TEXT_PARSER, "File does not exist.")
-            return Resource.Error(
-                UIText.StringResource(R.string.error_something_went_wrong_with_file)
-            )
+            return emptyList()
         }
 
         val fileFormat = ".${file.extension}".lowercase().trim()
@@ -66,7 +61,7 @@ class TextParserImpl @Inject constructor(
 
             else -> {
                 Log.e(TEXT_PARSER, "Wrong file format, could not find supported extension.")
-                Resource.Error(UIText.StringResource(R.string.error_wrong_file_format))
+                emptyList()
             }
         }
     }

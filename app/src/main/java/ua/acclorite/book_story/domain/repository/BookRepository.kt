@@ -2,7 +2,7 @@ package ua.acclorite.book_story.domain.repository
 
 import ua.acclorite.book_story.domain.library.book.Book
 import ua.acclorite.book_story.domain.library.book.BookWithCover
-import ua.acclorite.book_story.domain.reader.ChaptersAndText
+import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.domain.util.CoverImage
 
 interface BookRepository {
@@ -17,7 +17,7 @@ interface BookRepository {
 
     suspend fun getBookText(
         bookId: Int
-    ): ChaptersAndText
+    ): List<ReaderText>
 
     suspend fun insertBook(
         bookWithCover: BookWithCover

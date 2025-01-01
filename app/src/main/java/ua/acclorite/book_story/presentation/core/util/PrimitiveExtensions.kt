@@ -18,7 +18,8 @@ fun Float.calculateProgress(digits: Int): String {
         .dropWhile { it == '-' }
 }
 
-fun Float.coerceAndPreventNaN(): Float {
+fun Float?.coerceAndPreventNaN(): Float {
+    if (this == null) return 0f
     if (isNaN()) return 0f
     return this.coerceIn(0f, 1f)
 }
