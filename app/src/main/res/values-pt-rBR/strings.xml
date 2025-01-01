@@ -66,7 +66,7 @@
     <string name="sort_tab">Organizar</string>
     <string name="pure_dark_on">Habilitado</string>
     <string name="translator_reader_settings">Tradutor</string>
-    <string name="padding_reader_settings">Preenchimento</string>
+    <string name="padding_reader_settings">Margens</string>
     <string name="pure_dark_power_saver">Economia</string>
     <string name="filter_browse_settings">Filtro</string>
     <string name="dark_theme_on">Habilitado</string>
@@ -154,7 +154,7 @@
     <string name="absolute_dark_option">Escuro absoluto</string>
     <string name="background_color_option">Cor do fundo</string>
     <string name="font_color_option">Cor da fonte</string>
-    <string name="vertical_padding_option">Espaço vertical</string>
+    <string name="vertical_padding_option">Margens verticais</string>
     <string name="text_alignment_option">Alinhamento do texto</string>
     <string name="files_structure_all">Todos os arquivos</string>
     <string name="file_size">Tamanho do arquivo</string>
@@ -169,7 +169,7 @@
     <string name="line_height_option">Altura da linha</string>
     <string name="paragraph_height_option">Altura do parágrafo</string>
     <string name="color_preset_option">Predefinição de cores</string>
-    <string name="cutout_padding_option">Espaço do recorte</string>
+    <string name="cutout_padding_option">Margem do recorte</string>
     <string name="browse_files_structure_option">Estrutura dos arquivos</string>
     <string name="browse_layout_option">Modo de exibição</string>
     <string name="browse_grid_size_per_row">por linha</string>
@@ -183,7 +183,7 @@
     <string name="selected_items_count_query">%1$s selecionado</string>
     <string name="error_closed_source">Código fechado</string>
     <string name="web_search">Pesquisa web</string>
-    <string name="side_padding_option">Espaço lateral</string>
+    <string name="side_padding_option">Margens laterais</string>
     <string name="internal_storage">Armazenamento interno</string>
     <string name="screen_brightness_option">Iluminação</string>
     <string name="browse_sort_order_file_format">Formato de arquivo</string>
@@ -239,4 +239,13 @@
     <string name="screen_orientation_locked_portrait">Vertical travado</string>
     <string name="screen_orientation_locked_landscape">Horizontal travado</string>
     <string name="custom_screen_brightness_option">Iluminação customizada</string>
+    <string name="reading_mode_reader_settings">Modo de leitura</string>
+    <string name="horizontal_gesture_option">Gesto horizontal</string>
+    <string name="horizontal_gesture_on">Ativo</string>
+    <string name="reset_cover">Restaurar a imagem da capa</string>
+    <string name="report_bug_option">Reportar um erro</string>
+    <string name="licenses_option">Licenças de código aberto</string>
+    <string name="horizontal_gesture_sensitivity_option">Sensibilidade</string>
+    <string name="horizontal_gesture_off">Desativar</string>
+    <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
 </resources>
