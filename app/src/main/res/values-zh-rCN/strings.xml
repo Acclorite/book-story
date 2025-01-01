@@ -353,4 +353,9 @@
     <string name="yellow2_theme">鸟神星</string>
     <string name="tryzub_content_desc">三叉戟</string>
     <string name="checkpoint_forward_content_desc">取消检查点撤回</string>
+    <string name="patreon_content_desc" translatable="false"></string>
+    <string name="reddit_content_desc" translatable="false"></string>
+    <string name="app_version" translatable="false"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="x_content_desc" translatable="false"></string>
 </resources>
