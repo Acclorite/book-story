@@ -339,23 +339,4 @@
     <string name="chapters">Chapitres</string>
     <string name="random_string">Aléatoire</string>
     <string name="search_field_empty">Rechercher…</string>
-    <string name="horizontal_gesture_sensitivity_option"></string>
-    <string name="bottom_bar_padding_option"></string>
-    <string name="horizontal_gesture_on"></string>
-    <string name="horizontal_gesture_off"></string>
-    <string name="custom_screen_brightness_option"></string>
-    <string name="reading_mode_reader_settings"></string>
-    <string name="horizontal_gesture_option"></string>
-    <string name="horizontal_gesture_scroll_option"></string>
-    <string name="screen_brightness_option"></string>
-    <string name="patreon_content_desc" translatable="false"></string>
-    <string name="more_content_desc"></string>
-    <string name="horizontal_gesture_inverse"></string>
-    <string name="app_name" translatable="false"></string>
-    <string name="pink2_theme"></string>
-    <string name="app_version" translatable="false"></string>
-    <string name="x_content_desc" translatable="false"></string>
-    <string name="reddit_content_desc" translatable="false"></string>
-    <string name="yellow2_theme"></string>
-    <string name="gray_theme"></string>
 </resources>
