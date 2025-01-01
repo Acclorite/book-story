@@ -344,4 +344,18 @@
     <string name="selected_content_desc">தேர்ந்தெடுக்கப்பட்டது</string>
     <string name="app_icon_content_desc">பயன்பாட்டு படவுரு</string>
     <string name="history_content_desc">படித்தல் வரலாறு</string>
+    <string name="app_version" translatable="false"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="horizontal_gesture_scroll_option"></string>
+    <string name="yellow2_theme"></string>
+    <string name="reddit_content_desc" translatable="false"></string>
+    <string name="horizontal_gesture_inverse"></string>
+    <string name="horizontal_gesture_option"></string>
+    <string name="bottom_bar_padding_option"></string>
+    <string name="horizontal_gesture_off"></string>
+    <string name="horizontal_gesture_on"></string>
+    <string name="x_content_desc" translatable="false"></string>
+    <string name="patreon_content_desc" translatable="false"></string>
+    <string name="horizontal_gesture_sensitivity_option"></string>
+    <string name="reading_mode_reader_settings"></string>
 </resources>
