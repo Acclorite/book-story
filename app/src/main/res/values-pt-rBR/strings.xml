@@ -179,7 +179,6 @@
     <string name="grant_permission">Dar permissão</string>
     <string name="update_query">Atualizar %1$s</string>
     <string name="update_app_description">Nova versão do aplicativo disponível. Deseja seguir para a página de lançamentos?</string>
-    <string name="error_query">Erro: %1$s</string>
     <string name="error_no_description">Sem descrição.</string>
     <string name="selected_items_count_query">%1$s selecionado</string>
     <string name="error_closed_source">Código fechado</string>
@@ -224,7 +223,6 @@
     <string name="github_profile_content_desc">Perfil do Github</string>
     <string name="screen_orientation_option">Orientação da tela</string>
     <string name="error_something_went_wrong">Algo deu errado.</string>
-    <string name="error_wrong_file_format">Formato de arquivo errado.</string>
     <string name="get_help">Preciso d eajuda</string>
     <string name="change_cover">Trocar imagem da capa</string>
     <string name="reader_settings_desc">Fonte, texto, tradutor</string>

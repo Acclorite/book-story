@@ -77,7 +77,7 @@ class ReaderModel @Inject constructor(
                             _state.update {
                                 it.copy(
                                     isLoading = false,
-                                    errorMessage = UIText.StringResource(R.string.error_no_text)
+                                    errorMessage = UIText.StringResource(R.string.error_could_not_get_text)
                                 )
                             }
                             return@launch

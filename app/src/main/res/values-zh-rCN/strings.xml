@@ -38,12 +38,9 @@
     <string name="enable_check_for_updates_description">启用《检查更新》之后，应用将在每次启动时从《api.github.com》获取最新发布信息。是否要继续并启用《检查更新》？</string>
     <string name="error_no_description">无简介。</string>
     <string name="error_something_went_wrong">出现了一些错误。</string>
-    <string name="error_something_went_wrong_with_file">出现了一些错误。请检查这本书的文件是否损坏。</string>
-    <string name="error_query">错误：%1$s</string>
-    <string name="error_file_empty">该文件为空或已损坏。</string>
     <string name="error_no_share_app">未找到要共享的应用。</string>
     <string name="error_no_dictionary">未发现词典应用。</string>
-    <string name="error_no_text">这本书的内容为空。请确认这本书的内容不为空并更新。</string>
+    <string name="error_could_not_get_text">这本书的内容为空。请确认这本书的内容不为空并更新。</string>
     <string name="error_check_internet">出现了一些错误。请稍后尝试。</string>
     <string name="error_could_not_reset_cover">无法重置封面图片。</string>
     <string name="error_closed_source">关闭的源</string>
@@ -65,7 +62,6 @@
     <string name="already_read_tab">已阅读</string>
     <string name="add_books">添加书？</string>
     <string name="error_no_browser">未发现浏览器应用。</string>
-    <string name="error_wrong_file_format">错误的文件格式。</string>
     <string name="get_help">我需要帮助</string>
     <string name="add">添加</string>
     <string name="add_book">添加一本书</string>

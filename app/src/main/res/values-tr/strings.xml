@@ -30,15 +30,11 @@
     <string name="error_permission">Cihazınızdaki kitapları taramak için depolama izni gerekiyor</string>
     <string name="error_no_description">Açıklama yok.</string>
     <string name="error_something_went_wrong">Bir şeyler yanlış gitti.</string>
-    <string name="error_something_went_wrong_with_file">Bir şeyler yanlış gitti. Lütfen bu kitap dosyasının bozuk olmadığını kontrol edin.</string>
-    <string name="error_wrong_file_format">Yanlış dosya formatı.</string>
-    <string name="error_query">Hata: %1$s</string>
-    <string name="error_file_empty">Bu dosya boş veya bozuk.</string>
     <string name="error_no_translator">Çevirmen uygulaması bulunamadı.</string>
     <string name="error_no_dictionary">Sözlük uygulaması bulunamadı.</string>
     <string name="error_no_browser">Tarayıcı uygulaması bulunamadı.</string>
     <string name="error_no_share_app">Paylaşım yapacak uygulama bulunamadı.</string>
-    <string name="error_no_text">Kitap içeriği boş. Lütfen kitap içeriğinin boş olmadığından emin olun ve güncelleyin.</string>
+    <string name="error_could_not_get_text">Kitap içeriği boş. Lütfen kitap içeriğinin boş olmadığından emin olun ve güncelleyin.</string>
     <string name="error_check_internet">Bir şeyler yanlış gitti. Daha sonra tekrar deneyin.</string>
     <string name="error_could_not_reset_cover">Kapak resmi sıfırlanamadı.</string>
     <string name="error_closed_source">Kapalı kaynak</string>

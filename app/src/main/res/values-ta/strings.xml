@@ -9,9 +9,6 @@
     <string name="move_book_description">இந்த புத்தகத்தை நீங்கள் நகர்த்த விரும்பும் வகையைத் தேர்வுசெய்க. இந்த நூல் தேர்ந்தெடுக்கப்பட்ட வகைக்கு மாற்றப்படும்.</string>
     <string name="update_app_description">புதிய பயன்பாட்டு பதிப்பு கண்டறியப்பட்டது. நீங்கள் தொடர விரும்புகிறீர்களா?</string>
     <string name="error_something_went_wrong">ஏதோ தவறு நடந்தது.</string>
-    <string name="error_something_went_wrong_with_file">ஏதோ தவறு நடந்தது. இந்த புத்தகத்தின் கோப்பு சிதைக்கப்படவில்லை என்பதை சரிபார்க்கவும்.</string>
-    <string name="error_wrong_file_format">தவறான கோப்பு வடிவம்.</string>
-    <string name="error_query">பிழை: %1$s</string>
     <string name="error_closed_source">மூடிய மூல</string>
     <string name="browse_empty">உங்கள் பதிவிறக்கங்களுடன் நூலகத்தின் புத்தக சேகரிப்பை விரிவாக்குங்கள்</string>
     <string name="add">கூட்டு</string>
@@ -114,7 +111,6 @@
     <string name="browse_layout_option">காட்சி முறை</string>
     <string name="browse_sort_order_file_format">கோப்பு வடிவம்</string>
     <string name="delete_this_book">நீக்கு</string>
-    <string name="error_file_empty">இந்த கோப்பு காலியாக அல்லது சிதைந்துவிட்டது.</string>
     <string name="default_string">இயல்புநிலை</string>
     <string name="delete_history">வாசிப்பு வரலாற்றை நீக்கவா?</string>
     <string name="enable_check_for_updates_description">செயல்படுத்துவதன் மூலம் «புதுப்பிப்புகளைச் சரிபார்க்கவும்» பயன்பாடு தொடங்கும் ஒவ்வொரு முறையும் «api.github.com இருந்து இலிருந்து அண்மைக் கால வெளியீட்டு தகவல்களை மீட்டெடுக்கும். நீங்கள் தொடர விரும்புகிறீர்களா «புதுப்பிப்புகளை சரிபார்க்கவும்»?</string>
@@ -217,7 +213,7 @@
     <string name="delete_book_description">இது இந்த புத்தகத்தை தரவுத்தளத்திலிருந்து நீக்கிவிடும். இது உங்கள் சாதனத்திலிருந்து இந்த புத்தகத்தை நீக்காது.</string>
     <string name="error_no_translator">மொழிபெயர்ப்பாளர் பயன்பாடு எதுவும் கிடைக்கவில்லை.</string>
     <string name="error_no_share_app">பகிர்வதற்கு பயன்பாடு இல்லை.</string>
-    <string name="error_no_text">புத்தக உள்ளடக்கம் காலியாக உள்ளது. தயவுசெய்து, புத்தக உள்ளடக்கம் காலியாக இல்லை என்பதை உறுதிப்படுத்திக் கொள்ளுங்கள்.</string>
+    <string name="error_could_not_get_text">புத்தக உள்ளடக்கம் காலியாக உள்ளது. தயவுசெய்து, புத்தக உள்ளடக்கம் காலியாக இல்லை என்பதை உறுதிப்படுத்திக் கொள்ளுங்கள்.</string>
     <string name="error_check_internet">ஏதோ தவறு நடந்தது. பின்னர் மீண்டும் முயற்சிக்கவும்.</string>
     <string name="error_no_dictionary">அகராதி பயன்பாடு எதுவும் கிடைக்கவில்லை.</string>
     <string name="error_no_browser">உலாவி பயன்பாடு எதுவும் கிடைக்கவில்லை.</string>

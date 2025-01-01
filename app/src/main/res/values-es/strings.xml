@@ -24,8 +24,6 @@
     <string name="error_permission">Necesitamos permiso de almacenamiento para escanear su dispositivo en busca de libros</string>
     <string name="error_no_description">Sin descripción.</string>
     <string name="error_something_went_wrong">Algo salió mal.</string>
-    <string name="error_something_went_wrong_with_file">Algo salió mal. Por favor, compruebe si el archivo de este libro no está dañado.</string>
-    <string name="error_wrong_file_format">Formato de archivo equivocado.</string>
     <string name="error_no_browser">No se encontró ninguna aplicación de navegador.</string>
     <string name="error_closed_source">Fuente cerrada</string>
     <string name="selected_items_count_query">%1$s seleccionado</string>
@@ -88,11 +86,9 @@
     <string name="delete_books_description">Eliminará todos los libros seleccionados(%1$s) de la base de datos. No eliminará los libros seleccionados de su dispositivo.</string>
     <string name="add_books_description">Puede escoger qué libros desea añadir. Puede editar el título y la portada del libro más adelante. El proceso de carga puede durar varios minutos.</string>
     <string name="delete_book_description">Eliminará este libro de la base de datos. No eliminará este libro de su dispositivo.</string>
-    <string name="error_file_empty">Este archivo está vacío o dañado.</string>
     <string name="update_app_description">Se encontró una nueva versión de la aplicación. ¿Quieres continuar e ir a la página de actualizaciones?</string>
-    <string name="error_query">Error: %1$s</string>
     <string name="error_no_translator">No se ha encontrado ninguna aplicación de traducción.</string>
-    <string name="error_no_text">El contenido del libro está vacío. Por favor, asegúrate de que el contenido del libro no está vacío y actualizado.</string>
+    <string name="error_could_not_get_text">El contenido del libro está vacío. Por favor, asegúrate de que el contenido del libro no está vacío y actualizado.</string>
     <string name="error_check_internet">Algo salió mal. Inténtelo de nuevo más tarde.</string>
     <string name="enable_check_for_updates_description">Al habilitar «Comprobar actualizaciones» la aplicación conseguirá la última información de lanzamiento de «api.github.com» cada vez que comience la aplicación. ¿Quieres continuar y habilitar «Comprobar actualizaciones»?</string>
     <string name="error_could_not_reset_cover">No se pudo reiniciar la portada.</string>

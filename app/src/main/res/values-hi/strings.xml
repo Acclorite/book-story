@@ -17,8 +17,6 @@
     <string name="move_books_description">वह श्रेणी चुनें जिसमें आप सभी चयनित पुस्तकों को ले जाना चाहते हैं(%1$s)। सभी चयनित पुस्तकें चयनित श्रेणी में ले जाई जाएँगी।</string>
     <string name="update_app_description">नया ऐप वर्शन मिला। क्या आप आगे बढ़ना चाहते हैं और रिलीज़ पेज पर जाना चाहते हैं?</string>
     <string name="error_something_went_wrong">कुछ गड़बड़ हुआ है ।</string>
-    <string name="error_wrong_file_format">ग़लत प्रकार का फाइल ।</string>
-    <string name="error_query">Error: %1$s</string>
     <string name="error_no_translator">कोई अनुवादक ऐप नहीं मिला ।</string>
     <string name="error_no_share_app">शेर करने के लिए कोई ऐप नहीं मिला ।</string>
     <string name="error_check_internet">कुछ ग़लत हुआ। बाद में पुनः प्रयास करें।</string>
@@ -101,11 +99,9 @@
     <string name="error_permission">हमें किताबों के लिए आपके डिवाइस को स्कैन करने के लिए भंडारण अनुमति की आवश्यकता है</string>
     <string name="enable_check_for_updates_description">«अपडेट की जाँच करें» को सक्षम करके, ऐप हर बार ऐप शुरू होने पर «api.github.com» से नवीनतम रिलीज़ जानकारी प्राप्त करेगा। क्या आप आगे बढ़ना चाहते हैं और «अपडेट की जाँच करें» को सक्षम करना चाहते हैं?</string>
     <string name="error_no_description">कोई वर्णन नहीं।</string>
-    <string name="error_something_went_wrong_with_file">कुछ गड़बड़ हो गई है। कृपया जाँचें कि इस पुस्तक की फ़ाइल दूषित तो नहीं है।</string>
-    <string name="error_file_empty">यह फ़ाइल खाली या दूषित है।</string>
     <string name="error_no_dictionary">कोई शब्दकोश ऐप नहीं मिला ।</string>
     <string name="error_no_browser">कोई ब्राउज़र ऐप नहीं मिला ।</string>
-    <string name="error_no_text">पुस्तक की सामग्री रिक्त है। कृपया जाँच करें कि पुस्तक की सामग्री रिक्त न हो और उसे अपडेट करें।</string>
+    <string name="error_could_not_get_text">पुस्तक की सामग्री रिक्त है। कृपया जाँच करें कि पुस्तक की सामग्री रिक्त न हो और उसे अपडेट करें।</string>
     <string name="error_could_not_reset_cover">कवर छवि रीसेट नहीं की जा सकी ।</string>
     <string name="browse_empty">अपने डाउनलोड के साथ पुस्तकालय के पुस्तक संग्रह का विस्तार करें</string>
     <string name="file_path_query">फ़ाइल पथ: %1$s</string>

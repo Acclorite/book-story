@@ -20,7 +20,7 @@
     <string name="move_book_description">Wählen Sie die Kategorie aus, in die Sie dieses Buch verschieben möchten. Dieses Buch wird in die ausgewählte Kategorie verschoben.</string>
     <string name="enable_check_for_updates_description">Durch Aktivieren von „Nach Updates suchen“ ruft die App bei jedem Start der App die neuesten Versionsinformationen von „api.github.com“ ab. Möchten Sie fortfahren und „Nach Updates suchen“ aktivieren?</string>
     <string name="error_no_description">Keine Beschreibung.</string>
-    <string name="error_no_text">Der Buchinhalt ist leer. Bitte stellen Sie sicher, dass der Buchinhalt nicht leer ist und aktualisieren Sie ihn.</string>
+    <string name="error_could_not_get_text">Der Buchinhalt ist leer. Bitte stellen Sie sicher, dass der Buchinhalt nicht leer ist und aktualisieren Sie ihn.</string>
     <string name="error_check_internet">Etwas ist schiefgelaufen. Versuche es später erneut.</string>
     <string name="error_could_not_reset_cover">Titelbild konnte nicht zurückgesetzt werden.</string>
     <string name="error_closed_source">Geschlossene Quelle</string>
@@ -176,12 +176,8 @@
     <string name="delete_history_description">Dadurch wird der gesamte Verlauf aus der Datenbank gelöscht. Nach dem Löschen des gesamten Verlaufs wird die Reihenfolge der Bücher zurückgesetzt.</string>
     <string name="error_permission">Wir benötigen eine Speicherberechtigung, um Ihr Gerät nach Büchern zu durchsuchen</string>
     <string name="error_something_went_wrong">Etwas ist schief gelaufen.</string>
-    <string name="error_something_went_wrong_with_file">Etwas ist schiefgelaufen. Bitte überprüfen Sie, ob die Datei dieses Buchs beschädigt ist.</string>
     <string name="error_no_translator">Keine Übersetzungsapp gefunden.</string>
     <string name="error_no_browser">Keine Browserapp gefunden.</string>
-    <string name="error_wrong_file_format">Falsches Dateiformat.</string>
-    <string name="error_query">Fehler: %1$s</string>
-    <string name="error_file_empty">Diese Datei ist leer oder beschädigt.</string>
     <string name="delete">Löschen</string>
     <string name="reset_cover_desc">Coverbild des Buches auf Standard zurücksetzen</string>
     <string name="change_cover_desc">Wählen Sie ein neues Cover aus Ihren Fotos</string>

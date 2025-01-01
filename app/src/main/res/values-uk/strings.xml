@@ -83,17 +83,11 @@
     <string name="error_something_went_wrong">
         Який жах! Щось пішло не так.
     </string>
-    <string name="error_something_went_wrong_with_file">
-        Щось пішло не так. Будь ласка, перевірте чи файл цієї книги не пошкоджений.
-    </string>
-    <string name="error_wrong_file_format">Хибний формат файлу.</string>
-    <string name="error_query">Помилка: %1$s</string>
-    <string name="error_file_empty">Цей файл пустий або пошкоджений.</string>
     <string name="error_no_translator">Не знайдено жодного перекладача.</string>
     <string name="error_no_dictionary">Не знайдено жодного словника.</string>
     <string name="error_no_browser">Не знайдено жодного браузера.</string>
     <string name="error_no_share_app">Не знайдено застосунка щоб поділитися.</string>
-    <string name="error_no_text">
+    <string name="error_could_not_get_text">
         Вміст книги пустий. Будь ласка, перевірте вміст книги та оновіть її.
     </string>
     <string name="error_check_internet">

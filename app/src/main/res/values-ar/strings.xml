@@ -28,12 +28,9 @@
     <string name="delete_history_description">هذا سيحذف سجل التصفح بأكمله من قاعدة البيانات. بعد حذف سجل التصفح بأكمله ، سيتم إعادة ضبط ترتيب الكتب.</string>
     <string name="enable_check_for_updates_description">بتفعيل «البحث عن التحديثات» سيستخرج التطبيق معلومات اخر اصدار من «api.github.com» في كل مرة عند تشغيل التطبيق. هل تريد المضي قدما و تفعيل «البحث عن تحديثات»؟</string>
     <string name="error_something_went_wrong">حدث خطأ ما.</string>
-    <string name="error_wrong_file_format">صيغة ملف خاطئة.</string>
-    <string name="error_query">خطأ%1$s</string>
-    <string name="error_file_empty">هذا ااملف فارغ أو تالف.</string>
     <string name="error_no_translator">لم يتم العثور على تطبيق ترجمة.</string>
     <string name="error_no_browser">لم يتم العثور على متصفح.</string>
-    <string name="error_no_text">محتوى الكتاب فارغ. من فضلك، تأكد أن محتوى الكتاب ليس فارغا و قم بتحديثه.</string>
+    <string name="error_could_not_get_text">محتوى الكتاب فارغ. من فضلك، تأكد أن محتوى الكتاب ليس فارغا و قم بتحديثه.</string>
     <string name="error_check_internet">حدث خطأ ما. حاول مرة أخرى لاحقا.</string>
     <string name="error_closed_source">مغلق المصدر</string>
     <string name="library_empty">اقرأ كتبك المفضلة و رتبهم باستخدام الفئات</string>
@@ -66,7 +63,6 @@
     <string name="help_desc_how_to_manage_history_2">تاريخ</string>
     <string name="error_permission">نحتاج إذن التخزين لفحص جهازك من أجل الكتب</string>
     <string name="error_no_description">لا يوجد وصف.</string>
-    <string name="error_something_went_wrong_with_file">حدث خطأ ما. من فضلك تحقق إن كان ملف الكتاب ليس تالف.</string>
     <string name="browse_empty">قم بتوسيع مجموعة كتب مكتبتك باستخدام تنزيلاتك</string>
     <string name="selected_items_count_query">تم اختيار %1$s</string>
     <string name="general_settings_desc">لغة التطبيق</string>

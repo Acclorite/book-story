@@ -62,14 +62,11 @@
     <string name="storage_permission">Concedi permesso?</string>
     <string name="font_style_italic">Corsivo</string>
     <string name="read_more">Devi leggere di più!</string>
-    <string name="error_query">Errore: %1$s</string>
     <string name="read_done">Ben fatto, hai letto tutto il libro!</string>
     <string name="error_no_translator">Nessuna app traduttore trovata.</string>
     <string name="start_permissions_preferences">Permessi</string>
     <string name="history_content_desc">Cronologia lettura</string>
-    <string name="error_wrong_file_format">Formato file errato.</string>
     <string name="required_content_desc">Richiesto</string>
-    <string name="error_file_empty">Questo file è vuoto o danneggiato.</string>
     <string name="app_version_option">Versione app</string>
     <string name="books_moved">Tutti i libri selezionati sono stati spostati correttamente.</string>
     <string name="error_no_browser">Nessuna app browser trovata.</string>
@@ -77,7 +74,6 @@
     <string name="enable_check_for_updates">Abilita controlli degli aggiornamenti?</string>
     <string name="error_no_dictionary">Nessuna app dizionario trovata.</string>
     <string name="storage_permission_description">Abbiamo bisogno del permesso di archiviazione per la scansione del Tuo Dispositivo per i libri. Senza questo permesso, non sarai in grado di aggiungere i libri.</string>
-    <string name="error_something_went_wrong_with_file">Qualcosa è andato storto. Per favore controllare che il file di questo libro non sia danneggiato.</string>
     <string name="done">Fatto</string>
     <string name="share">Condividi</string>
     <string name="yes_go_to_help">Sì, vai ad Aiuto</string>
@@ -175,7 +171,7 @@
     <string name="start_language_preferences">Preferenze lingua</string>
     <string name="create_color_preset_content_desc">Crea nuovo preset di colori</string>
     <string name="error_check_internet">Qualcosa è andato storto. Riprova più tardi.</string>
-    <string name="error_no_text">Il contenuto del libro è vuoto. Assicurati che il contenuto del libro non sia vuoto e aggiornalo.</string>
+    <string name="error_could_not_get_text">Il contenuto del libro è vuoto. Assicurati che il contenuto del libro non sia vuoto e aggiornalo.</string>
     <string name="help_title_how_to_add_books">Come aggiungo libri alla Libreria?</string>
     <string name="help_desc_how_to_add_books_1">Vai a</string>
     <string name="today">Oggi</string>

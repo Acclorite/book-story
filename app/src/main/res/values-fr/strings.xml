@@ -20,8 +20,6 @@
     <string name="move_book_description">Choisissez la catégorie dans laquelle vous souhaitez déplacer ce livre. Ce dernier sera déplacé vers la catégorie choisie.</string>
     <string name="enable_check_for_updates_description">En activant la fonction “Vérifier les mises à jour”, l\'application récupérera les informations de la dernière version de “api.github.com” à chaque fois que l\'application démarrera. Voulez-vous continuer et activer “Vérifier les mises à jour” ?</string>
     <string name="error_permission">Nous avons besoin de l\'autorisation de stockage pour scanner votre appareil à la recherche de livres</string>
-    <string name="error_query">"Erreur :  %1$s"</string>
-    <string name="error_file_empty">Ce fichier est vide ou corrompu.</string>
     <string name="error_no_translator">Aucune application de traduction n\'a été trouvée.</string>
     <string name="error_no_dictionary">Aucune application de dictionnaire n\'a été trouvée.</string>
     <string name="error_no_share_app">Aucune application pour partager n\'a été trouvée.</string>
@@ -238,7 +236,6 @@
     <string name="tryzub_content_desc">Tryzub</string>
     <string name="github_profile_content_desc">Profile Github</string>
     <string name="drag_content_desc">Glisser</string>
-    <string name="error_something_went_wrong_with_file">Quelque chose s\'est mal passé. Veuillez vérifier si le fichier de ce livre n\'est pas corrompu.</string>
     <string name="updates_notification_channel">Nouvelles mises à jour</string>
     <string name="storage_permission_description">Nous avons besoin de l\'autorisation de stockage pour scanner votre appareil et trouver des livres. Sans cette autorisation, vous ne pourrez pas ajouter de livre.</string>
     <string name="move_books_description">Choisissez la catégorie dans laquelle vous souhaitez déplacer tous les livres sélectionnés (%1$s). Tous les livres sélectionnés seront déplacés vers la catégorie choisie.</string>
@@ -249,9 +246,8 @@
     <string name="error_something_went_wrong">Quelque chose s\'est mal passé.</string>
     <string name="delete_history_description">L\'historique complet sera supprimé de la base de données. Après la suppression de tout l\'historique, l\'ordre des livres sera réinitialisé.</string>
     <string name="update_app_description">Une nouvelle version de l\'application a été trouvée. Voulez-vous continuer et aller à la page de publication ?</string>
-    <string name="error_wrong_file_format">Mauvais format de fichier.</string>
     <string name="error_no_browser">Aucune application de navigation n\'a été trouvée.</string>
-    <string name="error_no_text">Le contenu du livre est vide. Veuillez vous assurer que le contenu du livre n\'est pas vide et de le mettre à jour.</string>
+    <string name="error_could_not_get_text">Le contenu du livre est vide. Veuillez vous assurer que le contenu du livre n\'est pas vide et de le mettre à jour.</string>
     <string name="history_empty">Laissez le dernier livre que vous avez lu ouvrir les pages d\'une grande et nouvelle histoire dans votre aventure de lecture</string>
     <string name="cancel">Annuler</string>
     <string name="grant_permission">Accorder la permission</string>
