@@ -339,4 +339,23 @@
     <string name="help_title_how_to_use_perception_expander_1">Algı iyileştirici daha hızlı okumanıza yardımcı olabilir. Öncelikle, Okuyucu ayarlarında etkinleştirin (bkz: Okuyucuyu nasıl özelleştiririm?). Etkinleştirildiğinde, Okuyucu\'nun her iki tarafında iki dikey çizgi görünecektir. Okuma hızınızı daha da iyileştirmek için, merkezin etrafında daha az boşluk oluşturmak üzere dolguyu ayarlayın. Bunu kullanmak için, çevresel görüşünüzün yanlardaki metni almasına izin verirken ekranın merkezine odaklanın. Okurken, her satırdan sonra doğrudan yanlara bakmadan merkeze odaklanmaya devam edin.</string>
     <string name="more_content_desc">Daha fazla</string>
     <string name="random_string">Rastgele</string>
+    <string name="bottom_bar_padding_option"></string>
+    <string name="gray_theme"></string>
+    <string name="horizontal_gesture_inverse"></string>
+    <string name="reddit_content_desc" translatable="false"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="x_content_desc" translatable="false"></string>
+    <string name="pink2_theme"></string>
+    <string name="yellow2_theme"></string>
+    <string name="screen_brightness_option"></string>
+    <string name="patreon_content_desc" translatable="false"></string>
+    <string name="horizontal_gesture_scroll_option"></string>
+    <string name="horizontal_gesture_off"></string>
+    <string name="custom_screen_brightness_option"></string>
+    <string name="app_version" translatable="false"></string>
+    <string name="horizontal_gesture_sensitivity_option"></string>
+    <string name="search_field_empty"></string>
+    <string name="reading_mode_reader_settings"></string>
+    <string name="horizontal_gesture_option"></string>
+    <string name="horizontal_gesture_on"></string>
 </resources>
