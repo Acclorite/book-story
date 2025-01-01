@@ -9,7 +9,6 @@
     <string name="dark_theme_follow_system">Podle systému</string>
     <string name="browse_layout_grid">Mřížka</string>
     <string name="default_string">Výchozí</string>
-    <string name="update_book">Aktualizovat knihu?</string>
     <string name="theme_contrast_option">Kontrastní téma</string>
     <string name="screen_orientation_option">Orientace obrazovky</string>
     <string name="screen_orientation_free">Jakkoli</string>
@@ -26,7 +25,6 @@
     <string name="file_name">Název souboru</string>
     <string name="language_option">Jazyk aplikace</string>
     <string name="pink_theme">Saturn</string>
-    <string name="confirm">Potvrdit</string>
     <string name="yes_go_to_help">Ano, přejít na pomoc</string>
     <string name="done">Hotovo</string>
     <string name="enable">Zapnout</string>
@@ -34,7 +32,6 @@
     <string name="credits_contribution">Spolupracovníci</string>
     <string name="red_theme">Mars</string>
     <string name="cover_reset">Obálka byla úspěšně resetována.</string>
-    <string name="error_wrong_file_format">Špatný formát souboru.</string>
     <string name="yellow_theme">Venuše</string>
     <string name="appearance_settings">Vzhled</string>
     <string name="green_theme">Země</string>
@@ -42,7 +39,6 @@
     <string name="history_screen">Historie</string>
     <string name="dark_theme_option">Tmavé téma</string>
     <string name="move_books_description">Vyberte kategorii, do které chcete přesunout všechny vybrané knihy. (%1$s). Všechny vybrané knihy do ní budou přesunuty.</string>
-    <string name="file_not_found">Soubor \"%1$s\" nebyl nalezen.</string>
     <string name="cancel">Zrušit</string>
     <string name="error_could_not_reset_cover">Nelze resetovat obálku.</string>
     <string name="file_last_opened">Naposledy otevřeno</string>
@@ -54,7 +50,6 @@
     <string name="credits_ideas">Nápady</string>
     <string name="delete_history">Smazat historii čtení?</string>
     <string name="no_updates">Nejnovější verze aplikace už je nainstalována.</string>
-    <string name="nothing_changed">Text je nejnovější.</string>
     <string name="unknown">Neznámý</string>
     <string name="credits_fonts">Fonty</string>
     <string name="theme_contrast_standard">Standardní</string>
@@ -95,7 +90,6 @@
     <string name="delete_books">Smazat knihy?</string>
     <string name="enable_check_for_updates_description">Zapnutím «Zkontrolovat aktualizace» bude aplikace získávat informace o nových verzích z «api.github.com» při každém spuštění. Chcete pokračovat a zapnout «Zkontrolovat aktualizace»?</string>
     <string name="font_style_normal">Normální</string>
-    <string name="error_query">Chyba: %1$s</string>
     <string name="error_no_translator">Žádná aplikace pro překladač nebyla nalezena.</string>
     <string name="reset_cover_desc">Resetovat obálku knihy na výchozí</string>
     <string name="books_deleted">Všechny vybrané videa byly úspěšně smazány.</string>
@@ -110,7 +104,6 @@
     <string name="general_settings_desc">Jazyk aplikace</string>
     <string name="lavender_theme">Eris</string>
     <string name="continue_read">Pokračovat</string>
-    <string name="book_updated">Text knihy byl úspěšně aktualizován.</string>
     <string name="author">Autor</string>
     <string name="move_book_description">Vyberte kategorii, do které chcete přesunout tuto knihu. Vybraná kniha do ní bude přesunuta.</string>
     <string name="planning_tab">Budu číst</string>
@@ -161,8 +154,6 @@
     <string name="delete_book_description">Smaže to tuto knihu z databáze. Nesmaže to na vašem zařízení.</string>
     <string name="error_no_description">Žádný popis.</string>
     <string name="error_something_went_wrong">Něco se pokazilo.</string>
-    <string name="error_something_went_wrong_with_file">Něco se pokazilo. Zkontrolujte, jestli soubor knihy není poškozený.</string>
-    <string name="error_file_empty">Tento soubor je prázdný nebo poškozený.</string>
     <string name="file_path_query">Cesta k souboru: %1$s</string>
     <string name="grant">Povolit</string>
     <string name="add_book">Přidat knihu</string>
@@ -170,7 +161,6 @@
     <string name="go_back">Zpět</string>
     <string name="copy">Kopírovat</string>
     <string name="translate">Přeložit</string>
-    <string name="retry">Zkusit znovu</string>
     <string name="next">Další</string>
     <string name="no">Ne</string>
     <string name="web_search">Hledat na webu</string>
@@ -246,7 +236,6 @@
     <string name="move_books_content_desc">Přesunout vybrané knihy</string>
     <string name="start_welcome">Vítejte v Book\'s Story!</string>
     <string name="help_title_how_to_move_or_delete_books">Jak přesunu nebo smažu knihy?</string>
-    <string name="refresh_book_content_desc">Aktualizovat knihu</string>
     <string name="add_files_content_desc">Přidat soubory</string>
     <string name="error_closed_source">Uzavřený zdroj</string>
     <string name="updates_notification_desc">Aktualizace %1$s byla vydána! Klepněte pro přejití na stránku verzí.</string>
@@ -266,7 +255,6 @@
     <string name="required_content_desc">Vyžadován</string>
     <string name="open_reader_settings_content_desc">Nastavení čtečky</string>
     <string name="delete_whole_history_content_desc">Smazat celou historii</string>
-    <string name="confirm_update_description">Aktualizujete text a kapitoly této knihy. Procento přečtení by se nemělo změnit dokud nebylo změněno pořadí odstavců.</string>
     <string name="color_preset_placeholder">Pojmenujete nastavení…</string>
     <string name="help_desc_how_to_move_or_delete_books_2">Knihovna</string>
     <string name="start_welcome_desc">Ve světe, kde slova okouzlují, učí a vedou k neuvěřitelným dobrodružstvím! Pojďme nastavit pár věcí!</string>
