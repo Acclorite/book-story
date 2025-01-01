@@ -2,8 +2,6 @@ package ua.acclorite.book_story.presentation.book_info
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.pullrefresh.PullRefreshState
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import ua.acclorite.book_story.domain.library.book.Book
 import ua.acclorite.book_story.domain.util.BottomSheet
@@ -16,12 +14,8 @@ fun BookInfoContent(
     book: Book,
     bottomSheet: BottomSheet?,
     dialog: Dialog?,
-    refreshState: PullRefreshState,
     listState: LazyListState,
-    snackbarState: SnackbarHostState,
     canResetCover: Boolean,
-    isUpdating: Boolean,
-    checkingForUpdate: Boolean,
     editTitle: Boolean,
     titleValue: String,
     editAuthor: Boolean,
@@ -48,14 +42,10 @@ fun BookInfoContent(
     resetCover: (BookInfoEvent.OnResetCover) -> Unit,
     deleteCover: (BookInfoEvent.OnDeleteCover) -> Unit,
     checkCoverReset: (BookInfoEvent.OnCheckCoverReset) -> Unit,
-    actionUpdateDialog: (BookInfoEvent.OnActionUpdateDialog) -> Unit,
-    dismissUpdateDialog: (BookInfoEvent.OnDismissUpdateDialog) -> Unit,
     dismissDialog: (BookInfoEvent.OnDismissDialog) -> Unit,
     dismissBottomSheet: (BookInfoEvent.OnDismissBottomSheet) -> Unit,
     updateData: (BookInfoEvent.OnUpdateData) -> Unit,
     copyToClipboard: (BookInfoEvent.OnCopyToClipboard) -> Unit,
-    checkForTextUpdate: (BookInfoEvent.OnCheckForTextUpdate) -> Unit,
-    cancelTextUpdate: (BookInfoEvent.OnCancelTextUpdate) -> Unit,
     navigateToReader: () -> Unit,
     navigateToLibrary: () -> Unit,
     navigateBack: () -> Unit
@@ -63,12 +53,9 @@ fun BookInfoContent(
     BookInfoDialog(
         dialog = dialog,
         book = book,
-        snackbarState = snackbarState,
         actionDeleteDialog = actionDeleteDialog,
         actionMoveDialog = actionMoveDialog,
         dismissDialog = dismissDialog,
-        actionUpdateDialog = actionUpdateDialog,
-        dismissUpdateDialog = dismissUpdateDialog,
         navigateToLibrary = navigateToLibrary,
         navigateBack = navigateBack
     )
@@ -76,7 +63,6 @@ fun BookInfoContent(
     BookInfoBottomSheet(
         bottomSheet = bottomSheet,
         book = book,
-        snackbarState = snackbarState,
         canResetCover = canResetCover,
         changeCover = changeCover,
         resetCover = resetCover,
@@ -91,11 +77,7 @@ fun BookInfoContent(
 
     BookInfoScaffold(
         book = book,
-        refreshState = refreshState,
         listState = listState,
-        snackbarState = snackbarState,
-        isUpdating = isUpdating,
-        checkingForUpdate = checkingForUpdate,
         editTitle = editTitle,
         titleValue = titleValue,
         editAuthor = editAuthor,
@@ -114,8 +96,6 @@ fun BookInfoContent(
         showChangeCoverBottomSheet = showChangeCoverBottomSheet,
         showMoreBottomSheet = showMoreBottomSheet,
         updateData = updateData,
-        checkForTextUpdate = checkForTextUpdate,
-        cancelTextUpdate = cancelTextUpdate,
         navigateToReader = navigateToReader,
         navigateBack = navigateBack
     )
@@ -124,11 +104,9 @@ fun BookInfoContent(
         editTitle = editTitle,
         editAuthor = editAuthor,
         editDescription = editDescription,
-        isUpdating = isUpdating,
         editTitleMode = editTitleMode,
         editAuthorMode = editAuthorMode,
         editDescriptionMode = editDescriptionMode,
-        cancelTextUpdate = cancelTextUpdate,
         navigateBack = navigateBack
     )
 }

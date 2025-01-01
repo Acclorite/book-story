@@ -40,8 +40,6 @@ sealed class MainEvent {
     data class OnChangePerceptionExpander(val value: Boolean) : MainEvent()
     data class OnChangePerceptionExpanderPadding(val value: Int) : MainEvent()
     data class OnChangePerceptionExpanderThickness(val value: Int) : MainEvent()
-    data class OnChangeCheckForTextUpdate(val value: Boolean) : MainEvent()
-    data class OnChangeCheckForTextUpdateToast(val value: Boolean) : MainEvent()
     data class OnChangeScreenOrientation(val value: String) : MainEvent()
     data class OnChangeCustomScreenBrightness(val value: Boolean) : MainEvent()
     data class OnChangeScreenBrightness(val value: Float) : MainEvent()

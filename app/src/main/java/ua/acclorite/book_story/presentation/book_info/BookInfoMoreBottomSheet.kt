@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -17,7 +16,6 @@ import ua.acclorite.book_story.ui.book_info.BookInfoEvent
 
 @Composable
 fun BookInfoMoreBottomSheet(
-    snackbarState: SnackbarHostState,
     showDetailsBottomSheet: (BookInfoEvent.OnShowDetailsBottomSheet) -> Unit,
     showMoveDialog: (BookInfoEvent.OnShowMoveDialog) -> Unit,
     showDeleteDialog: (BookInfoEvent.OnShowDeleteDialog) -> Unit,
@@ -37,7 +35,6 @@ fun BookInfoMoreBottomSheet(
                     primary = false,
                     position = Position.SOLO
                 ) {
-                    snackbarState.currentSnackbarData?.dismiss()
                     showDetailsBottomSheet(BookInfoEvent.OnShowDetailsBottomSheet)
                 }
             }

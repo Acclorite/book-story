@@ -55,7 +55,6 @@ class Fb2FileParser @Inject constructor() : FileParser {
                     title = title,
                     author = author,
                     description = descriptionFromFile,
-                    textPath = "",
                     scrollIndex = 0,
                     scrollOffset = 0,
                     progress = 0f,

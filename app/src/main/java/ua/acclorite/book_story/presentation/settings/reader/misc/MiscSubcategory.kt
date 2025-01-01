@@ -9,8 +9,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategory
-import ua.acclorite.book_story.presentation.settings.reader.misc.components.CheckForTextUpdateOption
-import ua.acclorite.book_story.presentation.settings.reader.misc.components.CheckForTextUpdateToastOption
 import ua.acclorite.book_story.presentation.settings.reader.misc.components.FullscreenOption
 import ua.acclorite.book_story.presentation.settings.reader.misc.components.HideBarsOnFastScrollOption
 import ua.acclorite.book_story.presentation.settings.reader.misc.components.KeepScreenOnOption
@@ -27,14 +25,6 @@ fun LazyListScope.MiscSubcategory(
         showTitle = showTitle,
         showDivider = showDivider,
     ) {
-        item {
-            CheckForTextUpdateOption()
-        }
-
-        item {
-            CheckForTextUpdateToastOption()
-        }
-
         item {
             FullscreenOption()
         }

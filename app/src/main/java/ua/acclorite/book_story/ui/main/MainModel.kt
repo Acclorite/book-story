@@ -343,22 +343,6 @@ class MainModel @Inject constructor(
                 }
             )
 
-            is MainEvent.OnChangeCheckForTextUpdate -> handleDatastoreUpdate(
-                key = DataStoreConstants.CHECK_FOR_TEXT_UPDATE,
-                value = event.value,
-                updateState = {
-                    it.copy(checkForTextUpdate = this)
-                }
-            )
-
-            is MainEvent.OnChangeCheckForTextUpdateToast -> handleDatastoreUpdate(
-                key = DataStoreConstants.CHECK_FOR_TEXT_UPDATE_TOAST,
-                value = event.value,
-                updateState = {
-                    it.copy(checkForTextUpdateToast = this)
-                }
-            )
-
             is MainEvent.OnChangeScreenOrientation -> handleDatastoreUpdate(
                 key = DataStoreConstants.SCREEN_ORIENTATION,
                 value = event.value,

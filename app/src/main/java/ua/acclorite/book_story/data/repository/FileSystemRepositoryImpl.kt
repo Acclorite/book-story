@@ -6,15 +6,12 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.local.room.BookDao
 import ua.acclorite.book_story.data.mapper.book.BookMapper
 import ua.acclorite.book_story.data.parser.FileParser
-import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.domain.browse.SelectableFile
-import ua.acclorite.book_story.domain.library.book.BookWithTextAndCover
 import ua.acclorite.book_story.domain.library.book.NullableBook
 import ua.acclorite.book_story.domain.library.book.NullableBook.NotNull
 import ua.acclorite.book_story.domain.library.book.NullableBook.Null
 import ua.acclorite.book_story.domain.repository.FileSystemRepository
 import ua.acclorite.book_story.domain.ui.UIText
-import ua.acclorite.book_story.domain.util.Resource
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideSupportedExtensions
 import java.io.File
@@ -31,11 +28,8 @@ private const val GET_FILES_FROM_DEVICE = "FILES FROM DEVICE, REPO"
 @Singleton
 class FileSystemRepositoryImpl @Inject constructor(
     private val database: BookDao,
-
     private val bookMapper: BookMapper,
-
-    private val fileParser: FileParser,
-    private val textParser: TextParser,
+    private val fileParser: FileParser
 ) : FileSystemRepository {
 
     /**
@@ -155,26 +149,7 @@ class FileSystemRepositoryImpl @Inject constructor(
             )
         }
 
-        val parsedText = textParser.parse(file)
-        if (parsedText is Resource.Error) {
-            Log.e(GET_BOOK_FROM_FILE, "Parsed text(${file.name}) has error.")
-            return Null(
-                file.name,
-                parsedText.message
-            )
-        }
-
         Log.i(GET_BOOK_FROM_FILE, "Successfully got book from file.")
-        return NotNull(
-            bookWithTextAndCover = BookWithTextAndCover(
-                book = parsedBook.book.copy(
-                    chapters = parsedText.data!!.map { it.chapter }
-                ),
-                coverImage = parsedBook.coverImage,
-                text = parsedText.data.map {
-                    it.text
-                }.flatten()
-            )
-        )
+        return NotNull(bookWithCover = parsedBook)
     }
 }

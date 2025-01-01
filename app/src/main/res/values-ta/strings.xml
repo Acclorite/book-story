@@ -6,13 +6,9 @@
     <string name="history_screen">வரலாறு</string>
     <string name="add_books">புத்தகங்களைச் சேர்க்கவா?</string>
     <string name="enable_check_for_updates">புதுப்பிப்புகளை சரிபார்க்கவா?</string>
-    <string name="update_book">புதுப்பிப்பு புத்தகம்?</string>
     <string name="move_book_description">இந்த புத்தகத்தை நீங்கள் நகர்த்த விரும்பும் வகையைத் தேர்வுசெய்க. இந்த நூல் தேர்ந்தெடுக்கப்பட்ட வகைக்கு மாற்றப்படும்.</string>
     <string name="update_app_description">புதிய பயன்பாட்டு பதிப்பு கண்டறியப்பட்டது. நீங்கள் தொடர விரும்புகிறீர்களா?</string>
     <string name="error_something_went_wrong">ஏதோ தவறு நடந்தது.</string>
-    <string name="error_something_went_wrong_with_file">ஏதோ தவறு நடந்தது. இந்த புத்தகத்தின் கோப்பு சிதைக்கப்படவில்லை என்பதை சரிபார்க்கவும்.</string>
-    <string name="error_wrong_file_format">தவறான கோப்பு வடிவம்.</string>
-    <string name="error_query">பிழை: %1$s</string>
     <string name="error_closed_source">மூடிய மூல</string>
     <string name="browse_empty">உங்கள் பதிவிறக்கங்களுடன் நூலகத்தின் புத்தக சேகரிப்பை விரிவாக்குங்கள்</string>
     <string name="add">கூட்டு</string>
@@ -25,14 +21,12 @@
     <string name="grant_permission">இசைவு வழங்கவும்</string>
     <string name="get_help">எனக்கு உதவி தேவை</string>
     <string name="delete">நீக்கு</string>
-    <string name="confirm">உறுதிப்படுத்தவும்</string>
     <string name="next">அடுத்தது</string>
     <string name="yes_go_to_help">ஆம், உதவிக்குச் செல்லுங்கள்</string>
     <string name="no">இல்லை</string>
     <string name="done">முடிந்தது</string>
     <string name="enable">இயக்கு</string>
     <string name="dictionary">அகராதி</string>
-    <string name="retry">மீண்டும் முயற்சிக்கவும்</string>
     <string name="proceed">தொடரவும்</string>
     <string name="read_keep">அதை வைத்திருங்கள்!</string>
     <string name="general_settings_desc">பயன்பாட்டு மொழி</string>
@@ -57,9 +51,6 @@
     <string name="book_deleted">இந்த நூல் வெற்றிகரமாக நீக்கப்பட்டது.</string>
     <string name="book_moved">இந்த நூல் வெற்றிகரமாக நகர்த்தப்பட்டது.</string>
     <string name="copied">நகலெடுக்கப்பட்டது</string>
-    <string name="file_not_found">\"%1$s\" கோப்பு காணப்படவில்லை.</string>
-    <string name="book_updated">புத்தகத்தின் உரை வெற்றிகரமாக புதுப்பிக்கப்பட்டது.</string>
-    <string name="nothing_changed">உரை புதுப்பித்த நிலையில் உள்ளது.</string>
     <string name="move_this_book">நகர்த்தவும்</string>
     <string name="history_element_deleted">வரலாற்று உறுப்பு வெற்றிகரமாக நீக்கப்பட்டது.</string>
     <string name="credits_translation">மொழிபெயர்ப்பு</string>
@@ -69,7 +60,6 @@
     <string name="help_desc_how_to_customize_app_2">அமைப்புகள்</string>
     <string name="help_desc_how_to_edit_book_1">செல்லுங்கள்</string>
     <string name="help_desc_how_to_customize_reader_2">அமைப்புகள்</string>
-    <string name="help_title_how_to_update_book">ஒரு புத்தகத்தை எவ்வாறு புதுப்பிப்பது?</string>
     <string name="help_title_how_to_use_color_presets">வண்ண முன்னமைவுகளை நான் எவ்வாறு பயன்படுத்துவது?</string>
     <string name="start_welcome">புத்தகத்தின் கதைக்கு வருக!</string>
     <string name="go_back_content_desc">திரும்பிச் செல்லுங்கள்</string>
@@ -121,7 +111,6 @@
     <string name="browse_layout_option">காட்சி முறை</string>
     <string name="browse_sort_order_file_format">கோப்பு வடிவம்</string>
     <string name="delete_this_book">நீக்கு</string>
-    <string name="error_file_empty">இந்த கோப்பு காலியாக அல்லது சிதைந்துவிட்டது.</string>
     <string name="default_string">இயல்புநிலை</string>
     <string name="delete_history">வாசிப்பு வரலாற்றை நீக்கவா?</string>
     <string name="enable_check_for_updates_description">செயல்படுத்துவதன் மூலம் «புதுப்பிப்புகளைச் சரிபார்க்கவும்» பயன்பாடு தொடங்கும் ஒவ்வொரு முறையும் «api.github.com இருந்து இலிருந்து அண்மைக் கால வெளியீட்டு தகவல்களை மீட்டெடுக்கும். நீங்கள் தொடர விரும்புகிறீர்களா «புதுப்பிப்புகளை சரிபார்க்கவும்»?</string>
@@ -170,7 +159,6 @@
     <string name="fullscreen_option_desc">கணினி பட்டிகளை மறைத்து, திணிப்பை அகற்றவும்</string>
     <string name="keep_screen_on_option">திரையை தொடர்ந்து வைத்திருங்கள்</string>
     <string name="perception_expander_thickness_option">புலனுணர்வு விரிவாக்க வரி தடிமன்</string>
-    <string name="check_for_text_update_option">உரை புதுப்பிப்புக்கு சரிபார்க்கவும்</string>
     <string name="browse_layout_list">பட்டியல்</string>
     <string name="browse_layout_grid">வலைவாய்</string>
     <string name="browse_grid_size_auto">தானி</string>
@@ -200,7 +188,6 @@
     <string name="checkpoint_back_content_desc">சோதனைச் சாவடி மீண்டும்</string>
     <string name="checkpoint_forward_content_desc">சோதனைச் சாவடி முன்னோக்கி</string>
     <string name="chapters_content_desc">பாடங்கள்</string>
-    <string name="update_text_content_desc">உரையைப் புதுப்பிக்கவும்</string>
     <string name="more_content_desc">மேலும்</string>
     <string name="search_field_empty">தேடுங்கள்…</string>
     <string name="custom_screen_brightness_option">தனிப்பயன் ஒளி</string>
@@ -218,18 +205,15 @@
     <string name="delete_books">புத்தகங்களை நீக்கவா?</string>
     <string name="delete_book">புத்தகத்தை நீக்கவா?</string>
     <string name="move_book">புத்தகத்தை நகர்த்தவா?</string>
-    <string name="confirm_update">புதுப்பிப்பை உறுதிப்படுத்தவா?</string>
     <string name="storage_permission_description">புத்தகங்களுக்காக உங்கள் சாதனத்தை ச்கேன் செய்ய எங்களுக்கு சேமிப்பக இசைவு தேவை. இந்த அனுமதியின்றி, நீங்கள் ஒரு புத்தகத்தைச் சேர்க்க முடியாது.</string>
     <string name="add_books_description">நீங்கள் எந்த புத்தகங்களைச் சேர்க்க விரும்புகிறீர்கள் என்பதை நீங்கள் தேர்வு செய்யலாம். புத்தகத்தின் தலைப்பு மற்றும் படத்தை பின்னர் திருத்தலாம். ஏற்றுதல் செயல்முறை பல நிமிடங்கள் வரை ஆகலாம்.</string>
     <string name="move_books_description">தேர்ந்தெடுக்கப்பட்ட அனைத்து புத்தகங்களையும் (%1$s) நகர்த்த விரும்பும் வகையைத் தேர்வுசெய்க. தேர்ந்தெடுக்கப்பட்ட அனைத்து புத்தகங்களும் தேர்ந்தெடுக்கப்பட்ட வகைக்கு மாற்றப்படும்.</string>
     <string name="delete_books_description">இது தரவுத்தளத்திலிருந்து தேர்ந்தெடுக்கப்பட்ட அனைத்து புத்தகங்களையும் (%1$s) நீக்கிவிடும். இது உங்கள் சாதனத்திலிருந்து தேர்ந்தெடுக்கப்பட்ட புத்தகங்களை நீக்காது.</string>
     <string name="delete_history_description">இது முழு வரலாற்றையும் தரவுத்தளத்திலிருந்து நீக்குகிறது. முழு வரலாற்றையும் நீக்கிய பிறகு, புத்தகங்களின் வரிசை மீட்டமைக்கப்படும்.</string>
     <string name="delete_book_description">இது இந்த புத்தகத்தை தரவுத்தளத்திலிருந்து நீக்கிவிடும். இது உங்கள் சாதனத்திலிருந்து இந்த புத்தகத்தை நீக்காது.</string>
-    <string name="confirm_update_description">இந்த புத்தகத்தின் உரை மற்றும் அத்தியாயங்களைப் புதுப்பிக்கவும். பத்திகளின் வரிசை மாற்றப்படாவிட்டால் முன்னேற்றம் மாறாமல் இருக்க வேண்டும்.</string>
-    <string name="update_book_description">உரையின் புதுப்பிப்பு கண்டறியப்பட்டுள்ளது. அண்மைக் கால பாகுபடுத்தி முறைகள் பயன்படுத்தப்படுவதை உறுதிப்படுத்த புதுப்பிப்பு தேவை. இது இணைப்பில்லாத செயல்முறை. பெரிய மாற்றங்கள் ஏற்படாவிட்டால் உங்கள் முன்னேற்றம் பாதிக்கப்படாது. புதுப்பிப்புடன் தொடர விரும்புகிறீர்களா?</string>
     <string name="error_no_translator">மொழிபெயர்ப்பாளர் பயன்பாடு எதுவும் கிடைக்கவில்லை.</string>
     <string name="error_no_share_app">பகிர்வதற்கு பயன்பாடு இல்லை.</string>
-    <string name="error_no_text">புத்தக உள்ளடக்கம் காலியாக உள்ளது. தயவுசெய்து, புத்தக உள்ளடக்கம் காலியாக இல்லை என்பதை உறுதிப்படுத்திக் கொள்ளுங்கள்.</string>
+    <string name="error_could_not_get_text">புத்தக உள்ளடக்கம் காலியாக உள்ளது. தயவுசெய்து, புத்தக உள்ளடக்கம் காலியாக இல்லை என்பதை உறுதிப்படுத்திக் கொள்ளுங்கள்.</string>
     <string name="error_check_internet">ஏதோ தவறு நடந்தது. பின்னர் மீண்டும் முயற்சிக்கவும்.</string>
     <string name="error_no_dictionary">அகராதி பயன்பாடு எதுவும் கிடைக்கவில்லை.</string>
     <string name="error_no_browser">உலாவி பயன்பாடு எதுவும் கிடைக்கவில்லை.</string>
@@ -261,8 +245,6 @@
     <string name="text_alignment_option">உரை சீரமைப்பு</string>
     <string name="fast_color_preset_change_option_desc">வண்ண முன்னமைவை மாற்ற மேல் பட்டியை இடது அல்லது வலதுபுறமாக ச்வைப் செய்யவும்</string>
     <string name="letter_spacing_option">கடிதம் இடைவெளி</string>
-    <string name="check_for_text_update_option_desc">உரை புதுப்பிப்பு இருக்கிறதா என்று தானாகவே சரிபார்க்கவும்</string>
-    <string name="check_for_text_update_toast_option">\"உரை புதுப்பித்த\" சிற்றுண்டி காட்டுங்கள்</string>
     <string name="screen_orientation_option">திரை நோக்குநிலை</string>
     <string name="browse_files_structure_option">கோப்புகள் அமைப்பு</string>
     <string name="browse_grid_size_option">கட்டம் அளவு</string>
@@ -334,9 +316,6 @@
     <string name="help_desc_how_to_customize_reader_1">புத்தகத்தைப் படிக்கத் தொடங்குங்கள் (பார்க்க: நான் ஒரு புத்தகத்தை எவ்வாறு படிப்பது?), அதன் பிறகு திரையில் எங்கும் சொடுக்கு செய்வதன் மூலம் மேல் மற்றும் கீழ் பட்டிகளைக் கொண்டு வாருங்கள். பின்னர் மேல் வலது மூலையில் உள்ள கியர் ஐகானைக் சொடுக்கு செய்க. இது அனைத்து வாசகர் அமைப்புகளையும் காண்பிக்கும். இரண்டாவது வழி செல்ல வேண்டும்</string>
     <string name="help_desc_how_to_customize_reader_3">வண்ண அமைப்புகளைத் தனிப்பயனாக்க பொது அமைப்புகளைத் தனிப்பயனாக்க வாசகர் வகையைத் தேர்ந்தெடுக்கவும் அல்லது தோற்ற வகை.</string>
     <string name="help_title_how_to_use_tooltip">உதவிக்குறிப்புகளை நான் எவ்வாறு பயன்படுத்துவது?</string>
-    <string name="help_desc_how_to_update_book_1">செல்லுங்கள்</string>
-    <string name="help_desc_how_to_update_book_2">நூலகம்</string>
-    <string name="help_desc_how_to_update_book_3">புத்தகத்தின் விவரங்களைக் காண புத்தகத்தின் அட்டை படத்தைக் சொடுக்கு செய்க. புத்தகத்தைப் புதுப்பிக்க திரையை கீழே இழுக்கவும் அல்லது மேல் வலது மூலையில் உள்ள புதுப்பிப்பு ஐகானைக் சொடுக்கு செய்யவும். புத்தகத்தின் கோப்பு மாற்றப்பட்டால், நீங்கள் புத்தகத்தை உறுதிப்படுத்தி புதுப்பிக்கலாம் அல்லது புதுப்பிப்பை ரத்து செய்யலாம்.</string>
     <string name="help_title_how_to_manage_history">வரலாற்றை எவ்வாறு நிர்வகிப்பது?</string>
     <string name="help_desc_how_to_manage_history_1">செல்லுங்கள்</string>
     <string name="help_desc_how_to_manage_history_3">வரலாற்று உறுப்பின் வலதுபுறத்தில் நீக்கு பொத்தானைக் சொடுக்கு செய்வதன் மூலம், அது நீக்கப்படும். வரலாறு நூலகத்தில் புத்தகங்களை பாதிக்கிறது, வரலாற்று உறுப்பை நீக்குவதன் மூலம் அது ஒரு புத்தகத்தையும் மறுவரிசைப்படுத்தும். கடைசியாக திறக்கப்பட்ட நூல் எப்போதும் நூலகம் மற்றும் வரலாற்றில் முதன்மையானது.</string>
@@ -350,7 +329,6 @@
     <string name="start_permissions_notifications">அறிவிப்புகள் இசைவு</string>
     <string name="start_done_desc">பயன்பாட்டின் அடிப்படை அமைப்பை நீங்கள் வெற்றிகரமாக முடித்துவிட்டீர்கள். உதவித் திரையைப் படிப்பதன் மூலம் பயன்பாட்டை எவ்வாறு பயன்படுத்துவது என்பதை அறிய விரும்புகிறீர்களா?</string>
     <string name="yesterday">நேற்று</string>
-    <string name="refresh_book_content_desc">புத்தகத்தை புதுப்பிக்கவும்</string>
     <string name="continue_reading_content_desc">தொடர்ந்து படிக்கவும்</string>
     <string name="favorite_directory_content_desc">பிடித்த அடைவு</string>
     <string name="sort_order_content_desc">வரிசைப்படுத்தும் முறை</string>

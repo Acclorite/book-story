@@ -9,8 +9,6 @@
     <string name="undo">Cofnij</string>
     <string name="copy">Kopiuj</string>
     <string name="dictionary">Słownik</string>
-    <string name="retry">Spróbuj ponownie</string>
-    <string name="confirm">Potwierdź</string>
     <string name="next">Dalej</string>
     <string name="no">Nie</string>
     <string name="done">Gotowe</string>
@@ -71,7 +69,6 @@
     <string name="delete_book">Usunąć książkę?</string>
     <string name="move_book">Przenieść książkę?</string>
     <string name="delete_history">Usunąć historię czytania?</string>
-    <string name="confirm_update">Potwierdzić aktualizację?</string>
     <string name="move_books_description">Wybierz kategorię, do której chcesz przenieść wszystkie wybrane książki (%1$s). Wszystkie wybrane książki zostaną przeniesione do wybranej kategorii.</string>
     <string name="delete_book_description">To spowoduje usunięcie tej książki z bazy danych, ale nie usunie jej z twojego urządzenia.</string>
     <string name="delete_history_description">To spowoduje usuniecie całej historii z bazy danych. Po usunięciu całej historii kolejność książek zostanie zresetowana.</string>
@@ -79,12 +76,8 @@
     <string name="error_permission">Potrzebujemy uprawnień do przechowywania, aby przeskanować Twoje urządzenie w poszukiwaniu książek</string>
     <string name="error_no_description">Brak opisu.</string>
     <string name="error_something_went_wrong">Coś poszło nie tak.</string>
-    <string name="error_something_went_wrong_with_file">Coś poszło nie tak. Sprawdź, czy plik tej książki nie jest uszkodzony.</string>
-    <string name="error_file_empty">Ten plik jest pusty lub uszkodzony.</string>
     <string name="error_no_dictionary">Nie znaleziono aplikacji słownikowej.</string>
     <string name="error_no_share_app">Nie znaleziono aplikacji do udostępniania.</string>
-    <string name="error_wrong_file_format">Niewłaściwy format pliku.</string>
-    <string name="error_query">Błąd:%1$s</string>
     <string name="error_closed_source">Zamknięte źródło</string>
     <string name="browse_empty">Rozszerz kolekcję książek biblioteki o swoje pobrane pliki</string>
     <string name="library_empty">Przeczytaj swoje ulubione książki i posortuj je między kategoriami</string>
@@ -138,7 +131,7 @@
     <string name="green_theme">Ziemia</string>
     <string name="press_again_toast">Naciśnij ponownie, aby wyjść</string>
     <string name="fast_color_preset_change_option_desc">Przesuń w lewo lub w prawo, aby zmienić ustawienie koloru</string>
-    <string name="error_no_text">Treść książki jest pusta. Upewnij się, że zawartość książki nie jest pusta i zaktualizuj ją.</string>
+    <string name="error_could_not_get_text">Treść książki jest pusta. Upewnij się, że zawartość książki nie jest pusta i zaktualizuj ją.</string>
     <string name="files_structure_directory">Katalogi</string>
     <string name="error_no_translator">Nie znaleziono aplikacji tłumacza.</string>
     <string name="update_app_description">Znaleziono nową wersję Book\'s Story. Chcesz ją pobrać? Klikając przycisk « Pobierz », zostaniesz przeniesiony do przeglądarki i automatycznie pobierzesz najnowszą aktualizację.</string>
@@ -204,7 +197,6 @@
     <string name="continue_reading_content_desc">Kontynuuj czytanie</string>
     <string name="github_profile_content_desc">Profil GitHub</string>
     <string name="move_this_book">Przenieś</string>
-    <string name="nothing_changed">Tekst książki jest aktualny.</string>
     <string name="help_desc_how_to_customize_reader_1">Zacznij czytać książkę (patrz: Jak mogę przeczytać książkę?), A następnie przynieś górne i dolne paski, klikając w dowolnym miejscu na ekranie. Następnie kliknij ikonę zębatki w prawym górnym rogu. Spowoduje to wyświetlenie wszystkich ustawień Czytnika. Drugim sposobem jest przejście do</string>
     <string name="color_preset_placeholder">Nazwij ustawienie…</string>
     <string name="browse_grid_size_option">Rozmiar siatki</string>
@@ -222,8 +214,6 @@
     <string name="no_updates">Najnowsza wersja aplikacji jest już zainstalowana.</string>
     <string name="cover_reset">Obraz okładki został pomyślnie zresetowany.</string>
     <string name="history_element_deleted">Element historii został pomyślnie usunięty.</string>
-    <string name="file_not_found">Plik „%1$s” nie został znaleziony.</string>
-    <string name="book_updated">Tekst książki został pomyślnie zaktualizowany.</string>
     <string name="file_last_opened">Plik ostatnio otwarty</string>
     <string name="file_size">Rozmiar pliku</string>
     <string name="unknown">Nieznany</string>
@@ -238,7 +228,6 @@
     <string name="credits_translation">Tłumaczenie</string>
     <string name="credits_ideas">Pomysły</string>
     <string name="help_desc_how_to_customize_reader_3">i wybierz kategorię Czytnik, aby dostosować ustawienia ogólne lub kategorię Wygląd, aby dostosować ustawienia kolorów.</string>
-    <string name="help_desc_how_to_update_book_2">Biblioteka</string>
     <string name="help_desc_how_to_manage_history_1">Idź do</string>
     <string name="help_desc_how_to_manage_history_2">Historia</string>
     <string name="help_desc_how_to_manage_history_3">Klikając przycisk usuwania po prawej stronie elementu historii, zostanie on usunięty. Historia wpływa na porządek książek w Bibliotece, usuwając element historii, zmieni również kolejność książki. Ostatnio otwarta książka jest zawsze pierwsza w bibliotece i historii.</string>
@@ -271,7 +260,6 @@
     <string name="start_permissions_preferences">Uprawnienia</string>
     <string name="start_permissions_granted">Przyznane</string>
     <string name="start_done_desc">Pomyślnie wykonałeś podstawowe ustawienie aplikacji. Czy chcesz dowiedzieć się, jak korzystać z aplikacji, czytając Pomoc?</string>
-    <string name="refresh_book_content_desc">Odśwież książkę</string>
     <string name="file_icon_content_desc">Plik</string>
     <string name="apply_changes_content_desc">Zastosuj zmiany</string>
     <string name="select_all_files_content_desc">Wybierz wszystkie pliki</string>
@@ -289,7 +277,6 @@
     <string name="history_content_desc">Historia czytania</string>
     <string name="delete_this_book">Usuń</string>
     <string name="exit_search_content_desc">Opuść wyszukiwanie</string>
-    <string name="confirm_update_description">Kliknięcie przycisku potwierdź spowoduje, że tekst tej książki zostanie zaktualizowany. Zapamiętaj, w którym miejscu przestałeś czytać przed aktualizacją tekstu.</string>
     <string name="books_moved">Wszystkie wybrane książki zostały pomyślnie przeniesione.</string>
     <string name="delete_whole_history_content_desc">Usuń całą historię</string>
     <string name="help_desc_how_to_add_books_2">Przeglądaj</string>
@@ -298,8 +285,6 @@
     <string name="help_desc_how_to_customize_app_1">Idź do</string>
     <string name="help_desc_how_to_customize_app_2">Ustawienia</string>
     <string name="help_desc_how_to_read_book_2">Biblioteka</string>
-    <string name="help_desc_how_to_update_book_1">Idź do</string>
-    <string name="help_desc_how_to_update_book_3">i kliknij obraz okładki książki, aby zobaczyć szczegóły książki. Przeciągnij w dół ekran lub kliknij ikonę odświeżania w prawym górnym rogu, aby zaktualizować książkę. Jeśli plik książki ulegnie zmianie, możesz potwierdzić i zaktualizować książkę lub anulować aktualizację.</string>
     <string name="help_title_how_to_manage_history">Jak mogę zarządzać historią?</string>
     <string name="help_title_how_to_use_color_presets">Jak mogę korzystać z ustawień kolorów?</string>
     <string name="start_welcome_desc">Do świata, w którym słowa oczarowują, uczą i prowadzą niesamowite przygody! Ustawmy kilka rzeczy!</string>
@@ -313,7 +298,6 @@
     <string name="whats_new_option">Co nowego</string>
     <string name="licenses_option">Licencje open source</string>
     <string name="help_desc_how_to_customize_reader_2">Ustawienia</string>
-    <string name="help_title_how_to_update_book">Jak mogę zaktualizować książkę?</string>
     <string name="directory_icon_content_desc">Katalog</string>
     <string name="error_content_desc">Błąd</string>
     <string name="search_content_desc">Szukaj</string>

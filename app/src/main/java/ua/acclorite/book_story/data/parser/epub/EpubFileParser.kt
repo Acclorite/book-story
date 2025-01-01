@@ -76,7 +76,6 @@ class EpubFileParser @Inject constructor() : FileParser {
                             title = title,
                             author = author,
                             description = description,
-                            textPath = "",
                             scrollIndex = 0,
                             scrollOffset = 0,
                             progress = 0f,

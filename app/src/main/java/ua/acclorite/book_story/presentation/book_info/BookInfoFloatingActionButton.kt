@@ -31,14 +31,11 @@ import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisib
 fun BoxScope.BookInfoFloatingActionButton(
     book: Book,
     listState: LazyListState,
-    isUpdating: Boolean,
     navigateToReader: () -> Unit
 ) {
     FloatingActionButton(
         onClick = {
-            if (!isUpdating) {
-                navigateToReader()
-            }
+            navigateToReader()
         },
         shape = MaterialTheme.shapes.large,
         modifier = Modifier

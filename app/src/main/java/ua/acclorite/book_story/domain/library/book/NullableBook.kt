@@ -5,14 +5,14 @@ import ua.acclorite.book_story.domain.ui.UIText
 
 @Immutable
 sealed class NullableBook(
-    val bookWithTextAndCover: BookWithTextAndCover?,
+    val bookWithCover: BookWithCover?,
     val fileName: String?,
     val message: UIText?
 ) {
     class NotNull(
-        bookWithTextAndCover: BookWithTextAndCover
+        bookWithCover: BookWithCover
     ) : NullableBook(
-        bookWithTextAndCover = bookWithTextAndCover,
+        bookWithCover = bookWithCover,
         fileName = null,
         message = null
     )
@@ -21,7 +21,7 @@ sealed class NullableBook(
         fileName: String,
         message: UIText?
     ) : NullableBook(
-        bookWithTextAndCover = null,
+        bookWithCover = null,
         fileName = fileName,
         message = message
     )

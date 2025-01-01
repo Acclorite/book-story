@@ -28,9 +28,7 @@
     <string name="delete_book">Видалити книгу?</string>
     <string name="move_book">Перемістити книгу?</string>
     <string name="delete_history">Видалити історію читання?</string>
-    <string name="confirm_update">Підтвердити оновлення?</string>
     <string name="enable_check_for_updates">Увімнкути перевірку на оновлення?</string>
-    <string name="update_book">Оновити книгу?</string>
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">
         Нам потрібен дозвіл на сховище, щоб просканувати Ваш Девайс на наявність книг.
@@ -61,10 +59,6 @@
         Це видалить всю історію з бази даних.
         Після видалення всієї історії порядок книг буде скинутий.
     </string>
-    <string name="confirm_update_description">
-        Оновіть текст та розділи цієї книги.
-        Прогрес повинен залишитися незмінним, якщо порядок параграфів не був змінений.
-    </string>
     <string name="update_app_description">
         Нова версія застосунку була знайдена.
         Чи бажаєте продовжити та перейти на сторінку релізу?
@@ -73,13 +67,6 @@
         Увімкнувши «Перевіряти на оновлення» застосунок буде отримувати інформацію про останній реліз
         з «api.github.com» кожен раз, коли застосунок запускається.
         Хочете продовжити та увімкнути «Перевіряти на оновлення»?
-    </string>
-    <string name="update_book_description">
-        Знайдено оновлення тексту книги.
-        Оновлення необхідне для того, щоб забезпечити використання найновіших методів парсингу.
-        Це автономний процес і в більшості випадків пов\'язаний з оновленням парсеру текста.
-        Ваш прогрес не постраждає, якщо не відбудуться значні зміни.
-        Чи бажаєте ви продовжити оновлення?
     </string>
     <!-- Errors -->
     <string name="error_permission">
@@ -91,17 +78,11 @@
     <string name="error_something_went_wrong">
         Який жах! Щось пішло не так.
     </string>
-    <string name="error_something_went_wrong_with_file">
-        Щось пішло не так. Будь ласка, перевірте чи файл цієї книги не пошкоджений.
-    </string>
-    <string name="error_wrong_file_format">Хибний формат файлу.</string>
-    <string name="error_query">Помилка: %1$s</string>
-    <string name="error_file_empty">Цей файл пустий або пошкоджений.</string>
     <string name="error_no_translator">Не знайдено жодного перекладача.</string>
     <string name="error_no_dictionary">Не знайдено жодного словника.</string>
     <string name="error_no_browser">Не знайдено жодного браузера.</string>
     <string name="error_no_share_app">Не знайдено застосунка щоб поділитися.</string>
-    <string name="error_no_text">
+    <string name="error_could_not_get_text">
         Вміст книги пустий. Будь ласка, перевірте вміст книги та оновіть її.
     </string>
     <string name="error_check_internet">
@@ -147,8 +128,6 @@
     <string name="copy">Копіювати</string>
     <string name="translate">Перекласти</string>
     <string name="dictionary">Словник</string>
-    <string name="retry">Ще раз</string>
-    <string name="confirm">Підтвердити</string>
     <string name="next">Далі</string>
     <string name="yes_go_to_help">Так, перейти в Довідку</string>
     <string name="no">Ні</string>
@@ -245,9 +224,6 @@
     </string>
     <string name="perception_expander_padding_option">Бокові відступи лінії</string>
     <string name="perception_expander_thickness_option">Товщина лінії</string>
-    <string name="check_for_text_update_option">Перевіряти на оновлення тексту</string>
-    <string name="check_for_text_update_option_desc">Автоматично перевіряти чи є оновлення тексту</string>
-    <string name="check_for_text_update_toast_option">Показувати повідомлення \"текст актуальний\"</string>
     <string name="screen_orientation_option">Орієнтація екрана</string>
     <string name="custom_screen_brightness_option">Користувацька яскравість</string>
     <string name="screen_brightness_option">Яскравість</string>
@@ -342,9 +318,6 @@
     <string name="cover_reset">Обкладинка була успішно скинута.</string>
     <!-- Snackbar messages -->
     <string name="history_element_deleted">Елемент історії був успішно видалений.</string>
-    <string name="file_not_found">Файл \"%1$s\" не знайдено.</string>
-    <string name="book_updated">Текст книги був успішно оновлений.</string>
-    <string name="nothing_changed">Текст актуальний.</string>
     <!-- DropDown properties -->
     <string name="move_this_book">Перемістити</string>
     <string name="delete_this_book">Видалити</string>
@@ -448,14 +421,6 @@
         та вибрати категорію Читач, щоб налаштувати Головні параметри,
         або категорію Зовнішній Вигляд, щоб налаштувати параметри Кольорів.
     </string>
-    <string name="help_title_how_to_update_book">Як мені оновити книгу?</string>
-    <string name="help_desc_how_to_update_book_1">Перейдіть в</string>
-    <string name="help_desc_how_to_update_book_2">Бібліотеку</string>
-    <string name="help_desc_how_to_update_book_3">
-        та натісніть на обкладинку книги, щоб побачити подробиці книги.
-        Потягніть екран вниз або натисніть на іконку оновлення у верхньому правому куті, щоб оновити книгу.
-        Якщо файл книги змінився, ви можете підтвердити і оновити книгу або скасувати оновлення.
-    </string>
     <string name="help_title_how_to_manage_history">Як керувати історією?</string>
     <string name="help_desc_how_to_manage_history_1">Перейдіть в</string>
     <string name="help_desc_how_to_manage_history_2">Історію</string>
@@ -535,7 +500,6 @@
     <string name="today">Сьогодні</string>
     <string name="yesterday">Вчора</string>
     <!-- Content description -->
-    <string name="refresh_book_content_desc">Оновити книгу</string>
     <string name="continue_reading_content_desc">Продовжити читання</string>
     <string name="go_back_content_desc">Назад</string>
     <string name="cover_image_content_desc">Обкладинка</string>
@@ -579,6 +543,5 @@
     <string name="checkpoint_back_content_desc">Чекпоінт назад</string>
     <string name="checkpoint_forward_content_desc">Чекпоінт вперед</string>
     <string name="chapters_content_desc">Розділи</string>
-    <string name="update_text_content_desc">Оновити текст</string>
     <string name="more_content_desc">Більше</string>
 </resources>
