@@ -560,13 +560,18 @@ class ReaderModel @Inject constructor(
     }
 
     private fun findCurrentChapter(index: Int): Chapter? {
-        for (textIndex in index downTo 0) {
-            val readerText = _state.value.text[textIndex]
-            if (readerText is Chapter) {
-                return readerText
+        return try {
+            for (textIndex in index downTo 0) {
+                val readerText = _state.value.text.getOrNull(textIndex) ?: break
+                if (readerText is Chapter) {
+                    return readerText
+                }
             }
+            null
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
-        return null
     }
 
     private fun calculateProgress(firstVisibleItemIndex: Int? = null): Float {
