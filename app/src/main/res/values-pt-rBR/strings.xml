@@ -248,4 +248,9 @@
     <string name="horizontal_gesture_sensitivity_option">Sensibilidade</string>
     <string name="horizontal_gesture_off">Desativar</string>
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
+    <string name="error_permission">Precisamos de permissão de armazenamento para escanear seu dispositivo em busca de livros</string>
+    <string name="error_no_browser">Nenhum aplicativo de navegador encontrado.</string>
+    <string name="error_no_share_app">Nenhum aplicativo para compartilhar encontrado.</string>
+    <string name="error_no_dictionary">Nenhum aplicativo de dicionário encontrado.</string>
+    <string name="error_no_translator">Nenhum aplicativo tradutor encontrado.</string>
 </resources>
