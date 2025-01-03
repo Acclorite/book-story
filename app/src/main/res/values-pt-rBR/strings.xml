@@ -283,4 +283,20 @@
     <string name="yes_go_to_help">Sim, ir para Ajuda</string>
     <string name="perception_expander_option">Expansor de percepção</string>
     <string name="perception_expander_padding_option">Margem lateral da linha</string>
+    <string name="help_desc_how_to_read_book_1"></string>
+    <string name="delete_color_preset_content_desc"></string>
+    <string name="delete_books_content_desc"></string>
+    <string name="move_books_content_desc"></string>
+    <string name="select_all_files_content_desc"></string>
+    <string name="file_last_opened"></string>
+    <string name="help_desc_how_to_edit_book_1"></string>
+    <string name="history_deleted"></string>
+    <string name="help_desc_how_to_add_books_1"></string>
+    <string name="cover_image_not_found_content_desc"></string>
+    <string name="help_desc_how_to_customize_app_1"></string>
+    <string name="delete_whole_history_content_desc"></string>
+    <string name="open_in_web_content_desc"></string>
+    <string name="yellow2_theme"></string>
+    <string name="color_preset_placeholder"></string>
+    <string name="help_desc_how_to_move_or_delete_books_1"></string>
 </resources>
