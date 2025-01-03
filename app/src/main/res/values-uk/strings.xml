@@ -47,7 +47,9 @@
     <string name="error_no_dictionary">Не знайдено жодного словника.</string>
     <string name="error_no_browser">Не знайдено жодного браузера.</string>
     <string name="error_no_share_app">Не знайдено застосунка щоб поділитися.</string>
-    <string name="error_could_not_get_text">Вміст книги пустий. Будь ласка, перевірте вміст книги та оновіть її.</string>
+    <string name="error_could_not_get_text">
+        Файл порожній, пошкоджений або його не існує. Будь ласка, перевірте і спробуйте знову.
+    </string>
     <string name="error_check_internet">Щось пішло не так. Спробуйте пізніше.</string>
     <string name="error_could_not_reset_cover">Не вдалося скинути обкладинку.</string>
     <string name="error_closed_source">Закритий код</string>
