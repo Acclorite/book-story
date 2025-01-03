@@ -3,8 +3,10 @@ package ua.acclorite.book_story.presentation.reader
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import ua.acclorite.book_story.domain.reader.FontWithName
@@ -22,12 +24,15 @@ fun LazyItemScope.ReaderLayoutText(
     lineHeight: TextUnit,
     fontStyle: FontStyle,
     textAlignment: ReaderTextAlignment,
+    horizontalAlignment: Alignment.Horizontal,
     fontSize: TextUnit,
     letterSpacing: TextUnit,
     sidePadding: Dp,
     paragraphIndentation: TextUnit,
     fullscreenMode: Boolean,
     doubleClickTranslation: Boolean,
+    highlightedReading: Boolean,
+    highlightedReadingThickness: FontWeight,
     toolbarHidden: Boolean,
     openTranslator: (ReaderEvent.OnOpenTranslator) -> Unit,
     menuVisibility: (ReaderEvent.OnMenuVisibility) -> Unit
@@ -44,7 +49,9 @@ fun LazyItemScope.ReaderLayoutText(
             ReaderLayoutTextChapter(
                 chapter = textEntry,
                 fontColor = fontColor,
-                sidePadding = sidePadding
+                sidePadding = sidePadding,
+                highlightedReading = highlightedReading,
+                highlightedReadingThickness = highlightedReadingThickness
             )
         }
 
@@ -58,12 +65,15 @@ fun LazyItemScope.ReaderLayoutText(
                 lineHeight = lineHeight,
                 fontStyle = fontStyle,
                 textAlignment = textAlignment,
+                horizontalAlignment = horizontalAlignment,
                 fontSize = fontSize,
                 letterSpacing = letterSpacing,
                 sidePadding = sidePadding,
                 paragraphIndentation = paragraphIndentation,
                 fullscreenMode = fullscreenMode,
                 doubleClickTranslation = doubleClickTranslation,
+                highlightedReading = highlightedReading,
+                highlightedReadingThickness = highlightedReadingThickness,
                 toolbarHidden = toolbarHidden,
                 openTranslator = openTranslator,
                 menuVisibility = menuVisibility

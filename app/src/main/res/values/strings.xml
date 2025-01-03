@@ -246,6 +246,9 @@
     <string name="horizontal_gesture_scroll_option">Scroll fraction</string>
     <string name="horizontal_gesture_sensitivity_option">Sensitivity</string>
     <string name="bottom_bar_padding_option">Bottom bar margin</string>
+    <string name="highlighted_reading_option">Highlight words</string>
+    <string name="highlighted_reading_option_desc">Highlight the beginning of each word</string>
+    <string name="highlighted_reading_thickness_option">Highlight thickness</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>

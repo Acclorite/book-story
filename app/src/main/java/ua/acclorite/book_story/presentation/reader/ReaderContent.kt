@@ -4,9 +4,11 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import ua.acclorite.book_story.domain.library.book.Book
@@ -46,6 +48,8 @@ fun ReaderContent(
     horizontalGesture: ReaderHorizontalGesture,
     horizontalGestureScroll: Float,
     horizontalGestureSensitivity: Dp,
+    highlightedReading: Boolean,
+    highlightedReadingThickness: FontWeight,
     paragraphHeight: Dp,
     sidePadding: Dp,
     bottomBarPadding: Dp,
@@ -55,6 +59,7 @@ fun ReaderContent(
     lineHeight: TextUnit,
     fontStyle: FontStyle,
     textAlignment: ReaderTextAlignment,
+    horizontalAlignment: Alignment.Horizontal,
     fontSize: TextUnit,
     letterSpacing: TextUnit,
     paragraphIndentation: TextUnit,
@@ -107,6 +112,8 @@ fun ReaderContent(
         horizontalGesture = horizontalGesture,
         horizontalGestureScroll = horizontalGestureScroll,
         horizontalGestureSensitivity = horizontalGestureSensitivity,
+        highlightedReading = highlightedReading,
+        highlightedReadingThickness = highlightedReadingThickness,
         paragraphHeight = paragraphHeight,
         sidePadding = sidePadding,
         bottomBarPadding = bottomBarPadding,
@@ -116,6 +123,7 @@ fun ReaderContent(
         lineHeight = lineHeight,
         fontStyle = fontStyle,
         textAlignment = textAlignment,
+        horizontalAlignment = horizontalAlignment,
         fontSize = fontSize,
         letterSpacing = letterSpacing,
         paragraphIndentation = paragraphIndentation,

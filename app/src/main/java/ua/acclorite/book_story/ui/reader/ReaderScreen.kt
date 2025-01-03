@@ -19,12 +19,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
@@ -161,6 +163,22 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
         }
         val horizontalGestureSensitivity = remember(mainState.value.horizontalGestureSensitivity) {
             (36f + mainState.value.horizontalGestureSensitivity * (4f - 36f)).dp
+        }
+        val highlightedReadingThickness = remember(mainState.value.highlightedReadingThickness) {
+            when (mainState.value.highlightedReadingThickness) {
+                2 -> FontWeight.W600
+                3 -> FontWeight.W700
+                4 -> FontWeight.W800
+                5 -> FontWeight.W900
+                else -> FontWeight.W500
+            }
+        }
+        val horizontalAlignment = remember(mainState.value.textAlignment) {
+            when (mainState.value.textAlignment) {
+                ReaderTextAlignment.START, ReaderTextAlignment.JUSTIFY -> Alignment.Start
+                ReaderTextAlignment.CENTER -> Alignment.CenterHorizontally
+                ReaderTextAlignment.END -> Alignment.End
+            }
         }
 
         val density = LocalDensity.current
@@ -309,6 +327,8 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             horizontalGesture = mainState.value.horizontalGesture,
             horizontalGestureScroll = mainState.value.horizontalGestureScroll,
             horizontalGestureSensitivity = horizontalGestureSensitivity,
+            highlightedReading = mainState.value.highlightedReading,
+            highlightedReadingThickness = highlightedReadingThickness,
             paragraphHeight = paragraphHeight,
             sidePadding = sidePadding,
             bottomBarPadding = bottomBarPadding,
@@ -318,6 +338,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             lineHeight = lineHeight,
             fontStyle = fontStyle,
             textAlignment = mainState.value.textAlignment,
+            horizontalAlignment = horizontalAlignment,
             fontSize = mainState.value.fontSize.sp,
             letterSpacing = letterSpacing,
             paragraphIndentation = paragraphIndentation,

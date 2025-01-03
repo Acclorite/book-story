@@ -47,4 +47,6 @@ sealed class MainEvent {
     data class OnChangeHorizontalGestureScroll(val value: Float) : MainEvent()
     data class OnChangeHorizontalGestureSensitivity(val value: Float) : MainEvent()
     data class OnChangeBottomBarPadding(val value: Int) : MainEvent()
+    data class OnChangeHighlightedReading(val value: Boolean) : MainEvent()
+    data class OnChangeHighlightedReadingThickness(val value: Int) : MainEvent()
 }

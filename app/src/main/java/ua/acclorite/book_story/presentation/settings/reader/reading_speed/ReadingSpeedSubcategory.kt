@@ -9,6 +9,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategory
+import ua.acclorite.book_story.presentation.settings.reader.reading_speed.components.HighlightedReadingOption
+import ua.acclorite.book_story.presentation.settings.reader.reading_speed.components.HighlightedReadingThicknessOption
 import ua.acclorite.book_story.presentation.settings.reader.reading_speed.components.PerceptionExpanderOption
 import ua.acclorite.book_story.presentation.settings.reader.reading_speed.components.PerceptionExpanderPaddingOption
 import ua.acclorite.book_story.presentation.settings.reader.reading_speed.components.PerceptionExpanderThicknessOption
@@ -25,6 +27,14 @@ fun LazyListScope.ReadingSpeedSubcategory(
         showTitle = showTitle,
         showDivider = showDivider
     ) {
+        item {
+            HighlightedReadingOption()
+        }
+
+        item {
+            HighlightedReadingThicknessOption()
+        }
+
         item {
             PerceptionExpanderOption()
         }

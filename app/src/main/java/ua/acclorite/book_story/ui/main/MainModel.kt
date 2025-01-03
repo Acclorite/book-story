@@ -398,6 +398,22 @@ class MainModel @Inject constructor(
                     it.copy(bottomBarPadding = this)
                 }
             )
+
+            is MainEvent.OnChangeHighlightedReading -> handleDatastoreUpdate(
+                key = DataStoreConstants.HIGHLIGHTED_READING,
+                value = event.value,
+                updateState = {
+                    it.copy(highlightedReading = this)
+                }
+            )
+
+            is MainEvent.OnChangeHighlightedReadingThickness -> handleDatastoreUpdate(
+                key = DataStoreConstants.HIGHLIGHTED_READING_THICKNESS,
+                value = event.value,
+                updateState = {
+                    it.copy(highlightedReadingThickness = this)
+                }
+            )
         }
     }
 

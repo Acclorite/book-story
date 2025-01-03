@@ -12,9 +12,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.coerceAtLeast
@@ -40,6 +42,8 @@ fun ReaderLayout(
     horizontalGesture: ReaderHorizontalGesture,
     horizontalGestureScroll: Float,
     horizontalGestureSensitivity: Dp,
+    highlightedReading: Boolean,
+    highlightedReadingThickness: FontWeight,
     paragraphHeight: Dp,
     sidePadding: Dp,
     backgroundColor: Color,
@@ -48,6 +52,7 @@ fun ReaderLayout(
     lineHeight: TextUnit,
     fontStyle: FontStyle,
     textAlignment: ReaderTextAlignment,
+    horizontalAlignment: Alignment.Horizontal,
     fontSize: TextUnit,
     letterSpacing: TextUnit,
     paragraphIndentation: TextUnit,
@@ -156,12 +161,15 @@ fun ReaderLayout(
                     lineHeight = lineHeight,
                     fontStyle = fontStyle,
                     textAlignment = textAlignment,
+                    horizontalAlignment = horizontalAlignment,
                     fontSize = fontSize,
                     letterSpacing = letterSpacing,
                     sidePadding = sidePadding,
                     paragraphIndentation = paragraphIndentation,
                     fullscreenMode = fullscreenMode,
                     doubleClickTranslation = doubleClickTranslation,
+                    highlightedReading = highlightedReading,
+                    highlightedReadingThickness = highlightedReadingThickness,
                     toolbarHidden = toolbarHidden,
                     openTranslator = openTranslator,
                     menuVisibility = menuVisibility

@@ -90,6 +90,8 @@ data class MainState(
     val horizontalGestureScroll: Float = provideDefaultValue { 0.7f },
     val horizontalGestureSensitivity: Float = provideDefaultValue { 0.6f },
     val bottomBarPadding: Int = provideDefaultValue { 0 },
+    val highlightedReading: Boolean = provideDefaultValue { false },
+    val highlightedReadingThickness: Int = provideDefaultValue { 3 },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -295,6 +297,14 @@ data class MainState(
                     bottomBarPadding = provideValue(
                         BOTTOM_BAR_PADDING
                     ) { bottomBarPadding },
+
+                    highlightedReading = provideValue(
+                        HIGHLIGHTED_READING
+                    ) { highlightedReading },
+
+                    highlightedReadingThickness = provideValue(
+                        HIGHLIGHTED_READING_THICKNESS
+                    ) { highlightedReadingThickness },
                 )
             }
         }
