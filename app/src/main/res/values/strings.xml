@@ -230,7 +230,7 @@
     <string name="cutout_padding_option">Cutout margin</string>
     <string name="cutout_padding_option_desc">Apply margin to the cutout area</string>
     <string name="fullscreen_option">Fullscreen</string>
-    <string name="fullscreen_option_desc">Hide system bars and remove margins</string>
+    <string name="fullscreen_option_desc">Hide system bars and margins</string>
     <string name="keep_screen_on_option">Keep screen on</string>
     <string name="hide_bars_on_fast_scroll_option">Hide bars on fast scroll</string>
     <string name="perception_expander_option">Perception expander</string>
