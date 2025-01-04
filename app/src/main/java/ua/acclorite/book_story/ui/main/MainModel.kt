@@ -414,6 +414,14 @@ class MainModel @Inject constructor(
                     it.copy(highlightedReadingThickness = this)
                 }
             )
+
+            is MainEvent.OnChangeChapterTitleAlignment -> handleDatastoreUpdate(
+                key = DataStoreConstants.CHAPTER_TITLE_ALIGNMENT,
+                value = event.value,
+                updateState = {
+                    it.copy(chapterTitleAlignment = toTextAlignment())
+                }
+            )
         }
     }
 

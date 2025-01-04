@@ -70,7 +70,7 @@ data class MainState(
     val verticalPadding: Int = provideDefaultValue { 0 },
     val doubleClickTranslation: Boolean = provideDefaultValue { false },
     val fastColorPresetChange: Boolean = provideDefaultValue { true },
-    val textAlignment: ReaderTextAlignment = provideDefaultValue { ReaderTextAlignment.START },
+    val textAlignment: ReaderTextAlignment = provideDefaultValue { ReaderTextAlignment.JUSTIFY },
     val letterSpacing: Int = provideDefaultValue { 0 },
     val cutoutPadding: Boolean = provideDefaultValue { false },
     val fullscreen: Boolean = provideDefaultValue { true },
@@ -92,6 +92,7 @@ data class MainState(
     val bottomBarPadding: Int = provideDefaultValue { 0 },
     val highlightedReading: Boolean = provideDefaultValue { false },
     val highlightedReadingThickness: Int = provideDefaultValue { 2 },
+    val chapterTitleAlignment: ReaderTextAlignment = provideDefaultValue { ReaderTextAlignment.JUSTIFY },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -305,6 +306,10 @@ data class MainState(
                     highlightedReadingThickness = provideValue(
                         HIGHLIGHTED_READING_THICKNESS
                     ) { highlightedReadingThickness },
+
+                    chapterTitleAlignment = provideValue(
+                        CHAPTER_TITLE_ALIGNMENT, convert = { toTextAlignment() }
+                    ) { chapterTitleAlignment },
                 )
             }
         }

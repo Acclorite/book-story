@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategory
+import ua.acclorite.book_story.presentation.settings.reader.text.components.ChapterTitleAlignmentOption
 import ua.acclorite.book_story.presentation.settings.reader.text.components.LineHeightOption
 import ua.acclorite.book_story.presentation.settings.reader.text.components.ParagraphHeightOption
 import ua.acclorite.book_story.presentation.settings.reader.text.components.ParagraphIndentationOption
@@ -28,6 +29,10 @@ fun LazyListScope.TextSubcategory(
     ) {
         item {
             TextAlignmentOption()
+        }
+
+        item {
+            ChapterTitleAlignmentOption()
         }
 
         item {

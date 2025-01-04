@@ -23,6 +23,7 @@ fun LazyItemScope.ReaderLayoutText(
     fontColor: Color,
     lineHeight: TextUnit,
     fontStyle: FontStyle,
+    chapterTitleAlignment: ReaderTextAlignment,
     textAlignment: ReaderTextAlignment,
     horizontalAlignment: Alignment.Horizontal,
     fontSize: TextUnit,
@@ -48,6 +49,7 @@ fun LazyItemScope.ReaderLayoutText(
         is ReaderText.Chapter -> {
             ReaderLayoutTextChapter(
                 chapter = textEntry,
+                chapterTitleAlignment = chapterTitleAlignment,
                 fontColor = fontColor,
                 sidePadding = sidePadding,
                 highlightedReading = highlightedReading,

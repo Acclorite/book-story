@@ -1,6 +1,7 @@
 package ua.acclorite.book_story.presentation.reader
 
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
@@ -16,11 +17,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
+import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.presentation.core.components.common.HighlightedText
 
 @Composable
 fun ReaderLayoutTextChapter(
     chapter: Chapter,
+    chapterTitleAlignment: ReaderTextAlignment,
     fontColor: Color,
     sidePadding: Dp,
     highlightedReading: Boolean,
@@ -34,16 +37,22 @@ fun ReaderLayoutTextChapter(
             },
             highlightThickness = highlightedReadingThickness,
             style = MaterialTheme.typography.headlineMedium.copy(
-                color = fontColor
+                color = fontColor,
+                textAlign = chapterTitleAlignment.textAlignment
             ),
-            modifier = Modifier.padding(horizontal = sidePadding)
+            modifier = Modifier
+                .padding(horizontal = sidePadding)
+                .fillMaxWidth()
         )
     } else {
         Text(
             text = chapter.title,
+            textAlign = chapterTitleAlignment.textAlignment,
             style = MaterialTheme.typography.headlineMedium,
             color = fontColor,
-            modifier = Modifier.padding(horizontal = sidePadding)
+            modifier = Modifier
+                .padding(horizontal = sidePadding)
+                .fillMaxWidth()
         )
     }
     Spacer(modifier = Modifier.height(16.dp))

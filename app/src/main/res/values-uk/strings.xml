@@ -173,6 +173,7 @@
     <string name="fast_color_preset_change_option">Швидка зміна пресета кольорів</string>
     <string name="fast_color_preset_change_option_desc">Проведіть верхню панель вліво або вправо, щоб змінити пресет кольорів</string>
     <string name="text_alignment_option">Розташування текста</string>
+    <string name="chapter_title_alignment_option">Розташування заголовка розділу</string>
     <string name="letter_spacing_option">Відстань між літерами</string>
     <string name="cutout_padding_option">Поле вирізу</string>
     <string name="cutout_padding_option_desc">Додайте поле до області вирізу</string>
