@@ -26,7 +26,6 @@ import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
 import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
-import ua.acclorite.book_story.domain.ui.UIText
 import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
 import ua.acclorite.book_story.ui.reader.ReaderEvent
 import ua.acclorite.book_story.ui.settings.SettingsEvent
@@ -45,7 +44,6 @@ fun ReaderScaffold(
     perceptionExpanderThickness: Dp,
     currentChapterProgress: Float,
     isLoading: Boolean,
-    errorMessage: UIText?,
     checkpoint: Checkpoint,
     showMenu: Boolean,
     lockMenu: Boolean,
@@ -178,11 +176,8 @@ fun ReaderScaffold(
             perceptionExpanderColor = fontColor
         )
 
-        ReaderLoadingIndicator(
-            isLoading = isLoading,
-            errorMessage = errorMessage,
-            leave = leave,
-            navigateBack = navigateBack
-        )
+        if (isLoading) {
+            ReaderLoadingPlaceholder()
+        }
     }
 }

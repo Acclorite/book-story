@@ -140,8 +140,7 @@ class ReaderModel @Inject constructor(
                         yield()
 
                         systemBarsVisibility(
-                            show = shouldShow,
-                            fullscreenMode = event.fullscreenMode,
+                            show = shouldShow || !event.fullscreenMode,
                             activity = event.activity
                         )
                         _state.update {
@@ -482,11 +481,7 @@ class ReaderModel @Inject constructor(
                     activity = activity
                 )
             )
-            onEvent(
-                ReaderEvent.OnLoadText(
-                    context = activity
-                )
-            )
+            onEvent(ReaderEvent.OnLoadText)
         }
     }
 
@@ -599,18 +594,20 @@ class ReaderModel @Inject constructor(
         }
     }
 
-    private fun systemBarsVisibility(
+    private suspend fun systemBarsVisibility(
         show: Boolean,
-        fullscreenMode: Boolean,
         activity: ComponentActivity
     ) {
-        WindowCompat.getInsetsController(
-            activity.window,
-            activity.window.decorView
-        ).apply {
-            systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-            if (show || !fullscreenMode) show(WindowInsetsCompat.Type.systemBars())
-            else hide(WindowInsetsCompat.Type.systemBars())
+        withContext(Dispatchers.Main) {
+            WindowCompat.getInsetsController(
+                activity.window,
+                activity.window.decorView
+            ).apply {
+                systemBarsBehavior =
+                    WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                if (show) show(WindowInsetsCompat.Type.systemBars())
+                else hide(WindowInsetsCompat.Type.systemBars())
+            }
         }
     }
 

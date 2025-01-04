@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.ui.reader
 
-import android.content.Context
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
@@ -8,9 +7,7 @@ import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
 @Immutable
 sealed class ReaderEvent {
 
-    data class OnLoadText(
-        val context: Context
-    ) : ReaderEvent()
+    data object OnLoadText : ReaderEvent()
 
     data class OnMenuVisibility(
         val show: Boolean,
