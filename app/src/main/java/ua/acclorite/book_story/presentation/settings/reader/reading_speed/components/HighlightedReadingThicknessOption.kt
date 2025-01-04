@@ -17,9 +17,11 @@ fun HighlightedReadingThicknessOption() {
 
     ExpandingTransition(visible = state.value.highlightedReading) {
         SliderWithTitle(
-            value = state.value.highlightedReadingThickness to "pt",
+            value = state.value.highlightedReadingThickness.to(
+                " ${stringResource(R.string.highlighted_reading_level)}"
+            ),
             fromValue = 1,
-            toValue = 5,
+            toValue = 3,
             title = stringResource(id = R.string.highlighted_reading_thickness_option),
             onValueChange = {
                 mainModel.onEvent(

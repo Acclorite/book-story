@@ -264,6 +264,9 @@
     <string name="horizontal_gesture_on">Ввімкнений</string>
     <string name="horizontal_gesture_inverse">Ввімкнений (Інвертований)</string>
 
+    <!-- Highlighted Reading properties -->
+    <string name="highlighted_reading_level">рівень</string>
+
     <!-- Themes -->
     <string name="dynamic_theme">Меркурій</string>
     <string name="blue_theme">Нептун</string>

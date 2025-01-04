@@ -91,7 +91,7 @@ data class MainState(
     val horizontalGestureSensitivity: Float = provideDefaultValue { 0.6f },
     val bottomBarPadding: Int = provideDefaultValue { 0 },
     val highlightedReading: Boolean = provideDefaultValue { false },
-    val highlightedReadingThickness: Int = provideDefaultValue { 3 },
+    val highlightedReadingThickness: Int = provideDefaultValue { 2 },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {

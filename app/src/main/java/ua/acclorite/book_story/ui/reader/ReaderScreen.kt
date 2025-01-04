@@ -172,11 +172,9 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
         }
         val highlightedReadingThickness = remember(mainState.value.highlightedReadingThickness) {
             when (mainState.value.highlightedReadingThickness) {
-                2 -> FontWeight.W600
-                3 -> FontWeight.W700
-                4 -> FontWeight.W800
-                5 -> FontWeight.W900
-                else -> FontWeight.W500
+                2 -> FontWeight.SemiBold
+                3 -> FontWeight.Bold
+                else -> FontWeight.Medium
             }
         }
         val horizontalAlignment = remember(mainState.value.textAlignment) {

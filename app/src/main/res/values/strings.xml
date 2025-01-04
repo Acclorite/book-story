@@ -321,6 +321,9 @@
     <string name="horizontal_gesture_on">On</string>
     <string name="horizontal_gesture_inverse">On (Inverse)</string>
 
+    <!-- Highlighted Reading properties -->
+    <string name="highlighted_reading_level">level</string>
+
     <!-- Themes -->
     <string name="dynamic_theme">Mercury</string>
     <string name="blue_theme">Neptune</string>
