@@ -68,6 +68,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
         val settingsState = settingsModel.state.collectAsStateWithLifecycle()
 
         val activity = LocalActivity.current
+        val density = LocalDensity.current
         val listState = rememberSaveable(
             state.value.listState,
             saver = LazyListState.Saver
@@ -129,8 +130,13 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
         val verticalPadding = remember(mainState.value.verticalPadding) {
             (mainState.value.verticalPadding * 4.5f).dp
         }
-        val paragraphHeight = remember(mainState.value.paragraphHeight) {
-            (mainState.value.paragraphHeight * 3).dp
+        val paragraphHeight = remember(
+            mainState.value.paragraphHeight,
+            mainState.value.lineHeight
+        ) {
+            ((mainState.value.paragraphHeight * 3).dp).coerceAtLeast(
+                with(density) { mainState.value.lineHeight.sp.toDp().value * 0.5f }.dp
+            )
         }
         val fontStyle = remember(mainState.value.isItalic) {
             when (mainState.value.isItalic) {
@@ -181,7 +187,6 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             }
         }
 
-        val density = LocalDensity.current
         val layoutDirection = LocalLayoutDirection.current
         val cutoutInsets = WindowInsets.displayCutout
         val systemBarsInsets = WindowInsets.systemBarsIgnoringVisibility
