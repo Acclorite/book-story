@@ -1,6 +1,8 @@
 package ua.acclorite.book_story.data.parser
 
 import android.util.Log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.data.parser.epub.EpubTextParser
 import ua.acclorite.book_story.data.parser.fb2.Fb2TextParser
 import ua.acclorite.book_story.data.parser.html.HtmlTextParser
@@ -13,10 +15,13 @@ import javax.inject.Inject
 private const val TEXT_PARSER = "Text Parser"
 
 class TextParserImpl @Inject constructor(
+    // Markdown parser (Markdown)
     private val txtTextParser: TxtTextParser,
     private val pdfTextParser: PdfTextParser,
-    private val epubTextParser: EpubTextParser,
     private val fb2TextParser: Fb2TextParser,
+
+    // Document parser (HTML+Markdown)
+    private val epubTextParser: EpubTextParser,
     private val htmlTextParser: HtmlTextParser
 ) : TextParser {
     override suspend fun parse(file: File): List<ReaderText> {
@@ -26,42 +31,44 @@ class TextParserImpl @Inject constructor(
         }
 
         val fileFormat = ".${file.extension}".lowercase().trim()
-        return when (fileFormat) {
-            ".pdf" -> {
-                pdfTextParser.parse(file)
-            }
+        return withContext(Dispatchers.IO) {
+            when (fileFormat) {
+                ".pdf" -> {
+                    pdfTextParser.parse(file)
+                }
 
-            ".epub" -> {
-                epubTextParser.parse(file)
-            }
+                ".epub" -> {
+                    epubTextParser.parse(file)
+                }
 
-            ".txt" -> {
-                txtTextParser.parse(file)
-            }
+                ".txt" -> {
+                    txtTextParser.parse(file)
+                }
 
-            ".fb2" -> {
-                fb2TextParser.parse(file)
-            }
+                ".fb2" -> {
+                    fb2TextParser.parse(file)
+                }
 
-            ".zip" -> {
-                epubTextParser.parse(file)
-            }
+                ".zip" -> {
+                    epubTextParser.parse(file)
+                }
 
-            ".html" -> {
-                htmlTextParser.parse(file)
-            }
+                ".html" -> {
+                    htmlTextParser.parse(file)
+                }
 
-            ".htm" -> {
-                htmlTextParser.parse(file)
-            }
+                ".htm" -> {
+                    htmlTextParser.parse(file)
+                }
 
-            ".md" -> {
-                htmlTextParser.parse(file)
-            }
+                ".md" -> {
+                    htmlTextParser.parse(file)
+                }
 
-            else -> {
-                Log.e(TEXT_PARSER, "Wrong file format, could not find supported extension.")
-                emptyList()
+                else -> {
+                    Log.e(TEXT_PARSER, "Wrong file format, could not find supported extension.")
+                    emptyList()
+                }
             }
         }
     }
