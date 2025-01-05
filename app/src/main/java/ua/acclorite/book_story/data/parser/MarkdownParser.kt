@@ -68,6 +68,7 @@ class MarkdownParser @Inject constructor(
                     )
                 ) {
                     parseChildren(node)
+                    append(" (${node.destination})")
                 }
             }
 

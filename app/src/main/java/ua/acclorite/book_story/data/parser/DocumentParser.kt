@@ -43,10 +43,15 @@ class DocumentParser @Inject constructor(
             select("strong").append("**").prepend("**")
             select("em").append("_").prepend("_")
             select("a").forEach { element ->
-                val link = element.attr("href")
+                var link = element.attr("href")
                 if (!link.startsWith("http") || element.wholeText().isBlank()) return@forEach
 
-                element.prepend("[")/* text in between */.append("](${element.attr("href")})")
+                if (link.startsWith("http://")) {
+                    link = link.replace("http://", "https://")
+                }
+
+                element.prepend("[")
+                element.append("]($link)")
             }
         }.wholeText().lines().forEachIndexed { index, line ->
             yield()
