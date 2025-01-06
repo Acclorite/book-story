@@ -33,7 +33,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.library.book.SelectableBook
-import ua.acclorite.book_story.presentation.core.components.common.AsyncImage
+import ua.acclorite.book_story.presentation.core.components.common.AsyncCoverImage
 import ua.acclorite.book_story.presentation.core.util.calculateProgress
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -85,7 +85,7 @@ fun LazyGridItemScope.LibraryItem(
                 )
         ) {
             if (book.data.coverImage != null) {
-                AsyncImage(
+                AsyncCoverImage(
                     uri = book.data.coverImage,
                     modifier = Modifier
                         .fillMaxSize()

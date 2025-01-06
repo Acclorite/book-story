@@ -14,7 +14,7 @@ import ua.acclorite.book_story.R
  * Custom Cover Image. Has smooth appearing.
  */
 @Composable
-fun AsyncImage(
+fun AsyncCoverImage(
     uri: Uri,
     animationDurationMillis: Int = 100,
     contentDescription: String? = stringResource(id = R.string.cover_image_content_desc),

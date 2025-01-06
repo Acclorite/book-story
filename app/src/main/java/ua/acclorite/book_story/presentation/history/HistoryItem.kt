@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.history.History
-import ua.acclorite.book_story.presentation.core.components.common.AsyncImage
+import ua.acclorite.book_story.presentation.core.components.common.AsyncCoverImage
 import ua.acclorite.book_story.presentation.core.components.common.IconButton
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import java.text.SimpleDateFormat
@@ -75,7 +75,7 @@ fun LazyItemScope.HistoryItem(
                     )
             ) {
                 if (historyEntry.book?.coverImage != null) {
-                    AsyncImage(
+                    AsyncCoverImage(
                         uri = historyEntry.book.coverImage,
                         modifier = Modifier
                             .fillMaxSize()

@@ -36,7 +36,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.presentation.core.components.common.AsyncImage
+import ua.acclorite.book_story.presentation.core.components.common.AsyncCoverImage
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.ui.book_info.BookInfoEvent
 
@@ -81,7 +81,7 @@ fun BookInfoLayoutInfo(
                 )
         ) {
             if (book.coverImage != null) {
-                AsyncImage(
+                AsyncCoverImage(
                     uri = book.coverImage,
                     modifier = Modifier
                         .fillMaxSize()

@@ -12,13 +12,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.core.components.common.AsyncImage
+import ua.acclorite.book_story.presentation.core.components.common.AsyncCoverImage
 
 @Composable
 fun BookInfoLayoutBackground(height: Dp, image: Uri) {
     val background = MaterialTheme.colorScheme.surface
 
-    AsyncImage(
+    AsyncCoverImage(
         uri = image,
         animationDurationMillis = 300,
         contentDescription = null,
