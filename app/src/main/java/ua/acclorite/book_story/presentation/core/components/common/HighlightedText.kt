@@ -31,9 +31,8 @@ fun HighlightedText(
 
                 val textWord = word.text.filterDigitsAtStartAndEnd()
                 val digitsAtStart = word.text.digitsAtStart()
-                val focusArea = when (textWord.length) {
-                    in 1..3 -> 1
-                    4 -> 2
+                val highlightArea = when (textWord.length) {
+                    3 -> 1
                     else -> (textWord.length * 0.5f).roundToInt()
                 } + digitsAtStart
 
@@ -42,10 +41,10 @@ fun HighlightedText(
                 }
 
                 withStyle(style = SpanStyle(fontWeight = highlightThickness)) {
-                    append(word.subSequence(digitsAtStart, focusArea))
+                    append(word.subSequence(digitsAtStart, highlightArea))
                 }
 
-                append(word.subSequence(focusArea, word.text.length))
+                append(word.subSequence(highlightArea, word.text.length))
                 append(" ")
             }
         }
