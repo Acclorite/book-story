@@ -1,9 +1,11 @@
 package ua.acclorite.book_story.presentation.reader
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -21,7 +23,7 @@ import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.presentation.core.components.common.HighlightedText
 
 @Composable
-fun ReaderLayoutTextChapter(
+fun LazyItemScope.ReaderLayoutTextChapter(
     chapter: Chapter,
     chapterTitleAlignment: ReaderTextAlignment,
     fontColor: Color,
@@ -29,33 +31,42 @@ fun ReaderLayoutTextChapter(
     highlightedReading: Boolean,
     highlightedReadingThickness: FontWeight
 ) {
-    Spacer(modifier = Modifier.height(22.dp))
-    if (highlightedReading) {
-        HighlightedText(
-            text = rememberSaveable(saver = AnnotatedString.Saver) {
-                buildAnnotatedString { append(chapter.title) }
-            },
-            highlightThickness = highlightedReadingThickness,
-            style = MaterialTheme.typography.headlineMedium.copy(
+    Column(
+        Modifier
+            .animateItem(
+                fadeInSpec = null,
+                fadeOutSpec = null
+            )
+            .fillMaxWidth()
+    ) {
+        Spacer(modifier = Modifier.height(22.dp))
+        if (highlightedReading) {
+            HighlightedText(
+                text = rememberSaveable(saver = AnnotatedString.Saver) {
+                    buildAnnotatedString { append(chapter.title) }
+                },
+                highlightThickness = highlightedReadingThickness,
+                style = MaterialTheme.typography.headlineMedium.copy(
+                    color = fontColor,
+                    textAlign = chapterTitleAlignment.textAlignment
+                ),
+                modifier = Modifier
+                    .padding(horizontal = sidePadding)
+                    .fillMaxWidth()
+            )
+        } else {
+            Text(
+                text = chapter.title,
+                textAlign = chapterTitleAlignment.textAlignment,
+                style = MaterialTheme.typography.headlineMedium,
                 color = fontColor,
-                textAlign = chapterTitleAlignment.textAlignment
-            ),
-            modifier = Modifier
-                .padding(horizontal = sidePadding)
-                .fillMaxWidth()
-        )
-    } else {
-        Text(
-            text = chapter.title,
-            textAlign = chapterTitleAlignment.textAlignment,
-            style = MaterialTheme.typography.headlineMedium,
-            color = fontColor,
-            modifier = Modifier
-                .padding(horizontal = sidePadding)
-                .fillMaxWidth()
-        )
+                modifier = Modifier
+                    .padding(horizontal = sidePadding)
+                    .fillMaxWidth()
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        HorizontalDivider(color = fontColor.copy(0.4f))
+        Spacer(modifier = Modifier.height(16.dp))
     }
-    Spacer(modifier = Modifier.height(16.dp))
-    HorizontalDivider(color = fontColor.copy(0.4f))
-    Spacer(modifier = Modifier.height(16.dp))
 }
