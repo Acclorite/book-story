@@ -1,4 +1,4 @@
-package ua.acclorite.book_story.presentation.settings.reader.text.components
+package ua.acclorite.book_story.presentation.settings.reader.chapters.components
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable

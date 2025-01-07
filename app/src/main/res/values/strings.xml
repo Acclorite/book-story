@@ -189,6 +189,7 @@
     <string name="reading_speed_reader_settings">Reading speed</string>
     <string name="reading_mode_reader_settings">Reading mode</string>
     <string name="system_reader_settings">System</string>
+    <string name="chapters_reader_settings">Chapters</string>
     <string name="theme_appearance_settings">Theme preferences</string>
     <string name="colors_appearance_settings">Colors</string>
     <string name="general_browse_settings">General</string>

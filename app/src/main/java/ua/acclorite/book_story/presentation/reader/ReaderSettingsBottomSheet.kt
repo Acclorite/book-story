@@ -23,6 +23,7 @@ import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWit
 import ua.acclorite.book_story.presentation.core.components.modal_bottom_sheet.ModalBottomSheet
 import ua.acclorite.book_story.presentation.core.util.LocalActivity
 import ua.acclorite.book_story.presentation.settings.appearance.colors.ColorsSubcategory
+import ua.acclorite.book_story.presentation.settings.reader.chapters.ChaptersSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.font.FontSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.misc.MiscSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.padding.PaddingSubcategory
@@ -118,6 +119,9 @@ fun ReaderSettingsBottomSheet(
                             titleColor = { MaterialTheme.colorScheme.onSurface }
                         )
                         TextSubcategory(
+                            titleColor = { MaterialTheme.colorScheme.onSurface }
+                        )
+                        ChaptersSubcategory(
                             titleColor = { MaterialTheme.colorScheme.onSurface }
                         )
                         TranslatorSubcategory(

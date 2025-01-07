@@ -136,6 +136,7 @@
     <string name="reading_speed_reader_settings">Швидкість читання</string>
     <string name="reading_mode_reader_settings">Режим читання</string>
     <string name="system_reader_settings">Система</string>
+    <string name="chapters_reader_settings">Розділи</string>
     <string name="theme_appearance_settings">Налаштування теми</string>
     <string name="colors_appearance_settings">Кольори</string>
     <string name="general_browse_settings">Головні</string>
