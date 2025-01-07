@@ -1,11 +1,16 @@
 package ua.acclorite.book_story.data.parser
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import androidx.compose.ui.graphics.asImageBitmap
 import kotlinx.coroutines.yield
 import org.jsoup.nodes.Document
 import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.presentation.core.util.clearAllMarkdown
 import ua.acclorite.book_story.presentation.core.util.clearMarkdown
 import ua.acclorite.book_story.presentation.core.util.containsVisibleText
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
 import javax.inject.Inject
 
 class DocumentParser @Inject constructor(
@@ -18,7 +23,11 @@ class DocumentParser @Inject constructor(
      *
      * @return Parsed text line by line with Markdown(all lines are not blank).
      */
-    suspend fun Document.parseDocument(includeChapter: Boolean = true): List<ReaderText> {
+    suspend fun Document.parseDocument(
+        zipFile: ZipFile? = null,
+        imageEntries: List<ZipEntry>? = null,
+        includeChapter: Boolean = true
+    ): List<ReaderText> {
         yield()
 
         val readerText = mutableListOf<ReaderText>()
@@ -53,7 +62,26 @@ class DocumentParser @Inject constructor(
                 element.prepend("[")
                 element.append("]($link)")
             }
-        }.wholeText().lines().forEachIndexed { index, line ->
+
+            // Image
+            select("img").forEach { element ->
+                val src = element.attr("src")
+                    .trim()
+                    .substringAfterLast("/")
+                    .lowercase()
+                    .takeIf {
+                        it.containsVisibleText() && imageEntries?.any { image ->
+                            it == image.name.substringAfterLast('/').lowercase()
+                        } == true
+                    } ?: return@forEach
+
+                val alt = element.attr("alt").trim().takeIf {
+                    it.clearMarkdown().containsVisibleText()
+                } ?: src.substringBeforeLast(".")
+
+                element.append("\n[[$src|$alt]]\n")
+            }
+        }.wholeText().lines().forEach { line ->
             yield()
 
             val formattedLine = line.replace(
@@ -64,9 +92,54 @@ class DocumentParser @Inject constructor(
                 Regex("""_\s*(.*?)\s*_"""), "_$1_"
             ).trim()
 
+            val imageRegex = Regex("""\[\[(.*?)\|(.*?)]]""")
+
             if (line.containsVisibleText()) {
-                when (line) {
-                    "***", "---" -> readerText.add(ReaderText.Separator)
+                when {
+                    imageRegex.matches(line) -> {
+                        val trimmedLine = line.removeSurrounding("[[", "]]")
+                        val src = trimmedLine.substringBefore("|")
+                        val alt = "_${trimmedLine.substringAfter("|")}_"
+
+                        val image = try {
+                            val imageEntry = imageEntries?.find { image ->
+                                src == image.name.substringAfterLast('/').lowercase()
+                            } ?: return@forEach
+
+                            zipFile?.getInputStream(imageEntry)?.use { inputStream ->
+                                val options = BitmapFactory.Options().apply {
+                                    inSampleSize = 2
+                                    inPreferredConfig = Bitmap.Config.RGB_565
+                                }
+                                BitmapFactory.decodeStream(
+                                    /* is = */ inputStream,
+                                    /* outPadding = */ null,
+                                    /* opts = */ options
+                                )?.asImageBitmap()
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            return@forEach
+                        }
+
+                        if (image == null) return@forEach
+
+                        // Optimize
+                        image.prepareToDraw()
+
+                        readerText.add( // Adding image
+                            ReaderText.Image(
+                                imageBitmap = image
+                            )
+                        )
+                        readerText.add( // Adding alternative text (caption) for image
+                            ReaderText.Text(
+                                markdownParser.parse(alt)
+                            )
+                        )
+                    }
+
+                    line == "---" || line == "***" -> readerText.add(ReaderText.Separator)
 
                     else -> {
                         if (

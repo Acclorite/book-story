@@ -18,7 +18,7 @@ import ua.acclorite.book_story.ui.reader.ReaderEvent
 fun LazyItemScope.ReaderLayoutText(
     activity: ComponentActivity,
     showMenu: Boolean,
-    textEntry: ReaderText,
+    entry: ReaderText,
     fontFamily: FontWithName,
     fontColor: Color,
     lineHeight: TextUnit,
@@ -38,7 +38,14 @@ fun LazyItemScope.ReaderLayoutText(
     openTranslator: (ReaderEvent.OnOpenTranslator) -> Unit,
     menuVisibility: (ReaderEvent.OnMenuVisibility) -> Unit
 ) {
-    when (textEntry) {
+    when (entry) {
+        is ReaderText.Image -> {
+            ReaderLayoutTextImage(
+                entry = entry,
+                sidePadding = sidePadding
+            )
+        }
+
         is ReaderText.Separator -> {
             ReaderLayoutTextSeparator(
                 sidePadding = sidePadding,
@@ -48,7 +55,7 @@ fun LazyItemScope.ReaderLayoutText(
 
         is ReaderText.Chapter -> {
             ReaderLayoutTextChapter(
-                chapter = textEntry,
+                chapter = entry,
                 chapterTitleAlignment = chapterTitleAlignment,
                 fontColor = fontColor,
                 sidePadding = sidePadding,
@@ -59,7 +66,7 @@ fun LazyItemScope.ReaderLayoutText(
 
         is ReaderText.Text -> {
             ReaderLayoutTextParagraph(
-                paragraph = textEntry,
+                paragraph = entry,
                 activity = activity,
                 showMenu = showMenu,
                 fontFamily = fontFamily,

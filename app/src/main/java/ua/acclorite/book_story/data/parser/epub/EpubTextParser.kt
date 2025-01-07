@@ -15,6 +15,8 @@ import org.jsoup.Jsoup
 import ua.acclorite.book_story.data.parser.DocumentParser
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.domain.reader.ReaderText
+import ua.acclorite.book_story.presentation.core.constants.Constants
+import ua.acclorite.book_story.presentation.core.constants.provideImageExtensions
 import ua.acclorite.book_story.presentation.core.util.addAll
 import ua.acclorite.book_story.presentation.core.util.containsVisibleText
 import java.io.File
@@ -50,6 +52,11 @@ class EpubTextParser @Inject constructor(
                     }
 
                     val chapterEntries = zip.getChapterEntries(opfEntry)
+                    val imageEntries = zip.entries().toList().filter {
+                        Constants.provideImageExtensions().any { format ->
+                            it.name.endsWith(format, ignoreCase = true)
+                        }
+                    }
                     val chapterTitleEntries = zip.getChapterTitleMapFromToc(tocEntry)
 
                     Log.i(EPUB_TAG, "TOC Entry: ${tocEntry?.name ?: "no toc.ncx"}")
@@ -59,6 +66,7 @@ class EpubTextParser @Inject constructor(
 
                     readerText = zip.parseEpub(
                         chapterEntries = chapterEntries,
+                        imageEntries = imageEntries,
                         chapterTitleEntries = chapterTitleEntries
                     )
                 }
@@ -94,6 +102,7 @@ class EpubTextParser @Inject constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     private suspend fun ZipFile.parseEpub(
         chapterEntries: List<ZipEntry>,
+        imageEntries: List<ZipEntry>,
         chapterTitleEntries: Map<Title, List<String>>?
     ): List<ReaderText> {
 
@@ -110,6 +119,7 @@ class EpubTextParser @Inject constructor(
                         zip = this@parseEpub,
                         index = index,
                         entry = entry,
+                        imageEntries = imageEntries,
                         chapterTitleMap = chapterTitleEntries
                     )
 
@@ -143,12 +153,17 @@ class EpubTextParser @Inject constructor(
         zip: ZipFile,
         index: Int,
         entry: ZipEntry,
+        imageEntries: List<ZipEntry>,
         chapterTitleMap: Map<Title, List<String>>?
     ) {
         // Getting all text
         val content = zip.getInputStream(entry).bufferedReader().use { it.readText() }
         var readerText = documentParser.run {
-            Jsoup.parse(content).parseDocument(includeChapter = false)
+            Jsoup.parse(content).parseDocument(
+                zipFile = zip,
+                imageEntries = imageEntries,
+                includeChapter = false
+            )
         }.toMutableList()
 
         // Adding chapter title from TOC if found

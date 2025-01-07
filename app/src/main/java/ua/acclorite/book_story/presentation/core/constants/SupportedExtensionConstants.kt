@@ -10,3 +10,9 @@ fun Constants.provideExtensions() = listOf(
     ".htm",
     ".md"
 )
+
+fun Constants.provideImageExtensions() = listOf(
+    ".png",
+    ".jpg",
+    ".jpeg"
+)

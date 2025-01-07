@@ -156,7 +156,7 @@ fun ReaderLayout(
                 ReaderLayoutText(
                     activity = activity,
                     showMenu = showMenu,
-                    textEntry = textEntry,
+                    entry = textEntry,
                     fontFamily = fontFamily,
                     fontColor = fontColor,
                     lineHeight = lineHeight,
