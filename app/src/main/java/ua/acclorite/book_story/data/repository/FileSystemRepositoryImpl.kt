@@ -13,7 +13,7 @@ import ua.acclorite.book_story.domain.library.book.NullableBook.Null
 import ua.acclorite.book_story.domain.repository.FileSystemRepository
 import ua.acclorite.book_story.domain.ui.UIText
 import ua.acclorite.book_story.presentation.core.constants.Constants
-import ua.acclorite.book_story.presentation.core.constants.provideSupportedExtensions
+import ua.acclorite.book_story.presentation.core.constants.provideExtensions
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -42,7 +42,7 @@ class FileSystemRepositoryImpl @Inject constructor(
         val existingBooks = database
             .searchBooks("")
             .map { bookMapper.toBook(it) }
-        val supportedExtensions = Constants.provideSupportedExtensions()
+        val supportedExtensions = Constants.provideExtensions()
 
         fun File.isValid(): Boolean {
             if (!exists()) {

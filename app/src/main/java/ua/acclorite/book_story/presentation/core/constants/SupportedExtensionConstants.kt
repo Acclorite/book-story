@@ -1,6 +1,6 @@
 package ua.acclorite.book_story.presentation.core.constants
 
-fun Constants.provideSupportedExtensions() = listOf(
+fun Constants.provideExtensions() = listOf(
     ".epub",
     ".pdf",
     ".fb2",

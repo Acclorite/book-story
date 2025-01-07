@@ -21,12 +21,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.presentation.core.constants.Constants
-import ua.acclorite.book_story.presentation.core.constants.provideSupportedExtensions
+import ua.acclorite.book_story.presentation.core.constants.provideExtensions
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.main.MainModel
 
 fun LazyListScope.BrowseFilterOption() {
-    items(Constants.provideSupportedExtensions(), key = { it }) {
+    items(Constants.provideExtensions(), key = { it }) {
         val mainModel = hiltViewModel<MainModel>()
         val state = mainModel.state.collectAsStateWithLifecycle()
 
