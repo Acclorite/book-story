@@ -25,6 +25,7 @@ import ua.acclorite.book_story.presentation.core.util.LocalActivity
 import ua.acclorite.book_story.presentation.settings.appearance.colors.ColorsSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.chapters.ChaptersSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.font.FontSubcategory
+import ua.acclorite.book_story.presentation.settings.reader.images.ImagesSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.misc.MiscSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.padding.PaddingSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.reading_mode.ReadingModeSubcategory
@@ -119,6 +120,9 @@ fun ReaderSettingsBottomSheet(
                             titleColor = { MaterialTheme.colorScheme.onSurface }
                         )
                         TextSubcategory(
+                            titleColor = { MaterialTheme.colorScheme.onSurface }
+                        )
+                        ImagesSubcategory(
                             titleColor = { MaterialTheme.colorScheme.onSurface }
                         )
                         ChaptersSubcategory(

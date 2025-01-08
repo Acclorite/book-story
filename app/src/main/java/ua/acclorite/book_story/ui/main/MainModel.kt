@@ -422,6 +422,14 @@ class MainModel @Inject constructor(
                     it.copy(chapterTitleAlignment = toTextAlignment())
                 }
             )
+
+            is MainEvent.OnChangeShowImages -> handleDatastoreUpdate(
+                key = DataStoreConstants.SHOW_IMAGES,
+                value = event.value,
+                updateState = {
+                    it.copy(showImages = this)
+                }
+            )
         }
     }
 

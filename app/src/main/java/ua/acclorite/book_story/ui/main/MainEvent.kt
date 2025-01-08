@@ -50,4 +50,5 @@ sealed class MainEvent {
     data class OnChangeHighlightedReading(val value: Boolean) : MainEvent()
     data class OnChangeHighlightedReadingThickness(val value: Int) : MainEvent()
     data class OnChangeChapterTitleAlignment(val value: String) : MainEvent()
+    data class OnChangeShowImages(val value: Boolean) : MainEvent()
 }

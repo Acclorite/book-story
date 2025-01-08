@@ -93,6 +93,7 @@ data class MainState(
     val highlightedReading: Boolean = provideDefaultValue { false },
     val highlightedReadingThickness: Int = provideDefaultValue { 2 },
     val chapterTitleAlignment: ReaderTextAlignment = provideDefaultValue { ReaderTextAlignment.JUSTIFY },
+    val showImages: Boolean = provideDefaultValue { true },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -310,6 +311,10 @@ data class MainState(
                     chapterTitleAlignment = provideValue(
                         CHAPTER_TITLE_ALIGNMENT, convert = { toTextAlignment() }
                     ) { chapterTitleAlignment },
+
+                    showImages = provideValue(
+                        SHOW_IMAGES
+                    ) { showImages },
                 )
             }
         }

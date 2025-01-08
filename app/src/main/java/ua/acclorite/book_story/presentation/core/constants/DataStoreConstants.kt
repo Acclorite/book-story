@@ -48,6 +48,7 @@ object DataStoreConstants {
     val HIGHLIGHTED_READING = booleanPreferencesKey("highlighted_reading")
     val HIGHLIGHTED_READING_THICKNESS = intPreferencesKey("highlighted_reading_thickness")
     val CHAPTER_TITLE_ALIGNMENT = stringPreferencesKey("chapter_title_alignment")
+    val SHOW_IMAGES = booleanPreferencesKey("show_images")
 
     // Browse settings
     val BROWSE_FILES_STRUCTURE = stringPreferencesKey("browse_files_structure")

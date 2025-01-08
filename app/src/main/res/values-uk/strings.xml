@@ -137,6 +137,7 @@
     <string name="reading_mode_reader_settings">Режим читання</string>
     <string name="system_reader_settings">Система</string>
     <string name="chapters_reader_settings">Розділи</string>
+    <string name="images_reader_settings">Зображення</string>
     <string name="theme_appearance_settings">Налаштування теми</string>
     <string name="colors_appearance_settings">Кольори</string>
     <string name="general_browse_settings">Головні</string>
@@ -196,6 +197,8 @@
     <string name="highlighted_reading_option">Підсвічування слів</string>
     <string name="highlighted_reading_option_desc">Підсвічувати початок кожного слова</string>
     <string name="highlighted_reading_thickness_option">Товщина підсвічування</string>
+    <string name="show_images_option">Показувати зображення</string>
+    <string name="show_images_option_desc">Показати зображення разом із написами до них</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>

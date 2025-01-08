@@ -2,7 +2,6 @@ package ua.acclorite.book_story.presentation.reader
 
 import android.os.Build
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -10,6 +9,7 @@ import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +27,7 @@ import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.presentation.core.components.common.SelectionContainer
+import ua.acclorite.book_story.presentation.core.components.common.SpacedItem
 import ua.acclorite.book_story.presentation.core.util.LocalActivity
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.presentation.core.util.showToast
@@ -47,6 +48,7 @@ fun ReaderLayout(
     sidePadding: Dp,
     backgroundColor: Color,
     fontColor: Color,
+    showImages: Boolean,
     fontFamily: FontWithName,
     lineHeight: TextUnit,
     fontStyle: FontStyle,
@@ -139,7 +141,6 @@ fun ReaderLayout(
                     horizontalGestureSensitivity = horizontalGestureSensitivity,
                     isLoading = isLoading
                 ),
-            verticalArrangement = Arrangement.spacedBy(paragraphHeight),
             contentPadding = PaddingValues(
                 top = (WindowInsets.displayCutout.asPaddingValues()
                     .calculateTopPadding() + paragraphHeight)
@@ -149,30 +150,43 @@ fun ReaderLayout(
                     .coerceAtLeast(18.dp),
             )
         ) {
-            for (entry in text) {
-                ReaderLayoutText(
-                    activity = activity,
-                    showMenu = showMenu,
-                    entry = entry,
-                    fontFamily = fontFamily,
-                    fontColor = fontColor,
-                    lineHeight = lineHeight,
-                    fontStyle = fontStyle,
-                    chapterTitleAlignment = chapterTitleAlignment,
-                    textAlignment = textAlignment,
-                    horizontalAlignment = horizontalAlignment,
-                    fontSize = fontSize,
-                    letterSpacing = letterSpacing,
-                    sidePadding = sidePadding,
-                    paragraphIndentation = paragraphIndentation,
-                    fullscreenMode = fullscreenMode,
-                    doubleClickTranslation = doubleClickTranslation,
-                    highlightedReading = highlightedReading,
-                    highlightedReadingThickness = highlightedReadingThickness,
-                    toolbarHidden = toolbarHidden,
-                    openTranslator = openTranslator,
-                    menuVisibility = menuVisibility
-                )
+            itemsIndexed(
+                text,
+                key = { index, entry -> index }
+            ) { index, entry ->
+                when {
+                    !showImages && entry is ReaderText.Image -> return@itemsIndexed
+                    else -> {
+                        SpacedItem(
+                            index = index,
+                            spacing = paragraphHeight
+                        ) {
+                            ReaderLayoutText(
+                                activity = activity,
+                                showMenu = showMenu,
+                                entry = entry,
+                                fontFamily = fontFamily,
+                                fontColor = fontColor,
+                                lineHeight = lineHeight,
+                                fontStyle = fontStyle,
+                                chapterTitleAlignment = chapterTitleAlignment,
+                                textAlignment = textAlignment,
+                                horizontalAlignment = horizontalAlignment,
+                                fontSize = fontSize,
+                                letterSpacing = letterSpacing,
+                                sidePadding = sidePadding,
+                                paragraphIndentation = paragraphIndentation,
+                                fullscreenMode = fullscreenMode,
+                                doubleClickTranslation = doubleClickTranslation,
+                                highlightedReading = highlightedReading,
+                                highlightedReadingThickness = highlightedReadingThickness,
+                                toolbarHidden = toolbarHidden,
+                                openTranslator = openTranslator,
+                                menuVisibility = menuVisibility
+                            )
+                        }
+                    }
+                }
             }
         }
     }
