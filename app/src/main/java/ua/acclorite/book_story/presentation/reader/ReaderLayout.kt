@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -150,13 +149,11 @@ fun ReaderLayout(
                     .coerceAtLeast(18.dp),
             )
         ) {
-            itemsIndexed(
-                text, key = { index, _ -> index }
-            ) { index, textEntry ->
+            for (entry in text) {
                 ReaderLayoutText(
                     activity = activity,
                     showMenu = showMenu,
-                    entry = textEntry,
+                    entry = entry,
                     fontFamily = fontFamily,
                     fontColor = fontColor,
                     lineHeight = lineHeight,
