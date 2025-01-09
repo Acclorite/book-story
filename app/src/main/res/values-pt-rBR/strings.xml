@@ -81,8 +81,8 @@
     <string name="browse_layout_grid">Grade</string>
     <string name="today">Hoje</string>
     <string name="browse_grid_size_auto">Automático</string>
-    <string name="text_alignment_start">Começar</string>
-    <string name="text_alignment_end">Fim</string>
+    <string name="alignment_start">Começar</string>
+    <string name="alignment_end">Fim</string>
     <string name="dynamic_theme">Mercúrio</string>
     <string name="blue_theme">Netuno</string>
     <string name="green_theme">Terra</string>
@@ -117,10 +117,10 @@
     <string name="start_permissions_preferences">Permissões</string>
     <string name="copied">Copiado</string>
     <string name="required_content_desc">Requerido</string>
-    <string name="text_alignment_justify">Justificar</string>
+    <string name="alignment_justify">Justificar</string>
     <string name="move_books_description">Escolha a categoria da qual você quer mover todos os livros selecionados(%1$s). Todos os livros selecionados serão movidos para essa categoria.</string>
     <string name="delete_books_description">Isto irá apagar todos os livros selecionados(%1$s) da base de dados. Isso não irá apagar os livros do seu dispositivo.</string>
-    <string name="text_alignment_center">Centro</string>
+    <string name="alignment_center">Centro</string>
     <string name="details_book">Detalhes</string>
     <string name="help_desc_how_to_customize_reader_2">Configurações</string>
     <string name="revert_content_desc">Reverter</string>

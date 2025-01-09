@@ -200,6 +200,7 @@
     <string name="images_option">Зображення</string>
     <string name="images_option_desc">Показувати зображення разом із написами до них</string>
     <string name="images_corners_roundness_option">Округлість кутків</string>
+    <string name="images_alignment_option">Розташування</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>
@@ -253,10 +254,10 @@
     <string name="browse_sort_order_file_size">Розмір файла</string>
 
     <!-- Text Alignment properties -->
-    <string name="text_alignment_start">Старт</string>
-    <string name="text_alignment_justify">Рівномірно</string>
-    <string name="text_alignment_center">Центр</string>
-    <string name="text_alignment_end">Кінець</string>
+    <string name="alignment_start">Старт</string>
+    <string name="alignment_justify">Рівномірно</string>
+    <string name="alignment_center">Центр</string>
+    <string name="alignment_end">Кінець</string>
 
     <!-- Screen Orientation properties -->
     <string name="screen_orientation_free">Вільно</string>

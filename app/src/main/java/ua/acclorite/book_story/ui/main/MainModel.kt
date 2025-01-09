@@ -20,6 +20,7 @@ import ua.acclorite.book_story.domain.browse.toBrowseFilesStructure
 import ua.acclorite.book_story.domain.browse.toBrowseLayout
 import ua.acclorite.book_story.domain.browse.toBrowseSortOrder
 import ua.acclorite.book_story.domain.reader.toHorizontalGesture
+import ua.acclorite.book_story.domain.reader.toImagesAlignment
 import ua.acclorite.book_story.domain.reader.toReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.toTextAlignment
 import ua.acclorite.book_story.domain.use_case.data_store.ChangeLanguage
@@ -436,6 +437,14 @@ class MainModel @Inject constructor(
                 value = event.value,
                 updateState = {
                     it.copy(imagesCornersRoundness = this)
+                }
+            )
+
+            is MainEvent.OnChangeImagesAlignment -> handleDatastoreUpdate(
+                key = DataStoreConstants.IMAGES_ALIGNMENT,
+                value = event.value,
+                updateState = {
+                    it.copy(imagesAlignment = this.toImagesAlignment())
                 }
             )
         }

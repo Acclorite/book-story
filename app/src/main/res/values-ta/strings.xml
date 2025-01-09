@@ -82,7 +82,7 @@
     <string name="pure_dark_power_saver">சேமிப்பாளர்</string>
     <string name="theme_contrast_standard">தரநிலை</string>
     <string name="theme_contrast_medium">சராசரி</string>
-    <string name="text_alignment_end">முடிவு</string>
+    <string name="alignment_end">முடிவு</string>
     <string name="screen_orientation_free">இலவசம்</string>
     <string name="screen_orientation_portrait">உருவப்படம்</string>
     <string name="screen_orientation_landscape">நிலப்பரப்பு</string>
@@ -163,7 +163,7 @@
     <string name="browse_layout_grid">வலைவாய்</string>
     <string name="browse_grid_size_auto">தானி</string>
     <string name="browse_grid_size_per_row">ஒரு வரிசையில்</string>
-    <string name="text_alignment_center">நடுவண்</string>
+    <string name="alignment_center">நடுவண்</string>
     <string name="help_title_how_to_edit_book">நான் ஒரு புத்தகத்தை எவ்வாறு திருத்துவது?</string>
     <string name="help_desc_how_to_edit_book_2">நூலகம்</string>
     <string name="help_title_how_to_read_book">நான் ஒரு புத்தகத்தைப் படிப்பது எப்படி?</string>
@@ -263,8 +263,8 @@
     <string name="browse_sort_order_file_type">கோப்பு வகை</string>
     <string name="browse_sort_order_last_modified">கடைசியாக மாற்றப்பட்டது</string>
     <string name="browse_sort_order_file_size">கோப்பு அளவு</string>
-    <string name="text_alignment_start">தொடங்கு</string>
-    <string name="text_alignment_justify">நியாயப்படுத்துங்கள்</string>
+    <string name="alignment_start">தொடங்கு</string>
+    <string name="alignment_justify">நியாயப்படுத்துங்கள்</string>
     <string name="screen_orientation_locked_portrait">பூட்டப்பட்ட உருவப்படம்</string>
     <string name="dynamic_theme">அறிவன்</string>
     <string name="blue_theme">நெப்டியூன்</string>

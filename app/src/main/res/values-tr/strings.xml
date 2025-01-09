@@ -160,10 +160,10 @@
     <string name="browse_sort_order_file_type">Dosya türü</string>
     <string name="browse_sort_order_last_modified">Son değiştirilme</string>
     <string name="browse_sort_order_file_size">Dosya boyutu</string>
-    <string name="text_alignment_start">Başlangıç</string>
-    <string name="text_alignment_justify">İki yana yaslı</string>
-    <string name="text_alignment_center">Ortalı</string>
-    <string name="text_alignment_end">Son</string>
+    <string name="alignment_start">Başlangıç</string>
+    <string name="alignment_justify">İki yana yaslı</string>
+    <string name="alignment_center">Ortalı</string>
+    <string name="alignment_end">Son</string>
     <string name="dynamic_theme">Merkür</string>
     <string name="blue_theme">Neptün</string>
     <string name="green_theme">Dünya</string>

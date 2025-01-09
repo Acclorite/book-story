@@ -23,10 +23,10 @@ fun TextAlignmentOption() {
             ButtonItem(
                 id = it.toString(),
                 title = when (it) {
-                    ReaderTextAlignment.START -> stringResource(id = R.string.text_alignment_start)
-                    ReaderTextAlignment.JUSTIFY -> stringResource(id = R.string.text_alignment_justify)
-                    ReaderTextAlignment.CENTER -> stringResource(id = R.string.text_alignment_center)
-                    ReaderTextAlignment.END -> stringResource(id = R.string.text_alignment_end)
+                    ReaderTextAlignment.START -> stringResource(id = R.string.alignment_start)
+                    ReaderTextAlignment.JUSTIFY -> stringResource(id = R.string.alignment_justify)
+                    ReaderTextAlignment.CENTER -> stringResource(id = R.string.alignment_center)
+                    ReaderTextAlignment.END -> stringResource(id = R.string.alignment_end)
                 },
                 textStyle = MaterialTheme.typography.labelLarge,
                 selected = it == state.value.textAlignment

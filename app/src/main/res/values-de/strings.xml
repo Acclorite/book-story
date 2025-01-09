@@ -289,10 +289,10 @@
     <string name="browse_sort_order_file_size">Dateigröße</string>
     <string name="text_alignment_option">Textausrichtung</string>
     <string name="browse_files_structure_option">Dateistruktur</string>
-    <string name="text_alignment_start">Start</string>
-    <string name="text_alignment_justify">Rechtfertigen</string>
-    <string name="text_alignment_center">Mitte</string>
-    <string name="text_alignment_end">Ende</string>
+    <string name="alignment_start">Start</string>
+    <string name="alignment_justify">Rechtfertigen</string>
+    <string name="alignment_center">Mitte</string>
+    <string name="alignment_end">Ende</string>
     <string name="credits_contribution">Beitrag</string>
     <string name="double_press_exit_option_desc">Drücken Sie zweimal die Zurück-Taste, um die App zu beenden</string>
     <string name="double_press_exit_option">Zum Beenden zweimal Zurück drücken</string>

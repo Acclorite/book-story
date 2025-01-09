@@ -165,10 +165,10 @@
     <string name="browse_sort_order_file_format">फाइल का प्रकार</string>
     <string name="browse_sort_order_file_type">फाइल का प्रकार</string>
     <string name="browse_sort_order_last_modified">आखिरी बार संशोधित</string>
-    <string name="text_alignment_start">प्रारंभ</string>
-    <string name="text_alignment_justify">सममित करें</string>
-    <string name="text_alignment_center">मध्य</string>
-    <string name="text_alignment_end">अंत</string>
+    <string name="alignment_start">प्रारंभ</string>
+    <string name="alignment_justify">सममित करें</string>
+    <string name="alignment_center">मध्य</string>
+    <string name="alignment_end">अंत</string>
     <string name="screen_orientation_landscape">आड़ी दिशा</string>
     <string name="screen_orientation_portrait">खड़ी दिशा</string>
     <string name="screen_orientation_locked_portrait">खड़ा दिशा लॉक</string>

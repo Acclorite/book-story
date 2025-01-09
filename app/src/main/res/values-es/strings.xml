@@ -289,10 +289,10 @@
     <string name="filter_content_desc">Filtrar</string>
     <string name="text_alignment_option">Alineación del texto</string>
     <string name="browse_files_structure_option">Estructura de los ficheros</string>
-    <string name="text_alignment_start">Iniciar</string>
-    <string name="text_alignment_justify">Justificar</string>
-    <string name="text_alignment_center">Centrar</string>
-    <string name="text_alignment_end">Fin</string>
+    <string name="alignment_start">Iniciar</string>
+    <string name="alignment_justify">Justificar</string>
+    <string name="alignment_center">Centrar</string>
+    <string name="alignment_end">Fin</string>
     <string name="help_translate_option">Ayuda a traducir</string>
     <string name="credits_fonts">Fuentes</string>
     <string name="credits_translation">Traducción</string>

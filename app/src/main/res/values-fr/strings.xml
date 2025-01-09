@@ -118,10 +118,10 @@
     <string name="browse_sort_order_file_type">Type de fichier</string>
     <string name="browse_sort_order_last_modified">Dernière modification</string>
     <string name="browse_sort_order_file_size">Taille de fichier</string>
-    <string name="text_alignment_start">Début</string>
-    <string name="text_alignment_justify">Justifier</string>
-    <string name="text_alignment_center">Centrer</string>
-    <string name="text_alignment_end">Fin</string>
+    <string name="alignment_start">Début</string>
+    <string name="alignment_justify">Justifier</string>
+    <string name="alignment_center">Centrer</string>
+    <string name="alignment_end">Fin</string>
     <string name="dynamic_theme">Mercure</string>
     <string name="blue_theme">Neptune</string>
     <string name="green_theme">Terre</string>

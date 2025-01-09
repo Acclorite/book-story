@@ -52,4 +52,5 @@ sealed class MainEvent {
     data class OnChangeChapterTitleAlignment(val value: String) : MainEvent()
     data class OnChangeImages(val value: Boolean) : MainEvent()
     data class OnChangeImagesCornersRoundness(val value: Int) : MainEvent()
+    data class OnChangeImagesAlignment(val value: String) : MainEvent()
 }

@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.reader.FontWithName
 import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
+import ua.acclorite.book_story.domain.reader.ReaderImagesAlignment
 import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
@@ -50,6 +51,7 @@ fun ReaderLayout(
     fontColor: Color,
     images: Boolean,
     imagesCornersRoundness: Dp,
+    imagesAlignment: ReaderImagesAlignment,
     fontFamily: FontWithName,
     lineHeight: TextUnit,
     fontStyle: FontStyle,
@@ -167,6 +169,7 @@ fun ReaderLayout(
                                 showMenu = showMenu,
                                 entry = entry,
                                 imagesCornersRoundness = imagesCornersRoundness,
+                                imagesAlignment = imagesAlignment,
                                 fontFamily = fontFamily,
                                 fontColor = fontColor,
                                 lineHeight = lineHeight,

@@ -172,8 +172,8 @@
     <string name="licenses_option">رخص مفتوحة المصدر</string>
     <string name="credits_icon">الأيقونات</string>
     <string name="credits_updates">إدارة التحديثات الجديدة</string>
-    <string name="text_alignment_start">ابدأ</string>
-    <string name="text_alignment_center">المركز</string>
+    <string name="alignment_start">ابدأ</string>
+    <string name="alignment_center">المركز</string>
     <string name="move_this_book">نقل</string>
     <string name="delete_this_book">حذف</string>
     <string name="details_book">التفاصيل</string>
@@ -182,7 +182,7 @@
     <string name="app_version_option_desc_2">انقر للتحقق من وجود تحديثات</string>
     <string name="report_bug_option">الإبلاغ عن خطأ</string>
     <string name="whats_new_option">ما الجديد</string>
-    <string name="text_alignment_end">النهاية</string>
+    <string name="alignment_end">النهاية</string>
     <string name="marsh_theme">بلوتو</string>
     <string name="credits_ideas">أفكار</string>
     <string name="credits_fonts">الخطوط</string>

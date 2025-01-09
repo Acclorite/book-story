@@ -198,10 +198,10 @@
     <string name="general_settings">Generale</string>
     <string name="browse_settings_desc">Generale, filtro, ordinamento</string>
     <string name="text_alignment_option">Allineamento del testo</string>
-    <string name="text_alignment_center">Centrale</string>
-    <string name="text_alignment_end">Fine</string>
+    <string name="alignment_center">Centrale</string>
+    <string name="alignment_end">Fine</string>
     <string name="general_settings_desc">Lingua dell\'app</string>
-    <string name="text_alignment_start">Avvia</string>
+    <string name="alignment_start">Avvia</string>
     <string name="search_field_empty">Cerca…</string>
     <string name="color_preset_selected_query">Selezionato «%1$s»</string>
     <string name="translator_reader_settings">Traduttore</string>

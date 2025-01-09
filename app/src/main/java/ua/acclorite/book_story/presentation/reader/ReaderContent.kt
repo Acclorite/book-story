@@ -15,6 +15,7 @@ import ua.acclorite.book_story.domain.library.book.Book
 import ua.acclorite.book_story.domain.reader.Checkpoint
 import ua.acclorite.book_story.domain.reader.FontWithName
 import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
+import ua.acclorite.book_story.domain.reader.ReaderImagesAlignment
 import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
@@ -57,6 +58,7 @@ fun ReaderContent(
     fontColor: Color,
     images: Boolean,
     imagesCornersRoundness: Dp,
+    imagesAlignment: ReaderImagesAlignment,
     fontFamily: FontWithName,
     lineHeight: TextUnit,
     fontStyle: FontStyle,
@@ -124,6 +126,7 @@ fun ReaderContent(
             fontColor = fontColor,
             images = images,
             imagesCornersRoundness = imagesCornersRoundness,
+            imagesAlignment = imagesAlignment,
             fontFamily = fontFamily,
             lineHeight = lineHeight,
             fontStyle = fontStyle,

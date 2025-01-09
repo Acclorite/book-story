@@ -14,9 +14,11 @@ import ua.acclorite.book_story.domain.browse.toBrowseFilesStructure
 import ua.acclorite.book_story.domain.browse.toBrowseLayout
 import ua.acclorite.book_story.domain.browse.toBrowseSortOrder
 import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
+import ua.acclorite.book_story.domain.reader.ReaderImagesAlignment
 import ua.acclorite.book_story.domain.reader.ReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.domain.reader.toHorizontalGesture
+import ua.acclorite.book_story.domain.reader.toImagesAlignment
 import ua.acclorite.book_story.domain.reader.toReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.toTextAlignment
 import ua.acclorite.book_story.presentation.core.constants.Constants
@@ -95,6 +97,7 @@ data class MainState(
     val chapterTitleAlignment: ReaderTextAlignment = provideDefaultValue { ReaderTextAlignment.JUSTIFY },
     val images: Boolean = provideDefaultValue { true },
     val imagesCornersRoundness: Int = provideDefaultValue { 8 },
+    val imagesAlignment: ReaderImagesAlignment = provideDefaultValue { ReaderImagesAlignment.START },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -320,6 +323,10 @@ data class MainState(
                     imagesCornersRoundness = provideValue(
                         IMAGES_CORNERS_ROUNDNESS
                     ) { imagesCornersRoundness },
+
+                    imagesAlignment = provideValue(
+                        IMAGES_ALIGNMENT, convert = { toImagesAlignment() }
+                    ) { imagesAlignment },
                 )
             }
         }

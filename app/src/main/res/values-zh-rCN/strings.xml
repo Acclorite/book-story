@@ -167,8 +167,8 @@
     <string name="browse_layout_list">列表</string>
     <string name="browse_grid_size_per_row">每行</string>
     <string name="browse_sort_order_file_format">文件格式</string>
-    <string name="text_alignment_start">开头</string>
-    <string name="text_alignment_end">末尾</string>
+    <string name="alignment_start">开头</string>
+    <string name="alignment_end">末尾</string>
     <string name="screen_orientation_free">自由</string>
     <string name="screen_orientation_landscape">横屏</string>
     <string name="screen_orientation_locked_portrait">竖屏锁定</string>
@@ -184,7 +184,7 @@
     <string name="browse_sort_order_name">字母顺序</string>
     <string name="screen_orientation_portrait">竖屏</string>
     <string name="pink_theme">土星</string>
-    <string name="text_alignment_center">居中</string>
+    <string name="alignment_center">居中</string>
     <string name="dynamic_theme">水星</string>
     <string name="lavender_theme">阋神星</string>
     <string name="files_structure_directory">目录</string>
@@ -256,7 +256,7 @@
     <string name="help_desc_how_to_edit_book_1">前往</string>
     <string name="help_desc_how_to_edit_book_2">书库</string>
     <string name="help_title_how_to_read_book">如何阅读一本书？</string>
-    <string name="text_alignment_justify">证明合法</string>
+    <string name="alignment_justify">证明合法</string>
     <string name="help_desc_how_to_add_books_1">前往</string>
     <string name="help_desc_how_to_customize_app_1">前往</string>
     <string name="help_desc_how_to_customize_app_3">您可以在 \"书库\"、\"历史记录 \"和 \"浏览 \"界面点击右上角的三个点，然后从下拉菜单中选择 \"设置\"。 然后你就会看到此应用程序的所有可用设置。 请随意尝试！</string>

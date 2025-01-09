@@ -50,6 +50,7 @@ object DataStoreConstants {
     val CHAPTER_TITLE_ALIGNMENT = stringPreferencesKey("chapter_title_alignment")
     val IMAGES = booleanPreferencesKey("images")
     val IMAGES_CORNERS_ROUNDNESS = intPreferencesKey("images_corners_roundness")
+    val IMAGES_ALIGNMENT = stringPreferencesKey("images_alignment")
 
     // Browse settings
     val BROWSE_FILES_STRUCTURE = stringPreferencesKey("browse_files_structure")

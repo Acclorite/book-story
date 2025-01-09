@@ -124,8 +124,8 @@
     <string name="browse_sort_order_file_format">Formát souboru</string>
     <string name="browse_sort_order_file_type">Typ souboru</string>
     <string name="browse_sort_order_file_size">Velikost souboru</string>
-    <string name="text_alignment_start">Začátek</string>
-    <string name="text_alignment_end">Konec</string>
+    <string name="alignment_start">Začátek</string>
+    <string name="alignment_end">Konec</string>
     <string name="screen_orientation_portrait">Na výšku</string>
     <string name="screen_orientation_landscape">Na šířku</string>
     <string name="screen_orientation_locked_portrait">Pouze na výšku</string>
@@ -203,8 +203,8 @@
     <string name="theme_contrast_high">Vysoký</string>
     <string name="files_structure_all">Všechny soubory</string>
     <string name="browse_grid_size_per_row">na řádku</string>
-    <string name="text_alignment_justify">Zarovnat</string>
-    <string name="text_alignment_center">Do prostřed</string>
+    <string name="alignment_justify">Zarovnat</string>
+    <string name="alignment_center">Do prostřed</string>
     <string name="purple_theme">Jupiter</string>
     <string name="pink2_theme">Ganymede</string>
     <string name="cover_image_changed">Obálka byla úspěšně změněna.</string>

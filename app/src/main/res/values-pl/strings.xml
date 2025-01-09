@@ -124,10 +124,10 @@
     <string name="browse_sort_order_file_type">Typ pliku</string>
     <string name="browse_sort_order_last_modified">Ostatnio modyfikowany</string>
     <string name="browse_sort_order_file_size">Rozmiar pliku</string>
-    <string name="text_alignment_start">Start</string>
-    <string name="text_alignment_justify">Uzasadnij</string>
-    <string name="text_alignment_end">Koniec</string>
-    <string name="text_alignment_center">Środek</string>
+    <string name="alignment_start">Start</string>
+    <string name="alignment_justify">Uzasadnij</string>
+    <string name="alignment_end">Koniec</string>
+    <string name="alignment_center">Środek</string>
     <string name="green_theme">Ziemia</string>
     <string name="press_again_toast">Naciśnij ponownie, aby wyjść</string>
     <string name="fast_color_preset_change_option_desc">Przesuń w lewo lub w prawo, aby zmienić ustawienie koloru</string>

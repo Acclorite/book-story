@@ -255,6 +255,7 @@
     <string name="images_option">Images</string>
     <string name="images_option_desc">Display images along with their captions</string>
     <string name="images_corners_roundness_option">Corners roundness</string>
+    <string name="images_alignment_option">Alignment</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>
@@ -309,11 +310,11 @@
     <string name="browse_sort_order_last_modified">Last modified</string>
     <string name="browse_sort_order_file_size">File size</string>
 
-    <!-- Text Alignment properties -->
-    <string name="text_alignment_start">Start</string>
-    <string name="text_alignment_justify">Justify</string>
-    <string name="text_alignment_center">Center</string>
-    <string name="text_alignment_end">End</string>
+    <!-- Alignment properties -->
+    <string name="alignment_start">Start</string>
+    <string name="alignment_justify">Justify</string>
+    <string name="alignment_center">Center</string>
+    <string name="alignment_end">End</string>
 
     <!-- Screen Orientation properties -->
     <string name="screen_orientation_free">Free</string>
