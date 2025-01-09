@@ -16,4 +16,6 @@ fun Constants.provideLanguages() = listOf(
     Pair("pt", "Português (Brasil)"),
     Pair("ta", "தமிழ்"),
     Pair("ml", "മലയാളം"),
+    Pair("cs", "Čeština"),
+    Pair("ro", "Română"),
 )
