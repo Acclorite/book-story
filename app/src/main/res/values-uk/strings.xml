@@ -197,8 +197,9 @@
     <string name="highlighted_reading_option">Підсвічування слів</string>
     <string name="highlighted_reading_option_desc">Підсвічувати початок кожного слова</string>
     <string name="highlighted_reading_thickness_option">Товщина підсвічування</string>
-    <string name="show_images_option">Показувати зображення</string>
-    <string name="show_images_option_desc">Показати зображення разом із написами до них</string>
+    <string name="images_option">Зображення</string>
+    <string name="images_option_desc">Показувати зображення разом із написами до них</string>
+    <string name="images_corners_roundness_option">Округлість кутків</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>

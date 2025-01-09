@@ -252,8 +252,9 @@
     <string name="highlighted_reading_option">Highlight words</string>
     <string name="highlighted_reading_option_desc">Highlight the beginning of each word</string>
     <string name="highlighted_reading_thickness_option">Highlight thickness</string>
-    <string name="show_images_option">Show images</string>
-    <string name="show_images_option_desc">Display images along with their captions</string>
+    <string name="images_option">Images</string>
+    <string name="images_option_desc">Display images along with their captions</string>
+    <string name="images_corners_roundness_option">Corners roundness</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>

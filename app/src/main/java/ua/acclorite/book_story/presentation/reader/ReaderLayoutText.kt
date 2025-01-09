@@ -19,6 +19,7 @@ fun LazyItemScope.ReaderLayoutText(
     activity: ComponentActivity,
     showMenu: Boolean,
     entry: ReaderText,
+    imagesCornersRoundness: Dp,
     fontFamily: FontWithName,
     fontColor: Color,
     lineHeight: TextUnit,
@@ -42,7 +43,8 @@ fun LazyItemScope.ReaderLayoutText(
         is ReaderText.Image -> {
             ReaderLayoutTextImage(
                 entry = entry,
-                sidePadding = sidePadding
+                sidePadding = sidePadding,
+                imagesCornersRoundness = imagesCornersRoundness
             )
         }
 

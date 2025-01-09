@@ -9,7 +9,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategory
-import ua.acclorite.book_story.presentation.settings.reader.images.components.ShowImagesOption
+import ua.acclorite.book_story.presentation.settings.reader.images.components.ImagesCornersRoundnessOption
+import ua.acclorite.book_story.presentation.settings.reader.images.components.ImagesOption
 
 fun LazyListScope.ImagesSubcategory(
     titleColor: @Composable () -> Color = { MaterialTheme.colorScheme.primary },
@@ -24,7 +25,11 @@ fun LazyListScope.ImagesSubcategory(
         showDivider = showDivider
     ) {
         item {
-            ShowImagesOption()
+            ImagesOption()
+        }
+
+        item {
+            ImagesCornersRoundnessOption()
         }
     }
 }

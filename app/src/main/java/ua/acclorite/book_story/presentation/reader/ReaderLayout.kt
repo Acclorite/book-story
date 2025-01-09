@@ -48,7 +48,8 @@ fun ReaderLayout(
     sidePadding: Dp,
     backgroundColor: Color,
     fontColor: Color,
-    showImages: Boolean,
+    images: Boolean,
+    imagesCornersRoundness: Dp,
     fontFamily: FontWithName,
     lineHeight: TextUnit,
     fontStyle: FontStyle,
@@ -155,7 +156,7 @@ fun ReaderLayout(
                 key = { index, entry -> index }
             ) { index, entry ->
                 when {
-                    !showImages && entry is ReaderText.Image -> return@itemsIndexed
+                    !images && entry is ReaderText.Image -> return@itemsIndexed
                     else -> {
                         SpacedItem(
                             index = index,
@@ -165,6 +166,7 @@ fun ReaderLayout(
                                 activity = activity,
                                 showMenu = showMenu,
                                 entry = entry,
+                                imagesCornersRoundness = imagesCornersRoundness,
                                 fontFamily = fontFamily,
                                 fontColor = fontColor,
                                 lineHeight = lineHeight,

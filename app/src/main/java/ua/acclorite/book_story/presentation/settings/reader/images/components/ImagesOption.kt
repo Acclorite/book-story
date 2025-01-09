@@ -10,18 +10,18 @@ import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.main.MainModel
 
 @Composable
-fun ShowImagesOption() {
+fun ImagesOption() {
     val mainModel = hiltViewModel<MainModel>()
     val state = mainModel.state.collectAsStateWithLifecycle()
 
     SwitchWithTitle(
-        selected = state.value.showImages,
-        title = stringResource(id = R.string.show_images_option),
-        description = stringResource(id = R.string.show_images_option_desc),
+        selected = state.value.images,
+        title = stringResource(id = R.string.images_option),
+        description = stringResource(id = R.string.images_option_desc),
         onClick = {
             mainModel.onEvent(
-                MainEvent.OnChangeShowImages(
-                    !state.value.showImages
+                MainEvent.OnChangeImages(
+                    !state.value.images
                 )
             )
         }
