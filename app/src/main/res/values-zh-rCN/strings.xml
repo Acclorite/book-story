@@ -150,7 +150,7 @@
     <string name="red_color">红色</string>
     <string name="sort_tab">排序</string>
     <string name="vertical_padding_option">垂直填充</string>
-    <string name="fullscreen_option_desc">隐藏系统栏并移除填充</string>
+    <string name="fullscreen_option_desc">隐藏系统栏和填充</string>
     <string name="keep_screen_on_option">保持屏幕常亮</string>
     <string name="perception_expander_option">感知扩展器</string>
     <string name="perception_expander_option_desc">专注于中心以提升你的阅读速度</string>
@@ -353,4 +353,9 @@
     <string name="yellow2_theme">鸟神星</string>
     <string name="tryzub_content_desc">三叉戟</string>
     <string name="checkpoint_forward_content_desc">取消检查点撤回</string>
+    <string name="highlighted_reading_level">层级</string>
+    <string name="chapter_title_alignment_option">章节标题校准</string>
+    <string name="highlighted_reading_option">高亮词语</string>
+    <string name="highlighted_reading_option_desc">高亮标记每个词的开头</string>
+    <string name="highlighted_reading_thickness_option">高亮层次</string>
 </resources>
