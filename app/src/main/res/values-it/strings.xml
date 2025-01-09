@@ -342,4 +342,31 @@
     <string name="help_desc_how_to_create_color_presets_1">Vai alle impostazioni Aspetto (vedi: Come personalizzo il Lettore?). Puoi modificare tutte le impostazioni dei preset colore nella casella sotto «Preselezione Colore» nella sottocategoria «Colori». Per creare un nuovo preset colore, clicca sul pulsante icona «Aggiungi». Ci sono diversi modi per modificare un preset colore: cliccando sul campo di testo puoi cambiare il nome del preset colore, spostando i cursori puoi cambiare i colori del preset colore, cliccando sul pulsante icona «Mescola» puoi mescolare tutti i colori. Se vuoi eliminare il preset colore, clicca sul pulsante icona «Elimina».</string>
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
     <string name="help_desc_how_to_use_color_presets_1">Vai alle impostazioni Aspetto (vedi: Come personalizzo il Lettore?). Puoi scegliere quale preset di colore usare nell\'impostazione «Preselezione colore». Fai clic sul preset di colore desiderato per selezionarlo, questo cambierà anche i tuoi colori nel Lettore. Se vuoi riordinare il preset di colore, selezionalo e tieni premuto il pulsante icona «Maniglia», quindi spostalo nella posizione desiderata. Puoi cambiare rapidamente i preset di colore abilitando l\'impostazione corrispondente nella sottocategoria «Colori» delle impostazioni Aspetto, quindi scorrendo la barra superiore verso sinistra o destra nel Lettore, per cambiare rapidamente il preset di colore.</string>
+    <string name="checkpoint_forward_content_desc"></string>
+    <string name="horizontal_gesture_inverse"></string>
+    <string name="images_option"></string>
+    <string name="chapters_reader_settings"></string>
+    <string name="help_desc_how_to_edit_book_1"></string>
+    <string name="images_reader_settings"></string>
+    <string name="images_option_desc"></string>
+    <string name="reddit_content_desc" translatable="false"></string>
+    <string name="images_alignment_option"></string>
+    <string name="images_corners_roundness_option"></string>
+    <string name="alignment_justify"></string>
+    <string name="patreon_content_desc" translatable="false"></string>
+    <string name="screen_orientation_landscape"></string>
+    <string name="yellow2_theme"></string>
+    <string name="credits_updates"></string>
+    <string name="app_version" translatable="false"></string>
+    <string name="absolute_dark_option"></string>
+    <string name="tryzub_content_desc"></string>
+    <string name="color_preset_placeholder"></string>
+    <string name="screen_orientation_locked_landscape"></string>
+    <string name="horizontal_gesture_off"></string>
+    <string name="pure_dark_power_saver"></string>
+    <string name="screen_orientation_locked_portrait"></string>
+    <string name="checkpoint_back_content_desc"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="horizontal_gesture_on"></string>
+    <string name="x_content_desc" translatable="false"></string>
 </resources>
