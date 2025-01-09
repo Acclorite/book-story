@@ -106,27 +106,13 @@ class DocumentParser @Inject constructor(
                                 src == image.name.substringAfterLast('/').lowercase()
                             } ?: return@forEach
 
-                            zipFile?.getInputStream(imageEntry)?.use { inputStream ->
-                                val options = BitmapFactory.Options().apply {
-                                    inSampleSize = 2
-                                    inPreferredConfig = Bitmap.Config.RGB_565
-                                }
-                                BitmapFactory.decodeStream(
-                                    /* is = */ inputStream,
-                                    /* outPadding = */ null,
-                                    /* opts = */ options
-                                )?.asImageBitmap()
-                            }
+                            zipFile?.getImage(imageEntry)?.asImageBitmap()
                         } catch (e: Exception) {
                             e.printStackTrace()
-                            return@forEach
-                        }
+                            null
+                        } ?: return@forEach
 
-                        if (image == null) return@forEach
-
-                        // Optimize
                         image.prepareToDraw()
-
                         readerText.add( // Adding image
                             ReaderText.Image(
                                 imageBitmap = image
@@ -177,5 +163,42 @@ class DocumentParser @Inject constructor(
         }
 
         return readerText
+    }
+
+    /**
+     * Getting bitmap from [ZipFile] with compression
+     * that depends on the [imageEntry] size.
+     */
+    private fun ZipFile.getImage(imageEntry: ZipEntry): Bitmap? {
+        fun getBitmapFromInputStream(compressionLevel: Int = 1): Bitmap? {
+            return getInputStream(imageEntry).use { inputStream ->
+                BitmapFactory.decodeStream(
+                    inputStream,
+                    null,
+                    BitmapFactory.Options().apply {
+                        inPreferredConfig = Bitmap.Config.RGB_565
+                        inSampleSize = compressionLevel
+                    }
+                )
+            }
+        }
+
+
+        val uncompressedBitmap = getBitmapFromInputStream() ?: return null
+        return when (uncompressedBitmap.byteCount) {
+            in 0..1048576 /* 0 - 1MB */ -> {
+                uncompressedBitmap
+            }
+
+            in 1048576..2097152 /* 1MB - 2MB */ -> {
+                uncompressedBitmap.recycle()
+                getBitmapFromInputStream(2)
+            }
+
+            else -> /* >=2MB */ {
+                uncompressedBitmap.recycle()
+                getBitmapFromInputStream(3)
+            }
+        }
     }
 }
