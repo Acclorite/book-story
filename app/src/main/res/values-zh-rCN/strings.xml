@@ -358,15 +358,4 @@
     <string name="highlighted_reading_option">高亮词语</string>
     <string name="highlighted_reading_option_desc">高亮标记每个词的开头</string>
     <string name="highlighted_reading_thickness_option">高亮层次</string>
-    <string name="images_alignment_option"></string>
-    <string name="images_option"></string>
-    <string name="images_reader_settings"></string>
-    <string name="images_option_desc"></string>
-    <string name="chapters_reader_settings"></string>
-    <string name="images_corners_roundness_option"></string>
-    <string name="patreon_content_desc" translatable="false"></string>
-    <string name="reddit_content_desc" translatable="false"></string>
-    <string name="x_content_desc" translatable="false"></string>
-    <string name="app_version" translatable="false"></string>
-    <string name="app_name" translatable="false"></string>
 </resources>

@@ -344,29 +344,4 @@
     <string name="gray_theme">Calisto</string>
     <string name="custom_screen_brightness_option">Brillo personalizado</string>
     <string name="pink2_theme">Ganimedes</string>
-    <string name="chapters_reader_settings"></string>
-    <string name="images_reader_settings"></string>
-    <string name="images_option"></string>
-    <string name="images_option_desc"></string>
-    <string name="images_corners_roundness_option"></string>
-    <string name="chapter_title_alignment_option"></string>
-    <string name="highlighted_reading_level"></string>
-    <string name="reddit_content_desc" translatable="false"></string>
-    <string name="patreon_content_desc" translatable="false"></string>
-    <string name="images_alignment_option"></string>
-    <string name="app_name" translatable="false"></string>
-    <string name="app_version" translatable="false"></string>
-    <string name="x_content_desc" translatable="false"></string>
-    <string name="horizontal_gesture_option"></string>
-    <string name="horizontal_gesture_off"></string>
-    <string name="horizontal_gesture_on"></string>
-    <string name="reading_mode_reader_settings"></string>
-    <string name="yellow2_theme"></string>
-    <string name="bottom_bar_padding_option"></string>
-    <string name="horizontal_gesture_inverse"></string>
-    <string name="horizontal_gesture_sensitivity_option"></string>
-    <string name="horizontal_gesture_scroll_option"></string>
-    <string name="highlighted_reading_option"></string>
-    <string name="highlighted_reading_thickness_option"></string>
-    <string name="highlighted_reading_option_desc"></string>
 </resources>

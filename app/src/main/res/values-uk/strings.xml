@@ -407,9 +407,4 @@
     <string name="checkpoint_forward_content_desc">Чекпоінт вперед</string>
     <string name="chapters_content_desc">Розділи</string>
     <string name="more_content_desc">Більше</string>
-    <string name="patreon_content_desc" translatable="false"></string>
-    <string name="app_version" translatable="false"></string>
-    <string name="x_content_desc" translatable="false"></string>
-    <string name="app_name" translatable="false"></string>
-    <string name="reddit_content_desc" translatable="false"></string>
 </resources>
