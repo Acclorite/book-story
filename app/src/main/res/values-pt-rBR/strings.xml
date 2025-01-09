@@ -299,4 +299,74 @@
     <string name="yellow2_theme"></string>
     <string name="color_preset_placeholder"></string>
     <string name="help_desc_how_to_move_or_delete_books_1"></string>
+    <string name="help_title_how_to_add_books"></string>
+    <string name="help_title_how_to_customize_app"></string>
+    <string name="help_desc_how_to_customize_reader_3"></string>
+    <string name="x_content_desc" translatable="false"></string>
+    <string name="help_desc_how_to_customize_app_3"></string>
+    <string name="checkpoint_forward_content_desc"></string>
+    <string name="help_title_how_to_use_perception_expander_1"></string>
+    <string name="reddit_content_desc" translatable="false"></string>
+    <string name="images_alignment_option"></string>
+    <string name="chapter_title_alignment_option"></string>
+    <string name="help_desc_how_to_read_book_3"></string>
+    <string name="help_desc_how_to_add_books_3"></string>
+    <string name="help_desc_how_to_move_or_delete_books_3"></string>
+    <string name="help_desc_how_to_use_color_presets_1"></string>
+    <string name="help_desc_how_to_manage_history_3"></string>
+    <string name="start_done_desc"></string>
+    <string name="clear_selected_items_content_desc"></string>
+    <string name="images_option_desc"></string>
+    <string name="start_welcome_desc"></string>
+    <string name="exit_editing_content_desc"></string>
+    <string name="books_deleted"></string>
+    <string name="help_title_how_to_read_book"></string>
+    <string name="path_arrow_icon_content_desc"></string>
+    <string name="create_color_preset_content_desc"></string>
+    <string name="images_reader_settings"></string>
+    <string name="help_desc_how_to_create_color_presets_1"></string>
+    <string name="images_option"></string>
+    <string name="chapters_reader_settings"></string>
+    <string name="start_permissions_storage_desc"></string>
+    <string name="history_element_deleted"></string>
+    <string name="images_corners_roundness_option"></string>
+    <string name="books_added"></string>
+    <string name="highlighted_reading_level"></string>
+    <string name="delete_history_element_content_desc"></string>
+    <string name="start_permissions_notifications_desc"></string>
+    <string name="help_title_how_to_use_perception_expander"></string>
+    <string name="checkpoint_back_content_desc"></string>
+    <string name="highlighted_reading_option"></string>
+    <string name="highlighted_reading_thickness_option"></string>
+    <string name="highlighted_reading_option_desc"></string>
+    <string name="cover_image_changed"></string>
+    <string name="help_title_how_to_move_or_delete_books"></string>
+    <string name="help_title_how_to_use_color_presets"></string>
+    <string name="help_title_how_to_use_tooltip"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="app_version" translatable="false"></string>
+    <string name="browse_pin_favorite_directories_option_desc"></string>
+    <string name="press_again_toast"></string>
+    <string name="books_moved"></string>
+    <string name="cover_image_deleted"></string>
+    <string name="book_deleted"></string>
+    <string name="patreon_content_desc" translatable="false"></string>
+    <string name="reset_start_content_desc"></string>
+    <string name="help_title_how_to_edit_book"></string>
+    <string name="help_desc_how_to_edit_book_3"></string>
+    <string name="credits_updates"></string>
+    <string name="app_version_option_desc_2"></string>
+    <string name="browse_pin_favorite_directories_option"></string>
+    <string name="cover_reset"></string>
+    <string name="book_moved"></string>
+    <string name="help_title_how_to_customize_reader"></string>
+    <string name="help_desc_how_to_customize_reader_1"></string>
+    <string name="help_title_how_to_manage_history"></string>
+    <string name="help_desc_how_to_use_double_click_translation_1"></string>
+    <string name="help_desc_how_to_manage_history_1"></string>
+    <string name="help_desc_how_to_use_tooltip_1"></string>
+    <string name="help_title_how_to_use_double_click_translation"></string>
+    <string name="help_title_how_to_create_color_presets"></string>
+    <string name="horizontal_gesture_inverse"></string>
+    <string name="no_updates"></string>
 </resources>
