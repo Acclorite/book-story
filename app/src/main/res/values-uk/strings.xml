@@ -201,6 +201,7 @@
     <string name="images_option_desc">Показувати зображення разом із написами до них</string>
     <string name="images_corners_roundness_option">Округлість кутків</string>
     <string name="images_alignment_option">Розташування</string>
+    <string name="images_width_option">Розмір</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>

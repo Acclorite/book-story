@@ -22,6 +22,7 @@ fun LazyItemScope.ReaderLayoutText(
     entry: ReaderText,
     imagesCornersRoundness: Dp,
     imagesAlignment: ReaderImagesAlignment,
+    imagesWidth: Float,
     fontFamily: FontWithName,
     fontColor: Color,
     lineHeight: TextUnit,
@@ -47,7 +48,8 @@ fun LazyItemScope.ReaderLayoutText(
                 entry = entry,
                 sidePadding = sidePadding,
                 imagesCornersRoundness = imagesCornersRoundness,
-                imagesAlignment = imagesAlignment
+                imagesAlignment = imagesAlignment,
+                imagesWidth = imagesWidth
             )
         }
 

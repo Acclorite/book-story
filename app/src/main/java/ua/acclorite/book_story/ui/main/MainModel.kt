@@ -447,6 +447,14 @@ class MainModel @Inject constructor(
                     it.copy(imagesAlignment = this.toImagesAlignment())
                 }
             )
+
+            is MainEvent.OnChangeImagesWidth -> handleDatastoreUpdate(
+                key = DataStoreConstants.IMAGES_WIDTH,
+                value = event.value.toDouble(),
+                updateState = {
+                    it.copy(imagesWidth = this.toFloat())
+                }
+            )
         }
     }
 

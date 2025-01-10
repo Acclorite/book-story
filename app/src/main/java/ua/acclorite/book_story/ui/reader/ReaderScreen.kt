@@ -184,8 +184,14 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
                 ReaderTextAlignment.END -> Alignment.End
             }
         }
-        val imagesCornersRoundness = remember(mainState.value.imagesCornersRoundness) {
-            (mainState.value.imagesCornersRoundness * 3).dp
+        val imagesWidth = remember(mainState.value.imagesWidth) {
+            mainState.value.imagesWidth.coerceAtLeast(0.01f)
+        }
+        val imagesCornersRoundness = remember(
+            mainState.value.imagesCornersRoundness,
+            mainState.value.imagesWidth
+        ) {
+            (mainState.value.imagesCornersRoundness * 3 * imagesWidth).dp
         }
 
         val layoutDirection = LocalLayoutDirection.current
@@ -343,6 +349,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             images = mainState.value.images,
             imagesCornersRoundness = imagesCornersRoundness,
             imagesAlignment = mainState.value.imagesAlignment,
+            imagesWidth = imagesWidth,
             fontFamily = fontFamily,
             lineHeight = lineHeight,
             fontStyle = fontStyle,

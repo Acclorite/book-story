@@ -11,19 +11,18 @@ import ua.acclorite.book_story.ui.main.MainModel
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
-fun ImagesCornersRoundnessOption() {
+fun ImagesWidthOption() {
     val mainModel = hiltViewModel<MainModel>()
     val state = mainModel.state.collectAsStateWithLifecycle()
 
     ExpandingTransition(visible = state.value.images) {
         SliderWithTitle(
-            value = state.value.imagesCornersRoundness to "pt",
-            fromValue = 0,
-            toValue = 24,
-            title = stringResource(id = R.string.images_corners_roundness_option),
+            value = state.value.imagesWidth to "%",
+            toValue = 100,
+            title = stringResource(id = R.string.images_width_option),
             onValueChange = {
                 mainModel.onEvent(
-                    MainEvent.OnChangeImagesCornersRoundness(it)
+                    MainEvent.OnChangeImagesWidth(it)
                 )
             }
         )

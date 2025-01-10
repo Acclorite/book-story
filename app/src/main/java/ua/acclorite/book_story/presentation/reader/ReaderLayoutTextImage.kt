@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import ua.acclorite.book_story.domain.reader.ReaderImagesAlignment
 import ua.acclorite.book_story.domain.reader.ReaderText
@@ -18,7 +19,8 @@ fun LazyItemScope.ReaderLayoutTextImage(
     entry: ReaderText.Image,
     sidePadding: Dp,
     imagesCornersRoundness: Dp,
-    imagesAlignment: ReaderImagesAlignment
+    imagesAlignment: ReaderImagesAlignment,
+    imagesWidth: Float
 ) {
     Box(
         modifier = Modifier
@@ -31,9 +33,12 @@ fun LazyItemScope.ReaderLayoutTextImage(
         contentAlignment = imagesAlignment.alignment
     ) {
         Image(
-            modifier = Modifier.clip(RoundedCornerShape(imagesCornersRoundness)),
+            modifier = Modifier
+                .clip(RoundedCornerShape(imagesCornersRoundness))
+                .fillMaxWidth(imagesWidth),
             bitmap = entry.imageBitmap,
-            contentDescription = null
+            contentDescription = null,
+            contentScale = ContentScale.FillWidth
         )
     }
 }

@@ -256,6 +256,7 @@
     <string name="images_option_desc">Display images along with their captions</string>
     <string name="images_corners_roundness_option">Corners roundness</string>
     <string name="images_alignment_option">Alignment</string>
+    <string name="images_width_option">Size</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>

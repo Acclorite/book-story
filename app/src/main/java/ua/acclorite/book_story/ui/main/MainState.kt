@@ -98,6 +98,7 @@ data class MainState(
     val images: Boolean = provideDefaultValue { true },
     val imagesCornersRoundness: Int = provideDefaultValue { 8 },
     val imagesAlignment: ReaderImagesAlignment = provideDefaultValue { ReaderImagesAlignment.START },
+    val imagesWidth: Float = provideDefaultValue { 0.8f },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -327,6 +328,10 @@ data class MainState(
                     imagesAlignment = provideValue(
                         IMAGES_ALIGNMENT, convert = { toImagesAlignment() }
                     ) { imagesAlignment },
+
+                    imagesWidth = provideValue(
+                        IMAGES_WIDTH, convert = { toFloat() }
+                    ) { imagesWidth },
                 )
             }
         }
