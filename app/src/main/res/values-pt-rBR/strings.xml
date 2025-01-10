@@ -283,4 +283,22 @@
     <string name="yes_go_to_help">Sim, ir para Ajuda</string>
     <string name="perception_expander_option">Expansor de percepção</string>
     <string name="perception_expander_padding_option">Margem lateral da linha</string>
+    <string name="help_title_how_to_add_books">Como faço para adicionar livros à Biblioteca?</string>
+    <string name="help_title_how_to_read_book">Como faço para ler um livro?</string>
+    <string name="images_reader_settings">Imagens</string>
+    <string name="chapter_title_alignment_option">Alinhamento do título do capítulo</string>
+    <string name="images_option">Imagens</string>
+    <string name="file_last_opened">Último arquivo aberto</string>
+    <string name="chapters_reader_settings">Capítulos</string>
+    <string name="images_alignment_option">Alinhamento</string>
+    <string name="help_title_how_to_customize_app">Como faço para personalizar o aplicativo?</string>
+    <string name="move_books_content_desc">Mover livros selecionados</string>
+    <string name="delete_books_content_desc">Excluir livros selecionados</string>
+    <string name="highlighted_reading_option">Palavras em destaque</string>
+    <string name="highlighted_reading_option_desc">Destaque o início de cada palavra</string>
+    <string name="help_title_how_to_move_or_delete_books">Como faço para mover ou excluir livros?</string>
+    <string name="help_title_how_to_edit_book">Como faço para editar um livro?</string>
+    <string name="app_version_option_desc_2">Clique para verificar se há atualizações</string>
+    <string name="help_title_how_to_manage_history">Como faço para gerenciar o histórico?</string>
+    <string name="open_in_web_content_desc">Abrir no navegador</string>
 </resources>
