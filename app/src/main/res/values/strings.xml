@@ -257,6 +257,7 @@
     <string name="images_corners_roundness_option">Corners roundness</string>
     <string name="images_alignment_option">Alignment</string>
     <string name="images_width_option">Size</string>
+    <string name="images_color_effects_option">Color effects</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>
@@ -331,6 +332,12 @@
 
     <!-- Highlighted Reading properties -->
     <string name="highlighted_reading_level">level</string>
+
+    <!-- Color Effect properties -->
+    <string name="color_effects_off">Off</string>
+    <string name="color_effects_grayscale">Grayscale</string>
+    <string name="color_effects_font">Font color</string>
+    <string name="color_effects_background">Background color</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Mercury</string>

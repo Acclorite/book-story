@@ -19,6 +19,7 @@ import kotlinx.coroutines.yield
 import ua.acclorite.book_story.domain.browse.toBrowseFilesStructure
 import ua.acclorite.book_story.domain.browse.toBrowseLayout
 import ua.acclorite.book_story.domain.browse.toBrowseSortOrder
+import ua.acclorite.book_story.domain.reader.toColorEffects
 import ua.acclorite.book_story.domain.reader.toHorizontalGesture
 import ua.acclorite.book_story.domain.reader.toImagesAlignment
 import ua.acclorite.book_story.domain.reader.toReaderScreenOrientation
@@ -453,6 +454,14 @@ class MainModel @Inject constructor(
                 value = event.value.toDouble(),
                 updateState = {
                     it.copy(imagesWidth = this.toFloat())
+                }
+            )
+
+            is MainEvent.OnChangeImagesColorEffects -> handleDatastoreUpdate(
+                key = DataStoreConstants.IMAGES_COLOR_EFFECTS,
+                value = event.value,
+                updateState = {
+                    it.copy(imagesColorEffects = this.toColorEffects())
                 }
             )
         }

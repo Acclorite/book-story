@@ -202,6 +202,7 @@
     <string name="images_corners_roundness_option">Округлість кутків</string>
     <string name="images_alignment_option">Розташування</string>
     <string name="images_width_option">Розмір</string>
+    <string name="images_color_effects_option">Ефекти кольору</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>
@@ -274,6 +275,12 @@
 
     <!-- Highlighted Reading properties -->
     <string name="highlighted_reading_level">рівень</string>
+
+    <!-- Color Effects properties -->
+    <string name="color_effects_off">Вимкнені</string>
+    <string name="color_effects_grayscale">Відтінки сірого</string>
+    <string name="color_effects_font">Колір шрифта</string>
+    <string name="color_effects_background">Колір фона</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Меркурій</string>

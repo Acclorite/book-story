@@ -13,10 +13,12 @@ import ua.acclorite.book_story.domain.browse.BrowseSortOrder
 import ua.acclorite.book_story.domain.browse.toBrowseFilesStructure
 import ua.acclorite.book_story.domain.browse.toBrowseLayout
 import ua.acclorite.book_story.domain.browse.toBrowseSortOrder
+import ua.acclorite.book_story.domain.reader.ReaderColorEffects
 import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
 import ua.acclorite.book_story.domain.reader.ReaderImagesAlignment
 import ua.acclorite.book_story.domain.reader.ReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
+import ua.acclorite.book_story.domain.reader.toColorEffects
 import ua.acclorite.book_story.domain.reader.toHorizontalGesture
 import ua.acclorite.book_story.domain.reader.toImagesAlignment
 import ua.acclorite.book_story.domain.reader.toReaderScreenOrientation
@@ -99,6 +101,7 @@ data class MainState(
     val imagesCornersRoundness: Int = provideDefaultValue { 8 },
     val imagesAlignment: ReaderImagesAlignment = provideDefaultValue { ReaderImagesAlignment.START },
     val imagesWidth: Float = provideDefaultValue { 0.8f },
+    val imagesColorEffects: ReaderColorEffects = provideDefaultValue { ReaderColorEffects.OFF },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -332,6 +335,10 @@ data class MainState(
                     imagesWidth = provideValue(
                         IMAGES_WIDTH, convert = { toFloat() }
                     ) { imagesWidth },
+
+                    imagesColorEffects = provideValue(
+                        IMAGES_COLOR_EFFECTS, convert = { toColorEffects() }
+                    ) { imagesColorEffects },
                 )
             }
         }

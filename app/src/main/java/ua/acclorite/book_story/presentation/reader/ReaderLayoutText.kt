@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -23,6 +24,7 @@ fun LazyItemScope.ReaderLayoutText(
     imagesCornersRoundness: Dp,
     imagesAlignment: ReaderImagesAlignment,
     imagesWidth: Float,
+    imagesColorEffects: ColorFilter?,
     fontFamily: FontWithName,
     fontColor: Color,
     lineHeight: TextUnit,
@@ -49,7 +51,8 @@ fun LazyItemScope.ReaderLayoutText(
                 sidePadding = sidePadding,
                 imagesCornersRoundness = imagesCornersRoundness,
                 imagesAlignment = imagesAlignment,
-                imagesWidth = imagesWidth
+                imagesWidth = imagesWidth,
+                imagesColorEffects = imagesColorEffects
             )
         }
 

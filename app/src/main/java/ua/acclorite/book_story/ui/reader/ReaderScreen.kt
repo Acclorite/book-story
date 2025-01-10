@@ -21,6 +21,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.platform.LocalDensity
@@ -36,6 +39,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.domain.navigator.Screen
+import ua.acclorite.book_story.domain.reader.ReaderColorEffects
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideFonts
@@ -192,6 +196,29 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             mainState.value.imagesWidth
         ) {
             (mainState.value.imagesCornersRoundness * 3 * imagesWidth).dp
+        }
+        val imagesColorEffects = remember(
+            mainState.value.imagesColorEffects,
+            fontColor.value,
+            backgroundColor.value
+        ) {
+            when (mainState.value.imagesColorEffects) {
+                ReaderColorEffects.OFF -> null
+
+                ReaderColorEffects.GRAYSCALE -> ColorFilter.colorMatrix(
+                    ColorMatrix().apply { setToSaturation(0f) }
+                )
+
+                ReaderColorEffects.FONT -> ColorFilter.tint(
+                    color = fontColor.value,
+                    blendMode = BlendMode.Color
+                )
+
+                ReaderColorEffects.BACKGROUND -> ColorFilter.tint(
+                    color = backgroundColor.value,
+                    blendMode = BlendMode.Color
+                )
+            }
         }
 
         val layoutDirection = LocalLayoutDirection.current
@@ -350,6 +377,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             imagesCornersRoundness = imagesCornersRoundness,
             imagesAlignment = mainState.value.imagesAlignment,
             imagesWidth = imagesWidth,
+            imagesColorEffects = imagesColorEffects,
             fontFamily = fontFamily,
             lineHeight = lineHeight,
             fontStyle = fontStyle,
