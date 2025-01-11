@@ -62,6 +62,9 @@ object AppModule {
     @Provides
     @Singleton
     fun provideBookDao(app: Application): BookDao {
+        // Additional Migrations
+        DatabaseHelper.MIGRATION_7_8.removeBooksDir(app)
+
         return Room.databaseBuilder(
             app,
             BookDatabase::class.java,
