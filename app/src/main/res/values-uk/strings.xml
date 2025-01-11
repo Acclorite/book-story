@@ -138,6 +138,7 @@
     <string name="system_reader_settings">Система</string>
     <string name="chapters_reader_settings">Розділи</string>
     <string name="images_reader_settings">Зображення</string>
+    <string name="progress_reader_settings">Прогрес</string>
     <string name="theme_appearance_settings">Налаштування теми</string>
     <string name="colors_appearance_settings">Кольори</string>
     <string name="general_browse_settings">Головні</string>
@@ -203,6 +204,7 @@
     <string name="images_alignment_option">Розташування</string>
     <string name="images_width_option">Розмір</string>
     <string name="images_color_effects_option">Ефекти кольору</string>
+    <string name="progress_bar_option">Панель прогресу</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>

@@ -28,6 +28,7 @@ import ua.acclorite.book_story.presentation.settings.reader.font.FontSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.images.ImagesSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.misc.MiscSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.padding.PaddingSubcategory
+import ua.acclorite.book_story.presentation.settings.reader.progress.ProgressSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.reading_mode.ReadingModeSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.reading_speed.ReadingSpeedSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.system.SystemSubcategory
@@ -126,6 +127,9 @@ fun ReaderSettingsBottomSheet(
                             titleColor = { MaterialTheme.colorScheme.onSurface }
                         )
                         ChaptersSubcategory(
+                            titleColor = { MaterialTheme.colorScheme.onSurface }
+                        )
+                        ProgressSubcategory(
                             titleColor = { MaterialTheme.colorScheme.onSurface }
                         )
                         TranslatorSubcategory(

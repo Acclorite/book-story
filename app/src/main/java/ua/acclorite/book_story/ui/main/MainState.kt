@@ -102,6 +102,7 @@ data class MainState(
     val imagesAlignment: ReaderImagesAlignment = provideDefaultValue { ReaderImagesAlignment.START },
     val imagesWidth: Float = provideDefaultValue { 0.8f },
     val imagesColorEffects: ReaderColorEffects = provideDefaultValue { ReaderColorEffects.OFF },
+    val progressBar: Boolean = provideDefaultValue { false },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -339,6 +340,10 @@ data class MainState(
                     imagesColorEffects = provideValue(
                         IMAGES_COLOR_EFFECTS, convert = { toColorEffects() }
                     ) { imagesColorEffects },
+
+                    progressBar = provideValue(
+                        PROGRESS_BAR
+                    ) { progressBar },
                 )
             }
         }

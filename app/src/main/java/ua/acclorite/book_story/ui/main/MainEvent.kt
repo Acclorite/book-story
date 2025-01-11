@@ -55,4 +55,5 @@ sealed class MainEvent {
     data class OnChangeImagesAlignment(val value: String) : MainEvent()
     data class OnChangeImagesWidth(val value: Float) : MainEvent()
     data class OnChangeImagesColorEffects(val value: String) : MainEvent()
+    data class OnChangeProgressBar(val value: Boolean) : MainEvent()
 }

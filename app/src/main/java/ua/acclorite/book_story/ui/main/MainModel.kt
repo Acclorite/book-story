@@ -464,6 +464,14 @@ class MainModel @Inject constructor(
                     it.copy(imagesColorEffects = this.toColorEffects())
                 }
             )
+
+            is MainEvent.OnChangeProgressBar -> handleDatastoreUpdate(
+                key = DataStoreConstants.PROGRESS_BAR,
+                value = event.value,
+                updateState = {
+                    it.copy(progressBar = this)
+                }
+            )
         }
     }
 

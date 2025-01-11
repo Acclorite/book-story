@@ -191,6 +191,7 @@
     <string name="system_reader_settings">System</string>
     <string name="chapters_reader_settings">Chapters</string>
     <string name="images_reader_settings">Images</string>
+    <string name="progress_reader_settings">Progress</string>
     <string name="theme_appearance_settings">Theme preferences</string>
     <string name="colors_appearance_settings">Colors</string>
     <string name="general_browse_settings">General</string>
@@ -258,6 +259,7 @@
     <string name="images_alignment_option">Alignment</string>
     <string name="images_width_option">Size</string>
     <string name="images_color_effects_option">Color effects</string>
+    <string name="progress_bar_option">Progress bar</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>
