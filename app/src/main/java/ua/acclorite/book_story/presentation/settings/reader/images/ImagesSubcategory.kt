@@ -10,8 +10,10 @@ import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.images.components.ImagesAlignmentOption
+import ua.acclorite.book_story.presentation.settings.reader.images.components.ImagesColorEffectsOption
 import ua.acclorite.book_story.presentation.settings.reader.images.components.ImagesCornersRoundnessOption
 import ua.acclorite.book_story.presentation.settings.reader.images.components.ImagesOption
+import ua.acclorite.book_story.presentation.settings.reader.images.components.ImagesWidthOption
 
 fun LazyListScope.ImagesSubcategory(
     titleColor: @Composable () -> Color = { MaterialTheme.colorScheme.primary },
@@ -30,11 +32,19 @@ fun LazyListScope.ImagesSubcategory(
         }
 
         item {
+            ImagesColorEffectsOption()
+        }
+
+        item {
             ImagesCornersRoundnessOption()
         }
 
         item {
             ImagesAlignmentOption()
+        }
+
+        item {
+            ImagesWidthOption()
         }
     }
 }

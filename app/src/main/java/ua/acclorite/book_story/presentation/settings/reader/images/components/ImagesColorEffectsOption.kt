@@ -6,36 +6,48 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.reader.ReaderColorEffects
 import ua.acclorite.book_story.domain.ui.ButtonItem
-import ua.acclorite.book_story.domain.util.HorizontalAlignment
-import ua.acclorite.book_story.presentation.core.components.settings.SegmentedButtonWithTitle
+import ua.acclorite.book_story.presentation.core.components.settings.ChipsWithTitle
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.main.MainModel
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
-fun ImagesAlignmentOption() {
+fun ImagesColorEffectsOption() {
     val mainModel = hiltViewModel<MainModel>()
     val state = mainModel.state.collectAsStateWithLifecycle()
 
     ExpandingTransition(visible = state.value.images) {
-        SegmentedButtonWithTitle(
-            title = stringResource(id = R.string.images_alignment_option),
-            buttons = HorizontalAlignment.entries.map {
+        ChipsWithTitle(
+            title = stringResource(id = R.string.images_color_effects_option),
+            chips = ReaderColorEffects.entries.map {
                 ButtonItem(
                     id = it.toString(),
                     title = when (it) {
-                        HorizontalAlignment.START -> stringResource(id = R.string.alignment_start)
-                        HorizontalAlignment.CENTER -> stringResource(id = R.string.alignment_center)
-                        HorizontalAlignment.END -> stringResource(id = R.string.alignment_end)
+                        ReaderColorEffects.OFF -> {
+                            stringResource(R.string.color_effects_off)
+                        }
+
+                        ReaderColorEffects.GRAYSCALE -> {
+                            stringResource(R.string.color_effects_grayscale)
+                        }
+
+                        ReaderColorEffects.FONT -> {
+                            stringResource(R.string.color_effects_font)
+                        }
+
+                        ReaderColorEffects.BACKGROUND -> {
+                            stringResource(R.string.color_effects_background)
+                        }
                     },
                     textStyle = MaterialTheme.typography.labelLarge,
-                    selected = it == state.value.imagesAlignment
+                    selected = it == state.value.imagesColorEffects
                 )
             },
             onClick = {
                 mainModel.onEvent(
-                    MainEvent.OnChangeImagesAlignment(
+                    MainEvent.OnChangeImagesColorEffects(
                         it.id
                     )
                 )

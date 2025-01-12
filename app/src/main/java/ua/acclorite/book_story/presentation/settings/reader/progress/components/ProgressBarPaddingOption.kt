@@ -1,4 +1,4 @@
-package ua.acclorite.book_story.presentation.settings.reader.images.components
+package ua.acclorite.book_story.presentation.settings.reader.progress.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
@@ -11,19 +11,19 @@ import ua.acclorite.book_story.ui.main.MainModel
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
-fun ImagesCornersRoundnessOption() {
+fun ProgressBarPaddingOption() {
     val mainModel = hiltViewModel<MainModel>()
     val state = mainModel.state.collectAsStateWithLifecycle()
 
-    ExpandingTransition(visible = state.value.images) {
+    ExpandingTransition(visible = state.value.progressBar) {
         SliderWithTitle(
-            value = state.value.imagesCornersRoundness to "pt",
-            fromValue = 0,
-            toValue = 24,
-            title = stringResource(id = R.string.images_corners_roundness_option),
+            value = state.value.progressBarPadding to "pt",
+            fromValue = 1,
+            toValue = 12,
+            title = stringResource(id = R.string.progress_bar_padding_option),
             onValueChange = {
                 mainModel.onEvent(
-                    MainEvent.OnChangeImagesCornersRoundness(it)
+                    MainEvent.OnChangeProgressBarPadding(it)
                 )
             }
         )

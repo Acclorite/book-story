@@ -21,6 +21,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.platform.LocalDensity
@@ -36,10 +39,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.domain.navigator.Screen
+import ua.acclorite.book_story.domain.reader.ReaderColorEffects
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideFonts
 import ua.acclorite.book_story.presentation.core.util.LocalActivity
+import ua.acclorite.book_story.presentation.core.util.calculateProgress
 import ua.acclorite.book_story.presentation.core.util.setBrightness
 import ua.acclorite.book_story.presentation.navigator.LocalNavigator
 import ua.acclorite.book_story.presentation.reader.ReaderContent
@@ -184,8 +189,40 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
                 ReaderTextAlignment.END -> Alignment.End
             }
         }
-        val imagesCornersRoundness = remember(mainState.value.imagesCornersRoundness) {
-            (mainState.value.imagesCornersRoundness * 3).dp
+        val imagesWidth = remember(mainState.value.imagesWidth) {
+            mainState.value.imagesWidth.coerceAtLeast(0.01f)
+        }
+        val imagesCornersRoundness = remember(
+            mainState.value.imagesCornersRoundness,
+            mainState.value.imagesWidth
+        ) {
+            (mainState.value.imagesCornersRoundness * 3 * imagesWidth).dp
+        }
+        val imagesColorEffects = remember(
+            mainState.value.imagesColorEffects,
+            fontColor.value,
+            backgroundColor.value
+        ) {
+            when (mainState.value.imagesColorEffects) {
+                ReaderColorEffects.OFF -> null
+
+                ReaderColorEffects.GRAYSCALE -> ColorFilter.colorMatrix(
+                    ColorMatrix().apply { setToSaturation(0f) }
+                )
+
+                ReaderColorEffects.FONT -> ColorFilter.tint(
+                    color = fontColor.value,
+                    blendMode = BlendMode.Color
+                )
+
+                ReaderColorEffects.BACKGROUND -> ColorFilter.tint(
+                    color = backgroundColor.value,
+                    blendMode = BlendMode.Color
+                )
+            }
+        }
+        val progressBarPadding = remember(mainState.value.progressBarPadding) {
+            (mainState.value.progressBarPadding * 3).dp
         }
 
         val layoutDirection = LocalLayoutDirection.current
@@ -245,6 +282,26 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
         }
         val bottomBarPadding = remember(mainState.value.bottomBarPadding) {
             (mainState.value.bottomBarPadding * 4f).dp
+        }
+
+        val bookProgress = remember(state.value.book.progress) {
+            derivedStateOf {
+                "${state.value.book.progress.calculateProgress(2)}%"
+            }
+        }
+        val chapterProgress = remember(
+            state.value.currentChapter,
+            state.value.currentChapterProgress
+        ) {
+            derivedStateOf {
+                if (state.value.currentChapter == null) return@derivedStateOf ""
+                " (${state.value.currentChapterProgress.calculateProgress(2)}%)"
+            }
+        }
+        val progress = remember(bookProgress.value, chapterProgress.value) {
+            derivedStateOf {
+                "${bookProgress.value}${chapterProgress.value}"
+            }
         }
 
         LaunchedEffect(Unit) {
@@ -335,6 +392,10 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             horizontalGestureSensitivity = horizontalGestureSensitivity,
             highlightedReading = mainState.value.highlightedReading,
             highlightedReadingThickness = highlightedReadingThickness,
+            progress = progress.value,
+            progressBar = mainState.value.progressBar,
+            progressBarPadding = progressBarPadding,
+            progressBarAlignment = mainState.value.progressBarAlignment,
             paragraphHeight = paragraphHeight,
             sidePadding = sidePadding,
             bottomBarPadding = bottomBarPadding,
@@ -343,6 +404,8 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             images = mainState.value.images,
             imagesCornersRoundness = imagesCornersRoundness,
             imagesAlignment = mainState.value.imagesAlignment,
+            imagesWidth = imagesWidth,
+            imagesColorEffects = imagesColorEffects,
             fontFamily = fontFamily,
             lineHeight = lineHeight,
             fontStyle = fontStyle,

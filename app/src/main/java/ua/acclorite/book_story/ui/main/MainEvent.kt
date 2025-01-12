@@ -53,4 +53,9 @@ sealed class MainEvent {
     data class OnChangeImages(val value: Boolean) : MainEvent()
     data class OnChangeImagesCornersRoundness(val value: Int) : MainEvent()
     data class OnChangeImagesAlignment(val value: String) : MainEvent()
+    data class OnChangeImagesWidth(val value: Float) : MainEvent()
+    data class OnChangeImagesColorEffects(val value: String) : MainEvent()
+    data class OnChangeProgressBar(val value: Boolean) : MainEvent()
+    data class OnChangeProgressBarPadding(val value: Int) : MainEvent()
+    data class OnChangeProgressBarAlignment(val value: String) : MainEvent()
 }

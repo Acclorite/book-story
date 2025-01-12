@@ -28,10 +28,8 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.library.book.Book
 import ua.acclorite.book_story.domain.reader.Checkpoint
 import ua.acclorite.book_story.domain.reader.ReaderText
-import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
 import ua.acclorite.book_story.domain.util.Direction
 import ua.acclorite.book_story.presentation.core.components.common.IconButton
-import ua.acclorite.book_story.presentation.core.util.calculateProgress
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.ui.reader.ReaderEvent
 import ua.acclorite.book_story.ui.theme.Colors
@@ -40,34 +38,16 @@ import ua.acclorite.book_story.ui.theme.HorizontalExpandingTransition
 @Composable
 fun ReaderBottomBar(
     book: Book,
+    progress: String,
     text: List<ReaderText>,
     listState: LazyListState,
     lockMenu: Boolean,
-    currentChapter: Chapter?,
-    currentChapterProgress: Float,
     checkpoint: Checkpoint,
     bottomBarPadding: Dp,
     restoreCheckpoint: (ReaderEvent.OnRestoreCheckpoint) -> Unit,
     scroll: (ReaderEvent.OnScroll) -> Unit,
     changeProgress: (ReaderEvent.OnChangeProgress) -> Unit
 ) {
-    val bookProgress = remember(book.progress) {
-        derivedStateOf {
-            "${book.progress.calculateProgress(2)}%"
-        }
-    }
-    val chapterProgress = remember(currentChapter, currentChapterProgress) {
-        derivedStateOf {
-            if (currentChapter == null) return@derivedStateOf ""
-            " (${currentChapterProgress.calculateProgress(2)}%)"
-        }
-    }
-    val progress = remember(bookProgress.value, chapterProgress.value) {
-        derivedStateOf {
-            "${bookProgress.value}${chapterProgress.value}"
-        }
-    }
-
     val arrowDirection = remember(checkpoint.index, listState.firstVisibleItemIndex) {
         derivedStateOf {
             val checkpointIndex = checkpoint.index
@@ -99,7 +79,7 @@ fun ReaderBottomBar(
         Spacer(Modifier.height(16.dp))
 
         Text(
-            text = progress.value,
+            text = progress,
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleLarge
         )

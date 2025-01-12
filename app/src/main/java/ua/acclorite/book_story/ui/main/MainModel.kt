@@ -19,14 +19,15 @@ import kotlinx.coroutines.yield
 import ua.acclorite.book_story.domain.browse.toBrowseFilesStructure
 import ua.acclorite.book_story.domain.browse.toBrowseLayout
 import ua.acclorite.book_story.domain.browse.toBrowseSortOrder
+import ua.acclorite.book_story.domain.reader.toColorEffects
 import ua.acclorite.book_story.domain.reader.toHorizontalGesture
-import ua.acclorite.book_story.domain.reader.toImagesAlignment
 import ua.acclorite.book_story.domain.reader.toReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.toTextAlignment
 import ua.acclorite.book_story.domain.use_case.data_store.ChangeLanguage
 import ua.acclorite.book_story.domain.use_case.data_store.GetAllSettings
 import ua.acclorite.book_story.domain.use_case.data_store.SetDatastore
 import ua.acclorite.book_story.domain.use_case.remote.CheckForUpdates
+import ua.acclorite.book_story.domain.util.toHorizontalAlignment
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
 import ua.acclorite.book_story.presentation.core.constants.provideFonts
@@ -444,7 +445,47 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.IMAGES_ALIGNMENT,
                 value = event.value,
                 updateState = {
-                    it.copy(imagesAlignment = this.toImagesAlignment())
+                    it.copy(imagesAlignment = this.toHorizontalAlignment())
+                }
+            )
+
+            is MainEvent.OnChangeImagesWidth -> handleDatastoreUpdate(
+                key = DataStoreConstants.IMAGES_WIDTH,
+                value = event.value.toDouble(),
+                updateState = {
+                    it.copy(imagesWidth = this.toFloat())
+                }
+            )
+
+            is MainEvent.OnChangeImagesColorEffects -> handleDatastoreUpdate(
+                key = DataStoreConstants.IMAGES_COLOR_EFFECTS,
+                value = event.value,
+                updateState = {
+                    it.copy(imagesColorEffects = this.toColorEffects())
+                }
+            )
+
+            is MainEvent.OnChangeProgressBar -> handleDatastoreUpdate(
+                key = DataStoreConstants.PROGRESS_BAR,
+                value = event.value,
+                updateState = {
+                    it.copy(progressBar = this)
+                }
+            )
+
+            is MainEvent.OnChangeProgressBarPadding -> handleDatastoreUpdate(
+                key = DataStoreConstants.PROGRESS_BAR_PADDING,
+                value = event.value,
+                updateState = {
+                    it.copy(progressBarPadding = this)
+                }
+            )
+
+            is MainEvent.OnChangeProgressBarAlignment -> handleDatastoreUpdate(
+                key = DataStoreConstants.PROGRESS_BAR_ALIGNMENT,
+                value = event.value,
+                updateState = {
+                    it.copy(progressBarAlignment = this.toHorizontalAlignment())
                 }
             )
         }

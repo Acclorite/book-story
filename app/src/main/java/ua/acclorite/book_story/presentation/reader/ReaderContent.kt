@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -15,13 +16,13 @@ import ua.acclorite.book_story.domain.library.book.Book
 import ua.acclorite.book_story.domain.reader.Checkpoint
 import ua.acclorite.book_story.domain.reader.FontWithName
 import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
-import ua.acclorite.book_story.domain.reader.ReaderImagesAlignment
 import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.domain.ui.UIText
 import ua.acclorite.book_story.domain.util.BottomSheet
 import ua.acclorite.book_story.domain.util.Drawer
+import ua.acclorite.book_story.domain.util.HorizontalAlignment
 import ua.acclorite.book_story.ui.reader.ReaderEvent
 import ua.acclorite.book_story.ui.settings.SettingsEvent
 
@@ -51,6 +52,10 @@ fun ReaderContent(
     horizontalGestureSensitivity: Dp,
     highlightedReading: Boolean,
     highlightedReadingThickness: FontWeight,
+    progress: String,
+    progressBar: Boolean,
+    progressBarPadding: Dp,
+    progressBarAlignment: HorizontalAlignment,
     paragraphHeight: Dp,
     sidePadding: Dp,
     bottomBarPadding: Dp,
@@ -58,7 +63,9 @@ fun ReaderContent(
     fontColor: Color,
     images: Boolean,
     imagesCornersRoundness: Dp,
-    imagesAlignment: ReaderImagesAlignment,
+    imagesAlignment: HorizontalAlignment,
+    imagesWidth: Float,
+    imagesColorEffects: ColorFilter?,
     fontFamily: FontWithName,
     lineHeight: TextUnit,
     fontStyle: FontStyle,
@@ -119,6 +126,10 @@ fun ReaderContent(
             horizontalGestureSensitivity = horizontalGestureSensitivity,
             highlightedReading = highlightedReading,
             highlightedReadingThickness = highlightedReadingThickness,
+            progress = progress,
+            progressBar = progressBar,
+            progressBarPadding = progressBarPadding,
+            progressBarAlignment = progressBarAlignment,
             paragraphHeight = paragraphHeight,
             sidePadding = sidePadding,
             bottomBarPadding = bottomBarPadding,
@@ -127,6 +138,8 @@ fun ReaderContent(
             images = images,
             imagesCornersRoundness = imagesCornersRoundness,
             imagesAlignment = imagesAlignment,
+            imagesWidth = imagesWidth,
+            imagesColorEffects = imagesColorEffects,
             fontFamily = fontFamily,
             lineHeight = lineHeight,
             fontStyle = fontStyle,

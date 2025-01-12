@@ -5,14 +5,15 @@ import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import ua.acclorite.book_story.domain.reader.FontWithName
-import ua.acclorite.book_story.domain.reader.ReaderImagesAlignment
 import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
+import ua.acclorite.book_story.domain.util.HorizontalAlignment
 import ua.acclorite.book_story.ui.reader.ReaderEvent
 
 @Composable
@@ -21,7 +22,9 @@ fun LazyItemScope.ReaderLayoutText(
     showMenu: Boolean,
     entry: ReaderText,
     imagesCornersRoundness: Dp,
-    imagesAlignment: ReaderImagesAlignment,
+    imagesAlignment: HorizontalAlignment,
+    imagesWidth: Float,
+    imagesColorEffects: ColorFilter?,
     fontFamily: FontWithName,
     fontColor: Color,
     lineHeight: TextUnit,
@@ -47,7 +50,9 @@ fun LazyItemScope.ReaderLayoutText(
                 entry = entry,
                 sidePadding = sidePadding,
                 imagesCornersRoundness = imagesCornersRoundness,
-                imagesAlignment = imagesAlignment
+                imagesAlignment = imagesAlignment,
+                imagesWidth = imagesWidth,
+                imagesColorEffects = imagesColorEffects
             )
         }
 

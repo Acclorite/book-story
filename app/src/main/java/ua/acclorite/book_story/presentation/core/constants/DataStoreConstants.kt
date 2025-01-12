@@ -51,6 +51,11 @@ object DataStoreConstants {
     val IMAGES = booleanPreferencesKey("images")
     val IMAGES_CORNERS_ROUNDNESS = intPreferencesKey("images_corners_roundness")
     val IMAGES_ALIGNMENT = stringPreferencesKey("images_alignment")
+    val IMAGES_WIDTH = doublePreferencesKey("images_width")
+    val IMAGES_COLOR_EFFECTS = stringPreferencesKey("images_color_effects")
+    val PROGRESS_BAR = booleanPreferencesKey("progress_bar")
+    val PROGRESS_BAR_PADDING = intPreferencesKey("progress_bar_padding")
+    val PROGRESS_BAR_ALIGNMENT = stringPreferencesKey("progress_bar_alignment")
 
     // Browse settings
     val BROWSE_FILES_STRUCTURE = stringPreferencesKey("browse_files_structure")

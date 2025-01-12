@@ -1,4 +1,4 @@
-package ua.acclorite.book_story.presentation.settings.reader.images.components
+package ua.acclorite.book_story.presentation.settings.reader.progress.components
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -14,13 +14,13 @@ import ua.acclorite.book_story.ui.main.MainModel
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
-fun ImagesAlignmentOption() {
+fun ProgressBarAlignmentOption() {
     val mainModel = hiltViewModel<MainModel>()
     val state = mainModel.state.collectAsStateWithLifecycle()
 
-    ExpandingTransition(visible = state.value.images) {
+    ExpandingTransition(visible = state.value.progressBar) {
         SegmentedButtonWithTitle(
-            title = stringResource(id = R.string.images_alignment_option),
+            title = stringResource(id = R.string.progress_bar_alignment_option),
             buttons = HorizontalAlignment.entries.map {
                 ButtonItem(
                     id = it.toString(),
@@ -30,12 +30,12 @@ fun ImagesAlignmentOption() {
                         HorizontalAlignment.END -> stringResource(id = R.string.alignment_end)
                     },
                     textStyle = MaterialTheme.typography.labelLarge,
-                    selected = it == state.value.imagesAlignment
+                    selected = it == state.value.progressBarAlignment
                 )
             },
             onClick = {
                 mainModel.onEvent(
-                    MainEvent.OnChangeImagesAlignment(
+                    MainEvent.OnChangeProgressBarAlignment(
                         it.id
                     )
                 )
