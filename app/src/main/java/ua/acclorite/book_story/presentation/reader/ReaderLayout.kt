@@ -55,6 +55,7 @@ fun ReaderLayout(
     progress: String,
     progressBar: Boolean,
     progressBarPadding: Dp,
+    progressBarAlignment: HorizontalAlignment,
     paragraphHeight: Dp,
     sidePadding: Dp,
     backgroundColor: Color,
@@ -221,6 +222,7 @@ fun ReaderLayout(
                 ReaderProgressBar(
                     progress = progress,
                     progressBarPadding = progressBarPadding,
+                    progressBarAlignment = progressBarAlignment,
                     fontColor = fontColor,
                     sidePadding = sidePadding
                 )

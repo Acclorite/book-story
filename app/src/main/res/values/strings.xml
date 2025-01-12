@@ -261,6 +261,7 @@
     <string name="images_color_effects_option">Color effects</string>
     <string name="progress_bar_option">Progress bar</string>
     <string name="progress_bar_padding_option">Margins</string>
+    <string name="progress_bar_alignment_option">Alignment</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>

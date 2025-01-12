@@ -395,6 +395,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             progress = progress.value,
             progressBar = mainState.value.progressBar,
             progressBarPadding = progressBarPadding,
+            progressBarAlignment = mainState.value.progressBarAlignment,
             paragraphHeight = paragraphHeight,
             sidePadding = sidePadding,
             bottomBarPadding = bottomBarPadding,

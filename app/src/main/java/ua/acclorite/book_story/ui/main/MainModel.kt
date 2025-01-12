@@ -480,6 +480,14 @@ class MainModel @Inject constructor(
                     it.copy(progressBarPadding = this)
                 }
             )
+
+            is MainEvent.OnChangeProgressBarAlignment -> handleDatastoreUpdate(
+                key = DataStoreConstants.PROGRESS_BAR_ALIGNMENT,
+                value = event.value,
+                updateState = {
+                    it.copy(progressBarAlignment = this.toHorizontalAlignment())
+                }
+            )
         }
     }
 

@@ -104,6 +104,7 @@ data class MainState(
     val imagesColorEffects: ReaderColorEffects = provideDefaultValue { ReaderColorEffects.OFF },
     val progressBar: Boolean = provideDefaultValue { false },
     val progressBarPadding: Int = provideDefaultValue { 4 },
+    val progressBarAlignment: HorizontalAlignment = provideDefaultValue { HorizontalAlignment.CENTER },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -349,6 +350,10 @@ data class MainState(
                     progressBarPadding = provideValue(
                         PROGRESS_BAR_PADDING
                     ) { progressBarPadding },
+
+                    progressBarAlignment = provideValue(
+                        PROGRESS_BAR_ALIGNMENT, convert = { toHorizontalAlignment() }
+                    ) { progressBarAlignment },
                 )
             }
         }
