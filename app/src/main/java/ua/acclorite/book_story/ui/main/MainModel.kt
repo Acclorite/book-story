@@ -472,6 +472,14 @@ class MainModel @Inject constructor(
                     it.copy(progressBar = this)
                 }
             )
+
+            is MainEvent.OnChangeProgressBarPadding -> handleDatastoreUpdate(
+                key = DataStoreConstants.PROGRESS_BAR_PADDING,
+                value = event.value,
+                updateState = {
+                    it.copy(progressBarPadding = this)
+                }
+            )
         }
     }
 

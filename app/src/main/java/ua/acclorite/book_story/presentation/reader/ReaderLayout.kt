@@ -54,6 +54,7 @@ fun ReaderLayout(
     highlightedReadingThickness: FontWeight,
     progress: String,
     progressBar: Boolean,
+    progressBarPadding: Dp,
     paragraphHeight: Dp,
     sidePadding: Dp,
     backgroundColor: Color,
@@ -219,7 +220,9 @@ fun ReaderLayout(
             ) {
                 ReaderProgressBar(
                     progress = progress,
-                    fontColor = fontColor
+                    progressBarPadding = progressBarPadding,
+                    fontColor = fontColor,
+                    sidePadding = sidePadding
                 )
             }
         }

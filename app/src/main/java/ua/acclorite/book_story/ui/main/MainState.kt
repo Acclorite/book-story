@@ -103,6 +103,7 @@ data class MainState(
     val imagesWidth: Float = provideDefaultValue { 0.8f },
     val imagesColorEffects: ReaderColorEffects = provideDefaultValue { ReaderColorEffects.OFF },
     val progressBar: Boolean = provideDefaultValue { false },
+    val progressBarPadding: Int = provideDefaultValue { 4 },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -344,6 +345,10 @@ data class MainState(
                     progressBar = provideValue(
                         PROGRESS_BAR
                     ) { progressBar },
+
+                    progressBarPadding = provideValue(
+                        PROGRESS_BAR_PADDING
+                    ) { progressBarPadding },
                 )
             }
         }

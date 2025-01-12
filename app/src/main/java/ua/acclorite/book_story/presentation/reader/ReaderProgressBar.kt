@@ -11,17 +11,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
 
 @Composable
 fun ReaderProgressBar(
     progress: String,
-    fontColor: Color
+    progressBarPadding: Dp,
+    fontColor: Color,
+    sidePadding: Dp
 ) {
     Box(
         Modifier
             .fillMaxWidth()
-            .padding(14.dp),
+            .padding(
+                horizontal = sidePadding,
+                vertical = progressBarPadding
+            ),
         contentAlignment = Alignment.Center
     ) {
         DisableSelection {

@@ -205,6 +205,7 @@
     <string name="images_width_option">Розмір</string>
     <string name="images_color_effects_option">Ефекти кольору</string>
     <string name="progress_bar_option">Панель прогресу</string>
+    <string name="progress_bar_padding_option">Поля</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>
