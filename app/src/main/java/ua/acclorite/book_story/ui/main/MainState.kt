@@ -105,6 +105,7 @@ data class MainState(
     val progressBar: Boolean = provideDefaultValue { false },
     val progressBarPadding: Int = provideDefaultValue { 4 },
     val progressBarAlignment: HorizontalAlignment = provideDefaultValue { HorizontalAlignment.CENTER },
+    val progressBarFontSize: Int = provideDefaultValue { 8 },
 
     // Browse Settings
     val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
@@ -354,6 +355,10 @@ data class MainState(
                     progressBarAlignment = provideValue(
                         PROGRESS_BAR_ALIGNMENT, convert = { toHorizontalAlignment() }
                     ) { progressBarAlignment },
+
+                    progressBarFontSize = provideValue(
+                        PROGRESS_BAR_FONT_SIZE
+                    ) { progressBarFontSize },
                 )
             }
         }

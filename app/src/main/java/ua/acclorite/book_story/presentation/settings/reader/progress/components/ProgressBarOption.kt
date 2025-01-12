@@ -17,6 +17,7 @@ fun ProgressBarOption() {
     SwitchWithTitle(
         selected = state.value.progressBar,
         title = stringResource(id = R.string.progress_bar_option),
+        description = stringResource(id = R.string.progress_bar_option_desc),
         onClick = {
             mainModel.onEvent(
                 MainEvent.OnChangeProgressBar(

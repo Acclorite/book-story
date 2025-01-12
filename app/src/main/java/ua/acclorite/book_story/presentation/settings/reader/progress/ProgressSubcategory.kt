@@ -10,6 +10,7 @@ import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.progress.components.ProgressBarAlignmentOption
+import ua.acclorite.book_story.presentation.settings.reader.progress.components.ProgressBarFontSizeOption
 import ua.acclorite.book_story.presentation.settings.reader.progress.components.ProgressBarOption
 import ua.acclorite.book_story.presentation.settings.reader.progress.components.ProgressBarPaddingOption
 
@@ -27,6 +28,10 @@ fun LazyListScope.ProgressSubcategory(
     ) {
         item {
             ProgressBarOption()
+        }
+
+        item {
+            ProgressBarFontSizeOption()
         }
 
         item {

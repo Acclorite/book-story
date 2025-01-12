@@ -260,8 +260,10 @@
     <string name="images_width_option">Size</string>
     <string name="images_color_effects_option">Color effects</string>
     <string name="progress_bar_option">Progress bar</string>
+    <string name="progress_bar_option_desc">Display progress bar at the bottom</string>
     <string name="progress_bar_padding_option">Margins</string>
     <string name="progress_bar_alignment_option">Alignment</string>
+    <string name="progress_bar_font_size_option">Font size</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Files structure</string>

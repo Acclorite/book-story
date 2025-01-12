@@ -203,8 +203,10 @@
     <string name="images_width_option">Розмір</string>
     <string name="images_color_effects_option">Ефекти кольору</string>
     <string name="progress_bar_option">Панель прогресу</string>
+    <string name="progress_bar_option_desc">Показувати панель прогресу внизу</string>
     <string name="progress_bar_padding_option">Поля</string>
     <string name="progress_bar_alignment_option">Розташування</string>
+    <string name="progress_bar_font_size_option">Розмір шрифта</string>
 
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>

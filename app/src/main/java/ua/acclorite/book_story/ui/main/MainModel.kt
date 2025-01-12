@@ -488,6 +488,14 @@ class MainModel @Inject constructor(
                     it.copy(progressBarAlignment = this.toHorizontalAlignment())
                 }
             )
+
+            is MainEvent.OnChangeProgressBarFontSize -> handleDatastoreUpdate(
+                key = DataStoreConstants.PROGRESS_BAR_FONT_SIZE,
+                value = event.value,
+                updateState = {
+                    it.copy(progressBarFontSize = this)
+                }
+            )
         }
     }
 

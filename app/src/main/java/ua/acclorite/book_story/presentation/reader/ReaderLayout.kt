@@ -56,6 +56,7 @@ fun ReaderLayout(
     progressBar: Boolean,
     progressBarPadding: Dp,
     progressBarAlignment: HorizontalAlignment,
+    progressBarFontSize: TextUnit,
     paragraphHeight: Dp,
     sidePadding: Dp,
     backgroundColor: Color,
@@ -223,6 +224,7 @@ fun ReaderLayout(
                     progress = progress,
                     progressBarPadding = progressBarPadding,
                     progressBarAlignment = progressBarAlignment,
+                    progressBarFontSize = progressBarFontSize,
                     fontColor = fontColor,
                     sidePadding = sidePadding
                 )
