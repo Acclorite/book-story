@@ -217,7 +217,7 @@
     <string name="font_style_option">Font style</string>
     <string name="font_size_option">Font size</string>
     <string name="line_height_option">Line height</string>
-    <string name="paragraph_height_option">Paragraph height</string>
+    <string name="paragraph_height_option">Paragraph spacing</string>
     <string name="paragraph_indentation_option">Paragraph indentation</string>
     <string name="color_preset_option">Color preset</string>
     <string name="background_color_option">Background color</string>

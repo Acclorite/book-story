@@ -164,7 +164,7 @@
     <string name="font_style_option">Стиль шрифта</string>
     <string name="font_size_option">Розмір шрифта</string>
     <string name="line_height_option">Висота рядка</string>
-    <string name="paragraph_height_option">Висота абзаца</string>
+    <string name="paragraph_height_option">Відстань між абзацами</string>
     <string name="paragraph_indentation_option">Абзацний відступ</string>
     <string name="color_preset_option">Пресет кольорів</string>
     <string name="background_color_option">Колір фона</string>
