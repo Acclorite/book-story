@@ -24,10 +24,10 @@ import ua.acclorite.book_story.domain.library.book.Book
 import ua.acclorite.book_story.domain.reader.Checkpoint
 import ua.acclorite.book_story.domain.reader.FontWithName
 import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
-import ua.acclorite.book_story.domain.reader.ReaderImagesAlignment
 import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
+import ua.acclorite.book_story.domain.util.HorizontalAlignment
 import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
 import ua.acclorite.book_story.ui.reader.ReaderEvent
 import ua.acclorite.book_story.ui.settings.SettingsEvent
@@ -66,7 +66,7 @@ fun ReaderScaffold(
     fontColor: Color,
     images: Boolean,
     imagesCornersRoundness: Dp,
-    imagesAlignment: ReaderImagesAlignment,
+    imagesAlignment: HorizontalAlignment,
     imagesWidth: Float,
     imagesColorEffects: ColorFilter?,
     fontFamily: FontWithName,

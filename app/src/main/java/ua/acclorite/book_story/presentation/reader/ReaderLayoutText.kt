@@ -11,9 +11,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import ua.acclorite.book_story.domain.reader.FontWithName
-import ua.acclorite.book_story.domain.reader.ReaderImagesAlignment
 import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
+import ua.acclorite.book_story.domain.util.HorizontalAlignment
 import ua.acclorite.book_story.ui.reader.ReaderEvent
 
 @Composable
@@ -22,7 +22,7 @@ fun LazyItemScope.ReaderLayoutText(
     showMenu: Boolean,
     entry: ReaderText,
     imagesCornersRoundness: Dp,
-    imagesAlignment: ReaderImagesAlignment,
+    imagesAlignment: HorizontalAlignment,
     imagesWidth: Float,
     imagesColorEffects: ColorFilter?,
     fontFamily: FontWithName,

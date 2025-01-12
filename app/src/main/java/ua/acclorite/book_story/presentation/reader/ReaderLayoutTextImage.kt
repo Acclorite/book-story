@@ -12,15 +12,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
-import ua.acclorite.book_story.domain.reader.ReaderImagesAlignment
 import ua.acclorite.book_story.domain.reader.ReaderText
+import ua.acclorite.book_story.domain.util.HorizontalAlignment
 
 @Composable
 fun LazyItemScope.ReaderLayoutTextImage(
     entry: ReaderText.Image,
     sidePadding: Dp,
     imagesCornersRoundness: Dp,
-    imagesAlignment: ReaderImagesAlignment,
+    imagesAlignment: HorizontalAlignment,
     imagesWidth: Float,
     imagesColorEffects: ColorFilter?
 ) {

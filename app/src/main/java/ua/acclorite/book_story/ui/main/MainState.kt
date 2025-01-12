@@ -15,14 +15,14 @@ import ua.acclorite.book_story.domain.browse.toBrowseLayout
 import ua.acclorite.book_story.domain.browse.toBrowseSortOrder
 import ua.acclorite.book_story.domain.reader.ReaderColorEffects
 import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
-import ua.acclorite.book_story.domain.reader.ReaderImagesAlignment
 import ua.acclorite.book_story.domain.reader.ReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.domain.reader.toColorEffects
 import ua.acclorite.book_story.domain.reader.toHorizontalGesture
-import ua.acclorite.book_story.domain.reader.toImagesAlignment
 import ua.acclorite.book_story.domain.reader.toReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.toTextAlignment
+import ua.acclorite.book_story.domain.util.HorizontalAlignment
+import ua.acclorite.book_story.domain.util.toHorizontalAlignment
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
 import ua.acclorite.book_story.presentation.core.constants.provideFonts
@@ -99,7 +99,7 @@ data class MainState(
     val chapterTitleAlignment: ReaderTextAlignment = provideDefaultValue { ReaderTextAlignment.JUSTIFY },
     val images: Boolean = provideDefaultValue { true },
     val imagesCornersRoundness: Int = provideDefaultValue { 8 },
-    val imagesAlignment: ReaderImagesAlignment = provideDefaultValue { ReaderImagesAlignment.START },
+    val imagesAlignment: HorizontalAlignment = provideDefaultValue { HorizontalAlignment.START },
     val imagesWidth: Float = provideDefaultValue { 0.8f },
     val imagesColorEffects: ReaderColorEffects = provideDefaultValue { ReaderColorEffects.OFF },
     val progressBar: Boolean = provideDefaultValue { false },
@@ -331,7 +331,7 @@ data class MainState(
                     ) { imagesCornersRoundness },
 
                     imagesAlignment = provideValue(
-                        IMAGES_ALIGNMENT, convert = { toImagesAlignment() }
+                        IMAGES_ALIGNMENT, convert = { toHorizontalAlignment() }
                     ) { imagesAlignment },
 
                     imagesWidth = provideValue(

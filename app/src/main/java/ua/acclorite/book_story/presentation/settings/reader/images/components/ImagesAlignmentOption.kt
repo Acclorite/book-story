@@ -6,8 +6,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.reader.ReaderImagesAlignment
 import ua.acclorite.book_story.domain.ui.ButtonItem
+import ua.acclorite.book_story.domain.util.HorizontalAlignment
 import ua.acclorite.book_story.presentation.core.components.settings.SegmentedButtonWithTitle
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.main.MainModel
@@ -21,13 +21,13 @@ fun ImagesAlignmentOption() {
     ExpandingTransition(visible = state.value.images) {
         SegmentedButtonWithTitle(
             title = stringResource(id = R.string.images_alignment_option),
-            buttons = ReaderImagesAlignment.entries.map {
+            buttons = HorizontalAlignment.entries.map {
                 ButtonItem(
                     id = it.toString(),
                     title = when (it) {
-                        ReaderImagesAlignment.START -> stringResource(id = R.string.alignment_start)
-                        ReaderImagesAlignment.CENTER -> stringResource(id = R.string.alignment_center)
-                        ReaderImagesAlignment.END -> stringResource(id = R.string.alignment_end)
+                        HorizontalAlignment.START -> stringResource(id = R.string.alignment_start)
+                        HorizontalAlignment.CENTER -> stringResource(id = R.string.alignment_center)
+                        HorizontalAlignment.END -> stringResource(id = R.string.alignment_end)
                     },
                     textStyle = MaterialTheme.typography.labelLarge,
                     selected = it == state.value.imagesAlignment
