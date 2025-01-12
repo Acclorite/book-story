@@ -140,7 +140,7 @@ fun Constants.provideHelpTips() = listOf(
     HelpTip(
         title = R.string.help_title_how_to_use_perception_expander,
         description = {
-            append(stringResource(id = R.string.help_title_how_to_use_perception_expander_1))
+            append(stringResource(id = R.string.help_desc_how_to_use_perception_expander_1))
         }
     ),
 )

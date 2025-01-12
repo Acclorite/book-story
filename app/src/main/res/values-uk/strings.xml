@@ -3,13 +3,13 @@
     <!-- Basic Strings -->
     <string name="default_string">За замовчуванням</string>
     <string name="random_string">Випадково</string>
-  
+
     <!-- Notifications -->
     <string name="updates_notification_channel">Нові оновлення</string>
     <string name="updates_notification_title">Нове оновлення Book\'s Story!</string>
     <string name="updates_notification_desc">Оновлення %1$s вийшло! Натисніть, щоб перейти на сторінку релізу.</string>
     <string name="updates_notification_action">Завантажити</string>
-  
+
     <!-- Screens -->
     <string name="library_screen">Бібліотека</string>
     <string name="history_screen">Історія</string>
@@ -17,7 +17,7 @@
     <string name="settings_screen">Налаштування</string>
     <string name="about_screen">Про застосунок</string>
     <string name="help_screen">Довідка</string>
-  
+
     <!-- Dialog Labels -->
     <string name="storage_permission">Надати Дозвіл?</string>
     <string name="add_books">Додати книги?</string>
@@ -27,7 +27,7 @@
     <string name="move_book">Перемістити книгу?</string>
     <string name="delete_history">Видалити історію читання?</string>
     <string name="enable_check_for_updates">Увімнкути перевірку на оновлення?</string>
-  
+
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">Нам потрібен дозвіл на сховище, щоб просканувати Ваш Девайс на наявність книг. Без цього дозволу ви не зможете додати книгу.</string>
     <string name="add_books_description">Ви можете вибрати книги, які хочете додати. Ви зможете відредагувати Назву та Обкладинку книги пізніше. Процес завантаження може зайняти декілька хвилин.</string>
@@ -38,7 +38,7 @@
     <string name="delete_history_description">Це видалить всю історію з бази даних. Після видалення всієї історії порядок книг буде скинутий.</string>
     <string name="update_app_description">Нова версія застосунку була знайдена. Чи бажаєте продовжити та перейти на сторінку релізу?</string>
     <string name="enable_check_for_updates_description">Увімкнувши «Перевіряти на оновлення» застосунок буде отримувати інформацію про останній реліз з «api.github.com» кожен раз, коли застосунок запускається. Хочете продовжити та увімкнути «Перевіряти на оновлення»?</string>
-    
+
     <!-- Errors -->
     <string name="error_permission">Нам потрібен дозвіл на сховище, щоб просканувати Ваш Девайс на наявність книг</string>
     <string name="error_no_description">Немає опису.</string>
@@ -51,20 +51,20 @@
     <string name="error_check_internet">Щось пішло не так. Спробуйте пізніше.</string>
     <string name="error_could_not_reset_cover">Не вдалося скинути обкладинку.</string>
     <string name="error_closed_source">Закритий код</string>
-   
+
     <!-- Is Empty messages -->
     <string name="search_field_empty">Пошук…</string>
     <string name="browse_empty">Розширюйте книжковий арсенал бібліотеки своїми завантаженнями</string>
     <string name="library_empty">Читайте ваші улюблені книги та сортуйте їх між категоріями</string>
     <string name="history_empty">Нехай ваша остання прочитана книга відкриє перед вами сторінки нової великої історії вашого читацького шляху</string>
- 
+
     <!-- Query strings -->
     <string name="selected_items_count_query">%1$s обрано</string>
     <string name="file_path_query">Шлях до файлу: %1$s</string>
     <string name="update_query">Оновлення %1$s</string>
     <string name="color_preset_query">Пресет %1$s</string>
     <string name="color_preset_selected_query">Вибрано «%1$s»</string>
- 
+
     <!-- Action Texts -->
     <string name="cancel">Відмінити</string>
     <string name="grant">Надати</string>
@@ -90,7 +90,7 @@
     <string name="web_search">Веб-пошук</string>
     <string name="share">Поділитися</string>
     <string name="proceed">Продовжити</string>
-  
+
     <!-- Book -->
     <string name="unknown_author">Невідомий</string>
     <string name="read_more">Вам потрібно читати більше!</string>
@@ -103,7 +103,7 @@
     <string name="delete_cover">Видалити обкладинку</string>
     <string name="delete_cover_desc">Видаліть нинішню обкладинку книги</string>
     <string name="author">Автор</string>
- 
+
     <!-- Tabs -->
     <string name="reading_tab">Читаю</string>
     <string name="already_read_tab">Прочитано</string>
@@ -124,7 +124,7 @@
     <string name="reader_settings_desc">Шрифт, текст, перекладач</string>
     <string name="browse_settings">Огляд</string>
     <string name="browse_settings_desc">Головні, фільтр, сортування</string>
- 
+
     <!-- Settings subcategories -->
     <string name="font_reader_settings">Шрифт</string>
     <string name="text_reader_settings">Текст</string>
@@ -142,7 +142,7 @@
     <string name="general_browse_settings">Головні</string>
     <string name="filter_browse_settings">Фільтр</string>
     <string name="sort_browse_settings">Сотрування</string>
- 
+
     <!-- Settings options -->
     <!-- General -->
     <string name="language_option">Мова застосунка</string>
@@ -205,76 +205,76 @@
     <string name="progress_bar_option">Панель прогресу</string>
     <string name="progress_bar_padding_option">Поля</string>
     <string name="progress_bar_alignment_option">Розташування</string>
-  
+
     <!-- Browse -->
     <string name="browse_files_structure_option">Структура файлів</string>
     <string name="browse_layout_option">Режим відображення</string>
     <string name="browse_grid_size_option">Кількість комірок</string>
     <string name="browse_pin_favorite_directories_option">Закріпити улюблені директорії</string>
     <string name="browse_pin_favorite_directories_option_desc">Закріпіть ваші улюблені директорії зверху екрана</string>
-  
+
     <!-- Color presets -->
     <string name="red_color">Червоний</string>
     <string name="green_color">Зелений</string>
     <string name="blue_color">Синій</string>
     <string name="color_preset_placeholder">Назвіть пресет…</string>
-  
+
     <!-- Dark Theme properties -->
     <string name="dark_theme_off">Вимкнена</string>
     <string name="dark_theme_on">Ввімкнена</string>
     <string name="dark_theme_follow_system">Системна</string>
-  
+
     <!-- Pure Dark properties -->
     <string name="pure_dark_off">Вимкнена</string>
     <string name="pure_dark_on">Ввімкнена</string>
     <string name="pure_dark_power_saver">Економія</string>
-  
+
     <!-- Theme Contrast properties -->
     <string name="theme_contrast_standard">Типова</string>
     <string name="theme_contrast_medium">Середня</string>
     <string name="theme_contrast_high">Висока</string>
-  
+
     <!-- Font Style properties -->
     <string name="font_style_italic">Похилий</string>
     <string name="font_style_normal">Нормальний</string>
-  
+
     <!-- Files Structure properties -->
     <string name="files_structure_all">Всі файли</string>
     <string name="files_structure_directory">Директорії</string>
-  
+
     <!-- Browse Layout properties -->
     <string name="browse_layout_list">Список</string>
     <string name="browse_layout_grid">Сітка</string>
-  
+
     <!-- Browse Grid Size properties -->
     <string name="browse_grid_size_auto">Авто</string>
     <string name="browse_grid_size_per_row">кожен рядок</string>
-  
+
     <!-- Browse Sort Order properties -->
     <string name="browse_sort_order_name">За алфавітом</string>
     <string name="browse_sort_order_file_format">Формат файла</string>
     <string name="browse_sort_order_file_type">Тип файла</string>
     <string name="browse_sort_order_last_modified">Остання зміна</string>
     <string name="browse_sort_order_file_size">Розмір файла</string>
-  
+
     <!-- Text Alignment properties -->
     <string name="alignment_start">Старт</string>
     <string name="alignment_justify">Рівномірно</string>
     <string name="alignment_center">Центр</string>
     <string name="alignment_end">Кінець</string>
-  
+
     <!-- Screen Orientation properties -->
     <string name="screen_orientation_free">Вільно</string>
     <string name="screen_orientation_portrait">Портрет</string>
     <string name="screen_orientation_landscape">Альбом</string>
     <string name="screen_orientation_locked_portrait">Заблокований портрет</string>
     <string name="screen_orientation_locked_landscape">Заблокований альбом</string>
-  
+
     <!-- Horizontal Gesture properties -->
     <string name="horizontal_gesture_off">Вимкнений</string>
     <string name="horizontal_gesture_on">Ввімкнений</string>
     <string name="horizontal_gesture_inverse">Ввімкнений (Інвертований)</string>
-  
+
     <!-- Highlighted Reading properties -->
     <string name="highlighted_reading_level">рівень</string>
 
@@ -298,7 +298,7 @@
     <string name="yellow_theme">Венера</string>
     <string name="yellow2_theme">Макемаке</string>
     <string name="aqua_theme">Уран</string>
-  
+
     <!-- Toast messages -->
     <string name="press_again_toast">Натисніть ще раз, щоб вийти</string>
     <string name="books_added">Всі обрані книги були успішно додані.</string>
@@ -312,29 +312,29 @@
     <string name="history_deleted">Історія була успішно видалена.</string>
     <string name="no_updates">Остання версія застосунка вже встановлена.</string>
     <string name="cover_reset">Обкладинка була успішно скинута.</string>
-  
+
     <!-- Snackbar messages -->
     <string name="history_element_deleted">Елемент історії був успішно видалений.</string>
-  
+
     <!-- DropDown properties -->
     <string name="move_this_book">Перемістити</string>
     <string name="delete_this_book">Видалити</string>
     <string name="details_book">Подробиці</string>
-  
+
     <!-- BookInfo details -->
     <string name="file_name">Ім\'я файлу</string>
     <string name="file_path">Шлях до файлу</string>
     <string name="file_last_opened">Останнє відкриття файлу</string>
     <string name="file_size">Розмір файлу</string>
     <string name="unknown">Невідомо</string>
-  
+
     <!-- Browse -->
     <string name="internal_storage">Внутрішнє Сховище</string>
-  
+
     <!-- Reader -->
     <string name="no_chapters">Немає розділів</string>
     <string name="chapters">Розділи</string>
-  
+
     <!-- About -->
     <string name="app_version_option">Версія застосунка</string>
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
@@ -346,7 +346,7 @@
     <string name="help_translate_option">Допомогти перекласти</string>
     <string name="contributors_option">Контриб\'ютори</string>
     <string name="slava_ukraini">Слава Україні!</string>
-  
+
     <!-- Credits -->
     <string name="credits_design">Дизайн</string>
     <string name="credits_icon">Іконки</string>
@@ -355,59 +355,59 @@
     <string name="credits_translation">Переклад</string>
     <string name="credits_contribution">Внесок</string>
     <string name="credits_ideas">Ідеї</string>
-  
+
     <!-- Help -->
     <string name="help_title_how_to_add_books">Як мені додати книги в Бібліотеку?</string>
     <string name="help_desc_how_to_add_books_1">Перейдіть в</string>
     <string name="help_desc_how_to_add_books_2">Огляд</string>
     <string name="help_desc_how_to_add_books_3">Якщо ви не бачите завантажені книги, спробуйте оновити список, потягнувши його вниз. Переконайтеся, що ваші книги мають підтримуваний формат файлу. Потім натисніть на книгу, щоб вибрати її, або утримуйте, щоб показати її місцезнаходження. Після того, як ви вибрали всі потрібні книги, натисніть на іконку з галочкою у верхньому правому куті, зачекайте поки всі книги завантажаться, і натисніть «Додати». Тепер ви повинні побачити всі додані вами книги в</string>
     <string name="help_desc_how_to_add_books_4">Бібліотеці</string>
-  
+
     <string name="help_title_how_to_customize_app">Як мені налаштувати застосунок?</string>
     <string name="help_desc_how_to_customize_app_1">Перейдіть в</string>
     <string name="help_desc_how_to_customize_app_2">Налаштування</string>
     <string name="help_desc_how_to_customize_app_3">Ви можете зробити це з екранів Бібліотека, Історія та Огляд натиснувши на три крапки в правому верхньому кутку і вибравши «Налаштування» з випадаючого списку. Після цього ви побачите всі доступні налаштування для цього застосунку. Не соромтеся експерементувати з ними!</string>
-   
+
     <string name="help_title_how_to_move_or_delete_books">Як мені перемістити або видалити книги?</string>
     <string name="help_desc_how_to_move_or_delete_books_1">Перейдіть в</string>
     <string name="help_desc_how_to_move_or_delete_books_2">Бібліотеку</string>
     <string name="help_desc_how_to_move_or_delete_books_3">Утримуйте обкладинку першої книги, поки вона не буде вибрана, тепер ви можете просто натиснути на всі обкладинки книг, які ви хочете вибрати. Ви також можете вибрати книги в декількох категоріях. Після того, як ви вибрали всі бажані книги, ви можете натиснути на іконку зі стрілкою, щоб перемістити та на іконку кошика, щоб видалити книги.</string>
-    
+
     <string name="help_title_how_to_edit_book">Як мені відредагувати книгу?</string>
     <string name="help_desc_how_to_edit_book_1">Перейдіть в</string>
     <string name="help_desc_how_to_edit_book_2">Бібліотеку</string>
     <string name="help_desc_how_to_edit_book_3">та натісніть на обкладинку книги, щоб побачити подробиці книги. Тепер ви можете утримувати назву, автора або опис книги, щоб відредагувати її або обкладинку, щоб змінити, скинути або видалити обкладинку.</string>
-    
+
     <string name="help_title_how_to_read_book">Як мені читати книгу?</string>
     <string name="help_desc_how_to_read_book_1">Перейдіть в</string>
     <string name="help_desc_how_to_read_book_2">Бібліотеку</string>
     <string name="help_desc_how_to_read_book_3">Щоб почати читати книгу, натисніть на кнопку в правому нижньому куті книги, яку ви хочете читати. Також ви можете почати читати книгу, натиснувши на її обкладинку, щоб побачити подробиці книги, а потім натиснути кнопку в правому нижньому куті. Прогрес буде збережено і відновлено автоматично. Ви можете показати верхню і нижню панелі, натиснувши в будь-якому місці екрану. Натиснувши на назву книги, ви перейдете до подробиць книги. Натиснувши на іконку з шестернею, ви побачите налаштування Читача. Ви можете використовувати повзунок нижньої панелі для зміни прогресу.</string>
-    
+
     <string name="help_title_how_to_customize_reader">Як мені налаштувати Читач?</string>
     <string name="help_desc_how_to_customize_reader_1">Почніть читати книгу(див: Як мені читати книгу?), після цього покажіть верхню і нижню панелі, натиснувши в будь-якому місці екрану. Потім натисніть на іконку з шестернею в правому верхньому кутку. Це покаже всі налаштування Читача. Другий спосіб - перейти в</string>
     <string name="help_desc_how_to_customize_reader_2">Налаштування</string>
     <string name="help_desc_how_to_customize_reader_3">та вибрати категорію Читач, щоб налаштувати Головні параметри, або категорію Зовнішній Вигляд, щоб налаштувати параметри Кольорів.</string>
-    
+
     <string name="help_title_how_to_manage_history">Як керувати історією?</string>
     <string name="help_desc_how_to_manage_history_1">Перейдіть в</string>
     <string name="help_desc_how_to_manage_history_2">Історію</string>
     <string name="help_desc_how_to_manage_history_3">Якщо натиснути кнопку видалення праворуч від елемента історії, його буде видалено. Історія впливає на порядок книг в Бібліотеці, видалення елемента історії призведе до зміни порядку книг. Остання відкрита книга завжди є першою в Бібліотеці та Історії.</string>
-    
+
     <string name="help_title_how_to_use_tooltip">Як використовувати підказки?</string>
     <string name="help_desc_how_to_use_tooltip_1">Більшість кнопок-іконок мають підказки, вони можуть допомогти якщо ви не знаєте, що робить кнопка-іконка. Щоб показати підказку, ви можете затиснути кнопку-іконку.</string>
-    
+
     <string name="help_title_how_to_use_double_click_translation">Як використовувати переклад подвійним кліком?</string>
     <string name="help_desc_how_to_use_double_click_translation_1">Спочатку перейдіть в налаштування Читача(див: Як мені налаштувати Читач?), потім увімкніть відповідне налаштування. Після цього, почніть читати книгу(див: Як мені читати книгу?). Тепер якщо ви двічі клацните на бажаний параграф, відкриється зовнішній перекладач з текстом параграфу.</string>
-    
+
     <string name="help_title_how_to_create_color_presets">Як створити та редагувати пресети кольорів?</string>
     <string name="help_desc_how_to_create_color_presets_1">Перейдіть в налаштування Зовнішнього Вигляду(див: Як мені налаштувати Читач?). Ви можете редагувати всі налаштування пресету кольорів у віконці під «Пресет Кольорів» в підкатегорії «Кольори». Щоб створити новий пресет кольорів, натисніть на кнопку-іконку «Додати». Є багато шляхів редагування пресета кольорів: натиснувши на текстове поле, ви можете змінити назву пресету кольорів; рухаючи повзунки, ви можете змінити кольори пресета кольорів; натиснувши на кнопку-іконку «Перетасувати» ви можете перетасувати всі кольори. Якщо ви хочете видалити пресет кольорів, натисніть на кнопку-іконку «Видалити».</string>
-    
+
     <string name="help_title_how_to_use_color_presets">Як використовувати пресети кольорів?</string>
     <string name="help_desc_how_to_use_color_presets_1">Перейдіть в налаштування Зовнішнього Вигляду(див: Як мені налаштувати Читач?). Ви можете вибрати який пресет кольорів використовувати в налаштуванні «Пресет Кольорів». Натисніть на бажаний пресет кольорів, щоб вибрати його, це також змінить ваші кольори в Читачі. Якщо ви хочете змінити порядок пресета кольорів, виберіть його та затисніть кнопку-іконку «Тримач», після цього перемістіть його до бажаного місця. Ви можете швидко змінювати пресети кольорів увімкнувши відповідне налаштування в підкатегорії «Кольори» налаштувань Зовнішнього Вигляду, та потім провівши верхню панель вліво або вправо в Читачі, щоб швидко змінити пресет кольорів.</string>
-    
+
     <string name="help_title_how_to_use_perception_expander">Що таке та як використовувати розширення сприйняття?</string>
-    <string name="help_title_how_to_use_perception_expander_1">Розширювач сприйняття може допомогти вам швидше читати. Спочатку ввімкніть його в налаштуваннях Читача(див: Як мені налаштувати Читач?). Після ввімкнення дві вертикальні лінії з’являться з обох боків Читача. Щоб ще більше оптимізувати швидкість читання, відрегулюйте поля, щоб залишити менше місця навколо центру. Щоб скористатися нею, сфокусуйтеся на центрі екрана, дозволяючи периферійному зору вловити текст з боків. Під час читання зосередьтеся на центрі, не дивлячись безпосередньо на сторони після кожного рядка.</string>
-  
+    <string name="help_desc_how_to_use_perception_expander_1">Розширювач сприйняття може допомогти вам швидше читати. Спочатку ввімкніть його в налаштуваннях Читача(див: Як мені налаштувати Читач?). Після ввімкнення дві вертикальні лінії з’являться з обох боків Читача. Щоб ще більше оптимізувати швидкість читання, відрегулюйте поля, щоб залишити менше місця навколо центру. Щоб скористатися нею, сфокусуйтеся на центрі екрана, дозволяючи периферійному зору вловити текст з боків. Під час читання зосередьтеся на центрі, не дивлячись безпосередньо на сторони після кожного рядка.</string>
+
     <!-- Start -->
     <string name="start_welcome">Вітаємо в Book\'s Story!</string>
     <string name="start_welcome_desc">У світ, де слова чарують, вчать та ведуть у неймовірні пригоди! Давайте дещо налаштуємо!</string>
@@ -421,11 +421,11 @@
     <string name="start_permissions_notifications_desc">Потрібний, щоб перевірити застосунок на нову версію</string>
     <string name="start_done">Все готово!</string>
     <string name="start_done_desc">Ви успішно закінчили базове налаштовування застосунку. Бажаєте дізнатися, як користуватися застосунком, прочитавши екран Довідки?</string>
-  
+
     <!-- History -->
     <string name="today">Сьогодні</string>
     <string name="yesterday">Вчора</string>
-   
+
     <!-- Content description -->
     <string name="continue_reading_content_desc">Продовжити читання</string>
     <string name="go_back_content_desc">Назад</string>

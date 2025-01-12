@@ -548,7 +548,7 @@
     <string name="help_title_how_to_use_perception_expander">
         What is and how do I use perception expander?
     </string>
-    <string name="help_title_how_to_use_perception_expander_1">
+    <string name="help_desc_how_to_use_perception_expander_1">
         Perception expander may help you read faster.
         First, enable it in the Reader settings(see: How do I customize the Reader?).
         Once enabled, two vertical lines will appear on either side of the Reader.
