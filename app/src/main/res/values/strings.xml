@@ -352,6 +352,7 @@
     <string name="red_theme">Mars</string>
     <string name="red_gray_theme">Callisto</string>
     <string name="purple_theme">Jupiter</string>
+    <string name="purple_gray_theme">Ceres</string>
     <string name="pink_theme">Saturn</string>
     <string name="pink2_theme">Ganymede</string>
     <string name="lavender_theme">Eris</string>

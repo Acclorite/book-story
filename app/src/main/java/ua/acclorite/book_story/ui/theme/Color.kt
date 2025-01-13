@@ -15,6 +15,7 @@ import ua.acclorite.book_story.ui.theme.color.lavenderTheme
 import ua.acclorite.book_story.ui.theme.color.marshTheme
 import ua.acclorite.book_story.ui.theme.color.pink2Theme
 import ua.acclorite.book_story.ui.theme.color.pinkTheme
+import ua.acclorite.book_story.ui.theme.color.purpleGrayTheme
 import ua.acclorite.book_story.ui.theme.color.purpleTheme
 import ua.acclorite.book_story.ui.theme.color.redGrayTheme
 import ua.acclorite.book_story.ui.theme.color.redTheme
@@ -34,6 +35,7 @@ enum class Theme(
     RED(hasThemeContrast = true, title = R.string.red_theme),
     RED_GRAY(hasThemeContrast = false, title = R.string.red_gray_theme),
     PURPLE(hasThemeContrast = true, title = R.string.purple_theme),
+    PURPLE_GRAY(hasThemeContrast = false, title = R.string.purple_gray_theme),
     LAVENDER(hasThemeContrast = true, title = R.string.lavender_theme),
     PINK(hasThemeContrast = true, title = R.string.pink_theme),
     PINK2(hasThemeContrast = false, title = R.string.pink2_theme),
@@ -86,6 +88,11 @@ fun colorScheme(
         Theme.PURPLE -> {
             /* Purple Theme */
             purpleTheme(isDark = darkTheme, themeContrast = themeContrast)
+        }
+
+        Theme.PURPLE_GRAY -> {
+            /* Purple Gray Theme */
+            purpleGrayTheme(isDark = darkTheme)
         }
 
         Theme.GREEN -> {
