@@ -349,6 +349,7 @@
     <string name="dynamic_theme">Mercury</string>
     <string name="blue_theme">Neptune</string>
     <string name="green_theme">Earth</string>
+    <string name="green2_theme">Io</string>
     <string name="green_gray_theme">Enceladus</string>
     <string name="red_theme">Mars</string>
     <string name="red_gray_theme">Callisto</string>
