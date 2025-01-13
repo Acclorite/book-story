@@ -63,7 +63,7 @@ class DocumentParser @Inject constructor(
                 element.append("]($link)")
             }
 
-            // Image
+            // Image (<img>)
             select("img").forEach { element ->
                 val src = element.attr("src")
                     .trim()
@@ -78,6 +78,23 @@ class DocumentParser @Inject constructor(
                 val alt = element.attr("alt").trim().takeIf {
                     it.clearMarkdown().containsVisibleText()
                 } ?: src.substringBeforeLast(".")
+
+                element.append("\n[[$src|$alt]]\n")
+            }
+
+            // Image (<image>)
+            select("image").forEach { element ->
+                val src = element.attr("xlink:href")
+                    .trim()
+                    .substringAfterLast("/")
+                    .lowercase()
+                    .takeIf {
+                        it.containsVisibleText() && imageEntries?.any { image ->
+                            it == image.name.substringAfterLast('/').lowercase()
+                        } == true
+                    } ?: return@forEach
+
+                val alt = src.substringBeforeLast(".")
 
                 element.append("\n[[$src|$alt]]\n")
             }
