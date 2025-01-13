@@ -118,7 +118,7 @@
     <string name="check_for_updates_option_desc">在启动时检查新版本</string>
     <string name="sort_browse_settings">排序</string>
     <string name="blue_color">蓝色</string>
-    <string name="paragraph_height_option">段落高度</string>
+    <string name="paragraph_height_option">段落间距</string>
     <string name="dropped_tab">已放弃</string>
     <string name="color_tab">颜色</string>
     <string name="filter_tab">过滤</string>
@@ -126,7 +126,7 @@
     <string name="appearance_settings">外观</string>
     <string name="appearance_settings_desc">主题，颜色</string>
     <string name="font_reader_settings">字体</string>
-    <string name="padding_reader_settings">填充</string>
+    <string name="padding_reader_settings">边距</string>
     <string name="misc_reader_settings">杂项</string>
     <string name="fullscreen_option">全屏</string>
     <string name="hide_bars_on_fast_scroll_option">当快速滚动是隐藏条栏</string>
@@ -346,4 +346,7 @@
     <string name="highlighted_reading_option">高亮词语</string>
     <string name="highlighted_reading_option_desc">高亮标记每个词的开头</string>
     <string name="highlighted_reading_thickness_option">高亮层次</string>
+    <string name="chapters_reader_settings">章节</string>
+    <string name="images_reader_settings">图片</string>
+    <string name="progress_reader_settings">进度</string>
 </resources>
