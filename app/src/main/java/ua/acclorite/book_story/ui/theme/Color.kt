@@ -10,13 +10,13 @@ import ua.acclorite.book_story.ui.theme.color.aquaTheme
 import ua.acclorite.book_story.ui.theme.color.blackTheme
 import ua.acclorite.book_story.ui.theme.color.blueTheme
 import ua.acclorite.book_story.ui.theme.color.dynamicTheme
-import ua.acclorite.book_story.ui.theme.color.grayTheme
 import ua.acclorite.book_story.ui.theme.color.greenTheme
 import ua.acclorite.book_story.ui.theme.color.lavenderTheme
 import ua.acclorite.book_story.ui.theme.color.marshTheme
 import ua.acclorite.book_story.ui.theme.color.pink2Theme
 import ua.acclorite.book_story.ui.theme.color.pinkTheme
 import ua.acclorite.book_story.ui.theme.color.purpleTheme
+import ua.acclorite.book_story.ui.theme.color.redGrayTheme
 import ua.acclorite.book_story.ui.theme.color.redTheme
 import ua.acclorite.book_story.ui.theme.color.yellow2Theme
 import ua.acclorite.book_story.ui.theme.color.yellowTheme
@@ -29,10 +29,10 @@ enum class Theme(
 ) {
     DYNAMIC(hasThemeContrast = false, title = R.string.dynamic_theme),
     BLUE(hasThemeContrast = true, title = R.string.blue_theme),
-    GRAY(hasThemeContrast = false, title = R.string.gray_theme),
     GREEN(hasThemeContrast = true, title = R.string.green_theme),
     MARSH(hasThemeContrast = true, title = R.string.marsh_theme),
     RED(hasThemeContrast = true, title = R.string.red_theme),
+    RED_GRAY(hasThemeContrast = false, title = R.string.red_gray_theme),
     PURPLE(hasThemeContrast = true, title = R.string.purple_theme),
     LAVENDER(hasThemeContrast = true, title = R.string.lavender_theme),
     PINK(hasThemeContrast = true, title = R.string.pink_theme),
@@ -128,9 +128,9 @@ fun colorScheme(
             redTheme(isDark = darkTheme, themeContrast = themeContrast)
         }
 
-        Theme.GRAY -> {
-            /* Gray Theme */
-            grayTheme(isDark = darkTheme)
+        Theme.RED_GRAY -> {
+            /* Red Gray Theme */
+            redGrayTheme(isDark = darkTheme)
         }
 
         Theme.AQUA -> {

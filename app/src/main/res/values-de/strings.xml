@@ -341,7 +341,7 @@
     <string name="chapters_content_desc">Kapitel</string>
     <string name="more_content_desc">Mehr</string>
     <string name="custom_screen_brightness_option">Benutzerdefinierte Helligkeit</string>
-    <string name="gray_theme">Kallisto</string>
+    <string name="red_gray_theme">Kallisto</string>
     <string name="help_desc_how_to_use_perception_expander_1">Der Wahrnehmungsexpander kann Ihnen helfen, schneller zu lesen. Aktivieren Sie ihn zunächst in den Reader-Einstellungen (siehe: Wie passe ich den Reader an?). Sobald er aktiviert ist, werden auf beiden Seiten des Readers zwei vertikale Linien angezeigt. Um Ihre Lesegeschwindigkeit weiter zu optimieren, passen Sie die Polsterung an, um weniger Platz um die Mitte herum zu schaffen. Konzentrieren Sie sich bei der Verwendung auf die Bildschirmmitte, während Sie mit Ihrem peripheren Sehen den Text an den Seiten erfassen. Konzentrieren Sie sich beim Lesen weiterhin auf die Mitte, ohne nach jeder Zeile direkt an die Seiten zu blicken.</string>
     <string name="checkpoint_back_content_desc">Kontrollpunkt zurück</string>
 </resources>

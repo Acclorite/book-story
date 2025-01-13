@@ -244,7 +244,7 @@
     <string name="internal_storage">التخزين الداخلي</string>
     <string name="file_last_opened">اخر مرة تم فيها فتح الملف</string>
     <string name="chapters">فصول</string>
-    <string name="gray_theme">كاليستو</string>
+    <string name="red_gray_theme">كاليستو</string>
     <string name="lavender_theme">ايريس</string>
     <string name="no_chapters">لا يوجد فصول</string>
     <string name="hide_bars_on_fast_scroll_option">اخفاء الشرائط عند التمرير السريع</string>

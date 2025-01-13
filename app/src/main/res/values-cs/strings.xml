@@ -132,7 +132,7 @@
     <string name="screen_orientation_locked_landscape">Pouze na šířku</string>
     <string name="horizontal_gesture_off">Vypnuté</string>
     <string name="horizontal_gesture_on">Zapnuté</string>
-    <string name="gray_theme">Callisto</string>
+    <string name="red_gray_theme">Callisto</string>
     <string name="no_chapters">Žádné kapitoly</string>
     <string name="report_bug_option">Nahlásit chybu</string>
     <string name="credits_option">Zdroje</string>

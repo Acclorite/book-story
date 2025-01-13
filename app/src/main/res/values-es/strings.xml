@@ -341,7 +341,7 @@
     <string name="random_string">Aleatorio</string>
     <string name="search_field_empty">Buscar…</string>
     <string name="screen_brightness_option">Brillo</string>
-    <string name="gray_theme">Calisto</string>
+    <string name="red_gray_theme">Calisto</string>
     <string name="custom_screen_brightness_option">Brillo personalizado</string>
     <string name="pink2_theme">Ganimedes</string>
 </resources>

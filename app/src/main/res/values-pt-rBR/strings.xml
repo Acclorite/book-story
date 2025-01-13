@@ -136,7 +136,7 @@
     <string name="filter_content_desc">Filtro</string>
     <string name="delete_book_description">Isso irá apagar o livro do banco de dados. Isso não irá apagar esse livro do dispositivo.</string>
     <string name="random_string">Aleatório</string>
-    <string name="gray_theme">Calisto</string>
+    <string name="red_gray_theme">Calisto</string>
     <string name="general_settings_desc">Linguagem do aplicativo</string>
     <string name="appearance_settings_desc">Tema, cores</string>
     <string name="language_option">Linguagem do aplicativo</string>
