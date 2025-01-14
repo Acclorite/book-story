@@ -94,7 +94,7 @@ dependencies {
     // Compose BOM libraries
     // Compose BOM was eliminated - it is recognized as Closed Source in AboutLibraries..
     // although it is not.
-    implementation("androidx.compose.foundation:foundation:1.7.6")
+    implementation("androidx.compose.foundation:foundation:1.8.0-alpha07")
     implementation("androidx.compose.animation:animation:1.7.6")
     implementation("androidx.compose.animation:animation-android:1.7.6")
     implementation("androidx.compose.foundation:foundation-layout:1.7.6")
