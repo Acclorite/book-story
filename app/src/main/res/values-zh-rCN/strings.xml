@@ -349,4 +349,5 @@
     <string name="chapters_reader_settings">章节</string>
     <string name="images_reader_settings">图片</string>
     <string name="progress_reader_settings">进度</string>
+    <string name="images_option">图片</string>
 </resources>
