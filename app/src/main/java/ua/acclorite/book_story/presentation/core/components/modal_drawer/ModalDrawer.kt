@@ -113,6 +113,7 @@ fun ModalDrawer(
                     .pointerInput(Unit) {
                         detectHorizontalDragGestures(
                             onDragStart = { offset.floatValue = 0f },
+                            onDragCancel = { offset.floatValue = 0f },
                             onDragEnd = {
                                 if (offset.floatValue.toDp() < (-60).dp) onDismissRequest()
                                 else offset.floatValue = 0f

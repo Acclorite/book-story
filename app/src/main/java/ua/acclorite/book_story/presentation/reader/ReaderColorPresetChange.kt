@@ -23,6 +23,7 @@ fun Modifier.readerColorPresetChange(
             Modifier.pointerInput(Unit) {
                 detectHorizontalDragGestures(
                     onDragStart = { offset.floatValue = 0f },
+                    onDragCancel = { offset.floatValue = 0f },
                     onDragEnd = {
                         when {
                             offset.floatValue > 200 -> {
