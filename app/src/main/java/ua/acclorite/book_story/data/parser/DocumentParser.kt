@@ -35,9 +35,14 @@ class DocumentParser @Inject constructor(
 
         body().apply {
             // Remove manual line breaks from all <p>, <a>
-            select("p, a").forEach { element ->
+            select("p").forEach { element ->
                 yield()
                 element.html(element.html().replace(Regex("\\n+"), " "))
+                element.append("\n")
+            }
+            select("a").forEach { element ->
+                yield()
+                element.html(element.html().replace(Regex("\\n+"), ""))
             }
 
             // Remove <head>'s title
