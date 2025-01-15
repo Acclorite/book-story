@@ -10,8 +10,6 @@ import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.settings.browse.general.components.BrowseGridSizeOption
 import ua.acclorite.book_story.presentation.settings.browse.general.components.BrowseLayoutOption
-import ua.acclorite.book_story.presentation.settings.browse.general.components.FilesStructureOption
-import ua.acclorite.book_story.presentation.settings.browse.general.components.PinFavoriteDirectoriesOption
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategory
 
 fun LazyListScope.BrowseGeneralSubcategory(
@@ -26,14 +24,6 @@ fun LazyListScope.BrowseGeneralSubcategory(
         showTitle = showTitle,
         showDivider = showDivider
     ) {
-        item {
-            FilesStructureOption()
-        }
-
-        item {
-            PinFavoriteDirectoriesOption()
-        }
-
         item {
             BrowseLayoutOption()
         }

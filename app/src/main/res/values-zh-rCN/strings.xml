@@ -87,8 +87,6 @@
     <string name="absolute_dark_option_desc">改变背景颜色使完全黑暗</string>
     <string name="cutout_padding_option">镂空填充</string>
     <string name="cutout_padding_option_desc">将填充应用于镂空区域</string>
-    <string name="browse_pin_favorite_directories_option_desc">在屏幕顶端固定您的收藏目录</string>
-    <string name="browse_pin_favorite_directories_option">固定收藏目录</string>
     <string name="browse_grid_size_option">网格大小</string>
     <string name="dark_theme_follow_system">系统</string>
     <string name="font_style_normal">正常</string>
@@ -155,7 +153,6 @@
     <string name="perception_expander_option">感知扩展器</string>
     <string name="perception_expander_option_desc">专注于中心以提升你的阅读速度</string>
     <string name="perception_expander_thickness_option">感知扩展器行厚度</string>
-    <string name="browse_files_structure_option">文件结构</string>
     <string name="green_color">绿色</string>
     <string name="general_browse_settings">常规</string>
     <string name="theme_contrast_medium">中等</string>
@@ -187,10 +184,8 @@
     <string name="alignment_center">居中</string>
     <string name="dynamic_theme">水星</string>
     <string name="lavender_theme">阋神星</string>
-    <string name="files_structure_directory">目录</string>
     <string name="browse_sort_order_file_size">文件大小</string>
     <string name="browse_sort_order_last_modified">最后修改</string>
-    <string name="files_structure_all">全部文件</string>
     <string name="general_tab">常规</string>
     <string name="reader_tab">阅读器</string>
     <string name="general_settings">常规</string>
@@ -198,7 +193,6 @@
     <string name="read_keep">继续坚持！</string>
     <string name="browse_layout_grid">网格</string>
     <string name="browse_grid_size_auto">自动</string>
-    <string name="browse_sort_order_file_type">文件类型</string>
     <string name="books_added">成功添加所有已选择的书。</string>
     <string name="books_deleted">成功删除所有已选择的书。</string>
     <string name="cover_image_deleted">成功删除了封面图片。</string>
@@ -234,7 +228,6 @@
     <string name="slava_ukraini">荣耀属于乌克兰！</string>
     <string name="file_last_opened">文件最后打开</string>
     <string name="unknown">未知</string>
-    <string name="internal_storage">内部存储</string>
     <string name="help_translate_option">帮助翻译</string>
     <string name="credits_translation">翻译</string>
     <string name="help_desc_how_to_add_books_3">如果你没有看见已下载的书可以尝试下拉刷新列表。确保你的书拥有所支持的文件格式。点击书来选择它或者按住来显示它的位置。当你选择了所有想选择的书之后，点击右上角的对勾图标，等待所有的书加载好后点击“添加”。所有你已经添加的书都应该显示在</string>
@@ -286,7 +279,6 @@
     <string name="start_welcome">欢迎来到“Book\'s Story”！</string>
     <string name="help_desc_how_to_use_perception_expander_1">Perception Expander可以帮助你加快阅读速度。 首先，在阅读器设置中启用它（请参阅：如何自定义阅读器？） 启用后，阅读器两侧会出现两条竖线。 要进一步优化阅读速度，可以调整边距以减少屏幕四周的空间。 要使用它，请将注意力集中在屏幕中央，同时让你的余光捕捉到两侧的文字。 阅读时，请将注意力集中在中心位置，不要在每一行之后直接看两侧</string>
     <string name="reading_mode_reader_settings">阅读模式</string>
-    <string name="directory_icon_content_desc">阅读器设置</string>
     <string name="today">今天</string>
     <string name="yesterday">昨天</string>
     <string name="continue_reading_content_desc">继续阅读</string>
@@ -302,7 +294,6 @@
     <string name="start_permissions_notifications_desc">用于检查应用更新</string>
     <string name="start_language_preferences">语言偏好</string>
     <string name="start_theme_preferences">应用主题</string>
-    <string name="favorite_directory_content_desc">词典偏好</string>
     <string name="sort_order_content_desc">排序规则</string>
     <string name="apply_changes_content_desc">应用更改</string>
     <string name="search_content_desc">搜索</string>
@@ -320,7 +311,6 @@
     <string name="move_books_content_desc">移动所选书籍</string>
     <string name="go_back_content_desc">返回</string>
     <string name="open_reader_settings_content_desc">阅读设置</string>
-    <string name="path_arrow_icon_content_desc">路径箭头</string>
     <string name="delete_color_preset_content_desc">删除颜色预设</string>
     <string name="checkpoint_back_content_desc">检查点撤回</string>
     <string name="library_content_desc">你的书库</string>

@@ -8,10 +8,8 @@ import ua.acclorite.book_story.ui.browse.BrowseEvent
 fun BrowseBackHandler(
     hasSelectedItems: Boolean,
     showSearch: Boolean,
-    inNestedDirectory: Boolean,
     searchVisibility: (BrowseEvent.OnSearchVisibility) -> Unit,
     clearSelectedFiles: (BrowseEvent.OnClearSelectedFiles) -> Unit,
-    goBackDirectory: (BrowseEvent.OnGoBackDirectory) -> Unit,
     navigateToLibrary: () -> Unit
 ) {
     BackHandler {
@@ -22,11 +20,6 @@ fun BrowseBackHandler(
 
         if (showSearch) {
             searchVisibility(BrowseEvent.OnSearchVisibility(false))
-            return@BackHandler
-        }
-
-        if (inNestedDirectory) {
-            goBackDirectory(BrowseEvent.OnGoBackDirectory)
             return@BackHandler
         }
 

@@ -24,13 +24,11 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.browse.BrowseFilesStructure
 import ua.acclorite.book_story.domain.browse.BrowseSortOrder
 import ua.acclorite.book_story.domain.browse.SelectableFile
 import ua.acclorite.book_story.domain.library.book.NullableBook
 import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
 import ua.acclorite.book_story.domain.use_case.book.InsertBook
-import ua.acclorite.book_story.domain.use_case.favorite_directory.UpdateFavoriteDirectory
 import ua.acclorite.book_story.domain.use_case.file_system.GetBookFromFile
 import ua.acclorite.book_story.domain.use_case.file_system.GetFilesFromDevice
 import ua.acclorite.book_story.presentation.core.util.launchActivity
@@ -43,7 +41,6 @@ import kotlin.collections.map
 @HiltViewModel
 class BrowseModel @Inject constructor(
     private val getFilesFromDevice: GetFilesFromDevice,
-    private val updateFavoriteDirectory: UpdateFavoriteDirectory,
     private val getBookFromFile: GetBookFromFile,
     private val insertBook: InsertBook
 ) : ViewModel() {
@@ -69,7 +66,6 @@ class BrowseModel @Inject constructor(
 
     private var refreshJob: Job? = null
     private var changeSearchQueryJob: Job? = null
-    private var changeDirectoryJob: Job? = null
     private var storagePermissionJob: Job? = null
     private var getAddDialogBooksJob: Job? = null
 
@@ -160,40 +156,11 @@ class BrowseModel @Inject constructor(
                 viewModelScope.launch(Dispatchers.IO) {
                     _state.update {
                         it.copy(
-                            files = it.files.map { it.copy(isSelected = false) },
+                            files = it.files.map { it.copy(selected = false) },
                             hasSelectedItems = false
                         )
                     }
                 }
-            }
-
-            is BrowseEvent.OnChangeDirectory -> {
-                viewModelScope.launch {
-                    changeDirectoryJob?.cancel()
-                    changeSearchQueryJob?.cancel()
-
-                    changeDirectoryJob = launch(Dispatchers.IO) {
-                        yield()
-                        _state.update {
-                            it.copy(
-                                selectedDirectory = event.directory,
-                                previousDirectory = if (event.savePreviousDirectory) it.selectedDirectory
-                                else event.directory.parentFile,
-                                inNestedDirectory = event.directory != Environment.getExternalStorageDirectory()
-                            )
-                        }
-                        BrowseScreen.resetScrollPositionCompositionChannel.trySend(Unit)
-                    }
-                }
-            }
-
-            is BrowseEvent.OnGoBackDirectory -> {
-                onEvent(
-                    BrowseEvent.OnChangeDirectory(
-                        _state.value.previousDirectory ?: Environment.getExternalStorageDirectory(),
-                        savePreviousDirectory = false
-                    )
-                )
             }
 
             is BrowseEvent.OnSelectFiles -> {
@@ -201,17 +168,15 @@ class BrowseModel @Inject constructor(
                     val editedList = _state.value.files.map { file ->
                         if (
                             event.files.any {
-                                file.fileOrDirectory.path.startsWith(it.fileOrDirectory.path)
+                                file.path.startsWith(it.path)
                             } && event.includedFileFormats.run {
                                 if (isEmpty()) return@run true
                                 any {
-                                    file.fileOrDirectory.path.endsWith(
-                                        it, ignoreCase = true
-                                    ) || file.isDirectory
+                                    file.path.endsWith(it, ignoreCase = true)
                                 }
                             }
                         ) {
-                            file.copy(isSelected = true)
+                            file.copy(selected = true)
                         } else {
                             file
                         }
@@ -221,13 +186,13 @@ class BrowseModel @Inject constructor(
                         it.copy(
                             files = editedList,
                             selectedItemsCount = editedList.filter { file ->
-                                file.isSelected && !file.isDirectory
+                                file.selected
                             }.size.run {
                                 if (this == 0) return@run it.selectedItemsCount
                                 this
                             },
                             hasSelectedItems = editedList.any { file ->
-                                file.isSelected && !file.isDirectory
+                                file.selected
                             }
                         )
                     }
@@ -237,37 +202,12 @@ class BrowseModel @Inject constructor(
             is BrowseEvent.OnSelectFile -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     val editedList = _state.value.files.map { file ->
-                        when (event.file.isDirectory) {
-                            false -> {
-                                if (event.file.fileOrDirectory.path == file.fileOrDirectory.path) {
-                                    file.copy(
-                                        isSelected = !file.isSelected
-                                    )
-                                } else {
-                                    file
-                                }
-                            }
-
-                            true -> {
-                                if (
-                                    file.fileOrDirectory.path.startsWith(
-                                        event.file.fileOrDirectory.path
-                                    ) && event.includedFileFormats.run {
-                                        if (isEmpty()) return@run true
-                                        any {
-                                            file.fileOrDirectory.path.endsWith(
-                                                it, ignoreCase = true
-                                            ) || file.isDirectory
-                                        }
-                                    }
-                                ) {
-                                    file.copy(
-                                        isSelected = !event.file.isSelected
-                                    )
-                                } else {
-                                    file
-                                }
-                            }
+                        if (event.file.path == file.path) {
+                            file.copy(
+                                selected = !file.selected
+                            )
+                        } else {
+                            file
                         }
                     }
 
@@ -275,26 +215,16 @@ class BrowseModel @Inject constructor(
                         it.copy(
                             files = editedList,
                             selectedItemsCount = editedList.filter { file ->
-                                file.isSelected && !file.isDirectory
+                                file.selected
                             }.size.run {
                                 if (this == 0) return@run it.selectedItemsCount
                                 this
                             },
                             hasSelectedItems = editedList.any { file ->
-                                file.isSelected && !file.isDirectory
+                                file.selected
                             }
                         )
                     }
-                }
-            }
-
-            is BrowseEvent.OnUpdateFavoriteDirectory -> {
-                viewModelScope.launch {
-                    _state.update {
-                        it.copy(isLoading = true)
-                    }
-                    updateFavoriteDirectory.execute(event.path)
-                    getFilesFromDownloads()
                 }
             }
 
@@ -463,7 +393,7 @@ class BrowseModel @Inject constructor(
 
                         val books = mutableListOf<NullableBook>()
                         _state.value.files
-                            .filter { it.isSelected && !it.isDirectory }
+                            .filter { it.selected }
                             .ifEmpty {
                                 _state.update {
                                     it.copy(
@@ -473,7 +403,7 @@ class BrowseModel @Inject constructor(
                                 }
                                 return@launch
                             }
-                            .map { it.fileOrDirectory }
+                            .map { File(it.path) }
                             .forEach {
                                 yield()
                                 books.add(getBookFromFile.execute(it))
@@ -609,7 +539,6 @@ class BrowseModel @Inject constructor(
                 it.copy(
                     files = this,
                     selectedItemsCount = 0,
-                    hasSearched = query.isNotBlank(),
                     hasSelectedItems = false,
                     isLoading = false
                 )
@@ -626,15 +555,11 @@ class BrowseModel @Inject constructor(
 
     fun filterList(
         files: List<SelectableFile>,
-        hasSearched: Boolean,
-        selectedDirectory: File,
-        pinFavoriteDirectories: Boolean,
         sortOrderDescending: Boolean,
         includedFilterItems: List<String>,
-        filesStructure: BrowseFilesStructure,
         sortOrder: BrowseSortOrder
     ): List<SelectableFile> {
-        fun <T> thenCompareBy(
+        fun <T> compareByWithOrder(
             selector: (T) -> Comparable<*>?
         ): Comparator<T> {
             return if (sortOrderDescending) {
@@ -650,83 +575,36 @@ class BrowseModel @Inject constructor(
             }
 
             return filter { file ->
-                when (file.isDirectory) {
-                    true -> {
-                        return@filter this.filter {
-                            if (file == it) {
-                                return@filter false
-                            }
-
-                            it.fileOrDirectory.path.startsWith(file.fileOrDirectory.path)
-                        }.filterFiles().isNotEmpty()
-                    }
-
-                    false -> {
-                        return@filter includedFilterItems.any {
-                            file.fileOrDirectory.path.endsWith(
-                                it, ignoreCase = true
-                            )
-                        }
-                    }
+                includedFilterItems.any {
+                    file.path.endsWith(
+                        it, ignoreCase = true
+                    )
                 }
             }
         }
 
         return files
             .filterFiles()
-            .filter {
-                if (hasSearched || filesStructure == BrowseFilesStructure.ALL_FILES) {
-                    return@filter !it.isDirectory
-                }
-
-                if (
-                    Environment.getExternalStorageDirectory() == selectedDirectory
-                    && it.isFavorite
-                    && pinFavoriteDirectories
-                ) {
-                    return@filter true
-                }
-
-                it.parentDirectory == selectedDirectory
-            }
             .sortedWith(
-                compareByDescending<SelectableFile> {
-                    when (pinFavoriteDirectories) {
-                        true -> it.isFavorite
-                        false -> true
-                    }
-                }.then(
-                    compareByDescending {
-                        when (sortOrder != BrowseSortOrder.FILE_TYPE) {
-                            true -> it.isDirectory
-                            false -> true
+                compareByWithOrder<SelectableFile> {
+                    when (sortOrder) {
+                        BrowseSortOrder.NAME -> {
+                            it.name.trim()
+                        }
+
+                        BrowseSortOrder.FILE_FORMAT -> {
+                            it.path.substringAfterLast(".").lowercase().trimEnd()
+                        }
+
+                        BrowseSortOrder.FILE_SIZE -> {
+                            it.size
+                        }
+
+                        else -> {
+                            it.lastModified
                         }
                     }
-                ).then(
-                    thenCompareBy {
-                        when (sortOrder) {
-                            BrowseSortOrder.NAME -> {
-                                it.fileOrDirectory.name.lowercase().trim()
-                            }
-
-                            BrowseSortOrder.FILE_TYPE -> {
-                                it.isDirectory
-                            }
-
-                            BrowseSortOrder.FILE_FORMAT -> {
-                                it.fileOrDirectory.extension
-                            }
-
-                            BrowseSortOrder.FILE_SIZE -> {
-                                it.fileOrDirectory.length()
-                            }
-
-                            BrowseSortOrder.LAST_MODIFIED -> {
-                                it.fileOrDirectory.lastModified()
-                            }
-                        }
-                    }
-                )
+                }
             )
     }
 

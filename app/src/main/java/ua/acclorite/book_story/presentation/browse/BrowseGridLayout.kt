@@ -23,9 +23,8 @@ fun BrowseGridLayout(
     autoGridSize: Boolean,
     gridState: LazyGridState,
     files: List<SelectableFile>,
-    hasSelectedFiles: Boolean,
+    hasSelectedItems: Boolean,
     onLongItemClick: (SelectableFile) -> Unit,
-    onFavoriteItemClick: (SelectableFile) -> Unit,
     onItemClick: (SelectableFile) -> Unit,
 ) {
     LazyVerticalGridWithScrollbar(
@@ -43,18 +42,15 @@ fun BrowseGridLayout(
 
         items(
             files,
-            key = { it.fileOrDirectory.path }
+            key = { it.path }
         ) { selectableFile ->
             BrowseItem(
                 file = selectableFile,
                 modifier = Modifier.animateItem(),
                 layout = BrowseLayout.GRID,
-                hasSelectedFiles = hasSelectedFiles,
+                hasSelectedItems = hasSelectedItems,
                 onLongClick = {
                     onLongItemClick(selectableFile)
-                },
-                onFavoriteClick = {
-                    onFavoriteItemClick(selectableFile)
                 },
                 onClick = {
                     onItemClick(selectableFile)

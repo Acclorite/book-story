@@ -9,10 +9,9 @@ import ua.acclorite.book_story.domain.browse.SelectableFile
 fun BrowseItem(
     layout: BrowseLayout,
     file: SelectableFile,
-    hasSelectedFiles: Boolean,
+    hasSelectedItems: Boolean,
     modifier: Modifier,
     onClick: () -> Unit,
-    onFavoriteClick: () -> Unit,
     onLongClick: () -> Unit
 ) {
     when (layout) {
@@ -20,9 +19,8 @@ fun BrowseItem(
             BrowseListItem(
                 modifier = modifier,
                 file = file,
-                hasSelectedFiles = hasSelectedFiles,
+                hasSelectedItems = hasSelectedItems,
                 onClick = onClick,
-                onFavoriteClick = onFavoriteClick,
                 onLongClick = onLongClick
             )
         }
@@ -31,9 +29,8 @@ fun BrowseItem(
             BrowseGridItem(
                 modifier = modifier,
                 file = file,
-                hasSelectedFiles = hasSelectedFiles,
+                hasSelectedItems = hasSelectedItems,
                 onClick = onClick,
-                onFavoriteClick = onFavoriteClick,
                 onLongClick = onLongClick
             )
         }

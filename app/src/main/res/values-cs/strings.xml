@@ -61,7 +61,6 @@
     <string name="app_version_option">Verze aplikace</string>
     <string name="help_desc_how_to_add_books_4">Knihovna</string>
     <string name="help_translate_option">Pomozte překládat</string>
-    <string name="files_structure_directory">Složky</string>
     <string name="filter_tab">Filtr</string>
     <string name="reader_tab">Čtečka</string>
     <string name="update_query">Aktualizace %1$s</string>
@@ -122,7 +121,6 @@
     <string name="double_click_translation_option">Překlad na dvojité kliknutí</string>
     <string name="keep_screen_on_option">Nechat obrazovku zapnutou</string>
     <string name="browse_sort_order_file_format">Formát souboru</string>
-    <string name="browse_sort_order_file_type">Typ souboru</string>
     <string name="browse_sort_order_file_size">Velikost souboru</string>
     <string name="alignment_start">Začátek</string>
     <string name="alignment_end">Konec</string>
@@ -137,7 +135,6 @@
     <string name="report_bug_option">Nahlásit chybu</string>
     <string name="credits_option">Zdroje</string>
     <string name="contributors_option">Spolupracovníci</string>
-    <string name="internal_storage">Interní úložiště</string>
     <string name="delete_books_description">Smaže to všechny vybrané knihy( %1$s) z databáze. Nesmaže to knihy ze zařízení.</string>
     <string name="never">Nikdy</string>
     <string name="settings_screen">Nastavení</string>
@@ -182,7 +179,6 @@
     <string name="colors_appearance_settings">Barvy</string>
     <string name="font_size_option">Velikost fontu</string>
     <string name="paragraph_height_option">Výška odstavce</string>
-    <string name="browse_pin_favorite_directories_option">Připnout oblíbené složky</string>
     <string name="blue_color">Modrá</string>
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
     <string name="absolute_dark_option_desc">Změnit barvu pozadí na čistě černou</string>
@@ -196,12 +192,10 @@
     <string name="reset_cover">Resetovat obálku</string>
     <string name="app_version_option_desc_2">Klepněte pro zkontrolování aktualizací</string>
     <string name="help_desc_how_to_customize_app_1">Přejít na</string>
-    <string name="browse_files_structure_option">Struktura souborů</string>
     <string name="dark_theme_on">Zapnutý</string>
     <string name="pure_dark_power_saver">Spořič</string>
     <string name="theme_contrast_medium">Střední</string>
     <string name="theme_contrast_high">Vysoký</string>
-    <string name="files_structure_all">Všechny soubory</string>
     <string name="browse_grid_size_per_row">na řádku</string>
     <string name="alignment_justify">Zarovnat</string>
     <string name="alignment_center">Do prostřed</string>
@@ -225,8 +219,6 @@
     <string name="start_permissions_storage_desc">Vyžadováno, abychom mohli skenoval Vaše úložiště a hledat knihy</string>
     <string name="start_language_preferences">Preference jazyka</string>
     <string name="start_theme_preferences">Preference témat</string>
-    <string name="directory_icon_content_desc">Složka</string>
-    <string name="favorite_directory_content_desc">Oblíbená složka</string>
     <string name="history_content_desc">Historie čtení</string>
     <string name="sort_order_content_desc">Řadit podle</string>
     <string name="cover_image_content_desc">Obálka</string>

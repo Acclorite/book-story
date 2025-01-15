@@ -59,11 +59,9 @@ object DataStoreConstants {
     val PROGRESS_BAR_FONT_SIZE = intPreferencesKey("progress_bar_font_size")
 
     // Browse settings
-    val BROWSE_FILES_STRUCTURE = stringPreferencesKey("browse_files_structure")
     val BROWSE_LAYOUT = stringPreferencesKey("browse_layout")
     val BROWSE_AUTO_GRID_SIZE = booleanPreferencesKey("browse_auto_grid_size")
     val BROWSE_GRID_SIZE = intPreferencesKey("browse_grid_size")
-    val BROWSE_PIN_FAVORITE_DIRECTORIES = booleanPreferencesKey("browse_pin_favorite_directories")
     val BROWSE_SORT_ORDER = stringPreferencesKey("browse_sort_order")
     val BROWSE_SORT_ORDER_DESCENDING = booleanPreferencesKey("browse_sort_order_descending")
     val BROWSE_INCLUDED_FILTER_ITEMS = stringSetPreferencesKey("browse_included_filter_items")

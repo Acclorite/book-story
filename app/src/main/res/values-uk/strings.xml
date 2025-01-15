@@ -209,12 +209,8 @@
     <string name="progress_bar_font_size_option">Розмір шрифта</string>
 
     <!-- Browse -->
-    <string name="browse_files_structure_option">Структура файлів</string>
     <string name="browse_layout_option">Режим відображення</string>
     <string name="browse_grid_size_option">Кількість комірок</string>
-    <string name="browse_pin_favorite_directories_option">Закріпити улюблені директорії</string>
-    <string name="browse_pin_favorite_directories_option_desc">Закріпіть ваші улюблені директорії зверху екрана</string>
-
     <!-- Color presets -->
     <string name="red_color">Червоний</string>
     <string name="green_color">Зелений</string>
@@ -241,9 +237,6 @@
     <string name="font_style_normal">Нормальний</string>
 
     <!-- Files Structure properties -->
-    <string name="files_structure_all">Всі файли</string>
-    <string name="files_structure_directory">Директорії</string>
-
     <!-- Browse Layout properties -->
     <string name="browse_layout_list">Список</string>
     <string name="browse_layout_grid">Сітка</string>
@@ -255,7 +248,6 @@
     <!-- Browse Sort Order properties -->
     <string name="browse_sort_order_name">За алфавітом</string>
     <string name="browse_sort_order_file_format">Формат файла</string>
-    <string name="browse_sort_order_file_type">Тип файла</string>
     <string name="browse_sort_order_last_modified">Остання зміна</string>
     <string name="browse_sort_order_file_size">Розмір файла</string>
 
@@ -334,8 +326,6 @@
     <string name="unknown">Невідомо</string>
 
     <!-- Browse -->
-    <string name="internal_storage">Внутрішнє Сховище</string>
-
     <!-- Reader -->
     <string name="no_chapters">Немає розділів</string>
     <string name="chapters">Розділи</string>
@@ -437,10 +427,7 @@
     <string name="cover_image_content_desc">Обкладинка</string>
     <string name="open_reader_settings_content_desc">Налаштування читача</string>
     <string name="file_icon_content_desc">Файл</string>
-    <string name="directory_icon_content_desc">Тека</string>
-    <string name="favorite_directory_content_desc">Улюблена тека</string>
     <string name="sort_order_content_desc">Порядок сортування</string>
-    <string name="path_arrow_icon_content_desc">Стрілка шляху</string>
     <string name="checkbox_content_desc">Галочка</string>
     <string name="cover_image_not_found_content_desc">Обкладенка не знайдена</string>
     <string name="apply_changes_content_desc">Застосувати зміни</string>

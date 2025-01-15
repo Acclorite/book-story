@@ -114,14 +114,11 @@
     <string name="fullscreen_option">Pełny ekran</string>
     <string name="keep_screen_on_option">Pozostaw włączony ekran</string>
     <string name="hide_bars_on_fast_scroll_option">Ukryj paski w szybkim przewijaniu</string>
-    <string name="browse_files_structure_option">Struktura plików</string>
-    <string name="browse_pin_favorite_directories_option_desc">Przypnij swoje ulubione katalogi na górze ekranu</string>
     <string name="pure_dark_off">Wyłączony</string>
     <string name="theme_contrast_medium">Średni</string>
     <string name="font_style_normal">Normalny</string>
     <string name="browse_layout_list">Lista</string>
     <string name="browse_sort_order_file_format">Format pliku</string>
-    <string name="browse_sort_order_file_type">Typ pliku</string>
     <string name="browse_sort_order_last_modified">Ostatnio modyfikowany</string>
     <string name="browse_sort_order_file_size">Rozmiar pliku</string>
     <string name="alignment_start">Start</string>
@@ -132,7 +129,6 @@
     <string name="press_again_toast">Naciśnij ponownie, aby wyjść</string>
     <string name="fast_color_preset_change_option_desc">Przesuń w lewo lub w prawo, aby zmienić ustawienie koloru</string>
     <string name="error_could_not_get_text">Treść książki jest pusta. Upewnij się, że zawartość książki nie jest pusta i zaktualizuj ją.</string>
-    <string name="files_structure_directory">Katalogi</string>
     <string name="error_no_translator">Nie znaleziono aplikacji tłumacza.</string>
     <string name="update_app_description">Znaleziono nową wersję Book\'s Story. Chcesz ją pobrać? Klikając przycisk « Pobierz », zostaniesz przeniesiony do przeglądarki i automatycznie pobierzesz najnowszą aktualizację.</string>
     <string name="browse_layout_grid">Siatka</string>
@@ -140,13 +136,11 @@
     <string name="reset_cover">Zresetuj obraz okładki</string>
     <string name="move_books">Przenieść książki?</string>
     <string name="error_could_not_reset_cover">Nie można zresetować obrazu okładki.</string>
-    <string name="browse_pin_favorite_directories_option">Przypnij ulubione katalogi</string>
     <string name="delete_books_description">To spowoduje usunięcie wszystkie wybranych książek (%1$s) z bazy danych. Nie usunie wybranych książek z twojego urządzenia.</string>
     <string name="browse_grid_size_per_row">na rząd</string>
     <string name="text_alignment_option">Wyrównanie tekstu</string>
     <string name="dropped_tab">Porzucone</string>
     <string name="browse_layout_option">Tryb wyświetlania</string>
-    <string name="files_structure_all">Wszystkie pliki</string>
     <string name="add_books_description">Możesz wybrać książki, które chcesz dodać. Możesz później edytować tytuł i obraz okładki książki. Proces ładowania może potrwać do kilku minut.</string>
     <string name="storage_permission_description">Potrzebujemy uprawnień do przechowywania, aby przeskanować Twoje urządzenie w poszukiwaniu książek. Bez tego pozwolenia nie będziesz mógł dodać książki.</string>
     <string name="error_no_browser">Nie znaleziono aplikacji przeglądarki.</string>
@@ -217,7 +211,6 @@
     <string name="file_last_opened">Plik ostatnio otwarty</string>
     <string name="file_size">Rozmiar pliku</string>
     <string name="unknown">Nieznany</string>
-    <string name="internal_storage">Pamięć wewnętrzna</string>
     <string name="credits_icon">Ikony</string>
     <string name="move_books_content_desc">Przenieś wybrane książki</string>
     <string name="revert_content_desc">Przywróć</string>
@@ -241,8 +234,6 @@
     <string name="go_back_content_desc">Wróć</string>
     <string name="cover_image_content_desc">Obraz okładki</string>
     <string name="open_reader_settings_content_desc">Ustawienia czytnika</string>
-    <string name="favorite_directory_content_desc">Ulubiony katalog</string>
-    <string name="path_arrow_icon_content_desc">Strzałka ścieżki</string>
     <string name="checkbox_content_desc">Pole wyboru</string>
     <string name="add_files_content_desc">Dodaj pliki</string>
     <string name="delete_history_element_content_desc">Usuń element historii</string>
@@ -298,7 +289,6 @@
     <string name="whats_new_option">Co nowego</string>
     <string name="licenses_option">Licencje open source</string>
     <string name="help_desc_how_to_customize_reader_2">Ustawienia</string>
-    <string name="directory_icon_content_desc">Katalog</string>
     <string name="error_content_desc">Błąd</string>
     <string name="search_content_desc">Szukaj</string>
     <string name="clear_selected_items_content_desc">Wyczyść wybrane elementy</string>

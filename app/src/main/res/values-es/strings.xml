@@ -260,11 +260,7 @@
     <string name="browse_layout_grid">Cuadrícula</string>
     <string name="browse_grid_size_per_row">por fila</string>
     <string name="browse_sort_order_file_size">Tamaño del archivo</string>
-    <string name="internal_storage">Almacenamiento interno</string>
-    <string name="directory_icon_content_desc">Directorio</string>
-    <string name="favorite_directory_content_desc">Directorio preferido</string>
     <string name="sort_order_content_desc">Orden de clasificación</string>
-    <string name="path_arrow_icon_content_desc">Flecha de trayectoria</string>
     <string name="error_no_share_app">No se ha encontrado ninguna aplicación para compartir.</string>
     <string name="error_no_dictionary">No se ha encontrado ninguna aplicación de diccionario.</string>
     <string name="web_search">Buscar en Internet</string>
@@ -275,12 +271,7 @@
     <string name="filter_browse_settings">Filtrar</string>
     <string name="sort_browse_settings">Clasificar</string>
     <string name="browse_layout_option">Modo de visualización</string>
-    <string name="browse_pin_favorite_directories_option">Fijar directorios favoritos</string>
-    <string name="files_structure_all">Todos los archivos</string>
     <string name="browse_layout_list">Lista</string>
-    <string name="browse_pin_favorite_directories_option_desc">Fija tus directorios favoritos en la parte superior de la pantalla</string>
-    <string name="files_structure_directory">Directorios</string>
-    <string name="browse_sort_order_file_type">Tipo de archivo</string>
     <string name="browse_grid_size_auto">Auto</string>
     <string name="browse_sort_order_file_format">Formato del archivo</string>
     <string name="browse_sort_order_name">Alfabéticamente</string>
@@ -288,7 +279,6 @@
     <string name="select_all_files_content_desc">Seleccionar todos los archivos</string>
     <string name="filter_content_desc">Filtrar</string>
     <string name="text_alignment_option">Alineación del texto</string>
-    <string name="browse_files_structure_option">Estructura de los ficheros</string>
     <string name="alignment_start">Iniciar</string>
     <string name="alignment_justify">Justificar</string>
     <string name="alignment_center">Centrar</string>

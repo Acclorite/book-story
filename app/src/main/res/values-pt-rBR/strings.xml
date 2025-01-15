@@ -73,7 +73,6 @@
     <string name="dark_theme_follow_system">Sistema</string>
     <string name="theme_contrast_standard">Padrão</string>
     <string name="font_style_normal">Normal</string>
-    <string name="files_structure_directory">Diretórios</string>
     <string name="storage_permission">Dar permissão?</string>
     <string name="delete_history">Apagar histórico de leitura?</string>
     <string name="author">Autor</string>
@@ -111,7 +110,6 @@
     <string name="yesterday">Ontem</string>
     <string name="checkbox_content_desc">Checkbox</string>
     <string name="file_icon_content_desc">Arquivo</string>
-    <string name="directory_icon_content_desc">Diretório</string>
     <string name="error_content_desc">Erro</string>
     <string name="search_content_desc">Pesquisar</string>
     <string name="start_permissions_preferences">Permissões</string>
@@ -156,7 +154,6 @@
     <string name="font_color_option">Cor da fonte</string>
     <string name="vertical_padding_option">Margens verticais</string>
     <string name="text_alignment_option">Alinhamento do texto</string>
-    <string name="files_structure_all">Todos os arquivos</string>
     <string name="file_size">Tamanho do arquivo</string>
     <string name="contributors_option">Contribuidores</string>
     <string name="app_theme_option">Tema do aplicativo</string>
@@ -170,10 +167,8 @@
     <string name="paragraph_height_option">Altura do parágrafo</string>
     <string name="color_preset_option">Padrão de cores</string>
     <string name="cutout_padding_option">Margem do recorte</string>
-    <string name="browse_files_structure_option">Estrutura dos arquivos</string>
     <string name="browse_layout_option">Modo de exibição</string>
     <string name="browse_grid_size_per_row">por linha</string>
-    <string name="browse_sort_order_file_type">Tipo de arquivo</string>
     <string name="already_read_tab">Lido</string>
     <string name="browse_grid_size_option">Tamanho da grade</string>
     <string name="grant_permission">Dar permissão</string>
@@ -184,7 +179,6 @@
     <string name="error_closed_source">Código fechado</string>
     <string name="web_search">Pesquisa web</string>
     <string name="side_padding_option">Margens laterais</string>
-    <string name="internal_storage">Armazenamento interno</string>
     <string name="screen_brightness_option">Iluminação</string>
     <string name="browse_sort_order_file_format">Formato de arquivo</string>
     <string name="browse_sort_order_last_modified">Modificação mais recente</string>
@@ -210,7 +204,6 @@
     <string name="start_done">Está tudo feito!</string>
     <string name="cover_image_content_desc">Imagem da capa</string>
     <string name="open_reader_settings_content_desc">Configurações do leitor</string>
-    <string name="favorite_directory_content_desc">Diretório favorito</string>
     <string name="slava_ukraini">Slava Ukraini!</string>
     <string name="exit_search_content_desc">Fechar pesquisa</string>
     <string name="app_icon_content_desc">Ícone do App</string>

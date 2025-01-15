@@ -32,13 +32,13 @@ import java.util.Date
 import java.util.Locale
 
 @Composable
-fun BrowseGridFileItem(file: SelectableFile, hasSelectedFiles: Boolean) {
+fun BrowseGridFileItem(file: SelectableFile, hasSelectedItems: Boolean) {
     val lastModified = rememberSaveable {
         SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
-            .format(Date(file.fileOrDirectory.lastModified()))
+            .format(Date(file.lastModified))
     }
 
-    val sizeBytes = rememberSaveable { file.fileOrDirectory.length() }
+    val sizeBytes = rememberSaveable { file.size }
     val fileSizeKB = rememberSaveable {
         if (sizeBytes > 0) sizeBytes.toDouble() / 1024.0 else 0.0
     }
@@ -56,7 +56,7 @@ fun BrowseGridFileItem(file: SelectableFile, hasSelectedFiles: Boolean) {
             modifier = Modifier
                 .border(
                     1.dp,
-                    if (file.isSelected) MaterialTheme.colorScheme.outline
+                    if (file.selected) MaterialTheme.colorScheme.outline
                     else MaterialTheme.colorScheme.outlineVariant,
                     RoundedCornerShape(10.dp)
                 )
@@ -74,11 +74,11 @@ fun BrowseGridFileItem(file: SelectableFile, hasSelectedFiles: Boolean) {
             )
 
             DefaultTransition(
-                visible = hasSelectedFiles,
+                visible = hasSelectedItems,
                 modifier = Modifier.align(Alignment.TopStart)
             ) {
                 CircularCheckbox(
-                    selected = file.isSelected,
+                    selected = file.selected,
                     containerColor = MaterialTheme.colorScheme.surface,
                     size = 18.dp,
                     modifier = Modifier.padding(12.dp)
@@ -89,7 +89,7 @@ fun BrowseGridFileItem(file: SelectableFile, hasSelectedFiles: Boolean) {
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            file.fileOrDirectory.name,
+            file.name,
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.bodyLarge,
             maxLines = 2,

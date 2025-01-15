@@ -20,9 +20,8 @@ import ua.acclorite.book_story.domain.browse.SelectableFile
 fun BrowseGridItem(
     modifier: Modifier,
     file: SelectableFile,
-    hasSelectedFiles: Boolean,
+    hasSelectedItems: Boolean,
     onClick: () -> Unit,
-    onFavoriteClick: () -> Unit,
     onLongClick: () -> Unit
 ) {
     Column(
@@ -31,7 +30,7 @@ fun BrowseGridItem(
             .padding(3.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(
-                if (file.isSelected) MaterialTheme.colorScheme.secondaryContainer
+                if (file.selected) MaterialTheme.colorScheme.secondaryContainer
                 else Color.Transparent,
                 RoundedCornerShape(12.dp)
             )
@@ -41,21 +40,9 @@ fun BrowseGridItem(
             )
             .padding(5.dp)
     ) {
-        when {
-            !file.isDirectory -> {
-                BrowseGridFileItem(
-                    file = file,
-                    hasSelectedFiles = hasSelectedFiles
-                )
-            }
-
-            file.isDirectory -> {
-                BrowseGridDirectoryItem(
-                    file = file,
-                    hasSelectedFiles = hasSelectedFiles,
-                    onFavoriteClick = onFavoriteClick
-                )
-            }
-        }
+        BrowseGridFileItem(
+            file = file,
+            hasSelectedItems = hasSelectedItems
+        )
     }
 }

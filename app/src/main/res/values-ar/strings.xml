@@ -128,13 +128,9 @@
     <string name="error_no_dictionary">لم يتم العثور على تطبيق قاموس.</string>
     <string name="error_no_share_app">لم يتم العثور على تطبيق للمشاركة.</string>
     <string name="font_style_italic">مائل</string>
-    <string name="files_structure_all">كل الملفات</string>
-    <string name="files_structure_directory">المجلدات</string>
-    <string name="browse_pin_favorite_directories_option_desc">تثبيت مجلداتك المفضلة في أعلى الشاشة</string>
     <string name="green_color">أخضر</string>
     <string name="red_color">أحمر</string>
     <string name="blue_color">أزرق</string>
-    <string name="browse_pin_favorite_directories_option">تثبيت المجلدات المفضلة</string>
     <string name="pure_dark_off">معطل</string>
     <string name="dynamic_theme">عطارد</string>
     <string name="pink_theme">زحل</string>
@@ -151,7 +147,6 @@
     <string name="browse_grid_size_auto">اوتوماتيكي</string>
     <string name="browse_grid_size_per_row">بالسطر</string>
     <string name="browse_sort_order_name">أبجديا</string>
-    <string name="browse_sort_order_file_type">نوع الملف</string>
     <string name="blue_theme">نبتون</string>
     <string name="red_theme">المريخ</string>
     <string name="purple_theme">المشتري</string>
@@ -197,7 +192,6 @@
     <string name="pure_dark_power_saver">توفير</string>
     <string name="browse_sort_order_last_modified">آخر تعديل</string>
     <string name="text_alignment_option">مواءمة النص</string>
-    <string name="browse_files_structure_option">هيكل الملفات</string>
     <string name="double_press_exit_option">اضغط مرة أخرى مزدوجة للخروج</string>
     <string name="double_press_exit_option_desc">اضغط مرتين للخروج من التطبيق</string>
     <string name="letter_spacing_option">تباعد الحروف</string>
@@ -241,7 +235,6 @@
     <string name="theme_contrast_standard">الافتراضي</string>
     <string name="screen_brightness_option">السطوع</string>
     <string name="pink2_theme">غانيميد</string>
-    <string name="internal_storage">التخزين الداخلي</string>
     <string name="file_last_opened">اخر مرة تم فيها فتح الملف</string>
     <string name="chapters">فصول</string>
     <string name="red_gray_theme">كاليستو</string>

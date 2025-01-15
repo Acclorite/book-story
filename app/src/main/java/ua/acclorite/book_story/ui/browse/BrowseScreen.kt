@@ -21,7 +21,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.domain.browse.BrowseFilesStructure
 import ua.acclorite.book_story.domain.browse.BrowseLayout
 import ua.acclorite.book_story.domain.navigator.Screen
 import ua.acclorite.book_story.presentation.browse.BrowseContent
@@ -93,12 +92,8 @@ object BrowseScreen : Screen, Parcelable {
             derivedStateOf {
                 screenModel.filterList(
                     files = state.value.files,
-                    hasSearched = state.value.hasSearched,
-                    selectedDirectory = state.value.selectedDirectory,
-                    pinFavoriteDirectories = mainState.value.browsePinFavoriteDirectories,
                     sortOrderDescending = mainState.value.browseSortOrderDescending,
                     includedFilterItems = mainState.value.browseIncludedFilterItems,
-                    filesStructure = mainState.value.browseFilesStructure,
                     sortOrder = mainState.value.browseSortOrder
                 )
             }
@@ -155,15 +150,11 @@ object BrowseScreen : Screen, Parcelable {
             listState = listState,
             gridState = gridState,
             layout = mainState.value.browseLayout,
-            filesStructure = mainState.value.browseFilesStructure,
             gridSize = mainState.value.browseGridSize,
             autoGridSize = mainState.value.browseAutoGridSize,
             includedFilterItems = mainState.value.browseIncludedFilterItems,
             canScrollBackList = listState.canScrollBackward,
             canScrollBackGrid = gridState.canScrollBackward,
-            selectedDirectory = state.value.selectedDirectory,
-            inNestedDirectory = state.value.inNestedDirectory
-                    && mainState.value.browseFilesStructure != BrowseFilesStructure.ALL_FILES,
             hasSelectedItems = state.value.hasSelectedItems,
             selectedItemsCount = state.value.selectedItemsCount,
             isRefreshing = state.value.isRefreshing,
@@ -173,19 +164,15 @@ object BrowseScreen : Screen, Parcelable {
             filesEmpty = files.value.isEmpty(),
             showSearch = state.value.showSearch,
             searchQuery = state.value.searchQuery,
-            hasSearched = state.value.hasSearched,
             focusRequester = focusRequester,
             searchVisibility = screenModel::onEvent,
             searchQueryChange = screenModel::onEvent,
             search = screenModel::onEvent,
             requestFocus = screenModel::onEvent,
             clearSelectedFiles = screenModel::onEvent,
-            goBackDirectory = screenModel::onEvent,
             selectFiles = screenModel::onEvent,
             selectFile = screenModel::onEvent,
             permissionCheck = screenModel::onEvent,
-            changeDirectory = screenModel::onEvent,
-            updateFavoriteDirectory = screenModel::onEvent,
             showFilterBottomSheet = screenModel::onEvent,
             dismissBottomSheet = screenModel::onEvent,
             actionPermissionDialog = screenModel::onEvent,

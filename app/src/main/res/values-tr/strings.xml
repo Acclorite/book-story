@@ -129,11 +129,8 @@
     <string name="fast_color_preset_change_option_desc">Renk ön ayarını değiştirmek için üst çubuğu sola veya sağa kaydırın</string>
     <string name="text_alignment_option">Metin hizalama</string>
     <string name="letter_spacing_option">Harf aralığı</string>
-    <string name="browse_files_structure_option">Dosya yapısı</string>
     <string name="browse_layout_option">Görüntüleme modu</string>
     <string name="browse_grid_size_option">Izgara boyutu</string>
-    <string name="browse_pin_favorite_directories_option">Favori dizinleri sabitle</string>
-    <string name="browse_pin_favorite_directories_option_desc">Favori dizinlerinizi ekranın üst kısmına sabitleyin</string>
     <string name="red_color">Kırmızı</string>
     <string name="green_color">Yeşil</string>
     <string name="blue_color">Mavi</string>
@@ -149,15 +146,12 @@
     <string name="theme_contrast_high">Yüksek</string>
     <string name="font_style_italic">İtalik</string>
     <string name="font_style_normal">Normal</string>
-    <string name="files_structure_all">Tüm dosyalar</string>
-    <string name="files_structure_directory">Dizinler</string>
     <string name="browse_layout_list">Liste</string>
     <string name="browse_layout_grid">Izgara</string>
     <string name="browse_grid_size_auto">Otomatik</string>
     <string name="browse_grid_size_per_row">satır başına</string>
     <string name="browse_sort_order_name">Alfabetik</string>
     <string name="browse_sort_order_file_format">Dosya formatı</string>
-    <string name="browse_sort_order_file_type">Dosya türü</string>
     <string name="browse_sort_order_last_modified">Son değiştirilme</string>
     <string name="browse_sort_order_file_size">Dosya boyutu</string>
     <string name="alignment_start">Başlangıç</string>
@@ -195,7 +189,6 @@
     <string name="file_last_opened">Son açılma tarihi</string>
     <string name="file_size">Dosya boyutu</string>
     <string name="unknown">Bilinmiyor</string>
-    <string name="internal_storage">Dahili Depolama</string>
     <string name="app_version_option">Uygulama sürümü</string>
     <string name="app_version_option_desc_1">Book Story v%1$s</string>
     <string name="app_version_option_desc_2">Güncellemeleri kontrol etmek için tıklayın</string>
@@ -268,10 +261,7 @@
     <string name="cover_image_content_desc">Kapak resmi</string>
     <string name="open_reader_settings_content_desc">Okuyucu ayarları</string>
     <string name="file_icon_content_desc">Dosya</string>
-    <string name="directory_icon_content_desc">Dizin</string>
-    <string name="favorite_directory_content_desc">Favori dizin</string>
     <string name="sort_order_content_desc">Sıralama düzeni</string>
-    <string name="path_arrow_icon_content_desc">Yol oku</string>
     <string name="checkbox_content_desc">Onay kutusu</string>
     <string name="cover_image_not_found_content_desc">Kapak resmi bulunamadı</string>
     <string name="apply_changes_content_desc">Değişiklikleri uygula</string>

@@ -87,7 +87,6 @@ private fun BrowseSortOptionItem(
                 when (item) {
                     BrowseSortOrder.NAME -> R.string.browse_sort_order_name
                     BrowseSortOrder.FILE_FORMAT -> R.string.browse_sort_order_file_format
-                    BrowseSortOrder.FILE_TYPE -> R.string.browse_sort_order_file_type
                     BrowseSortOrder.LAST_MODIFIED -> R.string.browse_sort_order_last_modified
                     BrowseSortOrder.FILE_SIZE -> R.string.browse_sort_order_file_size
                 }

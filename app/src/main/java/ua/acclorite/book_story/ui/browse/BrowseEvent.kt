@@ -10,7 +10,6 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.domain.browse.SelectableFile
 import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
-import java.io.File
 
 @Immutable
 sealed class BrowseEvent {
@@ -35,13 +34,6 @@ sealed class BrowseEvent {
 
     data object OnClearSelectedFiles : BrowseEvent()
 
-    data class OnChangeDirectory(
-        val directory: File,
-        val savePreviousDirectory: Boolean
-    ) : BrowseEvent()
-
-    data object OnGoBackDirectory : BrowseEvent()
-
     data class OnSelectFiles(
         val includedFileFormats: List<String>,
         val files: List<SelectableFile>
@@ -50,10 +42,6 @@ sealed class BrowseEvent {
     data class OnSelectFile(
         val includedFileFormats: List<String>,
         val file: SelectableFile
-    ) : BrowseEvent()
-
-    data class OnUpdateFavoriteDirectory(
-        val path: String
     ) : BrowseEvent()
 
     data object OnShowFilterBottomSheet : BrowseEvent()

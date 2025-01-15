@@ -92,11 +92,8 @@
     <string name="fast_color_preset_change_option_desc">Balayez la barre supérieure à gauche ou à droite pour changer de couleur par défaut</string>
     <string name="text_alignment_option">Alignement du texte</string>
     <string name="letter_spacing_option">Espacement des lettres</string>
-    <string name="browse_files_structure_option">Structure des fichiers</string>
     <string name="browse_layout_option">Mode d\'affichage</string>
     <string name="browse_grid_size_option">Taille de la grille</string>
-    <string name="browse_pin_favorite_directories_option">Épingler les répertoires favoris</string>
-    <string name="browse_pin_favorite_directories_option_desc">Épinglez vos répertoires préférés en haut de l\'écran</string>
     <string name="red_color">Rouge</string>
     <string name="green_color">Vert</string>
     <string name="blue_color">Bleu</string>
@@ -110,12 +107,10 @@
     <string name="theme_contrast_high">Élevé</string>
     <string name="font_style_italic">Italique</string>
     <string name="font_style_normal">Normal</string>
-    <string name="files_structure_all">Tous les fichiers</string>
     <string name="browse_layout_list">Liste</string>
     <string name="browse_layout_grid">Grille</string>
     <string name="browse_grid_size_auto">Automatique</string>
     <string name="browse_grid_size_per_row">par ligne</string>
-    <string name="browse_sort_order_file_type">Type de fichier</string>
     <string name="browse_sort_order_last_modified">Dernière modification</string>
     <string name="browse_sort_order_file_size">Taille de fichier</string>
     <string name="alignment_start">Début</string>
@@ -149,7 +144,6 @@
     <string name="file_last_opened">Dernier fichier ouvert</string>
     <string name="file_size">Taille du fichier</string>
     <string name="unknown">Inconnu</string>
-    <string name="internal_storage">Stockage interne</string>
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
     <string name="app_version_option_desc_2">Cliquez pour vérifier les mises à jour</string>
     <string name="report_bug_option">Signaler un bug</string>
@@ -206,8 +200,6 @@
     <string name="go_back_content_desc">Retourner</string>
     <string name="cover_image_content_desc">Image de couverture</string>
     <string name="file_icon_content_desc">Fichier</string>
-    <string name="directory_icon_content_desc">Répertoire</string>
-    <string name="path_arrow_icon_content_desc">Flèche du chemin</string>
     <string name="checkbox_content_desc">Case à cocher</string>
     <string name="cover_image_not_found_content_desc">L\'image de couverture n\'a pas été trouvée</string>
     <string name="apply_changes_content_desc">Appliquer les changements</string>
@@ -275,7 +267,6 @@
     <string name="line_height_option">Hauteur de la ligne</string>
     <string name="dark_theme_on">Activé</string>
     <string name="pure_dark_off">Désactivé</string>
-    <string name="files_structure_directory">Répertoires</string>
     <string name="browse_sort_order_file_format">Format de fichier</string>
     <string name="browse_sort_order_name">Alphabétiquement</string>
     <string name="move_this_book">Déplacer</string>
@@ -300,7 +291,6 @@
     <string name="sort_order_content_desc">Ordre de tri</string>
     <string name="history_content_desc">Historique de lecture</string>
     <string name="today">Aujourd\'hui</string>
-    <string name="favorite_directory_content_desc">Répertoire favoris</string>
     <string name="create_color_preset_content_desc">Créer un nouveau préréglage de couleur</string>
     <string name="filter_content_desc">Filtre</string>
     <string name="absolute_dark_option">Noir absolu</string>

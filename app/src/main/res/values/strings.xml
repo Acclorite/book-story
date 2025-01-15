@@ -266,13 +266,8 @@
     <string name="progress_bar_font_size_option">Font size</string>
 
     <!-- Browse -->
-    <string name="browse_files_structure_option">Files structure</string>
     <string name="browse_layout_option">Display mode</string>
     <string name="browse_grid_size_option">Grid size</string>
-    <string name="browse_pin_favorite_directories_option">Pin favorite directories</string>
-    <string name="browse_pin_favorite_directories_option_desc">
-        Pin your favorite directories to the top of the screen
-    </string>
 
     <!-- Color presets -->
     <string name="red_color">Red</string>
@@ -299,10 +294,6 @@
     <string name="font_style_italic">Italic</string>
     <string name="font_style_normal">Normal</string>
 
-    <!-- Files Structure properties -->
-    <string name="files_structure_all">All files</string>
-    <string name="files_structure_directory">Directories</string>
-
     <!-- Browse Layout properties -->
     <string name="browse_layout_list">List</string>
     <string name="browse_layout_grid">Grid</string>
@@ -314,7 +305,6 @@
     <!-- Browse Sort Order properties -->
     <string name="browse_sort_order_name">Alphabetically</string>
     <string name="browse_sort_order_file_format">File format</string>
-    <string name="browse_sort_order_file_type">File type</string>
     <string name="browse_sort_order_last_modified">Last modified</string>
     <string name="browse_sort_order_file_size">File size</string>
 
@@ -391,9 +381,6 @@
     <string name="file_last_opened">File last opened</string>
     <string name="file_size">File size</string>
     <string name="unknown">Unknown</string>
-
-    <!-- Browse -->
-    <string name="internal_storage">Internal Storage</string>
 
     <!-- Reader -->
     <string name="no_chapters">No chapters</string>
@@ -597,10 +584,7 @@
     <string name="cover_image_content_desc">Cover image</string>
     <string name="open_reader_settings_content_desc">Reader settings</string>
     <string name="file_icon_content_desc">File</string>
-    <string name="directory_icon_content_desc">Directory</string>
-    <string name="favorite_directory_content_desc">Favorite directory</string>
     <string name="sort_order_content_desc">Sort order</string>
-    <string name="path_arrow_icon_content_desc">Path arrow</string>
     <string name="checkbox_content_desc">Checkbox</string>
     <string name="cover_image_not_found_content_desc">Cover image not found</string>
     <string name="apply_changes_content_desc">Apply changes</string>

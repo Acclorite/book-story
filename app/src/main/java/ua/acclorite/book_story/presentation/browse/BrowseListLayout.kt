@@ -17,10 +17,9 @@ import ua.acclorite.book_story.presentation.core.constants.providePrimaryScrollb
 @Composable
 fun BrowseListLayout(
     files: List<SelectableFile>,
-    hasSelectedFiles: Boolean,
+    hasSelectedItems: Boolean,
     listState: LazyListState,
     onLongItemClick: (SelectableFile) -> Unit,
-    onFavoriteItemClick: (SelectableFile) -> Unit,
     onItemClick: (SelectableFile) -> Unit,
 ) {
     LazyColumnWithScrollbar(
@@ -34,18 +33,15 @@ fun BrowseListLayout(
 
         items(
             files,
-            key = { it.fileOrDirectory.path }
+            key = { it.path }
         ) { selectableFile ->
             BrowseItem(
                 file = selectableFile,
                 layout = BrowseLayout.LIST,
                 modifier = Modifier.animateItem(),
-                hasSelectedFiles = hasSelectedFiles,
+                hasSelectedItems = hasSelectedItems,
                 onLongClick = {
                     onLongItemClick(selectableFile)
-                },
-                onFavoriteClick = {
-                    onFavoriteItemClick(selectableFile)
                 },
                 onClick = {
                     onItemClick(selectableFile)

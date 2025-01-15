@@ -9,24 +9,22 @@ import ua.acclorite.book_story.domain.browse.SelectableFile
 @Composable
 fun BrowseLayout(
     files: List<SelectableFile>,
-    hasSelectedFiles: Boolean,
+    hasSelectedItems: Boolean,
     layout: BrowseLayout,
     gridSize: Int,
     autoGridSize: Boolean,
     listState: LazyListState,
     gridState: LazyGridState,
     onLongItemClick: (SelectableFile) -> Unit,
-    onFavoriteItemClick: (SelectableFile) -> Unit,
     onItemClick: (SelectableFile) -> Unit
 ) {
     when (layout) {
         BrowseLayout.LIST -> {
             BrowseListLayout(
                 files = files,
-                hasSelectedFiles = hasSelectedFiles,
+                hasSelectedItems = hasSelectedItems,
                 listState = listState,
                 onLongItemClick = onLongItemClick,
-                onFavoriteItemClick = onFavoriteItemClick,
                 onItemClick = onItemClick
             )
         }
@@ -36,10 +34,9 @@ fun BrowseLayout(
                 gridSize = gridSize,
                 autoGridSize = autoGridSize,
                 files = files,
-                hasSelectedFiles = hasSelectedFiles,
+                hasSelectedItems = hasSelectedItems,
                 gridState = gridState,
                 onLongItemClick = onLongItemClick,
-                onFavoriteItemClick = onFavoriteItemClick,
                 onItemClick = onItemClick
             )
         }

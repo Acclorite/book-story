@@ -7,10 +7,8 @@ import androidx.annotation.Keep
 import androidx.compose.runtime.Immutable
 import androidx.datastore.preferences.core.Preferences
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.domain.browse.BrowseFilesStructure
 import ua.acclorite.book_story.domain.browse.BrowseLayout
 import ua.acclorite.book_story.domain.browse.BrowseSortOrder
-import ua.acclorite.book_story.domain.browse.toBrowseFilesStructure
 import ua.acclorite.book_story.domain.browse.toBrowseLayout
 import ua.acclorite.book_story.domain.browse.toBrowseSortOrder
 import ua.acclorite.book_story.domain.reader.ReaderColorEffects
@@ -108,13 +106,9 @@ data class MainState(
     val progressBarFontSize: Int = provideDefaultValue { 8 },
 
     // Browse Settings
-    val browseFilesStructure: BrowseFilesStructure = provideDefaultValue {
-        BrowseFilesStructure.DIRECTORIES
-    },
     val browseLayout: BrowseLayout = provideDefaultValue { BrowseLayout.LIST },
     val browseAutoGridSize: Boolean = provideDefaultValue { true },
     val browseGridSize: Int = provideDefaultValue { 0 },
-    val browsePinFavoriteDirectories: Boolean = provideDefaultValue { true },
     val browseSortOrder: BrowseSortOrder = provideDefaultValue { BrowseSortOrder.LAST_MODIFIED },
     val browseSortOrderDescending: Boolean = provideDefaultValue { true },
     val browseIncludedFilterItems: List<String> = provideDefaultValue { emptyList() },
@@ -208,10 +202,6 @@ data class MainState(
                         FAST_COLOR_PRESET_CHANGE
                     ) { fastColorPresetChange },
 
-                    browseFilesStructure = provideValue(
-                        BROWSE_FILES_STRUCTURE, convert = { toBrowseFilesStructure() }
-                    ) { browseFilesStructure },
-
                     browseLayout = provideValue(
                         BROWSE_LAYOUT, convert = { toBrowseLayout() }
                     ) { browseLayout },
@@ -223,10 +213,6 @@ data class MainState(
                     browseGridSize = provideValue(
                         BROWSE_GRID_SIZE
                     ) { browseGridSize },
-
-                    browsePinFavoriteDirectories = provideValue(
-                        BROWSE_PIN_FAVORITE_DIRECTORIES
-                    ) { browsePinFavoriteDirectories },
 
                     browseSortOrder = provideValue(
                         BROWSE_SORT_ORDER, convert = { toBrowseSortOrder() }

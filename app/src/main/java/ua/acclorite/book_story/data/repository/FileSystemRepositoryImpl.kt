@@ -1,10 +1,15 @@
 package ua.acclorite.book_story.data.repository
 
+import android.app.Application
+import android.content.Context.STORAGE_SERVICE
+import android.os.Build
 import android.os.Environment
+import android.os.storage.StorageManager
 import android.util.Log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.local.room.BookDao
-import ua.acclorite.book_story.data.mapper.book.BookMapper
 import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.domain.browse.SelectableFile
 import ua.acclorite.book_story.domain.library.book.NullableBook
@@ -27,8 +32,8 @@ private const val GET_FILES_FROM_DEVICE = "FILES FROM DEVICE, REPO"
  */
 @Singleton
 class FileSystemRepositoryImpl @Inject constructor(
+    private val application: Application,
     private val database: BookDao,
-    private val bookMapper: BookMapper,
     private val fileParser: FileParser
 ) : FileSystemRepository {
 
@@ -39,101 +44,100 @@ class FileSystemRepositoryImpl @Inject constructor(
     override suspend fun getFilesFromDevice(query: String): List<SelectableFile> {
         Log.i(GET_FILES_FROM_DEVICE, "Getting files from device by query: \"$query\".")
 
-        val existingBooks = database
+        val existingPaths = database
             .searchBooks("")
-            .map { bookMapper.toBook(it) }
+            .map { it.filePath.trim() }
         val supportedExtensions = Constants.provideExtensions()
 
+        /**
+         * Verify that a file is valid and can be shown correctly.
+         */
         fun File.isValid(): Boolean {
-            if (!exists()) {
-                return false
+            if (!exists() || !canRead() || !isFile) return false
+
+            // First: Ensuring supported extension
+            supportedExtensions.any { ext ->
+                name.endsWith(ext, ignoreCase = true)
+            }.let { if (!it) return false }
+
+            // Second: Ensuring query to match
+            if (query.isNotBlank()) {
+                name.contains(query.trim(), ignoreCase = true)
+                    .let { if (!it) return false }
             }
 
-            val isFileSupported = supportedExtensions.any { ext ->
-                name.endsWith(
-                    ext,
-                    ignoreCase = true
-                )
-            }
+            // Third: Ensuring that a file is not added already
+            existingPaths.none { existingPath ->
+                existingPath.equals(path.trim(), ignoreCase = true)
+            }.let { if (!it) return false }
 
-            if (!isFileSupported) {
-                return false
-            }
-
-            val isFileNotAdded = existingBooks.all {
-                it.filePath.lowercase().trim() != path.lowercase().trim()
-            }
-
-            if (!isFileNotAdded) {
-                return false
-            }
-
-            val isQuery = if (query.isEmpty()) true else name.trim().lowercase()
-                .contains(query.trim().lowercase())
-
-            return isQuery
+            return true
         }
 
-        suspend fun File.getAllFiles(): List<SelectableFile> {
-            val filesList = mutableListOf<SelectableFile>()
+        /**
+         * Get all verified files from directory (root).
+         */
+        fun File.getFilesFromDirectory(): List<SelectableFile> {
+            return walk().mapNotNull {
+                if (!it.isValid()) return@mapNotNull null
+                SelectableFile(
+                    name = it.name,
+                    path = it.path,
+                    size = it.length(),
+                    lastModified = it.lastModified(),
+                    selected = false
+                )
+            }.toList()
+        }
 
-            val files = listFiles()
-            if (files != null) {
-                for (file in files) {
-                    if (!file.exists()) {
-                        continue
+        /**
+         * Get all storages (including SD).
+         */
+        fun getAllStorageDirectories(): List<File> {
+            val storageDirectories = mutableListOf<File>()
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                val storageManager = application.getSystemService(STORAGE_SERVICE) as StorageManager
+
+                val storageVolumes = storageManager.storageVolumes.mapNotNull { it.directory }
+                for (volume in storageVolumes) {
+                    if (volume.exists() && volume.canRead() && volume.isDirectory) {
+                        storageDirectories.add(volume)
                     }
+                }
+            } else {
+                val internalStorage = Environment.getExternalStorageDirectory()
+                if (internalStorage.exists() && internalStorage.canRead() && internalStorage.isDirectory) {
+                    storageDirectories.add(internalStorage)
+                }
 
-                    when {
-                        file.isFile -> {
-                            if (file.isValid()) {
-                                filesList.add(
-                                    SelectableFile(
-                                        fileOrDirectory = file,
-                                        parentDirectory = this,
-                                        isDirectory = false,
-                                        isFavorite = false,
-                                        isSelected = false
-                                    )
-                                )
-                            }
-                        }
-
-                        file.isDirectory -> {
-                            val subDirectoryFiles = file.getAllFiles()
-                            if (subDirectoryFiles.isNotEmpty()) {
-                                filesList.add(
-                                    SelectableFile(
-                                        fileOrDirectory = file,
-                                        parentDirectory = this,
-                                        isDirectory = true,
-                                        isFavorite = database.favoriteDirectoryExits(file.path),
-                                        isSelected = false
-                                    )
-                                )
-                                filesList.addAll(subDirectoryFiles)
-                            }
+                val storageVolumes = File("/storage")
+                if (storageVolumes.exists() && storageVolumes.canRead() && storageVolumes.isDirectory) {
+                    storageVolumes.listFiles()?.forEach { volume ->
+                        if (
+                            volume.exists() &&
+                            volume.canRead() &&
+                            volume.isDirectory &&
+                            volume != internalStorage
+                        ) {
+                            storageDirectories.add(volume)
                         }
                     }
                 }
             }
 
-            return filesList
+            return storageDirectories
         }
 
-        val rootDirectory = Environment.getExternalStorageDirectory()
-        if (
-            !rootDirectory.exists() ||
-            !rootDirectory.isDirectory ||
-            (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED &&
-                    Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED_READ_ONLY)
-        ) {
-            Log.e(GET_FILES_FROM_DEVICE, "Could not correctly get root directory.")
-            return emptyList()
+        val storageDirectories = getAllStorageDirectories()
+        val files = mutableListOf<SelectableFile>()
+
+        for (volume in storageDirectories) {
+            files.addAll(withContext(Dispatchers.IO) { volume.getFilesFromDirectory() })
         }
 
         Log.i(GET_FILES_FROM_DEVICE, "Successfully got all matching files.")
-        return rootDirectory.getAllFiles()
+        return files
     }
 
     /**

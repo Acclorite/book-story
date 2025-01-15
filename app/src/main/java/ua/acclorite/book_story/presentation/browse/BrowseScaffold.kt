@@ -16,14 +16,12 @@ import androidx.compose.ui.focus.FocusRequester
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.browse.BrowseFilesStructure
 import ua.acclorite.book_story.domain.browse.BrowseLayout
 import ua.acclorite.book_story.domain.browse.SelectableFile
 import ua.acclorite.book_story.presentation.core.util.LocalActivity
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.ui.browse.BrowseEvent
 import ua.acclorite.book_story.ui.theme.DefaultTransition
-import java.io.File
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalPermissionsApi::class)
 @Composable
@@ -34,14 +32,11 @@ fun BrowseScaffold(
     listState: LazyListState,
     gridState: LazyGridState,
     layout: BrowseLayout,
-    filesStructure: BrowseFilesStructure,
     gridSize: Int,
     autoGridSize: Boolean,
     includedFilterItems: List<String>,
     canScrollBackList: Boolean,
     canScrollBackGrid: Boolean,
-    selectedDirectory: File,
-    inNestedDirectory: Boolean,
     hasSelectedItems: Boolean,
     selectedItemsCount: Int,
     isRefreshing: Boolean,
@@ -51,19 +46,15 @@ fun BrowseScaffold(
     filesEmpty: Boolean,
     showSearch: Boolean,
     searchQuery: String,
-    hasSearched: Boolean,
     focusRequester: FocusRequester,
     searchVisibility: (BrowseEvent.OnSearchVisibility) -> Unit,
     searchQueryChange: (BrowseEvent.OnSearchQueryChange) -> Unit,
     search: (BrowseEvent.OnSearch) -> Unit,
     requestFocus: (BrowseEvent.OnRequestFocus) -> Unit,
-    goBackDirectory: (BrowseEvent.OnGoBackDirectory) -> Unit,
     clearSelectedFiles: (BrowseEvent.OnClearSelectedFiles) -> Unit,
     selectFiles: (BrowseEvent.OnSelectFiles) -> Unit,
     selectFile: (BrowseEvent.OnSelectFile) -> Unit,
     permissionCheck: (BrowseEvent.OnPermissionCheck) -> Unit,
-    updateFavoriteDirectory: (BrowseEvent.OnUpdateFavoriteDirectory) -> Unit,
-    changeDirectory: (BrowseEvent.OnChangeDirectory) -> Unit,
     showFilterBottomSheet: (BrowseEvent.OnShowFilterBottomSheet) -> Unit,
     showAddDialog: (BrowseEvent.OnShowAddDialog) -> Unit,
     navigateToHelp: () -> Unit,
@@ -79,27 +70,20 @@ fun BrowseScaffold(
             BrowseTopBar(
                 files = files,
                 layout = layout,
-                filesStructure = filesStructure,
                 includedFilterItems = includedFilterItems,
                 canScrollBackList = canScrollBackList,
                 canScrollBackGrid = canScrollBackGrid,
-                selectedDirectory = selectedDirectory,
-                inNestedDirectory = inNestedDirectory,
                 hasSelectedItems = hasSelectedItems,
                 selectedItemsCount = selectedItemsCount,
                 showSearch = showSearch,
                 searchQuery = searchQuery,
-                hasSearched = hasSearched,
-                isError = isError,
                 focusRequester = focusRequester,
                 searchVisibility = searchVisibility,
                 searchQueryChange = searchQueryChange,
                 search = search,
                 requestFocus = requestFocus,
-                goBackDirectory = goBackDirectory,
                 clearSelectedFiles = clearSelectedFiles,
                 selectFiles = selectFiles,
-                changeDirectory = changeDirectory,
                 showFilterBottomSheet = showFilterBottomSheet,
                 showAddDialog = showAddDialog
             )
@@ -114,66 +98,24 @@ fun BrowseScaffold(
                 BrowseLayout(
                     files = files,
                     layout = layout,
-                    hasSelectedFiles = files.any { it.isSelected },
+                    hasSelectedItems = hasSelectedItems,
                     gridSize = gridSize,
                     autoGridSize = autoGridSize,
                     listState = listState,
                     gridState = gridState,
                     onLongItemClick = { file ->
-                        when (file.isDirectory) {
-                            false -> {
-                                context.getString(
-                                    R.string.file_path_query,
-                                    file.fileOrDirectory.path
-                                ).showToast(context = context)
-                            }
-
-                            true -> {
-                                selectFile(
-                                    BrowseEvent.OnSelectFile(
-                                        includedFileFormats = includedFilterItems,
-                                        file = file
-                                    )
-                                )
-                            }
-                        }
-                    },
-                    onFavoriteItemClick = { file ->
-                        updateFavoriteDirectory(
-                            BrowseEvent.OnUpdateFavoriteDirectory(
-                                file.fileOrDirectory.path
-                            )
-                        )
+                        context.getString(
+                            R.string.file_path_query,
+                            file.path
+                        ).showToast(context = context)
                     },
                     onItemClick = { file ->
-                        when (file.isDirectory) {
-                            false -> {
-                                selectFile(
-                                    BrowseEvent.OnSelectFile(
-                                        includedFileFormats = includedFilterItems,
-                                        file = file
-                                    )
-                                )
-                            }
-
-                            true -> {
-                                if (!hasSelectedItems) {
-                                    changeDirectory(
-                                        BrowseEvent.OnChangeDirectory(
-                                            file.fileOrDirectory,
-                                            savePreviousDirectory = true
-                                        )
-                                    )
-                                } else {
-                                    selectFile(
-                                        BrowseEvent.OnSelectFile(
-                                            includedFileFormats = includedFilterItems,
-                                            file = file
-                                        )
-                                    )
-                                }
-                            }
-                        }
+                        selectFile(
+                            BrowseEvent.OnSelectFile(
+                                includedFileFormats = includedFilterItems,
+                                file = file
+                            )
+                        )
                     }
                 )
             }

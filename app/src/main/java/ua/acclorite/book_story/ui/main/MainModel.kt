@@ -16,7 +16,6 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
-import ua.acclorite.book_story.domain.browse.toBrowseFilesStructure
 import ua.acclorite.book_story.domain.browse.toBrowseLayout
 import ua.acclorite.book_story.domain.browse.toBrowseSortOrder
 import ua.acclorite.book_story.domain.reader.toColorEffects
@@ -189,14 +188,6 @@ class MainModel @Inject constructor(
                 }
             )
 
-            is MainEvent.OnChangeBrowseFilesStructure -> handleDatastoreUpdate(
-                key = DataStoreConstants.BROWSE_FILES_STRUCTURE,
-                value = event.value,
-                updateState = {
-                    it.copy(browseFilesStructure = toBrowseFilesStructure())
-                }
-            )
-
             is MainEvent.OnChangeBrowseLayout -> handleDatastoreUpdate(
                 key = DataStoreConstants.BROWSE_LAYOUT,
                 value = event.value,
@@ -218,14 +209,6 @@ class MainModel @Inject constructor(
                 value = event.value,
                 updateState = {
                     it.copy(browseGridSize = this)
-                }
-            )
-
-            is MainEvent.OnChangeBrowsePinFavoriteDirectories -> handleDatastoreUpdate(
-                key = DataStoreConstants.BROWSE_PIN_FAVORITE_DIRECTORIES,
-                value = event.value,
-                updateState = {
-                    it.copy(browsePinFavoriteDirectories = this)
                 }
             )
 

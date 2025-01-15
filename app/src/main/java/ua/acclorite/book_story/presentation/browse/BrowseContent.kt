@@ -8,14 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.focus.FocusRequester
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
-import ua.acclorite.book_story.domain.browse.BrowseFilesStructure
 import ua.acclorite.book_story.domain.browse.BrowseLayout
 import ua.acclorite.book_story.domain.browse.SelectableFile
 import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
 import ua.acclorite.book_story.domain.util.BottomSheet
 import ua.acclorite.book_story.domain.util.Dialog
 import ua.acclorite.book_story.ui.browse.BrowseEvent
-import java.io.File
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalPermissionsApi::class)
 @Composable
@@ -30,14 +28,11 @@ fun BrowseContent(
     listState: LazyListState,
     gridState: LazyGridState,
     layout: BrowseLayout,
-    filesStructure: BrowseFilesStructure,
     gridSize: Int,
     autoGridSize: Boolean,
     includedFilterItems: List<String>,
     canScrollBackList: Boolean,
     canScrollBackGrid: Boolean,
-    selectedDirectory: File,
-    inNestedDirectory: Boolean,
     hasSelectedItems: Boolean,
     selectedItemsCount: Int,
     isRefreshing: Boolean,
@@ -47,19 +42,15 @@ fun BrowseContent(
     filesEmpty: Boolean,
     showSearch: Boolean,
     searchQuery: String,
-    hasSearched: Boolean,
     focusRequester: FocusRequester,
     searchVisibility: (BrowseEvent.OnSearchVisibility) -> Unit,
     searchQueryChange: (BrowseEvent.OnSearchQueryChange) -> Unit,
     search: (BrowseEvent.OnSearch) -> Unit,
     requestFocus: (BrowseEvent.OnRequestFocus) -> Unit,
     clearSelectedFiles: (BrowseEvent.OnClearSelectedFiles) -> Unit,
-    goBackDirectory: (BrowseEvent.OnGoBackDirectory) -> Unit,
     selectFiles: (BrowseEvent.OnSelectFiles) -> Unit,
     selectFile: (BrowseEvent.OnSelectFile) -> Unit,
     permissionCheck: (BrowseEvent.OnPermissionCheck) -> Unit,
-    updateFavoriteDirectory: (BrowseEvent.OnUpdateFavoriteDirectory) -> Unit,
-    changeDirectory: (BrowseEvent.OnChangeDirectory) -> Unit,
     dismissBottomSheet: (BrowseEvent.OnDismissBottomSheet) -> Unit,
     showFilterBottomSheet: (BrowseEvent.OnShowFilterBottomSheet) -> Unit,
     actionPermissionDialog: (BrowseEvent.OnActionPermissionDialog) -> Unit,
@@ -95,28 +86,23 @@ fun BrowseContent(
         listState = listState,
         gridState = gridState,
         layout = layout,
-        filesStructure = filesStructure,
         gridSize = gridSize,
         autoGridSize = autoGridSize,
         includedFilterItems = includedFilterItems,
         canScrollBackList = canScrollBackList,
         canScrollBackGrid = canScrollBackGrid,
-        selectedDirectory = selectedDirectory,
-        inNestedDirectory = inNestedDirectory,
         hasSelectedItems = hasSelectedItems,
         selectedItemsCount = selectedItemsCount,
         isRefreshing = isRefreshing,
         dialogHidden = dialogHidden,
         showSearch = showSearch,
         searchQuery = searchQuery,
-        hasSearched = hasSearched,
         focusRequester = focusRequester,
         searchVisibility = searchVisibility,
         searchQueryChange = searchQueryChange,
         search = search,
         requestFocus = requestFocus,
         clearSelectedFiles = clearSelectedFiles,
-        goBackDirectory = goBackDirectory,
         selectFiles = selectFiles,
         storagePermissionState = storagePermissionState,
         isLoading = isLoading,
@@ -124,8 +110,6 @@ fun BrowseContent(
         filesEmpty = filesEmpty,
         permissionCheck = permissionCheck,
         selectFile = selectFile,
-        updateFavoriteDirectory = updateFavoriteDirectory,
-        changeDirectory = changeDirectory,
         showFilterBottomSheet = showFilterBottomSheet,
         showAddDialog = showAddDialog,
         navigateToHelp = navigateToHelp
@@ -134,10 +118,8 @@ fun BrowseContent(
     BrowseBackHandler(
         hasSelectedItems = hasSelectedItems,
         showSearch = showSearch,
-        inNestedDirectory = inNestedDirectory,
         searchVisibility = searchVisibility,
         clearSelectedFiles = clearSelectedFiles,
-        goBackDirectory = goBackDirectory,
         navigateToLibrary = navigateToLibrary
     )
 }

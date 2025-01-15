@@ -42,7 +42,6 @@
     <string name="dark_theme_off">முடக்கப்பட்டது</string>
     <string name="dark_theme_on">இயக்கப்பட்டது</string>
     <string name="dark_theme_follow_system">மண்டலம்</string>
-    <string name="files_structure_all">அனைத்து கோப்புகள்</string>
     <string name="lavender_theme">எரிச்</string>
     <string name="books_moved">தேர்ந்தெடுக்கப்பட்ட அனைத்து புத்தகங்களும் வெற்றிகரமாக நகர்த்தப்பட்டன.</string>
     <string name="books_deleted">தேர்ந்தெடுக்கப்பட்ட அனைத்து புத்தகங்களும் வெற்றிகரமாக நீக்கப்பட்டன.</string>
@@ -65,7 +64,6 @@
     <string name="go_back_content_desc">திரும்பிச் செல்லுங்கள்</string>
     <string name="cover_image_content_desc">கவர் படம்</string>
     <string name="open_reader_settings_content_desc">வாசகர் அமைப்புகள்</string>
-    <string name="path_arrow_icon_content_desc">பாதை அம்பு</string>
     <string name="checkbox_content_desc">தேர்வுப்பெட்டி</string>
     <string name="library_content_desc">உங்கள் நூலகம்</string>
     <string name="delete_history_element_content_desc">வரலாற்று உறுப்பை நீக்கு</string>
@@ -94,7 +92,6 @@
     <string name="licenses_option">திறந்த மூல உரிமங்கள்</string>
     <string name="help_desc_how_to_manage_history_2">வரலாறு</string>
     <string name="file_icon_content_desc">கோப்பு</string>
-    <string name="directory_icon_content_desc">அடைவு</string>
     <string name="select_all_files_content_desc">எல்லா கோப்புகளையும் தேர்ந்தெடுக்கவும்</string>
     <string name="exit_search_content_desc">வெளியேறும் தேடல்</string>
     <string name="unknown_author">தெரியவில்லை</string>
@@ -246,10 +243,7 @@
     <string name="fast_color_preset_change_option_desc">வண்ண முன்னமைவை மாற்ற மேல் பட்டியை இடது அல்லது வலதுபுறமாக ச்வைப் செய்யவும்</string>
     <string name="letter_spacing_option">கடிதம் இடைவெளி</string>
     <string name="screen_orientation_option">திரை நோக்குநிலை</string>
-    <string name="browse_files_structure_option">கோப்புகள் அமைப்பு</string>
     <string name="browse_grid_size_option">கட்டம் அளவு</string>
-    <string name="browse_pin_favorite_directories_option">பிடித்த கோப்பகங்கள்</string>
-    <string name="browse_pin_favorite_directories_option_desc">உங்களுக்கு பிடித்த கோப்பகங்களை திரையின் மேற்புறத்தில் பொருத்துங்கள்</string>
     <string name="red_color">சிவப்பு</string>
     <string name="green_color">பச்சை</string>
     <string name="blue_color">நீலம்</string>
@@ -258,9 +252,7 @@
     <string name="theme_contrast_high">உயர்ந்த</string>
     <string name="font_style_italic">சாய்வு</string>
     <string name="font_style_normal">சாதாரண</string>
-    <string name="files_structure_directory">கோப்பகங்கள்</string>
     <string name="browse_sort_order_name">அகரவரிசை</string>
-    <string name="browse_sort_order_file_type">கோப்பு வகை</string>
     <string name="browse_sort_order_last_modified">கடைசியாக மாற்றப்பட்டது</string>
     <string name="browse_sort_order_file_size">கோப்பு அளவு</string>
     <string name="alignment_start">தொடங்கு</string>
@@ -288,7 +280,6 @@
     <string name="file_path">கோப்பு பாதை</string>
     <string name="file_last_opened">கோப்பு கடைசியாக திறக்கப்பட்டது</string>
     <string name="file_size">கோப்பு அளவு</string>
-    <string name="internal_storage">உள் சேமிப்பு</string>
     <string name="no_chapters">அத்தியாயங்கள் இல்லை</string>
     <string name="chapters">பாடங்கள்</string>
     <string name="app_version_option_desc_1">புத்தகத்தின் கதை v%1$s</string>
@@ -330,7 +321,6 @@
     <string name="start_done_desc">பயன்பாட்டின் அடிப்படை அமைப்பை நீங்கள் வெற்றிகரமாக முடித்துவிட்டீர்கள். உதவித் திரையைப் படிப்பதன் மூலம் பயன்பாட்டை எவ்வாறு பயன்படுத்துவது என்பதை அறிய விரும்புகிறீர்களா?</string>
     <string name="yesterday">நேற்று</string>
     <string name="continue_reading_content_desc">தொடர்ந்து படிக்கவும்</string>
-    <string name="favorite_directory_content_desc">பிடித்த அடைவு</string>
     <string name="sort_order_content_desc">வரிசைப்படுத்தும் முறை</string>
     <string name="cover_image_not_found_content_desc">கவர் படம் கிடைக்கவில்லை</string>
     <string name="apply_changes_content_desc">மாற்றங்களைப் பயன்படுத்துங்கள்</string>

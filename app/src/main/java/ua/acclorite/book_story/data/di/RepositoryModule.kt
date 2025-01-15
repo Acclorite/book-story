@@ -21,14 +21,12 @@ import ua.acclorite.book_story.data.parser.TextParserImpl
 import ua.acclorite.book_story.data.repository.BookRepositoryImpl
 import ua.acclorite.book_story.data.repository.ColorPresetRepositoryImpl
 import ua.acclorite.book_story.data.repository.DataStoreRepositoryImpl
-import ua.acclorite.book_story.data.repository.FavoriteDirectoryRepositoryImpl
 import ua.acclorite.book_story.data.repository.FileSystemRepositoryImpl
 import ua.acclorite.book_story.data.repository.HistoryRepositoryImpl
 import ua.acclorite.book_story.data.repository.RemoteRepositoryImpl
 import ua.acclorite.book_story.domain.repository.BookRepository
 import ua.acclorite.book_story.domain.repository.ColorPresetRepository
 import ua.acclorite.book_story.domain.repository.DataStoreRepository
-import ua.acclorite.book_story.domain.repository.FavoriteDirectoryRepository
 import ua.acclorite.book_story.domain.repository.FileSystemRepository
 import ua.acclorite.book_story.domain.repository.HistoryRepository
 import ua.acclorite.book_story.domain.repository.RemoteRepository
@@ -78,12 +76,6 @@ abstract class RepositoryModule {
     abstract fun bindRemoteRepository(
         remoteRepositoryImpl: RemoteRepositoryImpl
     ): RemoteRepository
-
-    @Binds
-    @Singleton
-    abstract fun bindFavoriteDirectoryRepository(
-        favoriteDirectoryRepositoryImpl: FavoriteDirectoryRepositoryImpl
-    ): FavoriteDirectoryRepository
 
     @Binds
     @Singleton
