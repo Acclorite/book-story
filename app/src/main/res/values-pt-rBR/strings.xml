@@ -318,7 +318,6 @@
     <string name="history_deleted">Histórico foi apagado com sucesso</string>
     <string name="help_title_how_to_use_color_presets">Como usar predefinições de cores?</string>
     <string name="help_title_how_to_use_tooltip">Como usar dicas?</string>
-    <string name="browse_pin_favorite_directories_option_desc">Fixe seus diretórios favoritos no topo da tela</string>
     <string name="press_again_toast">Voltar para sair</string>
     <string name="books_moved">Todos os livros selecionados foram movidos com sucesso.</string>
     <string name="cover_image_deleted">Imagem da capa apagada com sucesso.</string>
@@ -333,7 +332,6 @@
     <string name="help_desc_how_to_read_book_1">Ir para</string>
     <string name="start_permissions_storage_desc">Necessário para escanear seu dispositivo e encontrar livros</string>
     <string name="help_desc_how_to_add_books_1">Ir para</string>
-    <string name="path_arrow_icon_content_desc">Caminho da seta</string>
     <string name="reset_start_content_desc">Redefinir guia de introdução</string>
     <string name="progress_bar_font_size_option">Tamanho da fonte</string>
     <string name="help_desc_how_to_customize_app_3">Você pode fazer isso nas telas Biblioteca, Histórico e Navegação clicando nos três pontos no canto superior direito e selecionando «Configurações» no menu suspenso. Então você verá todas as configurações disponíveis para este aplicativo. Sinta-se à vontade para experimentar com elas!</string>
@@ -356,7 +354,6 @@
     <string name="cover_image_not_found_content_desc">Imagem da capa não encontrada</string>
     <string name="credits_updates">Gerenciamento dos novos updates</string>
     <string name="help_desc_how_to_customize_app_1">Ir para</string>
-    <string name="browse_pin_favorite_directories_option">Fixar diretórios favoritos</string>
     <string name="cover_reset">A imagem da capa foi redefininda com sucesso.</string>
     <string name="book_moved">Esse livro foi movido com sucesso.</string>
     <string name="help_desc_how_to_customize_reader_1">Comece a ler o livro (veja: Como leio um livro?), depois disso, abra as barras superior e inferior clicando em qualquer lugar da tela. Em seguida, clique no ícone de engrenagem no canto superior direito. Isso mostrará todas as configurações do Reader. A segunda maneira é ir para</string>
