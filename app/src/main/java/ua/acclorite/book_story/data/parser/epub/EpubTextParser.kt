@@ -226,7 +226,7 @@ class EpubTextParser @Inject constructor(
                 .let {
                     if (it == null) return@forEach
                     Uri.parse(it).path ?: it
-                }.substringAfterLast("/")
+                }.substringAfterLast(File.separator)
 
             titleMap[source] = (titleMap[source] ?: emptyList()) + title
         }
@@ -245,7 +245,7 @@ class EpubTextParser @Inject constructor(
     ): String? {
         if (chapterTitleMap.isNullOrEmpty()) return null
         return chapterTitleMap
-            .getOrElse(chapterSource.substringAfterLast("/")) { null }
+            .getOrElse(chapterSource.substringAfterLast(File.separator)) { null }
             ?.joinToString(separator = " / ")
             ?.ifBlank { null }
             ?.trim()
@@ -278,11 +278,13 @@ class EpubTextParser @Inject constructor(
 
             document.select("spine > itemref").mapNotNull { itemRef ->
                 val spineId = itemRef.attr("idref")
-                val chapterSource = manifestItems[spineId]?.substringAfterLast('/')?.lowercase()
+                val chapterSource = manifestItems[spineId]
+                    ?.substringAfterLast(File.separator)
+                    ?.lowercase()
                     ?: return@mapNotNull null
 
                 zipEntries.find { entry ->
-                    entry.name.substringAfterLast('/').lowercase() == chapterSource
+                    entry.name.substringAfterLast(File.separator).lowercase() == chapterSource
                 }
             }.also { entries ->
                 if (entries.isEmpty()) return@let

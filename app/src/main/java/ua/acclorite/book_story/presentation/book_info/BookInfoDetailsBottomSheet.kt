@@ -53,6 +53,10 @@ fun BookInfoDetailsBottomSheet(
         else ""
     }
 
+    val fileName = remember {
+        book.filePath.substringAfterLast(File.separatorChar)
+    }
+
     ModalBottomSheet(
         modifier = Modifier.fillMaxWidth(),
         onDismissRequest = {
@@ -67,11 +71,11 @@ fun BookInfoDetailsBottomSheet(
             item {
                 BookInfoDetailsBottomSheetItem(
                     title = stringResource(id = R.string.file_name),
-                    description = book.filePath.substringAfterLast("/").trim()
+                    description = fileName
                 ) {
                     copyToClipboard(
                         BookInfoEvent.OnCopyToClipboard(
-                            text = book.filePath.substringAfterLast("/").trim(),
+                            text = fileName,
                             context = context
                         )
                     )
@@ -81,11 +85,11 @@ fun BookInfoDetailsBottomSheet(
             item {
                 BookInfoDetailsBottomSheetItem(
                     title = stringResource(id = R.string.file_path),
-                    description = book.filePath.trim()
+                    description = book.filePath
                 ) {
                     copyToClipboard(
                         BookInfoEvent.OnCopyToClipboard(
-                            text = book.filePath.trim(),
+                            text = book.filePath,
                             context = context
                         )
                     )

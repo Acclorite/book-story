@@ -234,7 +234,7 @@ class BookRepositoryImpl @Inject constructor(
         if (book.image != null) {
             try {
                 val fileToDelete = File(
-                    "$coversDir/${book.image.substringAfterLast("/")}"
+                    "$coversDir${File.separator}${book.image.substringAfterLast(File.separator)}"
                 )
 
                 if (fileToDelete.exists()) {
@@ -288,7 +288,7 @@ class BookRepositoryImpl @Inject constructor(
                 if (book.image != null) {
                     try {
                         val fileToDelete = File(
-                            "$coversDir/${book.image.substringAfterLast("/")}"
+                            "$coversDir${File.separator}${book.image.substringAfterLast(File.separator)}"
                         )
 
                         if (fileToDelete.exists()) {
