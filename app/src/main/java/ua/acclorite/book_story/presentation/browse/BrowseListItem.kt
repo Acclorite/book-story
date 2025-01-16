@@ -33,7 +33,7 @@ fun BrowseListItem(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 3.dp)
+            .padding(vertical = 3.dp)
             .clip(RoundedCornerShape(10.dp))
             .background(
                 if (file.selected) MaterialTheme.colorScheme.secondaryContainer

@@ -1,5 +1,7 @@
 package ua.acclorite.book_story.presentation.browse
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -8,7 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.domain.browse.BrowseLayout
+import ua.acclorite.book_story.domain.browse.GroupedFiles
 import ua.acclorite.book_story.domain.browse.SelectableFile
 import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.presentation.core.constants.Constants
@@ -16,37 +18,30 @@ import ua.acclorite.book_story.presentation.core.constants.providePrimaryScrollb
 
 @Composable
 fun BrowseListLayout(
-    files: List<SelectableFile>,
-    hasSelectedItems: Boolean,
+    groupedFiles: List<GroupedFiles>,
     listState: LazyListState,
-    onLongItemClick: (SelectableFile) -> Unit,
-    onItemClick: (SelectableFile) -> Unit,
+    headerContent: @Composable (header: String, pinned: Boolean) -> Unit,
+    itemContent: @Composable (file: SelectableFile, files: List<SelectableFile>) -> Unit
 ) {
     LazyColumnWithScrollbar(
         state = listState,
         modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(horizontal = 8.dp),
         scrollbarSettings = Constants.providePrimaryScrollbar(false)
     ) {
-        item {
-            Spacer(modifier = Modifier.height(8.dp))
-        }
+        groupedFiles.forEach { group ->
+            stickyHeader {
+                headerContent(group.header, group.pinned)
+            }
 
-        items(
-            files,
-            key = { it.path }
-        ) { selectableFile ->
-            BrowseItem(
-                file = selectableFile,
-                layout = BrowseLayout.LIST,
-                modifier = Modifier.animateItem(),
-                hasSelectedItems = hasSelectedItems,
-                onLongClick = {
-                    onLongItemClick(selectableFile)
-                },
-                onClick = {
-                    onItemClick(selectableFile)
+            items(
+                group.files,
+                key = { it.path }
+            ) { selectableFile ->
+                Box(Modifier.animateItem()) {
+                    itemContent(selectableFile, group.files)
                 }
-            )
+            }
         }
 
         item {

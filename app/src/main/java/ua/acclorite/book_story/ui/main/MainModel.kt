@@ -229,7 +229,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeBrowseIncludedFilterItem -> handleBrowseIncludedFilterItemUpdate(
-                event
+                event = event
             )
 
             is MainEvent.OnChangeTextAlignment -> handleDatastoreUpdate(
@@ -479,6 +479,10 @@ class MainModel @Inject constructor(
                     it.copy(progressBarFontSize = this)
                 }
             )
+
+            is MainEvent.OnChangeBrowsePinnedPaths -> handleBrowsePinnedPathsUpdate(
+                event = event
+            )
         }
     }
 
@@ -542,6 +546,22 @@ class MainModel @Inject constructor(
             value = set,
             updateState = {
                 it.copy(browseIncludedFilterItems = toList())
+            }
+        )
+    }
+
+    private fun handleBrowsePinnedPathsUpdate(
+        event: MainEvent.OnChangeBrowsePinnedPaths
+    ) {
+        val set = _state.value.browsePinnedPaths.toMutableSet()
+        if (!set.add(event.value)) {
+            set.remove(event.value)
+        }
+        handleDatastoreUpdate(
+            key = DataStoreConstants.BROWSE_PINNED_PATHS,
+            value = set,
+            updateState = {
+                it.copy(browsePinnedPaths = toList())
             }
         )
     }

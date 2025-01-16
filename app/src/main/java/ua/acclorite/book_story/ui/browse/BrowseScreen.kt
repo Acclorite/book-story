@@ -153,6 +153,7 @@ object BrowseScreen : Screen, Parcelable {
             gridSize = mainState.value.browseGridSize,
             autoGridSize = mainState.value.browseAutoGridSize,
             includedFilterItems = mainState.value.browseIncludedFilterItems,
+            pinnedPaths = mainState.value.browsePinnedPaths,
             canScrollBackList = listState.canScrollBackward,
             canScrollBackGrid = gridState.canScrollBackward,
             hasSelectedItems = state.value.hasSelectedItems,
@@ -181,6 +182,7 @@ object BrowseScreen : Screen, Parcelable {
             dismissAddDialog = screenModel::onEvent,
             selectAddDialog = screenModel::onEvent,
             actionAddDialog = screenModel::onEvent,
+            changePinnedPaths = mainModel::onEvent,
             navigateToLibrary = {
                 navigator.push(LibraryScreen, saveInBackStack = false)
             },

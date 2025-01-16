@@ -112,6 +112,7 @@ data class MainState(
     val browseSortOrder: BrowseSortOrder = provideDefaultValue { BrowseSortOrder.LAST_MODIFIED },
     val browseSortOrderDescending: Boolean = provideDefaultValue { true },
     val browseIncludedFilterItems: List<String> = provideDefaultValue { emptyList() },
+    val browsePinnedPaths: List<String> = provideDefaultValue { emptyList() },
 ) : Parcelable {
     companion object {
         private fun <D> provideDefaultValue(calculation: () -> D): D {
@@ -345,6 +346,10 @@ data class MainState(
                     progressBarFontSize = provideValue(
                         PROGRESS_BAR_FONT_SIZE
                     ) { progressBarFontSize },
+
+                    browsePinnedPaths = provideValue(
+                        BROWSE_PINNED_PATHS, convert = { toList() }
+                    ) { browsePinnedPaths },
                 )
             }
         }

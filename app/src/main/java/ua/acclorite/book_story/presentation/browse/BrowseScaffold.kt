@@ -15,12 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
-import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.browse.BrowseLayout
 import ua.acclorite.book_story.domain.browse.SelectableFile
-import ua.acclorite.book_story.presentation.core.util.LocalActivity
-import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.ui.browse.BrowseEvent
+import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.theme.DefaultTransition
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalPermissionsApi::class)
@@ -35,6 +33,7 @@ fun BrowseScaffold(
     gridSize: Int,
     autoGridSize: Boolean,
     includedFilterItems: List<String>,
+    pinnedPaths: List<String>,
     canScrollBackList: Boolean,
     canScrollBackGrid: Boolean,
     hasSelectedItems: Boolean,
@@ -57,10 +56,9 @@ fun BrowseScaffold(
     permissionCheck: (BrowseEvent.OnPermissionCheck) -> Unit,
     showFilterBottomSheet: (BrowseEvent.OnShowFilterBottomSheet) -> Unit,
     showAddDialog: (BrowseEvent.OnShowAddDialog) -> Unit,
+    changePinnedPaths: (MainEvent.OnChangeBrowsePinnedPaths) -> Unit,
     navigateToHelp: () -> Unit,
 ) {
-    val context = LocalActivity.current
-
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -97,24 +95,46 @@ fun BrowseScaffold(
             DefaultTransition(visible = !isLoading) {
                 BrowseLayout(
                     files = files,
+                    pinnedPaths = pinnedPaths,
                     layout = layout,
-                    hasSelectedItems = hasSelectedItems,
                     gridSize = gridSize,
                     autoGridSize = autoGridSize,
                     listState = listState,
                     gridState = gridState,
-                    onLongItemClick = { file ->
-                        context.getString(
-                            R.string.file_path_query,
-                            file.path
-                        ).showToast(context = context)
+                    headerContent = { header, pinned ->
+                        BrowseLayoutHeader(
+                            header = header,
+                            pinned = pinned,
+                            pin = {
+                                changePinnedPaths(
+                                    MainEvent.OnChangeBrowsePinnedPaths(
+                                        value = header
+                                    )
+                                )
+                            }
+                        )
                     },
-                    onItemClick = { file ->
-                        selectFile(
-                            BrowseEvent.OnSelectFile(
-                                includedFileFormats = includedFilterItems,
-                                file = file
-                            )
+                    itemContent = { file, groupFiles ->
+                        BrowseItem(
+                            file = file,
+                            layout = layout,
+                            hasSelectedItems = hasSelectedItems,
+                            onLongClick = {
+                                selectFiles(
+                                    BrowseEvent.OnSelectFiles(
+                                        includedFileFormats = includedFilterItems,
+                                        files = groupFiles
+                                    )
+                                )
+                            },
+                            onClick = {
+                                selectFile(
+                                    BrowseEvent.OnSelectFile(
+                                        includedFileFormats = includedFilterItems,
+                                        file = file
+                                    )
+                                )
+                            }
                         )
                     }
                 )

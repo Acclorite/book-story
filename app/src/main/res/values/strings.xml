@@ -623,5 +623,6 @@
     <string name="checkpoint_forward_content_desc">Checkpoint forward</string>
     <string name="chapters_content_desc">Chapters</string>
     <string name="more_content_desc">More</string>
+    <string name="pin_content_desc">Pin</string>
 
 </resources>

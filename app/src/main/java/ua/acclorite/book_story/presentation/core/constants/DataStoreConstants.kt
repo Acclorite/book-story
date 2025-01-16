@@ -65,4 +65,5 @@ object DataStoreConstants {
     val BROWSE_SORT_ORDER = stringPreferencesKey("browse_sort_order")
     val BROWSE_SORT_ORDER_DESCENDING = booleanPreferencesKey("browse_sort_order_descending")
     val BROWSE_INCLUDED_FILTER_ITEMS = stringSetPreferencesKey("browse_included_filter_items")
+    val BROWSE_PINNED_PATHS = stringSetPreferencesKey("browse_pinned_paths")
 }
