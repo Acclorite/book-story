@@ -106,10 +106,11 @@ fun ReaderTopBar(
                                 )
                             }
                         )
-                        .basicMarquee(iterations = Int.MAX_VALUE))
+                )
             },
             subtitle = {
                 Text(
+                    modifier = Modifier.basicMarquee(iterations = Int.MAX_VALUE),
                     text = currentChapter?.title
                         ?: activity.getString(R.string.no_chapters),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
