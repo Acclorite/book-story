@@ -8,7 +8,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import org.jsoup.Jsoup
@@ -29,7 +28,7 @@ import kotlin.collections.set
 private const val EPUB_TAG = "EPUB Parser"
 private typealias Title = String
 
-private val dispatcher = Dispatchers.IO.limitedParallelism(2)
+private val dispatcher = Dispatchers.IO.limitedParallelism(3)
 
 class EpubTextParser @Inject constructor(
     private val documentParser: DocumentParser
@@ -107,7 +106,7 @@ class EpubTextParser @Inject constructor(
     ): List<ReaderText> {
 
         val readerText = mutableListOf<ReaderText>()
-        coroutineScope {
+        withContext(Dispatchers.IO) {
             val unformattedText = ConcurrentLinkedQueue<Pair<Int, List<ReaderText>>>()
 
             // Asynchronously getting all chapters with text
