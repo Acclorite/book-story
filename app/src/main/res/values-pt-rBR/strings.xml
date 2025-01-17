@@ -367,4 +367,5 @@
     <string name="delete_whole_history_content_desc">Apagar o histórico inteiro</string>
     <string name="no_updates">A última versão do aplicativo já está instalada.</string>
     <string name="yellow2_theme">Makemake</string>
+    <string name="pin_content_desc">Fixar</string>
 </resources>
