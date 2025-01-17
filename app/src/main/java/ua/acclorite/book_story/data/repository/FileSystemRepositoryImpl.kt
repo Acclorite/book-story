@@ -7,6 +7,10 @@ import android.os.Environment
 import android.os.storage.StorageManager
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.sync.Semaphore
+import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.local.room.BookDao
@@ -77,17 +81,28 @@ class FileSystemRepositoryImpl @Inject constructor(
         /**
          * Get all verified files from directory (root).
          */
-        fun File.getFilesFromDirectory(): List<SelectableFile> {
-            return walk().mapNotNull {
-                if (!it.isValid()) return@mapNotNull null
-                SelectableFile(
-                    name = it.name,
-                    path = it.path,
-                    size = it.length(),
-                    lastModified = it.lastModified(),
-                    selected = false
-                )
-            }.toList()
+        suspend fun File.getFilesFromDirectory(): List<SelectableFile> {
+            return withContext(Dispatchers.IO) {
+                val semaphore = Semaphore(5)
+                walk()
+                    .map { file ->
+                        async {
+                            semaphore.withPermit {
+                                if (!file.isValid()) return@async null
+                                SelectableFile(
+                                    name = file.name,
+                                    path = file.path,
+                                    size = file.length(),
+                                    lastModified = file.lastModified(),
+                                    selected = false
+                                )
+                            }
+                        }
+                    }
+                    .toList()
+                    .awaitAll()
+                    .filterNotNull()
+            }
         }
 
         /**
@@ -133,7 +148,7 @@ class FileSystemRepositoryImpl @Inject constructor(
         val files = mutableListOf<SelectableFile>()
 
         for (volume in storageDirectories) {
-            files.addAll(withContext(Dispatchers.IO) { volume.getFilesFromDirectory() })
+            files.addAll(volume.getFilesFromDirectory())
         }
 
         Log.i(GET_FILES_FROM_DEVICE, "Successfully got all matching files.")
