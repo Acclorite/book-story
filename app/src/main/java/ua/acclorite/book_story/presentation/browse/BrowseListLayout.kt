@@ -31,7 +31,9 @@ fun BrowseListLayout(
     ) {
         groupedFiles.forEach { group ->
             stickyHeader {
-                headerContent(group.header, group.pinned)
+                Box(Modifier.animateItem()) {
+                    headerContent(group.header, group.pinned)
+                }
             }
 
             items(

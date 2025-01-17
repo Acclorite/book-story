@@ -52,7 +52,12 @@ class BrowseModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            getFilesFromDownloads()
+            onEvent(
+                BrowseEvent.OnRefreshList(
+                    showIndicator = true,
+                    hideSearch = true
+                )
+            )
         }
 
         /* Observe channel - - - - - - - - - - - */
