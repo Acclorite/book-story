@@ -281,7 +281,7 @@
     <string name="progress_bar_option_desc">عرض شريط التقدم في الاسفل</string>
     <string name="progress_bar_font_size_option">حجم الخط</string>
     <string name="bottom_bar_padding_option">هامش الشريط السفلي</string>
-    <string name="clear_selected_items_content_desc">حذف العناصر المختارة</string>
+    <string name="clear_selected_items_content_desc">مسح العناصر المحددة</string>
     <string name="horizontal_gesture_sensitivity_option">الحساسية</string>
     <string name="perception_expander_thickness_option">سمك الخط</string>
 </resources>
