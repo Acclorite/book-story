@@ -58,4 +58,5 @@ sealed class MainEvent {
     data class OnChangeProgressBarAlignment(val value: String) : MainEvent()
     data class OnChangeProgressBarFontSize(val value: Int) : MainEvent()
     data class OnChangeBrowsePinnedPaths(val value: String) : MainEvent()
+    data class OnChangeFontThickness(val value: String) : MainEvent()
 }

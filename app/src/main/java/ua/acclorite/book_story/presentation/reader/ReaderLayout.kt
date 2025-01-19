@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.reader.FontWithName
+import ua.acclorite.book_story.domain.reader.ReaderFontThickness
 import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
 import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
@@ -68,6 +69,7 @@ fun ReaderLayout(
     imagesColorEffects: ColorFilter?,
     fontFamily: FontWithName,
     lineHeight: TextUnit,
+    fontThickness: ReaderFontThickness,
     fontStyle: FontStyle,
     chapterTitleAlignment: ReaderTextAlignment,
     textAlignment: ReaderTextAlignment,
@@ -193,6 +195,7 @@ fun ReaderLayout(
                                     fontFamily = fontFamily,
                                     fontColor = fontColor,
                                     lineHeight = lineHeight,
+                                    fontThickness = fontThickness,
                                     fontStyle = fontStyle,
                                     chapterTitleAlignment = chapterTitleAlignment,
                                     textAlignment = textAlignment,

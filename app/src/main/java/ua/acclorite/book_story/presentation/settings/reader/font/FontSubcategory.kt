@@ -12,6 +12,7 @@ import ua.acclorite.book_story.presentation.settings.components.SettingsSubcateg
 import ua.acclorite.book_story.presentation.settings.reader.font.components.FontFamilyOption
 import ua.acclorite.book_story.presentation.settings.reader.font.components.FontSizeOption
 import ua.acclorite.book_story.presentation.settings.reader.font.components.FontStyleOption
+import ua.acclorite.book_story.presentation.settings.reader.font.components.FontThicknessOption
 import ua.acclorite.book_story.presentation.settings.reader.font.components.LetterSpacingOption
 
 fun LazyListScope.FontSubcategory(
@@ -28,6 +29,10 @@ fun LazyListScope.FontSubcategory(
     ) {
         item {
             FontFamilyOption()
+        }
+
+        item {
+            FontThicknessOption()
         }
 
         item {

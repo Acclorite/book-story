@@ -12,10 +12,12 @@ import ua.acclorite.book_story.domain.browse.BrowseSortOrder
 import ua.acclorite.book_story.domain.browse.toBrowseLayout
 import ua.acclorite.book_story.domain.browse.toBrowseSortOrder
 import ua.acclorite.book_story.domain.reader.ReaderColorEffects
+import ua.acclorite.book_story.domain.reader.ReaderFontThickness
 import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
 import ua.acclorite.book_story.domain.reader.ReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.domain.reader.toColorEffects
+import ua.acclorite.book_story.domain.reader.toFontThickness
 import ua.acclorite.book_story.domain.reader.toHorizontalGesture
 import ua.acclorite.book_story.domain.reader.toReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.toTextAlignment
@@ -63,6 +65,7 @@ data class MainState(
 
     // Reader Settings
     val fontFamily: String = provideDefaultValue { Constants.provideFonts()[0].id },
+    val fontThickness: ReaderFontThickness = provideDefaultValue { ReaderFontThickness.NORMAL },
     val isItalic: Boolean = provideDefaultValue { false },
     val fontSize: Int = provideDefaultValue { 16 },
     val lineHeight: Int = provideDefaultValue { 4 },
@@ -350,6 +353,10 @@ data class MainState(
                     browsePinnedPaths = provideValue(
                         BROWSE_PINNED_PATHS, convert = { toList() }
                     ) { browsePinnedPaths },
+
+                    fontThickness = provideValue(
+                        FONT_THICKNESS, convert = { toFontThickness() }
+                    ) { fontThickness },
                 )
             }
         }

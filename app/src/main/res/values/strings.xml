@@ -214,6 +214,7 @@
 
     <!-- Reader -->
     <string name="font_family_option">Font family</string>
+    <string name="font_thickness_option">Font thickness</string>
     <string name="font_style_option">Font style</string>
     <string name="font_size_option">Font size</string>
     <string name="line_height_option">Line height</string>
@@ -334,6 +335,13 @@
     <string name="color_effects_grayscale">Grayscale</string>
     <string name="color_effects_font">Font color</string>
     <string name="color_effects_background">Background color</string>
+
+    <!-- Font Thickness properties -->
+    <string name="font_thickness_thin">Thin</string>
+    <string name="font_thickness_extra_light">Extra light</string>
+    <string name="font_thickness_light">Light</string>
+    <string name="font_thickness_normal">Normal</string>
+    <string name="font_thickness_medium">Medium</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Mercury</string>

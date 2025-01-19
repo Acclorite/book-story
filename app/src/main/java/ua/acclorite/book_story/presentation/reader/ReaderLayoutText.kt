@@ -11,6 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import ua.acclorite.book_story.domain.reader.FontWithName
+import ua.acclorite.book_story.domain.reader.ReaderFontThickness
 import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.domain.util.HorizontalAlignment
@@ -28,6 +29,7 @@ fun LazyItemScope.ReaderLayoutText(
     fontFamily: FontWithName,
     fontColor: Color,
     lineHeight: TextUnit,
+    fontThickness: ReaderFontThickness,
     fontStyle: FontStyle,
     chapterTitleAlignment: ReaderTextAlignment,
     textAlignment: ReaderTextAlignment,
@@ -82,6 +84,7 @@ fun LazyItemScope.ReaderLayoutText(
                 fontFamily = fontFamily,
                 fontColor = fontColor,
                 lineHeight = lineHeight,
+                fontThickness = fontThickness,
                 fontStyle = fontStyle,
                 textAlignment = textAlignment,
                 horizontalAlignment = horizontalAlignment,

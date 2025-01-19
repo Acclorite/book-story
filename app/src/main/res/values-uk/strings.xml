@@ -159,6 +159,7 @@
 
     <!-- Reader -->
     <string name="font_family_option">Сімейство шрифтів</string>
+    <string name="font_thickness_option">Товщина шрифта</string>
     <string name="font_style_option">Стиль шрифта</string>
     <string name="font_size_option">Розмір шрифта</string>
     <string name="line_height_option">Висота рядка</string>
@@ -277,6 +278,13 @@
     <string name="color_effects_grayscale">Відтінки сірого</string>
     <string name="color_effects_font">Колір шрифта</string>
     <string name="color_effects_background">Колір фона</string>
+
+    <!-- Font Thickness properties -->
+    <string name="font_thickness_thin">Тонка</string>
+    <string name="font_thickness_extra_light">Дуже мала</string>
+    <string name="font_thickness_light">Мала</string>
+    <string name="font_thickness_normal">Звичайна</string>
+    <string name="font_thickness_medium">Середня</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Меркурій</string>

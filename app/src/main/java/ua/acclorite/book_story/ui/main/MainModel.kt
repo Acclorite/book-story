@@ -19,6 +19,7 @@ import kotlinx.coroutines.yield
 import ua.acclorite.book_story.domain.browse.toBrowseLayout
 import ua.acclorite.book_story.domain.browse.toBrowseSortOrder
 import ua.acclorite.book_story.domain.reader.toColorEffects
+import ua.acclorite.book_story.domain.reader.toFontThickness
 import ua.acclorite.book_story.domain.reader.toHorizontalGesture
 import ua.acclorite.book_story.domain.reader.toReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.toTextAlignment
@@ -484,6 +485,14 @@ class MainModel @Inject constructor(
 
             is MainEvent.OnChangeBrowsePinnedPaths -> handleBrowsePinnedPathsUpdate(
                 event = event
+            )
+
+            is MainEvent.OnChangeFontThickness -> handleDatastoreUpdate(
+                key = DataStoreConstants.FONT_THICKNESS,
+                value = event.value,
+                updateState = {
+                    it.copy(fontThickness = this.toFontThickness())
+                }
             )
         }
     }
