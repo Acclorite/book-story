@@ -110,9 +110,11 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
         }
 
         val fontFamily = remember(mainState.value.fontFamily) {
-            Constants.provideFonts(withRandom = true).find {
-                it.id == mainState.value.fontFamily
-            } ?: Constants.provideFonts(withRandom = false)[0]
+            Constants.provideFonts().run {
+                find {
+                    it.id == mainState.value.fontFamily
+                } ?: get(0)
+            }
         }
         val backgroundColor = animateColorAsState(
             targetValue = settingsState.value.selectedColorPreset.backgroundColor

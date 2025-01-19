@@ -63,6 +63,7 @@ data class MainState(
 
     // Reader Settings
     val fontFamily: String = provideDefaultValue { Constants.provideFonts(withRandom = false)[0].id },
+    val fontFamily: String = provideDefaultValue { Constants.provideFonts()[0].id },
     val isItalic: Boolean = provideDefaultValue { false },
     val fontSize: Int = provideDefaultValue { 16 },
     val lineHeight: Int = provideDefaultValue { 4 },

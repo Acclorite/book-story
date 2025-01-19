@@ -21,9 +21,11 @@ fun FontStyleOption() {
     val state = mainModel.state.collectAsStateWithLifecycle()
 
     val fontFamily = remember(state.value.fontFamily) {
-        Constants.provideFonts(withRandom = false).find {
-            it.id == state.value.fontFamily
-        } ?: Constants.provideFonts(withRandom = false)[0]
+        Constants.provideFonts().run {
+            find {
+                it.id == state.value.fontFamily
+            } ?: get(0)
+        }
     }
 
     SegmentedButtonWithTitle(

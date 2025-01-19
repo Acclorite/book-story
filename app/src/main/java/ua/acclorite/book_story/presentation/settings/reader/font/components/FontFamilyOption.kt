@@ -4,7 +4,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
@@ -21,29 +20,32 @@ fun FontFamilyOption() {
     val state = mainModel.state.collectAsStateWithLifecycle()
 
     val fontFamily = remember(state.value.fontFamily) {
-        Constants.provideFonts(withRandom = true).find {
-            it.id == state.value.fontFamily
-        } ?: Constants.provideFonts(withRandom = false)[0]
+        Constants.provideFonts().run {
+            find {
+                it.id == state.value.fontFamily
+            } ?: get(0)
+        }
     }
 
     ChipsWithTitle(
         title = stringResource(id = R.string.font_family_option),
-        chips = Constants.provideFonts(withRandom = true)
+        chips = Constants.provideFonts()
             .map {
                 ButtonItem(
                     id = it.id,
                     title = it.fontName.asString(),
                     textStyle = MaterialTheme.typography.labelLarge.copy(
-                        fontFamily = when (it.id) {
-                            "random" -> FontFamily.Default
-                            else -> it.font
-                        }
+                        fontFamily = it.font
                     ),
                     selected = it.id == fontFamily.id
                 )
             },
         onClick = {
-            mainModel.onEvent(MainEvent.OnChangeFontFamily(it.id))
+            mainModel.onEvent(
+                MainEvent.OnChangeFontFamily(
+                    it.id
+                )
+            )
         }
     )
 }

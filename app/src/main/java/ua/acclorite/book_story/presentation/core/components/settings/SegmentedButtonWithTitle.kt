@@ -34,7 +34,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
@@ -177,7 +176,6 @@ private fun SegmentedButton(
         Text(
             text = button.title,
             style = button.textStyle,
-            fontWeight = FontWeight.Medium,
             color = if (button.selected) colors.activeContentColor
             else colors.inactiveContentColor
         )

@@ -1,14 +1,18 @@
 package ua.acclorite.book_story.presentation.core.constants
 
+import androidx.annotation.FontRes
+import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontVariation
 import androidx.compose.ui.text.font.FontWeight
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.reader.FontWithName
 import ua.acclorite.book_story.domain.ui.UIText
 
-fun Constants.provideFonts(withRandom: Boolean): List<FontWithName> {
+@OptIn(ExperimentalTextApi::class)
+fun Constants.provideFonts(): List<FontWithName> {
     return mutableListOf(
         FontWithName(
             "default",
@@ -18,175 +22,163 @@ fun Constants.provideFonts(withRandom: Boolean): List<FontWithName> {
         FontWithName(
             "raleway",
             UIText.StringValue("Raleway"),
-            FontFamily(
-                Font(R.font.raleway_regular),
-                Font(R.font.raleway_regular_italic, style = FontStyle.Italic),
-                Font(R.font.raleway_medium, weight = FontWeight.Medium),
-                Font(R.font.raleway_semibold, weight = FontWeight.SemiBold),
-                Font(R.font.raleway_bold, weight = FontWeight.Bold),
+            provideVariableFontFamily(
+                normalResId = R.font.raleway_variable,
+                italicResId = R.font.raleway_variable_italic
             )
         ),
         FontWithName(
             "open_sans",
             UIText.StringValue("Open Sans"),
-            FontFamily(
-                Font(R.font.opensans_regular),
-                Font(R.font.opensans_regular_italic, style = FontStyle.Italic),
-                Font(R.font.opensans_medium, weight = FontWeight.Medium),
-                Font(R.font.opensans_semibold, weight = FontWeight.SemiBold),
-                Font(R.font.opensans_bold, weight = FontWeight.Bold),
+            provideVariableFontFamily(
+                normalResId = R.font.opensans_variable,
+                italicResId = R.font.opensans_variable_italic
             )
         ),
         FontWithName(
             "mulish",
             UIText.StringValue("Mulish"),
-            FontFamily(
-                Font(R.font.mulish_regular),
-                Font(R.font.mulish_regular_italic, style = FontStyle.Italic),
-                Font(R.font.mulish_medium, weight = FontWeight.Medium),
-                Font(R.font.mulish_semibold, weight = FontWeight.SemiBold),
-                Font(R.font.mulish_bold, weight = FontWeight.Bold),
+            provideVariableFontFamily(
+                normalResId = R.font.mulish_variable,
+                italicResId = R.font.mulish_variable_italic
             )
         ),
         FontWithName(
             "arimo",
             UIText.StringValue("Arimo"),
-            FontFamily(
-                Font(R.font.arimo_regular),
-                Font(R.font.arimo_regular_italic, style = FontStyle.Italic),
-                Font(R.font.arimo_medium, weight = FontWeight.Medium),
-                Font(R.font.arimo_semibold, weight = FontWeight.SemiBold),
-                Font(R.font.arimo_bold, weight = FontWeight.Bold),
+            provideVariableFontFamily(
+                normalResId = R.font.arimo_variable,
+                italicResId = R.font.arimo_variable_italic
             )
         ),
         FontWithName(
             "garamond",
             UIText.StringValue("Garamond"),
-            FontFamily(
-                Font(R.font.garamond_regular),
-                Font(R.font.garamond_regular_italic, style = FontStyle.Italic),
-                Font(R.font.garamond_medium, weight = FontWeight.Medium),
-                Font(R.font.garamond_semibold, weight = FontWeight.SemiBold),
-                Font(R.font.garamond_bold, weight = FontWeight.Bold),
+            provideVariableFontFamily(
+                normalResId = R.font.garamond_variable,
+                italicResId = R.font.garamond_variable_italic
             )
         ),
         FontWithName(
             "roboto_serif",
             UIText.StringValue("Roboto Serif"),
-            FontFamily(
-                Font(R.font.robotoserif_regular),
-                Font(R.font.robotoserif_regular_italic, style = FontStyle.Italic),
-                Font(R.font.robotoserif_medium, weight = FontWeight.Medium),
-                Font(R.font.robotoserif_semibold, weight = FontWeight.SemiBold),
-                Font(R.font.robotoserif_bold, weight = FontWeight.Bold),
+            provideVariableFontFamily(
+                normalResId = R.font.robotoserif_variable,
+                italicResId = R.font.robotoserif_variable_italic
             )
         ),
         FontWithName(
             "noto_serif",
             UIText.StringValue("Noto Serif"),
-            FontFamily(
-                Font(R.font.notoserif_regular),
-                Font(R.font.notoserif_regular_italic, style = FontStyle.Italic),
-                Font(R.font.notoserif_medium, weight = FontWeight.Medium),
-                Font(R.font.notoserif_semibold, weight = FontWeight.SemiBold),
-                Font(R.font.notoserif_bold, weight = FontWeight.Bold),
+            provideVariableFontFamily(
+                normalResId = R.font.notoserif_variable,
+                italicResId = R.font.notoserif_variable_italic
             )
         ),
         FontWithName(
             "noto_sans",
             UIText.StringValue("Noto Sans"),
-            FontFamily(
-                Font(R.font.notosans_regular),
-                Font(R.font.notosans_regular_italic, style = FontStyle.Italic),
-                Font(R.font.notosans_medium, weight = FontWeight.Medium),
-                Font(R.font.notosans_semibold, weight = FontWeight.SemiBold),
-                Font(R.font.notosans_bold, weight = FontWeight.Bold),
+            provideVariableFontFamily(
+                normalResId = R.font.notosans_variable,
+                italicResId = R.font.notosans_variable_italic
             )
         ),
         FontWithName(
             "roboto",
             UIText.StringValue("Roboto"),
-            FontFamily(
-                Font(R.font.roboto_regular),
-                Font(R.font.roboto_regular_italic, style = FontStyle.Italic),
-                Font(R.font.roboto_medium, weight = FontWeight.Medium),
-                Font(R.font.roboto_bold, weight = FontWeight.Bold),
+            provideVariableFontFamily(
+                normalResId = R.font.roboto_variable_with_italic,
+                italicResId = R.font.roboto_variable_with_italic
             )
         ),
         FontWithName(
             "jost",
             UIText.StringValue("Jost"),
-            FontFamily(
-                Font(R.font.jost_regular),
-                Font(R.font.jost_regular_italic, style = FontStyle.Italic),
-                Font(R.font.jost_medium, weight = FontWeight.Medium),
-                Font(R.font.jost_semibold, weight = FontWeight.SemiBold),
-                Font(R.font.jost_bold, weight = FontWeight.Bold),
+            provideVariableFontFamily(
+                normalResId = R.font.jost_variable,
+                italicResId = R.font.jost_variable_italic
             )
         ),
         FontWithName(
             "merriweather",
             UIText.StringValue("Merriweather"),
-            FontFamily(
-                Font(R.font.merriweather_regular),
-                Font(R.font.merriweather_regular_italic, style = FontStyle.Italic),
-                Font(R.font.merriweather_medium, weight = FontWeight.Medium),
-                Font(R.font.merriweather_bold, weight = FontWeight.Bold),
+            provideVariableFontFamily(
+                normalResId = R.font.merriweather_variable,
+                italicResId = R.font.merriweather_variable_italic
             )
         ),
         FontWithName(
             "montserrat",
             UIText.StringValue("Montserrat"),
-            FontFamily(
-                Font(R.font.montserrat_regular),
-                Font(R.font.montserrat_regular_italic, style = FontStyle.Italic),
-                Font(R.font.montserrat_medium, weight = FontWeight.Medium),
-                Font(R.font.montserrat_semibold, weight = FontWeight.SemiBold),
-                Font(R.font.montserrat_bold, weight = FontWeight.Bold),
+            provideVariableFontFamily(
+                normalResId = R.font.montserrat_variable,
+                italicResId = R.font.montserrat_variable_italic
             )
         ),
         FontWithName(
             "nunito",
             UIText.StringValue("Nunito"),
-            FontFamily(
-                Font(R.font.nunito_regular),
-                Font(R.font.nunito_regular_italic, style = FontStyle.Italic),
-                Font(R.font.nunito_medium, weight = FontWeight.Medium),
-                Font(R.font.nunito_semibold, weight = FontWeight.SemiBold),
-                Font(R.font.nunito_bold, weight = FontWeight.Bold),
+            provideVariableFontFamily(
+                normalResId = R.font.nunito_variable,
+                italicResId = R.font.nunito_variable_italic
             )
         ),
         FontWithName(
             "roboto_slab",
             UIText.StringValue("Roboto Slab"),
-            FontFamily(
-                Font(R.font.robotoslab_regular),
-                Font(R.font.robotoslab_medium, weight = FontWeight.Medium),
-                Font(R.font.robotoslab_semibold, weight = FontWeight.SemiBold),
-                Font(R.font.robotoslab_bold, weight = FontWeight.Bold),
+            provideVariableFontFamily(
+                normalResId = R.font.robotoslab_variable_with_italic,
+                italicResId = R.font.robotoslab_variable_with_italic
             )
         ),
         FontWithName(
             "lora",
             UIText.StringValue("Lora"),
-            FontFamily(
-                Font(R.font.lora_regular),
-                Font(R.font.lora_regular_italic, style = FontStyle.Italic),
-                Font(R.font.lora_medium, weight = FontWeight.Medium),
-                Font(R.font.lora_semibold, weight = FontWeight.SemiBold),
-                Font(R.font.lora_bold, weight = FontWeight.Bold),
+            provideVariableFontFamily(
+                normalResId = R.font.lora_variable,
+                italicResId = R.font.lora_variable_italic
             )
         )
-    ).apply {
-        if (withRandom) {
-            add(
-                1,
-                FontWithName(
-                    "random",
-                    UIText.StringResource(R.string.random_string),
-                    provideFonts(withRandom = false).random().font
+    )
+}
+
+@OptIn(ExperimentalTextApi::class)
+private fun provideVariableFontFamily(
+    @FontRes normalResId: Int,
+    @FontRes italicResId: Int
+): FontFamily {
+    fun provideVariableFont(weight: FontWeight): Array<Font> {
+        return arrayOf(
+            Font(
+                resId = normalResId,
+                weight = weight,
+                style = FontStyle.Normal,
+                variationSettings = FontVariation.Settings(
+                    weight = weight,
+                    style = FontStyle.Normal
+                )
+            ),
+            Font(
+                resId = italicResId,
+                weight = weight,
+                style = FontStyle.Italic,
+                variationSettings = FontVariation.Settings(
+                    weight = weight,
+                    style = FontStyle.Italic
                 )
             )
-        }
+        )
     }
+
+    return FontFamily(
+        *provideVariableFont(weight = FontWeight.W100),
+        *provideVariableFont(weight = FontWeight.W200),
+        *provideVariableFont(weight = FontWeight.W300),
+        *provideVariableFont(weight = FontWeight.W400),
+        *provideVariableFont(weight = FontWeight.W500),
+        *provideVariableFont(weight = FontWeight.W600),
+        *provideVariableFont(weight = FontWeight.W700),
+        *provideVariableFont(weight = FontWeight.W800),
+        *provideVariableFont(weight = FontWeight.W900)
+    )
 }
