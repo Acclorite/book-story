@@ -69,7 +69,6 @@
     <string name="delete_history_element_content_desc">வரலாற்று உறுப்பை நீக்கு</string>
     <string name="reset_start_content_desc">தொடக்க வழிகாட்டியை மீட்டமைக்கவும்</string>
     <string name="exit_editing_content_desc">திருத்துதல் பயன்முறையில் இருந்து வெளியேறவும்</string>
-    <string name="random_string">சீரற்ற</string>
     <string name="reading_speed_reader_settings">வாசிப்பு விரைவு</string>
     <string name="system_reader_settings">மண்டலம்</string>
     <string name="language_option">பயன்பாட்டு மொழி</string>
@@ -114,7 +113,6 @@
     <string name="error_permission">புத்தகங்களுக்காக உங்கள் சாதனத்தை ச்கேன் செய்ய எங்களுக்கு சேமிப்பக இசைவு தேவை</string>
     <string name="error_no_description">விளக்கம் இல்லை.</string>
     <string name="selected_items_count_query">%1$s தேர்ந்தெடுக்கப்பட்டன</string>
-    <string name="file_path_query">கோப்பு பாதை: %1$s</string>
     <string name="update_query">புதுப்பிப்பு %1$s</string>
     <string name="go_back">திரும்பிச் செல்லுங்கள்</string>
     <string name="undo">செயல்தவிர்</string>

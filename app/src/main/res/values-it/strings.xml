@@ -115,7 +115,6 @@
     <string name="error_permission">Abbiamo bisogno del permesso di archiviazione per cercare i libri nel tuo dispositivo</string>
     <string name="library_empty">Leggi i tuoi libri preferiti e ordinali per categoria</string>
     <string name="update_query">Aggiorna %1$s</string>
-    <string name="file_path_query">Percorso file: %1$s</string>
     <string name="sort_tab">Ordina</string>
     <string name="color_tab">Colori</string>
     <string name="filter_tab">Filtri</string>
@@ -178,7 +177,6 @@
     <string name="font_style_normal">Normale</string>
     <string name="delete_whole_history_content_desc">Elimina tutta la cronologia</string>
     <string name="yesterday">Ieri</string>
-    <string name="random_string">Random</string>
     <string name="screen_orientation_option">Orientamento dello schermo</string>
     <string name="dark_theme_off">Disabilitato</string>
     <string name="screen_orientation_free">Libero</string>

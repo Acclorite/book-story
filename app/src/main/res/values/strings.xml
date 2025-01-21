@@ -3,7 +3,6 @@
     <string name="app_version" translatable="false">1.5.0</string>
     <string name="app_name" translatable="false">Book\'s Story</string>
     <string name="default_string">Default</string>
-    <string name="random_string">Random</string>
 
     <!-- Notifications -->
     <string name="updates_notification_channel">New updates</string>
@@ -115,7 +114,6 @@
 
     <!-- Query strings -->
     <string name="selected_items_count_query">%1$s selected</string>
-    <string name="file_path_query">File path: %1$s</string>
     <string name="update_query">Update %1$s</string>
     <string name="color_preset_query">Preset %1$s</string>
     <string name="color_preset_selected_query">Selected «%1$s»</string>

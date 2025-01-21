@@ -133,7 +133,6 @@
     <string name="drag_content_desc">Arrastar</string>
     <string name="filter_content_desc">Filtro</string>
     <string name="delete_book_description">Isso irá apagar o livro do banco de dados. Isso não irá apagar esse livro do dispositivo.</string>
-    <string name="random_string">Aleatório</string>
     <string name="red_gray_theme">Calisto</string>
     <string name="general_settings_desc">Linguagem do aplicativo</string>
     <string name="appearance_settings_desc">Tema, cores</string>
@@ -207,7 +206,6 @@
     <string name="slava_ukraini">Slava Ukraini!</string>
     <string name="exit_search_content_desc">Fechar pesquisa</string>
     <string name="app_icon_content_desc">Ícone do App</string>
-    <string name="file_path_query">Caminho do arquivo: %1$s</string>
     <string name="add_book">Adicione um livro</string>
     <string name="pure_dark_option">Preto puro (OLED)</string>
     <string name="start_welcome">Boas vindas ao Book\'s Story!</string>

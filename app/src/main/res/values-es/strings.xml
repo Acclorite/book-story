@@ -95,7 +95,6 @@
     <string name="browse_empty">Expanda la colección de libros de la biblioteca con sus descargas</string>
     <string name="library_empty">Lea sus libros favoritos y ordénelos en categorías</string>
     <string name="history_empty">Deje que su último libro leído abra las páginas de una nueva gran historia en su viaje de lectura</string>
-    <string name="file_path_query">Ruta de archivo: %1$s</string>
     <string name="start">Iniciar</string>
     <string name="translate">Traducir</string>
     <string name="update_query">Actualizar %1$s</string>
@@ -328,7 +327,6 @@
     <string name="perception_expander_padding_option">Sangrías en la línea de mejoran la percepción.</string>
     <string name="perception_expander_thickness_option">Grosor de la línea mejora la percepción</string>
     <string name="more_content_desc">Más</string>
-    <string name="random_string">Aleatorio</string>
     <string name="search_field_empty">Buscar…</string>
     <string name="screen_brightness_option">Brillo</string>
     <string name="red_gray_theme">Calisto</string>

@@ -29,7 +29,6 @@
     <string name="browse_empty">Élargissez la collection de livres de la bibliothèque par vos téléchargements</string>
     <string name="library_empty">Lisez vos livres préférés et classez-les par catégories</string>
     <string name="selected_items_count_query">%1$s sélectionné</string>
-    <string name="file_path_query">Chemin du fichier : %1$s</string>
     <string name="update_query">Mise à jour %1$s</string>
     <string name="color_preset_query">Préréglage %1$s</string>
     <string name="color_preset_selected_query">Sélectionné « %1$s »</string>
@@ -327,6 +326,5 @@
     <string name="perception_expander_padding_option">Rembourrage de la ligne de l\'expandeur de perception</string>
     <string name="no_chapters">Pas de chapitres</string>
     <string name="chapters">Chapitres</string>
-    <string name="random_string">Aléatoire</string>
     <string name="search_field_empty">Rechercher…</string>
 </resources>

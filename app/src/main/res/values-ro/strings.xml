@@ -2,5 +2,4 @@
 <resources>
     <string name="updates_notification_channel">Update nou</string>
     <string name="default_string">Standard</string>
-    <string name="random_string">Aleatoriu</string>
 </resources>

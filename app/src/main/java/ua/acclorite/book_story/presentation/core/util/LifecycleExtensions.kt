@@ -1,5 +1,6 @@
 package ua.acclorite.book_story.presentation.core.util
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
@@ -39,7 +40,7 @@ fun ComponentActivity.setBrightness(brightness: Float?) {
 }
 
 val LocalActivity: ProvidableCompositionLocal<ComponentActivity>
-    @Composable get() {
+    @SuppressLint("ContextCastToActivity") @Composable get() {
         (LocalContext.current as ComponentActivity).let { activity ->
             return compositionLocalOf { activity }
         }

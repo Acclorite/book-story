@@ -151,7 +151,6 @@
     <string name="delete_book_description">Smaže to tuto knihu z databáze. Nesmaže to na vašem zařízení.</string>
     <string name="error_no_description">Žádný popis.</string>
     <string name="error_something_went_wrong">Něco se pokazilo.</string>
-    <string name="file_path_query">Cesta k souboru: %1$s</string>
     <string name="grant">Povolit</string>
     <string name="add_book">Přidat knihu</string>
     <string name="start">Začít</string>
@@ -182,7 +181,6 @@
     <string name="blue_color">Modrá</string>
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
     <string name="absolute_dark_option_desc">Změnit barvu pozadí na čistě černou</string>
-    <string name="random_string">Náhodný</string>
     <string name="search_field_empty">Hledat…</string>
     <string name="reading_speed_reader_settings">Rychlost čtení</string>
     <string name="system_reader_settings">Systém</string>

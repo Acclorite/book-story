@@ -83,7 +83,6 @@
     <string name="library_empty">Przeczytaj swoje ulubione książki i posortuj je między kategoriami</string>
     <string name="history_empty">Niech ostatnia czytana książka otworzy strony nowej wspaniałej historii twojej czytelniczej podróży</string>
     <string name="selected_items_count_query">Wybrano %1$s</string>
-    <string name="file_path_query">Ścieżka pliku: %1$s</string>
     <string name="update_query">Zaktualizuj %1$s</string>
     <string name="web_search">Wyszukiwanie w sieci</string>
     <string name="read_more">Musisz przeczytać więcej!</string>

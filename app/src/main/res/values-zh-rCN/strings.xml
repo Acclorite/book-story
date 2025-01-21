@@ -47,7 +47,6 @@
     <string name="browse_empty">通过您的下载来拓展库中的书籍</string>
     <string name="library_empty">阅读您喜欢的书籍并对其进行分类</string>
     <string name="history_empty">让您读完的最后一本书为您打开阅读之旅的新篇章</string>
-    <string name="file_path_query">文件路径：%1$s</string>
     <string name="color_preset_selected_query">已选择《%1$s》</string>
     <string name="grant">授予</string>
     <string name="grant_permission">授予权限</string>
@@ -257,7 +256,6 @@
     <string name="help_title_how_to_edit_book">如何编辑一本书？</string>
     <string name="help_desc_how_to_edit_book_3">并单击图书的封面查看详细信息。 现在，您可以按住书名、作者或描述进行编辑，或按住封面进行更改、重置或删除封面图片。</string>
     <string name="help_desc_how_to_read_book_1">前往</string>
-    <string name="random_string">随机</string>
     <string name="help_desc_how_to_customize_reader_2">设置</string>
     <string name="help_desc_how_to_customize_reader_3">然后选择 \"阅读器 \"类别自定义常规设置，或选择 \"外观 \"类别自定义颜色设置。</string>
     <string name="help_title_how_to_use_perception_expander">什么是Perception Expander？</string>

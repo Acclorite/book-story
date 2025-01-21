@@ -37,7 +37,6 @@
     <string name="history_empty">دع آخر كتاب قرأته يفتح صفحات قصة جديدة عظيمة من رحلة قرائتك</string>
     <string name="error_could_not_reset_cover">غير قادر على إعادة ضبط صورة الغلاف.</string>
     <string name="update_query">تحديث %1$s</string>
-    <string name="file_path_query">مسار الملف:%1$s</string>
     <string name="cancel">إلغاء</string>
     <string name="grant">امنح</string>
     <string name="grant_permission">امنح الإذن</string>
@@ -224,7 +223,6 @@
     <string name="default_string">الافتراضي</string>
     <string name="proceed">المضي قدما</string>
     <string name="system_reader_settings">النظام</string>
-    <string name="random_string">عشوائي</string>
     <string name="search_field_empty">بحث…</string>
     <string name="screen_orientation_option">اتجاه الشاشة</string>
     <string name="screen_orientation_free">حر</string>

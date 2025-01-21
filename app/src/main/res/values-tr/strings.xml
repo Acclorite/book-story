@@ -42,7 +42,6 @@
     <string name="library_empty">Favori kitaplarınızı okuyun ve kategoriler arasında sıralayın</string>
     <string name="history_empty">Son okuduğunuz kitabın, okuma yolculuğunuzun yeni harika hikayesinin sayfalarını açmasına izin verin</string>
     <string name="selected_items_count_query">%1$s seçildi</string>
-    <string name="file_path_query">Dosya yolu: %1$s</string>
     <string name="update_query">%1$s güncelle</string>
     <string name="color_preset_query">Ön ayar %1$s</string>
     <string name="color_preset_selected_query">«%1$s» seçildi</string>
@@ -328,5 +327,4 @@
     <string name="help_title_how_to_use_perception_expander">Algı iyileştirici nedir ve nasıl kullanılır?</string>
     <string name="help_desc_how_to_use_perception_expander_1">Algı iyileştirici daha hızlı okumanıza yardımcı olabilir. Öncelikle, Okuyucu ayarlarında etkinleştirin (bkz: Okuyucuyu nasıl özelleştiririm?). Etkinleştirildiğinde, Okuyucu\'nun her iki tarafında iki dikey çizgi görünecektir. Okuma hızınızı daha da iyileştirmek için, merkezin etrafında daha az boşluk oluşturmak üzere dolguyu ayarlayın. Bunu kullanmak için, çevresel görüşünüzün yanlardaki metni almasına izin verirken ekranın merkezine odaklanın. Okurken, her satırdan sonra doğrudan yanlara bakmadan merkeze odaklanmaya devam edin.</string>
     <string name="more_content_desc">Daha fazla</string>
-    <string name="random_string">Rastgele</string>
 </resources>
