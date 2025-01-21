@@ -21,6 +21,7 @@ import ua.acclorite.book_story.domain.browse.toBrowseSortOrder
 import ua.acclorite.book_story.domain.reader.toColorEffects
 import ua.acclorite.book_story.domain.reader.toFontThickness
 import ua.acclorite.book_story.domain.reader.toHorizontalGesture
+import ua.acclorite.book_story.domain.reader.toProgressCount
 import ua.acclorite.book_story.domain.reader.toReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.toTextAlignment
 import ua.acclorite.book_story.domain.use_case.data_store.ChangeLanguage
@@ -492,6 +493,14 @@ class MainModel @Inject constructor(
                 value = event.value,
                 updateState = {
                     it.copy(fontThickness = this.toFontThickness())
+                }
+            )
+
+            is MainEvent.OnChangeProgressCount -> handleDatastoreUpdate(
+                key = DataStoreConstants.PROGRESS_COUNT,
+                value = event.value,
+                updateState = {
+                    it.copy(progressCount = this.toProgressCount())
                 }
             )
         }

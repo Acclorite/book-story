@@ -40,6 +40,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.domain.navigator.Screen
 import ua.acclorite.book_story.domain.reader.ReaderColorEffects
+import ua.acclorite.book_story.domain.reader.ReaderProgressCount
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideFonts
@@ -51,6 +52,7 @@ import ua.acclorite.book_story.presentation.reader.ReaderContent
 import ua.acclorite.book_story.ui.book_info.BookInfoScreen
 import ua.acclorite.book_story.ui.main.MainModel
 import ua.acclorite.book_story.ui.settings.SettingsModel
+import kotlin.math.roundToInt
 
 @Parcelize
 data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
@@ -289,24 +291,46 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             (mainState.value.bottomBarPadding * 4f).dp
         }
 
-        val bookProgress = remember(state.value.book.progress) {
-            derivedStateOf {
-                "${state.value.book.progress.calculateProgress(2)}%"
+        val bookProgress = remember(
+            state.value.book.progress,
+            state.value.text,
+            mainState.value.progressCount
+        ) {
+            when (mainState.value.progressCount) {
+                ReaderProgressCount.PERCENTAGE -> {
+                    "${state.value.book.progress.calculateProgress(2)}%"
+                }
+
+                ReaderProgressCount.QUANTITY -> {
+                    val index =
+                        (state.value.book.progress * state.value.text.lastIndex + 1).roundToInt()
+                    "$index / ${state.value.text.size}"
+                }
             }
         }
         val chapterProgress = remember(
+            state.value.text,
+            state.value.book.progress,
             state.value.currentChapter,
-            state.value.currentChapterProgress
+            state.value.currentChapterProgress,
+            mainState.value.progressCount
         ) {
-            derivedStateOf {
-                if (state.value.currentChapter == null) return@derivedStateOf ""
-                " (${state.value.currentChapterProgress.calculateProgress(2)}%)"
+            if (state.value.currentChapter == null) return@remember ""
+            when (mainState.value.progressCount) {
+                ReaderProgressCount.PERCENTAGE -> {
+                    " (${state.value.currentChapterProgress.calculateProgress(2)}%)"
+                }
+
+                ReaderProgressCount.QUANTITY -> {
+                    val (index, length) = screenModel.findChapterIndexAndLength(
+                        (state.value.book.progress * state.value.text.lastIndex).roundToInt()
+                    ).apply { if (first == -1 && second == -1) return@remember "" }
+                    " (${index} / ${length})"
+                }
             }
         }
-        val progress = remember(bookProgress.value, chapterProgress.value) {
-            derivedStateOf {
-                "${bookProgress.value}${chapterProgress.value}"
-            }
+        val progress = remember(bookProgress, chapterProgress) {
+            "${bookProgress}${chapterProgress}"
         }
 
         LaunchedEffect(Unit) {
@@ -397,7 +421,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             horizontalGestureSensitivity = horizontalGestureSensitivity,
             highlightedReading = mainState.value.highlightedReading,
             highlightedReadingThickness = highlightedReadingThickness,
-            progress = progress.value,
+            progress = progress,
             progressBar = mainState.value.progressBar,
             progressBarPadding = progressBarPadding,
             progressBarAlignment = mainState.value.progressBarAlignment,

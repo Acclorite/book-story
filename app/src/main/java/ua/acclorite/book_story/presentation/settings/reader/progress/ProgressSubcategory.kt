@@ -13,6 +13,7 @@ import ua.acclorite.book_story.presentation.settings.reader.progress.components.
 import ua.acclorite.book_story.presentation.settings.reader.progress.components.ProgressBarFontSizeOption
 import ua.acclorite.book_story.presentation.settings.reader.progress.components.ProgressBarOption
 import ua.acclorite.book_story.presentation.settings.reader.progress.components.ProgressBarPaddingOption
+import ua.acclorite.book_story.presentation.settings.reader.progress.components.ProgressCountOption
 
 fun LazyListScope.ProgressSubcategory(
     titleColor: @Composable () -> Color = { MaterialTheme.colorScheme.primary },
@@ -26,6 +27,10 @@ fun LazyListScope.ProgressSubcategory(
         showTitle = showTitle,
         showDivider = showDivider,
     ) {
+        item {
+            ProgressCountOption()
+        }
+
         item {
             ProgressBarOption()
         }

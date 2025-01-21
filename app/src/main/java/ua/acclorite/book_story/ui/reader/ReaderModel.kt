@@ -179,7 +179,6 @@ class ReaderModel @Inject constructor(
                     launch {
                         _state.value.apply {
                             val chapterIndex = text.indexOf(event.chapter).takeIf { it != -1 }
-
                             if (chapterIndex == null) {
                                 return@launch
                             }
@@ -203,8 +202,9 @@ class ReaderModel @Inject constructor(
                         delay(300)
                         yield()
 
-                        val scrollTo = (_state.value.text.size * event.progress).roundToInt()
+                        val scrollTo = (_state.value.text.lastIndex * event.progress).roundToInt()
                         _state.value.listState.requestScrollToItem(scrollTo)
+                        updateChapter(scrollTo)
                     }
                 }
 
@@ -489,7 +489,7 @@ class ReaderModel @Inject constructor(
     fun updateProgress(listState: LazyListState) {
         viewModelScope.launch(Dispatchers.Main) {
             snapshotFlow {
-                listState.run { firstVisibleItemIndex to firstVisibleItemScrollOffset }
+                listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
             }.distinctUntilChanged().debounce(300).collectLatest { (index, offset) ->
                 val progress = calculateProgress(index)
                 if (progress == _state.value.book.progress) return@collectLatest
@@ -519,6 +519,21 @@ class ReaderModel @Inject constructor(
         }
     }
 
+    fun findChapterIndexAndLength(index: Int): Pair<Int, Int> {
+        return findCurrentChapter(index)?.let { chapter ->
+            _state.value.text.run {
+                val startIndex = indexOf(chapter).coerceIn(0, lastIndex)
+                val endIndex = (indexOfFirst {
+                    it is Chapter && indexOf(it) > startIndex
+                }.takeIf { it != -1 }) ?: (lastIndex + 1)
+
+                val currentIndexInChapter = (index - startIndex).coerceAtLeast(1)
+                val chapterLength = endIndex - (startIndex + 1)
+                currentIndexInChapter to chapterLength
+            }
+        } ?: (-1 to -1)
+    }
+
     private fun updateChapter(index: Int) {
         viewModelScope.launch {
             val (currentChapter, currentChapterProgress) = calculateCurrentChapter(index)
@@ -540,13 +555,13 @@ class ReaderModel @Inject constructor(
         val currentChapter = findCurrentChapter(index)
         val currentChapterProgress = currentChapter?.let { chapter ->
             _state.value.text.run {
-                val startIndex = (indexOf(chapter) + 1).coerceAtMost(count())
+                val startIndex = indexOf(chapter).coerceIn(0, lastIndex)
                 val endIndex = (indexOfFirst {
                     it is Chapter && indexOf(it) > startIndex
-                }.takeIf { it != -1 }?.minus(1)) ?: lastIndex
+                }.takeIf { it != -1 }) ?: (lastIndex + 1)
 
-                val currentIndexInChapter = index - startIndex
-                val chapterLength = endIndex - startIndex
+                val currentIndexInChapter = (index - startIndex).coerceAtLeast(1)
+                val chapterLength = endIndex - (startIndex + 1)
                 (currentIndexInChapter / chapterLength.toFloat())
             }
         }.coerceAndPreventNaN()

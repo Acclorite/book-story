@@ -14,11 +14,13 @@ import ua.acclorite.book_story.domain.browse.toBrowseSortOrder
 import ua.acclorite.book_story.domain.reader.ReaderColorEffects
 import ua.acclorite.book_story.domain.reader.ReaderFontThickness
 import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
+import ua.acclorite.book_story.domain.reader.ReaderProgressCount
 import ua.acclorite.book_story.domain.reader.ReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
 import ua.acclorite.book_story.domain.reader.toColorEffects
 import ua.acclorite.book_story.domain.reader.toFontThickness
 import ua.acclorite.book_story.domain.reader.toHorizontalGesture
+import ua.acclorite.book_story.domain.reader.toProgressCount
 import ua.acclorite.book_story.domain.reader.toReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.toTextAlignment
 import ua.acclorite.book_story.domain.util.HorizontalAlignment
@@ -107,6 +109,7 @@ data class MainState(
     val progressBarPadding: Int = provideDefaultValue { 4 },
     val progressBarAlignment: HorizontalAlignment = provideDefaultValue { HorizontalAlignment.CENTER },
     val progressBarFontSize: Int = provideDefaultValue { 8 },
+    val progressCount: ReaderProgressCount = provideDefaultValue { ReaderProgressCount.PERCENTAGE },
 
     // Browse Settings
     val browseLayout: BrowseLayout = provideDefaultValue { BrowseLayout.LIST },
@@ -357,6 +360,10 @@ data class MainState(
                     fontThickness = provideValue(
                         FONT_THICKNESS, convert = { toFontThickness() }
                     ) { fontThickness },
+
+                    progressCount = provideValue(
+                        PROGRESS_COUNT, convert = { toProgressCount() }
+                    ) { progressCount },
                 )
             }
         }

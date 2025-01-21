@@ -265,6 +265,7 @@
     <string name="progress_bar_padding_option">Margins</string>
     <string name="progress_bar_alignment_option">Alignment</string>
     <string name="progress_bar_font_size_option">Font size</string>
+    <string name="progress_count_option">Progress count</string>
 
     <!-- Browse -->
     <string name="browse_layout_option">Display mode</string>
@@ -342,6 +343,10 @@
     <string name="font_thickness_light">Light</string>
     <string name="font_thickness_normal">Normal</string>
     <string name="font_thickness_medium">Medium</string>
+
+    <!-- Progress Count properties -->
+    <string name="progress_count_percentage">Percentage</string>
+    <string name="progress_count_quantity">Quantity</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Mercury</string>
