@@ -19,13 +19,12 @@ fun BookInfoDeleteDialog(
 
     Dialog(
         title = stringResource(id = R.string.delete_book),
-        imageVectorIcon = Icons.Outlined.DeleteOutline,
+        icon = Icons.Outlined.DeleteOutline,
         description = stringResource(
             id = R.string.delete_book_description
         ),
-        actionText = stringResource(id = R.string.delete),
         onDismiss = { dismissDialog(BookInfoEvent.OnDismissDialog) },
-        withDivider = false,
+        withContent = false,
         actionEnabled = true,
         onAction = {
             actionDeleteDialog(

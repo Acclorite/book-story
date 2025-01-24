@@ -34,9 +34,8 @@ fun BrowseAddDialog(
     val context = LocalContext.current
     Dialog(
         title = stringResource(id = R.string.add_books),
-        imageVectorIcon = Icons.Default.AddChart,
+        icon = Icons.Default.AddChart,
         description = stringResource(id = R.string.add_books_description),
-        actionText = stringResource(id = R.string.add),
         actionEnabled = !loadingAddDialog && selectedBooksAddDialog.any { it.data is NullableBook.NotNull },
         onDismiss = { dismissAddDialog(BrowseEvent.OnDismissAddDialog) },
         onAction = {
@@ -47,7 +46,7 @@ fun BrowseAddDialog(
                 )
             )
         },
-        withDivider = true,
+        withContent = true,
         items = {
             if (loadingAddDialog) {
                 item {

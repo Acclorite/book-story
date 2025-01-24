@@ -25,6 +25,7 @@
     <string name="move_book">Перемістити книгу?</string>
     <string name="delete_history">Видалити історію читання?</string>
     <string name="enable_check_for_updates">Увімнкути перевірку на оновлення?</string>
+    <string name="edit">Редагувати</string>
 
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">Нам потрібен дозвіл на сховище, щоб просканувати Ваш Девайс на наявність книг. Без цього дозволу ви не зможете додати книгу.</string>

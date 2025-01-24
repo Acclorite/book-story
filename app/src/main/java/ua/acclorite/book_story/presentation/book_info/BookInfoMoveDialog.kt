@@ -33,11 +33,10 @@ fun BookInfoMoveDialog(
 
     Dialog(
         title = stringResource(id = R.string.move_book),
-        imageVectorIcon = Icons.AutoMirrored.Outlined.DriveFileMove,
+        icon = Icons.AutoMirrored.Outlined.DriveFileMove,
         description = stringResource(
             id = R.string.move_book_description
         ),
-        actionText = stringResource(id = R.string.move),
         actionEnabled = true,
         onDismiss = { dismissDialog(BookInfoEvent.OnDismissDialog) },
         onAction = {
@@ -49,7 +48,7 @@ fun BookInfoMoveDialog(
                 )
             )
         },
-        withDivider = false,
+        withContent = true,
         items = {
             items(categories, key = { it.name }) {
                 val category = when (it) {

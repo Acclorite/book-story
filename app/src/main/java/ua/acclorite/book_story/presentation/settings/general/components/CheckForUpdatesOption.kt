@@ -39,15 +39,14 @@ fun CheckForUpdatesOption() {
         Dialog(
             title = stringResource(id = R.string.enable_check_for_updates),
             description = stringResource(id = R.string.enable_check_for_updates_description),
-            actionText = stringResource(id = R.string.enable),
-            imageVectorIcon = Icons.Default.Security,
+            icon = Icons.Default.Security,
             actionEnabled = true,
             onDismiss = { showConfirmation.value = false },
             onAction = {
                 mainModel.onEvent(MainEvent.OnChangeCheckForUpdates(true))
                 showConfirmation.value = false
             },
-            withDivider = false
+            withContent = false
         )
     }
 

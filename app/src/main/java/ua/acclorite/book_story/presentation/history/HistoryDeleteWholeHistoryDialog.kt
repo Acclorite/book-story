@@ -17,9 +17,8 @@ fun HistoryDeleteWholeHistoryDialog(
     val context = LocalContext.current
     Dialog(
         title = stringResource(id = R.string.delete_history),
-        imageVectorIcon = Icons.Outlined.DeleteOutline,
+        icon = Icons.Outlined.DeleteOutline,
         description = stringResource(id = R.string.delete_history_description),
-        actionText = stringResource(id = R.string.delete),
         actionEnabled = true,
         onDismiss = {
             dismissDialog(HistoryEvent.OnDismissDialog)
@@ -31,6 +30,6 @@ fun HistoryDeleteWholeHistoryDialog(
                 )
             )
         },
-        withDivider = false
+        withContent = false
     )
 }

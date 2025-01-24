@@ -22,11 +22,10 @@ fun AboutUpdateDialog(
 
     Dialog(
         title = stringResource(id = R.string.update_query, updateInfo?.tagName ?: ""),
-        imageVectorIcon = Icons.Default.Update,
+        icon = Icons.Default.Update,
         description = stringResource(
             id = R.string.update_app_description
         ),
-        actionText = stringResource(id = R.string.proceed),
         actionEnabled = true,
         disableOnClick = false,
         onDismiss = { dismissDialog(AboutEvent.OnDismissDialog) },
@@ -39,6 +38,6 @@ fun AboutUpdateDialog(
             )
             dismissDialog(AboutEvent.OnDismissDialog)
         },
-        withDivider = false
+        withContent = false
     )
 }

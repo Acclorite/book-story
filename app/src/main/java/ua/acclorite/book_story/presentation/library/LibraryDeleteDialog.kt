@@ -19,12 +19,11 @@ fun LibraryDeleteDialog(
 
     Dialog(
         title = stringResource(id = R.string.delete_books),
-        imageVectorIcon = Icons.Outlined.DeleteOutline,
+        icon = Icons.Outlined.DeleteOutline,
         description = stringResource(
             id = R.string.delete_books_description,
             selectedItemsCount
         ),
-        actionText = stringResource(id = R.string.delete),
         actionEnabled = true,
         onDismiss = {
             dismissDialog(LibraryEvent.OnDismissDialog)
@@ -36,6 +35,6 @@ fun LibraryDeleteDialog(
                 )
             )
         },
-        withDivider = false
+        withContent = false
     )
 }

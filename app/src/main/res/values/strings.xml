@@ -32,6 +32,7 @@
     <string name="move_book">Move book?</string>
     <string name="delete_history">Delete reading history?</string>
     <string name="enable_check_for_updates">Enable check for updates?</string>
+    <string name="edit">Edit</string>
 
     <!-- Dialog Descriptions -->
     <string name="storage_permission_description">
@@ -143,6 +144,7 @@
     <string name="web_search">Web search</string>
     <string name="share">Share</string>
     <string name="proceed">Proceed</string>
+    <string name="ok">OK</string>
 
     <!-- Book -->
     <string name="unknown_author">Unknown</string>

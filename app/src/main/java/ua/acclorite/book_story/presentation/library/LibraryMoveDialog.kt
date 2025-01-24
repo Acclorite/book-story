@@ -46,12 +46,11 @@ fun LibraryMoveDialog(
 
     Dialog(
         title = stringResource(id = R.string.move_books),
-        imageVectorIcon = Icons.AutoMirrored.Outlined.DriveFileMove,
+        icon = Icons.AutoMirrored.Outlined.DriveFileMove,
         description = stringResource(
             id = R.string.move_books_description,
             selectedItemsCount
         ),
-        actionText = stringResource(id = R.string.move),
         actionEnabled = true,
         onDismiss = {
             dismissDialog(LibraryEvent.OnDismissDialog)
@@ -65,7 +64,7 @@ fun LibraryMoveDialog(
                 )
             )
         },
-        withDivider = false,
+        withContent = true,
         items = {
             items(moveCategories.value) { category ->
                 SelectableDialogItem(

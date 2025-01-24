@@ -22,9 +22,8 @@ fun BrowsePermissionDialog(
 
     Dialog(
         title = stringResource(id = R.string.storage_permission),
-        imageVectorIcon = Icons.Outlined.SdStorage,
+        icon = Icons.Outlined.SdStorage,
         description = stringResource(id = R.string.storage_permission_description),
-        actionText = stringResource(id = R.string.grant),
         actionEnabled = true,
         disableOnClick = false,
         onDismiss = {
@@ -42,6 +41,6 @@ fun BrowsePermissionDialog(
                 )
             )
         },
-        withDivider = false
+        withContent = false
     )
 }
