@@ -95,7 +95,6 @@
     <string name="browse_empty">Expanda la colección de libros de la biblioteca con sus descargas</string>
     <string name="library_empty">Lea sus libros favoritos y ordénelos en categorías</string>
     <string name="history_empty">Deje que su último libro leído abra las páginas de una nueva gran historia en su viaje de lectura</string>
-    <string name="start">Iniciar</string>
     <string name="translate">Traducir</string>
     <string name="update_query">Actualizar %1$s</string>
     <string name="grant_permission">Conceder permiso</string>
@@ -158,8 +157,6 @@
     <string name="color_preset_placeholder">Nombrar un preajuste…</string>
     <string name="book_moved">Este libro se movió correctamente.</string>
     <string name="history_element_deleted">El elemento del historial se eliminó correctamente.</string>
-    <string name="details_book">Detalles</string>
-    <string name="file_name">Nombre del archivo</string>
     <string name="file_last_opened">Último archivo abierto</string>
     <string name="file_size">Tamaño del archivo</string>
     <string name="unknown">Desconocido</string>
@@ -180,8 +177,6 @@
     <string name="help_desc_how_to_edit_book_2">Biblioteca</string>
     <string name="help_desc_how_to_edit_book_3">y haz clic en la imagen de la portada del libro para ver los detalles del libro. Ahora puedes mantener presionado el título, el autor o la descripción del libro para editarlo o la imagen de la portada para cambiarla, restablecerla o eliminarla.</string>
     <string name="help_title_how_to_customize_reader">¿Cómo personalizo el lector?</string>
-    <string name="move_this_book">Mover</string>
-    <string name="delete_this_book">Borrar</string>
     <string name="file_path">Ruta del archivo</string>
     <string name="help_desc_how_to_add_books_2">Navegar</string>
     <string name="whats_new_option">Novedades</string>

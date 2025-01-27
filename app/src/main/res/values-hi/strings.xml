@@ -108,7 +108,6 @@
     <string name="color_preset_query">प्रीसेट %1$s</string>
     <string name="move">हटाना</string>
     <string name="delete">मिटाना</string>
-    <string name="start">शुरू</string>
     <string name="reset_cover">कवर छवि रीसेट करें</string>
     <string name="change_cover">कवर छवि बदलें</string>
     <string name="dark_theme_option">डार्क थीम</string>
@@ -205,9 +204,6 @@
     <string name="red_color">लाल</string>
     <string name="no_updates">ऐप का नवीनतम संस्करण पहले से इंस्टॉल है।</string>
     <string name="cover_reset">कवर छवि सफलतापूर्वक रीसेट कर दी गई।</string>
-    <string name="move_this_book">कदम</string>
-    <string name="delete_this_book">मिटाना</string>
-    <string name="details_book">विवरण</string>
     <string name="file_path">दस्तावेज पथ</string>
     <string name="file_last_opened">फ़ाइल अंतिम बार खोली गई</string>
     <string name="file_size">फ़ाइल का साइज़</string>
@@ -235,7 +231,6 @@
     <string name="help_desc_how_to_add_books_2">ब्राउज़</string>
     <string name="help_desc_how_to_add_books_4">पुस्तकालय</string>
     <string name="history_element_deleted">इतिहास तत्व सफलतापूर्वक हटा दिया गया।</string>
-    <string name="file_name">फ़ाइल का नाम</string>
     <string name="unknown">अज्ञात</string>
     <string name="report_bug_option">एक बग रिपोर्ट करो</string>
     <string name="credits_updates">नए अपडेट का प्रबंधन</string>

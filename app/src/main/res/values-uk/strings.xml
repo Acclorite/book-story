@@ -50,6 +50,7 @@
     <string name="error_check_internet">Щось пішло не так. Спробуйте пізніше.</string>
     <string name="error_could_not_reset_cover">Не вдалося скинути обкладинку.</string>
     <string name="error_closed_source">Закритий код</string>
+    <string name="error_no_file">Файла не існує</string>
 
     <!-- Is Empty messages -->
     <string name="search_field_empty">Пошук…</string>
@@ -72,7 +73,6 @@
     <string name="add_book">Додати книгу</string>
     <string name="move">Перемістити</string>
     <string name="delete">Видалити</string>
-    <string name="start">Почати</string>
     <string name="continue_read">Продовжити</string>
     <string name="never">Ніколи</string>
     <string name="go_back">Назад</string>
@@ -88,6 +88,7 @@
     <string name="web_search">Веб-пошук</string>
     <string name="share">Поділитися</string>
     <string name="proceed">Продовжити</string>
+    <string name="ok">ОК</string>
 
     <!-- Book -->
     <string name="unknown_author">Невідомий</string>
@@ -320,20 +321,21 @@
     <string name="history_deleted">Історія була успішно видалена.</string>
     <string name="no_updates">Остання версія застосунка вже встановлена.</string>
     <string name="cover_reset">Обкладинка була успішно скинута.</string>
+    <string name="title_changed">Назва була успішно змінена.</string>
+    <string name="author_changed">Автор був успішно змінений.</string>
+    <string name="description_changed">Опис був успішно змінений.</string>
 
     <!-- Snackbar messages -->
     <string name="history_element_deleted">Елемент історії був успішно видалений.</string>
 
     <!-- DropDown properties -->
-    <string name="move_this_book">Перемістити</string>
-    <string name="delete_this_book">Видалити</string>
-    <string name="details_book">Подробиці</string>
-
-    <!-- BookInfo details -->
-    <string name="file_name">Ім\'я файлу</string>
-    <string name="file_path">Шлях до файлу</string>
-    <string name="file_last_opened">Останнє відкриття файлу</string>
-    <string name="file_size">Розмір файлу</string>
+    <!-- BookInfo -->
+    <string name="start_reading">Почати</string>
+    <string name="continue_reading_query">Продовжити з %1$s</string>
+    <string name="file_details">Подробиці файла</string>
+    <string name="file_path">Шлях</string>
+    <string name="file_last_opened">Останнє відкриття</string>
+    <string name="file_size">Розмір</string>
     <string name="unknown">Невідомо</string>
 
     <!-- Browse -->
@@ -475,5 +477,8 @@
     <string name="chapters_content_desc">Розділи</string>
     <string name="more_content_desc">Більше</string>
     <string name="pin_content_desc">Закріпити</string>
+    <string name="show_less_content_desc">Показати менше</string>
+    <string name="show_more_content_desc">Показати більше</string>
+    <string name="edit_content_desc">Редагувати поле</string>
 
 </resources>

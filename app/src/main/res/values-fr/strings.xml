@@ -34,7 +34,6 @@
     <string name="color_preset_selected_query">Sélectionné « %1$s »</string>
     <string name="move">Déplacer</string>
     <string name="delete">Supprimer</string>
-    <string name="start">Commencer</string>
     <string name="continue_read">Continuer</string>
     <string name="never">Jamais</string>
     <string name="go_back">Retour</string>
@@ -268,10 +267,6 @@
     <string name="pure_dark_off">Désactivé</string>
     <string name="browse_sort_order_file_format">Format de fichier</string>
     <string name="browse_sort_order_name">Alphabétiquement</string>
-    <string name="move_this_book">Déplacer</string>
-    <string name="delete_this_book">Supprimer</string>
-    <string name="details_book">Détails</string>
-    <string name="file_name">Nom du fichier</string>
     <string name="app_version_option">Version de l\'application</string>
     <string name="credits_design">Design</string>
     <string name="credits_translation">Traduction</string>

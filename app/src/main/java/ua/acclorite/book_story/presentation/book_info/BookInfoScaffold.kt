@@ -1,6 +1,5 @@
 package ua.acclorite.book_story.presentation.book_info
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
@@ -20,24 +19,13 @@ import ua.acclorite.book_story.ui.book_info.BookInfoEvent
 fun BookInfoScaffold(
     book: Book,
     listState: LazyListState,
-    editTitle: Boolean,
-    titleValue: String,
-    editAuthor: Boolean,
-    authorValue: String,
-    editDescription: Boolean,
-    descriptionValue: String,
-    editTitleMode: (BookInfoEvent.OnEditTitleMode) -> Unit,
-    editTitleValueChange: (BookInfoEvent.OnEditTitleValueChange) -> Unit,
-    editTitleRequestFocus: (BookInfoEvent.OnEditTitleRequestFocus) -> Unit,
-    editAuthorMode: (BookInfoEvent.OnEditAuthorMode) -> Unit,
-    editAuthorValueChange: (BookInfoEvent.OnEditAuthorValueChange) -> Unit,
-    editAuthorRequestFocus: (BookInfoEvent.OnEditAuthorRequestFocus) -> Unit,
-    editDescriptionMode: (BookInfoEvent.OnEditDescriptionMode) -> Unit,
-    editDescriptionValueChange: (BookInfoEvent.OnEditDescriptionValueChange) -> Unit,
-    editDescriptionRequestFocus: (BookInfoEvent.OnEditDescriptionRequestFocus) -> Unit,
     showChangeCoverBottomSheet: (BookInfoEvent.OnShowChangeCoverBottomSheet) -> Unit,
-    showMoreBottomSheet: (BookInfoEvent.OnShowMoreBottomSheet) -> Unit,
-    updateData: (BookInfoEvent.OnUpdateData) -> Unit,
+    showDetailsBottomSheet: (BookInfoEvent.OnShowDetailsBottomSheet) -> Unit,
+    showTitleDialog: (BookInfoEvent.OnShowTitleDialog) -> Unit,
+    showAuthorDialog: (BookInfoEvent.OnShowAuthorDialog) -> Unit,
+    showDescriptionDialog: (BookInfoEvent.OnShowDescriptionDialog) -> Unit,
+    showMoveDialog: (BookInfoEvent.OnShowMoveDialog) -> Unit,
+    showDeleteDialog: (BookInfoEvent.OnShowDeleteDialog) -> Unit,
     navigateToReader: () -> Unit,
     navigateBack: () -> Unit
 ) {
@@ -51,49 +39,22 @@ fun BookInfoScaffold(
             BookInfoTopBar(
                 book = book,
                 listState = listState,
-                editTitle = editTitle,
-                titleValue = titleValue,
-                editAuthor = editAuthor,
-                authorValue = authorValue,
-                editDescription = editDescription,
-                descriptionValue = descriptionValue,
-                editTitleMode = editTitleMode,
-                editAuthorMode = editAuthorMode,
-                editDescriptionMode = editDescriptionMode,
-                updateData = updateData,
-                showMoreBottomSheet = showMoreBottomSheet,
+                showDetailsBottomSheet = showDetailsBottomSheet,
                 navigateBack = navigateBack
             )
         }
     ) { paddingValues ->
-        Box(Modifier.fillMaxSize()) {
-            BookInfoLayout(
-                book = book,
-                listState = listState,
-                paddingValues = paddingValues,
-                editTitle = editTitle,
-                titleValue = titleValue,
-                editAuthor = editAuthor,
-                authorValue = authorValue,
-                editDescription = editDescription,
-                descriptionValue = descriptionValue,
-                editTitleMode = editTitleMode,
-                editTitleValueChange = editTitleValueChange,
-                editTitleRequestFocus = editTitleRequestFocus,
-                editAuthorMode = editAuthorMode,
-                editAuthorValueChange = editAuthorValueChange,
-                editAuthorRequestFocus = editAuthorRequestFocus,
-                editDescriptionMode = editDescriptionMode,
-                editDescriptionValueChange = editDescriptionValueChange,
-                editDescriptionRequestFocus = editDescriptionRequestFocus,
-                showChangeCoverBottomSheet = showChangeCoverBottomSheet
-            )
-
-            BookInfoFloatingActionButton(
-                book = book,
-                listState = listState,
-                navigateToReader = navigateToReader
-            )
-        }
+        BookInfoLayout(
+            book = book,
+            listState = listState,
+            paddingValues = paddingValues,
+            showTitleDialog = showTitleDialog,
+            showAuthorDialog = showAuthorDialog,
+            showDescriptionDialog = showDescriptionDialog,
+            showChangeCoverBottomSheet = showChangeCoverBottomSheet,
+            showMoveDialog = showMoveDialog,
+            showDeleteDialog = showDeleteDialog,
+            navigateToReader = navigateToReader
+        )
     }
 }

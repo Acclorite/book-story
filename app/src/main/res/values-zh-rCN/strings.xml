@@ -74,7 +74,6 @@
     <string name="translate">翻译</string>
     <string name="copy">复制</string>
     <string name="selected_items_count_query">已选择 %1$s</string>
-    <string name="start">开始</string>
     <string name="enable_check_for_updates">启用检查更新？</string>
     <string name="delete_books">删除书籍？</string>
     <string name="updates_notification_channel">新更新</string>
@@ -204,8 +203,6 @@
     <string name="cover_image_changed">成功更改了封面图片。</string>
     <string name="history_element_deleted">成功删除了历史元素。</string>
     <string name="books_moved">成功移动所有已选择的书。</string>
-    <string name="move_this_book">移动</string>
-    <string name="file_name">文件名</string>
     <string name="no_chapters">无章节</string>
     <string name="chapters">章节</string>
     <string name="app_version_option">应用版本</string>
@@ -231,10 +228,8 @@
     <string name="credits_translation">翻译</string>
     <string name="help_desc_how_to_add_books_3">如果你没有看见已下载的书可以尝试下拉刷新列表。确保你的书拥有所支持的文件格式。点击书来选择它或者按住来显示它的位置。当你选择了所有想选择的书之后，点击右上角的对勾图标，等待所有的书加载好后点击“添加”。所有你已经添加的书都应该显示在</string>
     <string name="file_size">文件大小</string>
-    <string name="details_book">详细</string>
     <string name="whats_new_option">新内容</string>
     <string name="licenses_option">开源许可证</string>
-    <string name="delete_this_book">删除</string>
     <string name="pure_dark_power_saver">保存</string>
     <string name="custom_screen_brightness_option">自定义亮度</string>
     <string name="screen_brightness_option">亮度</string>

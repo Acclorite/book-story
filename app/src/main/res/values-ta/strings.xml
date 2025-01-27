@@ -50,7 +50,6 @@
     <string name="book_deleted">இந்த நூல் வெற்றிகரமாக நீக்கப்பட்டது.</string>
     <string name="book_moved">இந்த நூல் வெற்றிகரமாக நகர்த்தப்பட்டது.</string>
     <string name="copied">நகலெடுக்கப்பட்டது</string>
-    <string name="move_this_book">நகர்த்தவும்</string>
     <string name="history_element_deleted">வரலாற்று உறுப்பு வெற்றிகரமாக நீக்கப்பட்டது.</string>
     <string name="credits_translation">மொழிபெயர்ப்பு</string>
     <string name="credits_contribution">பங்களிப்பு</string>
@@ -101,12 +100,10 @@
     <string name="continue_read">தொடரவும்</string>
     <string name="history_empty">நீங்கள் படித்த உங்கள் கடைசி நூல் உங்கள் வாசிப்பு பயணத்தின் புதிய சிறந்த கதையின் பக்கங்களைத் திறக்கட்டும்</string>
     <string name="share">பங்கு</string>
-    <string name="start">தொடங்கு</string>
     <string name="start_permissions_preferences">அனுமதிகள்</string>
     <string name="never">ஒருபோதும்</string>
     <string name="browse_layout_option">காட்சி முறை</string>
     <string name="browse_sort_order_file_format">கோப்பு வடிவம்</string>
-    <string name="delete_this_book">நீக்கு</string>
     <string name="default_string">இயல்புநிலை</string>
     <string name="delete_history">வாசிப்பு வரலாற்றை நீக்கவா?</string>
     <string name="enable_check_for_updates_description">செயல்படுத்துவதன் மூலம் «புதுப்பிப்புகளைச் சரிபார்க்கவும்» பயன்பாடு தொடங்கும் ஒவ்வொரு முறையும் «api.github.com இருந்து இலிருந்து அண்மைக் கால வெளியீட்டு தகவல்களை மீட்டெடுக்கும். நீங்கள் தொடர விரும்புகிறீர்களா «புதுப்பிப்புகளை சரிபார்க்கவும்»?</string>
@@ -273,8 +270,6 @@
     <string name="history_deleted">வரலாறு வெற்றிகரமாக நீக்கப்பட்டது.</string>
     <string name="no_updates">பயன்பாட்டின் அண்மைக் கால பதிப்பு ஏற்கனவே நிறுவப்பட்டுள்ளது.</string>
     <string name="cover_reset">கவர் படம் வெற்றிகரமாக மீட்டமைக்கப்பட்டது.</string>
-    <string name="details_book">விவரங்கள்</string>
-    <string name="file_name">கோப்பு பெயர்</string>
     <string name="file_path">கோப்பு பாதை</string>
     <string name="file_last_opened">கோப்பு கடைசியாக திறக்கப்பட்டது</string>
     <string name="file_size">கோப்பு அளவு</string>

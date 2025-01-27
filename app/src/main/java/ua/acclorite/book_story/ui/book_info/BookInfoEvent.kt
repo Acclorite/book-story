@@ -3,54 +3,13 @@ package ua.acclorite.book_story.ui.book_info
 import android.content.Context
 import android.net.Uri
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.domain.library.category.Category
+import ua.acclorite.book_story.domain.ui.UIText
 
 @Immutable
 sealed class BookInfoEvent {
 
-    data class OnCopyToClipboard(
-        val text: String,
-        val context: Context,
-    ) : BookInfoEvent()
-
-    data class OnEditTitleMode(
-        val edit: Boolean
-    ) : BookInfoEvent()
-
-    data class OnEditTitleRequestFocus(
-        val focusRequester: FocusRequester
-    ) : BookInfoEvent()
-
-    data class OnEditTitleValueChange(
-        val value: String
-    ) : BookInfoEvent()
-
-    data class OnEditAuthorMode(
-        val edit: Boolean
-    ) : BookInfoEvent()
-
-    data class OnEditAuthorRequestFocus(
-        val focusRequester: FocusRequester
-    ) : BookInfoEvent()
-
-    data class OnEditAuthorValueChange(
-        val value: String
-    ) : BookInfoEvent()
-
-    data class OnEditDescriptionMode(
-        val edit: Boolean
-    ) : BookInfoEvent()
-
-    data class OnEditDescriptionRequestFocus(
-        val focusRequester: FocusRequester
-    ) : BookInfoEvent()
-
-    data class OnEditDescriptionValueChange(
-        val value: String
-    ) : BookInfoEvent()
-
-    data object OnUpdateData : BookInfoEvent()
+    data object OnShowDetailsBottomSheet : BookInfoEvent()
 
     data object OnShowChangeCoverBottomSheet : BookInfoEvent()
 
@@ -69,11 +28,28 @@ sealed class BookInfoEvent {
 
     data object OnCheckCoverReset : BookInfoEvent()
 
-    data object OnShowMoreBottomSheet : BookInfoEvent()
-
-    data object OnShowDetailsBottomSheet : BookInfoEvent()
-
     data object OnDismissBottomSheet : BookInfoEvent()
+
+    data object OnShowTitleDialog : BookInfoEvent()
+
+    data class OnActionTitleDialog(
+        val title: String,
+        val context: Context
+    ) : BookInfoEvent()
+
+    data object OnShowAuthorDialog : BookInfoEvent()
+
+    data class OnActionAuthorDialog(
+        val author: UIText,
+        val context: Context
+    ) : BookInfoEvent()
+
+    data object OnShowDescriptionDialog : BookInfoEvent()
+
+    data class OnActionDescriptionDialog(
+        val description: String?,
+        val context: Context
+    ) : BookInfoEvent()
 
     data object OnShowDeleteDialog : BookInfoEvent()
 

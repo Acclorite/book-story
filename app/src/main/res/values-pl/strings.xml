@@ -35,7 +35,6 @@
     <string name="cancel">Anuluj</string>
     <string name="grant">Udziel</string>
     <string name="delete">Usuń</string>
-    <string name="start">Rozpocznij</string>
     <string name="add">Dodaj</string>
     <string name="sort_browse_settings">Sortuj</string>
     <string name="red_color">Czerwony</string>
@@ -179,7 +178,6 @@
     <string name="help_desc_how_to_read_book_1">Idź do</string>
     <string name="help_desc_how_to_use_tooltip_1">Większość przycisków ikon ma podpowiedzi, mogą ci pomóc, jeśli nie wiesz, co robi przycisk ikon. Aby wyświetlić podpowiedź, możesz przytrzymać przycisk ikony.</string>
     <string name="copied">Skopiowano</string>
-    <string name="file_name">Nazwa pliku</string>
     <string name="file_path">Ścieżka pliku</string>
     <string name="credits_updates">Zarządzanie nowymi aktualizacjami</string>
     <string name="credits_fonts">Czcionki</string>
@@ -189,7 +187,6 @@
     <string name="help_desc_how_to_customize_app_3">Możesz to zrobić z poziomu ekranu Biblioteka, Historia i Przeglądaj, klikając trzy kropki w prawym górnym rogu i wybierając « Ustawienia » z menu rozwijanego. Następnie zobaczysz wszystkie dostępne ustawienia tej aplikacji. Eksperymentuj z nimi!</string>
     <string name="continue_reading_content_desc">Kontynuuj czytanie</string>
     <string name="github_profile_content_desc">Profil GitHub</string>
-    <string name="move_this_book">Przenieś</string>
     <string name="help_desc_how_to_customize_reader_1">Zacznij czytać książkę (patrz: Jak mogę przeczytać książkę?), A następnie przynieś górne i dolne paski, klikając w dowolnym miejscu na ekranie. Następnie kliknij ikonę zębatki w prawym górnym rogu. Spowoduje to wyświetlenie wszystkich ustawień Czytnika. Drugim sposobem jest przejście do</string>
     <string name="color_preset_placeholder">Nazwij ustawienie…</string>
     <string name="browse_grid_size_option">Rozmiar siatki</string>
@@ -265,12 +262,10 @@
     <string name="app_version_option_desc_2">Kliknij, aby sprawdzić aktualizacje</string>
     <string name="help_desc_how_to_add_books_3">Jeśli nie widzisz pobranych książek, spróbuj odświeżyć listę, przeciągając ją w dół. Upewnij się, że Twoje książki posiadają obsługiwany format pliku. Następnie kliknij książkę, aby ją wybrać lub przytrzymaj, aby pokazać jej lokalizację. Po wybraniu wszystkich książek, które chcesz, kliknij ikonę znacznika wyboru w prawym górnym rogu, poczekaj na załadowanie wszystkich książek i kliknij « Dodaj ». Teraz powinieneś zobaczyć wszystkie książki, które dodałeś do</string>
     <string name="history_content_desc">Historia czytania</string>
-    <string name="delete_this_book">Usuń</string>
     <string name="exit_search_content_desc">Opuść wyszukiwanie</string>
     <string name="books_moved">Wszystkie wybrane książki zostały pomyślnie przeniesione.</string>
     <string name="delete_whole_history_content_desc">Usuń całą historię</string>
     <string name="help_desc_how_to_add_books_2">Przeglądaj</string>
-    <string name="details_book">Szczegóły</string>
     <string name="help_desc_how_to_add_books_4">Biblioteka</string>
     <string name="help_desc_how_to_customize_app_1">Idź do</string>
     <string name="help_desc_how_to_customize_app_2">Ustawienia</string>

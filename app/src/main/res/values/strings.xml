@@ -98,6 +98,7 @@
     </string>
     <string name="error_could_not_reset_cover">Could not reset cover image.</string>
     <string name="error_closed_source">Closed source</string>
+    <string name="error_no_file">File does not exist</string>
 
     <!-- Is Empty messages -->
     <string name="search_field_empty">
@@ -128,7 +129,6 @@
     <string name="add_book">Add a book</string>
     <string name="move">Move</string>
     <string name="delete">Delete</string>
-    <string name="start">Start</string>
     <string name="continue_read">Continue</string>
     <string name="never">Never</string>
     <string name="go_back">Go back</string>
@@ -379,20 +379,20 @@
     <string name="history_deleted">History was successfully deleted.</string>
     <string name="no_updates">The latest version of the app is already installed.</string>
     <string name="cover_reset">Cover image was successfully reset.</string>
+    <string name="title_changed">Title was successfully changed.</string>
+    <string name="author_changed">Author was successfully changed.</string>
+    <string name="description_changed">Description was successfully changed.</string>
 
     <!-- Snackbar messages -->
     <string name="history_element_deleted">History element was successfully deleted.</string>
 
-    <!-- DropDown properties -->
-    <string name="move_this_book">Move</string>
-    <string name="delete_this_book">Delete</string>
-    <string name="details_book">Details</string>
-
-    <!-- BookInfo details -->
-    <string name="file_name">File name</string>
-    <string name="file_path">File path</string>
-    <string name="file_last_opened">File last opened</string>
-    <string name="file_size">File size</string>
+    <!-- BookInfo -->
+    <string name="start_reading">Start</string>
+    <string name="continue_reading_query">Continue from %1$s</string>
+    <string name="file_details">File details</string>
+    <string name="file_path">Path</string>
+    <string name="file_last_opened">Last opened</string>
+    <string name="file_size">Size</string>
     <string name="unknown">Unknown</string>
 
     <!-- Reader -->
@@ -637,5 +637,8 @@
     <string name="chapters_content_desc">Chapters</string>
     <string name="more_content_desc">More</string>
     <string name="pin_content_desc">Pin</string>
+    <string name="show_less_content_desc">Show less</string>
+    <string name="show_more_content_desc">Show more</string>
+    <string name="edit_content_desc">Edit field</string>
 
 </resources>

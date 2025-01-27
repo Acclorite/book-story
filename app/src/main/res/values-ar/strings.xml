@@ -43,7 +43,6 @@
     <string name="get_help">أحتاج المساعدة</string>
     <string name="add">أضف</string>
     <string name="add_book">أضف كتابا˝</string>
-    <string name="start">ابدأ</string>
     <string name="continue_read">استمرار</string>
     <string name="never">أبدا˝</string>
     <string name="go_back">عودة</string>
@@ -168,10 +167,6 @@
     <string name="credits_updates">إدارة التحديثات الجديدة</string>
     <string name="alignment_start">ابدأ</string>
     <string name="alignment_center">المركز</string>
-    <string name="move_this_book">نقل</string>
-    <string name="delete_this_book">حذف</string>
-    <string name="details_book">التفاصيل</string>
-    <string name="file_name">اسم الملف</string>
     <string name="file_path">مسار الملف</string>
     <string name="app_version_option_desc_2">انقر للتحقق من وجود تحديثات</string>
     <string name="report_bug_option">الإبلاغ عن خطأ</string>
