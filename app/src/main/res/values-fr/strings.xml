@@ -34,7 +34,6 @@
     <string name="color_preset_selected_query">Sélectionné « %1$s »</string>
     <string name="move">Déplacer</string>
     <string name="delete">Supprimer</string>
-    <string name="continue_read">Continuer</string>
     <string name="never">Jamais</string>
     <string name="go_back">Retour</string>
     <string name="undo">Annuler</string>
@@ -45,13 +44,9 @@
     <string name="yes_go_to_help">Oui, accéder à l\'aide</string>
     <string name="no">Non</string>
     <string name="done">Terminé</string>
-    <string name="enable">Activer</string>
     <string name="web_search">Recherche Web</string>
     <string name="share">Partager</string>
     <string name="unknown_author">Inconnu</string>
-    <string name="read_keep">Continuez !</string>
-    <string name="read_more">Vous devez lire plus !</string>
-    <string name="read_done">Bravo, vous avez lu tout le livre !</string>
     <string name="reset_cover">Réinitialiser l\'image de couverture</string>
     <string name="reset_cover_desc">Réinitialiser l\'image de couverture du livre à la valeur par défaut</string>
     <string name="change_cover">Changer l\'image de couverture</string>
@@ -200,7 +195,6 @@
     <string name="file_icon_content_desc">Fichier</string>
     <string name="checkbox_content_desc">Case à cocher</string>
     <string name="cover_image_not_found_content_desc">L\'image de couverture n\'a pas été trouvée</string>
-    <string name="apply_changes_content_desc">Appliquer les changements</string>
     <string name="error_content_desc">Erreur</string>
     <string name="search_content_desc">Recherche</string>
     <string name="clear_selected_items_content_desc">Vider les éléments sélectionnés</string>
@@ -219,7 +213,6 @@
     <string name="arrow_content_desc">Flèche</string>
     <string name="required_content_desc">Requis</string>
     <string name="reset_start_content_desc">Guide de réinitialisation</string>
-    <string name="exit_editing_content_desc">Quitter le mode édition</string>
     <string name="open_in_web_content_desc">Ouvrir en ligne</string>
     <string name="delete_color_preset_content_desc">Supprimer le préréglage de couleur</string>
     <string name="shuffle_color_preset_content_desc">Mélanger les couleurs</string>
@@ -243,7 +236,6 @@
     <string name="grant_permission">Accorder la permission</string>
     <string name="grant">Autoriser</string>
     <string name="get_help">J\'ai besoin d\'aide</string>
-    <string name="add">Ajouter</string>
     <string name="add_book">Ajouter un livre</string>
     <string name="color_tab">Couleurs</string>
     <string name="general_settings">Paramètres généraux</string>
@@ -302,7 +294,6 @@
     <string name="hide_bars_on_fast_scroll_option">Cacher les barres en cas de défilement rapide</string>
     <string name="checkpoint_back_content_desc">Retour au point de contrôle</string>
     <string name="default_string">Défaut</string>
-    <string name="proceed">Continuer</string>
     <string name="reading_speed_reader_settings">Vitesse de lecture</string>
     <string name="perception_expander_option">Expansion de la perception</string>
     <string name="perception_expander_option_desc">Augmentez votre vitesse de lecture en vous concentrant sur le centre</string>

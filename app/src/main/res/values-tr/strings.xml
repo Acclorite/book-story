@@ -49,11 +49,9 @@
     <string name="grant">İzin Ver</string>
     <string name="grant_permission">İzin ver</string>
     <string name="get_help">Yardıma ihtiyacım var</string>
-    <string name="add">Ekle</string>
     <string name="add_book">Kitap ekle</string>
     <string name="move">Taşı</string>
     <string name="delete">Sil</string>
-    <string name="continue_read">Devam Et</string>
     <string name="never">Asla</string>
     <string name="go_back">Geri Dön</string>
     <string name="undo">Geri Al</string>
@@ -64,13 +62,9 @@
     <string name="yes_go_to_help">Evet, Yardım\'a git</string>
     <string name="no">Hayır</string>
     <string name="done">Tamam</string>
-    <string name="enable">Etkinleştir</string>
     <string name="web_search">Web\'de ara</string>
     <string name="share">Paylaş</string>
     <string name="unknown_author">Bilinmiyor</string>
-    <string name="read_more">Daha fazla okumanız gerekiyor!</string>
-    <string name="read_keep">Devam edin!</string>
-    <string name="read_done">Tebrikler, tüm kitabı okudunuz!</string>
     <string name="reset_cover">Kapak resmini sıfırla</string>
     <string name="reset_cover_desc">Kitabın kapak resmini varsayılana sıfırla</string>
     <string name="change_cover">Kapak resmini değiştir</string>
@@ -258,7 +252,6 @@
     <string name="sort_order_content_desc">Sıralama düzeni</string>
     <string name="checkbox_content_desc">Onay kutusu</string>
     <string name="cover_image_not_found_content_desc">Kapak resmi bulunamadı</string>
-    <string name="apply_changes_content_desc">Değişiklikleri uygula</string>
     <string name="error_content_desc">Hata</string>
     <string name="search_content_desc">Ara</string>
     <string name="clear_selected_items_content_desc">Seçili öğeleri temizle</string>
@@ -278,7 +271,6 @@
     <string name="arrow_content_desc">Ok</string>
     <string name="required_content_desc">Gerekli</string>
     <string name="reset_start_content_desc">Başlangıç kılavuzunu sıfırla</string>
-    <string name="exit_editing_content_desc">Düzenleme modundan çık</string>
     <string name="open_in_web_content_desc">Web\'de aç</string>
     <string name="delete_color_preset_content_desc">Renk ön ayarını sil</string>
     <string name="create_color_preset_content_desc">Yeni renk ön ayarı oluştur</string>
@@ -302,7 +294,6 @@
     <string name="perception_expander_option_desc">Merkeze odaklanarak okuma hızınızı artırın</string>
     <string name="perception_expander_thickness_option">Algı iyileştirici satır kalınlığı</string>
     <string name="chapters">Bölümler</string>
-    <string name="proceed">Devam et</string>
     <string name="perception_expander_option">Algı iyileştirici</string>
     <string name="no_chapters">Bölüm yok</string>
     <string name="perception_expander_padding_option">Algı iyileştirici satır dolgusu</string>

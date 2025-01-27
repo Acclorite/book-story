@@ -3,7 +3,6 @@
     <string name="book_deleted">Tato kniha byla úspěšně smazána.</string>
     <string name="blue_theme">Neptun</string>
     <string name="update_app_description">Nová verze aplikace byla nalezena. Chcete přejít na stránku verzí?</string>
-    <string name="proceed">Pokračovat</string>
     <string name="background_color_option">Barva pozadí</string>
     <string name="font_color_option">Barva fontu</string>
     <string name="dark_theme_follow_system">Podle systému</string>
@@ -26,7 +25,6 @@
     <string name="pink_theme">Saturn</string>
     <string name="yes_go_to_help">Ano, přejít na pomoc</string>
     <string name="done">Hotovo</string>
-    <string name="enable">Zapnout</string>
     <string name="pure_dark_on">Zapnutý</string>
     <string name="credits_contribution">Spolupracovníci</string>
     <string name="red_theme">Mars</string>
@@ -94,13 +92,11 @@
     <string name="help_desc_how_to_add_books_1">Přejít na</string>
     <string name="reading_tab">Právě čtu</string>
     <string name="delete_history_description">Smaže to celou historii z databáze. Po smazaní z historie bude pořadí knih resetováno.</string>
-    <string name="add">Přidat</string>
     <string name="library_screen">Knihovna</string>
     <string name="browse_grid_size_auto">Automaticky</string>
     <string name="delete_cover">Smazat obálku</string>
     <string name="general_settings_desc">Jazyk aplikace</string>
     <string name="lavender_theme">Eris</string>
-    <string name="continue_read">Pokračovat</string>
     <string name="author">Autor</string>
     <string name="move_book_description">Vyberte kategorii, do které chcete přesunout tuto knihu. Vybraná kniha do ní bude přesunuta.</string>
     <string name="planning_tab">Budu číst</string>
@@ -180,9 +176,6 @@
     <string name="search_field_empty">Hledat…</string>
     <string name="reading_speed_reader_settings">Rychlost čtení</string>
     <string name="system_reader_settings">Systém</string>
-    <string name="read_more">Musíš více číst!</string>
-    <string name="read_keep">To zvládneš!</string>
-    <string name="read_done">A je to, přečetl jsi celou knihu!</string>
     <string name="reset_cover">Resetovat obálku</string>
     <string name="app_version_option_desc_2">Klepněte pro zkontrolování aktualizací</string>
     <string name="help_desc_how_to_customize_app_1">Přejít na</string>
@@ -228,7 +221,6 @@
     <string name="cover_image_not_found_content_desc">Obálka nebyla nalezena</string>
     <string name="search_content_desc">Hledat</string>
     <string name="open_in_web_content_desc">Otevřít na webu</string>
-    <string name="apply_changes_content_desc">Použít změny</string>
     <string name="start_permissions_notifications">Oprávnění oznámení</string>
     <string name="help_desc_how_to_move_or_delete_books_1">Přejít na</string>
     <string name="start_permissions_notifications_desc">Vyžadováno pro kontrolu novějších verzí aplikace</string>

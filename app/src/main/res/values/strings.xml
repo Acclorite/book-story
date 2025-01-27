@@ -125,11 +125,9 @@
     <string name="grant">Grant</string>
     <string name="grant_permission">Grant permission</string>
     <string name="get_help">I need help</string>
-    <string name="add">Add</string>
     <string name="add_book">Add a book</string>
     <string name="move">Move</string>
     <string name="delete">Delete</string>
-    <string name="continue_read">Continue</string>
     <string name="never">Never</string>
     <string name="go_back">Go back</string>
     <string name="undo">Undo</string>
@@ -140,17 +138,12 @@
     <string name="yes_go_to_help">Yes, go to Help</string>
     <string name="no">No</string>
     <string name="done">Done</string>
-    <string name="enable">Enable</string>
     <string name="web_search">Web search</string>
     <string name="share">Share</string>
-    <string name="proceed">Proceed</string>
     <string name="ok">OK</string>
 
     <!-- Book -->
     <string name="unknown_author">Unknown</string>
-    <string name="read_more">You need to read more!</string>
-    <string name="read_keep">Keep it up!</string>
-    <string name="read_done">Well done, you have read the whole book!</string>
     <string name="reset_cover">Reset cover image</string>
     <string name="reset_cover_desc">Reset cover image of the book to the default</string>
     <string name="change_cover">Change cover image</string>
@@ -600,7 +593,6 @@
     <string name="sort_order_content_desc">Sort order</string>
     <string name="checkbox_content_desc">Checkbox</string>
     <string name="cover_image_not_found_content_desc">Cover image not found</string>
-    <string name="apply_changes_content_desc">Apply changes</string>
     <string name="error_content_desc">Error</string>
     <string name="search_content_desc">Search</string>
     <string name="clear_selected_items_content_desc">Clear selected items</string>
@@ -620,7 +612,6 @@
     <string name="arrow_content_desc">Arrow</string>
     <string name="required_content_desc">Required</string>
     <string name="reset_start_content_desc">Reset start guide</string>
-    <string name="exit_editing_content_desc">Exit editing mode</string>
     <string name="open_in_web_content_desc">Open in web</string>
     <string name="delete_color_preset_content_desc">Delete color preset</string>
     <string name="create_color_preset_content_desc">Create new color preset</string>

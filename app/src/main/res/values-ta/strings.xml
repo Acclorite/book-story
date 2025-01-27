@@ -11,7 +11,6 @@
     <string name="error_something_went_wrong">ஏதோ தவறு நடந்தது.</string>
     <string name="error_closed_source">மூடிய மூல</string>
     <string name="browse_empty">உங்கள் பதிவிறக்கங்களுடன் நூலகத்தின் புத்தக சேகரிப்பை விரிவாக்குங்கள்</string>
-    <string name="add">கூட்டு</string>
     <string name="add_book">ஒரு புத்தகத்தைச் சேர்க்கவும்</string>
     <string name="move">நகர்த்தவும்</string>
     <string name="color_preset_query">முன்னமைக்கப்பட்ட %1$s</string>
@@ -25,10 +24,7 @@
     <string name="yes_go_to_help">ஆம், உதவிக்குச் செல்லுங்கள்</string>
     <string name="no">இல்லை</string>
     <string name="done">முடிந்தது</string>
-    <string name="enable">இயக்கு</string>
     <string name="dictionary">அகராதி</string>
-    <string name="proceed">தொடரவும்</string>
-    <string name="read_keep">அதை வைத்திருங்கள்!</string>
     <string name="general_settings_desc">பயன்பாட்டு மொழி</string>
     <string name="appearance_settings">தோற்றம்</string>
     <string name="font_reader_settings">எழுத்துரு</string>
@@ -67,7 +63,6 @@
     <string name="library_content_desc">உங்கள் நூலகம்</string>
     <string name="delete_history_element_content_desc">வரலாற்று உறுப்பை நீக்கு</string>
     <string name="reset_start_content_desc">தொடக்க வழிகாட்டியை மீட்டமைக்கவும்</string>
-    <string name="exit_editing_content_desc">திருத்துதல் பயன்முறையில் இருந்து வெளியேறவும்</string>
     <string name="reading_speed_reader_settings">வாசிப்பு விரைவு</string>
     <string name="system_reader_settings">மண்டலம்</string>
     <string name="language_option">பயன்பாட்டு மொழி</string>
@@ -97,7 +92,6 @@
     <string name="arrow_content_desc">அம்பு</string>
     <string name="dark_theme_option">இருண்ட கருப்பொருள்</string>
     <string name="credits_fonts">எழுத்துருக்கள்</string>
-    <string name="continue_read">தொடரவும்</string>
     <string name="history_empty">நீங்கள் படித்த உங்கள் கடைசி நூல் உங்கள் வாசிப்பு பயணத்தின் புதிய சிறந்த கதையின் பக்கங்களைத் திறக்கட்டும்</string>
     <string name="share">பங்கு</string>
     <string name="start_permissions_preferences">அனுமதிகள்</string>
@@ -116,8 +110,6 @@
     <string name="copy">நகலெடு</string>
     <string name="translate">மொழிபெயர்த்திடு</string>
     <string name="web_search">வலை தேடல்</string>
-    <string name="read_more">நீங்கள் மேலும் படிக்க வேண்டும்!</string>
-    <string name="read_done">நல்லது, நீங்கள் முழு புத்தகத்தையும் படித்திருக்கிறீர்கள்!</string>
     <string name="reset_cover">கவர் படத்தை மீட்டமைக்கவும்</string>
     <string name="reset_cover_desc">புத்தகத்தின் கவர் படத்தை இயல்புநிலைக்கு மீட்டமைக்கவும்</string>
     <string name="change_cover">கவர் படத்தை மாற்றவும்</string>
@@ -316,7 +308,6 @@
     <string name="continue_reading_content_desc">தொடர்ந்து படிக்கவும்</string>
     <string name="sort_order_content_desc">வரிசைப்படுத்தும் முறை</string>
     <string name="cover_image_not_found_content_desc">கவர் படம் கிடைக்கவில்லை</string>
-    <string name="apply_changes_content_desc">மாற்றங்களைப் பயன்படுத்துங்கள்</string>
     <string name="search_content_desc">தேடல்</string>
     <string name="clear_selected_items_content_desc">தேர்ந்தெடுக்கப்பட்ட உருப்படிகளை அழிக்கவும்</string>
     <string name="add_files_content_desc">கோப்புகளைச் சேர்</string>

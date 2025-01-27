@@ -4,7 +4,6 @@
     <string name="history_screen">Historia</string>
     <string name="help_screen">Pomoc</string>
     <string name="move">Przenieś</string>
-    <string name="continue_read">Kontynuuj</string>
     <string name="never">Nigdy</string>
     <string name="undo">Cofnij</string>
     <string name="copy">Kopiuj</string>
@@ -12,7 +11,6 @@
     <string name="next">Dalej</string>
     <string name="no">Nie</string>
     <string name="done">Gotowe</string>
-    <string name="enable">Włącz</string>
     <string name="share">Udostępnij</string>
     <string name="unknown_author">Nieznany</string>
     <string name="author">Autor</string>
@@ -35,7 +33,6 @@
     <string name="cancel">Anuluj</string>
     <string name="grant">Udziel</string>
     <string name="delete">Usuń</string>
-    <string name="add">Dodaj</string>
     <string name="sort_browse_settings">Sortuj</string>
     <string name="red_color">Czerwony</string>
     <string name="general_settings">Ogólne</string>
@@ -84,9 +81,6 @@
     <string name="selected_items_count_query">Wybrano %1$s</string>
     <string name="update_query">Zaktualizuj %1$s</string>
     <string name="web_search">Wyszukiwanie w sieci</string>
-    <string name="read_more">Musisz przeczytać więcej!</string>
-    <string name="read_keep">Tak trzymaj!</string>
-    <string name="read_done">Dobra robota, przeczytałeś całą książkę!</string>
     <string name="change_cover">Zmień obraz okładki</string>
     <string name="reading_tab">Czytanie</string>
     <string name="already_read_tab">Przeczytano</string>
@@ -236,7 +230,6 @@
     <string name="library_content_desc">Twoja biblioteka</string>
     <string name="arrow_content_desc">Strzałka</string>
     <string name="required_content_desc">Wymagane</string>
-    <string name="exit_editing_content_desc">Wyjdź z trybu edycji</string>
     <string name="open_in_web_content_desc">Otwórz w sieci</string>
     <string name="drag_content_desc">Przeciągnij</string>
     <string name="help_desc_how_to_move_or_delete_books_3">Przytrzymaj obraz okładki pierwszej książki, aż zostanie wybrany, teraz możesz po prostu kliknąć wszystkie obrazy okładki książek, które chcesz wybrać. Możesz także wybrać książki w wielu kategoriach. Po wybraniu wszystkich żądanych książek możesz kliknąć ikonę strzałki, aby przenieść oraz ikonę kosza, aby usunąć książki.</string>
@@ -248,7 +241,6 @@
     <string name="start_permissions_granted">Przyznane</string>
     <string name="start_done_desc">Pomyślnie wykonałeś podstawowe ustawienie aplikacji. Czy chcesz dowiedzieć się, jak korzystać z aplikacji, czytając Pomoc?</string>
     <string name="file_icon_content_desc">Plik</string>
-    <string name="apply_changes_content_desc">Zastosuj zmiany</string>
     <string name="select_all_files_content_desc">Wybierz wszystkie pliki</string>
     <string name="theme_appearance_settings">Preferencje motywu</string>
     <string name="font_style_italic">Kursywa</string>
@@ -289,7 +281,6 @@
     <string name="perception_expander_option_desc">Zwiększ prędkość czytania, koncentrując się na środku</string>
     <string name="credits_option">Twórcy</string>
     <string name="default_string">Domyślne</string>
-    <string name="proceed">Przejdź dalej</string>
     <string name="padding_reader_settings">Margines wewnętrzny</string>
     <string name="contributors_option">Współtwórcy</string>
     <string name="system_reader_settings">Ustawienia systemu</string>

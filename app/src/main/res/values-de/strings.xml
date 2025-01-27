@@ -33,10 +33,8 @@
     <string name="grant">Gewähren</string>
     <string name="grant_permission">Erteilen der Berechtigung</string>
     <string name="get_help">Ich brauche Hilfe</string>
-    <string name="add">Hinzufügen</string>
     <string name="add_book">Buch hinzufügen</string>
     <string name="move">Verschieben</string>
-    <string name="continue_read">Fortfahren</string>
     <string name="never">Niemals</string>
     <string name="go_back">Zurück gehen</string>
     <string name="undo">Rückgängig machen</string>
@@ -46,11 +44,7 @@
     <string name="next">Nächste</string>
     <string name="no">Nein</string>
     <string name="done">Fertig</string>
-    <string name="enable">Aktivieren</string>
     <string name="unknown_author">Unbekannt</string>
-    <string name="read_more">Sie müssen mehr lesen!</string>
-    <string name="read_keep">Weiter so!</string>
-    <string name="read_done">Gut gemacht, Sie haben das ganze Buch gelesen!</string>
     <string name="reset_cover">Titelbild zurücksetzen</string>
     <string name="change_cover">Titelbild ändern</string>
     <string name="delete_cover">Titelbild löschen</string>
@@ -148,7 +142,6 @@
     <string name="file_icon_content_desc">Datei</string>
     <string name="checkbox_content_desc">Checkbox</string>
     <string name="cover_image_not_found_content_desc">Titelbild nicht gefunden</string>
-    <string name="apply_changes_content_desc">Änderungen übernehmen</string>
     <string name="error_content_desc">Fehler</string>
     <string name="search_content_desc">Suche</string>
     <string name="clear_selected_items_content_desc">Ausgewählte Elemente löschen</string>
@@ -240,7 +233,6 @@
     <string name="arrow_content_desc">Pfeil</string>
     <string name="required_content_desc">Vorausgesetzt</string>
     <string name="reset_start_content_desc">Startanleitung zurücksetzen</string>
-    <string name="exit_editing_content_desc">Bearbeitungsmodus beenden</string>
     <string name="open_in_web_content_desc">Im Internet öffnen</string>
     <string name="delete_color_preset_content_desc">Farbvoreinstellung löschen</string>
     <string name="create_color_preset_content_desc">Neue Farbvorgabe erstellen</string>
@@ -299,7 +291,6 @@
     <string name="cutout_padding_option_desc">Rand auf den ausgeschnittenen Bereich anwenden</string>
     <string name="cutout_padding_option">Ausschnittsrand</string>
     <string name="default_string">Standard</string>
-    <string name="proceed">Fortfahren</string>
     <string name="perception_expander_padding_option">Zeilenseitenrand</string>
     <string name="perception_expander_thickness_option">Linienstärke</string>
     <string name="screen_orientation_option">Bildschirmausrichtung</string>

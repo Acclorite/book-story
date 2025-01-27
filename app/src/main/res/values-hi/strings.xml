@@ -29,9 +29,7 @@
     <string name="grant_permission">अनुमति दें</string>
     <string name="grant">अनुदान</string>
     <string name="get_help">मुझे सहायता की आवश्यकता है</string>
-    <string name="add">जोड़ना</string>
     <string name="add_book">एक किताब जोड़ें</string>
-    <string name="continue_read">जारी रखें</string>
     <string name="never">कभी नहीं</string>
     <string name="go_back">पीछे जाना</string>
     <string name="undo">पूर्ववत् करें</string>
@@ -42,14 +40,9 @@
     <string name="yes_go_to_help">हां, सहायता पर जाएं</string>
     <string name="no">नहीं</string>
     <string name="done">समाप्त</string>
-    <string name="enable">सक्षम करें</string>
     <string name="web_search">वेब खोज</string>
     <string name="share">शेयर करें</string>
-    <string name="proceed">आगे बढ़ें</string>
     <string name="unknown_author">अज्ञात</string>
-    <string name="read_more">आपको अधिक पढ़ना चाहिए !</string>
-    <string name="read_keep">इसे जारी रखो!</string>
-    <string name="read_done">बहुत बढ़िया, आपने पूरी किताब पढ़ ली!</string>
     <string name="reset_cover_desc">पुस्तक की कवर छवि को डिफ़ॉल्ट पर रीसेट करें</string>
     <string name="change_cover_desc">अपनी तस्वीरों से नया कवर चुनें</string>
     <string name="delete_cover">कवर छवि मिटाएँ</string>

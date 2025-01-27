@@ -6,7 +6,6 @@
     <string name="default_string">Padrão</string>
     <string name="enable_check_for_updates">Habilitar verificação de atualizações?</string>
     <string name="cancel">Cancelar</string>
-    <string name="add">Adicionar</string>
     <string name="move">Mover</string>
     <string name="never">Nunca</string>
     <string name="colors_appearance_settings">Cores</string>
@@ -16,14 +15,12 @@
     <string name="theme_contrast_high">Alto</string>
     <string name="font_style_italic">Itálico</string>
     <string name="browse_layout_list">Lista</string>
-    <string name="enable">Habilitar</string>
     <string name="no">Não</string>
     <string name="general_browse_settings">Geral</string>
     <string name="history_screen">Histórico</string>
     <string name="browse_screen">Explorar</string>
     <string name="fullscreen_option">Tela cheia</string>
     <string name="grant">Permitir</string>
-    <string name="continue_read">Continuar</string>
     <string name="done">Feito</string>
     <string name="dark_theme_off">Desabilitado</string>
     <string name="updates_notification_action">Baixar</string>
@@ -140,7 +137,6 @@
     <string name="letter_spacing_option">Espaçamento das letras</string>
     <string name="color_preset_query">Padrão %1$s</string>
     <string name="go_back">Voltar</string>
-    <string name="proceed">Proceder</string>
     <string name="system_reader_settings">Sistema</string>
     <string name="theme_appearance_settings">Preferência de temas</string>
     <string name="absolute_dark_option">Escuro absoluto</string>
@@ -215,7 +211,6 @@
     <string name="browse_settings_desc">Geral, filtro, ordem</string>
     <string name="check_for_updates_option">Procurar atualizações</string>
     <string name="keep_screen_on_option">Manter a tela ligada</string>
-    <string name="apply_changes_content_desc">Aplicar alterações</string>
     <string name="add_files_content_desc">Adicionar arquivos</string>
     <string name="library_content_desc">Sua biblioteca</string>
     <string name="history_content_desc">Histórico de leitura</string>
@@ -239,12 +234,10 @@
     <string name="error_no_share_app">Nenhum aplicativo para compartilhar encontrado.</string>
     <string name="error_no_dictionary">Nenhum aplicativo de dicionário encontrado.</string>
     <string name="error_no_translator">Nenhum aplicativo tradutor encontrado.</string>
-    <string name="read_done">Bom trabalho, você terminou um livro inteiro!</string>
     <string name="error_could_not_get_text">Arquivo está vazio, corrompido ou não existe. Por favor verifique e tente novamente.</string>
     <string name="history_empty">Deixe seu último livro lido abrir as páginas para uma grande história na sua jornada de leitura</string>
     <string name="library_empty">Leia seus livros favoritos e organize-os em categorias</string>
     <string name="error_could_not_reset_cover">Não foi possível restaurar a imagem da capa.</string>
-    <string name="read_more">Você precisa ler mais!</string>
     <string name="perception_expander_thickness_option">Espessura da linha</string>
     <string name="error_check_internet">Algo deu errado. Tente novamente.</string>
     <string name="perception_expander_option_desc">Aumente sua velocidade de leitura focando no centro</string>
@@ -252,7 +245,6 @@
     <string name="fast_color_preset_change_option">Troca rápida do padrão de cores</string>
     <string name="double_press_exit_option_desc">Aperte voltar duas vezes para sair do app</string>
     <string name="browse_empty">Expanda os livros da sua biblioteca com seus downloads</string>
-    <string name="read_keep">Continue!</string>
     <string name="reset_cover_desc">Restaure a imagem do livro de volta para o padrão</string>
     <string name="change_cover_desc">Escolha a nova capa das suas fotos</string>
     <string name="delete_cover_desc">Apagar a imagem atual da capa do livro</string>
@@ -309,7 +301,6 @@
     <string name="progress_bar_option">Barra de progresso</string>
     <string name="books_added">Todos os livros selecionados foram adicionados com sucesso.</string>
     <string name="start_done_desc">Você concluiu com sucesso a configuração básica do aplicativo. Gostaria de aprender a usar o aplicativo lendo a tela de Ajuda?</string>
-    <string name="exit_editing_content_desc">Sair do modo edição</string>
     <string name="history_deleted">Histórico foi apagado com sucesso</string>
     <string name="help_title_how_to_use_color_presets">Como usar predefinições de cores?</string>
     <string name="help_title_how_to_use_tooltip">Como usar dicas?</string>

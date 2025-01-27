@@ -11,10 +11,7 @@
     <string name="undo">Annulla</string>
     <string name="translate">Traduci</string>
     <string name="grant_permission">Concedi permesso</string>
-    <string name="add">Aggiungi</string>
     <string name="browse_settings">Esplora</string>
-    <string name="proceed">Procedi</string>
-    <string name="read_keep">Continua così!</string>
     <string name="delete_cover">Elimina immagine di copertina</string>
     <string name="text_reader_settings">Testo</string>
     <string name="background_color_option">Colore di sfondo</string>
@@ -46,9 +43,7 @@
     <string name="red_theme">Marte</string>
     <string name="next">Prossimo</string>
     <string name="delete">Elimina</string>
-    <string name="continue_read">Continua</string>
     <string name="go_back">Indietro</string>
-    <string name="enable">Abilita</string>
     <string name="web_search">Ricerca web</string>
     <string name="dark_theme_on">Abilitato</string>
     <string name="start_permissions_notifications">Permesso per le notifiche</string>
@@ -58,8 +53,6 @@
     <string name="paragraph_height_option">Spaziatura dei paragrafi</string>
     <string name="storage_permission">Concedi permesso?</string>
     <string name="font_style_italic">Corsivo</string>
-    <string name="read_more">Devi leggere di più!</string>
-    <string name="read_done">Ben fatto, hai letto tutto il libro!</string>
     <string name="error_no_translator">Nessuna app traduttore trovata.</string>
     <string name="start_permissions_preferences">Permessi</string>
     <string name="history_content_desc">Cronologia lettura</string>
@@ -128,7 +121,6 @@
     <string name="marsh_theme">Plutone</string>
     <string name="start_theme_preferences">Preferenze tema</string>
     <string name="continue_reading_content_desc">Continua a leggere</string>
-    <string name="apply_changes_content_desc">Applica modifiche</string>
     <string name="cover_image_not_found_content_desc">Copertina non trovata</string>
     <string name="delete_books_content_desc">Elimina libri selezionati</string>
     <string name="exit_search_content_desc">Esci dalla ricerca</string>
@@ -250,7 +242,6 @@
     <string name="history_element_deleted">L\'elemento cronologia è stato eliminato correttamente.</string>
     <string name="help_desc_how_to_move_or_delete_books_3">Tieni premuta l\'immagine di copertina del primo libro finché non viene selezionata, ora puoi semplicemente cliccare su tutte le immagini di copertina dei libri che vuoi selezionare. Puoi anche selezionare libri in più categorie. Dopo aver scelto tutti i libri desiderati, puoi cliccare sull\'icona della freccia per spostarli e sull\'icona del cestino per eliminare i libri.</string>
     <string name="arrow_content_desc">Freccia</string>
-    <string name="exit_editing_content_desc">Esci dalla modalità di modifica</string>
     <string name="bottom_bar_padding_option">Margine barra inferiore</string>
     <string name="misc_reader_settings">Varie</string>
     <string name="change_cover">Cambia immagine di copertina</string>

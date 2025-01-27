@@ -4,7 +4,6 @@
     <string name="delete_history">删除阅读历史？</string>
     <string name="delete_book">删除书籍？</string>
     <string name="no">不</string>
-    <string name="enable">启用</string>
     <string name="web_search">网络搜索</string>
     <string name="share">分享</string>
     <string name="done">完成</string>
@@ -18,7 +17,6 @@
     <string name="error_no_translator">未发现翻译应用。</string>
     <string name="never">永不</string>
     <string name="color_preset_query">预设 %1$s</string>
-    <string name="read_more">你需要阅读更多！</string>
     <string name="cancel">取消</string>
     <string name="error_permission">我们需要存储权限以扫描您的设备上的书</string>
     <string name="updates_notification_title">Book\'s Story 的新更新！</string>
@@ -54,7 +52,6 @@
     <string name="undo">撤销</string>
     <string name="next">下一个</string>
     <string name="unknown_author">未知</string>
-    <string name="read_done">干得好，你已经读完了整本书！</string>
     <string name="change_cover">修改封面图片</string>
     <string name="delete_cover_desc">删除这本书当前的封面图片</string>
     <string name="reading_tab">正在阅读</string>
@@ -62,11 +59,9 @@
     <string name="add_books">添加书籍？</string>
     <string name="error_no_browser">未发现浏览器应用。</string>
     <string name="get_help">我需要帮助</string>
-    <string name="add">添加</string>
     <string name="add_book">添加一本书</string>
     <string name="move">移动</string>
     <string name="delete">删除</string>
-    <string name="continue_read">继续</string>
     <string name="reset_cover">重置封面图片</string>
     <string name="reset_cover_desc">将这本书的封面图片重置为默认</string>
     <string name="help_screen">帮助</string>
@@ -157,7 +152,6 @@
     <string name="theme_contrast_high">高</string>
     <string name="red_theme">火星</string>
     <string name="default_string">默认</string>
-    <string name="proceed">继续</string>
     <string name="screen_orientation_option">屏幕方向</string>
     <string name="browse_layout_list">列表</string>
     <string name="browse_grid_size_per_row">每行</string>
@@ -188,7 +182,6 @@
     <string name="reader_tab">阅读器</string>
     <string name="general_settings">常规</string>
     <string name="browse_settings_desc">常规，过滤，排序</string>
-    <string name="read_keep">继续坚持！</string>
     <string name="browse_layout_grid">网格</string>
     <string name="browse_grid_size_auto">自动</string>
     <string name="books_added">成功添加所有已选择的书。</string>
@@ -288,7 +281,6 @@
     <string name="start_language_preferences">语言偏好</string>
     <string name="start_theme_preferences">应用主题</string>
     <string name="sort_order_content_desc">排序规则</string>
-    <string name="apply_changes_content_desc">应用更改</string>
     <string name="search_content_desc">搜索</string>
     <string name="clear_selected_items_content_desc">清除选中项目</string>
     <string name="horizontal_gesture_on">开启</string>
@@ -314,7 +306,6 @@
     <string name="arrow_content_desc">箭头</string>
     <string name="required_content_desc">必填</string>
     <string name="reset_start_content_desc">重置引导页面</string>
-    <string name="exit_editing_content_desc">退出编辑模式</string>
     <string name="delete_books_content_desc">删除所选书籍</string>
     <string name="revert_content_desc">撤销</string>
     <string name="file_icon_content_desc">文件</string>

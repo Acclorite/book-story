@@ -41,15 +41,10 @@
     <string name="grant">امنح</string>
     <string name="grant_permission">امنح الإذن</string>
     <string name="get_help">أحتاج المساعدة</string>
-    <string name="add">أضف</string>
     <string name="add_book">أضف كتابا˝</string>
-    <string name="continue_read">استمرار</string>
     <string name="never">أبدا˝</string>
     <string name="go_back">عودة</string>
     <string name="undo">تراجع</string>
-    <string name="read_more">يجب أن تقرأ المزيد!</string>
-    <string name="read_keep">استمر!</string>
-    <string name="read_done">عمل جيد، لقد قرأت الكتاب بأكمله!</string>
     <string name="reset_cover">إعادة ضبط صورة الغلاف</string>
     <string name="appearance_settings">المظهر</string>
     <string name="reader_settings">قارئ</string>
@@ -74,7 +69,6 @@
     <string name="yes_go_to_help">نعم، اذهب إلى المساعدة</string>
     <string name="colors_appearance_settings">الألوان</string>
     <string name="done">تم</string>
-    <string name="enable">تفعيل</string>
     <string name="no">لا</string>
     <string name="color_preset_selected_query">تم اختيار «%1$s»</string>
     <string name="unknown_author">غير معروف</string>
@@ -216,7 +210,6 @@
     <string name="vertical_padding_option">الهوامش العمودية</string>
     <string name="reading_speed_reader_settings">سرعة القراءة</string>
     <string name="default_string">الافتراضي</string>
-    <string name="proceed">المضي قدما</string>
     <string name="system_reader_settings">النظام</string>
     <string name="search_field_empty">بحث…</string>
     <string name="screen_orientation_option">اتجاه الشاشة</string>
@@ -241,7 +234,6 @@
     <string name="slava_ukraini">المجد لأوكرانيا!</string>
     <string name="cutout_padding_option">قطع هوامش</string>
     <string name="side_padding_option">الهامش الجانبي</string>
-    <string name="apply_changes_content_desc">تأكيد التغييرات</string>
     <string name="history_content_desc">قراءتك الماضية</string>
     <string name="browse_content_desc">إضافة كتب</string>
     <string name="add_files_content_desc">إضافة ملفات</string>
