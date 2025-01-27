@@ -145,6 +145,5 @@ _Help translate the app on [Hosted Weblate](https://hosted.weblate.org/engage/bo
 
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <https://www.gnu.org/licenses/>.
-  
   </pre>
 </div>
