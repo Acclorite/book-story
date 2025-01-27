@@ -10,6 +10,9 @@ import ua.acclorite.book_story.ui.book_info.BookInfoScreen
 fun BookInfoDialog(
     dialog: Dialog?,
     book: Book,
+    actionTitleDialog: (BookInfoEvent.OnActionTitleDialog) -> Unit,
+    actionAuthorDialog: (BookInfoEvent.OnActionAuthorDialog) -> Unit,
+    actionDescriptionDialog: (BookInfoEvent.OnActionDescriptionDialog) -> Unit,
     actionDeleteDialog: (BookInfoEvent.OnActionDeleteDialog) -> Unit,
     actionMoveDialog: (BookInfoEvent.OnActionMoveDialog) -> Unit,
     dismissDialog: (BookInfoEvent.OnDismissDialog) -> Unit,
@@ -31,6 +34,30 @@ fun BookInfoDialog(
                 actionMoveDialog = actionMoveDialog,
                 dismissDialog = dismissDialog,
                 navigateToLibrary = navigateToLibrary
+            )
+        }
+
+        BookInfoScreen.TITLE_DIALOG -> {
+            BookInfoTitleDialog(
+                book = book,
+                actionTitleDialog = actionTitleDialog,
+                dismissDialog = dismissDialog
+            )
+        }
+
+        BookInfoScreen.AUTHOR_DIALOG -> {
+            BookInfoAuthorDialog(
+                book = book,
+                actionAuthorDialog = actionAuthorDialog,
+                dismissDialog = dismissDialog
+            )
+        }
+
+        BookInfoScreen.DESCRIPTION_DIALOG -> {
+            BookInfoDescriptionDialog(
+                book = book,
+                actionDescriptionDialog = actionDescriptionDialog,
+                dismissDialog = dismissDialog
             )
         }
     }

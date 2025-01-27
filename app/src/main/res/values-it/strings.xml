@@ -21,7 +21,6 @@
     <string name="fullscreen_option">Schermo intero</string>
     <string name="dark_theme_follow_system">Sistema</string>
     <string name="browse_layout_grid">Griglia</string>
-    <string name="move_this_book">Sposta</string>
     <string name="no_chapters">Nessun capitolo</string>
     <string name="chapters">Capitoli</string>
     <string name="licenses_option">Licenze open source</string>
@@ -47,7 +46,6 @@
     <string name="red_theme">Marte</string>
     <string name="next">Prossimo</string>
     <string name="delete">Elimina</string>
-    <string name="start">Inizia</string>
     <string name="continue_read">Continua</string>
     <string name="go_back">Indietro</string>
     <string name="enable">Abilita</string>
@@ -101,8 +99,6 @@
     <string name="browse_sort_order_file_format">Formato file</string>
     <string name="books_deleted">Tutti i libri selezionati sono stati eliminati correttamente.</string>
     <string name="screen_orientation_portrait">Verticale</string>
-    <string name="delete_this_book">Elimina</string>
-    <string name="details_book">Dettagli</string>
     <string name="books_added">Tutti i libri selezionati sono stati aggiunti correttamente.</string>
     <string name="delete_book_description">Eliminerà questo libro dal database. Non eliminerà questo libro dal tuo dispositivo.</string>
     <string name="add_books_description">Puoi scegliere quali libri vuoi aggiungere. È possibile modificare il titolo e l\'immagine di copertina in seguito. Il processo di caricamento può richiedere fino a diversi minuti.</string>
@@ -208,7 +204,6 @@
     <string name="browse_grid_size_per_row">per riga</string>
     <string name="history_deleted">La cronologia è stata eliminata correttamente.</string>
     <string name="press_again_toast">Premere di nuovo Indietro per uscire</string>
-    <string name="file_name">Nome del file</string>
     <string name="file_size">Dimensione del file</string>
     <string name="help_desc_how_to_add_books_2">Sfoglia</string>
     <string name="already_read_tab">Già letto</string>

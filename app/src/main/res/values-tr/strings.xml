@@ -53,7 +53,6 @@
     <string name="add_book">Kitap ekle</string>
     <string name="move">Taşı</string>
     <string name="delete">Sil</string>
-    <string name="start">Başla</string>
     <string name="continue_read">Devam Et</string>
     <string name="never">Asla</string>
     <string name="go_back">Geri Dön</string>
@@ -180,10 +179,6 @@
     <string name="no_updates">Uygulamanın en son sürümü zaten yüklü.</string>
     <string name="cover_reset">Kapak resmi başarıyla sıfırlandı.</string>
     <string name="history_element_deleted">Geçmiş öğesi başarıyla silindi.</string>
-    <string name="move_this_book">Taşı</string>
-    <string name="delete_this_book">Sil</string>
-    <string name="details_book">Ayrıntılar</string>
-    <string name="file_name">Dosya adı</string>
     <string name="file_path">Dosya yolu</string>
     <string name="file_last_opened">Son açılma tarihi</string>
     <string name="file_size">Dosya boyutu</string>

@@ -15,10 +15,6 @@ fun BookInfoBottomSheet(
     resetCover: (BookInfoEvent.OnResetCover) -> Unit,
     deleteCover: (BookInfoEvent.OnDeleteCover) -> Unit,
     checkCoverReset: (BookInfoEvent.OnCheckCoverReset) -> Unit,
-    copyToClipboard: (BookInfoEvent.OnCopyToClipboard) -> Unit,
-    showDetailsBottomSheet: (BookInfoEvent.OnShowDetailsBottomSheet) -> Unit,
-    showMoveDialog: (BookInfoEvent.OnShowMoveDialog) -> Unit,
-    showDeleteDialog: (BookInfoEvent.OnShowDeleteDialog) -> Unit,
     dismissBottomSheet: (BookInfoEvent.OnDismissBottomSheet) -> Unit
 ) {
     when (bottomSheet) {
@@ -34,19 +30,9 @@ fun BookInfoBottomSheet(
             )
         }
 
-        BookInfoScreen.MORE_BOTTOM_SHEET -> {
-            BookInfoMoreBottomSheet(
-                showDetailsBottomSheet = showDetailsBottomSheet,
-                showDeleteDialog = showDeleteDialog,
-                showMoveDialog = showMoveDialog,
-                dismissBottomSheet = dismissBottomSheet
-            )
-        }
-
         BookInfoScreen.DETAILS_BOTTOM_SHEET -> {
             BookInfoDetailsBottomSheet(
                 book = book,
-                copyToClipboard = copyToClipboard,
                 dismissBottomSheet = dismissBottomSheet
             )
         }

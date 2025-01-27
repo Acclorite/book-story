@@ -22,7 +22,6 @@
     <string name="marsh_theme">Pluto</string>
     <string name="library_empty">Čtěte vaše oblíbené knihy a třiďte je do kategorií</string>
     <string name="updates_notification_action">Stáhnout</string>
-    <string name="file_name">Název souboru</string>
     <string name="language_option">Jazyk aplikace</string>
     <string name="pink_theme">Saturn</string>
     <string name="yes_go_to_help">Ano, přejít na pomoc</string>
@@ -54,7 +53,6 @@
     <string name="credits_fonts">Fonty</string>
     <string name="theme_contrast_standard">Standardní</string>
     <string name="browse_sort_order_name">Abecedně</string>
-    <string name="details_book">Detaily</string>
     <string name="file_path">Cesta k souboru</string>
     <string name="books_added">Všechny vybrané knihy byly úspěšně přidány.</string>
     <string name="book_moved">Tato kniha byla úspěšně přesunuta.</string>
@@ -115,7 +113,6 @@
     <string name="delete">Smazat</string>
     <string name="green_color">Zelená</string>
     <string name="copied">Zkopírováno</string>
-    <string name="delete_this_book">Smazat</string>
     <string name="fullscreen_option">Celá obrazovka</string>
     <string name="check_for_updates_option">Hledat aktualizace</string>
     <string name="double_click_translation_option">Překlad na dvojité kliknutí</string>
@@ -153,7 +150,6 @@
     <string name="error_something_went_wrong">Něco se pokazilo.</string>
     <string name="grant">Povolit</string>
     <string name="add_book">Přidat knihu</string>
-    <string name="start">Začít</string>
     <string name="go_back">Zpět</string>
     <string name="copy">Kopírovat</string>
     <string name="translate">Přeložit</string>
@@ -201,7 +197,6 @@
     <string name="pink2_theme">Ganymede</string>
     <string name="cover_image_changed">Obálka byla úspěšně změněna.</string>
     <string name="history_deleted">Historie byla úspěšně smazána.</string>
-    <string name="move_this_book">Přesunout</string>
     <string name="slava_ukraini">Sláva Ukrajině!</string>
     <string name="credits_design">Design</string>
     <string name="credits_translation">Překlad</string>

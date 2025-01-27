@@ -36,7 +36,6 @@
     <string name="add">Hinzufügen</string>
     <string name="add_book">Buch hinzufügen</string>
     <string name="move">Verschieben</string>
-    <string name="start">Starten</string>
     <string name="continue_read">Fortfahren</string>
     <string name="never">Niemals</string>
     <string name="go_back">Zurück gehen</string>
@@ -109,10 +108,7 @@
     <string name="no_updates">Die neuste Version der App ist bereits installiert.</string>
     <string name="cover_reset">Das Titelbild wurde erfolgreich zurückgesetzt.</string>
     <string name="history_element_deleted">Das Verlaufselement wurde erfolgreich gelöscht.</string>
-    <string name="move_this_book">Verschieben</string>
-    <string name="delete_this_book">Löschen</string>
     <string name="dynamic_theme">Quecksilber</string>
-    <string name="details_book">Details</string>
     <string name="file_path">Dateipfad</string>
     <string name="file_last_opened">Zuletzt geöffnete Datei</string>
     <string name="file_size">Dateigröße</string>
@@ -203,7 +199,6 @@
     <string name="theme_contrast_high">Hoch</string>
     <string name="font_style_normal">Normal</string>
     <string name="font_style_italic">Kursiv</string>
-    <string name="file_name">Dateiname</string>
     <string name="unknown">Unbekannt</string>
     <string name="app_version_option_desc_2">Klicken Sie hier, um nach Updates zu suchen</string>
     <string name="whats_new_option">Was ist neu</string>

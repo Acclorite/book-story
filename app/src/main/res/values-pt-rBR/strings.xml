@@ -60,7 +60,6 @@
     <string name="updates_notification_title">Novo update do Book\'s Story!</string>
     <string name="add_books">Adicionar livros?</string>
     <string name="storage_permission_description">Precisamos de permissão de acesso ao armazenamento para procurar livros no seu dispositivo. Sem essa permissão, você não será capaz de adicionar um livro.</string>
-    <string name="start">Começar</string>
     <string name="delete">Apagar</string>
     <string name="undo">Desfazer</string>
     <string name="sort_tab">Organizar</string>
@@ -92,8 +91,6 @@
     <string name="marsh_theme">Plutão</string>
     <string name="yellow_theme">Vênus</string>
     <string name="aqua_theme">Urano</string>
-    <string name="move_this_book">Mover</string>
-    <string name="delete_this_book">Apague</string>
     <string name="unknown">Desconhecido</string>
     <string name="credits_option">Créditos</string>
     <string name="chapters">Capítulos</string>
@@ -119,7 +116,6 @@
     <string name="move_books_description">Escolha a categoria da qual você quer mover todos os livros selecionados(%1$s). Todos os livros selecionados serão movidos para essa categoria.</string>
     <string name="delete_books_description">Isto irá apagar todos os livros selecionados(%1$s) da base de dados. Isso não irá apagar os livros do seu dispositivo.</string>
     <string name="alignment_center">Centro</string>
-    <string name="details_book">Detalhes</string>
     <string name="help_desc_how_to_customize_reader_2">Configurações</string>
     <string name="revert_content_desc">Reverter</string>
     <string name="start_permissions_granted">Permitir</string>
@@ -142,7 +138,6 @@
     <string name="delete_history_description">Isto irá deletar todo o histórico da base de dados. Após deletá-lo, a ordem dos livros será restaurada.</string>
     <string name="paragraph_indentation_option">Recuo de parágrafo</string>
     <string name="letter_spacing_option">Espaçamento das letras</string>
-    <string name="file_name">Nome do arquivo</string>
     <string name="color_preset_query">Padrão %1$s</string>
     <string name="go_back">Voltar</string>
     <string name="proceed">Proceder</string>
