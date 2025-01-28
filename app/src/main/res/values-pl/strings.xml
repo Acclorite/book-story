@@ -144,7 +144,6 @@
     <string name="grant_permission">Udziel zgody</string>
     <string name="get_help">Potrzebuję pomocy</string>
     <string name="add_book">Dodaj książkę</string>
-    <string name="go_back">Powróć</string>
     <string name="translate">Przetłumacz</string>
     <string name="appearance_settings_desc">Motyw, kolory</string>
     <string name="reader_settings_desc">Czcionka, tekst, tłumacz</string>

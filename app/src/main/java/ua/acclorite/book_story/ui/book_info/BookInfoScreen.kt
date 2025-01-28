@@ -11,6 +11,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.getOrElse
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.domain.navigator.Screen
 import ua.acclorite.book_story.presentation.book_info.BookInfoContent
@@ -28,9 +30,12 @@ data class BookInfoScreen(val bookId: Int) : Screen, Parcelable {
         const val TITLE_DIALOG = "title_dialog"
         const val AUTHOR_DIALOG = "author_dialog"
         const val DESCRIPTION_DIALOG = "description_dialog"
+        const val PATH_DIALOG = "path_dialog"
 
         const val CHANGE_COVER_BOTTOM_SHEET = "change_cover_bottom_sheet"
         const val DETAILS_BOTTOM_SHEET = "details_bottom_sheet"
+
+        val changePathChannel: Channel<Boolean> = Channel(Channel.CONFLATED)
     }
 
     @OptIn(ExperimentalMaterialApi::class)
@@ -45,6 +50,7 @@ data class BookInfoScreen(val bookId: Int) : Screen, Parcelable {
         LaunchedEffect(Unit) {
             screenModel.init(
                 bookId = bookId,
+                changePath = changePathChannel.tryReceive().getOrElse { false },
                 navigateBack = {
                     navigator.pop()
                 }
@@ -72,6 +78,8 @@ data class BookInfoScreen(val bookId: Int) : Screen, Parcelable {
                 actionAuthorDialog = screenModel::onEvent,
                 showDescriptionDialog = screenModel::onEvent,
                 actionDescriptionDialog = screenModel::onEvent,
+                showPathDialog = screenModel::onEvent,
+                actionPathDialog = screenModel::onEvent,
                 checkCoverReset = screenModel::onEvent,
                 changeCover = screenModel::onEvent,
                 resetCover = screenModel::onEvent,

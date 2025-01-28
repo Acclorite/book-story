@@ -97,8 +97,8 @@ fun ReaderScaffold(
     openDictionary: (ReaderEvent.OnOpenDictionary) -> Unit,
     showSettingsBottomSheet: (ReaderEvent.OnShowSettingsBottomSheet) -> Unit,
     showChaptersDrawer: (ReaderEvent.OnShowChaptersDrawer) -> Unit,
-    navigateBack: () -> Unit,
-    navigateToBookInfo: () -> Unit
+    navigateToBookInfo: (changePath: Boolean) -> Unit,
+    navigateBack: () -> Unit
 ) {
     Scaffold(
         Modifier

@@ -13,6 +13,7 @@ fun BookInfoDialog(
     actionTitleDialog: (BookInfoEvent.OnActionTitleDialog) -> Unit,
     actionAuthorDialog: (BookInfoEvent.OnActionAuthorDialog) -> Unit,
     actionDescriptionDialog: (BookInfoEvent.OnActionDescriptionDialog) -> Unit,
+    actionPathDialog: (BookInfoEvent.OnActionPathDialog) -> Unit,
     actionDeleteDialog: (BookInfoEvent.OnActionDeleteDialog) -> Unit,
     actionMoveDialog: (BookInfoEvent.OnActionMoveDialog) -> Unit,
     dismissDialog: (BookInfoEvent.OnDismissDialog) -> Unit,
@@ -57,6 +58,14 @@ fun BookInfoDialog(
             BookInfoDescriptionDialog(
                 book = book,
                 actionDescriptionDialog = actionDescriptionDialog,
+                dismissDialog = dismissDialog
+            )
+        }
+
+        BookInfoScreen.PATH_DIALOG -> {
+            BookInfoPathDialog(
+                book = book,
+                actionPathDialog = actionPathDialog,
                 dismissDialog = dismissDialog
             )
         }

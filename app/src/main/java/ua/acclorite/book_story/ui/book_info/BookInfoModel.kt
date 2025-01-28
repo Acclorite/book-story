@@ -280,6 +280,35 @@ class BookInfoModel @Inject constructor(
                     }
                 }
 
+                is BookInfoEvent.OnShowPathDialog -> {
+                    _state.update {
+                        it.copy(
+                            dialog = BookInfoScreen.PATH_DIALOG
+                        )
+                    }
+                }
+
+                is BookInfoEvent.OnActionPathDialog -> {
+                    launch {
+                        _state.update {
+                            it.copy(
+                                book = it.book.copy(
+                                    filePath = event.path
+                                )
+                            )
+                        }
+                        updateBook.execute(_state.value.book)
+
+                        LibraryScreen.refreshListChannel.trySend(0)
+                        HistoryScreen.refreshListChannel.trySend(0)
+
+                        withContext(Dispatchers.Main) {
+                            event.context.getString(R.string.path_changed)
+                                .showToast(context = event.context)
+                        }
+                    }
+                }
+
                 is BookInfoEvent.OnShowDeleteDialog -> {
                     _state.update {
                         it.copy(
@@ -368,6 +397,7 @@ class BookInfoModel @Inject constructor(
 
     fun init(
         bookId: Int,
+        changePath: Boolean,
         navigateBack: () -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -390,6 +420,9 @@ class BookInfoModel @Inject constructor(
                 )
             }
 
+            if (changePath) {
+                onEvent(BookInfoEvent.OnShowPathDialog)
+            }
             onEvent(BookInfoEvent.OnCheckCoverReset)
         }
     }

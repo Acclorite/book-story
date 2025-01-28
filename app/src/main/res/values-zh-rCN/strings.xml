@@ -48,7 +48,6 @@
     <string name="color_preset_selected_query">已选择《%1$s》</string>
     <string name="grant">授予</string>
     <string name="grant_permission">授予权限</string>
-    <string name="go_back">返回</string>
     <string name="undo">撤销</string>
     <string name="next">下一个</string>
     <string name="unknown_author">未知</string>

@@ -242,7 +242,8 @@ class ReaderModel @Inject constructor(
                             if (
                                 _state.value.isLoading ||
                                 layoutInfo.totalItemsCount < 1 ||
-                                _state.value.text.isEmpty()
+                                _state.value.text.isEmpty() ||
+                                _state.value.errorMessage != null
                             ) return@apply
 
                             _state.update {
@@ -589,7 +590,8 @@ class ReaderModel @Inject constructor(
             if (
                 isLoading ||
                 listState.layoutInfo.totalItemsCount == 0 ||
-                text.isEmpty()
+                text.isEmpty() ||
+                errorMessage != null
             ) {
                 return book.progress
             }

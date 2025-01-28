@@ -105,7 +105,6 @@
     <string name="error_no_description">விளக்கம் இல்லை.</string>
     <string name="selected_items_count_query">%1$s தேர்ந்தெடுக்கப்பட்டன</string>
     <string name="update_query">புதுப்பிப்பு %1$s</string>
-    <string name="go_back">திரும்பிச் செல்லுங்கள்</string>
     <string name="undo">செயல்தவிர்</string>
     <string name="copy">நகலெடு</string>
     <string name="translate">மொழிபெயர்த்திடு</string>

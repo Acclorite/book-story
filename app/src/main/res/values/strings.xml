@@ -90,7 +90,8 @@
     <string name="error_no_browser">No browser app found.</string>
     <string name="error_no_share_app">No app to share found.</string>
     <string name="error_could_not_get_text">
-        File is empty, corrupted, or does not exist. Please verify and try again.
+        File is empty, corrupted, or missing.
+        Please verify the file or update the path and try again.
     </string>
     <string name="error_check_internet">
         Something went wrong.
@@ -129,7 +130,6 @@
     <string name="move">Move</string>
     <string name="delete">Delete</string>
     <string name="never">Never</string>
-    <string name="go_back">Go back</string>
     <string name="undo">Undo</string>
     <string name="copy">Copy</string>
     <string name="translate">Translate</string>
@@ -141,6 +141,7 @@
     <string name="web_search">Web search</string>
     <string name="share">Share</string>
     <string name="ok">OK</string>
+    <string name="change_path">Change path</string>
 
     <!-- Book -->
     <string name="unknown_author">Unknown</string>
@@ -375,6 +376,7 @@
     <string name="title_changed">Title was successfully changed.</string>
     <string name="author_changed">Author was successfully changed.</string>
     <string name="description_changed">Description was successfully changed.</string>
+    <string name="path_changed">File path was successfully changed.</string>
 
     <!-- Snackbar messages -->
     <string name="history_element_deleted">History element was successfully deleted.</string>

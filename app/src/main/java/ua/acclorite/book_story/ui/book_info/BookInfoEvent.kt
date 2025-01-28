@@ -51,6 +51,13 @@ sealed class BookInfoEvent {
         val context: Context
     ) : BookInfoEvent()
 
+    data object OnShowPathDialog : BookInfoEvent()
+
+    data class OnActionPathDialog(
+        val path: String,
+        val context: Context
+    ) : BookInfoEvent()
+
     data object OnShowDeleteDialog : BookInfoEvent()
 
     data class OnActionDeleteDialog(

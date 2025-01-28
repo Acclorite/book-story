@@ -96,8 +96,8 @@ fun ReaderContent(
     dismissBottomSheet: (ReaderEvent.OnDismissBottomSheet) -> Unit,
     showChaptersDrawer: (ReaderEvent.OnShowChaptersDrawer) -> Unit,
     dismissDrawer: (ReaderEvent.OnDismissDrawer) -> Unit,
-    navigateBack: () -> Unit,
-    navigateToBookInfo: () -> Unit
+    navigateToBookInfo: (changePath: Boolean) -> Unit,
+    navigateBack: () -> Unit
 ) {
     ReaderBottomSheet(
         bottomSheet = bottomSheet,
@@ -176,6 +176,7 @@ fun ReaderContent(
         ReaderErrorPlaceholder(
             errorMessage = errorMessage,
             leave = leave,
+            navigateToBookInfo = navigateToBookInfo,
             navigateBack = navigateBack
         )
     }

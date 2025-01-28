@@ -467,7 +467,8 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             navigateBack = {
                 navigator.pop()
             },
-            navigateToBookInfo = {
+            navigateToBookInfo = { changePath ->
+                if (changePath) BookInfoScreen.changePathChannel.trySend(true)
                 navigator.push(
                     BookInfoScreen(
                         bookId = bookId,

@@ -11,6 +11,7 @@ fun BookInfoBottomSheet(
     bottomSheet: BottomSheet?,
     book: Book,
     canResetCover: Boolean,
+    showPathDialog: (BookInfoEvent.OnShowPathDialog) -> Unit,
     changeCover: (BookInfoEvent.OnChangeCover) -> Unit,
     resetCover: (BookInfoEvent.OnResetCover) -> Unit,
     deleteCover: (BookInfoEvent.OnDeleteCover) -> Unit,
@@ -33,6 +34,7 @@ fun BookInfoBottomSheet(
         BookInfoScreen.DETAILS_BOTTOM_SHEET -> {
             BookInfoDetailsBottomSheet(
                 book = book,
+                showPathDialog = showPathDialog,
                 dismissBottomSheet = dismissBottomSheet
             )
         }
