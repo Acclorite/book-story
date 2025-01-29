@@ -82,7 +82,6 @@ fun DialogWithTextField(
                         disabledContainerColor = Color.Transparent,
                         unfocusedContainerColor = Color.Transparent
                     ),
-                    singleLine = true,
                     placeholder = {
                         Text(
                             text = initialValue,
