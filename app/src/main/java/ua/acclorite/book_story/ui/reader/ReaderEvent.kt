@@ -7,7 +7,10 @@ import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
 @Immutable
 sealed class ReaderEvent {
 
-    data object OnLoadText : ReaderEvent()
+    data class OnLoadText(
+        val activity: ComponentActivity,
+        val fullscreenMode: Boolean
+    ) : ReaderEvent()
 
     data class OnMenuVisibility(
         val show: Boolean,

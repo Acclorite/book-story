@@ -80,14 +80,21 @@ class ReaderModel @Inject constructor(
                                     errorMessage = UIText.StringResource(R.string.error_could_not_get_text)
                                 )
                             }
+                            systemBarsVisibility(show = true, activity = event.activity)
                             return@launch
                         }
+
+                        systemBarsVisibility(
+                            show = !event.fullscreenMode,
+                            activity = event.activity
+                        )
 
                         val lastOpened = getLatestHistory.execute(_state.value.book.id)?.time
                         yield()
 
                         _state.update {
                             it.copy(
+                                showMenu = false,
                                 book = it.book.copy(
                                     lastOpened = lastOpened
                                 ),
@@ -131,23 +138,19 @@ class ReaderModel @Inject constructor(
 
                 is ReaderEvent.OnMenuVisibility -> {
                     launch {
-                        if (_state.value.lockMenu) {
-                            return@launch
-                        }
-
-                        val shouldShow = event.show
+                        if (_state.value.lockMenu) return@launch
 
                         yield()
 
                         systemBarsVisibility(
-                            show = shouldShow || !event.fullscreenMode,
+                            show = event.show || !event.fullscreenMode,
                             activity = event.activity
                         )
                         _state.update {
                             it.copy(
-                                showMenu = shouldShow,
+                                showMenu = event.show,
                                 checkpoint = _state.value.listState.run {
-                                    if (!shouldShow || !event.saveCheckpoint) return@run it.checkpoint
+                                    if (!event.show || !event.saveCheckpoint) return@run it.checkpoint
 
                                     Checkpoint(firstVisibleItemIndex, firstVisibleItemScrollOffset)
                                 }
@@ -475,14 +478,11 @@ class ReaderModel @Inject constructor(
             }
 
             onEvent(
-                ReaderEvent.OnMenuVisibility(
-                    show = false,
-                    fullscreenMode = fullscreenMode,
-                    saveCheckpoint = false,
-                    activity = activity
+                ReaderEvent.OnLoadText(
+                    activity = activity,
+                    fullscreenMode = fullscreenMode
                 )
             )
-            onEvent(ReaderEvent.OnLoadText)
         }
     }
 
