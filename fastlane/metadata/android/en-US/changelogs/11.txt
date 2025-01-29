@@ -1,0 +1,11 @@
+* New languages: Czech & Romanian
+* Images in Reader
+* External storage support
+* UI updates
+* Pin paths in Browse
+* Highlight words option
+* New themes
+* Progress bar option
+* Progress count option
+* Font thickness option
+* More..
