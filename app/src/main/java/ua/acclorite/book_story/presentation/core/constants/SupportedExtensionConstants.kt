@@ -5,7 +5,6 @@ fun Constants.provideExtensions() = listOf(
     ".pdf",
     ".fb2",
     ".txt",
-    ".zip",
     ".html",
     ".htm",
     ".md"

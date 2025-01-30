@@ -43,10 +43,6 @@ class FileParserImpl @Inject constructor(
                 fb2FileParser.parse(file)
             }
 
-            ".zip" -> {
-                epubFileParser.parse(file)
-            }
-
             ".html" -> {
                 htmlFileParser.parse(file)
             }

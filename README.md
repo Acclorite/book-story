@@ -56,7 +56,7 @@ Enjoy a sleek, customizable **reading app** with modern design, built with Jetpa
 <!------------ Features ------------>
 
 ## ✨ Features
-- 8 supported file formats(.pdf, .txt, .epub, .fb2, .zip, .html, .htm, .md)
+- 7 supported file formats(.pdf, .txt, .epub, .fb2, .html, .htm, .md)
 - Material You design with unique themes and color presets
 - Organized Library with categories and chapters in Reader
 - Highly customizable
