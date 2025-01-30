@@ -1,16 +1,21 @@
 package ua.acclorite.book_story.presentation.core.components.dialog
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -27,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -52,11 +58,21 @@ fun Dialog(
     items: (LazyListScope.() -> Unit) = {}
 ) {
     var actionClicked by remember { mutableStateOf(false) }
+
+    val imeInsets = WindowInsets.ime.asPaddingValues().let {
+        it.calculateTopPadding() + it.calculateBottomPadding()
+    }.value
+    val screenHeightDp = LocalConfiguration.current.screenHeightDp
+
+    val maxHeight = animateDpAsState(
+        (screenHeightDp - imeInsets - 32).dp,
+        animationSpec = spring(stiffness = Spring.StiffnessMedium)
+    )
+
     BasicAlertDialog(
         modifier = modifier
             .fillMaxWidth()
-            .navigationBarsPadding()
-            .statusBarsPadding()
+            .heightIn(0.dp, maxHeight.value)
             .clip(MaterialTheme.shapes.extraLarge)
             .background(
                 MaterialTheme.colorScheme.surfaceContainerHigh,
