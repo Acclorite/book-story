@@ -20,13 +20,12 @@
 <a href="">[![Translation Status](https://img.shields.io/weblate/progress/book-story?label=Translated&logo=weblate&labelColor=27303D&color=3f9b86)](https://hosted.weblate.org/engage/book-story/)</a>
 <a href="">[![Matrix](https://img.shields.io/badge/Chat-9b3f90?label=Matrix&logo=matrix&color=539b3f&labelColor=27303D)](https://matrix.to/#/#book-story:matrix.org)</a>
 <a href="">[![License: GPL-3.0-only](https://img.shields.io/badge/GPL--3.0--only-9b3f57?label=License&labelColor=27303D)](/LICENSE)</a>
-</div>
 
 <!------------ Overview ------------>
 
-<center>
-  <h1>Overview</h1>
-</center>
+<h1>Overview</h1>
+
+</div>
 
 <img src="/fastlane/metadata/android/en-US/images/featureGraphic.png">
 
