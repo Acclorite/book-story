@@ -24,7 +24,9 @@
 
 <!------------ Overview ------------>
 
-<h1 style="text-align: center;">Overview</h1>
+<center>
+  <h1>Overview</h1>
+</center>
 
 <img src="/fastlane/metadata/android/en-US/images/featureGraphic.png">
 
