@@ -43,7 +43,7 @@
     <string name="error_something_went_wrong">出现了一些错误。</string>
     <string name="error_no_share_app">未找到要共享的应用。</string>
     <string name="error_no_dictionary">未发现词典应用。</string>
-    <string name="error_could_not_get_text">这本书的内容为空。请确认这本书的内容不为空并更新。</string>
+    <string name="error_could_not_get_text">这本书的内容为空，或有损坏和缺失。请核对文件或尝试更新文件路径。</string>
     <string name="error_check_internet">出现了一些错误。请稍后尝试。</string>
     <string name="error_could_not_reset_cover">无法重置封面图片。</string>
     <string name="error_closed_source">关闭的源</string>
@@ -376,4 +376,8 @@
     <string name="font_thickness_normal">常规</string>
     <string name="font_thickness_medium">中等</string>
     <string name="progress_count_percentage">百分比</string>
+    <string name="change_path">更改路径</string>
+    <string name="path_changed">文件路径已成功修改。</string>
+    <string name="progress_count_option">进度记录</string>
+    <string name="pin_content_desc">固定</string>
 </resources>
