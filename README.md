@@ -69,7 +69,7 @@ Enjoy a sleek, customizable **reading app** with modern design, built with Jetpa
 
 [<img src="https://raw.githubusercontent.com/Kunzisoft/Github-badge/main/get-it-on-github.png" alt='Get it on GitHub' height="80">](https://github.com/Acclorite/book-story/releases/latest)
 [<img src="https://censorship.no/img/gitlab-badge.png" alt='Get it on GitLab' height="80">](https://gitlab.com/Acclorite/book-story/-/releases)
-[<img src="https://codeberg.org/Codeberg/GetItOnCodeberg/media/branch/main/get-it-on-white-on-black.png" alt='Get it on Codeberg' height="48">](https://codeberg.org/Acclorite/book-story/releases)
+[<img src="fastlane/metadata/android/en-US/images/codeberg-badge.png" alt='Get it on Codeberg' height="80">](https://codeberg.org/Acclorite/book-story/releases)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/en/packages/ua.acclorite.book_story/)
 [<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Get it on IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/ua.acclorite.book_story)
 </div>
