@@ -35,7 +35,7 @@
     <string name="error_something_went_wrong">حدث خطأ ما.</string>
     <string name="error_no_translator">لم يتم العثور على تطبيق ترجمة.</string>
     <string name="error_no_browser">لم يتم العثور على متصفح.</string>
-    <string name="error_could_not_get_text">محتوى الكتاب فارغ. من فضلك، تأكد أن محتوى الكتاب ليس فارغا و قم بتحديثه.</string>
+    <string name="error_could_not_get_text">الملف فارغ أو فاسد أو مفقود. يرجى التحقق من الملف أو تحديث المسار و المحاولة مرة أخرى.</string>
     <string name="error_check_internet">حدث خطأ ما. حاول مرة أخرى لاحقا.</string>
     <string name="error_closed_source">مغلق المصدر</string>
     <string name="library_empty">اقرأ كتبك المفضلة و رتبهم باستخدام الفئات</string>
@@ -305,4 +305,6 @@
     <string name="purple_gray_theme">سيريس</string>
     <string name="font_thickness_normal">عادي</string>
     <string name="progress_count_quantity">الكمية</string>
+    <string name="error_no_file">الملف غير موجود</string>
+    <string name="change_path">تغيير المسار</string>
 </resources>
