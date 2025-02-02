@@ -208,20 +208,6 @@ class DocumentParser @Inject constructor(
 
 
         val uncompressedBitmap = getBitmapFromInputStream() ?: return null
-        return when (uncompressedBitmap.byteCount) {
-            in 0..1048576 /* 0 - 1MB */ -> {
-                uncompressedBitmap
-            }
-
-            in 1048576..2097152 /* 1MB - 2MB */ -> {
-                uncompressedBitmap.recycle()
-                getBitmapFromInputStream(2)
-            }
-
-            else -> /* >=2MB */ {
-                uncompressedBitmap.recycle()
-                getBitmapFromInputStream(3)
-            }
-        }
+        return uncompressedBitmap
     }
 }
