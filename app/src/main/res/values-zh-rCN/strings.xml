@@ -1,4 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Book's Story — free and open-source Material You eBook reader.
+  ~ Copyright (C) 2024-2025 Acclorite
+  ~ SPDX-License-Identifier: GPL-3.0-only
+  -->
+
 <resources>
     <string name="move_books">移动书籍？</string>
     <string name="delete_history">删除阅读历史？</string>
