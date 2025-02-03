@@ -145,7 +145,9 @@ _Help translate the app on [Hosted Weblate](https://hosted.weblate.org/engage/bo
 ## 🧾 License
 <div align="center">
   <pre>
-    
+  Book's Story — free and open-source Material You eBook reader.
+  Copyright (C) 2024-2025 Acclorite
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, version 3 of the License.
