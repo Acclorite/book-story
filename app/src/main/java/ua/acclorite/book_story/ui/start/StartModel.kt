@@ -1,31 +1,28 @@
 package ua.acclorite.book_story.ui.start
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Environment
-import android.provider.Settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
-import com.google.accompanist.permissions.shouldShowRationale
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.yield
-import ua.acclorite.book_story.presentation.core.util.launchActivity
+import ua.acclorite.book_story.domain.use_case.permission.GrantNotificationsPermission
+import ua.acclorite.book_story.domain.use_case.permission.GrantStoragePermission
 import javax.inject.Inject
 
 @HiltViewModel
 class StartModel @Inject constructor(
-
+    private val grantStoragePermission: GrantStoragePermission,
+    private val grantNotificationsPermission: GrantNotificationsPermission
 ) : ViewModel() {
 
     private val mutex = Mutex()
@@ -62,113 +59,36 @@ class StartModel @Inject constructor(
             }
 
             is StartEvent.OnStoragePermissionRequest -> {
-                viewModelScope.launch {
-                    val legacyStoragePermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
-
-                    val isPermissionGranted = if (legacyStoragePermission) {
-                        event.storagePermissionState.status.isGranted
-                    } else Environment.isExternalStorageManager()
-
-                    if (isPermissionGranted) {
-                        _state.update {
-                            it.copy(
-                                storagePermissionGranted = true
-                            )
-                        }
-                        return@launch
-                    }
-
-                    if (legacyStoragePermission) {
-                        if (!event.storagePermissionState.status.shouldShowRationale) {
-                            event.storagePermissionState.launchPermissionRequest()
-                        } else {
-                            val uri = Uri.parse("package:${event.activity.packageName}")
-                            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri)
-
-                            intent.launchActivity(event.activity) {
-                                return@launch
-                            }
-                        }
-                    }
-
-                    if (!legacyStoragePermission) {
-                        val uri = Uri.parse("package:${event.activity.packageName}")
-                        val intent = Intent(
-                            Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-                            uri
-                        )
-
-                        intent.launchActivity(event.activity) {
-                            return@launch
-                        }
-                    }
-
-                    storagePermissionJob?.cancel()
-                    storagePermissionJob = viewModelScope.launch {
-                        while (true) {
-                            val granted = if (legacyStoragePermission) {
-                                event.storagePermissionState.status.isGranted
-                            } else Environment.isExternalStorageManager()
-
-                            if (!granted) {
-                                delay(1000)
-                                yield()
-                                continue
-                            }
-
-                            yield()
-
+                storagePermissionJob?.cancel()
+                storagePermissionJob = viewModelScope.launch(Dispatchers.IO) {
+                    grantStoragePermission.execute(
+                        activity = event.activity,
+                        storagePermissionState = event.storagePermissionState
+                    ).apply {
+                        if (this) {
                             _state.update {
                                 it.copy(
                                     storagePermissionGranted = true
                                 )
                             }
-                            break
                         }
                     }
                 }
             }
 
             is StartEvent.OnNotificationsPermissionRequest -> {
-                viewModelScope.launch {
-                    if (event.notificationsPermissionState.status.isGranted) {
-                        _state.update {
-                            it.copy(
-                                notificationsPermissionGranted = true
-                            )
-                        }
-                        return@launch
-                    }
-
-                    if (!event.notificationsPermissionState.status.shouldShowRationale) {
-                        event.notificationsPermissionState.launchPermissionRequest()
-                    } else {
-                        val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-                        intent.putExtra(Settings.EXTRA_APP_PACKAGE, event.activity.packageName)
-
-                        intent.launchActivity(event.activity) {
-                            return@launch
-                        }
-                    }
-
-                    notificationsPermissionJob?.cancel()
-                    notificationsPermissionJob = viewModelScope.launch {
-                        while (true) {
-                            if (!event.notificationsPermissionState.status.isGranted) {
-                                delay(1000)
-                                yield()
-                                continue
-                            }
-
-                            yield()
-
+                notificationsPermissionJob?.cancel()
+                notificationsPermissionJob = viewModelScope.launch(Dispatchers.IO) {
+                    grantNotificationsPermission.execute(
+                        activity = event.activity,
+                        notificationsPermissionState = event.notificationsPermissionState
+                    ).apply {
+                        if (this) {
                             _state.update {
                                 it.copy(
                                     notificationsPermissionGranted = true
                                 )
                             }
-
-                            break
                         }
                     }
                 }

@@ -1,15 +1,11 @@
 package ua.acclorite.book_story.ui.browse
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Environment
-import android.provider.Settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
-import com.google.accompanist.permissions.shouldShowRationale
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -31,7 +27,7 @@ import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
 import ua.acclorite.book_story.domain.use_case.book.InsertBook
 import ua.acclorite.book_story.domain.use_case.file_system.GetBookFromFile
 import ua.acclorite.book_story.domain.use_case.file_system.GetFilesFromDevice
-import ua.acclorite.book_story.presentation.core.util.launchActivity
+import ua.acclorite.book_story.domain.use_case.permission.GrantStoragePermission
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.ui.library.LibraryScreen
 import java.io.File
@@ -40,6 +36,7 @@ import kotlin.collections.map
 
 @HiltViewModel
 class BrowseModel @Inject constructor(
+    private val grantStoragePermission: GrantStoragePermission,
     private val getFilesFromDevice: GetFilesFromDevice,
     private val getBookFromFile: GetBookFromFile,
     private val insertBook: InsertBook
@@ -274,72 +271,13 @@ class BrowseModel @Inject constructor(
             }
 
             is BrowseEvent.OnActionPermissionDialog -> {
-                viewModelScope.launch {
-                    val legacyStoragePermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
-                    val isPermissionGranted = if (legacyStoragePermission) {
-                        event.storagePermissionState.status.isGranted
-                    } else {
-                        Environment.isExternalStorageManager()
-                    }
-
-                    if (isPermissionGranted) {
-                        _state.update {
-                            it.copy(
-                                dialog = null,
-                                isError = false
-                            )
-                        }
-                        onEvent(
-                            BrowseEvent.OnRefreshList(
-                                showIndicator = true,
-                                hideSearch = false
-                            )
-                        )
-                        return@launch
-                    }
-
-                    if (legacyStoragePermission) {
-                        if (!event.storagePermissionState.status.shouldShowRationale) {
-                            event.storagePermissionState.launchPermissionRequest()
-                        } else {
-                            val uri = Uri.parse("package:${event.activity.packageName}")
-                            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri)
-
-                            intent.launchActivity(event.activity) {
-                                return@launch
-                            }
-                        }
-                    }
-
-                    if (!legacyStoragePermission) {
-                        val uri = Uri.parse("package:${event.activity.packageName}")
-                        val intent = Intent(
-                            Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-                            uri
-                        )
-
-                        intent.launchActivity(event.activity) {
-                            return@launch
-                        }
-                    }
-
-                    storagePermissionJob?.cancel()
-                    storagePermissionJob = launch {
-                        while (true) {
-                            val granted = if (legacyStoragePermission) {
-                                event.storagePermissionState.status.isGranted
-                            } else {
-                                Environment.isExternalStorageManager()
-                            }
-
-                            if (!granted) {
-                                delay(1000)
-                                yield()
-                                continue
-                            }
-
-                            yield()
-
+                storagePermissionJob?.cancel()
+                storagePermissionJob = viewModelScope.launch(Dispatchers.IO) {
+                    grantStoragePermission.execute(
+                        activity = event.activity,
+                        storagePermissionState = event.storagePermissionState
+                    ).apply {
+                        if (this) {
                             _state.update {
                                 it.copy(
                                     dialog = null,
@@ -352,7 +290,6 @@ class BrowseModel @Inject constructor(
                                     hideSearch = false
                                 )
                             )
-                            break
                         }
                     }
                 }
@@ -361,19 +298,22 @@ class BrowseModel @Inject constructor(
             is BrowseEvent.OnDismissPermissionDialog -> {
                 viewModelScope.launch {
                     val legacyPermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
-                    val isPermissionGranted = if (!legacyPermission) {
+                    val permissionGranted = if (!legacyPermission) {
                         Environment.isExternalStorageManager()
                     } else event.storagePermissionState.status.isGranted
 
                     storagePermissionJob?.cancel()
-                    _state.update { it.copy(dialog = null) }
+                    _state.update {
+                        it.copy(
+                            isError = !permissionGranted,
+                            dialog = null
+                        )
+                    }
 
-                    if (isPermissionGranted) {
+                    if (permissionGranted) {
                         viewModelScope.launch(Dispatchers.IO) {
                             getFilesFromDownloads()
                         }
-                    } else {
-                        _state.update { it.copy(isError = true) }
                     }
                 }
             }

@@ -1,18 +1,12 @@
 package ua.acclorite.book_story.ui.settings
 
-import android.content.Intent
-import android.os.Build
-import android.provider.Settings
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.isGranted
-import com.google.accompanist.permissions.shouldShowRationale
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -27,15 +21,16 @@ import ua.acclorite.book_story.domain.use_case.color_preset.GetColorPresets
 import ua.acclorite.book_story.domain.use_case.color_preset.ReorderColorPresets
 import ua.acclorite.book_story.domain.use_case.color_preset.SelectColorPreset
 import ua.acclorite.book_story.domain.use_case.color_preset.UpdateColorPreset
+import ua.acclorite.book_story.domain.use_case.permission.GrantNotificationsPermission
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideDefaultColorPreset
-import ua.acclorite.book_story.presentation.core.util.launchActivity
 import ua.acclorite.book_story.presentation.core.util.showToast
 import javax.inject.Inject
 import kotlin.random.Random
 
 @HiltViewModel
 class SettingsModel @Inject constructor(
+    private val grantNotificationsPermission: GrantNotificationsPermission,
     private val getColorPresets: GetColorPresets,
     private val updateColorPreset: UpdateColorPreset,
     private val selectColorPreset: SelectColorPreset,
@@ -98,45 +93,20 @@ class SettingsModel @Inject constructor(
     fun onEvent(event: SettingsEvent) {
         when (event) {
             is SettingsEvent.OnChangeCheckForUpdates -> {
-                if (!event.enable) {
-                    event.onChangeCheckForUpdates(false)
-                    return
-                }
-
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                    event.onChangeCheckForUpdates(true)
-                    return
-                }
-
-                if (event.notificationsPermissionState.status.isGranted) {
-                    event.onChangeCheckForUpdates(true)
-                    return
-                }
-
-                if (!event.notificationsPermissionState.status.shouldShowRationale) {
-                    event.notificationsPermissionState.launchPermissionRequest()
-                } else {
-                    val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-                    intent.putExtra(Settings.EXTRA_APP_PACKAGE, event.activity.packageName)
-
-                    intent.launchActivity(event.activity) {
-                        return
-                    }
-                }
-
                 notificationsPermissionJob?.cancel()
-                notificationsPermissionJob = viewModelScope.launch {
-                    for (i in 1..10) {
-                        if (!event.notificationsPermissionState.status.isGranted) {
-                            delay(1000)
-                            yield()
-                            continue
+                notificationsPermissionJob = viewModelScope.launch(Dispatchers.IO) {
+                    if (!event.enable) {
+                        event.onChangeCheckForUpdates(false)
+                        return@launch
+                    }
+
+                    grantNotificationsPermission.execute(
+                        activity = event.activity,
+                        notificationsPermissionState = event.notificationsPermissionState
+                    ).apply {
+                        if (this) {
+                            event.onChangeCheckForUpdates(true)
                         }
-
-                        yield()
-
-                        event.onChangeCheckForUpdates(true)
-                        break
                     }
                 }
             }
