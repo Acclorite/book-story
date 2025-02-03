@@ -20,15 +20,6 @@ fun Constants.provideFonts(): List<FontWithName> {
             FontFamily.Default
         ),
         FontWithName(
-            "open_dyslexic",
-            UIText.StringValue("Open Dyslexic"),
-            FontFamily(
-                Font(R.font.open_dyslexic_regular),
-                Font(R.font.open_dyslexic_italic, style = FontStyle.Italic),
-                Font(R.font.open_dyslexic_bold, weight = FontWeight.Bold)
-            )
-        ),
-        FontWithName(
             "raleway",
             UIText.StringValue("Raleway"),
             provideVariableFontFamily(
@@ -146,6 +137,15 @@ fun Constants.provideFonts(): List<FontWithName> {
             provideVariableFontFamily(
                 normalResId = R.font.lora_variable,
                 italicResId = R.font.lora_variable_italic
+            )
+        ),
+        FontWithName(
+            "open_dyslexic",
+            UIText.StringValue("Open Dyslexic"),
+            FontFamily(
+                Font(R.font.open_dyslexic_regular),
+                Font(R.font.open_dyslexic_italic, style = FontStyle.Italic),
+                Font(R.font.open_dyslexic_bold, weight = FontWeight.Bold)
             )
         )
     )
