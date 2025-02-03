@@ -30,7 +30,8 @@
 
 <img src="fastlane/metadata/android/en-US/images/featureGraphic.png">
 
-Enjoy a sleek, customizable **reading app** with modern design, built with Jetpack Compose. It’s open-source, offering you a personalized, ad-free journey through your favorite books!
+Enjoy a sleek, customizable **reading app** with modern design, built with Jetpack Compose. It’s
+open-source, offering you a personalized, ad-free journey through your favorite books!
 
 ---
 
@@ -53,6 +54,7 @@ Enjoy a sleek, customizable **reading app** with modern design, built with Jetpa
 <!------------ Features ------------>
 
 ## ✨ Features
+
 - 7 supported file formats(.pdf, .txt, .epub, .fb2, .html, .htm, .md)
 - Material You design with unique themes and color presets
 - Organized Library with categories and chapters in Reader
@@ -63,7 +65,8 @@ Enjoy a sleek, customizable **reading app** with modern design, built with Jetpa
 <!------------ Download guide ------------>
 
 ## ✈️ Download
- - _Please note, that the app supports Android versions only from Android 8.0_
+
+- _Please note, that the app supports Android versions only from Android 8.0_
 
 <div align="left">
 
@@ -81,9 +84,14 @@ Enjoy a sleek, customizable **reading app** with modern design, built with Jetpa
 - _**Installing from GitHub, GitLab, Codeberg**_: Click the "Get it on ..." badge above, select
   desired release, scroll down, and download
   **book-story.apk**. Once downloaded, locate the APK file and install it.
- - _**Installing from F-Droid**_: Click the "Get it on F-Droid" badge above, scroll down, and click "Download APK" under your desired release version to download the APK file. Once downloaded, locate the file and install it.
- - _**Installing from IzzyOnDroid**_: Click the "Get it on IzzyOnDroid" badge above, scroll down, and click "Download" to get the latest APK from IzzyOnDroid. Once downloaded, locate the file and install it.
- - If you're unsure how to install an APK file, follow [this](https://www.lifewire.com/install-apk-on-android-4177185) guide.
+- _**Installing from F-Droid**_: Click the "Get it on F-Droid" badge above, scroll down, and click "
+  Download APK" under your desired release version to download the APK file. Once downloaded, locate
+  the file and install it.
+- _**Installing from IzzyOnDroid**_: Click the "Get it on IzzyOnDroid" badge above, scroll down, and
+  click "Download" to get the latest APK from IzzyOnDroid. Once downloaded, locate the file and
+  install it.
+- If you're unsure how to install an APK file,
+  follow [this](https://www.lifewire.com/install-apk-on-android-4177185) guide.
 
 ---
 
@@ -115,13 +123,16 @@ _Help translate the app on [Hosted Weblate](https://hosted.weblate.org/engage/bo
   solely by me, and I intend to keep it that way. Pull/merge requests will likely be closed, as they
   don’t align with the project's vision.
 - **Submit your suggestions on Issues.** Feel free to share your thoughts!
- - **Join the Matrix server** to share your ideas, report bugs, or just chat with me on [this server](https://matrix.to/#/#book-story:matrix.org)!
+- **Join the Matrix server** to share your ideas, report bugs, or just chat with me
+  on [this server](https://matrix.to/#/#book-story:matrix.org)!
 - **Share your ideas and suggestions.** If you’re missing a feature or have an interesting idea,
   feel free to create a new *Issue*.
 - **Report bugs.** Encountered a crash or something went wrong? Create a new *Issue* with as much
   detail as possible to help resolve it.
- - **Translate the app.** You can help make the app accessible in multiple languages. To contribute, visit [Hosted Weblate](https://hosted.weblate.org/engage/book-story/).
- - **Enjoy the app.** The best contribution is simply using and enjoying the app I spent so much time on!
+- **Translate the app.** You can help make the app accessible in multiple languages. To contribute,
+  visit [Hosted Weblate](https://hosted.weblate.org/engage/book-story/).
+- **Enjoy the app.** The best contribution is simply using and enjoying the app I spent so much time
+  on!
 
 ---
 
@@ -150,16 +161,16 @@ _Help translate the app on [Hosted Weblate](https://hosted.weblate.org/engage/bo
 Book's Story — free and open-source Material You eBook reader.
 Copyright (C) 2024-2025 Acclorite
 
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, version 3 of the License.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, version 3 of the License.
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
 
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
   </pre>
 </div>
