@@ -1,10 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
-
-<resources>
+  --><resources>
     <string name="updates_notification_channel">Nuevas actualizaciones</string>
     <string name="updates_notification_desc">¡Actualización %1$s recién lanzada! Haz clic para ir a la página de lanzamiento.</string>
     <string name="updates_notification_action">Descargar</string>
@@ -291,7 +290,7 @@
     <string name="keep_screen_on_option">Mantener la pantalla encendida</string>
     <string name="fullscreen_option">Pantalla completa</string>
     <string name="cutout_padding_option">Relleno del recorte</string>
-    <string name="padding_reader_settings">Relleno</string>
+    <string name="padding_reader_settings">Márgenes</string>
     <string name="vertical_padding_option">Relleno vertical</string>
     <string name="cutout_padding_option_desc">Aplicar relleno a la zona recortada</string>
     <string name="checkpoint_forward_content_desc">Punto de control nuevo</string>
@@ -322,4 +321,38 @@
     <string name="red_gray_theme">Calisto</string>
     <string name="custom_screen_brightness_option">Brillo personalizado</string>
     <string name="pink2_theme">Ganimedes</string>
+    <string name="images_reader_settings">Imágenes</string>
+    <string name="chapters_reader_settings">Capítulos</string>
+    <string name="highlighted_reading_level">nivel</string>
+    <string name="images_alignment_option">Alineamiento</string>
+    <string name="error_no_file">El archivo no existe</string>
+    <string name="author_changed">El autor fue cambiado correctamente.</string>
+    <string name="title_changed">El título fue cambiado correctamente.</string>
+    <string name="description_changed">La descripción fue cambiada correctamente.</string>
+    <string name="start_reading">Comenzar</string>
+    <string name="file_details">Detalles del archivo</string>
+    <string name="bottom_bar_padding_option">Margen inferior de la barra</string>
+    <string name="edit">Editar</string>
+    <string name="progress_count_percentage">Porcentaje</string>
+    <string name="progress_count_quantity">Cantidad</string>
+    <string name="progress_reader_settings">Progreso</string>
+    <string name="chapter_title_alignment_option">Alineación del título del capítulo</string>
+    <string name="images_width_option">Tamaño</string>
+    <string name="progress_bar_option">Barra de progreso</string>
+    <string name="progress_bar_padding_option">Margenes</string>
+    <string name="progress_bar_font_size_option">Tamaño de la fuente</string>
+    <string name="color_effects_grayscale">Escala de grises</string>
+    <string name="path_changed">La ruta del archivo fue cambiada correctamente.</string>
+    <string name="show_less_content_desc">Mostrar menos</string>
+    <string name="show_more_content_desc">Mostrar más</string>
+    <string name="horizontal_gesture_option">Gesto horizontal</string>
+    <string name="color_effects_font">Color de la fuente</string>
+    <string name="horizontal_gesture_off">Apagar</string>
+    <string name="horizontal_gesture_sensitivity_option">Sensibilidad</string>
+    <string name="horizontal_gesture_on">Encender</string>
+    <string name="highlighted_reading_option">Resaltar palabras</string>
+    <string name="highlighted_reading_option_desc">Resaltar el comienzo de cada palabra</string>
+    <string name="highlighted_reading_thickness_option">Grosor del resalte</string>
+    <string name="font_thickness_option">Grosor de la fuente</string>
+    <string name="reading_mode_reader_settings">Modo de lectura</string>
 </resources>
