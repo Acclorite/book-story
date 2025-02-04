@@ -355,4 +355,7 @@
     <string name="highlighted_reading_thickness_option">Grosor del resalte</string>
     <string name="font_thickness_option">Grosor de la fuente</string>
     <string name="reading_mode_reader_settings">Modo de lectura</string>
+    <string name="continue_reading_query">Continuar desde %1$s</string>
+    <string name="color_effects_background">Color de fondo</string>
+    <string name="progress_bar_alignment_option">Alineamiento</string>
 </resources>
