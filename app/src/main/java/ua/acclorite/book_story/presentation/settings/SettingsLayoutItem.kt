@@ -14,16 +14,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 
 @Composable
 fun SettingsLayoutItem(
@@ -48,19 +48,20 @@ fun SettingsLayoutItem(
             tint = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Column {
-            Text(
+            StyledText(
                 text = title,
-                fontSize = 19.sp,
-                color = MaterialTheme.colorScheme.onSurface,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                style = LocalTextStyle.current.copy(
+                    fontSize = 19.sp,
+                    color = MaterialTheme.colorScheme.onSurface
+                ),
+                maxLines = 1
             )
-            Text(
+            StyledText(
                 text = description,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                ),
+                maxLines = 1
             )
         }
     }

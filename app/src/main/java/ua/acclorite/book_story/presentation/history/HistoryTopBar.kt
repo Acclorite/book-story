@@ -11,7 +11,6 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.DeleteSweep
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -21,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.common.IconButton
 import ua.acclorite.book_story.presentation.core.components.common.SearchTextField
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBar
 import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBarData
 import ua.acclorite.book_story.presentation.navigator.NavigatorIconButton
@@ -56,7 +56,7 @@ fun HistoryTopBar(
                 contentID = 0,
                 contentNavigationIcon = {},
                 contentTitle = {
-                    Text(stringResource(id = R.string.history_screen))
+                    StyledText(stringResource(id = R.string.history_screen))
                 },
                 contentActions = {
                     IconButton(

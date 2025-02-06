@@ -19,19 +19,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.InsertDriveFile
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.browse.SelectableFile
 import ua.acclorite.book_story.presentation.core.components.common.CircularCheckbox
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 import ua.acclorite.book_story.ui.theme.DefaultTransition
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -94,22 +93,22 @@ fun BrowseGridFileItem(file: SelectableFile, hasSelectedItems: Boolean) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            file.name,
-            color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.bodyLarge,
-            maxLines = 2,
-            textAlign = TextAlign.Center,
-            lineHeight = 18.sp,
-            overflow = TextOverflow.Ellipsis
+        StyledText(
+            text = file.name,
+            style = MaterialTheme.typography.bodyLarge.copy(
+                color = MaterialTheme.colorScheme.onSurface,
+                textAlign = TextAlign.Center,
+                lineHeight = 18.sp,
+            ),
+            maxLines = 2
         )
         Spacer(modifier = Modifier.height(2.dp))
-        Text(
-            "$fileSize, $lastModified",
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            style = MaterialTheme.typography.bodySmall,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+        StyledText(
+            text = "$fileSize, $lastModified",
+            style = MaterialTheme.typography.bodySmall.copy(
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            ),
+            maxLines = 1
         )
     }
 }

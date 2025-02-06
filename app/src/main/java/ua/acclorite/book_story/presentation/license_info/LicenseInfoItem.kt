@@ -15,15 +15,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.License
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 import ua.acclorite.book_story.ui.theme.SlidingTransition
 
 @Composable
@@ -40,12 +39,8 @@ fun LazyItemScope.LicenseInfoItem(
             fadeOutSpec = null
         )
     ) {
-        Text(
+        StyledText(
             text = license.name,
-            color = MaterialTheme.colorScheme.onPrimary,
-            style = MaterialTheme.typography.titleSmall,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .clip(RoundedCornerShape(100))
                 .clickable(enabled = license.licenseContent?.isNotBlank() == true) {
@@ -55,7 +50,11 @@ fun LazyItemScope.LicenseInfoItem(
                     MaterialTheme.colorScheme.primary,
                     RoundedCornerShape(100)
                 )
-                .padding(vertical = 6.dp, horizontal = 12.dp)
+                .padding(vertical = 6.dp, horizontal = 12.dp),
+            style = MaterialTheme.typography.titleSmall.copy(
+                color = MaterialTheme.colorScheme.onPrimary,
+            ),
+            maxLines = 1
         )
 
         SlidingTransition(
@@ -64,14 +63,15 @@ fun LazyItemScope.LicenseInfoItem(
         ) {
             Column {
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(
+                StyledText(
                     text = license.licenseContent!!
                         .lines()
                         .joinToString(separator = "\n") {
                             it.trim()
                         },
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 )
             }
         }

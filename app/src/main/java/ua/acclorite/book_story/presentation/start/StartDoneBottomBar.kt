@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 
 @Composable
 fun StartDoneBottomBar(
@@ -49,7 +49,7 @@ fun StartDoneBottomBar(
                     navigateToBrowse()
                 }
             ) {
-                Text(text = stringResource(id = R.string.no))
+                StyledText(text = stringResource(id = R.string.no))
             }
             Spacer(modifier = Modifier.width(18.dp))
             Button(
@@ -59,7 +59,7 @@ fun StartDoneBottomBar(
                     navigateToHelp()
                 }
             ) {
-                Text(text = stringResource(id = R.string.yes_go_to_help))
+                StyledText(text = stringResource(id = R.string.yes_go_to_help))
             }
         }
     }

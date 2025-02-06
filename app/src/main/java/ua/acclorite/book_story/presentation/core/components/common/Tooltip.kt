@@ -8,7 +8,6 @@ package ua.acclorite.book_story.presentation.core.components.common
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.PlainTooltip
-import androidx.compose.material3.Text
 import androidx.compose.material3.TooltipBox
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.rememberTooltipState
@@ -39,7 +38,7 @@ fun Tooltip(
         enableUserInput = enabled,
         tooltip = {
             PlainTooltip {
-                Text(text = text)
+                StyledText(text = text)
             }
         },
         state = rememberTooltipState()

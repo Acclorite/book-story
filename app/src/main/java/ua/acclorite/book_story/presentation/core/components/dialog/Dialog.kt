@@ -27,7 +27,6 @@ import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -47,6 +46,7 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -105,7 +105,7 @@ fun Dialog(
                 Spacer(modifier = Modifier.height(16.dp))
             }
 
-            Text(
+            StyledText(
                 text = title,
                 modifier = Modifier
                     .align(
@@ -113,19 +113,21 @@ fun Dialog(
                         else Alignment.Start
                     )
                     .padding(horizontal = 24.dp),
-                textAlign = if (icon != null) TextAlign.Center
-                else TextAlign.Start,
-                style = MaterialTheme.typography.headlineSmall,
-                color = MaterialTheme.colorScheme.onSurface
+                style = MaterialTheme.typography.headlineSmall.copy(
+                    textAlign = if (icon != null) TextAlign.Center
+                    else TextAlign.Start,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
             )
 
             if (description != null) {
                 Spacer(modifier = Modifier.height(16.dp))
-                Text(
+                StyledText(
                     text = description,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(horizontal = 24.dp)
+                    modifier = Modifier.padding(horizontal = 24.dp),
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 )
             }
 
@@ -156,10 +158,11 @@ fun Dialog(
                             },
                             enabled = !actionClicked
                         ) {
-                            Text(
+                            StyledText(
                                 text = stringResource(id = R.string.cancel),
-                                style = MaterialTheme.typography.labelLarge,
-                                color = MaterialTheme.colorScheme.primary
+                                style = MaterialTheme.typography.labelLarge.copy(
+                                    color = MaterialTheme.colorScheme.primary
+                                )
                             )
                         }
 
@@ -172,12 +175,12 @@ fun Dialog(
                             },
                             enabled = actionEnabled == true && !actionClicked
                         ) {
-                            Text(
+                            StyledText(
                                 text = stringResource(id = R.string.ok),
-                                style = MaterialTheme.typography.labelLarge,
-                                color =
-                                if (actionEnabled == true) MaterialTheme.colorScheme.primary
-                                else MaterialTheme.colorScheme.primary.copy(0.5f)
+                                style = MaterialTheme.typography.labelLarge.copy(
+                                    color = if (actionEnabled == true) MaterialTheme.colorScheme.primary
+                                    else MaterialTheme.colorScheme.primary.copy(0.5f)
+                                )
                             )
                         }
                     }

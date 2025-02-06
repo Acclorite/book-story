@@ -26,7 +26,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,6 +40,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.library.book.Book
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.ui.book_info.BookInfoEvent
 
@@ -97,11 +97,12 @@ fun BookInfoLayoutDescription(
                     )
                 }
         ) {
-            Text(
-                if (!book.description.isNullOrBlank()) book.description
+            StyledText(
+                text = if (!book.description.isNullOrBlank()) book.description
                 else stringResource(id = R.string.error_no_description),
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             )
         }
 

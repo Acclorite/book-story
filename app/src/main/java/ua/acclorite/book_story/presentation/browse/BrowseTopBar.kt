@@ -17,7 +17,6 @@ import androidx.compose.material.icons.filled.SelectAll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
@@ -26,12 +25,12 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.browse.BrowseLayout
 import ua.acclorite.book_story.domain.browse.SelectableFile
 import ua.acclorite.book_story.presentation.core.components.common.IconButton
 import ua.acclorite.book_story.presentation.core.components.common.SearchTextField
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBar
 import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBarData
 import ua.acclorite.book_story.presentation.navigator.NavigatorIconButton
@@ -88,10 +87,9 @@ fun BrowseTopBar(
                 contentID = 0,
                 contentNavigationIcon = {},
                 contentTitle = {
-                    Text(
-                        stringResource(id = R.string.browse_screen),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                    StyledText(
+                        text = stringResource(id = R.string.browse_screen),
+                        maxLines = 1
                     )
                 },
                 contentActions = {
@@ -158,12 +156,11 @@ fun BrowseTopBar(
                     }
                 },
                 contentTitle = {
-                    Text(
-                        stringResource(
+                    StyledText(
+                        text = stringResource(
                             id = R.string.selected_items_count_query,
                             selectedItemsCount.coerceAtLeast(1)
                         ),
-                        overflow = TextOverflow.Ellipsis,
                         maxLines = 1
                     )
                 },

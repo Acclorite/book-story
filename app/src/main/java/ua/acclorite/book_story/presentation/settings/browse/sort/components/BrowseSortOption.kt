@@ -22,18 +22,17 @@ import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.browse.BrowseSortOrder
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.main.MainModel
 
@@ -88,7 +87,7 @@ private fun BrowseSortOptionItem(
         )
         Spacer(modifier = Modifier.width(24.dp))
 
-        Text(
+        StyledText(
             text = stringResource(
                 when (item) {
                     BrowseSortOrder.NAME -> R.string.browse_sort_order_name
@@ -98,8 +97,7 @@ private fun BrowseSortOptionItem(
                 }
             ),
             style = MaterialTheme.typography.bodyLarge,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+            maxLines = 1
         )
     }
 }

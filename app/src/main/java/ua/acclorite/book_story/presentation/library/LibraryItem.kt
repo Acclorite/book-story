@@ -26,7 +26,6 @@ import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -35,11 +34,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.library.book.SelectableBook
 import ua.acclorite.book_story.presentation.core.components.common.AsyncCoverImage
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 import ua.acclorite.book_story.presentation.core.util.calculateProgress
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -111,16 +110,17 @@ fun LazyGridItemScope.LibraryItem(
                 )
             }
 
-            Text(
-                progress,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onPrimary,
+            StyledText(
+                text = progress,
                 modifier = Modifier
                     .padding(6.dp)
                     .clip(MaterialTheme.shapes.small)
                     .background(MaterialTheme.colorScheme.primary, MaterialTheme.shapes.small)
                     .padding(horizontal = 8.dp, vertical = 4.dp),
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.bodySmall.copy(
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                )
             )
 
             FilledIconButton(
@@ -145,16 +145,16 @@ fun LazyGridItemScope.LibraryItem(
             }
         }
         Spacer(modifier = Modifier.height(6.dp))
-        Text(
-            book.data.title,
-            color = fontColor,
-            style = MaterialTheme.typography.bodyMedium,
+        StyledText(
+            text = book.data.title,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 4.dp),
+            style = MaterialTheme.typography.bodyMedium.copy(
+                color = fontColor
+            ),
             minLines = 2,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
+            maxLines = 2
         )
     }
 }

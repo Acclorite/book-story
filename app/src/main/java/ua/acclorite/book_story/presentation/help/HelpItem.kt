@@ -26,7 +26,6 @@ import androidx.compose.material.icons.outlined.ArrowDropUp
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.help.HelpTip
 import ua.acclorite.book_story.domain.util.Position
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
@@ -112,11 +112,12 @@ fun HelpItem(
                 },
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
+            StyledText(
                 text = stringResource(id = helpTip.title),
-                color = MaterialTheme.colorScheme.onSurface,
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                style = MaterialTheme.typography.titleLarge.copy(
+                    color = MaterialTheme.colorScheme.onSurface
+                )
             )
             Spacer(modifier = Modifier.width(8.dp))
             Icon(
@@ -142,7 +143,7 @@ fun HelpItem(
                 Spacer(modifier = Modifier.height(9.dp))
                 HorizontalDivider()
                 Spacer(modifier = Modifier.height(9.dp))
-                Text(
+                StyledText(
                     text = buildAnnotatedString {
                         helpTip.description.invoke(this@buildAnnotatedString)
                     },

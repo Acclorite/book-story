@@ -15,15 +15,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.util.Position
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 
 @Composable
 fun NavigatorBottomSheetItem(
@@ -75,12 +74,12 @@ fun NavigatorBottomSheetItem(
             .padding(horizontal = 18.dp, vertical = 18.dp),
         contentAlignment = Alignment.Center
     ) {
-        Text(
+        StyledText(
             text = title,
-            style = MaterialTheme.typography.labelLarge,
-            color = if (primary) MaterialTheme.colorScheme.onPrimaryContainer
-            else MaterialTheme.colorScheme.onSurface,
-            overflow = TextOverflow.Ellipsis
+            style = MaterialTheme.typography.labelLarge.copy(
+                color = if (primary) MaterialTheme.colorScheme.onPrimaryContainer
+                else MaterialTheme.colorScheme.onSurface
+            )
         )
     }
 }

@@ -11,13 +11,13 @@ import androidx.compose.material.icons.outlined.RestartAlt
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.common.IconButton
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 import ua.acclorite.book_story.presentation.navigator.NavigatorBackIconButton
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,7 +30,7 @@ fun HelpTopBar(
 ) {
     LargeTopAppBar(
         title = {
-            Text(stringResource(id = R.string.help_screen))
+            StyledText(stringResource(id = R.string.help_screen))
         },
         navigationIcon = {
             if (!fromStart) NavigatorBackIconButton(navigateBack = navigateBack)

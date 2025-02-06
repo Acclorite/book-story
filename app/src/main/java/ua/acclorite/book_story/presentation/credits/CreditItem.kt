@@ -16,16 +16,15 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.about.Credit
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -41,19 +40,20 @@ fun CreditItem(
             .clickable(enabled = credit.website != null) { onClick.invoke() }
             .padding(vertical = verticalPadding, horizontal = horizontalPadding)
     ) {
-        Text(
+        StyledText(
             text = credit.name,
-            style = MaterialTheme.typography.titleLarge,
-            color = MaterialTheme.colorScheme.onSurface,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis
+            style = MaterialTheme.typography.titleLarge.copy(
+                color = MaterialTheme.colorScheme.onSurface
+            ),
+            maxLines = 2
         )
 
         credit.source?.let {
-            Text(
+            StyledText(
                 text = it,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             )
         }
 
@@ -64,16 +64,16 @@ fun CreditItem(
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 credit.credits.forEach {
-                    Text(
+                    StyledText(
                         text = it.asString(),
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        style = MaterialTheme.typography.bodySmall,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
-                            .clip(RoundedCornerShape(100))
-                            .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(100))
-                            .padding(vertical = 4.dp, horizontal = 8.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.primary)
+                            .padding(vertical = 4.dp, horizontal = 8.dp),
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            color = MaterialTheme.colorScheme.onPrimary,
+                        ),
+                        maxLines = 1
                     )
                 }
             }

@@ -40,7 +40,6 @@ import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.material.icons.rounded.DragHandle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -55,7 +54,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -70,6 +68,7 @@ import ua.acclorite.book_story.domain.reader.ColorPreset
 import ua.acclorite.book_story.domain.util.Selected
 import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.common.IconButton
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 import ua.acclorite.book_story.presentation.core.components.settings.ColorPickerWithTitle
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategoryTitle
 import ua.acclorite.book_story.ui.settings.SettingsEvent
@@ -306,11 +305,11 @@ private fun ReorderableCollectionItemScope.ColorPresetOptionRowItem(
             )
         }
 
-        Text(
-            title.trim(),
-            color = animatedFontColor.value,
-            style = MaterialTheme.typography.labelLarge,
-            overflow = TextOverflow.Ellipsis,
+        StyledText(
+            text = title.trim(),
+            style = MaterialTheme.typography.labelLarge.copy(
+                color = animatedFontColor.value
+            ),
             maxLines = 1
         )
 
@@ -387,12 +386,12 @@ private fun ColorPresetOptionConfigurationItem(
                 contentAlignment = Alignment.CenterStart
             ) {
                 if (title.value.isEmpty()) {
-                    Text(
-                        stringResource(id = R.string.color_preset_placeholder),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        style = MaterialTheme.typography.titleLarge,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
+                    StyledText(
+                        text = stringResource(id = R.string.color_preset_placeholder),
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        ),
+                        maxLines = 1
                     )
                 }
                 innerText()

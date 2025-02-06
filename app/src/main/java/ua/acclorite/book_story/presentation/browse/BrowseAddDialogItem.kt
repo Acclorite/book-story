@@ -18,17 +18,16 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Error
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.library.book.NullableBook
 import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
 import ua.acclorite.book_story.presentation.core.components.common.CircularCheckbox
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 
 @Composable
 fun BrowseAddDialogItem(result: SelectableNullableBook, onClick: (Boolean) -> Unit) {
@@ -45,19 +44,19 @@ fun BrowseAddDialogItem(result: SelectableNullableBook, onClick: (Boolean) -> Un
             Column(
                 Modifier.weight(1f)
             ) {
-                Text(
+                StyledText(
                     text = result.data.bookWithCover!!.book.title,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        color = MaterialTheme.colorScheme.onSurface
+                    ),
+                    maxLines = 1
                 )
-                Text(
+                StyledText(
                     text = result.data.bookWithCover.book.author.asString(),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    ),
+                    maxLines = 1
                 )
             }
             Row {
@@ -85,12 +84,12 @@ fun BrowseAddDialogItem(result: SelectableNullableBook, onClick: (Boolean) -> Un
                 tint = MaterialTheme.colorScheme.error
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(
+            StyledText(
                 text = result.data.fileName!!,
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.error,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    color = MaterialTheme.colorScheme.error
+                ),
+                maxLines = 2
             )
         }
     }

@@ -10,14 +10,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.selection.DisableSelection
-import androidx.compose.material3.Text
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import ua.acclorite.book_story.domain.util.HorizontalAlignment
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 
 @Composable
 fun ReaderProgressBar(
@@ -38,12 +38,13 @@ fun ReaderProgressBar(
         contentAlignment = progressBarAlignment.alignment
     ) {
         DisableSelection {
-            Text(
+            StyledText(
                 text = progress,
-                color = fontColor,
-                fontSize = progressBarFontSize,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                style = LocalTextStyle.current.copy(
+                    color = fontColor,
+                    fontSize = progressBarFontSize
+                ),
+                maxLines = 1
             )
         }
     }

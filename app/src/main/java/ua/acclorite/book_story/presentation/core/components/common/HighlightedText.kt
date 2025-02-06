@@ -24,7 +24,10 @@ fun HighlightedText(
     modifier: Modifier = Modifier,
     text: AnnotatedString,
     highlightThickness: FontWeight,
-    style: TextStyle
+    style: TextStyle,
+    maxLines: Int = Int.MAX_VALUE,
+    minLines: Int = 1,
+    overflow: TextOverflow = TextOverflow.Ellipsis
 ) {
     val highlightedText = remember(text, highlightThickness) {
         buildAnnotatedString {
@@ -60,7 +63,9 @@ fun HighlightedText(
         text = highlightedText,
         modifier = modifier,
         style = style,
-        overflow = TextOverflow.Ellipsis
+        maxLines = maxLines,
+        minLines = minLines,
+        overflow = overflow
     )
 }
 

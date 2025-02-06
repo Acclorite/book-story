@@ -20,18 +20,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.m3.util.author
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -46,34 +45,36 @@ fun LicensesItem(
             .padding(vertical = 12.dp, horizontal = 18.dp)
     ) {
         Row {
-            Text(
+            StyledText(
                 text = library.name,
                 modifier = Modifier.weight(1f),
-                style = MaterialTheme.typography.titleLarge,
-                color = if (library.openSource) MaterialTheme.colorScheme.onSurface
-                else MaterialTheme.colorScheme.error,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
+                style = MaterialTheme.typography.titleLarge.copy(
+                    color = if (library.openSource) MaterialTheme.colorScheme.onSurface
+                    else MaterialTheme.colorScheme.error
+                ),
+                maxLines = 2
             )
 
             if (library.artifactVersion != null || !library.openSource) {
                 Spacer(modifier = Modifier.width(8.dp))
                 Column(horizontalAlignment = Alignment.End) {
                     library.artifactVersion?.let {
-                        Text(
-                            it,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            textAlign = TextAlign.Center
+                        StyledText(
+                            text = it,
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                textAlign = TextAlign.Center
+                            )
                         )
                     }
 
                     if (!library.openSource) {
-                        Text(
-                            stringResource(id = R.string.error_closed_source),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            textAlign = TextAlign.Center
+                        StyledText(
+                            text = stringResource(id = R.string.error_closed_source),
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                textAlign = TextAlign.Center
+                            )
                         )
                     }
                 }
@@ -81,12 +82,12 @@ fun LicensesItem(
         }
 
         if (library.author.isNotBlank()) {
-            Text(
+            StyledText(
                 text = library.author,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                ),
+                maxLines = 2
             )
         }
         if (library.licenses.isNotEmpty()) {
@@ -96,16 +97,16 @@ fun LicensesItem(
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 library.licenses.forEach {
-                    Text(
+                    StyledText(
                         text = it.name,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        style = MaterialTheme.typography.bodySmall,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
                             .clip(RoundedCornerShape(100))
                             .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(100))
-                            .padding(vertical = 4.dp, horizontal = 8.dp)
+                            .padding(vertical = 4.dp, horizontal = 8.dp),
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            color = MaterialTheme.colorScheme.onPrimary
+                        ),
+                        maxLines = 1
                     )
                 }
             }

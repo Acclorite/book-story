@@ -11,14 +11,13 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationRailItem
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.navigator.NavigatorItem
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 import ua.acclorite.book_story.presentation.core.components.common.Tooltip
 
 @Composable
@@ -34,10 +33,9 @@ fun NavigationRailItem(
                 text = stringResource(id = item.tooltip),
                 padding = 48.dp
             ) {
-                Text(
+                StyledText(
                     text = stringResource(id = item.title),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    maxLines = 1
                 )
             }
         },

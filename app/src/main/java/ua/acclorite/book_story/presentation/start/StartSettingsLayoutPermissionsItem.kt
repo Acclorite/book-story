@@ -19,15 +19,14 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
 
 @Composable
 fun StartSettingsLayoutPermissionsItem(
@@ -44,12 +43,12 @@ fun StartSettingsLayoutPermissionsItem(
     ) {
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
+                StyledText(
                     text = title,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        color = MaterialTheme.colorScheme.onSurface
+                    ),
+                    maxLines = 1
                 )
 
                 if (!isOptional) {
@@ -62,10 +61,11 @@ fun StartSettingsLayoutPermissionsItem(
                     )
                 }
             }
-            Text(
+            StyledText(
                 text = description,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.bodySmall.copy(
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             )
         }
 
@@ -77,22 +77,23 @@ fun StartSettingsLayoutPermissionsItem(
                     onClick = onGrantClick,
                     contentPadding = ButtonDefaults.TextButtonContentPadding
                 ) {
-                    Text(
+                    StyledText(
                         text = stringResource(id = R.string.grant),
                         style = MaterialTheme.typography.labelLarge
                     )
                 }
             } else {
                 TextButton(onClick = onGrantClick) {
-                    Text(text = stringResource(id = R.string.grant))
+                    StyledText(text = stringResource(id = R.string.grant))
                 }
             }
         } else {
-            Text(
+            StyledText(
                 text = stringResource(id = R.string.start_permissions_granted),
-                color = MaterialTheme.colorScheme.primary.copy(0.7f),
-                style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier.padding(ButtonDefaults.TextButtonContentPadding)
+                modifier = Modifier.padding(ButtonDefaults.TextButtonContentPadding),
+                style = MaterialTheme.typography.labelLarge.copy(
+                    color = MaterialTheme.colorScheme.primary.copy(0.7f)
+                )
             )
         }
     }
