@@ -141,10 +141,10 @@
     <string name="translate">Çevir</string>
     <string name="dictionary">Sözlük</string>
     <string name="next">İleri</string>
-    <string name="yes_go_to_help">Evet, Yardım'a git</string>
+    <string name="yes_go_to_help">Evet, Yardım\'a git</string>
     <string name="no">Hayır</string>
     <string name="done">Tamam</string>
-    <string name="web_search">Web'de ara</string>
+    <string name="web_search">Web\'de ara</string>
     <string name="share">Paylaş</string>
     <string name="ok">Tamam</string>
     <string name="change_path">Yolu değiştir</string>
@@ -500,9 +500,9 @@
     <string name="help_desc_how_to_manage_history_2">Geçmiş</string>
     <string name="help_desc_how_to_manage_history_3">
         Geçmiş öğesinin sağındaki silme butonuna tıklayarak geçmiş öğesini silebilirsiniz.
-        Geçmiş, Kütüphane'deki kitap sırasını etkiler.
+        Geçmiş, Kütüphane\'deki kitap sırasını etkiler.
         Bir geçmiş öğesini sildiğinizde kitapların sırası da değişecektir.
-        Son açılan kitap her zaman Kütüphane ve Geçmiş'te ilk sırada yer alır.
+        Son açılan kitap her zaman Kütüphane ve Geçmiş\'te ilk sırada yer alır.
     </string>
 
     <string name="help_title_how_to_use_tooltip">Bilgi balonlarını nasıl kullanabilirim?</string>
@@ -542,12 +542,12 @@
     <string name="help_desc_how_to_use_color_presets_1">
         Görünüm ayarlarına gidin (bkz: Okuyucuyu nasıl özelleştirebilirim?).
         «Renk Ön Ayarı» ayarından hangi renk ön ayarını kullanmak istediğinizi seçebilirsiniz.
-        Kullanmak istediğiniz renk ön ayarına tıklayın, bu işlem ayrıca Okuyucu'daki renklerinizi de değiştirecektir.
+        Kullanmak istediğiniz renk ön ayarına tıklayın, bu işlem ayrıca Okuyucu\'daki renklerinizi de değiştirecektir.
         Bir renk ön ayarını yeniden sıralamak isterseniz, seçin ve «Tutma» simge butonuna basılı tutarak
         istediğiniz konuma sürükleyin.
         Renk ön ayarlarını hızlı bir şekilde değiştirmek için,
         Görünüm ayarlarının «Renkler» alt kategorisindeki ilgili ayarı etkinleştirin
-        ve ardından Okuyucu'da üst çubuğu sola veya sağa kaydırarak hızlı bir şekilde renk ön ayarını değiştirin.
+        ve ardından Okuyucu\'da üst çubuğu sola veya sağa kaydırarak hızlı bir şekilde renk ön ayarını değiştirin.
     </string>
 
       <string name="help_title_how_to_use_perception_expander">
@@ -556,7 +556,7 @@
     <string name="help_desc_how_to_use_perception_expander_1">
         Algı genişletici, daha hızlı okumanıza yardımcı olabilir.
         Öncelikle, Okuyucu ayarlarında etkinleştirin (bkz: Okuyucuyu nasıl özelleştirebilirim?).
-        Etkinleştirildiğinde, Okuyucu'nun her iki yanında iki dikey çizgi görünecektir.
+        Etkinleştirildiğinde, Okuyucu\'nun her iki yanında iki dikey çizgi görünecektir.
         Okuma hızınızı daha da optimize etmek için,
         kenar boşluklarını ayarlayarak merkezi alanı daraltabilirsiniz.
         Kullanımı için ekranın ortasına odaklanarak,
@@ -566,7 +566,7 @@
     </string>
 
     <!-- Start -->
-    <string name="start_welcome">Book\'s Story'e hoş geldiniz!</string>
+    <string name="start_welcome">Book\'s Story\'e hoş geldiniz!</string>
     <string name="start_welcome_desc">
         Kelimelerin büyülediği, öğrettiği ve inanılmaz maceralara sürüklediği bir dünyaya hoş geldiniz!
         Hadi, bazı ayarları yapalım!
@@ -617,7 +617,7 @@
     <string name="arrow_content_desc">Ok</string>
     <string name="required_content_desc">Gerekli</string>
     <string name="reset_start_content_desc">Başlangıç rehberini sıfırla</string>
-    <string name="open_in_web_content_desc">Web'de aç</string>
+    <string name="open_in_web_content_desc">Web\'de aç</string>
     <string name="delete_color_preset_content_desc">Renk ön ayarını sil</string>
     <string name="create_color_preset_content_desc">Yeni renk ön ayarı oluştur</string>
     <string name="shuffle_color_preset_content_desc">Renkleri karıştır</string>
