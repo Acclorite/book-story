@@ -480,5 +480,7 @@
     <string name="show_less_content_desc">Показати менше</string>
     <string name="show_more_content_desc">Показати більше</string>
     <string name="edit_content_desc">Редагувати поле</string>
+    <string name="expand_content_desc">Розгорнути</string>
+    <string name="collapse_content_desc">Згорнути</string>
 
 </resources>

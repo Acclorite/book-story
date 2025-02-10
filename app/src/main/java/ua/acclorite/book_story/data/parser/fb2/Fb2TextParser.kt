@@ -125,7 +125,8 @@ class Fb2TextParser @Inject constructor(
                             if (!chapterAdded && line.clearAllMarkdown().isNotBlank()) {
                                 readerText.add(
                                     0, ReaderText.Chapter(
-                                        title = line.clearAllMarkdown()
+                                        title = line.clearAllMarkdown(),
+                                        nested = false
                                     )
                                 )
                                 chapterAdded = true

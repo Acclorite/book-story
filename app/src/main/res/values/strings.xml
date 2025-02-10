@@ -639,5 +639,7 @@
     <string name="show_less_content_desc">Show less</string>
     <string name="show_more_content_desc">Show more</string>
     <string name="edit_content_desc">Edit field</string>
+    <string name="expand_content_desc">Expand</string>
+    <string name="collapse_content_desc">Collapse</string>
 
 </resources>

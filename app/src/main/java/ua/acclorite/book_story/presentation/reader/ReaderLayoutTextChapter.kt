@@ -49,10 +49,12 @@ fun LazyItemScope.ReaderLayoutTextChapter(
             modifier = Modifier
                 .padding(horizontal = sidePadding)
                 .fillMaxWidth(),
-            style = MaterialTheme.typography.headlineMedium.copy(
-                color = fontColor,
-                textAlign = chapterTitleAlignment.textAlignment
-            ),
+            style = (if (!chapter.nested) MaterialTheme.typography.headlineMedium
+            else MaterialTheme.typography.headlineSmall)
+                .copy(
+                    color = fontColor,
+                    textAlign = chapterTitleAlignment.textAlignment
+                ),
             highlightText = highlightedReading,
             highlightThickness = highlightedReadingThickness
         )
