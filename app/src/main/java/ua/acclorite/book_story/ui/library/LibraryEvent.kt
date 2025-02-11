@@ -15,7 +15,7 @@ import ua.acclorite.book_story.domain.library.category.CategoryWithBooks
 @Immutable
 sealed class LibraryEvent {
     data class OnRefreshList(
-        val showIndicator: Boolean,
+        val loading: Boolean,
         val hideSearch: Boolean
     ) : LibraryEvent()
 
