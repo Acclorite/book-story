@@ -1,10 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
-
-<resources>
+  --><resources>
     <string name="updates_notification_channel">Nuovi aggiornamenti</string>
     <string name="updates_notification_title">Nuovo aggiornamento di Book\'s Story!</string>
     <string name="updates_notification_desc">Aggiornamento %1$s appena rilasciato! Clicca per andare alla pagina del rilascio.</string>
@@ -158,7 +157,7 @@
     <string name="start_language_preferences">Preferenze lingua</string>
     <string name="create_color_preset_content_desc">Crea nuovo preset di colori</string>
     <string name="error_check_internet">Qualcosa è andato storto. Riprova più tardi.</string>
-    <string name="error_could_not_get_text">Il contenuto del libro è vuoto. Assicurati che il contenuto del libro non sia vuoto e aggiornalo.</string>
+    <string name="error_could_not_get_text">Il file è vuoto, danneggiato o mancante. Verifica il file o aggiorna il percorso e riprova.</string>
     <string name="help_title_how_to_add_books">Come aggiungo libri alla Libreria?</string>
     <string name="help_desc_how_to_add_books_1">Vai a</string>
     <string name="today">Oggi</string>
@@ -200,7 +199,7 @@
     <string name="browse_grid_size_per_row">per riga</string>
     <string name="history_deleted">La cronologia è stata eliminata correttamente.</string>
     <string name="press_again_toast">Premere di nuovo Indietro per uscire</string>
-    <string name="file_size">Dimensione del file</string>
+    <string name="file_size">Dimensione</string>
     <string name="help_desc_how_to_add_books_2">Sfoglia</string>
     <string name="already_read_tab">Già letto</string>
     <string name="checkbox_content_desc">Casella di controllo</string>
@@ -208,8 +207,8 @@
     <string name="slava_ukraini">Slava Ukraini!</string>
     <string name="help_title_how_to_customize_reader">Come personalizzo il Lettore?</string>
     <string name="help_desc_how_to_customize_app_1">Vai alle</string>
-    <string name="file_path">Percorso del file</string>
-    <string name="file_last_opened">File aperto l\'ultima volta</string>
+    <string name="file_path">Percorso</string>
+    <string name="file_last_opened">Ultimo aperto</string>
     <string name="help_title_how_to_manage_history">Come gestisco la cronologia?</string>
     <string name="help_desc_how_to_move_or_delete_books_2">Libreria</string>
     <string name="book_moved">Questo libro è stato spostato con successo.</string>
@@ -352,4 +351,33 @@
     <string name="screen_orientation_locked_portrait">Blocco verticale</string>
     <string name="checkpoint_back_content_desc">Punto di controllo indietro</string>
     <string name="horizontal_gesture_on">Acceso</string>
+    <string name="error_no_file">Il file non esiste</string>
+    <string name="progress_count_option">Conteggio dei progressi</string>
+    <string name="title_changed">Il titolo è stato modificato con successo.</string>
+    <string name="continue_reading_query">Continua da %1$s</string>
+    <string name="author_changed">L\'autore è stato modificato con successo.</string>
+    <string name="description_changed">La descrizione è stata modificata con successo.</string>
+    <string name="start_reading">Inizia</string>
+    <string name="edit">Modifica</string>
+    <string name="font_thickness_thin">Sottile</string>
+    <string name="font_thickness_extra_light">Extra leggero</string>
+    <string name="font_thickness_light">Leggero</string>
+    <string name="font_thickness_normal">Normale</string>
+    <string name="font_thickness_medium">Medio</string>
+    <string name="progress_count_percentage">Percentuale</string>
+    <string name="progress_count_quantity">Quantità</string>
+    <string name="purple_gray_theme">Ceres</string>
+    <string name="progress_bar_option_desc">Visualizza la barra di avanzamento in basso</string>
+    <string name="ok">OK</string>
+    <string name="change_path">Cambia percorso</string>
+    <string name="path_changed">Il percorso del file è stato modificato correttamente.</string>
+    <string name="file_details">Dettagli del file</string>
+    <string name="show_less_content_desc">Mostra di meno</string>
+    <string name="pin_content_desc">Appunta</string>
+    <string name="show_more_content_desc">Mostra altro</string>
+    <string name="edit_content_desc">Modifica campo</string>
+    <string name="green2_theme">Io</string>
+    <string name="green_gray_theme">Enceladus</string>
+    <string name="font_thickness_option">Spessore del carattere</string>
+    <string name="progress_bar_font_size_option">Dimensione del carattere</string>
 </resources>

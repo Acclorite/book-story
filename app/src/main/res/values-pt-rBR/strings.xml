@@ -148,7 +148,7 @@
     <string name="font_color_option">Cor da fonte</string>
     <string name="vertical_padding_option">Margens verticais</string>
     <string name="text_alignment_option">Alinhamento do texto</string>
-    <string name="file_size">Tamanho do arquivo</string>
+    <string name="file_size">Tamanho</string>
     <string name="contributors_option">Contribuidores</string>
     <string name="app_theme_option">Tema do aplicativo</string>
     <string name="color_preset_selected_query">Selecionado: «%1$s»</string>
@@ -183,7 +183,7 @@
     <string name="pink2_theme">Ganimedes</string>
     <string name="app_version_option">Versão do aplicativo</string>
     <string name="more_content_desc">Mais</string>
-    <string name="file_path">Caminho do arquivo</string>
+    <string name="file_path">Caminho</string>
     <string name="tryzub_content_desc">Tryzub</string>
     <string name="enable_check_for_updates_description">Ativando «Verificação de atualizações» o aplicativo receberá as informações mais recentes de «api.github.com» toda vez que ele for iniciado. Deseja prosseguir e ativar «Verificação de atualizações»?</string>
     <string name="start_theme_preferences">Prefêrencia de temas</string>
@@ -270,7 +270,7 @@
     <string name="images_reader_settings">Imagens</string>
     <string name="chapter_title_alignment_option">Alinhamento do título do capítulo</string>
     <string name="images_option">Imagens</string>
-    <string name="file_last_opened">Último arquivo aberto</string>
+    <string name="file_last_opened">Último aberto</string>
     <string name="chapters_reader_settings">Capítulos</string>
     <string name="images_alignment_option">Alinhamento</string>
     <string name="help_title_how_to_customize_app">Como faço para personalizar o aplicativo?</string>
@@ -358,4 +358,25 @@
     <string name="no_updates">A última versão do aplicativo já está instalada.</string>
     <string name="yellow2_theme">Makemake</string>
     <string name="pin_content_desc">Fixar</string>
+    <string name="error_no_file">Arquivo não existe</string>
+    <string name="file_details">Detalhes do arquivo</string>
+    <string name="author_changed">Autor foi alterado com sucesso.</string>
+    <string name="start_reading">Começar</string>
+    <string name="title_changed">O título foi alterado com sucesso.</string>
+    <string name="show_less_content_desc">Mostrar menos</string>
+    <string name="edit_content_desc">Editar campo</string>
+    <string name="show_more_content_desc">Mostrar mais</string>
+    <string name="description_changed">A descrição foi alterada com sucesso.</string>
+    <string name="continue_reading_query">Continuar de %1$s</string>
+    <string name="font_thickness_option">Espessura da fonte</string>
+    <string name="edit">Editar</string>
+    <string name="ok">Ok</string>
+    <string name="progress_count_option">Contagem do progresso</string>
+    <string name="font_thickness_thin">Fino</string>
+    <string name="font_thickness_normal">Normal</string>
+    <string name="font_thickness_medium">Médio</string>
+    <string name="font_thickness_extra_light">Ultra leve</string>
+    <string name="font_thickness_light">Leve</string>
+    <string name="progress_count_percentage">Porcentagem</string>
+    <string name="progress_count_quantity">Quantidade</string>
 </resources>
