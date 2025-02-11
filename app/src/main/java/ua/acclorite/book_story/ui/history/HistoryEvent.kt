@@ -15,7 +15,7 @@ import ua.acclorite.book_story.domain.history.History
 @Immutable
 sealed class HistoryEvent {
     data class OnRefreshList(
-        val showIndicator: Boolean,
+        val loading: Boolean,
         val hideSearch: Boolean
     ) : HistoryEvent()
 
