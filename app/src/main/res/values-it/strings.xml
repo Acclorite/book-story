@@ -354,4 +354,6 @@
     <string name="green_gray_theme">Enceladus</string>
     <string name="font_thickness_option">Spessore del carattere</string>
     <string name="progress_bar_font_size_option">Dimensione del carattere</string>
+    <string name="collapse_content_desc">Comprimi</string>
+    <string name="expand_content_desc">Espandi</string>
 </resources>
