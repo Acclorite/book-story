@@ -87,7 +87,7 @@ object BrowseScreen : Screen, Parcelable {
             onRefresh = {
                 screenModel.onEvent(
                     BrowseEvent.OnRefreshList(
-                        showIndicator = true,
+                        loading = false,
                         hideSearch = true
                     )
                 )

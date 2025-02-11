@@ -20,7 +20,7 @@ import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
 @Immutable
 sealed class BrowseEvent {
     data class OnRefreshList(
-        val showIndicator: Boolean,
+        val loading: Boolean,
         val hideSearch: Boolean
     ) : BrowseEvent()
 

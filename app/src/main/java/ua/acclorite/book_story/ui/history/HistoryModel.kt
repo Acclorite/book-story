@@ -56,12 +56,12 @@ class HistoryModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            _state.update {
-                it.copy(
-                    isLoading = true
+            onEvent(
+                HistoryEvent.OnRefreshList(
+                    loading = true,
+                    hideSearch = true
                 )
-            }
-            getHistoryFromDatabase()
+            )
         }
 
         /* Observe channel - - - - - - - - - - - */
@@ -70,7 +70,12 @@ class HistoryModel @Inject constructor(
                 delay(it)
                 yield()
 
-                onEvent(HistoryEvent.OnRefreshList(showIndicator = false, hideSearch = false))
+                onEvent(
+                    HistoryEvent.OnRefreshList(
+                        loading = false,
+                        hideSearch = false
+                    )
+                )
             }
         }
         viewModelScope.launch(Dispatchers.IO) {
@@ -86,7 +91,12 @@ class HistoryModel @Inject constructor(
                 delay(500)
                 yield()
 
-                getHistoryFromDatabase()
+                onEvent(
+                    HistoryEvent.OnRefreshList(
+                        loading = false,
+                        hideSearch = false
+                    )
+                )
                 LibraryScreen.refreshListChannel.trySend(0)
             }
         }
@@ -104,8 +114,8 @@ class HistoryModel @Inject constructor(
                 refreshJob = viewModelScope.launch(Dispatchers.IO) {
                     _state.update {
                         it.copy(
-                            isRefreshing = event.showIndicator,
-                            isLoading = !event.showIndicator,
+                            isRefreshing = true,
+                            isLoading = event.loading,
                             showSearch = if (event.hideSearch) false else it.showSearch
                         )
                     }
@@ -113,7 +123,7 @@ class HistoryModel @Inject constructor(
                     yield()
                     getHistoryFromDatabase()
 
-                    if (event.showIndicator) delay(500)
+                    delay(500)
                     _state.update {
                         it.copy(
                             isRefreshing = false,
@@ -126,7 +136,12 @@ class HistoryModel @Inject constructor(
             is HistoryEvent.OnSearchVisibility -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     if (!event.show) {
-                        getHistoryFromDatabase("")
+                        onEvent(
+                            HistoryEvent.OnRefreshList(
+                                loading = false,
+                                hideSearch = true
+                            )
+                        )
                     } else {
                         _state.update {
                             it.copy(
@@ -175,7 +190,12 @@ class HistoryModel @Inject constructor(
 
             is HistoryEvent.OnSearch -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    getHistoryFromDatabase()
+                    onEvent(
+                        HistoryEvent.OnRefreshList(
+                            loading = false,
+                            hideSearch = false
+                        )
+                    )
                 }
             }
 
@@ -183,10 +203,12 @@ class HistoryModel @Inject constructor(
                 viewModelScope.launch(Dispatchers.IO) {
                     deleteHistory.execute(event.history)
 
-                    _state.update { it.copy(isRefreshing = true) }
-                    getHistoryFromDatabase()
-                    _state.update { it.copy(isRefreshing = false) }
-
+                    onEvent(
+                        HistoryEvent.OnRefreshList(
+                            loading = false,
+                            hideSearch = false
+                        )
+                    )
                     LibraryScreen.refreshListChannel.trySend(0)
 
                     deleteHistoryEntry?.cancel()
@@ -212,10 +234,12 @@ class HistoryModel @Inject constructor(
                             insertHistory.execute(event.history)
                             LibraryScreen.refreshListChannel.trySend(0)
 
-                            _state.update { it.copy(isRefreshing = true) }
-                            getHistoryFromDatabase()
-                            delay(500)
-                            _state.update { it.copy(isRefreshing = false) }
+                            onEvent(
+                                HistoryEvent.OnRefreshList(
+                                    loading = false,
+                                    hideSearch = false
+                                )
+                            )
                         }
                     }
                 }
@@ -242,7 +266,12 @@ class HistoryModel @Inject constructor(
 
                     deleteWholeHistory.execute()
                     LibraryScreen.refreshListChannel.trySend(0)
-                    getHistoryFromDatabase("")
+                    onEvent(
+                        HistoryEvent.OnRefreshList(
+                            loading = true,
+                            hideSearch = true
+                        )
+                    )
 
                     withContext(Dispatchers.Main) {
                         event.context
