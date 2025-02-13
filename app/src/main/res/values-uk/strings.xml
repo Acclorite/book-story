@@ -8,12 +8,6 @@
     <!-- Basic Strings -->
     <string name="default_string">За замовчуванням</string>
 
-    <!-- Notifications -->
-    <string name="updates_notification_channel">Нові оновлення</string>
-    <string name="updates_notification_title">Нове оновлення Book\'s Story!</string>
-    <string name="updates_notification_desc">Оновлення %1$s вийшло! Натисніть, щоб перейти на сторінку релізу.</string>
-    <string name="updates_notification_action">Завантажити</string>
-
     <!-- Screens -->
     <string name="library_screen">Бібліотека</string>
     <string name="history_screen">Історія</string>
@@ -30,7 +24,6 @@
     <string name="delete_book">Видалити книгу?</string>
     <string name="move_book">Перемістити книгу?</string>
     <string name="delete_history">Видалити історію читання?</string>
-    <string name="enable_check_for_updates">Увімнкути перевірку на оновлення?</string>
     <string name="edit">Редагувати</string>
 
     <!-- Dialog Descriptions -->
@@ -41,9 +34,6 @@
     <string name="delete_book_description">Це видалить цю книгу з бази даних. Це не видалить цю книгу з вашого пристрою.</string>
     <string name="move_book_description">Виберіть категорію, в яку ви хочете перемістити цю книгу. Ця книга буде переміщена в обрану категорію.</string>
     <string name="delete_history_description">Це видалить всю історію з бази даних. Після видалення всієї історії порядок книг буде скинутий.</string>
-    <string name="update_app_description">Нова версія застосунку була знайдена. Чи бажаєте продовжити та перейти на сторінку релізу?</string>
-    <string name="enable_check_for_updates_description">Увімкнувши «Перевіряти на оновлення» застосунок буде отримувати інформацію про останній реліз з «api.github.com» кожен раз, коли застосунок запускається. Хочете продовжити та увімкнути «Перевіряти на оновлення»?</string>
-
     <!-- Errors -->
     <string name="error_permission">Нам потрібен дозвіл на сховище, щоб просканувати Ваш Девайс на наявність книг</string>
     <string name="error_no_description">Немає опису.</string>
@@ -56,7 +46,6 @@
         Файл порожній, пошкоджений або відсутній.
         Перевірте файл або змініть шлях і спробуйте ще раз.
     </string>
-    <string name="error_check_internet">Щось пішло не так. Спробуйте пізніше.</string>
     <string name="error_could_not_reset_cover">Не вдалося скинути обкладинку.</string>
     <string name="error_closed_source">Закритий код</string>
     <string name="error_no_file">Файла не існує</string>
@@ -69,7 +58,6 @@
 
     <!-- Query strings -->
     <string name="selected_items_count_query">%1$s обрано</string>
-    <string name="update_query">Оновлення %1$s</string>
     <string name="color_preset_query">Пресет %1$s</string>
     <string name="color_preset_selected_query">Вибрано «%1$s»</string>
 
@@ -153,8 +141,6 @@
     <string name="absolute_dark_option_desc">Змінити колір фона на повністю чорний</string>
     <string name="theme_contrast_option">Контрастність теми</string>
     <string name="app_theme_option">Тема застосунка</string>
-    <string name="check_for_updates_option">Перевіряти на оновлення</string>
-    <string name="check_for_updates_option_desc">Перевіряти на новішу версію застосунку при запуску</string>
     <string name="double_press_exit_option">Подвійне натискання для виходу</string>
     <string name="double_press_exit_option_desc">Натисніть назад двічі, щоб вийти з застосунку</string>
 
@@ -321,7 +307,6 @@
     <string name="book_moved">Ця книга була успішно переміщена.</string>
     <string name="copied">Скопійовано</string>
     <string name="history_deleted">Історія була успішно видалена.</string>
-    <string name="no_updates">Остання версія застосунка вже встановлена.</string>
     <string name="cover_reset">Обкладинка була успішно скинута.</string>
     <string name="title_changed">Назва була успішно змінена.</string>
     <string name="author_changed">Автор був успішно змінений.</string>
@@ -347,7 +332,6 @@
     <!-- About -->
     <string name="app_version_option">Версія застосунка</string>
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
-    <string name="app_version_option_desc_2">Натисніть, щоб перевірити на оновлення</string>
     <string name="report_bug_option">Повідомити про помилку</string>
     <string name="whats_new_option">Що нового</string>
     <string name="licenses_option">Ліцензії з відкритим кодом</string>
@@ -427,8 +411,6 @@
     <string name="start_permissions_granted">Надано</string>
     <string name="start_permissions_storage">Дозвіл на сховище</string>
     <string name="start_permissions_storage_desc">Потрібний, щоб просканувати ваш пристрій та знайти книги</string>
-    <string name="start_permissions_notifications">Дозвіл на сповіщення</string>
-    <string name="start_permissions_notifications_desc">Потрібний, щоб перевірити застосунок на нову версію</string>
     <string name="start_done">Все готово!</string>
     <string name="start_done_desc">Ви успішно закінчили базове налаштовування застосунку. Бажаєте дізнатися, як користуватися застосунком, прочитавши екран Довідки?</string>
 

@@ -26,11 +26,8 @@ import ua.acclorite.book_story.ui.start.StartEvent
 fun LazyListScope.StartSettingsLayoutPermissions(
     activity: ComponentActivity,
     storagePermissionGranted: Boolean,
-    notificationsPermissionGranted: Boolean,
     storagePermissionState: PermissionState,
-    notificationsPermissionState: PermissionState,
     storagePermissionRequest: (StartEvent.OnStoragePermissionRequest) -> Unit,
-    notificationsPermissionRequest: (StartEvent.OnNotificationsPermissionRequest) -> Unit
 ) {
     item {
         Spacer(modifier = Modifier.height(16.dp))
@@ -59,23 +56,6 @@ fun LazyListScope.StartSettingsLayoutPermissions(
                     StartEvent.OnStoragePermissionRequest(
                         activity = activity,
                         storagePermissionState = storagePermissionState
-                    )
-                )
-            }
-        )
-    }
-
-    item {
-        StartSettingsLayoutPermissionsItem(
-            title = stringResource(id = R.string.start_permissions_notifications),
-            description = stringResource(id = R.string.start_permissions_notifications_desc),
-            isOptional = true,
-            isGranted = notificationsPermissionGranted,
-            onGrantClick = {
-                notificationsPermissionRequest(
-                    StartEvent.OnNotificationsPermissionRequest(
-                        activity = activity,
-                        notificationsPermissionState = notificationsPermissionState
                     )
                 )
             }

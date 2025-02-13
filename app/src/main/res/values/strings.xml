@@ -10,17 +10,6 @@
     <string name="app_name" translatable="false">Book\'s Story</string>
     <string name="default_string">Default</string>
 
-    <!-- Notifications -->
-    <string name="updates_notification_channel">New updates</string>
-    <string name="updates_notification_title">New update of Book\'s Story!</string>
-    <string name="updates_notification_desc">
-        Update %1$s just released!
-        Click to go to the release page.
-    </string>
-    <string name="updates_notification_action">
-        Download
-    </string>
-
     <!-- Screens -->
     <string name="library_screen">Library</string>
     <string name="history_screen">History</string>
@@ -37,7 +26,6 @@
     <string name="delete_book">Delete book?</string>
     <string name="move_book">Move book?</string>
     <string name="delete_history">Delete reading history?</string>
-    <string name="enable_check_for_updates">Enable check for updates?</string>
     <string name="edit">Edit</string>
 
     <!-- Dialog Descriptions -->
@@ -70,16 +58,6 @@
         It will delete the whole history from the database.
         After deleting the whole history, the order of the books will be reset.
     </string>
-    <string name="update_app_description">
-        New app version was found.
-        Do you want to proceed and go to the release page?
-    </string>
-    <string name="enable_check_for_updates_description">
-        By enabling «Check for updates»
-        the app will retrieve latest release information from «api.github.com» each time
-        when app starts.
-        Do you want to proceed and enable «Check for updates»?
-    </string>
 
     <!-- Errors -->
     <string name="error_permission">
@@ -98,10 +76,6 @@
     <string name="error_could_not_get_text">
         File is empty, corrupted, or missing.
         Please verify the file or update the path and try again.
-    </string>
-    <string name="error_check_internet">
-        Something went wrong.
-        Try again later.
     </string>
     <string name="error_could_not_reset_cover">Could not reset cover image.</string>
     <string name="error_closed_source">Closed source</string>
@@ -123,7 +97,6 @@
 
     <!-- Query strings -->
     <string name="selected_items_count_query">%1$s selected</string>
-    <string name="update_query">Update %1$s</string>
     <string name="color_preset_query">Preset %1$s</string>
     <string name="color_preset_selected_query">Selected «%1$s»</string>
 
@@ -207,8 +180,6 @@
     <string name="absolute_dark_option_desc">Change background color to be completely black</string>
     <string name="theme_contrast_option">Theme contrast</string>
     <string name="app_theme_option">App theme</string>
-    <string name="check_for_updates_option">Check for updates</string>
-    <string name="check_for_updates_option_desc">Check for newer app version on startup</string>
     <string name="double_press_exit_option">Double back press to exit</string>
     <string name="double_press_exit_option_desc">Press back twice to exit the app</string>
 
@@ -377,7 +348,6 @@
     <string name="book_moved">This book was successfully moved.</string>
     <string name="copied">Copied</string>
     <string name="history_deleted">History was successfully deleted.</string>
-    <string name="no_updates">The latest version of the app is already installed.</string>
     <string name="cover_reset">Cover image was successfully reset.</string>
     <string name="title_changed">Title was successfully changed.</string>
     <string name="author_changed">Author was successfully changed.</string>
@@ -403,7 +373,6 @@
     <!-- About -->
     <string name="app_version_option">App version</string>
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
-    <string name="app_version_option_desc_2">Click to check for updates</string>
     <string name="report_bug_option">Report a bug</string>
     <string name="whats_new_option">What\'s new</string>
     <string name="licenses_option">Open source licenses</string>
@@ -580,8 +549,6 @@
     <string name="start_permissions_granted">Granted</string>
     <string name="start_permissions_storage">Storage permission</string>
     <string name="start_permissions_storage_desc">Required to scan your device and find books</string>
-    <string name="start_permissions_notifications">Notifications permission</string>
-    <string name="start_permissions_notifications_desc">Required to check for newer app version</string>
     <string name="start_done">Everything\'s done!</string>
     <string name="start_done_desc">
         You\'re successfully done basic setting of the app.

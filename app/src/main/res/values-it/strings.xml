@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  --><resources>
-    <string name="updates_notification_channel">Nuovi aggiornamenti</string>
-    <string name="updates_notification_title">Nuovo aggiornamento di Book\'s Story!</string>
-    <string name="updates_notification_desc">Aggiornamento %1$s appena rilasciato! Clicca per andare alla pagina del rilascio.</string>
-    <string name="updates_notification_action">Scarica</string>
+  -->
+
+<resources>
     <string name="library_screen">Biblioteca</string>
     <string name="history_screen">Cronologia</string>
     <string name="default_string">Predefinito</string>
@@ -49,7 +48,6 @@
     <string name="delete">Elimina</string>
     <string name="web_search">Ricerca web</string>
     <string name="dark_theme_on">Abilitato</string>
-    <string name="start_permissions_notifications">Permesso per le notifiche</string>
     <string name="credits_icon">Icone</string>
     <string name="theme_appearance_settings">Preferenze tema</string>
     <string name="go_back_content_desc">Indietro</string>
@@ -64,7 +62,6 @@
     <string name="books_moved">Tutti i libri selezionati sono stati spostati correttamente.</string>
     <string name="error_no_browser">Nessuna app browser trovata.</string>
     <string name="delete_history">Cancellare la cronologia di lettura?</string>
-    <string name="enable_check_for_updates">Abilita controlli degli aggiornamenti?</string>
     <string name="error_no_dictionary">Nessuna app dizionario trovata.</string>
     <string name="storage_permission_description">Abbiamo bisogno del permesso di archiviazione per la scansione del Tuo Dispositivo per i libri. Senza questo permesso, non sarai in grado di aggiungere i libri.</string>
     <string name="done">Fatto</string>
@@ -86,7 +83,6 @@
     <string name="colors_appearance_settings">Colori</string>
     <string name="change_cover_desc">Scegli la nuova copertina dalle tue foto</string>
     <string name="system_reader_settings">Sistema</string>
-    <string name="check_for_updates_option">Controlla aggiornamenti</string>
     <string name="color_preset_option">Preset colori</string>
     <string name="paragraph_indentation_option">Indentazione paragrafo</string>
     <string name="red_color">Rosso</string>
@@ -100,13 +96,10 @@
     <string name="add_books_description">Puoi scegliere quali libri vuoi aggiungere. È possibile modificare il titolo e l\'immagine di copertina in seguito. Il processo di caricamento può richiedere fino a diversi minuti.</string>
     <string name="delete_history_description">Elimina l\'intera cronologia dal database. Dopo avere eliminato la cronologia, l\'ordine dei libri sarà reimpostato.</string>
     <string name="delete_books_description">Eliminerà tutti i libri selezionati (%1$s) dal database. Non eliminerà i libri selezionati dal tuo dispositivo.</string>
-    <string name="update_app_description">Nuova versione dell\'app trovata. Vuoi procedere alla pagina di rilascio?</string>
-    <string name="enable_check_for_updates_description">Abilitando il controllo degli aggiornamenti l\'app cercherà all\'avvio le informazioni sulla versione più recente da «api.github.com». Vuoi procedere e abilitare il controllo degli aggiornamenti?</string>
     <string name="error_no_description">Nessuna descrizione.</string>
     <string name="error_something_went_wrong">Qualcosa è andato storto.</string>
     <string name="error_permission">Abbiamo bisogno del permesso di archiviazione per cercare i libri nel tuo dispositivo</string>
     <string name="library_empty">Leggi i tuoi libri preferiti e ordinali per categoria</string>
-    <string name="update_query">Aggiorna %1$s</string>
     <string name="sort_tab">Ordina</string>
     <string name="color_tab">Colori</string>
     <string name="filter_tab">Filtri</string>
@@ -156,7 +149,6 @@
     <string name="credits_fonts">Caratteri</string>
     <string name="start_language_preferences">Preferenze lingua</string>
     <string name="create_color_preset_content_desc">Crea nuovo preset di colori</string>
-    <string name="error_check_internet">Qualcosa è andato storto. Riprova più tardi.</string>
     <string name="error_could_not_get_text">Il file è vuoto, danneggiato o mancante. Verifica il file o aggiorna il percorso e riprova.</string>
     <string name="help_title_how_to_add_books">Come aggiungo libri alla Libreria?</string>
     <string name="help_desc_how_to_add_books_1">Vai a</string>
@@ -193,7 +185,6 @@
     <string name="screen_brightness_option">Luminosità</string>
     <string name="sort_browse_settings">Ordinamento</string>
     <string name="font_family_option">Famiglia di font</string>
-    <string name="no_updates">L\'ultima versione dell\'app è già installata.</string>
     <string name="help_desc_how_to_read_book_2">Libreria</string>
     <string name="start_welcome">Benvenuti in Book\'s Story!</string>
     <string name="browse_grid_size_per_row">per riga</string>
@@ -213,7 +204,6 @@
     <string name="help_desc_how_to_move_or_delete_books_2">Libreria</string>
     <string name="book_moved">Questo libro è stato spostato con successo.</string>
     <string name="copied">Copiato</string>
-    <string name="app_version_option_desc_2">Clicca per controllare gli aggiornamenti</string>
     <string name="help_desc_how_to_use_tooltip_1">La maggior parte dei pulsanti icona hanno dei suggerimenti, che possono aiutarti se non sai cosa fa un pulsante icona. Per mostrare il tooltip puoi tenere premuto su un pulsante icona.</string>
     <string name="help_desc_how_to_read_book_1">Vai alla</string>
     <string name="help_desc_how_to_use_double_click_translation_1">Per prima cosa, vai alle impostazioni del Lettore(vedi: Come personalizzare il Lettore?), quindi attiva l\'impostazione corrispondente. Dopodiché, inizia a leggere il libro (vedi: Come leggere un libro?). Ora, se fai doppio clic sul paragrafo desiderato, verrà aperto un traduttore esterno con il testo del paragrafo.</string>
@@ -276,7 +266,6 @@
     <string name="help_desc_how_to_customize_reader_2">Impostazioni</string>
     <string name="reset_cover">Ripristina immagine di copertina</string>
     <string name="reset_cover_desc">Ripristina l\'immagine di copertina del libro al valore predefinito</string>
-    <string name="check_for_updates_option_desc">Controlla la versione più recente dell\'app all\'avvio</string>
     <string name="double_press_exit_option">Premere due volte indietro per uscire</string>
     <string name="font_style_option">Stile del font</string>
     <string name="side_padding_option">Margini laterali</string>
@@ -301,7 +290,6 @@
     <string name="start_permissions_granted">Concesso</string>
     <string name="start_permissions_storage">Autorizzazione di archiviazione</string>
     <string name="start_permissions_storage_desc">Necessario per scansionare il tuo dispositivo e trovare i libri</string>
-    <string name="start_permissions_notifications_desc">Necessario per verificare la presenza di una versione più recente dell\'app</string>
     <string name="start_done_desc">Hai completato con successo le impostazioni di base dell\'app. Vuoi imparare a usare l\'app leggendo la schermata di Aiuto?</string>
     <string name="add_files_content_desc">Aggiungi file</string>
     <string name="library_content_desc">La tua libreria</string>

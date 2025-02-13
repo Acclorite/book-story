@@ -12,8 +12,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ua.acclorite.book_story.data.local.data_store.DataStore
 import ua.acclorite.book_story.data.local.data_store.DataStoreImpl
-import ua.acclorite.book_story.data.local.notification.UpdatesNotificationService
-import ua.acclorite.book_story.data.local.notification.UpdatesNotificationServiceImpl
 import ua.acclorite.book_story.data.mapper.book.BookMapper
 import ua.acclorite.book_story.data.mapper.book.BookMapperImpl
 import ua.acclorite.book_story.data.mapper.color_preset.ColorPresetMapper
@@ -30,14 +28,12 @@ import ua.acclorite.book_story.data.repository.DataStoreRepositoryImpl
 import ua.acclorite.book_story.data.repository.FileSystemRepositoryImpl
 import ua.acclorite.book_story.data.repository.HistoryRepositoryImpl
 import ua.acclorite.book_story.data.repository.PermissionRepositoryImpl
-import ua.acclorite.book_story.data.repository.RemoteRepositoryImpl
 import ua.acclorite.book_story.domain.repository.BookRepository
 import ua.acclorite.book_story.domain.repository.ColorPresetRepository
 import ua.acclorite.book_story.domain.repository.DataStoreRepository
 import ua.acclorite.book_story.domain.repository.FileSystemRepository
 import ua.acclorite.book_story.domain.repository.HistoryRepository
 import ua.acclorite.book_story.domain.repository.PermissionRepository
-import ua.acclorite.book_story.domain.repository.RemoteRepository
 import javax.inject.Singleton
 
 @Module
@@ -81,12 +77,6 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindRemoteRepository(
-        remoteRepositoryImpl: RemoteRepositoryImpl
-    ): RemoteRepository
-
-    @Binds
-    @Singleton
     abstract fun bindPermissionRepository(
         permissionRepositoryImpl: PermissionRepositoryImpl
     ): PermissionRepository
@@ -120,10 +110,4 @@ abstract class RepositoryModule {
     abstract fun bindTextParser(
         textParserImpl: TextParserImpl
     ): TextParser
-
-    @Binds
-    @Singleton
-    abstract fun bindNotificationService(
-        updatesNotificationServiceImpl: UpdatesNotificationServiceImpl
-    ): UpdatesNotificationService
 }

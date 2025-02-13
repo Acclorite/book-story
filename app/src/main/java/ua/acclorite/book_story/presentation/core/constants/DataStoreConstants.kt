@@ -21,7 +21,6 @@ object DataStoreConstants {
     val ABSOLUTE_DARK = booleanPreferencesKey("absolute_dark")
     val THEME_CONTRAST = stringPreferencesKey("theme_contrast")
     val SHOW_START_SCREEN = booleanPreferencesKey("guide")
-    val CHECK_FOR_UPDATES = booleanPreferencesKey("check_for_updates")
     val DOUBLE_PRESS_EXIT = booleanPreferencesKey("double_press_exit")
 
     // Reader settings

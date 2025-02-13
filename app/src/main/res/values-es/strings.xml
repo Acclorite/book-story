@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  --><resources>
-    <string name="updates_notification_channel">Nuevas actualizaciones</string>
-    <string name="updates_notification_desc">¡Actualización %1$s recién lanzada! Haz clic para ir a la página de lanzamiento.</string>
-    <string name="updates_notification_action">Descargar</string>
+  -->
+
+<resources>
     <string name="library_screen">Biblioteca</string>
     <string name="history_screen">Historial</string>
     <string name="browse_screen">Navegar</string>
@@ -18,10 +18,8 @@
     <string name="move_books">¿Mover libros?</string>
     <string name="delete_books">¿Borrar libros?</string>
     <string name="delete_book">¿Borrar libro?</string>
-    <string name="updates_notification_title">¡Nueva actualización de Book\'s Story!</string>
     <string name="move_book">¿Mover libro?</string>
     <string name="delete_history">¿Borrar el historial de lectura?</string>
-    <string name="enable_check_for_updates">¿Comprobar actualizaciones?</string>
     <string name="move_books_description">Elija la categoría a la que desea mover todos los libros seleccionados (%1$s). Todos los libros seleccionados serán trasladados a la categoría seleccionada.</string>
     <string name="move_book_description">Elija la categoría a la que quiere mover este libro. Este libro será trasladado a la categoría seleccionada.</string>
     <string name="delete_history_description">Eliminará todo el historial de la base de datos. Después de borrar todo el historial, el orden de los libros se restablecerá.</string>
@@ -57,8 +55,6 @@
     <string name="paragraph_indentation_option">Indentación del párrafo</string>
     <string name="background_color_option">Color de fondo</string>
     <string name="font_color_option">Color de fuente</string>
-    <string name="check_for_updates_option">Buscar actualizaciones</string>
-    <string name="check_for_updates_option_desc">Buscar nueva versión de la aplicación al abrirla</string>
     <string name="side_padding_option">Relleno lateral</string>
     <string name="double_click_translation_option">Traducción de doble clic</string>
     <string name="red_color">Rojo</string>
@@ -83,22 +79,17 @@
     <string name="start_welcome">¡Bienvenid@ a Book\'s Story!</string>
     <string name="drag_content_desc">Arrastrar</string>
     <string name="delete">Borrar</string>
-    <string name="start_permissions_notifications">Permisos de notificación</string>
     <string name="storage_permission_description">Necesitamos permiso de almacenamiento para escanear su dispositivo en busca de libros. Sin este permino, no podrá añadir libros.</string>
     <string name="delete_books_description">Eliminará todos los libros seleccionados(%1$s) de la base de datos. No eliminará los libros seleccionados de su dispositivo.</string>
     <string name="add_books_description">Puede escoger qué libros desea añadir. Puede editar el título y la portada del libro más adelante. El proceso de carga puede durar varios minutos.</string>
     <string name="delete_book_description">Eliminará este libro de la base de datos. No eliminará este libro de su dispositivo.</string>
-    <string name="update_app_description">Se encontró una nueva versión de la aplicación. ¿Quieres continuar e ir a la página de actualizaciones?</string>
     <string name="error_no_translator">No se ha encontrado ninguna aplicación de traducción.</string>
     <string name="error_could_not_get_text">El contenido del libro está vacío. Por favor, asegúrate de que el contenido del libro no está vacío y actualizado.</string>
-    <string name="error_check_internet">Algo salió mal. Inténtelo de nuevo más tarde.</string>
-    <string name="enable_check_for_updates_description">Al habilitar «Comprobar actualizaciones» la aplicación conseguirá la última información de lanzamiento de «api.github.com» cada vez que comience la aplicación. ¿Quieres continuar y habilitar «Comprobar actualizaciones»?</string>
     <string name="error_could_not_reset_cover">No se pudo reiniciar la portada.</string>
     <string name="browse_empty">Expanda la colección de libros de la biblioteca con sus descargas</string>
     <string name="library_empty">Lea sus libros favoritos y ordénelos en categorías</string>
     <string name="history_empty">Deje que su último libro leído abra las páginas de una nueva gran historia en su viaje de lectura</string>
     <string name="translate">Traducir</string>
-    <string name="update_query">Actualizar %1$s</string>
     <string name="grant_permission">Conceder permiso</string>
     <string name="never">Nunca</string>
     <string name="copy">Copiar</string>
@@ -139,7 +130,6 @@
     <string name="press_again_toast">Presione atrás de nuevo para salir</string>
     <string name="cover_image_deleted">La portada fue eliminada.</string>
     <string name="help_desc_how_to_read_book_3">Para empezar a leer el libro haga clic en el botón en la esquina inferior derecha del libro que desea leer. También puede comenzar a leer el libro haciendo clic en la portada para ver los detalles del libro y luego haga clic en el botón en la esquina inferior derecha. El progreso será guardado y restaurado automáticamente. Puede traer barras superiores e inferiores haciendo clic en cualquier lugar de la pantalla. Al hacer clic en el título del libro será transferido a los detalles del libro. Al hacer clic en el icono de engranaje verá los ajustes del lector. Puedes usar el control deslizante de la barra inferior para cambiar el progreso.</string>
-    <string name="no_updates">La última versión de la aplicación ya está instalada.</string>
     <string name="cover_reset">La imagen de la portada se restableció correctamente.</string>
     <string name="book_deleted">El libro fue eliminado.</string>
     <string name="purple_theme">Júpiter</string>
@@ -159,7 +149,6 @@
     <string name="unknown">Desconocido</string>
     <string name="app_version_option">Versión de la aplicación</string>
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
-    <string name="app_version_option_desc_2">Haz clic para comprobar si hay actualizaciones</string>
     <string name="slava_ukraini">¡Gloria a Ucrania!</string>
     <string name="credits_design">Diseño</string>
     <string name="help_desc_how_to_add_books_1">Ir a la</string>
@@ -191,7 +180,6 @@
     <string name="help_title_how_to_use_double_click_translation">¿Cómo utilizo la traducción de doble clic?</string>
     <string name="start_welcome_desc">¡Hacia un mundo donde las palabras cautivan, enseñan y conducen a increíbles aventuras! ¡Vamos a preparar algunas cosas!</string>
     <string name="start_permissions_granted">Concedido</string>
-    <string name="start_permissions_notifications_desc">Requerido para buscar si hay una versión más reciente de la aplicación</string>
     <string name="start_done">¡Todo está listo!</string>
     <string name="start_permissions_storage">Permiso de almacenamiento</string>
     <string name="help_desc_how_to_use_double_click_translation_1">En primer lugar, vaya a los ajustes del lector (ver: ¿Cómo personalizo el lector?), luego encienda el ajuste correspondiente. Después de eso, comienza a leer el libro (ver: ¿Cómo leo un libro?). Ahora si hace doble clic en el párrafo deseado, el traductor externo se abrirá con el texto del párrafo.</string>

@@ -15,8 +15,6 @@
     <string name="change_cover_desc">从你的图库中选择新封面</string>
     <string name="delete_cover">删除封面图片</string>
     <string name="author">作者</string>
-    <string name="update_query">更新 %1$s</string>
-    <string name="updates_notification_action">下载</string>
     <string name="dictionary">词典</string>
     <string name="settings_screen">设置</string>
     <string name="error_no_translator">未发现翻译应用。</string>
@@ -24,8 +22,6 @@
     <string name="color_preset_query">预设 %1$s</string>
     <string name="cancel">取消</string>
     <string name="error_permission">我们需要存储权限以扫描您的设备上的书</string>
-    <string name="updates_notification_title">Book\'s Story 的新更新！</string>
-    <string name="updates_notification_desc">更新 %1$s 已发布！点击前往发布页面。</string>
     <string name="library_screen">书库</string>
     <string name="history_screen">历史</string>
     <string name="browse_screen">浏览</string>
@@ -37,14 +33,11 @@
     <string name="delete_book_description">这本书将会从数据库中删除，但不会从您的设备上删除。</string>
     <string name="move_book_description">选择你想将这本书移动到的分类。这本书将会被移动到指定的分类。</string>
     <string name="delete_history_description">所有的历史将从数据库中被删除。删除所有的历史后，书的顺序将会被重置。</string>
-    <string name="update_app_description">发现了新版本。您想继续并前往发布页面吗？</string>
-    <string name="enable_check_for_updates_description">启用《检查更新》之后，应用将在每次启动时从《api.github.com》获取最新发布信息。是否要继续并启用《检查更新》？</string>
     <string name="error_no_description">无简介。</string>
     <string name="error_something_went_wrong">出现了一些错误。</string>
     <string name="error_no_share_app">未找到要共享的应用。</string>
     <string name="error_no_dictionary">未发现词典应用。</string>
     <string name="error_could_not_get_text">这本书的内容为空，或有损坏和缺失。请核对文件或尝试更新文件路径。</string>
-    <string name="error_check_internet">出现了一些错误。请稍后尝试。</string>
     <string name="error_could_not_reset_cover">无法重置封面图片。</string>
     <string name="error_closed_source">关闭的源</string>
     <string name="browse_empty">通过下载扩展图书馆的藏书</string>
@@ -73,9 +66,7 @@
     <string name="translate">翻译</string>
     <string name="copy">复制</string>
     <string name="selected_items_count_query">已选择 %1$s</string>
-    <string name="enable_check_for_updates">启用检查更新？</string>
     <string name="delete_books">删除书籍？</string>
-    <string name="updates_notification_channel">新更新</string>
     <string name="add_books_description">您可以挑选您想添加哪些书。您可以在之后编辑书的标题与封面图片。加载过程可能会花费数分钟。</string>
     <string name="move_books_description">选择你想将所选的书（%1$s）移动到的分类。所有被选择的书将会被移动到指定的分类。</string>
     <string name="reading_speed_reader_settings">阅读速度</string>
@@ -93,7 +84,6 @@
     <string name="language_option">应用语言</string>
     <string name="pure_dark_option">纯黑（OLED）</string>
     <string name="theme_contrast_option">主题对比</string>
-    <string name="check_for_updates_option">检查更新</string>
     <string name="double_press_exit_option">双击返回退出</string>
     <string name="double_press_exit_option_desc">双击返回退出应用</string>
     <string name="font_family_option">字体系列</string>
@@ -113,7 +103,6 @@
     <string name="app_theme_option">应用主题</string>
     <string name="colors_appearance_settings">颜色</string>
     <string name="translator_reader_settings">翻译器</string>
-    <string name="check_for_updates_option_desc">在启动时检查新版本</string>
     <string name="sort_browse_settings">排序</string>
     <string name="blue_color">蓝色</string>
     <string name="paragraph_height_option">段落间距</string>
@@ -196,7 +185,6 @@
     <string name="book_moved">这本书已被成功移动。</string>
     <string name="copied">已复制</string>
     <string name="history_deleted">成功删除历史。</string>
-    <string name="no_updates">本应用的最新版本已被安装。</string>
     <string name="cover_image_changed">成功更改了封面图片。</string>
     <string name="history_element_deleted">成功删除了历史元素。</string>
     <string name="books_moved">成功移动所有已选择的书。</string>
@@ -213,7 +201,6 @@
     <string name="credits_ideas">想法</string>
     <string name="help_title_how_to_add_books">我应该如何添加书籍到库中？</string>
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
-    <string name="app_version_option_desc_2">点击检查更新</string>
     <string name="help_desc_how_to_add_books_4">书库中</string>
     <string name="file_path">路径</string>
     <string name="credits_icon">图标</string>
@@ -276,12 +263,10 @@
     <string name="start_permissions_preferences">权限</string>
     <string name="start_done">设置完成！</string>
     <string name="error_content_desc">错误</string>
-    <string name="start_permissions_notifications">通知权限</string>
     <string name="start_permissions_granted">已授权</string>
     <string name="start_permissions_storage">存储权限</string>
     <string name="start_done_desc">你已经成功完成了应用基本设置。要参阅帮助以获取更多使用技巧吗？</string>
     <string name="cover_image_not_found_content_desc">未找到封面图片</string>
-    <string name="start_permissions_notifications_desc">用于检查应用更新</string>
     <string name="start_language_preferences">语言偏好</string>
     <string name="start_theme_preferences">应用主题</string>
     <string name="sort_order_content_desc">排序规则</string>

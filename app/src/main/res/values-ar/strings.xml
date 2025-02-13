@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  --><resources>
+  -->
+
+<resources>
     <string name="history_screen">التاريخ</string>
     <string name="add_books_description">يمكنك اختيار أي الكُتب تريد إضافتها. يمكنك تعديل العنوان و صورة غلاف الكتاب لاحقا. عملية التحميل يمكن أن تستغرق حتى بضع دقائق.</string>
     <string name="storage_permission_description">نحتاج إذن التخزين لفحص جهازك من أجل الكُتب. من دون هذا الإذن، لن تكون قادرا على إضافة كتاب.</string>
-    <string name="updates_notification_desc">التحديث %1$s تم نشره للتو! انقر للذهاب الى صفحة الإصدار.</string>
     <string name="move_book_description">اختر الفئة التي تريد نقل هذا الكتاب إليها. سيتم نقل هذا الكتاب إلى الفئة المُحدّدة.</string>
-    <string name="update_app_description">تم العثور على إصدار جديد من Book\'s Story. هل تريد الإنتقال الى صفحة الاصدار ؟</string>
-    <string name="updates_notification_channel">التحديثات الجديدة</string>
-    <string name="updates_notification_title">تحديث جديد ل Book\'s Story!</string>
-    <string name="updates_notification_action">تحميل</string>
     <string name="library_screen">المكتبة</string>
     <string name="browse_screen">تصفح</string>
     <string name="settings_screen">الإعدادات</string>
@@ -25,22 +23,18 @@
     <string name="delete_book">حذف الكتاب؟</string>
     <string name="move_book">نقل الكتاب؟</string>
     <string name="delete_history">حذف تاريخ القراءة؟</string>
-    <string name="enable_check_for_updates">تفعيل التحقق من التنبيهات؟</string>
     <string name="move_books_description">اختر الفئة التي تريد نقل جميع الكُتب (%1$s) المُحدّدة. جميع الكُتب المُحدّدة سيتم نقلها إلى الفئة المُحدّدة.</string>
     <string name="delete_books_description">هذا سيحذف جميع الكُتب (%1$s) المُحدّدة من قاعدة البيانات. هذا لن يحذف الكُتب المُحدّدة مِن جهازك.</string>
     <string name="delete_book_description">هذا سيحذف هذا الكتاب من قاعدة البيانات. هذا لن يحذف الكتاب من جهازك.</string>
     <string name="delete_history_description">هذا سيحذف التاريخ بأكمله من قاعدة البيانات. بعد حذف التاريخ بأكمله، سيتم إعادة ضبط ترتيب الكُتب.</string>
-    <string name="enable_check_for_updates_description">بتفعيل «البحث عن التحديثات» سيستخرج التطبيق معلومات اخر اصدار من «api.github.com» في كل مرة عند تشغيل التطبيق. هل تريد المضي قدما و تفعيل «البحث عن تحديثات»؟</string>
     <string name="error_something_went_wrong">حدث خطأ ما.</string>
     <string name="error_no_translator">لم يتم العثور على تطبيق ترجمة.</string>
     <string name="error_no_browser">لم يتم العثور على متصفح.</string>
     <string name="error_could_not_get_text">الملف فارغ أو فاسد أو مفقود. يرجى التحقق من الملف أو تحديث المسار و المحاولة مرة أخرى.</string>
-    <string name="error_check_internet">حدث خطأ ما. حاول مرة أخرى لاحقا.</string>
     <string name="error_closed_source">مغلق المصدر</string>
     <string name="library_empty">اقرأ كُتبك المُفضلة و رتبهم باستخدام الفئات</string>
     <string name="history_empty">دع آخر كتاب قرأته يفتح صفحات قصة جديدة عظيمة من رحلة قرائتك</string>
     <string name="error_could_not_reset_cover">غير قادر على إعادة ضبط صورة الغلاف.</string>
-    <string name="update_query">تحديث %1$s</string>
     <string name="cancel">إلغاء</string>
     <string name="grant">امنح</string>
     <string name="grant_permission">امنح الإذن</string>
@@ -93,7 +87,6 @@
     <string name="font_family_option">نوع الخط</string>
     <string name="font_size_option">حجم الخط</string>
     <string name="paragraph_height_option">تباعد الفقرة</string>
-    <string name="check_for_updates_option_desc">التحقق من التحديثات الجديدة للتطبيق عند بدء التطبيق</string>
     <string name="general_settings">عام</string>
     <string name="paragraph_indentation_option">إزاحة الفقرة</string>
     <string name="pure_dark_on">مفعل</string>
@@ -113,7 +106,6 @@
     <string name="line_height_option">ارتفاع الخط</string>
     <string name="background_color_option">لون الخلفية</string>
     <string name="font_color_option">لون الخط</string>
-    <string name="check_for_updates_option">التحقق من وجود تحديثات</string>
     <string name="double_click_translation_option">النقر المزدوج للترجمة</string>
     <string name="double_click_translation_option_desc">النقر المزدوج على فقرة لترجمتها</string>
     <string name="browse_layout_list">قائمة</string>
@@ -135,7 +127,6 @@
     <string name="books_deleted">حُذفت جميع الكُتب المُحدّدة بنجاح.</string>
     <string name="copied">تم النسخ</string>
     <string name="cover_image_deleted">تم حذف صورة الغلاف بنجاح.</string>
-    <string name="no_updates">أحدث إصدار من التطبيق مثبت بالفعل.</string>
     <string name="history_deleted">حُذف التاريخ بنجاح.</string>
     <string name="cover_reset">تم إعادة تعيين صورة الغلاف بنجاح.</string>
     <string name="theme_contrast_high">عالي</string>
@@ -165,7 +156,6 @@
     <string name="alignment_start">ابدأ</string>
     <string name="alignment_center">المركز</string>
     <string name="file_path">المسار</string>
-    <string name="app_version_option_desc_2">انقر للتحقق من وجود تحديثات</string>
     <string name="report_bug_option">الإبلاغ عن خطأ</string>
     <string name="whats_new_option">ما الجديد</string>
     <string name="alignment_end">النهاية</string>
@@ -344,7 +334,6 @@
     <string name="open_reader_settings_content_desc">إعدادات القارئ</string>
     <string name="cutout_padding_option_desc">تطبيق الهامش على منطقة القطع</string>
     <string name="required_content_desc">مطلوب</string>
-    <string name="start_permissions_notifications_desc">مطلوب للتحقق من إصدار تطبيق أحدث</string>
     <string name="error_content_desc">خطأ</string>
     <string name="cover_image_not_found_content_desc">لم يتم العثور غلاف صورة</string>
     <string name="more_content_desc">المزيد</string>
@@ -354,7 +343,6 @@
     <string name="arrow_content_desc">سهم</string>
     <string name="start_permissions_granted">منحت</string>
     <string name="start_permissions_storage">إذن التخزين</string>
-    <string name="start_permissions_notifications">إذن الإشعارات</string>
     <string name="yesterday">أمس</string>
     <string name="sort_order_content_desc">ترتيب الفرز</string>
     <string name="start_permissions_preferences">الأذونات</string>

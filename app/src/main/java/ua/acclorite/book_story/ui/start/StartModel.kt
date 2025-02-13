@@ -21,14 +21,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.yield
-import ua.acclorite.book_story.domain.use_case.permission.GrantNotificationsPermission
 import ua.acclorite.book_story.domain.use_case.permission.GrantStoragePermission
 import javax.inject.Inject
 
 @HiltViewModel
 class StartModel @Inject constructor(
-    private val grantStoragePermission: GrantStoragePermission,
-    private val grantNotificationsPermission: GrantNotificationsPermission
+    private val grantStoragePermission: GrantStoragePermission
 ) : ViewModel() {
 
     private val mutex = Mutex()
@@ -37,7 +35,6 @@ class StartModel @Inject constructor(
     val state = _state.asStateFlow()
 
     private var storagePermissionJob: Job? = null
-    private var notificationsPermissionJob: Job? = null
 
     @OptIn(ExperimentalPermissionsApi::class)
     fun onEvent(event: StartEvent) {
@@ -45,20 +42,13 @@ class StartModel @Inject constructor(
             is StartEvent.OnCheckPermissions -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     val legacyStoragePermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
-                    val legacyNotificationPermission =
-                        Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU
-
                     val storagePermissionGranted = if (!legacyStoragePermission) {
                         Environment.isExternalStorageManager()
                     } else event.storagePermissionState.status.isGranted
-                    val notificationPermissionGranted = if (!legacyNotificationPermission) {
-                        event.notificationsPermissionState.status.isGranted
-                    } else true
 
                     _state.update {
                         it.copy(
-                            storagePermissionGranted = storagePermissionGranted,
-                            notificationsPermissionGranted = notificationPermissionGranted
+                            storagePermissionGranted = storagePermissionGranted
                         )
                     }
                 }
@@ -81,24 +71,6 @@ class StartModel @Inject constructor(
                     }
                 }
             }
-
-            is StartEvent.OnNotificationsPermissionRequest -> {
-                notificationsPermissionJob?.cancel()
-                notificationsPermissionJob = viewModelScope.launch(Dispatchers.IO) {
-                    grantNotificationsPermission.execute(
-                        activity = event.activity,
-                        notificationsPermissionState = event.notificationsPermissionState
-                    ).apply {
-                        if (this) {
-                            _state.update {
-                                it.copy(
-                                    notificationsPermissionGranted = true
-                                )
-                            }
-                        }
-                    }
-                }
-            }
         }
     }
 
@@ -106,8 +78,6 @@ class StartModel @Inject constructor(
         viewModelScope.launch {
             _state.update {
                 storagePermissionJob?.cancel()
-                notificationsPermissionJob?.cancel()
-
                 StartState()
             }
         }

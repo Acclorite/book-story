@@ -9,23 +9,13 @@
 package ua.acclorite.book_story.ui.settings
 
 import android.content.Context
-import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.domain.util.ID
 
 @Immutable
 sealed class SettingsEvent {
-
-    data class OnChangeCheckForUpdates(
-        val enable: Boolean,
-        val activity: ComponentActivity,
-        val notificationsPermissionState: PermissionState,
-        val onChangeCheckForUpdates: (Boolean) -> Unit
-    ) : SettingsEvent()
-
     data class OnSelectColorPreset(
         val id: ID
     ) : SettingsEvent()

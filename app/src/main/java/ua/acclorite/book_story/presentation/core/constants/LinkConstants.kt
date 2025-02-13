@@ -8,9 +8,6 @@
 
 package ua.acclorite.book_story.presentation.core.constants
 
-fun Constants.provideDownloadLatestReleasePage() =
-    "https://www.github.com/Acclorite/book-story/releases/latest/download/book-story.apk"
-
 fun Constants.provideReleasesPage() =
     "https://www.github.com/Acclorite/book-story/releases/latest"
 

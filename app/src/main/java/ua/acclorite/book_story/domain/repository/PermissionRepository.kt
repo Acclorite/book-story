@@ -17,10 +17,4 @@ interface PermissionRepository {
         activity: ComponentActivity,
         storagePermissionState: PermissionState
     ): Boolean
-
-    @OptIn(ExperimentalPermissionsApi::class)
-    suspend fun grantNotificationsPermission(
-        activity: ComponentActivity,
-        notificationsPermissionState: PermissionState
-    ): Boolean
 }

@@ -16,17 +16,11 @@ import com.google.accompanist.permissions.PermissionState
 @Immutable
 sealed class StartEvent {
     data class OnCheckPermissions(
-        val storagePermissionState: PermissionState,
-        val notificationsPermissionState: PermissionState
+        val storagePermissionState: PermissionState
     ) : StartEvent()
 
     data class OnStoragePermissionRequest(
         val activity: ComponentActivity,
         val storagePermissionState: PermissionState
-    ) : StartEvent()
-
-    data class OnNotificationsPermissionRequest(
-        val activity: ComponentActivity,
-        val notificationsPermissionState: PermissionState
     ) : StartEvent()
 }

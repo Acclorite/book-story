@@ -5,9 +5,6 @@
   -->
 
 <resources>
-    <string name="updates_notification_channel">नये अपडेट</string>
-    <string name="updates_notification_title">बुक्स स्टोरी का नया अपडेट!</string>
-    <string name="updates_notification_action">डाउनलोड करें</string>
     <string name="library_screen">पुस्तकालय</string>
     <string name="history_screen">इतिहास</string>
     <string name="settings_screen">सेटिंग्स</string>
@@ -18,13 +15,10 @@
     <string name="add_books">किताबें शामिल करें ?</string>
     <string name="move_books">किताबें स्थानांतरित करें?</string>
     <string name="delete_book">किताब हटाएं?</string>
-    <string name="enable_check_for_updates">अपडेट्स की जाँच चालू करें?</string>
     <string name="move_books_description">वह श्रेणी चुनें जिसमें आप सभी चयनित पुस्तकों को ले जाना चाहते हैं(%1$s)। सभी चयनित पुस्तकें चयनित श्रेणी में ले जाई जाएँगी।</string>
-    <string name="update_app_description">नया ऐप वर्शन मिला। क्या आप आगे बढ़ना चाहते हैं और रिलीज़ पेज पर जाना चाहते हैं?</string>
     <string name="error_something_went_wrong">कुछ गड़बड़ हुआ है ।</string>
     <string name="error_no_translator">कोई अनुवादक ऐप नहीं मिला ।</string>
     <string name="error_no_share_app">शेर करने के लिए कोई ऐप नहीं मिला ।</string>
-    <string name="error_check_internet">कुछ ग़लत हुआ। बाद में पुनः प्रयास करें।</string>
     <string name="error_closed_source">बंद स्रोत कोड</string>
     <string name="library_empty">अपनी पसंदीदा पुस्तकें पढ़ें और उन्हें श्रेणियों के बीच क्रमित करें</string>
     <string name="history_empty">अपनी आखिरी पढ़ी हुई किताब से अपनी पढ़ने की यात्रा की एक नई महान कहानी के पन्ने खोलिए</string>
@@ -76,7 +70,6 @@
     <string name="general_browse_settings">सामान्य</string>
     <string name="sort_browse_settings">क्रमबद्ध करना</string>
     <string name="language_option">ऐप भाषा</string>
-    <string name="updates_notification_desc">अपडेट %1$s अभी जारी हुआ! रिलीज़ पेज पर जाने के लिए क्लिक करें।</string>
     <string name="delete_books">किताबें हटाएँ?</string>
     <string name="move_book">किताब को स्थानांतरित करें ?</string>
     <string name="browse_screen">और देखें</string>
@@ -94,14 +87,12 @@
     <string name="move_book_description">वह श्रेणी चुनें जिसमें आप इस पुस्तक को ले जाना चाहते हैं। यह पुस्तक चयनित श्रेणी में ले जाई जाएगी।</string>
     <string name="delete_history_description">यह डेटाबेस से पूरा इतिहास मिटा देगा। पूरा इतिहास मिटाने के बाद, किताबों का क्रम फिर से सेट हो जाएगा।</string>
     <string name="error_permission">हमें किताबों के लिए आपके डिवाइस को स्कैन करने के लिए भंडारण अनुमति की आवश्यकता है</string>
-    <string name="enable_check_for_updates_description">«अपडेट की जाँच करें» को सक्षम करके, ऐप हर बार ऐप शुरू होने पर «api.github.com» से नवीनतम रिलीज़ जानकारी प्राप्त करेगा। क्या आप आगे बढ़ना चाहते हैं और «अपडेट की जाँच करें» को सक्षम करना चाहते हैं?</string>
     <string name="error_no_description">कोई वर्णन नहीं।</string>
     <string name="error_no_dictionary">कोई शब्दकोश ऐप नहीं मिला ।</string>
     <string name="error_no_browser">कोई ब्राउज़र ऐप नहीं मिला ।</string>
     <string name="error_could_not_get_text">पुस्तक की सामग्री रिक्त है। कृपया जाँच करें कि पुस्तक की सामग्री रिक्त न हो और उसे अपडेट करें।</string>
     <string name="error_could_not_reset_cover">कवर छवि रीसेट नहीं की जा सकी ।</string>
     <string name="browse_empty">अपने डाउनलोड के साथ पुस्तकालय के पुस्तक संग्रह का विस्तार करें</string>
-    <string name="update_query">%1$s अपडेट करें</string>
     <string name="color_preset_query">प्रीसेट %1$s</string>
     <string name="move">हटाना</string>
     <string name="delete">मिटाना</string>
@@ -113,8 +104,6 @@
     <string name="absolute_dark_option_desc">पृष्ठभूमि का रंग पूरी तरह से काला करें</string>
     <string name="theme_contrast_option">थीम कंट्रास्ट</string>
     <string name="app_theme_option">ऐप थीम</string>
-    <string name="check_for_updates_option">अद्यतनों के लिए जाँच करें</string>
-    <string name="check_for_updates_option_desc">स्टार्टअप पर ऐप के नए संस्करण की जाँच करें</string>
     <string name="double_press_exit_option">बाहर निकलने के लिए दो बार पीछे जाने की बटन दबाएँ</string>
     <string name="double_press_exit_option_desc">बाहर निकलने के लिए दो बार पीछे जाने की बटन दबाएँ</string>
     <string name="font_family_option">फ़ॉन्ट परिवार</string>
@@ -199,7 +188,6 @@
     <string name="perception_expander_thickness_option">धारणा विस्तारक लाइन मोटाई</string>
     <string name="screen_orientation_option">स्क्रीन अनुकूलन</string>
     <string name="red_color">लाल</string>
-    <string name="no_updates">ऐप का नवीनतम संस्करण पहले से इंस्टॉल है।</string>
     <string name="cover_reset">कवर छवि सफलतापूर्वक रीसेट कर दी गई।</string>
     <string name="file_path">दस्तावेज पथ</string>
     <string name="file_last_opened">फ़ाइल अंतिम बार खोली गई</string>
@@ -216,7 +204,6 @@
     <string name="help_title_how_to_customize_app">मैं ऐप को कैसे अनुकूलित करूं?</string>
     <string name="help_desc_how_to_customize_app_1">के पास जाओ</string>
     <string name="app_version_option_desc_1">किताब की कहानी v%1$s</string>
-    <string name="app_version_option_desc_2">अपडेट जांचने के लिए क्लिक करें</string>
     <string name="whats_new_option">नया क्या है</string>
     <string name="licenses_option">ओपन सोर्स लाइसेंस</string>
     <string name="credits_icon">माउस</string>

@@ -9,7 +9,6 @@
     <string name="move_book">Mover livro?</string>
     <string name="delete_book">Apagar livro?</string>
     <string name="default_string">Padrão</string>
-    <string name="enable_check_for_updates">Habilitar verificação de atualizações?</string>
     <string name="cancel">Cancelar</string>
     <string name="move">Mover</string>
     <string name="never">Nunca</string>
@@ -28,7 +27,6 @@
     <string name="grant">Permitir</string>
     <string name="done">Feito</string>
     <string name="dark_theme_off">Desabilitado</string>
-    <string name="updates_notification_action">Baixar</string>
     <string name="delete_books">Apagar livros?</string>
     <string name="library_screen">Biblioteca</string>
     <string name="settings_screen">Configurações</string>
@@ -57,9 +55,6 @@
     <string name="text_reader_settings">Texto</string>
     <string name="misc_reader_settings">Miscelânea</string>
     <string name="pure_dark_off">Desabilitado</string>
-    <string name="updates_notification_channel">Novas Atualizações</string>
-    <string name="updates_notification_desc">A atualização %1$s acabou de lançar! Clique para ir à página de lançamento.</string>
-    <string name="updates_notification_title">Novo update do Book\'s Story!</string>
     <string name="add_books">Adicionar livros?</string>
     <string name="storage_permission_description">Precisamos de permissão de acesso ao armazenamento para procurar livros no seu dispositivo. Sem essa permissão, você não será capaz de adicionar um livro.</string>
     <string name="delete">Apagar</string>
@@ -166,8 +161,6 @@
     <string name="already_read_tab">Lido</string>
     <string name="browse_grid_size_option">Tamanho da grade</string>
     <string name="grant_permission">Dar permissão</string>
-    <string name="update_query">Atualizar %1$s</string>
-    <string name="update_app_description">Nova versão do aplicativo disponível. Deseja seguir para a página de lançamentos?</string>
     <string name="error_no_description">Sem descrição.</string>
     <string name="selected_items_count_query">%1$s selecionado</string>
     <string name="error_closed_source">Código fechado</string>
@@ -185,7 +178,6 @@
     <string name="more_content_desc">Mais</string>
     <string name="file_path">Caminho</string>
     <string name="tryzub_content_desc">Tryzub</string>
-    <string name="enable_check_for_updates_description">Ativando «Verificação de atualizações» o aplicativo receberá as informações mais recentes de «api.github.com» toda vez que ele for iniciado. Deseja prosseguir e ativar «Verificação de atualizações»?</string>
     <string name="start_theme_preferences">Prefêrencia de temas</string>
     <string name="sort_order_content_desc">Ordem de classificação</string>
     <string name="continue_reading_content_desc">Continuar a ler</string>
@@ -194,7 +186,6 @@
     <string name="start_permissions_storage">Permissão de armazenamento</string>
     <string name="whats_new_option">O que há de novo</string>
     <string name="help_translate_option">Ajude a traduzir</string>
-    <string name="start_permissions_notifications">Permissão de notificações</string>
     <string name="start_done">Está tudo feito!</string>
     <string name="cover_image_content_desc">Imagem da capa</string>
     <string name="open_reader_settings_content_desc">Configurações do leitor</string>
@@ -213,7 +204,6 @@
     <string name="change_cover">Trocar imagem da capa</string>
     <string name="reader_settings_desc">Fonte, texto, tradutor</string>
     <string name="browse_settings_desc">Geral, filtro, ordem</string>
-    <string name="check_for_updates_option">Procurar atualizações</string>
     <string name="keep_screen_on_option">Manter a tela ligada</string>
     <string name="add_files_content_desc">Adicionar arquivos</string>
     <string name="library_content_desc">Sua biblioteca</string>
@@ -243,7 +233,6 @@
     <string name="library_empty">Leia seus livros favoritos e organize-os em categorias</string>
     <string name="error_could_not_reset_cover">Não foi possível restaurar a imagem da capa.</string>
     <string name="perception_expander_thickness_option">Espessura da linha</string>
-    <string name="error_check_internet">Algo deu errado. Tente novamente.</string>
     <string name="perception_expander_option_desc">Aumente sua velocidade de leitura focando no centro</string>
     <string name="double_click_translation_option_desc">Clique duas vezes no parágrafo para traduzi-lo</string>
     <string name="fast_color_preset_change_option">Troca rápida do padrão de cores</string>
@@ -252,7 +241,6 @@
     <string name="reset_cover_desc">Restaure a imagem do livro de volta para o padrão</string>
     <string name="change_cover_desc">Escolha a nova capa das suas fotos</string>
     <string name="delete_cover_desc">Apagar a imagem atual da capa do livro</string>
-    <string name="check_for_updates_option_desc">Procurar por uma atualização do app ao abrir</string>
     <string name="double_click_translation_option">Traduzir com toque duplo</string>
     <string name="double_press_exit_option">Volte duas vezes para sair</string>
     <string name="cutout_padding_option_desc">Aplique uma margem para área de recorte</string>
@@ -280,7 +268,6 @@
     <string name="highlighted_reading_option_desc">Destaque o início de cada palavra</string>
     <string name="help_title_how_to_move_or_delete_books">Como faço para mover ou excluir livros?</string>
     <string name="help_title_how_to_edit_book">Como faço para editar um livro?</string>
-    <string name="app_version_option_desc_2">Clique para verificar se há atualizações</string>
     <string name="help_title_how_to_manage_history">Como faço para gerenciar o histórico?</string>
     <string name="open_in_web_content_desc">Abrir no navegador</string>
     <string name="color_preset_placeholder">Nomeie o padrão…</string>
@@ -291,7 +278,6 @@
     <string name="help_desc_how_to_create_color_presets_1">Vá para as configurações de Aparência (veja: Como personalizar o Reader?). Você pode modificar todas as configurações de predefinições de cores na caixa em «Predefinição de cores» na subcategoria «Cores». Para criar uma nova predefinição de cores, clique no botão de ícone «Adicionar». Existem várias maneiras de modificar uma predefinição de cores: clicando no campo de texto, você pode alterar o nome da predefinição de cores, movendo os controles deslizantes, você pode alterar as cores da predefinição de cores, clicando no botão de ícone «Aleatório», você pode embaralhar todas as cores. Se quiser excluir a predefinição de cores, clique no botão de ícone «Excluir».</string>
     <string name="highlighted_reading_level">nível</string>
     <string name="delete_history_element_content_desc">Apagar elemento do histórico</string>
-    <string name="start_permissions_notifications_desc">Necessário verificar se há uma versão mais recente do aplicativo</string>
     <string name="help_title_how_to_use_perception_expander">O que é e como usar o Expansor de Percepção?</string>
     <string name="checkpoint_back_content_desc">Voltar ao ponto-salvo</string>
     <string name="highlighted_reading_thickness_option">Espessura da marcação</string>
@@ -355,7 +341,6 @@
     <string name="help_desc_how_to_use_double_click_translation_1">Primeiro, vá para as configurações do Reader (veja: Como personalizar o Leitor?), então ative a configuração correspondente. Depois disso, comece a ler o livro (veja: Como ler um livro?). Agora, se você clicar duas vezes no parágrafo desejado, o tradutor externo será aberto com o texto do parágrafo.</string>
     <string name="horizontal_gesture_inverse">Ligado (Inverso)</string>
     <string name="delete_whole_history_content_desc">Apagar o histórico inteiro</string>
-    <string name="no_updates">A última versão do aplicativo já está instalada.</string>
     <string name="yellow2_theme">Makemake</string>
     <string name="pin_content_desc">Fixar</string>
     <string name="error_no_file">Arquivo não existe</string>

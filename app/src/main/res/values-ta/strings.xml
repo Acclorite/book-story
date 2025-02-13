@@ -10,9 +10,7 @@
     <string name="library_screen">நூலகம்</string>
     <string name="history_screen">வரலாறு</string>
     <string name="add_books">புத்தகங்களைச் சேர்க்கவா?</string>
-    <string name="enable_check_for_updates">புதுப்பிப்புகளை சரிபார்க்கவா?</string>
     <string name="move_book_description">இந்த புத்தகத்தை நீங்கள் நகர்த்த விரும்பும் வகையைத் தேர்வுசெய்க. இந்த நூல் தேர்ந்தெடுக்கப்பட்ட வகைக்கு மாற்றப்படும்.</string>
-    <string name="update_app_description">புதிய பயன்பாட்டு பதிப்பு கண்டறியப்பட்டது. நீங்கள் தொடர விரும்புகிறீர்களா?</string>
     <string name="error_something_went_wrong">ஏதோ தவறு நடந்தது.</string>
     <string name="error_closed_source">மூடிய மூல</string>
     <string name="browse_empty">உங்கள் பதிவிறக்கங்களுடன் நூலகத்தின் புத்தக சேகரிப்பை விரிவாக்குங்கள்</string>
@@ -105,11 +103,9 @@
     <string name="browse_sort_order_file_format">கோப்பு வடிவம்</string>
     <string name="default_string">இயல்புநிலை</string>
     <string name="delete_history">வாசிப்பு வரலாற்றை நீக்கவா?</string>
-    <string name="enable_check_for_updates_description">செயல்படுத்துவதன் மூலம் «புதுப்பிப்புகளைச் சரிபார்க்கவும்» பயன்பாடு தொடங்கும் ஒவ்வொரு முறையும் «api.github.com இருந்து இலிருந்து அண்மைக் கால வெளியீட்டு தகவல்களை மீட்டெடுக்கும். நீங்கள் தொடர விரும்புகிறீர்களா «புதுப்பிப்புகளை சரிபார்க்கவும்»?</string>
     <string name="error_permission">புத்தகங்களுக்காக உங்கள் சாதனத்தை ச்கேன் செய்ய எங்களுக்கு சேமிப்பக இசைவு தேவை</string>
     <string name="error_no_description">விளக்கம் இல்லை.</string>
     <string name="selected_items_count_query">%1$s தேர்ந்தெடுக்கப்பட்டன</string>
-    <string name="update_query">புதுப்பிப்பு %1$s</string>
     <string name="undo">செயல்தவிர்</string>
     <string name="copy">நகலெடு</string>
     <string name="translate">மொழிபெயர்த்திடு</string>
@@ -161,7 +157,6 @@
     <string name="help_desc_how_to_use_color_presets_1">தோற்ற அமைப்புகளுக்குச் செல்லுங்கள் (பார்க்க: வாசகரை எவ்வாறு தனிப்பயனாக்குவது?). «வண்ண முன்னமைக்கப்பட்ட» அமைப்பில் எந்த வண்ண முன்னமைவைப் பயன்படுத்த வேண்டும் என்பதை நீங்கள் தேர்வு செய்யலாம். அதைத் தேர்ந்தெடுக்க விரும்பிய வண்ண முன்னமைவைக் சொடுக்கு செய்க, இது உங்கள் வண்ணங்களை வாசகரில் மாற்றும். வண்ண முன்னமைவை மறுவரிசைப்படுத்த விரும்பினால், அதைத் தேர்ந்தெடுத்து «கைப்பிடி» ஐகான்-பொன்ட்டைப் பிடித்துக் கொள்ளுங்கள், பின்னர் அதை விரும்பிய நிலைக்கு நகர்த்தவும். வண்ண முன்னமைவை வேகமாக மாற்ற, தோற்ற அமைப்பின் «வண்ணங்கள்» துணைப்பிரிவில் தொடர்புடைய அமைப்பை இயக்குவதன் மூலம் வண்ண முன்னமைவுகளை விரைவாக மாற்றலாம்.</string>
     <string name="help_title_how_to_use_perception_expander">புலனுணர்வு விரிவாக்கியை நான் எவ்வாறு பயன்படுத்துவது?</string>
     <string name="start_welcome_desc">நம்பமுடியாத சாகசங்களை கவர்ச்சியாக, கற்பித்தல் மற்றும் வழிநடத்தும் ஒரு உலகத்திற்கு! சில விசயங்களை அமைப்போம்!</string>
-    <string name="start_permissions_notifications_desc">புதிய பயன்பாட்டு பதிப்பை சரிபார்க்க வேண்டும்</string>
     <string name="start_done">எல்லாம் முடிந்தது!</string>
     <string name="today">இன்று</string>
     <string name="error_content_desc">பிழை</string>
@@ -180,10 +175,6 @@
     <string name="search_field_empty">தேடுங்கள்…</string>
     <string name="custom_screen_brightness_option">தனிப்பயன் ஒளி</string>
     <string name="screen_brightness_option">ஒளி</string>
-    <string name="updates_notification_channel">புதிய புதுப்பிப்புகள்</string>
-    <string name="updates_notification_title">புத்தகத்தின் கதையின் புதிய புதுப்பிப்பு!</string>
-    <string name="updates_notification_desc">புதுப்பிப்பு %1$s இப்போது வெளியிடப்பட்டது! வெளியீட்டு பக்கத்திற்கு செல்ல சொடுக்கு செய்க.</string>
-    <string name="updates_notification_action">பதிவிறக்கம்</string>
     <string name="browse_screen">உலாவு</string>
     <string name="settings_screen">அமைப்புகள்</string>
     <string name="about_screen">பயன்பாடு பற்றி</string>
@@ -202,7 +193,6 @@
     <string name="error_no_translator">மொழிபெயர்ப்பாளர் பயன்பாடு எதுவும் கிடைக்கவில்லை.</string>
     <string name="error_no_share_app">பகிர்வதற்கு பயன்பாடு இல்லை.</string>
     <string name="error_could_not_get_text">புத்தக உள்ளடக்கம் காலியாக உள்ளது. தயவுசெய்து, புத்தக உள்ளடக்கம் காலியாக இல்லை என்பதை உறுதிப்படுத்திக் கொள்ளுங்கள்.</string>
-    <string name="error_check_internet">ஏதோ தவறு நடந்தது. பின்னர் மீண்டும் முயற்சிக்கவும்.</string>
     <string name="error_no_dictionary">அகராதி பயன்பாடு எதுவும் கிடைக்கவில்லை.</string>
     <string name="error_no_browser">உலாவி பயன்பாடு எதுவும் கிடைக்கவில்லை.</string>
     <string name="error_could_not_reset_cover">கவர் படத்தை மீட்டமைக்க முடியவில்லை.</string>
@@ -222,8 +212,6 @@
     <string name="absolute_dark_option">முழுமையான இருண்ட</string>
     <string name="theme_contrast_option">கருப்பொருள் மாறுபாடு</string>
     <string name="app_theme_option">பயன்பாட்டு கருப்பொருள்</string>
-    <string name="check_for_updates_option">புதுப்பிப்புகளை சரிபார்க்கவும்</string>
-    <string name="check_for_updates_option_desc">தொடக்கத்தில் புதிய பயன்பாட்டு பதிப்பை சரிபார்க்கவும்</string>
     <string name="font_size_option">எழுத்துரு அளவு</string>
     <string name="line_height_option">வரி உயரம்</string>
     <string name="paragraph_height_option">பத்தி உயரம்</string>
@@ -264,7 +252,6 @@
     <string name="press_again_toast">வெளியேற மீண்டும் அழுத்தவும்</string>
     <string name="books_added">தேர்ந்தெடுக்கப்பட்ட அனைத்து புத்தகங்களும் வெற்றிகரமாக சேர்க்கப்பட்டன.</string>
     <string name="history_deleted">வரலாறு வெற்றிகரமாக நீக்கப்பட்டது.</string>
-    <string name="no_updates">பயன்பாட்டின் அண்மைக் கால பதிப்பு ஏற்கனவே நிறுவப்பட்டுள்ளது.</string>
     <string name="cover_reset">கவர் படம் வெற்றிகரமாக மீட்டமைக்கப்பட்டது.</string>
     <string name="file_path">கோப்பு பாதை</string>
     <string name="file_last_opened">கோப்பு கடைசியாக திறக்கப்பட்டது</string>
@@ -272,7 +259,6 @@
     <string name="no_chapters">அத்தியாயங்கள் இல்லை</string>
     <string name="chapters">பாடங்கள்</string>
     <string name="app_version_option_desc_1">புத்தகத்தின் கதை v%1$s</string>
-    <string name="app_version_option_desc_2">புதுப்பிப்புகளை சரிபார்க்க சொடுக்கு செய்க</string>
     <string name="report_bug_option">ஒரு பிழையைப் புகாரளிக்கவும்</string>
     <string name="whats_new_option">புதியது என்ன</string>
     <string name="credits_option">வரவு</string>
@@ -306,7 +292,6 @@
     <string name="start_theme_preferences">கருப்பொருள் விருப்பத்தேர்வுகள்</string>
     <string name="start_permissions_granted">வழங்கப்பட்டது</string>
     <string name="start_permissions_storage_desc">உங்கள் சாதனத்தை ச்கேன் செய்து புத்தகங்களைக் கண்டுபிடிக்க வேண்டும்</string>
-    <string name="start_permissions_notifications">அறிவிப்புகள் இசைவு</string>
     <string name="start_done_desc">பயன்பாட்டின் அடிப்படை அமைப்பை நீங்கள் வெற்றிகரமாக முடித்துவிட்டீர்கள். உதவித் திரையைப் படிப்பதன் மூலம் பயன்பாட்டை எவ்வாறு பயன்படுத்துவது என்பதை அறிய விரும்புகிறீர்களா?</string>
     <string name="yesterday">நேற்று</string>
     <string name="continue_reading_content_desc">தொடர்ந்து படிக்கவும்</string>

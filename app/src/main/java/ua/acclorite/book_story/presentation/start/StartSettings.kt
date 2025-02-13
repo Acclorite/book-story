@@ -22,13 +22,10 @@ fun StartSettings(
     currentPage: Int,
     stackEvent: StackEvent,
     storagePermissionGranted: Boolean,
-    notificationsPermissionGranted: Boolean,
     storagePermissionState: PermissionState,
-    notificationsPermissionState: PermissionState,
     languages: List<ButtonItem>,
     changeLanguage: (MainEvent.OnChangeLanguage) -> Unit,
     storagePermissionRequest: (StartEvent.OnStoragePermissionRequest) -> Unit,
-    notificationsPermissionRequest: (StartEvent.OnNotificationsPermissionRequest) -> Unit,
     navigateForward: () -> Unit
 ) {
     val activity = LocalActivity.current
@@ -63,11 +60,8 @@ fun StartSettings(
                         StartSettingsLayoutPermissions(
                             activity = activity,
                             storagePermissionGranted = storagePermissionGranted,
-                            notificationsPermissionGranted = notificationsPermissionGranted,
                             storagePermissionState = storagePermissionState,
-                            notificationsPermissionState = notificationsPermissionState,
-                            storagePermissionRequest = storagePermissionRequest,
-                            notificationsPermissionRequest = notificationsPermissionRequest
+                            storagePermissionRequest = storagePermissionRequest
                         )
                     }
                 }

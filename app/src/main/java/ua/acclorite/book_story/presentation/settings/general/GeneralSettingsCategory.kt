@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.settings.general.components.AppLanguageOption
-import ua.acclorite.book_story.presentation.settings.general.components.CheckForUpdatesOption
 import ua.acclorite.book_story.presentation.settings.general.components.DoublePressExitOption
 
 fun LazyListScope.GeneralSettingsCategory(
@@ -29,10 +28,6 @@ fun LazyListScope.GeneralSettingsCategory(
 
     item {
         AppLanguageOption()
-    }
-
-    item {
-        CheckForUpdatesOption()
     }
 
     item {

@@ -33,7 +33,6 @@ import ua.acclorite.book_story.domain.reader.toTextAlignment
 import ua.acclorite.book_story.domain.use_case.data_store.ChangeLanguage
 import ua.acclorite.book_story.domain.use_case.data_store.GetAllSettings
 import ua.acclorite.book_story.domain.use_case.data_store.SetDatastore
-import ua.acclorite.book_story.domain.use_case.remote.CheckForUpdates
 import ua.acclorite.book_story.domain.util.toHorizontalAlignment
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
@@ -52,7 +51,6 @@ class MainModel @Inject constructor(
 
     private val setDatastore: SetDatastore,
     private val changeLanguage: ChangeLanguage,
-    private val checkForUpdates: CheckForUpdates,
     private val getAllSettings: GetAllSettings
 ) : ViewModel() {
 
@@ -163,14 +161,6 @@ class MainModel @Inject constructor(
                 value = event.value,
                 updateState = {
                     it.copy(showStartScreen = this)
-                }
-            )
-
-            is MainEvent.OnChangeCheckForUpdates -> handleDatastoreUpdate(
-                key = DataStoreConstants.CHECK_FOR_UPDATES,
-                value = event.value,
-                updateState = {
-                    it.copy(checkForUpdates = this)
                 }
             )
 
@@ -516,17 +506,8 @@ class MainModel @Inject constructor(
         viewModelScope.launch(Dispatchers.Main) {
             val settings = getAllSettings.execute()
 
-            // All additional execution
+            /* All additional execution */
             changeLanguage.execute(settings.language)
-
-            if (settings.checkForUpdates) {
-                viewModelScope.launch(Dispatchers.IO) {
-                    checkForUpdates.execute(
-                        postNotification = true
-                    )
-                }
-            }
-            /* - - - - - - - - - - - */
 
             updateStateWithSavedHandle { settings }
             mainModelReady.update { true }

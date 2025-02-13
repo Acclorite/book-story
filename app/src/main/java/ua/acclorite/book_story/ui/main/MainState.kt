@@ -68,7 +68,6 @@ data class MainState(
     val absoluteDark: Boolean = provideDefaultValue { false },
     val themeContrast: ThemeContrast = provideDefaultValue { ThemeContrast.STANDARD },
     val showStartScreen: Boolean = provideDefaultValue { true },
-    val checkForUpdates: Boolean = provideDefaultValue { false },
     val doublePressExit: Boolean = provideDefaultValue { false },
 
     // Reader Settings
@@ -198,10 +197,6 @@ data class MainState(
                     paragraphIndentation = provideValue(
                         PARAGRAPH_INDENTATION
                     ) { paragraphIndentation },
-
-                    checkForUpdates = provideValue(
-                        CHECK_FOR_UPDATES
-                    ) { checkForUpdates },
 
                     sidePadding = provideValue(
                         SIDE_PADDING

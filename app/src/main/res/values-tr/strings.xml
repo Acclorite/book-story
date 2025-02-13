@@ -8,17 +8,6 @@
     <!-- Basic Strings -->
     <string name="default_string">Varsayılan</string>
 
-    <!-- Notifications -->
-    <string name="updates_notification_channel">Yeni güncellemeler</string>
-    <string name="updates_notification_title">Book\'s Story için yeni güncelleme!</string>
-    <string name="updates_notification_desc">
-        Güncelleme %1$s yeni yayınlandı!
-        Yayın sayfasına gitmek için tıklayın.
-    </string>
-    <string name="updates_notification_action">
-        İndir
-    </string>
-
     <!-- Screens -->
     <string name="library_screen">Kütüphane</string>
     <string name="history_screen">Geçmiş</string>
@@ -35,7 +24,6 @@
     <string name="delete_book">Kitap silinsin mi?</string>
     <string name="move_book">Kitap taşınsın mı?</string>
     <string name="delete_history">Okuma geçmişi silinsin mi?</string>
-    <string name="enable_check_for_updates">Güncellemeleri kontrol etme etkinleştirilsin mi?</string>
     <string name="edit">Düzenle</string>
 
     <!-- Dialog Descriptions -->
@@ -68,17 +56,6 @@
         Tüm geçmiş veritabanından silinecektir.
         Geçmişi sildikten sonra kitapların sıralaması sıfırlanacaktır.
     </string>
-    <string name="update_app_description">
-        Yeni bir uygulama sürümü bulundu.
-        İşleme devam edip yayın sayfasına gitmek istiyor musunuz?
-    </string>
-    <string name="enable_check_for_updates_description">
-        «Güncellemeleri kontrol et» özelliğini etkinleştirerek
-        uygulama her açıldığında «api.github.com» üzerinden
-        en son sürüm bilgilerini alacaktır.
-        İşleme devam edip «Güncellemeleri kontrol et» özelliğini etkinleştirmek istiyor musunuz?
-    </string>
-
       <!-- Errors -->
     <string name="error_permission">
         Cihazınızı kitaplar için tarayabilmemiz adına depolama iznine ihtiyacımız var
@@ -96,10 +73,6 @@
     <string name="error_could_not_get_text">
         Dosya boş, bozuk veya eksik.
         Lütfen dosyayı doğrulayın ya da yolu güncelleyerek tekrar deneyin.
-    </string>
-    <string name="error_check_internet">
-        Bir şeyler ters gitti.
-        Daha sonra tekrar deneyin.
     </string>
     <string name="error_could_not_reset_cover">Kapak resmi sıfırlanamadı.</string>
     <string name="error_closed_source">Kapalı kaynak</string>
@@ -121,7 +94,6 @@
 
     <!-- Query strings -->
     <string name="selected_items_count_query">%1$s seçildi</string>
-    <string name="update_query">Güncelle %1$s</string>
     <string name="color_preset_query">Ön ayar %1$s</string>
     <string name="color_preset_selected_query">Seçilen «%1$s»</string>
 
@@ -205,8 +177,6 @@
     <string name="absolute_dark_option_desc">Arka plan rengini tamamen siyah yap</string>
     <string name="theme_contrast_option">Tema kontrastı</string>
     <string name="app_theme_option">Uygulama teması</string>
-    <string name="check_for_updates_option">Güncellemeleri kontrol et</string>
-    <string name="check_for_updates_option_desc">Uygulama açılışında yeni sürümü kontrol et</string>
     <string name="double_press_exit_option">Çıkmak için iki kez geri bas</string>
     <string name="double_press_exit_option_desc">Uygulamadan çıkmak için geri tuşuna iki kez basın</string>
 
@@ -375,7 +345,6 @@
     <string name="book_moved">Bu kitap başarıyla taşındı.</string>
     <string name="copied">Kopyalandı</string>
     <string name="history_deleted">Geçmiş başarıyla silindi.</string>
-    <string name="no_updates">Uygulamanın en son sürümü zaten yüklü.</string>
     <string name="cover_reset">Kapak resmi başarıyla sıfırlandı.</string>
     <string name="title_changed">Başlık başarıyla değiştirildi.</string>
     <string name="author_changed">Yazar başarıyla değiştirildi.</string>
@@ -401,7 +370,6 @@
     <!-- About -->
     <string name="app_version_option">Uygulama sürümü</string>
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
-    <string name="app_version_option_desc_2">Güncellemeleri kontrol etmek için tıklayın</string>
     <string name="report_bug_option">Hata bildir</string>
     <string name="whats_new_option">Yenilikler</string>
     <string name="licenses_option">Açık kaynak lisansları</string>
@@ -575,8 +543,6 @@
     <string name="start_permissions_granted">Verildi</string>
     <string name="start_permissions_storage">Depolama izni</string>
     <string name="start_permissions_storage_desc">Cihazınızı tarayıp kitapları bulmak için gereklidir</string>
-    <string name="start_permissions_notifications">Bildirim izni</string>
-    <string name="start_permissions_notifications_desc">Yeni uygulama sürümünü kontrol etmek için gereklidir</string>
     <string name="start_done">Her şey tamam!</string>
     <string name="start_done_desc">
         Uygulamanın temel ayarlarını başarıyla tamamladınız.

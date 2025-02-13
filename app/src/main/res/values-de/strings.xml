@@ -5,9 +5,6 @@
   -->
 
 <resources>
-    <string name="updates_notification_channel">Neue Updates</string>
-    <string name="updates_notification_desc">Update %1$s wurde gerade veröffentlicht! Klicken Sie hier, um zur Veröffentlichungsseite zu gelangen.</string>
-    <string name="updates_notification_action">Download</string>
     <string name="library_screen">Bibliothek</string>
     <string name="history_screen">Verlauf</string>
     <string name="browse_screen">Durchsuchen</string>
@@ -18,21 +15,17 @@
     <string name="delete_book">Buch löschen?</string>
     <string name="move_book">Buch verschieben?</string>
     <string name="delete_history">Leseverlauf löschen?</string>
-    <string name="enable_check_for_updates">Überprüfen von Updates aktivieren?</string>
     <string name="add_books_description">Sie können auswählen, welche Bücher Sie hinzufügen möchten. Titel und Coverbild des Buches können Sie später bearbeiten. Der Ladevorgang kann mehrere Minuten dauern.</string>
     <string name="move_books_description">Wählen Sie die Kategorie, in die Sie alle ausgewählten Bücher verschieben möchten (%1$s). Alle ausgewählten Bücher werden in die ausgewählte Kategorie verschoben.</string>
     <string name="delete_book_description">Dadurch wird das Buch aus der Datenbank gelöscht. Von Ihrem Gerät wird das Buch jedoch nicht gelöscht.</string>
     <string name="move_book_description">Wählen Sie die Kategorie aus, in die Sie dieses Buch verschieben möchten. Dieses Buch wird in die ausgewählte Kategorie verschoben.</string>
-    <string name="enable_check_for_updates_description">Durch Aktivieren von „Nach Updates suchen“ ruft die App bei jedem Start der App die neuesten Versionsinformationen von „api.github.com“ ab. Möchten Sie fortfahren und „Nach Updates suchen“ aktivieren?</string>
     <string name="error_no_description">Keine Beschreibung.</string>
     <string name="error_could_not_get_text">Der Buchinhalt ist leer. Bitte stellen Sie sicher, dass der Buchinhalt nicht leer ist und aktualisieren Sie ihn.</string>
-    <string name="error_check_internet">Etwas ist schiefgelaufen. Versuche es später erneut.</string>
     <string name="error_could_not_reset_cover">Titelbild konnte nicht zurückgesetzt werden.</string>
     <string name="error_closed_source">Geschlossene Quelle</string>
     <string name="library_empty">Lesen Sie Ihre Lieblingsbücher und sortieren Sie sie nach Kategorien</string>
     <string name="history_empty">Lassen Sie Ihr letztes gelesenes Buch die Seiten einer neuen großartigen Geschichte Ihrer Lesereise öffnen</string>
     <string name="selected_items_count_query">%1$s ausgewählt</string>
-    <string name="update_query">%1$s aktualisieren</string>
     <string name="color_preset_selected_query">Ausgewählt «%1$s»</string>
     <string name="cancel">Abbrechen</string>
     <string name="grant">Gewähren</string>
@@ -70,8 +63,6 @@
     <string name="color_preset_option">Farbvorgabe</string>
     <string name="background_color_option">Hintergrundfarbe</string>
     <string name="font_color_option">Schriftfarbe</string>
-    <string name="check_for_updates_option">Nach Updates suchen</string>
-    <string name="check_for_updates_option_desc">Beim Start nach einer neueren App-Version suchen</string>
     <string name="side_padding_option">Seitenränder</string>
     <string name="double_click_translation_option">Doppelklicken Sie auf die Übersetzung</string>
     <string name="double_click_translation_option_desc">Doppelklicken Sie auf den Absatz, um ihn zu übersetzen</string>
@@ -103,7 +94,6 @@
     <string name="book_moved">Dieses Buch wurde erfolgreich verschoben.</string>
     <string name="copied">Kopieren</string>
     <string name="history_deleted">Dieses Buch wurde erfolgreich gelöscht.</string>
-    <string name="no_updates">Die neuste Version der App ist bereits installiert.</string>
     <string name="cover_reset">Das Titelbild wurde erfolgreich zurückgesetzt.</string>
     <string name="history_element_deleted">Das Verlaufselement wurde erfolgreich gelöscht.</string>
     <string name="dynamic_theme">Quecksilber</string>
@@ -133,8 +123,6 @@
     <string name="start_permissions_granted">Gewährt</string>
     <string name="start_permissions_storage">Speicherberechtigung</string>
     <string name="start_permissions_storage_desc">Erforderlich, um Ihr Gerät zu scannen und Bücher zu finden</string>
-    <string name="start_permissions_notifications">Benachrichtigungsberechtigung</string>
-    <string name="start_permissions_notifications_desc">Erforderlich, um nach einer neueren App-Version zu suchen</string>
     <string name="start_done">Alles ist erledigt!</string>
     <string name="start_done_desc">Sie haben die Grundeinstellungen der App erfolgreich abgeschlossen. Möchten Sie anhand des Hilfebildschirms erfahren, wie Sie die App verwenden?</string>
     <string name="today">Heute</string>
@@ -157,8 +145,6 @@
     <string name="revert_content_desc">Zurücksetzen</string>
     <string name="selected_content_desc">Ausgewählt</string>
     <string name="app_icon_content_desc">App-Symbol</string>
-    <string name="updates_notification_title">Neues Update von Book\'s Story!</string>
-    <string name="update_app_description">Es wurde eine neue App-Version gefunden. Möchten Sie fortfahren und zur Veröffentlichungsseite gehen?</string>
     <string name="help_desc_how_to_add_books_3">Wenn Sie die heruntergeladenen Bücher nicht sehen, versuchen Sie, die Liste zu aktualisieren, indem Sie sie nach unten ziehen. Stellen Sie sicher, dass Ihre Bücher das unterstützte Dateiformat haben. Klicken Sie dann auf das Buch, um es auszuwählen, oder halten Sie gedrückt, um seinen Speicherort anzuzeigen. Nachdem Sie alle gewünschten Bücher ausgewählt haben, klicken Sie auf das Häkchensymbol in der oberen rechten Ecke, warten Sie, bis alle Bücher geladen sind, und klicken Sie auf «Hinzufügen». Jetzt sollten Sie alle Bücher sehen, die Sie in der Liste hinzugefügt haben</string>
     <string name="help_screen">Hilfe</string>
     <string name="storage_permission">Berechtigung erteilen?</string>
@@ -197,7 +183,6 @@
     <string name="font_style_normal">Normal</string>
     <string name="font_style_italic">Kursiv</string>
     <string name="unknown">Unbekannt</string>
-    <string name="app_version_option_desc_2">Klicken Sie hier, um nach Updates zu suchen</string>
     <string name="whats_new_option">Was ist neu</string>
     <string name="licenses_option">Open Source-Lizenzen</string>
     <string name="credits_option">Credits</string>

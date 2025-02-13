@@ -21,9 +21,7 @@ import ua.acclorite.book_story.ui.about.AboutEvent
 @Composable
 fun AboutScaffold(
     scrollBehavior: TopAppBarScrollBehavior,
-    updateLoading: Boolean,
     listState: LazyListState,
-    checkForUpdate: (AboutEvent.OnCheckForUpdate) -> Unit,
     navigateToBrowserPage: (AboutEvent.OnNavigateToBrowserPage) -> Unit,
     navigateToLicenses: () -> Unit,
     navigateToCredits: () -> Unit,
@@ -42,10 +40,8 @@ fun AboutScaffold(
         }
     ) { paddingValues ->
         AboutLayout(
-            updateLoading = updateLoading,
             paddingValues = paddingValues,
             listState = listState,
-            checkForUpdate = checkForUpdate,
             navigateToBrowserPage = navigateToBrowserPage,
             navigateToLicenses = navigateToLicenses,
             navigateToCredits = navigateToCredits

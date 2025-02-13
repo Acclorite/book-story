@@ -24,13 +24,10 @@ fun StartContent(
     currentPage: Int,
     stackEvent: StackEvent,
     storagePermissionGranted: Boolean,
-    notificationsPermissionGranted: Boolean,
     storagePermissionState: PermissionState,
-    notificationsPermissionState: PermissionState,
     languages: List<ButtonItem>,
     changeLanguage: (MainEvent.OnChangeLanguage) -> Unit,
     storagePermissionRequest: (StartEvent.OnStoragePermissionRequest) -> Unit,
-    notificationsPermissionRequest: (StartEvent.OnNotificationsPermissionRequest) -> Unit,
     navigateForward: () -> Unit,
     navigateBack: () -> Unit,
     navigateToBrowse: () -> Unit,
@@ -50,13 +47,10 @@ fun StartContent(
                     currentPage = currentPage,
                     stackEvent = stackEvent,
                     storagePermissionGranted = storagePermissionGranted,
-                    notificationsPermissionGranted = notificationsPermissionGranted,
                     storagePermissionState = storagePermissionState,
-                    notificationsPermissionState = notificationsPermissionState,
                     languages = languages,
                     changeLanguage = changeLanguage,
                     storagePermissionRequest = storagePermissionRequest,
-                    notificationsPermissionRequest = notificationsPermissionRequest,
                     navigateForward = navigateForward
                 )
             }

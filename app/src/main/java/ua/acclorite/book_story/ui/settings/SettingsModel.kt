@@ -27,7 +27,6 @@ import ua.acclorite.book_story.domain.use_case.color_preset.GetColorPresets
 import ua.acclorite.book_story.domain.use_case.color_preset.ReorderColorPresets
 import ua.acclorite.book_story.domain.use_case.color_preset.SelectColorPreset
 import ua.acclorite.book_story.domain.use_case.color_preset.UpdateColorPreset
-import ua.acclorite.book_story.domain.use_case.permission.GrantNotificationsPermission
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideDefaultColorPreset
 import ua.acclorite.book_story.presentation.core.util.showToast
@@ -36,7 +35,6 @@ import kotlin.random.Random
 
 @HiltViewModel
 class SettingsModel @Inject constructor(
-    private val grantNotificationsPermission: GrantNotificationsPermission,
     private val getColorPresets: GetColorPresets,
     private val updateColorPreset: UpdateColorPreset,
     private val selectColorPreset: SelectColorPreset,
@@ -52,7 +50,6 @@ class SettingsModel @Inject constructor(
     private val _isReady = MutableStateFlow(false)
     val isReady = _isReady.asStateFlow()
 
-    private var notificationsPermissionJob: Job? = null
     private var selectColorPresetJob: Job? = null
     private var addColorPresetJob: Job? = null
     private var deleteColorPresetJob: Job? = null
@@ -98,25 +95,6 @@ class SettingsModel @Inject constructor(
     @OptIn(ExperimentalPermissionsApi::class)
     fun onEvent(event: SettingsEvent) {
         when (event) {
-            is SettingsEvent.OnChangeCheckForUpdates -> {
-                notificationsPermissionJob?.cancel()
-                notificationsPermissionJob = viewModelScope.launch(Dispatchers.IO) {
-                    if (!event.enable) {
-                        event.onChangeCheckForUpdates(false)
-                        return@launch
-                    }
-
-                    grantNotificationsPermission.execute(
-                        activity = event.activity,
-                        notificationsPermissionState = event.notificationsPermissionState
-                    ).apply {
-                        if (this) {
-                            event.onChangeCheckForUpdates(true)
-                        }
-                    }
-                }
-            }
-
             is SettingsEvent.OnSelectColorPreset -> {
                 viewModelScope.launch {
                     cancelColorPresetJobs()

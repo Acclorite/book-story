@@ -26,7 +26,6 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 private const val STORAGE_PERMISSION = "STORAGE PERM, REPO"
-private const val NOTIFICATIONS_PERMISSION = "NOTIFIC PERM, REPO"
 
 @Singleton
 class PermissionRepositoryImpl @Inject constructor() : PermissionRepository {
@@ -100,55 +99,6 @@ class PermissionRepositoryImpl @Inject constructor() : PermissionRepository {
         }
 
         Log.e(STORAGE_PERMISSION, "Not granted: Timeout")
-        return false
-    }
-
-    @OptIn(ExperimentalPermissionsApi::class)
-    override suspend fun grantNotificationsPermission(
-        activity: ComponentActivity,
-        notificationsPermissionState: PermissionState
-    ): Boolean {
-        Log.i(NOTIFICATIONS_PERMISSION, "Requested notifications permission")
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-            Log.w(NOTIFICATIONS_PERMISSION, "Granted: API is below 33")
-            return true
-        }
-
-        if (notificationsPermissionState.status.isGranted) {
-            Log.i(NOTIFICATIONS_PERMISSION, "Granted: Notifications Permission is already granted")
-            return true
-        }
-
-        if (!notificationsPermissionState.status.shouldShowRationale) {
-            notificationsPermissionState.launchPermissionRequest()
-        } else {
-            val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-            intent.putExtra(Settings.EXTRA_APP_PACKAGE, activity.packageName)
-
-            intent.launchActivity(activity) {
-                Log.e(
-                    NOTIFICATIONS_PERMISSION,
-                    "Could not launch \"APP_NOTIFICATION_SETTINGS\" activity"
-                )
-                return false
-            }
-        }
-
-        for (i in 1..20) {
-            if (!notificationsPermissionState.status.isGranted) {
-                delay(1000)
-                yield()
-                continue
-            }
-
-            yield()
-
-            Log.i(NOTIFICATIONS_PERMISSION, "Successfully granted")
-            return true
-            break
-        }
-
-        Log.e(NOTIFICATIONS_PERMISSION, "Not granted: Timeout")
         return false
     }
 }

@@ -42,10 +42,8 @@ import ua.acclorite.book_story.ui.about.AboutEvent
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AboutLayout(
-    updateLoading: Boolean,
     paddingValues: PaddingValues,
     listState: LazyListState,
-    checkForUpdate: (AboutEvent.OnCheckForUpdate) -> Unit,
     navigateToBrowserPage: (AboutEvent.OnNavigateToBrowserPage) -> Unit,
     navigateToLicenses: () -> Unit,
     navigateToCredits: () -> Unit
@@ -102,17 +100,9 @@ fun AboutLayout(
                                 context.getString(R.string.app_version)
                             )
                         )
-                        append("\n")
-                        append(stringResource(id = R.string.app_version_option_desc_2))
                     },
-                    showLoading = updateLoading
-                ) {
-                    checkForUpdate(
-                        AboutEvent.OnCheckForUpdate(
-                            context = context
-                        )
-                    )
-                }
+                    isOnClickEnabled = false
+                )
 
                 AboutItem(
                     title = stringResource(id = R.string.report_bug_option),

@@ -70,9 +70,6 @@ object StartScreen : Screen, Parcelable {
         val storagePermissionState = rememberPermissionState(
             permission = Manifest.permission.READ_EXTERNAL_STORAGE
         )
-        val notificationsPermissionState = rememberPermissionState(
-            permission = Manifest.permission.POST_NOTIFICATIONS
-        )
 
         val currentPage = remember { mutableIntStateOf(0) }
         val stackEvent = remember { mutableStateOf(StackEvent.Default) }
@@ -91,8 +88,7 @@ object StartScreen : Screen, Parcelable {
         LaunchedEffect(Unit) {
             screenModel.onEvent(
                 StartEvent.OnCheckPermissions(
-                    storagePermissionState = storagePermissionState,
-                    notificationsPermissionState = notificationsPermissionState
+                    storagePermissionState = storagePermissionState
                 )
             )
         }
@@ -104,13 +100,10 @@ object StartScreen : Screen, Parcelable {
             currentPage = currentPage.intValue,
             stackEvent = stackEvent.value,
             storagePermissionGranted = state.value.storagePermissionGranted,
-            notificationsPermissionGranted = state.value.notificationsPermissionGranted,
             storagePermissionState = storagePermissionState,
-            notificationsPermissionState = notificationsPermissionState,
             languages = languages,
             changeLanguage = mainModel::onEvent,
             storagePermissionRequest = screenModel::onEvent,
-            notificationsPermissionRequest = screenModel::onEvent,
             navigateForward = {
                 if ((currentPage.intValue + 1 == 3) && !state.value.storagePermissionGranted) {
                     return@StartContent
