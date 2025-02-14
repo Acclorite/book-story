@@ -94,17 +94,17 @@ dependencies {
     // Compose BOM libraries
     // Compose BOM was eliminated - it is recognized as Closed Source in AboutLibraries..
     // although it is not.
-    implementation("androidx.compose.foundation:foundation:1.8.0-alpha08")
-    implementation("androidx.compose.animation:animation:1.7.6")
-    implementation("androidx.compose.animation:animation-android:1.8.0-alpha08")
-    implementation("androidx.compose.foundation:foundation-layout:1.7.6")
-    implementation("androidx.compose.ui:ui:1.7.6")
-    implementation("androidx.compose.ui:ui-graphics:1.7.6")
-    implementation("androidx.compose.ui:ui-android:1.8.0-alpha08")
-    implementation("androidx.compose.material3:material3:1.4.0-alpha06")
+    implementation("androidx.compose.foundation:foundation:1.8.0-beta02")
+    implementation("androidx.compose.animation:animation:1.7.8")
+    implementation("androidx.compose.animation:animation-android:1.8.0-beta02")
+    implementation("androidx.compose.foundation:foundation-layout:1.7.8")
+    implementation("androidx.compose.ui:ui:1.7.8")
+    implementation("androidx.compose.ui:ui-graphics:1.7.8")
+    implementation("androidx.compose.ui:ui-android:1.8.0-beta02")
+    implementation("androidx.compose.material3:material3:1.4.0-alpha08")
     implementation("androidx.compose.material3:material3-window-size-class:1.3.1")
-    implementation("androidx.compose.material:material-icons-extended:1.7.6")
-    implementation("androidx.compose.material:material:1.7.6")
+    implementation("androidx.compose.material:material-icons-extended:1.7.8")
+    implementation("androidx.compose.material:material:1.7.8")
 
     // All dependencies
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
