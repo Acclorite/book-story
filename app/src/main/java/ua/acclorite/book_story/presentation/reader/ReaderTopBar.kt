@@ -37,7 +37,7 @@ import ua.acclorite.book_story.presentation.core.util.LocalActivity
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.ui.reader.ReaderEvent
 import ua.acclorite.book_story.ui.settings.SettingsEvent
-import ua.acclorite.book_story.ui.theme.Colors
+import ua.acclorite.book_story.ui.theme.readerBarsColor
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -64,7 +64,7 @@ fun ReaderTopBar(
     Column(
         Modifier
             .fillMaxWidth()
-            .background(Colors.readerSystemBarsColor)
+            .background(MaterialTheme.colorScheme.readerBarsColor)
             .readerColorPresetChange(
                 colorPresetChangeEnabled = fastColorPresetChange,
                 isLoading = isLoading,

@@ -30,6 +30,9 @@ import ua.acclorite.book_story.domain.reader.toHorizontalGesture
 import ua.acclorite.book_story.domain.reader.toProgressCount
 import ua.acclorite.book_story.domain.reader.toReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.toTextAlignment
+import ua.acclorite.book_story.domain.ui.toDarkTheme
+import ua.acclorite.book_story.domain.ui.toPureDark
+import ua.acclorite.book_story.domain.ui.toThemeContrast
 import ua.acclorite.book_story.domain.use_case.data_store.ChangeLanguage
 import ua.acclorite.book_story.domain.use_case.data_store.GetAllSettings
 import ua.acclorite.book_story.domain.use_case.data_store.SetDatastore
@@ -38,10 +41,7 @@ import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
 import ua.acclorite.book_story.presentation.core.constants.provideFonts
 import ua.acclorite.book_story.presentation.core.constants.provideMainState
-import ua.acclorite.book_story.ui.theme.toDarkTheme
-import ua.acclorite.book_story.ui.theme.toPureDark
 import ua.acclorite.book_story.ui.theme.toTheme
-import ua.acclorite.book_story.ui.theme.toThemeContrast
 import javax.inject.Inject
 
 

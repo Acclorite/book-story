@@ -6,6 +6,9 @@
 
 package ua.acclorite.book_story.domain.browse
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 enum class BrowseSortOrder {
     NAME,
     FILE_FORMAT,

@@ -4,15 +4,17 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.domain.browse
+package ua.acclorite.book_story.domain.ui
 
 import androidx.compose.runtime.Immutable
 
 @Immutable
-enum class BrowseLayout {
-    LIST, GRID
+enum class ThemeContrast {
+    STANDARD,
+    MEDIUM,
+    HIGH
 }
 
-fun String.toBrowseLayout(): BrowseLayout {
-    return BrowseLayout.valueOf(this)
+fun String.toThemeContrast(): ThemeContrast {
+    return ThemeContrast.valueOf(this)
 }

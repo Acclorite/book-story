@@ -29,20 +29,20 @@ import ua.acclorite.book_story.domain.reader.toHorizontalGesture
 import ua.acclorite.book_story.domain.reader.toProgressCount
 import ua.acclorite.book_story.domain.reader.toReaderScreenOrientation
 import ua.acclorite.book_story.domain.reader.toTextAlignment
+import ua.acclorite.book_story.domain.ui.DarkTheme
+import ua.acclorite.book_story.domain.ui.PureDark
+import ua.acclorite.book_story.domain.ui.ThemeContrast
+import ua.acclorite.book_story.domain.ui.toDarkTheme
+import ua.acclorite.book_story.domain.ui.toPureDark
+import ua.acclorite.book_story.domain.ui.toThemeContrast
 import ua.acclorite.book_story.domain.util.HorizontalAlignment
 import ua.acclorite.book_story.domain.util.toHorizontalAlignment
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
 import ua.acclorite.book_story.presentation.core.constants.provideFonts
 import ua.acclorite.book_story.presentation.core.constants.provideLanguages
-import ua.acclorite.book_story.ui.theme.DarkTheme
-import ua.acclorite.book_story.ui.theme.PureDark
 import ua.acclorite.book_story.ui.theme.Theme
-import ua.acclorite.book_story.ui.theme.ThemeContrast
-import ua.acclorite.book_story.ui.theme.toDarkTheme
-import ua.acclorite.book_story.ui.theme.toPureDark
 import ua.acclorite.book_story.ui.theme.toTheme
-import ua.acclorite.book_story.ui.theme.toThemeContrast
 import java.util.Locale
 
 /**

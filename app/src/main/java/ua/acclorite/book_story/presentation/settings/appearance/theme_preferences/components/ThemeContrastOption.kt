@@ -17,14 +17,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.ui.ButtonItem
+import ua.acclorite.book_story.domain.ui.ThemeContrast
+import ua.acclorite.book_story.domain.ui.isDark
+import ua.acclorite.book_story.domain.ui.isPureDark
 import ua.acclorite.book_story.presentation.core.components.settings.SegmentedButtonWithTitle
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.main.MainModel
 import ua.acclorite.book_story.ui.theme.BookStoryTheme
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
-import ua.acclorite.book_story.ui.theme.ThemeContrast
-import ua.acclorite.book_story.ui.theme.isDark
-import ua.acclorite.book_story.ui.theme.isPureDark
 
 @Composable
 fun ThemeContrastOption() {

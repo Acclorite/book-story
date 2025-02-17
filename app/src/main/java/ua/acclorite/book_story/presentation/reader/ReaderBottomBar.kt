@@ -38,8 +38,8 @@ import ua.acclorite.book_story.presentation.core.components.common.IconButton
 import ua.acclorite.book_story.presentation.core.components.common.StyledText
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
 import ua.acclorite.book_story.ui.reader.ReaderEvent
-import ua.acclorite.book_story.ui.theme.Colors
 import ua.acclorite.book_story.ui.theme.HorizontalExpandingTransition
+import ua.acclorite.book_story.ui.theme.readerBarsColor
 
 @Composable
 fun ReaderBottomBar(
@@ -75,7 +75,7 @@ fun ReaderBottomBar(
     Column(
         Modifier
             .fillMaxWidth()
-            .background(Colors.readerSystemBarsColor)
+            .background(MaterialTheme.colorScheme.readerBarsColor)
             .noRippleClickable(onClick = {})
             .navigationBarsPadding()
             .padding(horizontal = 18.dp),

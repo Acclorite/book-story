@@ -40,6 +40,7 @@ fun SettingsLayout(
     ) {
         item {
             SettingsLayoutItem(
+                index = 0,
                 icon = Icons.Outlined.DisplaySettings,
                 title = stringResource(id = R.string.general_settings),
                 description = stringResource(id = R.string.general_settings_desc)
@@ -50,6 +51,7 @@ fun SettingsLayout(
 
         item {
             SettingsLayoutItem(
+                index = 1,
                 icon = Icons.Outlined.Palette,
                 title = stringResource(id = R.string.appearance_settings),
                 description = stringResource(id = R.string.appearance_settings_desc)
@@ -60,6 +62,7 @@ fun SettingsLayout(
 
         item {
             SettingsLayoutItem(
+                index = 2,
                 icon = Icons.Outlined.LocalLibrary,
                 title = stringResource(id = R.string.reader_settings),
                 description = stringResource(id = R.string.reader_settings_desc)
@@ -70,6 +73,7 @@ fun SettingsLayout(
 
         item {
             SettingsLayoutItem(
+                index = 3,
                 icon = Icons.Outlined.Explore,
                 title = stringResource(id = R.string.browse_settings),
                 description = stringResource(id = R.string.browse_settings_desc)

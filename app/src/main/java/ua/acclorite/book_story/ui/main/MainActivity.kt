@@ -25,6 +25,8 @@ import okhttp3.internal.immutableListOf
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.navigator.NavigatorItem
 import ua.acclorite.book_story.domain.navigator.StackEvent
+import ua.acclorite.book_story.domain.ui.isDark
+import ua.acclorite.book_story.domain.ui.isPureDark
 import ua.acclorite.book_story.presentation.core.components.navigation_bar.NavigationBar
 import ua.acclorite.book_story.presentation.core.components.navigation_rail.NavigationRail
 import ua.acclorite.book_story.presentation.main.MainActivityKeyboardManager
@@ -40,8 +42,6 @@ import ua.acclorite.book_story.ui.settings.SettingsModel
 import ua.acclorite.book_story.ui.start.StartScreen
 import ua.acclorite.book_story.ui.theme.BookStoryTheme
 import ua.acclorite.book_story.ui.theme.Transitions
-import ua.acclorite.book_story.ui.theme.isDark
-import ua.acclorite.book_story.ui.theme.isPureDark
 import java.lang.reflect.Field
 
 

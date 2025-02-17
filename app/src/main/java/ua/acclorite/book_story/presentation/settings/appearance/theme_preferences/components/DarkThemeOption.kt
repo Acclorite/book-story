@@ -13,10 +13,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.ui.ButtonItem
+import ua.acclorite.book_story.domain.ui.DarkTheme
 import ua.acclorite.book_story.presentation.core.components.settings.SegmentedButtonWithTitle
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.main.MainModel
-import ua.acclorite.book_story.ui.theme.DarkTheme
 
 @Composable
 fun DarkThemeOption() {
