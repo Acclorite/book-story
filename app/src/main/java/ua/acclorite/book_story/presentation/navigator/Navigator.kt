@@ -19,6 +19,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.lifecycle.withCreationCallback
+import kotlinx.coroutines.Dispatchers
 import ua.acclorite.book_story.domain.navigator.Navigator
 import ua.acclorite.book_story.domain.navigator.Screen
 import ua.acclorite.book_story.domain.navigator.StackEvent
@@ -47,8 +48,12 @@ fun Navigator(
     content: @Composable (currentScreen: Screen) -> Unit
 ) {
     val navigator = rememberNavigator(initialScreen = initialScreen)
-    val currentScreen = navigator.lastItem.collectAsStateWithLifecycle()
-    val lastEvent = navigator.lastEvent.collectAsStateWithLifecycle()
+    val currentScreen = navigator.lastItem.collectAsStateWithLifecycle(
+        context = Dispatchers.Main.immediate
+    )
+    val lastEvent = navigator.lastEvent.collectAsStateWithLifecycle(
+        context = Dispatchers.Main.immediate
+    )
 
     CompositionLocalProvider(LocalNavigator provides navigator) {
         AnimatedContent(
