@@ -18,8 +18,8 @@ fun ColorScheme.dynamicListItemColor(
     index: Int
 ): Color {
     return when (index % 3) {
-        0 -> surfaceContainerLow
+        0 -> surfaceContainer
         1 -> surfaceContainerHigh
-        else -> surfaceContainer
+        else -> tertiaryContainer
     }
 }
