@@ -19,7 +19,7 @@
     <string name="delete_book_description">Dadurch wird das Buch aus der Datenbank gelöscht. Von Ihrem Gerät wird das Buch jedoch nicht gelöscht.</string>
     <string name="move_book_description">Wählen Sie die Kategorie aus, in die Sie dieses Buch verschieben möchten. Dieses Buch wird in die ausgewählte Kategorie verschoben.</string>
     <string name="error_no_description">Keine Beschreibung.</string>
-    <string name="error_could_not_get_text">Der Buchinhalt ist leer. Bitte stellen Sie sicher, dass der Buchinhalt nicht leer ist und aktualisieren Sie ihn.</string>
+    <string name="error_could_not_get_text">Die Datei ist leer, beschädigt oder fehlt. Bitte überprüfen Sie die Datei oder aktualisieren Sie den Pfad und versuchen Sie es erneut.</string>
     <string name="error_could_not_reset_cover">Titelbild konnte nicht zurückgesetzt werden.</string>
     <string name="error_closed_source">Geschlossene Quelle</string>
     <string name="library_empty">Lesen Sie Ihre Lieblingsbücher und sortieren Sie sie nach Kategorien</string>
@@ -93,9 +93,9 @@
     <string name="cover_reset">Das Titelbild wurde erfolgreich zurückgesetzt.</string>
     <string name="history_element_deleted">Das Verlaufselement wurde erfolgreich gelöscht.</string>
     <string name="dynamic_theme">Quecksilber</string>
-    <string name="file_path">Dateipfad</string>
-    <string name="file_last_opened">Zuletzt geöffnete Datei</string>
-    <string name="file_size">Dateigröße</string>
+    <string name="file_path">Pfad</string>
+    <string name="file_last_opened">Zuletzt geöffnet</string>
+    <string name="file_size">Größe</string>
     <string name="app_version_option">App-Version</string>
     <string name="report_bug_option">Fehler melden</string>
     <string name="help_title_how_to_add_books">Wie füge ich Bücher zur Bibliothek hinzu?</string>
@@ -345,4 +345,12 @@
     <string name="author_changed">Autor erfolgreich geändert.</string>
     <string name="description_changed">Beschreibung erfolgreich geändert.</string>
     <string name="font_thickness_option">Schriftstärke</string>
+    <string name="start_reading">Start</string>
+    <string name="show_more_content_desc">Mehr zeigen</string>
+    <string name="edit_content_desc">Feld bearbeiten</string>
+    <string name="ok">OK</string>
+    <string name="font_thickness_medium">Medium</string>
+    <string name="show_less_content_desc">Weniger zeigen</string>
+    <string name="expand_content_desc">Erweitern</string>
+    <string name="collapse_content_desc">Verringern</string>
 </resources>
