@@ -132,4 +132,16 @@
     <string name="history_deleted">Гісторыя была паспяхова выдалена.</string>
     <string name="title_changed">Назва была паспяхова зменена.</string>
     <string name="author_changed">Аўтар быў паспяхова зменены.</string>
+    <string name="credits_ideas">Ідэі</string>
+    <string name="help_desc_how_to_customize_app_3">Вы можаце зрабіць гэта з экранаў Бібліятэка, Гісторыя і Агляд, націснуўшы тры кропкі ў правым верхнім куце і выбраўшы Налады з выпадальнага меню. Затым вы ўбачыце ўсе даступныя налады для гэтага прыкладання. Не саромейцеся эксперыментаваць з імі!</string>
+    <string name="credits_contribution">Уклад</string>
+    <string name="help_desc_how_to_add_books_3">Калі вы не бачыце спампаваных кніг, паспрабуйце абнавіць спіс, пацягнуўшы яго ўніз. Пераканайцеся, что вашыя кнігі маюць фармат файла, які падтрымліваецца. Затым націсніце на кнігу, каб выбраць яе, або ўтрымлівайце, каб паказаць яе месцазнаходжанне. Пасля таго, як вы выбралі ўсе кнігі, якія вам патрэбныя, націсніце на іконку галачкі ў правым верхнім куце, дачакайцеся загрузкі ўсіх кніг і націсніце \"Дадаць\". Цяпер вы павінны ўбачыць усе кнігі, якія вы дадалі ў</string>
+    <string name="credits_translation">Пераклад</string>
+    <string name="help_title_how_to_add_books">Як мне дадаць кнігі ў Бібліятэку?</string>
+    <string name="help_desc_how_to_add_books_1">Перайсці ў</string>
+    <string name="help_desc_how_to_add_books_2">Агляд</string>
+    <string name="help_desc_how_to_add_books_4">Бібліятэкі</string>
+    <string name="help_title_how_to_customize_app">Як наладзіць прыкладанне?</string>
+    <string name="help_desc_how_to_customize_app_1">Перайсці ў</string>
+    <string name="help_desc_how_to_customize_app_2">Налады</string>
 </resources>
