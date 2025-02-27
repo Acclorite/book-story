@@ -1,9 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
-
-<resources>
+  --><resources>
     <string name="default_string">Standard</string>
+    <string name="red_theme">Marte</string>
+    <string name="chapters_reader_settings">Capitole</string>
+    <string name="about_screen">Despre aplicație</string>
+    <string name="never">Niciodată</string>
+    <string name="dictionary">Dicționar</string>
+    <string name="reading_mode_reader_settings">Modul de citire</string>
+    <string name="general_settings_desc">Limba aplicației</string>
+    <string name="theme_appearance_settings">Preferințele temei</string>
+    <string name="help_desc_how_to_add_books_2">Navigare</string>
+    <string name="help_screen">Ajutor</string>
+    <string name="move">Mută</string>
+    <string name="edit">Editează</string>
+    <string name="chapters_content_desc">Capitole</string>
+    <string name="pink_theme">Saturn</string>
+    <string name="help_desc_how_to_move_or_delete_books_2">Bibliotecă</string>
+    <string name="lavender_theme">Eris</string>
+    <string name="help_desc_how_to_edit_book_2">Bibliotecă</string>
+    <string name="no">Nu</string>
+    <string name="help_title_how_to_read_book">Cum citesc o carte?</string>
+    <string name="progress_reader_settings">Progres</string>
+    <string name="app_theme_option">Tema aplicației</string>
+    <string name="dark_theme_option">Temă întunecată</string>
+    <string name="screen_brightness_option">Luminozitate</string>
+    <string name="images_width_option">Dimensiune</string>
+    <string name="help_title_how_to_edit_book">Cum editez o carte?</string>
+    <string name="help_desc_how_to_customize_app_2">Setări</string>
+    <string name="help_desc_how_to_manage_history_2">Istoric</string>
+    <string name="sort_tab">Sortează</string>
+    <string name="settings_screen">Setări</string>
+    <string name="colors_appearance_settings">Culori</string>
+    <string name="author">Autor</string>
+    <string name="browse_settings">Navigare</string>
+    <string name="green_theme">Pământ</string>
+    <string name="add_book">Adaugă o carte</string>
+    <string name="copy">Copiază</string>
+    <string name="system_reader_settings">Sistem</string>
+    <string name="text_reader_settings">Text</string>
+    <string name="library_screen">Bibliotecă</string>
+    <string name="red_color">Roșu</string>
+    <string name="blue_color">Albastru</string>
+    <string name="alignment_center">Centru</string>
+    <string name="purple_gray_theme">Ceres</string>
+    <string name="green_gray_theme">Enceladus</string>
+    <string name="red_gray_theme">Callisto</string>
+    <string name="purple_theme">Jupiter</string>
+    <string name="pink2_theme">Ganymede</string>
+    <string name="language_option">Limba aplicației</string>
+    <string name="green_color">Verde</string>
+    <string name="yellow_theme">Venus</string>
+    <string name="library_content_desc">Biblioteca ta</string>
+    <string name="absolute_dark_option">Întuneric absolut</string>
+    <string name="reading_speed_reader_settings">Viteza de citire</string>
+    <string name="error_no_description">Fără descriere.</string>
+    <string name="delete">Șterge</string>
+    <string name="fullscreen_option">Ecran complet</string>
+    <string name="browse_screen">Navigare</string>
+    <string name="history_screen">Istoric</string>
+    <string name="search_field_empty">Căutare…</string>
+    <string name="grant">Permite</string>
+    <string name="get_help">Am nevoie de ajutor</string>
+    <string name="images_reader_settings">Imagini</string>
+    <string name="translator_reader_settings">Traducător</string>
+    <string name="help_desc_how_to_customize_reader_2">Setări</string>
+    <string name="help_desc_how_to_read_book_2">Bibliotecă</string>
+    <string name="aqua_theme">Uranus</string>
+    <string name="add_files_content_desc">Adaugă fișiere</string>
+    <string name="yellow2_theme">Makemake</string>
+    <string name="marsh_theme">Pluto</string>
 </resources>
