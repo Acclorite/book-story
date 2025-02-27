@@ -73,4 +73,17 @@
     <string name="add_files_content_desc">Adaugă fișiere</string>
     <string name="yellow2_theme">Makemake</string>
     <string name="marsh_theme">Pluto</string>
+    <string name="move_books">Mutați cărțile?</string>
+    <string name="planning_tab">Planificate</string>
+    <string name="help_desc_how_to_manage_history_1">Du-te la</string>
+    <string name="delete_books">Ștergeți cărțile?</string>
+    <string name="already_read_tab">Deja citite</string>
+    <string name="dropped_tab">Abandonate</string>
+    <string name="green2_theme">Io</string>
+    <string name="help_title_how_to_manage_history">Cum gestionez istoricul?</string>
+    <string name="storage_permission">Acordați permisiunea?</string>
+    <string name="add_books">Adăugați cărțile?</string>
+    <string name="color_tab">Culori</string>
+    <string name="help_desc_how_to_customize_reader_3">și selectați categoria cititor pentru a personaliza setările generale sau categoria aspect pentru a personaliza setările culorilor.</string>
+    <string name="reading_tab">Se citesc</string>
 </resources>
