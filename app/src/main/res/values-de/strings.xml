@@ -28,9 +28,6 @@
     <string name="selected_items_count_query">%1$s ausgewählt</string>
     <string name="color_preset_selected_query">Ausgewählt «%1$s»</string>
     <string name="cancel">Abbrechen</string>
-    <string name="grant">Gewähren</string>
-    <string name="grant_permission">Erteilen der Berechtigung</string>
-    <string name="get_help">Ich brauche Hilfe</string>
     <string name="add_book">Buch hinzufügen</string>
     <string name="move">Verschieben</string>
     <string name="never">Niemals</string>
@@ -120,9 +117,6 @@
     <string name="help_desc_how_to_read_book_2">Bibliothek</string>
     <string name="help_title_how_to_customize_reader">Wie passe ich den Reader an?</string>
     <string name="help_desc_how_to_customize_reader_1">Beginnen Sie mit dem Lesen des Buches (siehe: Wie lese ich ein Buch?), und bringen Sie dann die oberen und unteren Balken zum Vorschein, indem Sie irgendwo auf den Bildschirm klicken. Klicken Sie dann auf das Zahnradsymbol in der oberen rechten Ecke. Dadurch werden alle Reader-Einstellungen angezeigt. Der zweite Weg ist, zu den</string>
-    <string name="start_permissions_granted">Gewährt</string>
-    <string name="start_permissions_storage">Speicherberechtigung</string>
-    <string name="start_permissions_storage_desc">Erforderlich, um Ihr Gerät zu scannen und Bücher zu finden</string>
     <string name="start_done">Alles ist erledigt!</string>
     <string name="start_done_desc">Sie haben die Grundeinstellungen der App erfolgreich abgeschlossen. Möchten Sie anhand des Hilfebildschirms erfahren, wie Sie die App verwenden?</string>
     <string name="today">Heute</string>
@@ -147,12 +141,9 @@
     <string name="app_icon_content_desc">App-Symbol</string>
     <string name="help_desc_how_to_add_books_3">Wenn Sie die heruntergeladenen Bücher nicht sehen, versuchen Sie, die Liste zu aktualisieren, indem Sie sie nach unten ziehen. Stellen Sie sicher, dass Ihre Bücher das unterstützte Dateiformat haben. Klicken Sie dann auf das Buch, um es auszuwählen, oder halten Sie gedrückt, um seinen Speicherort anzuzeigen. Nachdem Sie alle gewünschten Bücher ausgewählt haben, klicken Sie auf das Häkchensymbol in der oberen rechten Ecke, warten Sie, bis alle Bücher geladen sind, und klicken Sie auf «Hinzufügen». Jetzt sollten Sie alle Bücher sehen, die Sie in der Liste hinzugefügt haben</string>
     <string name="help_screen">Hilfe</string>
-    <string name="storage_permission">Berechtigung erteilen?</string>
     <string name="add_books">Bücher hinzufügen?</string>
-    <string name="storage_permission_description">Wir benötigen eine Speicherberechtigung, um Ihr Gerät nach Büchern zu durchsuchen. Ohne diese Berechtigung können Sie kein Buch hinzufügen.</string>
     <string name="delete_books_description">Es werden alle ausgewählten Bücher (%1$s) aus der Datenbank gelöscht. Ausgewählte Bücher werden nicht von Ihrem Gerät gelöscht.</string>
     <string name="delete_history_description">Dadurch wird der gesamte Verlauf aus der Datenbank gelöscht. Nach dem Löschen des gesamten Verlaufs wird die Reihenfolge der Bücher zurückgesetzt.</string>
-    <string name="error_permission">Wir benötigen eine Speicherberechtigung, um Ihr Gerät nach Büchern zu durchsuchen</string>
     <string name="error_something_went_wrong">Etwas ist schief gelaufen.</string>
     <string name="error_no_translator">Keine Übersetzungsapp gefunden.</string>
     <string name="error_no_browser">Keine Browserapp gefunden.</string>
@@ -214,13 +205,11 @@
     <string name="start_welcome_desc">In eine Welt, in der Worte verzaubern, lehren und zu unglaublichen Abenteuern führen! Lassen Sie uns ein paar Dinge vorbereiten!</string>
     <string name="start_language_preferences">Spracheinstellungen</string>
     <string name="start_theme_preferences">Themeneinstellungen</string>
-    <string name="start_permissions_preferences">Berechtigungen</string>
     <string name="delete_history_element_content_desc">Lösche Verlaufselement</string>
     <string name="library_content_desc">Deine Bibliothek</string>
     <string name="history_content_desc">Leseverlauf</string>
     <string name="browse_content_desc">Bücher hinzufügen</string>
     <string name="arrow_content_desc">Pfeil</string>
-    <string name="required_content_desc">Vorausgesetzt</string>
     <string name="reset_start_content_desc">Startanleitung zurücksetzen</string>
     <string name="open_in_web_content_desc">Im Internet öffnen</string>
     <string name="delete_color_preset_content_desc">Farbvoreinstellung löschen</string>

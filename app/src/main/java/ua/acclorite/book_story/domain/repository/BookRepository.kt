@@ -27,7 +27,7 @@ interface BookRepository {
 
     suspend fun insertBook(
         bookWithCover: BookWithCover
-    ): Boolean
+    )
 
     suspend fun updateBook(
         book: Book

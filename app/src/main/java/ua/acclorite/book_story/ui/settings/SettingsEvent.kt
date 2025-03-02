@@ -4,18 +4,24 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-@file:OptIn(ExperimentalPermissionsApi::class)
-
 package ua.acclorite.book_story.ui.settings
 
 import android.content.Context
+import android.net.Uri
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import ua.acclorite.book_story.domain.util.ID
 
 @Immutable
 sealed class SettingsEvent {
+    data class OnGrantPersistableUriPermission(
+        val uri: Uri
+    ) : SettingsEvent()
+
+    data class OnReleasePersistableUriPermission(
+        val uri: Uri
+    ) : SettingsEvent()
+
     data class OnSelectColorPreset(
         val id: ID
     ) : SettingsEvent()

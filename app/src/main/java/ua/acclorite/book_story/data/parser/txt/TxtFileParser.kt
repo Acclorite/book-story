@@ -8,18 +8,18 @@ package ua.acclorite.book_story.data.parser.txt
 
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.FileParser
+import ua.acclorite.book_story.domain.file.CachedFile
 import ua.acclorite.book_story.domain.library.book.Book
 import ua.acclorite.book_story.domain.library.book.BookWithCover
 import ua.acclorite.book_story.domain.library.category.Category
 import ua.acclorite.book_story.domain.ui.UIText
-import java.io.File
 import javax.inject.Inject
 
 class TxtFileParser @Inject constructor() : FileParser {
 
-    override suspend fun parse(file: File): BookWithCover? {
+    override suspend fun parse(cachedFile: CachedFile): BookWithCover? {
         return try {
-            val title = file.nameWithoutExtension.trim()
+            val title = cachedFile.name.substringBeforeLast(".").trim()
             val author = UIText.StringResource(R.string.unknown_author)
 
             BookWithCover(
@@ -30,7 +30,7 @@ class TxtFileParser @Inject constructor() : FileParser {
                     scrollIndex = 0,
                     scrollOffset = 0,
                     progress = 0f,
-                    filePath = file.path,
+                    filePath = cachedFile.path,
                     lastOpened = null,
                     category = Category.entries[0],
                     coverImage = null

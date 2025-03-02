@@ -6,12 +6,8 @@
 
 package ua.acclorite.book_story.ui.browse
 
-import android.os.Build
-import android.os.Environment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.isGranted
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -32,18 +28,15 @@ import ua.acclorite.book_story.domain.library.book.NullableBook
 import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
 import ua.acclorite.book_story.domain.use_case.book.InsertBook
 import ua.acclorite.book_story.domain.use_case.file_system.GetBookFromFile
-import ua.acclorite.book_story.domain.use_case.file_system.GetFilesFromDevice
-import ua.acclorite.book_story.domain.use_case.permission.GrantStoragePermission
+import ua.acclorite.book_story.domain.use_case.file_system.GetFiles
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.ui.library.LibraryScreen
-import java.io.File
 import javax.inject.Inject
 import kotlin.collections.map
 
 @HiltViewModel
 class BrowseModel @Inject constructor(
-    private val grantStoragePermission: GrantStoragePermission,
-    private val getFilesFromDevice: GetFilesFromDevice,
+    private val getFiles: GetFiles,
     private val getBookFromFile: GetBookFromFile,
     private val insertBook: InsertBook
 ) : ViewModel() {
@@ -79,10 +72,8 @@ class BrowseModel @Inject constructor(
 
     private var refreshJob: Job? = null
     private var changeSearchQueryJob: Job? = null
-    private var storagePermissionJob: Job? = null
     private var getAddDialogBooksJob: Job? = null
 
-    @OptIn(ExperimentalPermissionsApi::class)
     fun onEvent(event: BrowseEvent) {
         when (event) {
             is BrowseEvent.OnRefreshList -> {
@@ -191,11 +182,11 @@ class BrowseModel @Inject constructor(
                     val editedList = _state.value.files.map { file ->
                         if (
                             event.files.any {
-                                file.path.startsWith(it.path)
+                                file.data.path.startsWith(it.data.path)
                             } && event.includedFileFormats.run {
                                 if (isEmpty()) return@run true
                                 any {
-                                    file.path.endsWith(it, ignoreCase = true)
+                                    file.data.path.endsWith(it, ignoreCase = true)
                                 }
                             }
                         ) {
@@ -225,7 +216,7 @@ class BrowseModel @Inject constructor(
             is BrowseEvent.OnSelectFile -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     val editedList = _state.value.files.map { file ->
-                        if (event.file.path == file.path) {
+                        if (event.file.data.path == file.data.path) {
                             file.copy(
                                 selected = !file.selected
                             )
@@ -271,79 +262,6 @@ class BrowseModel @Inject constructor(
                 }
             }
 
-            is BrowseEvent.OnPermissionCheck -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    val legacyPermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
-                    val isPermissionGranted = if (!legacyPermission) {
-                        Environment.isExternalStorageManager()
-                    } else event.storagePermissionState.status.isGranted
-
-                    if (isPermissionGranted) {
-                        return@launch
-                    }
-
-                    _state.update {
-                        it.copy(
-                            dialog = BrowseScreen.PERMISSION_DIALOG,
-                            isError = false
-                        )
-                    }
-                }
-            }
-
-            is BrowseEvent.OnActionPermissionDialog -> {
-                storagePermissionJob?.cancel()
-                storagePermissionJob = viewModelScope.launch(Dispatchers.IO) {
-                    grantStoragePermission.execute(
-                        activity = event.activity,
-                        storagePermissionState = event.storagePermissionState
-                    ).apply {
-                        if (this) {
-                            _state.update {
-                                it.copy(
-                                    dialog = null,
-                                    isError = false
-                                )
-                            }
-                            onEvent(
-                                BrowseEvent.OnRefreshList(
-                                    loading = true,
-                                    hideSearch = false
-                                )
-                            )
-                        }
-                    }
-                }
-            }
-
-            is BrowseEvent.OnDismissPermissionDialog -> {
-                viewModelScope.launch {
-                    val legacyPermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
-                    val permissionGranted = if (!legacyPermission) {
-                        Environment.isExternalStorageManager()
-                    } else event.storagePermissionState.status.isGranted
-
-                    storagePermissionJob?.cancel()
-                    _state.update {
-                        it.copy(
-                            isError = !permissionGranted,
-                            dialog = null
-                        )
-                    }
-
-                    if (permissionGranted) {
-                        viewModelScope.launch(Dispatchers.IO) {
-                            onEvent(
-                                BrowseEvent.OnRefreshList(
-                                    loading = true,
-                                    hideSearch = false
-                                )
-                            )
-                        }
-                    }
-                }
-            }
-
             is BrowseEvent.OnShowAddDialog -> {
                 viewModelScope.launch {
                     _state.update {
@@ -374,10 +292,9 @@ class BrowseModel @Inject constructor(
                                 }
                                 return@launch
                             }
-                            .map { File(it.path) }
                             .forEach {
                                 yield()
-                                books.add(getBookFromFile.execute(it))
+                                books.add(getBookFromFile.execute(it.data))
                             }
 
                         yield()
@@ -417,35 +334,8 @@ class BrowseModel @Inject constructor(
                         return@mapNotNull null
                     }.ifEmpty { return@launch }
 
-                    var failed = false
                     for (book in booksToInsert) {
-                        if (!insertBook.execute(book.bookWithCover!!)) {
-                            failed = true
-                            break
-                        }
-                    }
-
-                    if (failed) {
-                        _state.update {
-                            it.copy(
-                                dialog = null
-                            )
-                        }
-                        onEvent(
-                            BrowseEvent.OnRefreshList(
-                                loading = false,
-                                hideSearch = false
-                            )
-                        )
-                        onEvent(BrowseEvent.OnClearSelectedFiles)
-
-                        withContext(Dispatchers.Main) {
-                            event.context
-                                .getString(R.string.error_something_went_wrong)
-                                .showToast(context = event.context)
-                        }
-
-                        return@launch
+                        insertBook.execute(book.bookWithCover!!)
                     }
 
                     LibraryScreen.refreshListChannel.trySend(0)
@@ -512,7 +402,7 @@ class BrowseModel @Inject constructor(
     private suspend fun getFilesFromDownloads(
         query: String = if (_state.value.showSearch) _state.value.searchQuery else ""
     ) {
-        getFilesFromDevice.execute(query).apply {
+        getFiles.execute(query).apply {
             yield()
             _state.update {
                 it.copy(
@@ -522,13 +412,6 @@ class BrowseModel @Inject constructor(
                     isLoading = false
                 )
             }
-        }
-    }
-
-    fun resetScreen() {
-        viewModelScope.launch {
-            storagePermissionJob?.cancel()
-            _state.update { it.copy(isError = false) }
         }
     }
 
@@ -555,7 +438,7 @@ class BrowseModel @Inject constructor(
 
             return filter { file ->
                 includedFilterItems.any {
-                    file.path.endsWith(
+                    file.data.path.endsWith(
                         it, ignoreCase = true
                     )
                 }
@@ -568,19 +451,19 @@ class BrowseModel @Inject constructor(
                 compareByWithOrder<SelectableFile> {
                     when (sortOrder) {
                         BrowseSortOrder.NAME -> {
-                            it.name.trim()
+                            it.data.name.trim()
                         }
 
                         BrowseSortOrder.FILE_FORMAT -> {
-                            it.path.substringAfterLast(".").lowercase().trimEnd()
+                            it.data.path.substringAfterLast(".").lowercase().trimEnd()
                         }
 
                         BrowseSortOrder.FILE_SIZE -> {
-                            it.size
+                            it.data.size
                         }
 
                         else -> {
-                            it.lastModified
+                            it.data.lastModified
                         }
                     }
                 }

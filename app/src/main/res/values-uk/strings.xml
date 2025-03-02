@@ -17,7 +17,6 @@
     <string name="help_screen">Довідка</string>
 
     <!-- Dialog Labels -->
-    <string name="storage_permission">Надати Дозвіл?</string>
     <string name="add_books">Додати книги?</string>
     <string name="move_books">Перемістити книги?</string>
     <string name="delete_books">Видалити книги?</string>
@@ -27,15 +26,14 @@
     <string name="edit">Редагувати</string>
 
     <!-- Dialog Descriptions -->
-    <string name="storage_permission_description">Нам потрібен дозвіл на сховище, щоб просканувати Ваш Девайс на наявність книг. Без цього дозволу ви не зможете додати книгу.</string>
     <string name="add_books_description">Ви можете вибрати книги, які хочете додати. Ви зможете відредагувати Назву та Обкладинку книги пізніше. Процес завантаження може зайняти декілька хвилин.</string>
     <string name="move_books_description">Виберіть категорію, в яку ви хочете перемістити всі обрані книги(%1$s). Всі обрані книги будуть переміщені в обрану категорію.</string>
     <string name="delete_books_description">Це видалить всі обрані книги(%1$s) з бази даних. Це не видалить обрані книги з вашого пристрою.</string>
     <string name="delete_book_description">Це видалить цю книгу з бази даних. Це не видалить цю книгу з вашого пристрою.</string>
     <string name="move_book_description">Виберіть категорію, в яку ви хочете перемістити цю книгу. Ця книга буде переміщена в обрану категорію.</string>
     <string name="delete_history_description">Це видалить всю історію з бази даних. Після видалення всієї історії порядок книг буде скинутий.</string>
+
     <!-- Errors -->
-    <string name="error_permission">Нам потрібен дозвіл на сховище, щоб просканувати Ваш Девайс на наявність книг</string>
     <string name="error_no_description">Немає опису.</string>
     <string name="error_something_went_wrong">Який жах! Щось пішло не так.</string>
     <string name="error_no_translator">Не знайдено жодного перекладача.</string>
@@ -43,12 +41,12 @@
     <string name="error_no_browser">Не знайдено жодного браузера.</string>
     <string name="error_no_share_app">Не знайдено застосунка щоб поділитися.</string>
     <string name="error_could_not_get_text">
-        Файл порожній, пошкоджений або відсутній.
-        Перевірте файл або змініть шлях і спробуйте ще раз.
+        Файл порожній, відсутній або недоступний.
+        Перевірте файл, налаштування сканування або змініть шлях і спробуйте ще раз.
     </string>
     <string name="error_could_not_reset_cover">Не вдалося скинути обкладинку.</string>
     <string name="error_closed_source">Закритий код</string>
-    <string name="error_no_file">Файла не існує</string>
+    <string name="error_no_file">Файла не існує або він недоступний</string>
 
     <!-- Is Empty messages -->
     <string name="search_field_empty">Пошук…</string>
@@ -63,9 +61,6 @@
 
     <!-- Action Texts -->
     <string name="cancel">Відмінити</string>
-    <string name="grant">Надати</string>
-    <string name="grant_permission">Надати дозвіл</string>
-    <string name="get_help">Мені потрібна допомога</string>
     <string name="add_book">Додати книгу</string>
     <string name="move">Перемістити</string>
     <string name="delete">Видалити</string>
@@ -82,6 +77,8 @@
     <string name="share">Поділитися</string>
     <string name="ok">ОК</string>
     <string name="change_path">Змінити шлях</string>
+    <string name="add_folder">Додати теку</string>
+    <string name="set_up_scanning">Налаштувати сканування</string>
 
     <!-- Book -->
     <string name="unknown_author">Невідомий</string>
@@ -128,9 +125,17 @@
     <string name="progress_reader_settings">Прогрес</string>
     <string name="theme_appearance_settings">Налаштування теми</string>
     <string name="colors_appearance_settings">Кольори</string>
+    <string name="scan_browse_settings">Сканування</string>
     <string name="general_browse_settings">Головні</string>
     <string name="filter_browse_settings">Фільтр</string>
     <string name="sort_browse_settings">Сотрування</string>
+
+    <!-- Settings notes -->
+    <string name="browse_scan_option_note">
+        Ці теки використовуються для сканування та отримання файлів у Огляді.
+        Видалення теки тут не видалить фактичні файли чи книги з Бібліотеки.
+        Щоб відкликати доступ, натисніть відповідну кнопку.
+    </string>
 
     <!-- Settings options -->
     <!-- General -->
@@ -407,10 +412,7 @@
     <string name="start_welcome_desc">У світ, де слова чарують, вчать та ведуть у неймовірні пригоди! Давайте дещо налаштуємо!</string>
     <string name="start_language_preferences">Налаштування мови</string>
     <string name="start_theme_preferences">Налаштування теми</string>
-    <string name="start_permissions_preferences">Дозволи</string>
-    <string name="start_permissions_granted">Надано</string>
-    <string name="start_permissions_storage">Дозвіл на сховище</string>
-    <string name="start_permissions_storage_desc">Потрібний, щоб просканувати ваш пристрій та знайти книги</string>
+    <string name="start_scan_preferences">Налаштування сканування</string>
     <string name="start_done">Все готово!</string>
     <string name="start_done_desc">Ви успішно закінчили базове налаштовування застосунку. Бажаєте дізнатися, як користуватися застосунком, прочитавши екран Довідки?</string>
 
@@ -444,7 +446,6 @@
     <string name="history_content_desc">Історія читання</string>
     <string name="browse_content_desc">Додавайте книги</string>
     <string name="arrow_content_desc">Стрілка</string>
-    <string name="required_content_desc">Необхідно</string>
     <string name="reset_start_content_desc">Скинути початковий посібник</string>
     <string name="open_in_web_content_desc">Відкрити в браузері</string>
     <string name="delete_color_preset_content_desc">Видалити пресет кольорів</string>
@@ -464,5 +465,7 @@
     <string name="edit_content_desc">Редагувати поле</string>
     <string name="expand_content_desc">Розгорнути</string>
     <string name="collapse_content_desc">Згорнути</string>
+    <string name="remove_content_desc">Прибрати</string>
+    <string name="note_content_desc">Примітка</string>
 
 </resources>

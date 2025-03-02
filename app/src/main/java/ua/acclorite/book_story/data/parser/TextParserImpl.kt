@@ -10,12 +10,11 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.data.parser.epub.EpubTextParser
-import ua.acclorite.book_story.data.parser.fb2.Fb2TextParser
 import ua.acclorite.book_story.data.parser.html.HtmlTextParser
 import ua.acclorite.book_story.data.parser.pdf.PdfTextParser
 import ua.acclorite.book_story.data.parser.txt.TxtTextParser
+import ua.acclorite.book_story.domain.file.CachedFile
 import ua.acclorite.book_story.domain.reader.ReaderText
-import java.io.File
 import javax.inject.Inject
 
 private const val TEXT_PARSER = "Text Parser"
@@ -24,47 +23,47 @@ class TextParserImpl @Inject constructor(
     // Markdown parser (Markdown)
     private val txtTextParser: TxtTextParser,
     private val pdfTextParser: PdfTextParser,
-    private val fb2TextParser: Fb2TextParser,
 
     // Document parser (HTML+Markdown)
     private val epubTextParser: EpubTextParser,
     private val htmlTextParser: HtmlTextParser
 ) : TextParser {
-    override suspend fun parse(file: File): List<ReaderText> {
-        if (!file.exists()) {
-            Log.e(TEXT_PARSER, "File does not exist.")
+
+    override suspend fun parse(cachedFile: CachedFile): List<ReaderText> {
+        if (!cachedFile.canAccess()) {
+            Log.e(TEXT_PARSER, "File does not exist or no read access is granted.")
             return emptyList()
         }
 
-        val fileFormat = ".${file.extension}".lowercase().trim()
+        val fileFormat = ".${cachedFile.name.substringAfterLast(".")}".lowercase().trim()
         return withContext(Dispatchers.IO) {
             when (fileFormat) {
                 ".pdf" -> {
-                    pdfTextParser.parse(file)
+                    pdfTextParser.parse(cachedFile)
                 }
 
                 ".epub" -> {
-                    epubTextParser.parse(file)
+                    epubTextParser.parse(cachedFile)
                 }
 
                 ".txt" -> {
-                    txtTextParser.parse(file)
+                    txtTextParser.parse(cachedFile)
                 }
 
                 ".fb2" -> {
-                    fb2TextParser.parse(file)
+                    htmlTextParser.parse(cachedFile)
                 }
 
                 ".html" -> {
-                    htmlTextParser.parse(file)
+                    htmlTextParser.parse(cachedFile)
                 }
 
                 ".htm" -> {
-                    htmlTextParser.parse(file)
+                    htmlTextParser.parse(cachedFile)
                 }
 
                 ".md" -> {
-                    htmlTextParser.parse(file)
+                    htmlTextParser.parse(cachedFile)
                 }
 
                 else -> {

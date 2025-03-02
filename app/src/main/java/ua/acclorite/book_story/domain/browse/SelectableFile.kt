@@ -7,12 +7,11 @@
 package ua.acclorite.book_story.domain.browse
 
 import androidx.compose.runtime.Immutable
+import ua.acclorite.book_story.domain.file.CachedFile
+import ua.acclorite.book_story.domain.util.Selected
 
 @Immutable
 data class SelectableFile(
-    val name: String,
-    val path: String,
-    val size: Long,
-    val lastModified: Long,
-    val selected: Boolean
+    val data: CachedFile,
+    val selected: Selected
 )

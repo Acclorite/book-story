@@ -14,7 +14,7 @@ class InsertBook @Inject constructor(
     private val repository: BookRepository
 ) {
 
-    suspend fun execute(bookWithCover: BookWithCover): Boolean {
-        return repository.insertBook(bookWithCover)
+    suspend fun execute(bookWithCover: BookWithCover) {
+        repository.insertBook(bookWithCover)
     }
 }

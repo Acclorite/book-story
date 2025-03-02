@@ -21,14 +21,11 @@
     <string name="never">永不</string>
     <string name="color_preset_query">预设 %1$s</string>
     <string name="cancel">取消</string>
-    <string name="error_permission">我们需要存储权限以扫描您的设备上的书</string>
     <string name="library_screen">书库</string>
     <string name="history_screen">历史</string>
     <string name="browse_screen">浏览</string>
     <string name="about_screen">关于 app</string>
-    <string name="storage_permission">授予权限？</string>
     <string name="move_book">移动书籍？</string>
-    <string name="storage_permission_description">我们需要存储权限以扫描您的设备上的书。没有此权限，您将无法添加书。</string>
     <string name="delete_books_description">所有已选择的书（%1$s）将会从数据库中删除，但不会从您的设备上删除。</string>
     <string name="delete_book_description">这本书将会从数据库中删除，但不会从您的设备上删除。</string>
     <string name="move_book_description">选择你想将这本书移动到的分类。这本书将会被移动到指定的分类。</string>
@@ -44,8 +41,6 @@
     <string name="library_empty">阅读您喜欢的书籍并对其进行分类</string>
     <string name="history_empty">让您读完的最后一本书为您打开阅读之旅的新篇章</string>
     <string name="color_preset_selected_query">已选择 «%1$s»</string>
-    <string name="grant">授予</string>
-    <string name="grant_permission">授予权限</string>
     <string name="undo">撤销</string>
     <string name="next">下一个</string>
     <string name="unknown_author">未知</string>
@@ -55,7 +50,6 @@
     <string name="already_read_tab">已阅读</string>
     <string name="add_books">添加书籍？</string>
     <string name="error_no_browser">未发现浏览器应用。</string>
-    <string name="get_help">我需要帮助</string>
     <string name="add_book">添加一本书</string>
     <string name="move">移动</string>
     <string name="delete">删除</string>
@@ -260,11 +254,8 @@
     <string name="yesterday">昨天</string>
     <string name="continue_reading_content_desc">继续阅读</string>
     <string name="cover_image_content_desc">封面图片</string>
-    <string name="start_permissions_preferences">权限</string>
     <string name="start_done">设置完成！</string>
     <string name="error_content_desc">错误</string>
-    <string name="start_permissions_granted">已授权</string>
-    <string name="start_permissions_storage">存储权限</string>
     <string name="start_done_desc">你已经成功完成了应用基本设置。要参阅帮助以获取更多使用技巧吗？</string>
     <string name="cover_image_not_found_content_desc">未找到封面图片</string>
     <string name="start_language_preferences">语言偏好</string>
@@ -293,7 +284,6 @@
     <string name="history_content_desc">阅读历史</string>
     <string name="browse_content_desc">添加书籍</string>
     <string name="arrow_content_desc">箭头</string>
-    <string name="required_content_desc">必填</string>
     <string name="reset_start_content_desc">重置引导页面</string>
     <string name="delete_books_content_desc">删除所选书籍</string>
     <string name="revert_content_desc">撤销</string>
@@ -301,7 +291,6 @@
     <string name="checkbox_content_desc">复选框</string>
     <string name="add_files_content_desc">添加文件</string>
     <string name="select_all_files_content_desc">选择所有文件</string>
-    <string name="start_permissions_storage_desc">需要扫描您的设备来查找书籍</string>
     <string name="delete_whole_history_content_desc">删除全部历史记录</string>
     <string name="open_in_web_content_desc">在网页中打开</string>
     <string name="create_color_preset_content_desc">创建新颜色预设</string>

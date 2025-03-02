@@ -18,7 +18,6 @@ data class BrowseState(
 
     val isLoading: Boolean = true,
     val isRefreshing: Boolean = false,
-    val isError: Boolean = false,
 
     val selectedItemsCount: Int = 0,
     val hasSelectedItems: Boolean = false,

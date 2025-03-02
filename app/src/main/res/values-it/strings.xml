@@ -13,7 +13,6 @@
     <string name="move">Sposta</string>
     <string name="undo">Annulla</string>
     <string name="translate">Traduci</string>
-    <string name="grant_permission">Concedi permesso</string>
     <string name="browse_settings">Esplora</string>
     <string name="delete_cover">Elimina immagine di copertina</string>
     <string name="text_reader_settings">Testo</string>
@@ -52,18 +51,14 @@
     <string name="theme_appearance_settings">Preferenze tema</string>
     <string name="go_back_content_desc">Indietro</string>
     <string name="paragraph_height_option">Spaziatura dei paragrafi</string>
-    <string name="storage_permission">Concedi permesso?</string>
     <string name="font_style_italic">Corsivo</string>
     <string name="error_no_translator">Nessuna app traduttore trovata.</string>
-    <string name="start_permissions_preferences">Permessi</string>
     <string name="history_content_desc">Cronologia lettura</string>
-    <string name="required_content_desc">Richiesto</string>
     <string name="app_version_option">Versione app</string>
     <string name="books_moved">Tutti i libri selezionati sono stati spostati correttamente.</string>
     <string name="error_no_browser">Nessuna app browser trovata.</string>
     <string name="delete_history">Cancellare la cronologia di lettura?</string>
     <string name="error_no_dictionary">Nessuna app dizionario trovata.</string>
-    <string name="storage_permission_description">Abbiamo bisogno del permesso di archiviazione per la scansione del Tuo Dispositivo per i libri. Senza questo permesso, non sarai in grado di aggiungere i libri.</string>
     <string name="done">Fatto</string>
     <string name="share">Condividi</string>
     <string name="yes_go_to_help">Sì, vai ad Aiuto</string>
@@ -98,7 +93,6 @@
     <string name="delete_books_description">Eliminerà tutti i libri selezionati (%1$s) dal database. Non eliminerà i libri selezionati dal tuo dispositivo.</string>
     <string name="error_no_description">Nessuna descrizione.</string>
     <string name="error_something_went_wrong">Qualcosa è andato storto.</string>
-    <string name="error_permission">Abbiamo bisogno del permesso di archiviazione per cercare i libri nel tuo dispositivo</string>
     <string name="library_empty">Leggi i tuoi libri preferiti e ordinali per categoria</string>
     <string name="sort_tab">Ordina</string>
     <string name="color_tab">Colori</string>
@@ -124,7 +118,6 @@
     <string name="delete_books">Eliminare libri?</string>
     <string name="copy">Copia</string>
     <string name="general_tab">Generale</string>
-    <string name="grant">Concedi</string>
     <string name="help_translate_option">Aiuta a tradurre</string>
     <string name="yellow_theme">Venere</string>
     <string name="dictionary">Dizionario</string>
@@ -132,7 +125,6 @@
     <string name="theme_contrast_option">Contrasto tema</string>
     <string name="search_content_desc">Cerca</string>
     <string name="green_theme">Terra</string>
-    <string name="get_help">Ho bisogno di aiuto</string>
     <string name="theme_contrast_high">Alto</string>
     <string name="author">Autore</string>
     <string name="browse_layout_list">Lista</string>
@@ -287,9 +279,6 @@
     <string name="filter_content_desc">Filtro</string>
     <string name="help_desc_how_to_customize_reader_3">e seleziona la categoria Lettore per personalizzare le impostazioni generali oppure la categoria Aspetto per personalizzare le impostazioni Colori.</string>
     <string name="help_title_how_to_use_double_click_translation">Come si usa la traduzione con doppio clic?</string>
-    <string name="start_permissions_granted">Concesso</string>
-    <string name="start_permissions_storage">Autorizzazione di archiviazione</string>
-    <string name="start_permissions_storage_desc">Necessario per scansionare il tuo dispositivo e trovare i libri</string>
     <string name="start_done_desc">Hai completato con successo le impostazioni di base dell\'app. Vuoi imparare a usare l\'app leggendo la schermata di Aiuto?</string>
     <string name="add_files_content_desc">Aggiungi file</string>
     <string name="library_content_desc">La tua libreria</string>

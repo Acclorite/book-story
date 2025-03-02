@@ -169,4 +169,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onDestroy() {
+        cacheDir.deleteRecursively()
+        super.onDestroy()
+    }
 }

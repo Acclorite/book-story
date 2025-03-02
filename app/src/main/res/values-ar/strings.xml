@@ -9,14 +9,12 @@
 <resources>
     <string name="history_screen">التاريخ</string>
     <string name="add_books_description">يمكنك اختيار أي الكُتب تريد إضافتها. يمكنك تعديل العنوان و صورة غلاف الكتاب لاحقا. عملية التحميل يمكن أن تستغرق حتى بضع دقائق.</string>
-    <string name="storage_permission_description">نحتاج إذن التخزين لفحص جهازك من أجل الكُتب. من دون هذا الإذن، لن تكون قادرا على إضافة كتاب.</string>
     <string name="move_book_description">اختر الفئة التي تريد نقل هذا الكتاب إليها. سيتم نقل هذا الكتاب إلى الفئة المُحدّدة.</string>
     <string name="library_screen">المكتبة</string>
     <string name="browse_screen">تصفح</string>
     <string name="settings_screen">الإعدادات</string>
     <string name="about_screen">عن التطبيق</string>
     <string name="help_screen">مساعدة</string>
-    <string name="storage_permission">منح الإذن؟</string>
     <string name="add_books">إضافة الكُتب؟</string>
     <string name="move_books">نقل الكُتب؟</string>
     <string name="delete_books">حذف الكُتب؟</string>
@@ -36,9 +34,6 @@
     <string name="history_empty">دع آخر كتاب قرأته يفتح صفحات قصة جديدة عظيمة من رحلة قرائتك</string>
     <string name="error_could_not_reset_cover">غير قادر على إعادة ضبط صورة الغلاف.</string>
     <string name="cancel">إلغاء</string>
-    <string name="grant">امنح</string>
-    <string name="grant_permission">امنح الإذن</string>
-    <string name="get_help">أحتاج المساعدة</string>
     <string name="add_book">أضف كتابا˝</string>
     <string name="never">أبدا˝</string>
     <string name="undo">تراجع</string>
@@ -51,7 +46,6 @@
     <string name="language_option">لغة التطبيق</string>
     <string name="dark_theme_option">سمة داكنة</string>
     <string name="help_desc_how_to_manage_history_2">التاريخ</string>
-    <string name="error_permission">نحتاج إذن التخزين لفحص جهازك من أجل الكُتب</string>
     <string name="error_no_description">لا يوجد وصف.</string>
     <string name="browse_empty">قم بتوسيع مجموعة كتب مكتبتك باستخدام تنزيلاتك</string>
     <string name="selected_items_count_query">حُددت %1$s</string>
@@ -301,7 +295,6 @@
     <string name="start_welcome_desc">إلى عالم حيث الكلمات تسحر وتعلم وتقود إلى مغامرات لا تصدق! دعنا نرتب بعض الأمور!</string>
     <string name="start_welcome">مرحبًا بك في Book\'s Story!</string>
     <string name="delete_books_content_desc">احذف الكُتب المُحدّدة</string>
-    <string name="start_permissions_storage_desc">مطلوب مسح جهازك والعثور على الكُتب</string>
     <string name="delete_color_preset_content_desc">احذف إعداد اللون المسبق</string>
     <string name="create_color_preset_content_desc">أنشئ إعداد لون مسبق جديد</string>
     <string name="shuffle_color_preset_content_desc">اخلط الألوان</string>
@@ -333,7 +326,6 @@
     <string name="go_back_content_desc">ارجع</string>
     <string name="open_reader_settings_content_desc">إعدادات القارئ</string>
     <string name="cutout_padding_option_desc">تطبيق الهامش على منطقة القطع</string>
-    <string name="required_content_desc">مطلوب</string>
     <string name="error_content_desc">خطأ</string>
     <string name="cover_image_not_found_content_desc">لم يتم العثور غلاف صورة</string>
     <string name="more_content_desc">المزيد</string>
@@ -341,11 +333,8 @@
     <string name="path_changed">نجح تغيير مسار الملف.</string>
     <string name="revert_content_desc">تراجع</string>
     <string name="arrow_content_desc">سهم</string>
-    <string name="start_permissions_granted">منحت</string>
-    <string name="start_permissions_storage">إذن التخزين</string>
     <string name="yesterday">أمس</string>
     <string name="sort_order_content_desc">ترتيب الفرز</string>
-    <string name="start_permissions_preferences">الأذونات</string>
     <string name="today">اليوم</string>
     <string name="checkbox_content_desc">مربّع تأشير</string>
     <string name="github_profile_content_desc">ملف تعريف GitHub</string>

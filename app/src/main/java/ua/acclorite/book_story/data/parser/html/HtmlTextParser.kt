@@ -9,10 +9,11 @@ package ua.acclorite.book_story.data.parser.html
 import android.util.Log
 import kotlinx.coroutines.yield
 import org.jsoup.Jsoup
+import org.jsoup.parser.Parser
 import ua.acclorite.book_story.data.parser.DocumentParser
 import ua.acclorite.book_story.data.parser.TextParser
+import ua.acclorite.book_story.domain.file.CachedFile
 import ua.acclorite.book_story.domain.reader.ReaderText
-import java.io.File
 import javax.inject.Inject
 
 private const val HTML_TAG = "HTML Parser"
@@ -21,17 +22,18 @@ class HtmlTextParser @Inject constructor(
     private val documentParser: DocumentParser
 ) : TextParser {
 
-    override suspend fun parse(file: File): List<ReaderText> {
-        Log.i(HTML_TAG, "Started HTML parsing: ${file.name}.")
+    override suspend fun parse(cachedFile: CachedFile): List<ReaderText> {
+        Log.i(HTML_TAG, "Started HTML parsing: ${cachedFile.name}.")
 
         return try {
-            val readerText = documentParser.run {
-                Jsoup.parse(file).parseDocument()
+            val readerText = cachedFile.openInputStream()?.use { stream ->
+                documentParser.parseDocument(Jsoup.parse(stream, null, "", Parser.htmlParser()))
             }
 
             yield()
 
             if (
+                readerText.isNullOrEmpty() ||
                 readerText.filterIsInstance<ReaderText.Text>().isEmpty() ||
                 readerText.filterIsInstance<ReaderText.Chapter>().isEmpty()
             ) {

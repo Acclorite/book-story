@@ -6,99 +6,47 @@
 
 package ua.acclorite.book_story.data.repository
 
-import android.annotation.SuppressLint
+import android.app.Application
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
-import android.os.Environment
-import android.provider.Settings
 import android.util.Log
-import androidx.activity.ComponentActivity
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionState
-import com.google.accompanist.permissions.isGranted
-import com.google.accompanist.permissions.shouldShowRationale
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.yield
 import ua.acclorite.book_story.domain.repository.PermissionRepository
-import ua.acclorite.book_story.presentation.core.util.launchActivity
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private const val STORAGE_PERMISSION = "STORAGE PERM, REPO"
+private const val GRANT_URI = "GRANT URI PERM, REPO"
+private const val RELEASE_URI = "RELEASE URI PERM, REPO"
 
 @Singleton
-class PermissionRepositoryImpl @Inject constructor() : PermissionRepository {
+class PermissionRepositoryImpl @Inject constructor(
+    private val application: Application
+) : PermissionRepository {
 
-    @SuppressLint("InlinedApi")
-    @OptIn(ExperimentalPermissionsApi::class)
-    override suspend fun grantStoragePermission(
-        activity: ComponentActivity,
-        storagePermissionState: PermissionState
-    ): Boolean {
-        Log.i(STORAGE_PERMISSION, "Requested storage permission")
-        val legacyStoragePermission = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
+    override suspend fun grantPersistableUriPermission(uri: Uri) {
+        Log.i(GRANT_URI, "Granting persistable uri permission to \"${uri.path}\" URI.")
 
-        val permissionGranted = if (legacyStoragePermission) {
-            storagePermissionState.status.isGranted
-        } else Environment.isExternalStorageManager()
-
-        if (permissionGranted) {
-            Log.i(STORAGE_PERMISSION, "Granted: Storage Permission is already granted")
-            return true
+        try {
+            application.contentResolver.takePersistableUriPermission(
+                uri,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.e(GRANT_URI, "Could not grant URI permission.")
         }
+    }
 
-        when (legacyStoragePermission) {
-            true -> {
-                if (!storagePermissionState.status.shouldShowRationale) {
-                    storagePermissionState.launchPermissionRequest()
-                } else {
-                    val uri = Uri.parse("package:${activity.packageName}")
-                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri)
+    override suspend fun releasePersistableUriPermission(uri: Uri) {
+        Log.i(RELEASE_URI, "Releasing persistable uri permission from \"${uri.path}\" URI.")
 
-                    intent.launchActivity(activity) {
-                        Log.e(
-                            STORAGE_PERMISSION,
-                            "Could not launch \"ACTION_APPLICATION_DETAILS_SETTINGS\" activity"
-                        )
-                        return false
-                    }
-                }
-            }
-
-            false -> {
-                val uri = Uri.parse("package:${activity.packageName}")
-                val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri)
-
-                intent.launchActivity(activity) {
-                    Log.e(
-                        STORAGE_PERMISSION,
-                        "Could not launch \"ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION\" activity"
-                    )
-                    return false
-                }
-            }
+        try {
+            application.contentResolver.releasePersistableUriPermission(
+                uri,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.w(RELEASE_URI, "No granted URI permission found.")
         }
-
-        for (i in 1..30) {
-            val granted = if (legacyStoragePermission) {
-                storagePermissionState.status.isGranted
-            } else Environment.isExternalStorageManager()
-
-            if (!granted) {
-                delay(1000)
-                yield()
-                continue
-            }
-
-            yield()
-
-            Log.i(STORAGE_PERMISSION, "Successfully granted")
-            return true
-            break
-        }
-
-        Log.e(STORAGE_PERMISSION, "Not granted: Timeout")
-        return false
     }
 }

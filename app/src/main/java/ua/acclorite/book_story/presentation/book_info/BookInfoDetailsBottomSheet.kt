@@ -14,9 +14,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.file.CachedFileCompat
 import ua.acclorite.book_story.domain.library.book.Book
 import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.presentation.core.components.modal_bottom_sheet.ModalBottomSheet
@@ -24,7 +26,6 @@ import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideExtensions
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategoryTitle
 import ua.acclorite.book_story.ui.book_info.BookInfoEvent
-import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -38,10 +39,14 @@ fun BookInfoDetailsBottomSheet(
     val pattern = remember { SimpleDateFormat("HH:mm dd MMM yyyy", Locale.getDefault()) }
     val lastOpened = remember(book.lastOpened) { pattern.format(Date(book.lastOpened ?: 0)) }
 
-    val fileSize = remember(book.filePath) {
-        val file = File(book.filePath)
-        if (file.exists()) {
-            val sizeBytes = file.length()
+    val context = LocalContext.current
+    val cachedFile = remember(book.filePath) {
+        CachedFileCompat.fromFullPath(context, book.filePath)
+    }
+
+    val fileSize = remember(cachedFile) {
+        if (cachedFile != null && cachedFile.canAccess()) {
+            val sizeBytes = cachedFile.size
             val sizeKB = sizeBytes / 1024f
             val sizeMB = sizeKB / 1024f
             when {
@@ -54,11 +59,12 @@ fun BookInfoDetailsBottomSheet(
         }
     }
 
-    val fileExists = remember(book.filePath) {
-        File(book.filePath).let {
-            it.exists() && it.isFile && Constants.provideExtensions().any { ext ->
-                it.name.endsWith(ext, ignoreCase = true)
-            }
+    val fileExists = remember(cachedFile) {
+        cachedFile.let {
+            it != null && it.canAccess() && !it.isDirectory && Constants.provideExtensions()
+                .any { ext ->
+                    it.name.endsWith(ext, ignoreCase = true)
+                }
         }
     }
 

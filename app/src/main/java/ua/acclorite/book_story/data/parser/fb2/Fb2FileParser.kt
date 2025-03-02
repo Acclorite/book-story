@@ -6,65 +6,55 @@
 
 package ua.acclorite.book_story.data.parser.fb2
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import org.w3c.dom.Document
-import org.w3c.dom.Element
+import org.jsoup.Jsoup
+import org.jsoup.parser.Parser
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.parser.FileParser
+import ua.acclorite.book_story.domain.file.CachedFile
 import ua.acclorite.book_story.domain.library.book.Book
 import ua.acclorite.book_story.domain.library.book.BookWithCover
 import ua.acclorite.book_story.domain.library.category.Category
 import ua.acclorite.book_story.domain.ui.UIText
-import java.io.File
 import javax.inject.Inject
-import javax.xml.parsers.DocumentBuilderFactory
 
 class Fb2FileParser @Inject constructor() : FileParser {
 
-    override suspend fun parse(file: File): BookWithCover? {
+    override suspend fun parse(cachedFile: CachedFile): BookWithCover? {
         return try {
-            val factory = DocumentBuilderFactory.newInstance()
-            val builder = factory.newDocumentBuilder()
-            val document = withContext(Dispatchers.IO) {
-                builder.parse(file)
+            val document = cachedFile.openInputStream()?.use {
+                Jsoup.parse(it, null, "", Parser.xmlParser())
             }
 
-            val titleFromFile = extractElementContent(document, "book-title")
-            val title = titleFromFile ?: file.nameWithoutExtension.trim()
-
-            val authorFirstName = extractElementContent(document, "first-name")
-            val authorLastName = extractElementContent(document, "last-name")
-            val authorFromFile = StringBuilder()
-
-            if (authorFirstName != null) {
-                authorFromFile.append(
-                    "$authorFirstName "
-                )
-            }
-            if (authorLastName != null) {
-                authorFromFile.append(
-                    authorLastName
-                )
+            val title = document?.selectFirst("book-title")?.text()?.trim().run {
+                if (isNullOrBlank()) {
+                    return@run cachedFile.name.substringBeforeLast(".").trim()
+                }
+                this
             }
 
-            val author = if (authorFromFile.isNotBlank()) {
-                UIText.StringValue(authorFromFile.toString().trim())
-            } else {
-                UIText.StringResource(R.string.unknown_author)
+            val author = document?.selectFirst("author")?.text()?.trim().run {
+                if (isNullOrBlank()) {
+                    return@run UIText.StringResource(R.string.unknown_author)
+                }
+                UIText.StringValue(this.trim())
             }
 
-            val descriptionFromFile = extractElementContent(document, "annotation")
+            val description = document?.selectFirst("annotation")?.text()?.trim().run {
+                if (isNullOrBlank()) {
+                    return@run null
+                }
+                this
+            }
 
             BookWithCover(
                 book = Book(
                     title = title,
                     author = author,
-                    description = descriptionFromFile,
+                    description = description,
                     scrollIndex = 0,
                     scrollOffset = 0,
                     progress = 0f,
-                    filePath = file.path,
+                    filePath = cachedFile.path,
                     lastOpened = null,
                     category = Category.entries[0],
                     coverImage = null
@@ -75,14 +65,5 @@ class Fb2FileParser @Inject constructor() : FileParser {
             e.printStackTrace()
             null
         }
-    }
-
-    private fun extractElementContent(document: Document, tagName: String): String? {
-        val nodeList = document.getElementsByTagName(tagName)
-        if (nodeList.length > 0) {
-            val element = nodeList.item(0) as Element
-            return element.textContent.trim()
-        }
-        return null
     }
 }

@@ -19,9 +19,6 @@
     <string name="color_preset_query">முன்னமைக்கப்பட்ட %1$s</string>
     <string name="color_preset_selected_query">தேர்ந்தெடுக்கப்பட்ட «%1$s»</string>
     <string name="cancel">ரத்துசெய்</string>
-    <string name="grant">மானியம்</string>
-    <string name="grant_permission">இசைவு வழங்கவும்</string>
-    <string name="get_help">எனக்கு உதவி தேவை</string>
     <string name="delete">நீக்கு</string>
     <string name="next">அடுத்தது</string>
     <string name="yes_go_to_help">ஆம், உதவிக்குச் செல்லுங்கள்</string>
@@ -83,7 +80,6 @@
     <string name="screen_orientation_locked_landscape">பூட்டப்பட்ட நிலப்பரப்பு</string>
     <string name="unknown">தெரியவில்லை</string>
     <string name="help_desc_how_to_read_book_1">செல்லுங்கள்</string>
-    <string name="start_permissions_storage">சேமிப்பக இசைவு</string>
     <string name="app_version_option">பயன்பாட்டு பதிப்பு</string>
     <string name="licenses_option">திறந்த மூல உரிமங்கள்</string>
     <string name="help_desc_how_to_manage_history_2">வரலாறு</string>
@@ -97,13 +93,11 @@
     <string name="credits_fonts">எழுத்துருக்கள்</string>
     <string name="history_empty">நீங்கள் படித்த உங்கள் கடைசி நூல் உங்கள் வாசிப்பு பயணத்தின் புதிய சிறந்த கதையின் பக்கங்களைத் திறக்கட்டும்</string>
     <string name="share">பங்கு</string>
-    <string name="start_permissions_preferences">அனுமதிகள்</string>
     <string name="never">ஒருபோதும்</string>
     <string name="browse_layout_option">காட்சி முறை</string>
     <string name="browse_sort_order_file_format">கோப்பு வடிவம்</string>
     <string name="default_string">இயல்புநிலை</string>
     <string name="delete_history">வாசிப்பு வரலாற்றை நீக்கவா?</string>
-    <string name="error_permission">புத்தகங்களுக்காக உங்கள் சாதனத்தை ச்கேன் செய்ய எங்களுக்கு சேமிப்பக இசைவு தேவை</string>
     <string name="error_no_description">விளக்கம் இல்லை.</string>
     <string name="selected_items_count_query">%1$s தேர்ந்தெடுக்கப்பட்டன</string>
     <string name="undo">செயல்தவிர்</string>
@@ -161,7 +155,6 @@
     <string name="today">இன்று</string>
     <string name="error_content_desc">பிழை</string>
     <string name="browse_content_desc">புத்தகங்களைச் சேர்க்கவும்</string>
-    <string name="required_content_desc">தேவை</string>
     <string name="open_in_web_content_desc">வலையில் திறந்திருக்கும்</string>
     <string name="delete_color_preset_content_desc">வண்ண முன்னமைவை நீக்கு</string>
     <string name="create_color_preset_content_desc">புதிய வண்ண முன்னமைவை உருவாக்கவும்</string>
@@ -179,12 +172,10 @@
     <string name="settings_screen">அமைப்புகள்</string>
     <string name="about_screen">பயன்பாடு பற்றி</string>
     <string name="help_screen">உதவி</string>
-    <string name="storage_permission">இசைவு வழங்கவா?</string>
     <string name="move_books">புத்தகங்களை நகர்த்தவா?</string>
     <string name="delete_books">புத்தகங்களை நீக்கவா?</string>
     <string name="delete_book">புத்தகத்தை நீக்கவா?</string>
     <string name="move_book">புத்தகத்தை நகர்த்தவா?</string>
-    <string name="storage_permission_description">புத்தகங்களுக்காக உங்கள் சாதனத்தை ச்கேன் செய்ய எங்களுக்கு சேமிப்பக இசைவு தேவை. இந்த அனுமதியின்றி, நீங்கள் ஒரு புத்தகத்தைச் சேர்க்க முடியாது.</string>
     <string name="add_books_description">நீங்கள் எந்த புத்தகங்களைச் சேர்க்க விரும்புகிறீர்கள் என்பதை நீங்கள் தேர்வு செய்யலாம். புத்தகத்தின் தலைப்பு மற்றும் படத்தை பின்னர் திருத்தலாம். ஏற்றுதல் செயல்முறை பல நிமிடங்கள் வரை ஆகலாம்.</string>
     <string name="move_books_description">தேர்ந்தெடுக்கப்பட்ட அனைத்து புத்தகங்களையும் (%1$s) நகர்த்த விரும்பும் வகையைத் தேர்வுசெய்க. தேர்ந்தெடுக்கப்பட்ட அனைத்து புத்தகங்களும் தேர்ந்தெடுக்கப்பட்ட வகைக்கு மாற்றப்படும்.</string>
     <string name="delete_books_description">இது தரவுத்தளத்திலிருந்து தேர்ந்தெடுக்கப்பட்ட அனைத்து புத்தகங்களையும் (%1$s) நீக்கிவிடும். இது உங்கள் சாதனத்திலிருந்து தேர்ந்தெடுக்கப்பட்ட புத்தகங்களை நீக்காது.</string>
@@ -290,8 +281,6 @@
     <string name="help_desc_how_to_create_color_presets_1">தோற்ற அமைப்புகளுக்குச் செல்லுங்கள் (பார்க்க: வாசகரை எவ்வாறு தனிப்பயனாக்குவது?). «வண்ண முன்னமைவு» கீழ் «வண்ணங்கள்» துணைப்பிரிவு ஆகியவற்றின் கீழ் பெட்டியில் உள்ள அனைத்து வண்ண முன்னமைவின் அமைப்புகளையும் நீங்கள் மாற்றலாம். புதிய வண்ண முன்னமைவை உருவாக்க, «சேர்» ஐகான்-பொன்ட்டனைக் சொடுக்கு செய்க. ஒரு வண்ண முன்னமைவை மாற்ற பல வழிகள் உள்ளன: உரை புலத்தைக் சொடுக்கு செய்வதன் மூலம் நீங்கள் வண்ண முன்னமைவின் பெயரை மாற்றலாம், ச்லைடர்களை நகர்த்துவதன் மூலம் வண்ண முன்னமைவின் வண்ணங்களை மாற்றலாம், «சஃபிள்» ஐகான்-பொத்தானைக் சொடுக்கு செய்வதன் மூலம் நீங்கள் அனைத்தையும் கலக்கலாம் நிறங்கள். நீங்கள் வண்ண முன்னமைவை நீக்க விரும்பினால், «நீக்கு» ஐகான்-பொத்தானைக் சொடுக்கு செய்க.</string>
     <string name="help_desc_how_to_use_perception_expander_1">புலனுணர்வு விரிவாக்கம் உங்களுக்கு விரைவாக படிக்க உதவக்கூடும். முதலில், அதை வாசகர் அமைப்புகளில் இயக்கவும் (பார்க்க: வாசகரை எவ்வாறு தனிப்பயனாக்குவது?). இயக்கப்பட்டதும், வாசகரின் இருபுறமும் இரண்டு செங்குத்து கோடுகள் தோன்றும். உங்கள் வாசிப்பு வேகத்தை மேலும் மேம்படுத்த, மையத்தைச் சுற்றி குறைந்த இடத்தை உருவாக்க திணிப்பை சரிசெய்யவும். இதைப் பயன்படுத்த, உங்கள் புற பார்வை பக்கங்களில் உரையை எடுக்க அனுமதிக்கும் போது திரையின் மையத்தில் கவனம் செலுத்துங்கள். நீங்கள் படிக்கும்போது, ஒவ்வொரு வரியுக்கும் பிறகு பக்கங்களை நேரடியாகப் பார்க்காமல் மையத்தில் உங்கள் கவனத்தை பராமரிக்கவும்.</string>
     <string name="start_theme_preferences">கருப்பொருள் விருப்பத்தேர்வுகள்</string>
-    <string name="start_permissions_granted">வழங்கப்பட்டது</string>
-    <string name="start_permissions_storage_desc">உங்கள் சாதனத்தை ச்கேன் செய்து புத்தகங்களைக் கண்டுபிடிக்க வேண்டும்</string>
     <string name="start_done_desc">பயன்பாட்டின் அடிப்படை அமைப்பை நீங்கள் வெற்றிகரமாக முடித்துவிட்டீர்கள். உதவித் திரையைப் படிப்பதன் மூலம் பயன்பாட்டை எவ்வாறு பயன்படுத்துவது என்பதை அறிய விரும்புகிறீர்களா?</string>
     <string name="yesterday">நேற்று</string>
     <string name="continue_reading_content_desc">தொடர்ந்து படிக்கவும்</string>

@@ -13,7 +13,6 @@
     <string name="settings_screen">Ajustes</string>
     <string name="about_screen">Acerca de la aplicación</string>
     <string name="help_screen">Ayuda</string>
-    <string name="storage_permission">¿Conceder permiso?</string>
     <string name="add_books">¿Añadir libros?</string>
     <string name="move_books">¿Mover libros?</string>
     <string name="delete_books">¿Borrar libros?</string>
@@ -23,15 +22,12 @@
     <string name="move_books_description">Elija la categoría a la que desea mover todos los libros seleccionados (%1$s). Todos los libros seleccionados serán trasladados a la categoría seleccionada.</string>
     <string name="move_book_description">Elija la categoría a la que quiere mover este libro. Este libro será trasladado a la categoría seleccionada.</string>
     <string name="delete_history_description">Eliminará todo el historial de la base de datos. Después de borrar todo el historial, el orden de los libros se restablecerá.</string>
-    <string name="error_permission">Necesitamos permiso de almacenamiento para escanear su dispositivo en busca de libros</string>
     <string name="error_no_description">Sin descripción.</string>
     <string name="error_something_went_wrong">Algo salió mal.</string>
     <string name="error_no_browser">No se encontró ninguna aplicación de navegador.</string>
     <string name="error_closed_source">Fuente cerrada</string>
     <string name="selected_items_count_query">%1$s seleccionado</string>
     <string name="cancel">Cancelar</string>
-    <string name="grant">Conceder</string>
-    <string name="get_help">Necesito ayuda</string>
     <string name="add_book">Añadir un libro</string>
     <string name="move">Mover</string>
     <string name="change_cover">Cambiar portada</string>
@@ -75,11 +71,9 @@
     <string name="help_desc_how_to_customize_app_3">Puedes hacerlo desde las pantallas de Biblioteca, Historial y Explorar haciendo clic en tres puntos en la esquina superior derecha y seleccionando «Ajustes» desde el menú desplegable. A continuación, verá todos los ajustes disponibles para esta aplicación. ¡No dudes en experimentar con ellos!</string>
     <string name="start_language_preferences">Configuración del idioma</string>
     <string name="start_theme_preferences">Preferencias de tema</string>
-    <string name="start_permissions_preferences">Permisos</string>
     <string name="start_welcome">¡Bienvenid@ a Book\'s Story!</string>
     <string name="drag_content_desc">Arrastrar</string>
     <string name="delete">Borrar</string>
-    <string name="storage_permission_description">Necesitamos permiso de almacenamiento para escanear su dispositivo en busca de libros. Sin este permino, no podrá añadir libros.</string>
     <string name="delete_books_description">Eliminará todos los libros seleccionados(%1$s) de la base de datos. No eliminará los libros seleccionados de su dispositivo.</string>
     <string name="add_books_description">Puede escoger qué libros desea añadir. Puede editar el título y la portada del libro más adelante. El proceso de carga puede durar varios minutos.</string>
     <string name="delete_book_description">Eliminará este libro de la base de datos. No eliminará este libro de su dispositivo.</string>
@@ -90,7 +84,6 @@
     <string name="library_empty">Lea sus libros favoritos y ordénelos en categorías</string>
     <string name="history_empty">Deje que su último libro leído abra las páginas de una nueva gran historia en su viaje de lectura</string>
     <string name="translate">Traducir</string>
-    <string name="grant_permission">Conceder permiso</string>
     <string name="never">Nunca</string>
     <string name="copy">Copiar</string>
     <string name="done">Hecho</string>
@@ -179,11 +172,8 @@
     <string name="help_desc_how_to_read_book_2">Biblioteca</string>
     <string name="help_title_how_to_use_double_click_translation">¿Cómo utilizo la traducción de doble clic?</string>
     <string name="start_welcome_desc">¡Hacia un mundo donde las palabras cautivan, enseñan y conducen a increíbles aventuras! ¡Vamos a preparar algunas cosas!</string>
-    <string name="start_permissions_granted">Concedido</string>
     <string name="start_done">¡Todo está listo!</string>
-    <string name="start_permissions_storage">Permiso de almacenamiento</string>
     <string name="help_desc_how_to_use_double_click_translation_1">En primer lugar, vaya a los ajustes del lector (ver: ¿Cómo personalizo el lector?), luego encienda el ajuste correspondiente. Después de eso, comienza a leer el libro (ver: ¿Cómo leo un libro?). Ahora si hace doble clic en el párrafo deseado, el traductor externo se abrirá con el texto del párrafo.</string>
-    <string name="start_permissions_storage_desc">Necesario para escanear tu dispositivo y encontrar los libros</string>
     <string name="help_desc_how_to_customize_reader_2">Ajustes</string>
     <string name="help_desc_how_to_manage_history_1">Ir al</string>
     <string name="help_desc_how_to_manage_history_2">Historial</string>
@@ -212,7 +202,6 @@
     <string name="delete_history_element_content_desc">Eliminar elemento del historial</string>
     <string name="library_content_desc">Tu biblioteca</string>
     <string name="arrow_content_desc">Flecha</string>
-    <string name="required_content_desc">Necesario</string>
     <string name="open_in_web_content_desc">Abrir en la web</string>
     <string name="shuffle_color_preset_content_desc">Colores aleatorios</string>
     <string name="open_reader_settings_content_desc">Ajustes del lector</string>

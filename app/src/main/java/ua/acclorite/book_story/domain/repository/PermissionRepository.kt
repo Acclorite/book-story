@@ -6,15 +6,15 @@
 
 package ua.acclorite.book_story.domain.repository
 
-import androidx.activity.ComponentActivity
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionState
+import android.net.Uri
 
 interface PermissionRepository {
 
-    @OptIn(ExperimentalPermissionsApi::class)
-    suspend fun grantStoragePermission(
-        activity: ComponentActivity,
-        storagePermissionState: PermissionState
-    ): Boolean
+    suspend fun grantPersistableUriPermission(
+        uri: Uri
+    )
+
+    suspend fun releasePersistableUriPermission(
+        uri: Uri
+    )
 }

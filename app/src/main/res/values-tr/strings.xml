@@ -17,7 +17,6 @@
     <string name="help_screen">Yardım</string>
 
     <!-- Dialog Labels -->
-    <string name="storage_permission">İzin verilsin mi?</string>
     <string name="add_books">Kitaplar eklensin mi?</string>
     <string name="move_books">Kitaplar taşınsın mı?</string>
     <string name="delete_books">Kitaplar silinsin mi?</string>
@@ -27,10 +26,6 @@
     <string name="edit">Düzenle</string>
 
     <!-- Dialog Descriptions -->
-    <string name="storage_permission_description">
-        Cihazınızı kitaplar için tarayabilmemiz adına depolama iznine ihtiyacımız var.
-        Bu izin olmadan kitap ekleyemezsiniz.
-    </string>
     <string name="add_books_description">
         Eklemek istediğiniz kitapları seçebilirsiniz.
         Kitabın başlığını ve kapak resmini daha sonra düzenleyebilirsiniz.
@@ -57,9 +52,6 @@
         Geçmişi sildikten sonra kitapların sıralaması sıfırlanacaktır.
     </string>
       <!-- Errors -->
-    <string name="error_permission">
-        Cihazınızı kitaplar için tarayabilmemiz adına depolama iznine ihtiyacımız var
-    </string>
     <string name="error_no_description">
         Açıklama yok.
     </string>
@@ -99,9 +91,6 @@
 
     <!-- Action Texts -->
     <string name="cancel">İptal</string>
-    <string name="grant">Ver</string>
-    <string name="grant_permission">İzin ver</string>
-    <string name="get_help">Yardıma ihtiyacım var</string>
     <string name="add_book">Kitap ekle</string>
     <string name="move">Taşı</string>
     <string name="delete">Sil</string>
@@ -539,10 +528,6 @@
     </string>
     <string name="start_language_preferences">Dil tercihleri</string>
     <string name="start_theme_preferences">Tema tercihleri</string>
-    <string name="start_permissions_preferences">İzinler</string>
-    <string name="start_permissions_granted">Verildi</string>
-    <string name="start_permissions_storage">Depolama izni</string>
-    <string name="start_permissions_storage_desc">Cihazınızı tarayıp kitapları bulmak için gereklidir</string>
     <string name="start_done">Her şey tamam!</string>
     <string name="start_done_desc">
         Uygulamanın temel ayarlarını başarıyla tamamladınız.
@@ -579,7 +564,6 @@
     <string name="history_content_desc">Okuma geçmişi</string>
     <string name="browse_content_desc">Kitap ekle</string>
     <string name="arrow_content_desc">Ok</string>
-    <string name="required_content_desc">Gerekli</string>
     <string name="reset_start_content_desc">Başlangıç rehberini sıfırla</string>
     <string name="open_in_web_content_desc">Web\'de aç</string>
     <string name="delete_color_preset_content_desc">Renk ön ayarını sil</string>

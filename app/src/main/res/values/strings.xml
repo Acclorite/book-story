@@ -19,7 +19,6 @@
     <string name="help_screen">Help</string>
 
     <!-- Dialog Labels -->
-    <string name="storage_permission">Grant Permission?</string>
     <string name="add_books">Add books?</string>
     <string name="move_books">Move books?</string>
     <string name="delete_books">Delete books?</string>
@@ -29,10 +28,6 @@
     <string name="edit">Edit</string>
 
     <!-- Dialog Descriptions -->
-    <string name="storage_permission_description">
-        We need storage permission to scan Your Device for books.
-        Without this permission, you will not be able to add a book.
-    </string>
     <string name="add_books_description">
         You can choose which books you want to add.
         You can edit Title and Cover image of the book later.
@@ -60,26 +55,19 @@
     </string>
 
     <!-- Errors -->
-    <string name="error_permission">
-        We need storage permission to scan Your Device for books
-    </string>
-    <string name="error_no_description">
-        No description.
-    </string>
-    <string name="error_something_went_wrong">
-        Something went wrong.
-    </string>
+    <string name="error_no_description">No description.</string>
+    <string name="error_something_went_wrong">Something went wrong.</string>
     <string name="error_no_translator">No translator app found.</string>
     <string name="error_no_dictionary">No dictionary app found.</string>
     <string name="error_no_browser">No browser app found.</string>
     <string name="error_no_share_app">No app to share found.</string>
     <string name="error_could_not_get_text">
-        File is empty, corrupted, or missing.
-        Please verify the file or update the path and try again.
+        File is empty, missing, or inaccessible.
+        Verify the file, scan settings or change the path, then try again.
     </string>
     <string name="error_could_not_reset_cover">Could not reset cover image.</string>
     <string name="error_closed_source">Closed source</string>
-    <string name="error_no_file">File does not exist</string>
+    <string name="error_no_file">File does not exist or inaccessible</string>
 
     <!-- Is Empty messages -->
     <string name="search_field_empty">
@@ -102,9 +90,6 @@
 
     <!-- Action Texts -->
     <string name="cancel">Cancel</string>
-    <string name="grant">Grant</string>
-    <string name="grant_permission">Grant permission</string>
-    <string name="get_help">I need help</string>
     <string name="add_book">Add a book</string>
     <string name="move">Move</string>
     <string name="delete">Delete</string>
@@ -121,6 +106,8 @@
     <string name="share">Share</string>
     <string name="ok">OK</string>
     <string name="change_path">Change path</string>
+    <string name="add_folder">Add folder</string>
+    <string name="set_up_scanning">Set up scanning</string>
 
     <!-- Book -->
     <string name="unknown_author">Unknown</string>
@@ -167,9 +154,17 @@
     <string name="progress_reader_settings">Progress</string>
     <string name="theme_appearance_settings">Theme preferences</string>
     <string name="colors_appearance_settings">Colors</string>
+    <string name="scan_browse_settings">Scan</string>
     <string name="general_browse_settings">General</string>
     <string name="filter_browse_settings">Filter</string>
     <string name="sort_browse_settings">Sort</string>
+
+    <!-- Settings notes -->
+    <string name="browse_scan_option_note">
+        These folders are used to scan and retrieve files in the Browse.
+        Removing a folder here will not delete actual files or books from the Library.
+        To revoke access, click the corresponding button.
+    </string>
 
     <!-- Settings options -->
     <!-- General -->
@@ -545,10 +540,7 @@
     </string>
     <string name="start_language_preferences">Language preferences</string>
     <string name="start_theme_preferences">Theme preferences</string>
-    <string name="start_permissions_preferences">Permissions</string>
-    <string name="start_permissions_granted">Granted</string>
-    <string name="start_permissions_storage">Storage permission</string>
-    <string name="start_permissions_storage_desc">Required to scan your device and find books</string>
+    <string name="start_scan_preferences">Scan preferences</string>
     <string name="start_done">Everything\'s done!</string>
     <string name="start_done_desc">
         You\'re successfully done basic setting of the app.
@@ -585,7 +577,6 @@
     <string name="history_content_desc">Reading history</string>
     <string name="browse_content_desc">Add books</string>
     <string name="arrow_content_desc">Arrow</string>
-    <string name="required_content_desc">Required</string>
     <string name="reset_start_content_desc">Reset start guide</string>
     <string name="open_in_web_content_desc">Open in web</string>
     <string name="delete_color_preset_content_desc">Delete color preset</string>
@@ -608,5 +599,7 @@
     <string name="edit_content_desc">Edit field</string>
     <string name="expand_content_desc">Expand</string>
     <string name="collapse_content_desc">Collapse</string>
+    <string name="remove_content_desc">Remove</string>
+    <string name="note_content_desc">Note</string>
 
 </resources>

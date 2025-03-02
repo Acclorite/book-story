@@ -127,8 +127,8 @@ dependencies {
     // Splash Screen API
     implementation("androidx.core:core-splashscreen:1.0.1")
 
-    // Permission handling
-    implementation("com.google.accompanist:accompanist-permissions:0.37.0")
+    // SAF
+    implementation("com.anggrayudi:storage:2.0.0")
 
     // PDF parser
     implementation("com.tom-roush:pdfbox-android:2.0.27.0")

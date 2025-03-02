@@ -19,20 +19,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.domain.browse.BrowseLayout
 import ua.acclorite.book_story.domain.browse.SelectableFile
 import ua.acclorite.book_story.ui.browse.BrowseEvent
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.theme.DefaultTransition
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalPermissionsApi::class)
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun BrowseScaffold(
     files: List<SelectableFile>,
     refreshState: PullRefreshState,
-    storagePermissionState: PermissionState,
     listState: LazyListState,
     gridState: LazyGridState,
     layout: BrowseLayout,
@@ -46,7 +43,6 @@ fun BrowseScaffold(
     selectedItemsCount: Int,
     isRefreshing: Boolean,
     isLoading: Boolean,
-    isError: Boolean,
     dialogHidden: Boolean,
     filesEmpty: Boolean,
     showSearch: Boolean,
@@ -59,11 +55,10 @@ fun BrowseScaffold(
     clearSelectedFiles: (BrowseEvent.OnClearSelectedFiles) -> Unit,
     selectFiles: (BrowseEvent.OnSelectFiles) -> Unit,
     selectFile: (BrowseEvent.OnSelectFile) -> Unit,
-    permissionCheck: (BrowseEvent.OnPermissionCheck) -> Unit,
     showFilterBottomSheet: (BrowseEvent.OnShowFilterBottomSheet) -> Unit,
     showAddDialog: (BrowseEvent.OnShowAddDialog) -> Unit,
     changePinnedPaths: (MainEvent.OnChangeBrowsePinnedPaths) -> Unit,
-    navigateToHelp: () -> Unit,
+    navigateToBrowseSettings: () -> Unit,
 ) {
     Scaffold(
         modifier = Modifier
@@ -149,12 +144,9 @@ fun BrowseScaffold(
             BrowseEmptyPlaceholder(
                 filesEmpty = filesEmpty,
                 dialogHidden = dialogHidden,
-                isError = isError,
                 isLoading = isLoading,
                 isRefreshing = isRefreshing,
-                storagePermissionState = storagePermissionState,
-                permissionCheck = permissionCheck,
-                navigateToHelp = navigateToHelp
+                navigateToBrowseSettings = navigateToBrowseSettings
             )
 
             BrowseRefreshIndicator(

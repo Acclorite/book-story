@@ -29,7 +29,7 @@ fun BrowseLayout(
 ) {
     val groupedFiles = remember(files, pinnedPaths) {
         files.groupBy { file ->
-            file.path.substringBeforeLast(File.separator)
+            file.data.path.substringBeforeLast(File.separator)
         }.map { (header, files) ->
             GroupedFiles(
                 header = header,

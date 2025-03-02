@@ -33,7 +33,6 @@
     <string name="library_screen">Biblioteka</string>
     <string name="browse_screen">Przeglądaj</string>
     <string name="cancel">Anuluj</string>
-    <string name="grant">Udziel</string>
     <string name="delete">Usuń</string>
     <string name="sort_browse_settings">Sortuj</string>
     <string name="red_color">Czerwony</string>
@@ -58,7 +57,6 @@
     <string name="planning_tab">Planowanie</string>
     <string name="fast_color_preset_change_option">Szybka zmiana ustawienia koloru</string>
     <string name="about_screen">O aplikacji</string>
-    <string name="storage_permission">Przyznać dostęp?</string>
     <string name="add_books">Dodać książki?</string>
     <string name="delete_books">Usunąć książki?</string>
     <string name="delete_book">Usunąć książkę?</string>
@@ -67,7 +65,6 @@
     <string name="move_books_description">Wybierz kategorię, do której chcesz przenieść wszystkie wybrane książki (%1$s). Wszystkie wybrane książki zostaną przeniesione do wybranej kategorii.</string>
     <string name="delete_book_description">To spowoduje usunięcie tej książki z bazy danych, ale nie usunie jej z twojego urządzenia.</string>
     <string name="delete_history_description">To spowoduje usuniecie całej historii z bazy danych. Po usunięciu całej historii kolejność książek zostanie zresetowana.</string>
-    <string name="error_permission">Potrzebujemy uprawnień do przechowywania, aby przeskanować Twoje urządzenie w poszukiwaniu książek</string>
     <string name="error_no_description">Brak opisu.</string>
     <string name="error_something_went_wrong">Coś poszło nie tak.</string>
     <string name="error_no_dictionary">Nie znaleziono aplikacji słownikowej.</string>
@@ -129,15 +126,12 @@
     <string name="dropped_tab">Porzucone</string>
     <string name="browse_layout_option">Tryb wyświetlania</string>
     <string name="add_books_description">Możesz wybrać książki, które chcesz dodać. Możesz później edytować tytuł i obraz okładki książki. Proces ładowania może potrwać do kilku minut.</string>
-    <string name="storage_permission_description">Potrzebujemy uprawnień do przechowywania, aby przeskanować Twoje urządzenie w poszukiwaniu książek. Bez tego pozwolenia nie będziesz mógł dodać książki.</string>
     <string name="error_no_browser">Nie znaleziono aplikacji przeglądarki.</string>
     <string name="purple_theme">Jowisz</string>
     <string name="pink_theme">Saturn</string>
     <string name="yellow_theme">Wenus</string>
     <string name="aqua_theme">Uran</string>
     <string name="reader_tab">Czytelnik</string>
-    <string name="grant_permission">Udziel zgody</string>
-    <string name="get_help">Potrzebuję pomocy</string>
     <string name="add_book">Dodaj książkę</string>
     <string name="translate">Przetłumacz</string>
     <string name="appearance_settings_desc">Motyw, kolory</string>
@@ -182,7 +176,6 @@
     <string name="credits_contribution">Wnieśli wkład</string>
     <string name="yesterday">Wczoraj</string>
     <string name="selected_content_desc">Wybrane</string>
-    <string name="start_permissions_storage_desc">Wymagane do przeskanowania urządzenia i znalezienia książek</string>
     <string name="reset_start_content_desc">Zresetuj przewodnik startu</string>
     <string name="theme_contrast_high">Wysoki</string>
     <string name="cover_image_changed">Obraz okładki został pomyślnie zmieniony.</string>
@@ -209,7 +202,6 @@
     <string name="help_desc_how_to_use_double_click_translation_1">Najpierw przejdź do ustawień czytnika (patrz: Jak mogę dostosować czytnik?), A następnie włącz odpowiednie ustawienie. Następnie zacznij czytać książkę (patrz: Jak mogę przeczytać książkę?). Teraz, jeśli klikniesz dwukrotnie żądany akapit, zewnętrzny tłumacz zostanie otwarty z tekstem akapitu.</string>
     <string name="help_title_how_to_create_color_presets">Jak mogę tworzyć i modyfikować ustawienia kolorów?</string>
     <string name="start_language_preferences">Preferencje języka</string>
-    <string name="start_permissions_storage">Uprawnienie do przechowywania</string>
     <string name="today">Dzisiaj</string>
     <string name="go_back_content_desc">Wróć</string>
     <string name="cover_image_content_desc">Obraz okładki</string>
@@ -219,7 +211,6 @@
     <string name="delete_history_element_content_desc">Usuń element historii</string>
     <string name="library_content_desc">Twoja biblioteka</string>
     <string name="arrow_content_desc">Strzałka</string>
-    <string name="required_content_desc">Wymagane</string>
     <string name="open_in_web_content_desc">Otwórz w sieci</string>
     <string name="drag_content_desc">Przeciągnij</string>
     <string name="help_desc_how_to_move_or_delete_books_3">Przytrzymaj obraz okładki pierwszej książki, aż zostanie wybrany, teraz możesz po prostu kliknąć wszystkie obrazy okładki książek, które chcesz wybrać. Możesz także wybrać książki w wielu kategoriach. Po wybraniu wszystkich żądanych książek możesz kliknąć ikonę strzałki, aby przenieść oraz ikonę kosza, aby usunąć książki.</string>
@@ -227,8 +218,6 @@
     <string name="help_desc_how_to_create_color_presets_1">Przejdź do ustawień wyglądu (patrz: Jak mogę dostosować czytnik?). Możesz zmodyfikować wszystkie ustawienia koloru w polu poniżej « Ustawienie koloru » w podkategorii « Kolory ». Aby utworzyć nowe ustawienie kolorów, kliknij przycisk ikony « Dodaj ». Istnieje wiele sposobów modyfikowania ustawienia koloru: klikając pole tekstowe, możesz zmienić nazwę ustawienia koloru, przesuwając suwaki, możesz zmienić kolory ustawionego koloru, klikając przycisk ikony « Losowo pomieszaj », możesz wymieszać wszystkie kolory. Jeśli chcesz usunąć ustawienie koloru, kliknij przycisk ikony « Usuń ».</string>
     <string name="help_desc_how_to_use_color_presets_1">Przejdź do ustawień wyglądu (patrz: Jak mogę dostosować czytnik?). Możesz wybrać, który kolor ma być używany w ustawieniu « Ustawienia kolorów ». Kliknij żądane ustawienie koloru, aby go wybrać, spowoduje to również zmianę kolorów w programie Reader. Jeśli chcesz zmienić kolejność ustawienia koloru, wybierz go i przytrzymaj przycisk ikony « Uchwyt », a następnie przesuń go do żądanej pozycji. Możesz szybko zmienić ustawienia kolorów, włączając odpowiednie ustawienie w podkategorii « Kolory » ustawienia wyglądu, a następnie przesuwając palcem w lewo lub w prawo w programie Reader, aby szybko zmienić ustawienie kolorów.</string>
     <string name="start_theme_preferences">Ustawienia wyglądu</string>
-    <string name="start_permissions_preferences">Uprawnienia</string>
-    <string name="start_permissions_granted">Przyznane</string>
     <string name="start_done_desc">Pomyślnie wykonałeś podstawowe ustawienie aplikacji. Czy chcesz dowiedzieć się, jak korzystać z aplikacji, czytając Pomoc?</string>
     <string name="file_icon_content_desc">Plik</string>
     <string name="select_all_files_content_desc">Wybierz wszystkie pliki</string>

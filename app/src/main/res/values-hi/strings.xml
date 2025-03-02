@@ -11,7 +11,6 @@
     <string name="about_screen">ऐप के बारे में जानकारी</string>
     <string name="default_string">डिफ़ॉल्ट</string>
     <string name="help_screen">सहायता</string>
-    <string name="storage_permission">अनुमति दें?</string>
     <string name="add_books">किताबें शामिल करें ?</string>
     <string name="move_books">किताबें स्थानांतरित करें?</string>
     <string name="delete_book">किताब हटाएं?</string>
@@ -25,9 +24,6 @@
     <string name="selected_items_count_query">%1$s चुना हुआ है</string>
     <string name="color_preset_selected_query">«%1$s» चुना गया है</string>
     <string name="cancel">रद्द करें</string>
-    <string name="grant_permission">अनुमति दें</string>
-    <string name="grant">अनुदान</string>
-    <string name="get_help">मुझे सहायता की आवश्यकता है</string>
     <string name="add_book">एक किताब जोड़ें</string>
     <string name="never">कभी नहीं</string>
     <string name="undo">पूर्ववत् करें</string>
@@ -81,12 +77,10 @@
     <string name="system_reader_settings">सिस्टम</string>
     <string name="filter_browse_settings">फ़िल्टर</string>
     <string name="add_books_description">आप चुन सकते हैं कि आप कौन सी किताबें जोड़ना चाहते हैं। आप बाद में किताब का शीर्षक और कवर छवि संपादित कर सकते हैं। लोडिंग प्रक्रिया में कई मिनट लग सकते हैं।</string>
-    <string name="storage_permission_description">हमें आपकी डिवाइस को पुस्तकों के लिए स्कैन करने के लिए संग्रहण अनुमति की आवश्यकता है। इस अनुमति के बिना, आप कोई पुस्तक नहीं डाल सकेंगे ।</string>
     <string name="delete_books_description">यह डेटाबेस से सभी चयनित पुस्तकों(%1$s) को हटा देगा। यह आपके डिवाइस से चयनित पुस्तकों को नहीं हटाएगा।</string>
     <string name="delete_book_description">यह इस पुस्तक को डेटाबेस से हटा देगा. यह आपकी डिवाइस से इस पुस्तक को नहीं हटाएगा।</string>
     <string name="move_book_description">वह श्रेणी चुनें जिसमें आप इस पुस्तक को ले जाना चाहते हैं। यह पुस्तक चयनित श्रेणी में ले जाई जाएगी।</string>
     <string name="delete_history_description">यह डेटाबेस से पूरा इतिहास मिटा देगा। पूरा इतिहास मिटाने के बाद, किताबों का क्रम फिर से सेट हो जाएगा।</string>
-    <string name="error_permission">हमें किताबों के लिए आपके डिवाइस को स्कैन करने के लिए भंडारण अनुमति की आवश्यकता है</string>
     <string name="error_no_description">कोई वर्णन नहीं।</string>
     <string name="error_no_dictionary">कोई शब्दकोश ऐप नहीं मिला ।</string>
     <string name="error_no_browser">कोई ब्राउज़र ऐप नहीं मिला ।</string>

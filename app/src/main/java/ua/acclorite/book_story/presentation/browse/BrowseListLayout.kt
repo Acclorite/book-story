@@ -44,7 +44,7 @@ fun BrowseListLayout(
 
             items(
                 group.files,
-                key = { it.path }
+                key = { it.data.path }
             ) { selectableFile ->
                 Box(Modifier.animateItem()) {
                     itemContent(selectableFile, group.files)

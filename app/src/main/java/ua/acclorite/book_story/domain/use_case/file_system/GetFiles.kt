@@ -10,11 +10,11 @@ import ua.acclorite.book_story.domain.browse.SelectableFile
 import ua.acclorite.book_story.domain.repository.FileSystemRepository
 import javax.inject.Inject
 
-class GetFilesFromDevice @Inject constructor(
+class GetFiles @Inject constructor(
     private val repository: FileSystemRepository
 ) {
 
     suspend fun execute(query: String): List<SelectableFile> {
-        return repository.getFilesFromDevice(query)
+        return repository.getFiles(query)
     }
 }

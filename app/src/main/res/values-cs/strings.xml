@@ -61,7 +61,6 @@
     <string name="help_translate_option">Pomozte překládat</string>
     <string name="filter_tab">Filtr</string>
     <string name="reader_tab">Čtečka</string>
-    <string name="get_help">Potřebuji pomoc</string>
     <string name="browse_layout_list">List</string>
     <string name="absolute_dark_option">Úplně tmavé</string>
     <string name="delete_book">Smazat knihu?</string>
@@ -80,7 +79,6 @@
     <string name="browse_screen">Procházet</string>
     <string name="error_no_share_app">Žádná aplikace pro sdílení nebyla nalezena.</string>
     <string name="help_desc_how_to_add_books_2">Procházet</string>
-    <string name="grant_permission">Povolit oprávnění</string>
     <string name="browse_grid_size_option">Velikost mřížky</string>
     <string name="delete_books">Smazat knihy?</string>
     <string name="font_style_normal">Normální</string>
@@ -137,11 +135,9 @@
     <string name="about_screen">O aplikaci</string>
     <string name="add_books">Přidat knihy?</string>
     <string name="move_book">Přesunout knihu?</string>
-    <string name="storage_permission_description">Potřebujeme povolení, abychom mohli skenovat knihy na Vašem úložišti. Bez povolení si nebudete moci přidat jakoukoli knihu.</string>
     <string name="delete_book_description">Smaže to tuto knihu z databáze. Nesmaže to na vašem zařízení.</string>
     <string name="error_no_description">Žádný popis.</string>
     <string name="error_something_went_wrong">Něco se pokazilo.</string>
-    <string name="grant">Povolit</string>
     <string name="add_book">Přidat knihu</string>
     <string name="copy">Kopírovat</string>
     <string name="translate">Přeložit</string>
@@ -195,7 +191,6 @@
     <string name="custom_screen_brightness_option">Vlastní jas obrazovky</string>
     <string name="horizontal_gesture_sensitivity_option">Citlivost</string>
     <string name="help_desc_how_to_customize_app_2">Nastavení</string>
-    <string name="start_permissions_storage_desc">Vyžadováno, abychom mohli skenoval Vaše úložiště a hledat knihy</string>
     <string name="start_language_preferences">Preference jazyka</string>
     <string name="start_theme_preferences">Preference témat</string>
     <string name="history_content_desc">Historie čtení</string>
@@ -203,7 +198,6 @@
     <string name="cover_image_content_desc">Obálka</string>
     <string name="delete_books_content_desc">Smazat vybrané knihy</string>
     <string name="browse_content_desc">Přidat knihy</string>
-    <string name="start_permissions_granted">Povoleno</string>
     <string name="move_books_content_desc">Přesunout vybrané knihy</string>
     <string name="start_welcome">Vítejte v Book\'s Story!</string>
     <string name="help_title_how_to_move_or_delete_books">Jak přesunu nebo smažu knihy?</string>
@@ -219,14 +213,11 @@
     <string name="go_back_content_desc">Jít zpět</string>
     <string name="continue_reading_content_desc">Pokračovat ve čtení</string>
     <string name="library_content_desc">Vaše knihovna</string>
-    <string name="required_content_desc">Vyžadován</string>
     <string name="open_reader_settings_content_desc">Nastavení čtečky</string>
     <string name="delete_whole_history_content_desc">Smazat celou historii</string>
     <string name="color_preset_placeholder">Pojmenujete nastavení…</string>
     <string name="help_desc_how_to_move_or_delete_books_2">Knihovna</string>
     <string name="start_welcome_desc">Ve světe, kde slova okouzlují, učí a vedou k neuvěřitelným dobrodružstvím! Pojďme nastavit pár věcí!</string>
-    <string name="start_permissions_storage">Oprávnění úložiště</string>
-    <string name="start_permissions_preferences">Oprávnění</string>
     <string name="yellow2_theme">Makemake</string>
     <string name="start_done">A je to!</string>
     <string name="today">Dnes</string>

@@ -4,16 +4,11 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-@file:OptIn(ExperimentalPermissionsApi::class)
-
 package ua.acclorite.book_story.ui.browse
 
 import android.content.Context
-import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.focus.FocusRequester
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.domain.browse.SelectableFile
 import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
 
@@ -53,19 +48,6 @@ sealed class BrowseEvent {
     data object OnShowFilterBottomSheet : BrowseEvent()
 
     data object OnDismissBottomSheet : BrowseEvent()
-
-    data class OnPermissionCheck(
-        val storagePermissionState: PermissionState
-    ) : BrowseEvent()
-
-    data class OnActionPermissionDialog(
-        val activity: ComponentActivity,
-        val storagePermissionState: PermissionState
-    ) : BrowseEvent()
-
-    data class OnDismissPermissionDialog(
-        val storagePermissionState: PermissionState
-    ) : BrowseEvent()
 
     data object OnShowAddDialog : BrowseEvent()
 

@@ -40,10 +40,10 @@ import java.util.Locale
 fun BrowseGridFileItem(file: SelectableFile, hasSelectedItems: Boolean) {
     val lastModified = rememberSaveable {
         SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
-            .format(Date(file.lastModified))
+            .format(Date(file.data.lastModified))
     }
 
-    val sizeBytes = rememberSaveable { file.size }
+    val sizeBytes = rememberSaveable { file.data.size }
     val fileSizeKB = rememberSaveable {
         if (sizeBytes > 0) sizeBytes.toDouble() / 1024.0 else 0.0
     }
@@ -94,7 +94,7 @@ fun BrowseGridFileItem(file: SelectableFile, hasSelectedItems: Boolean) {
         Spacer(modifier = Modifier.height(8.dp))
 
         StyledText(
-            text = file.name,
+            text = file.data.name,
             style = MaterialTheme.typography.bodyLarge.copy(
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,

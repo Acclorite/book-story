@@ -24,7 +24,6 @@
     <string name="history_screen">Histórico</string>
     <string name="browse_screen">Explorar</string>
     <string name="fullscreen_option">Tela cheia</string>
-    <string name="grant">Permitir</string>
     <string name="done">Feito</string>
     <string name="dark_theme_off">Desabilitado</string>
     <string name="delete_books">Apagar livros?</string>
@@ -56,7 +55,6 @@
     <string name="misc_reader_settings">Miscelânea</string>
     <string name="pure_dark_off">Desabilitado</string>
     <string name="add_books">Adicionar livros?</string>
-    <string name="storage_permission_description">Precisamos de permissão de acesso ao armazenamento para procurar livros no seu dispositivo. Sem essa permissão, você não será capaz de adicionar um livro.</string>
     <string name="delete">Apagar</string>
     <string name="undo">Desfazer</string>
     <string name="sort_tab">Organizar</string>
@@ -69,7 +67,6 @@
     <string name="dark_theme_follow_system">Sistema</string>
     <string name="theme_contrast_standard">Padrão</string>
     <string name="font_style_normal">Normal</string>
-    <string name="storage_permission">Dar permissão?</string>
     <string name="delete_history">Apagar histórico de leitura?</string>
     <string name="author">Autor</string>
     <string name="blue_color">Azul</string>
@@ -106,16 +103,13 @@
     <string name="file_icon_content_desc">Arquivo</string>
     <string name="error_content_desc">Erro</string>
     <string name="search_content_desc">Pesquisar</string>
-    <string name="start_permissions_preferences">Permissões</string>
     <string name="copied">Copiado</string>
-    <string name="required_content_desc">Requerido</string>
     <string name="alignment_justify">Justificar</string>
     <string name="move_books_description">Escolha a categoria da qual você quer mover todos os livros selecionados(%1$s). Todos os livros selecionados serão movidos para essa categoria.</string>
     <string name="delete_books_description">Isto irá apagar todos os livros selecionados(%1$s) da base de dados. Isso não irá apagar os livros do seu dispositivo.</string>
     <string name="alignment_center">Centro</string>
     <string name="help_desc_how_to_customize_reader_2">Configurações</string>
     <string name="revert_content_desc">Reverter</string>
-    <string name="start_permissions_granted">Permitir</string>
     <string name="help_desc_how_to_customize_app_2">Configurações</string>
     <string name="browse_sort_order_name">Alfabeticamente</string>
     <string name="selected_content_desc">Selecionado</string>
@@ -160,7 +154,6 @@
     <string name="browse_grid_size_per_row">por linha</string>
     <string name="already_read_tab">Lido</string>
     <string name="browse_grid_size_option">Tamanho da grade</string>
-    <string name="grant_permission">Dar permissão</string>
     <string name="error_no_description">Sem descrição.</string>
     <string name="selected_items_count_query">%1$s selecionado</string>
     <string name="error_closed_source">Código fechado</string>
@@ -183,7 +176,6 @@
     <string name="continue_reading_content_desc">Continuar a ler</string>
     <string name="go_back_content_desc">Voltar</string>
     <string name="start_language_preferences">Prefêrencias linguísticas</string>
-    <string name="start_permissions_storage">Permissão de armazenamento</string>
     <string name="whats_new_option">O que há de novo</string>
     <string name="help_translate_option">Ajude a traduzir</string>
     <string name="start_done">Está tudo feito!</string>
@@ -200,7 +192,6 @@
     <string name="github_profile_content_desc">Perfil do Github</string>
     <string name="screen_orientation_option">Orientação da tela</string>
     <string name="error_something_went_wrong">Algo deu errado.</string>
-    <string name="get_help">Preciso d eajuda</string>
     <string name="change_cover">Trocar imagem da capa</string>
     <string name="reader_settings_desc">Fonte, texto, tradutor</string>
     <string name="browse_settings_desc">Geral, filtro, ordem</string>
@@ -223,7 +214,6 @@
     <string name="horizontal_gesture_sensitivity_option">Sensibilidade</string>
     <string name="horizontal_gesture_off">Desativar</string>
     <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
-    <string name="error_permission">Precisamos de permissão de armazenamento para escanear seu dispositivo em busca de livros</string>
     <string name="error_no_browser">Nenhum aplicativo de navegador encontrado.</string>
     <string name="error_no_share_app">Nenhum aplicativo para compartilhar encontrado.</string>
     <string name="error_no_dictionary">Nenhum aplicativo de dicionário encontrado.</string>
@@ -306,7 +296,6 @@
     <string name="purple_gray_theme">Ceres</string>
     <string name="book_deleted">Esse livro foi apagado com sucesso.</string>
     <string name="help_desc_how_to_read_book_1">Ir para</string>
-    <string name="start_permissions_storage_desc">Necessário para escanear seu dispositivo e encontrar livros</string>
     <string name="help_desc_how_to_add_books_1">Ir para</string>
     <string name="reset_start_content_desc">Redefinir guia de introdução</string>
     <string name="progress_bar_font_size_option">Tamanho da fonte</string>

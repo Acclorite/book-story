@@ -12,8 +12,6 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.pullrefresh.PullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.focus.FocusRequester
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionState
 import ua.acclorite.book_story.domain.browse.BrowseLayout
 import ua.acclorite.book_story.domain.browse.SelectableFile
 import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
@@ -22,13 +20,12 @@ import ua.acclorite.book_story.domain.util.Dialog
 import ua.acclorite.book_story.ui.browse.BrowseEvent
 import ua.acclorite.book_story.ui.main.MainEvent
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalPermissionsApi::class)
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun BrowseContent(
     files: List<SelectableFile>,
     selectedBooksAddDialog: List<SelectableNullableBook>,
     refreshState: PullRefreshState,
-    storagePermissionState: PermissionState,
     loadingAddDialog: Boolean,
     dialog: Dialog?,
     bottomSheet: BottomSheet?,
@@ -45,7 +42,6 @@ fun BrowseContent(
     selectedItemsCount: Int,
     isRefreshing: Boolean,
     isLoading: Boolean,
-    isError: Boolean,
     dialogHidden: Boolean,
     filesEmpty: Boolean,
     showSearch: Boolean,
@@ -58,25 +54,19 @@ fun BrowseContent(
     clearSelectedFiles: (BrowseEvent.OnClearSelectedFiles) -> Unit,
     selectFiles: (BrowseEvent.OnSelectFiles) -> Unit,
     selectFile: (BrowseEvent.OnSelectFile) -> Unit,
-    permissionCheck: (BrowseEvent.OnPermissionCheck) -> Unit,
     dismissBottomSheet: (BrowseEvent.OnDismissBottomSheet) -> Unit,
     showFilterBottomSheet: (BrowseEvent.OnShowFilterBottomSheet) -> Unit,
-    actionPermissionDialog: (BrowseEvent.OnActionPermissionDialog) -> Unit,
-    dismissPermissionDialog: (BrowseEvent.OnDismissPermissionDialog) -> Unit,
     showAddDialog: (BrowseEvent.OnShowAddDialog) -> Unit,
     dismissAddDialog: (BrowseEvent.OnDismissAddDialog) -> Unit,
     actionAddDialog: (BrowseEvent.OnActionAddDialog) -> Unit,
     selectAddDialog: (BrowseEvent.OnSelectAddDialog) -> Unit,
     changePinnedPaths: (MainEvent.OnChangeBrowsePinnedPaths) -> Unit,
     navigateToLibrary: () -> Unit,
-    navigateToHelp: () -> Unit,
+    navigateToBrowseSettings: () -> Unit,
 ) {
     BrowseDialog(
         dialog = dialog,
-        storagePermissionState = storagePermissionState,
         loadingAddDialog = loadingAddDialog,
-        actionPermissionDialog = actionPermissionDialog,
-        dismissPermissionDialog = dismissPermissionDialog,
         actionAddDialog = actionAddDialog,
         dismissAddDialog = dismissAddDialog,
         selectedBooksAddDialog = selectedBooksAddDialog,
@@ -114,16 +104,13 @@ fun BrowseContent(
         requestFocus = requestFocus,
         clearSelectedFiles = clearSelectedFiles,
         selectFiles = selectFiles,
-        storagePermissionState = storagePermissionState,
         isLoading = isLoading,
-        isError = isError,
         filesEmpty = filesEmpty,
-        permissionCheck = permissionCheck,
         selectFile = selectFile,
         showFilterBottomSheet = showFilterBottomSheet,
         showAddDialog = showAddDialog,
         changePinnedPaths = changePinnedPaths,
-        navigateToHelp = navigateToHelp
+        navigateToBrowseSettings = navigateToBrowseSettings
     )
 
     BrowseBackHandler(

@@ -9,7 +9,6 @@ package ua.acclorite.book_story.ui.settings
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -27,6 +26,8 @@ import ua.acclorite.book_story.domain.use_case.color_preset.GetColorPresets
 import ua.acclorite.book_story.domain.use_case.color_preset.ReorderColorPresets
 import ua.acclorite.book_story.domain.use_case.color_preset.SelectColorPreset
 import ua.acclorite.book_story.domain.use_case.color_preset.UpdateColorPreset
+import ua.acclorite.book_story.domain.use_case.permission.GrantPersistableUriPermission
+import ua.acclorite.book_story.domain.use_case.permission.ReleasePersistableUriPermission
 import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideDefaultColorPreset
 import ua.acclorite.book_story.presentation.core.util.showToast
@@ -39,7 +40,9 @@ class SettingsModel @Inject constructor(
     private val updateColorPreset: UpdateColorPreset,
     private val selectColorPreset: SelectColorPreset,
     private val reorderColorPresets: ReorderColorPresets,
-    private val deleteColorPreset: DeleteColorPreset
+    private val deleteColorPreset: DeleteColorPreset,
+    private val grantPersistableUriPermission: GrantPersistableUriPermission,
+    private val releasePersistableUriPermission: ReleasePersistableUriPermission
 ) : ViewModel() {
 
     private val mutex = Mutex()
@@ -92,9 +95,24 @@ class SettingsModel @Inject constructor(
         }
     }
 
-    @OptIn(ExperimentalPermissionsApi::class)
     fun onEvent(event: SettingsEvent) {
         when (event) {
+            is SettingsEvent.OnGrantPersistableUriPermission -> {
+                viewModelScope.launch {
+                    grantPersistableUriPermission.execute(
+                        event.uri
+                    )
+                }
+            }
+
+            is SettingsEvent.OnReleasePersistableUriPermission -> {
+                viewModelScope.launch {
+                    releasePersistableUriPermission.execute(
+                        event.uri
+                    )
+                }
+            }
+
             is SettingsEvent.OnSelectColorPreset -> {
                 viewModelScope.launch {
                     cancelColorPresetJobs()

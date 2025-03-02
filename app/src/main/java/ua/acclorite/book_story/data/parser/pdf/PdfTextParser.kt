@@ -14,9 +14,9 @@ import com.tom_roush.pdfbox.text.PDFTextStripper
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.data.parser.MarkdownParser
 import ua.acclorite.book_story.data.parser.TextParser
+import ua.acclorite.book_story.domain.file.CachedFile
 import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.presentation.core.util.clearAllMarkdown
-import java.io.File
 import javax.inject.Inject
 
 private const val PDF_TAG = "PDF Parser"
@@ -26,8 +26,8 @@ class PdfTextParser @Inject constructor(
     private val application: Application
 ) : TextParser {
 
-    override suspend fun parse(file: File): List<ReaderText> {
-        Log.i(PDF_TAG, "Started PDF parsing: ${file.name}.")
+    override suspend fun parse(cachedFile: CachedFile): List<ReaderText> {
+        Log.i(PDF_TAG, "Started PDF parsing: ${cachedFile.name}.")
 
         return try {
             yield()
@@ -41,7 +41,7 @@ class PdfTextParser @Inject constructor(
             val pdfStripper = PDFTextStripper()
             pdfStripper.paragraphStart = "</br>"
 
-            PDDocument.load(file).use {
+            PDDocument.load(cachedFile.openInputStream()).use {
                 oldText = pdfStripper.getText(it)
                     .replace("\r", "")
             }
@@ -161,19 +161,3 @@ class PdfTextParser @Inject constructor(
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
