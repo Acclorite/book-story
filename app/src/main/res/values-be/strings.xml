@@ -3,10 +3,8 @@
     <string name="delete_book">Выдаліць кнігу?</string>
     <string name="delete">Выдаліць</string>
     <string name="delete_books_description">Гэта выдаліць усе выбраныя кнігі(%1$s) з базы дадзеных. Гэта не выдаліць выбраныя кнігі з вашай прылады.</string>
-    <string name="storage_permission">Даць Дазвол?</string>
     <string name="delete_books">Выдаліць кнігі?</string>
     <string name="move_books_description">Выбярыце катэгорыю, у якую хочаце перамясціць ўсе выбраныя кнігі(%1$s). Усе выбраныя кнігі будуць перамешчаны ў выбраную катэгорыю.</string>
-    <string name="storage_permission_description">Нам патрэбны дазвол на захоўванне, каб сканаваць Вашу Прыладу на наяўнасць кніг. Без гэтага дазволу вы не зможаце дадаць кнігу.</string>
     <string name="dictionary">Слоўнік</string>
     <string name="never">Ніколі</string>
     <string name="default_string">Па змаўчанні</string>
@@ -25,7 +23,6 @@
     <string name="delete_book_description">Гэта выдаліць гэтую кнігу з базы дадзеных. Кніга не будзе выдалена з вашай прылады.</string>
     <string name="move_book_description">Выберыце катэгорыю, у якую вы хочаце перамясціць гэтую кнігу. Гэтая кніга будзе перамешчана ў выбраную катэгорыю.</string>
     <string name="delete_history_description">Гэта выдаліць усю гісторыю з базы дадзеных. Пасля выдалення ўсёй гісторыі парадак кніг будзе выдалены.</string>
-    <string name="error_permission">Нам патрэбны дазвол на захоўванне, каб сканаваць Вашу Прыладу на наяўнасць кніг</string>
     <string name="error_no_description">Без апісання.</string>
     <string name="error_something_went_wrong">Нажаль! Штосьці пайшло не так.</string>
     <string name="error_no_translator">Перакладчык не знойдзены.</string>
@@ -44,9 +41,6 @@
     <string name="color_preset_query">Прадустаноўка %1$s</string>
     <string name="color_preset_selected_query">Выбрана «%1$s»</string>
     <string name="cancel">Адмяніць</string>
-    <string name="grant">Даць</string>
-    <string name="grant_permission">Даць дазвол</string>
-    <string name="get_help">Мне патрэбна дапамога</string>
     <string name="add_book">Дадаць кнігу</string>
     <string name="move">Перамясціць</string>
     <string name="undo">Адмяніць</string>

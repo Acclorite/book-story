@@ -63,8 +63,6 @@
     <string name="browse_screen">Navigare</string>
     <string name="history_screen">Istoric</string>
     <string name="search_field_empty">Căutare…</string>
-    <string name="grant">Permite</string>
-    <string name="get_help">Am nevoie de ajutor</string>
     <string name="images_reader_settings">Imagini</string>
     <string name="translator_reader_settings">Traducător</string>
     <string name="help_desc_how_to_customize_reader_2">Setări</string>
@@ -81,7 +79,6 @@
     <string name="dropped_tab">Abandonate</string>
     <string name="green2_theme">Io</string>
     <string name="help_title_how_to_manage_history">Cum gestionez istoricul?</string>
-    <string name="storage_permission">Acordați permisiunea?</string>
     <string name="add_books">Adăugați cărțile?</string>
     <string name="color_tab">Culori</string>
     <string name="help_desc_how_to_customize_reader_3">și selectați categoria cititor pentru a personaliza setările generale sau categoria aspect pentru a personaliza setările culorilor.</string>
