@@ -1,10 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
-
-<resources>
+  --><resources>
     <string name="library_screen">Bibliothèque</string>
     <string name="history_screen">Historique</string>
     <string name="browse_screen">Naviguer</string>
