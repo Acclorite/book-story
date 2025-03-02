@@ -1,13 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
-
-<resources>
+  --><resources>
     <!-- Basic Strings -->
     <string name="default_string">Varsayılan</string>
-
     <!-- Screens -->
     <string name="library_screen">Kütüphane</string>
     <string name="history_screen">Geçmiş</string>
@@ -15,7 +13,6 @@
     <string name="settings_screen">Ayarlar</string>
     <string name="about_screen">Uygulama hakkında</string>
     <string name="help_screen">Yardım</string>
-
     <!-- Dialog Labels -->
     <string name="add_books">Kitaplar eklensin mi?</string>
     <string name="move_books">Kitaplar taşınsın mı?</string>
@@ -24,7 +21,6 @@
     <string name="move_book">Kitap taşınsın mı?</string>
     <string name="delete_history">Okuma geçmişi silinsin mi?</string>
     <string name="edit">Düzenle</string>
-
     <!-- Dialog Descriptions -->
     <string name="add_books_description">
         Eklemek istediğiniz kitapları seçebilirsiniz.
@@ -51,7 +47,7 @@
         Tüm geçmiş veritabanından silinecektir.
         Geçmişi sildikten sonra kitapların sıralaması sıfırlanacaktır.
     </string>
-      <!-- Errors -->
+    <!-- Errors -->
     <string name="error_no_description">
         Açıklama yok.
     </string>
@@ -62,14 +58,10 @@
     <string name="error_no_dictionary">Sözlük uygulaması bulunamadı.</string>
     <string name="error_no_browser">Tarayıcı uygulaması bulunamadı.</string>
     <string name="error_no_share_app">Paylaşım yapacak uygulama bulunamadı.</string>
-    <string name="error_could_not_get_text">
-        Dosya boş, bozuk veya eksik.
-        Lütfen dosyayı doğrulayın ya da yolu güncelleyerek tekrar deneyin.
-    </string>
+    <string name="error_could_not_get_text">Dosya boş, bozuk veya eksik. Lütfen dosyayı doğrulayın ya da yolu güncelleyerek tekrar deneyin.</string>
     <string name="error_could_not_reset_cover">Kapak resmi sıfırlanamadı.</string>
     <string name="error_closed_source">Kapalı kaynak</string>
     <string name="error_no_file">Dosya mevcut değil</string>
-
     <!-- Is Empty messages -->
     <string name="search_field_empty">
         Ara…
@@ -83,12 +75,10 @@
     <string name="history_empty">
         Okuduğunuz son kitap, okuma yolculuğunuzda yeni bir harika hikayenin sayfalarını açsın
     </string>
-
     <!-- Query strings -->
     <string name="selected_items_count_query">%1$s seçildi</string>
     <string name="color_preset_query">Ön ayar %1$s</string>
     <string name="color_preset_selected_query">Seçilen «%1$s»</string>
-
     <!-- Action Texts -->
     <string name="cancel">İptal</string>
     <string name="add_book">Kitap ekle</string>
@@ -107,8 +97,7 @@
     <string name="share">Paylaş</string>
     <string name="ok">Tamam</string>
     <string name="change_path">Yolu değiştir</string>
-
-      <!-- Book -->
+    <!-- Book -->
     <string name="unknown_author">Bilinmeyen</string>
     <string name="reset_cover">Kapak resmini sıfırla</string>
     <string name="reset_cover_desc">Kitabın kapak resmini varsayılana sıfırla</string>
@@ -117,7 +106,6 @@
     <string name="delete_cover">Kapak resmini sil</string>
     <string name="delete_cover_desc">Kitabın mevcut kapak resmini sil</string>
     <string name="author">Yazar</string>
-
     <!-- Tabs -->
     <string name="reading_tab">Okunan</string>
     <string name="already_read_tab">Okundu</string>
@@ -128,7 +116,6 @@
     <string name="filter_tab">Filtre</string>
     <string name="sort_tab">Sırala</string>
     <string name="reader_tab">Okuyucu</string>
-
     <!-- Settings categories -->
     <string name="general_settings">Genel</string>
     <string name="general_settings_desc">Uygulama dili</string>
@@ -138,7 +125,6 @@
     <string name="reader_settings_desc">Yazı tipi, metin, çevirmen</string>
     <string name="browse_settings">Gözat</string>
     <string name="browse_settings_desc">Genel, filtre, sıralama</string>
-
     <!-- Settings subcategories -->
     <string name="font_reader_settings">Yazı tipi</string>
     <string name="text_reader_settings">Metin</string>
@@ -156,7 +142,6 @@
     <string name="general_browse_settings">Genel</string>
     <string name="filter_browse_settings">Filtre</string>
     <string name="sort_browse_settings">Sırala</string>
-  
     <!-- Settings options -->
     <!-- General -->
     <string name="language_option">Uygulama dili</string>
@@ -168,7 +153,6 @@
     <string name="app_theme_option">Uygulama teması</string>
     <string name="double_press_exit_option">Çıkmak için iki kez geri bas</string>
     <string name="double_press_exit_option_desc">Uygulamadan çıkmak için geri tuşuna iki kez basın</string>
-
     <!-- Reader -->
     <string name="font_family_option">Yazı tipi ailesi</string>
     <string name="font_thickness_option">Yazı kalınlığı</string>
@@ -223,88 +207,71 @@
     <string name="progress_bar_alignment_option">Hizalama</string>
     <string name="progress_bar_font_size_option">Yazı boyutu</string>
     <string name="progress_count_option">İlerleme sayacı</string>
-
-      <!-- Browse -->
+    <!-- Browse -->
     <string name="browse_layout_option">Görüntüleme modu</string>
     <string name="browse_grid_size_option">Izgara boyutu</string>
-
     <!-- Color presets -->
     <string name="red_color">Kırmızı</string>
     <string name="green_color">Yeşil</string>
     <string name="blue_color">Mavi</string>
     <string name="color_preset_placeholder">Ön ayar adı girin…</string>
-
     <!-- Dark Theme properties -->
     <string name="dark_theme_off">Devre dışı</string>
     <string name="dark_theme_on">Etkin</string>
     <string name="dark_theme_follow_system">Sistem</string>
-
     <!-- Pure Dark properties -->
     <string name="pure_dark_off">Devre dışı</string>
     <string name="pure_dark_on">Etkin</string>
     <string name="pure_dark_power_saver">Tasarruf</string>
-
     <!-- Theme Contrast properties -->
     <string name="theme_contrast_standard">Standart</string>
     <string name="theme_contrast_medium">Orta</string>
     <string name="theme_contrast_high">Yüksek</string>
-
     <!-- Font Style properties -->
     <string name="font_style_italic">İtalik</string>
     <string name="font_style_normal">Normal</string>
-
     <!-- Browse Layout properties -->
     <string name="browse_layout_list">Liste</string>
     <string name="browse_layout_grid">Izgara</string>
-
     <!-- Browse Grid Size properties -->
     <string name="browse_grid_size_auto">Otomatik</string>
     <string name="browse_grid_size_per_row">satır başına</string>
-
     <!-- Browse Sort Order properties -->
     <string name="browse_sort_order_name">Alfabetik</string>
     <string name="browse_sort_order_file_format">Dosya formatı</string>
     <string name="browse_sort_order_last_modified">Son değiştirilme</string>
     <string name="browse_sort_order_file_size">Dosya boyutu</string>
-
     <!-- Alignment properties -->
     <string name="alignment_start">Başlangıç</string>
     <string name="alignment_justify">İki yana yasla</string>
     <string name="alignment_center">Ortala</string>
     <string name="alignment_end">Bitiş</string>
-
     <!-- Screen Orientation properties -->
     <string name="screen_orientation_free">Serbest</string>
     <string name="screen_orientation_portrait">Dikey</string>
     <string name="screen_orientation_landscape">Yatay</string>
     <string name="screen_orientation_locked_portrait">Kilitli dikey</string>
     <string name="screen_orientation_locked_landscape">Kilitli yatay</string>
-
     <!-- Horizontal Gesture properties -->
     <string name="horizontal_gesture_off">Kapalı</string>
     <string name="horizontal_gesture_on">Açık</string>
     <string name="horizontal_gesture_inverse">Açık (Ters)</string>
-
     <!-- Highlighted Reading properties -->
     <string name="highlighted_reading_level">seviye</string>
-
-      <!-- Color Effect properties -->
+    <!-- Color Effect properties -->
     <string name="color_effects_off">Kapalı</string>
     <string name="color_effects_grayscale">Gri tonlama</string>
     <string name="color_effects_font">Yazı rengi</string>
     <string name="color_effects_background">Arka plan rengi</string>
-
     <!-- Font Thickness properties -->
     <string name="font_thickness_thin">İnce</string>
     <string name="font_thickness_extra_light">Ekstra hafif</string>
     <string name="font_thickness_light">Hafif</string>
     <string name="font_thickness_normal">Normal</string>
     <string name="font_thickness_medium">Orta</string>
-
     <!-- Progress Count properties -->
     <string name="progress_count_percentage">Yüzde</string>
     <string name="progress_count_quantity">Miktar</string>
-
     <!-- Themes -->
     <string name="dynamic_theme">Merkür</string>
     <string name="blue_theme">Neptün</string>
@@ -322,7 +289,6 @@
     <string name="yellow_theme">Venüs</string>
     <string name="yellow2_theme">Makemake</string>
     <string name="aqua_theme">Uranüs</string>
-
     <!-- Toast messages -->
     <string name="press_again_toast">Çıkmak için tekrar geri basın</string>
     <string name="books_added">Tüm seçili kitaplar başarıyla eklendi.</string>
@@ -339,11 +305,9 @@
     <string name="author_changed">Yazar başarıyla değiştirildi.</string>
     <string name="description_changed">Açıklama başarıyla değiştirildi.</string>
     <string name="path_changed">Dosya yolu başarıyla değiştirildi.</string>
-
     <!-- Snackbar messages -->
     <string name="history_element_deleted">Geçmiş öğesi başarıyla silindi.</string>
-
-      <!-- BookInfo -->
+    <!-- BookInfo -->
     <string name="start_reading">Başla</string>
     <string name="continue_reading_query">%1$s konumundan devam et</string>
     <string name="file_details">Dosya detayları</string>
@@ -351,11 +315,9 @@
     <string name="file_last_opened">Son açılma</string>
     <string name="file_size">Boyut</string>
     <string name="unknown">Bilinmeyen</string>
-
     <!-- Reader -->
     <string name="no_chapters">Bölüm yok</string>
     <string name="chapters">Bölümler</string>
-
     <!-- About -->
     <string name="app_version_option">Uygulama sürümü</string>
     <string name="report_bug_option">Hata bildir</string>
@@ -364,7 +326,6 @@
     <string name="help_translate_option">Çeviriye yardım et</string>
     <string name="contributors_option">Katkıda bulunanlar</string>
     <string name="slava_ukraini">Slava Ukraini!</string>
-
     <!-- Credits -->
     <string name="credits_design">Tasarım</string>
     <string name="credits_icon">Simgeler</string>
@@ -373,8 +334,7 @@
     <string name="credits_translation">Çeviri</string>
     <string name="credits_contribution">Katkı</string>
     <string name="credits_ideas">Fikirler</string>
-
-      <!-- Help -->
+    <!-- Help -->
     <string name="help_title_how_to_add_books">Kütüphaneye nasıl kitap eklerim?</string>
     <string name="help_desc_how_to_add_books_1">Şuraya gidin:</string>
     <string name="help_desc_how_to_add_books_2">Gözat</string>
@@ -398,7 +358,6 @@
         Daha sonra bu uygulama için mevcut tüm ayarları göreceksiniz.
         Bunları özgürce deneyebilirsiniz!
     </string>
-
     <string name="help_title_how_to_move_or_delete_books">Kitapları nasıl taşıyabilir veya silebilirim?</string>
     <string name="help_desc_how_to_move_or_delete_books_1">Şuraya gidin:</string>
     <string name="help_desc_how_to_move_or_delete_books_2">Kütüphane</string>
@@ -409,7 +368,6 @@
         Seçmek istediğiniz tüm kitapları seçtikten sonra, taşımak için ok simgesine
         ve silmek için çöp kutusu simgesine tıklayabilirsiniz.
     </string>
-
     <string name="help_title_how_to_edit_book">Bir kitabı nasıl düzenlerim?</string>
     <string name="help_desc_how_to_edit_book_1">Şuraya gidin:</string>
     <string name="help_desc_how_to_edit_book_2">Kütüphane</string>
@@ -418,7 +376,6 @@
         Şimdi kitabın başlığına, yazarına veya açıklamasına basılı tutarak düzenleyebilir
         ya da kapak resmini değiştirip sıfırlayabilir veya silebilirsiniz.
     </string>
-
     <string name="help_title_how_to_read_book">Bir kitabı nasıl okurum?</string>
     <string name="help_desc_how_to_read_book_1">Şuraya gidin:</string>
     <string name="help_desc_how_to_read_book_2">Kütüphane</string>
@@ -431,8 +388,7 @@
         Ayarlar simgesine tıklayarak Okuyucu ayarlarını görebilirsiniz.
         Alt çubuktaki kaydırıcıyı kullanarak ilerlemeyi değiştirebilirsiniz.
     </string>
-
-      <string name="help_title_how_to_customize_reader">Okuyucuyu nasıl özelleştirebilirim?</string>
+    <string name="help_title_how_to_customize_reader">Okuyucuyu nasıl özelleştirebilirim?</string>
     <string name="help_desc_how_to_customize_reader_1">
         Kitabı okumaya başlayın (bkz: Bir kitabı nasıl okurum?),
         ardından ekrana herhangi bir yere tıklayarak üst ve alt çubukları açın.
@@ -447,7 +403,6 @@
         ve Genel ayarları özelleştirmek için Okuyucu kategorisini,
         Renk ayarlarını özelleştirmek için Görünüm kategorisini seçin.
     </string>
-
     <string name="help_title_how_to_manage_history">Geçmişi nasıl yönetebilirim?</string>
     <string name="help_desc_how_to_manage_history_1">Şuraya gidin:</string>
     <string name="help_desc_how_to_manage_history_2">Geçmiş</string>
@@ -457,13 +412,11 @@
         Bir geçmiş öğesini sildiğinizde kitapların sırası da değişecektir.
         Son açılan kitap her zaman Kütüphane ve Geçmiş\'te ilk sırada yer alır.
     </string>
-
     <string name="help_title_how_to_use_tooltip">Bilgi balonlarını nasıl kullanabilirim?</string>
     <string name="help_desc_how_to_use_tooltip_1">
         Çoğu simge butonu bilgi balonlarına sahiptir ve bir simge butonunun ne işe yaradığını bilmiyorsanız yardımcı olabilirler.
         Bilgi balonunu göstermek için simge butonuna basılı tutabilirsiniz.
     </string>
-
     <string name="help_title_how_to_use_double_click_translation">
         Çift tıklayarak çeviriyi nasıl kullanabilirim?
     </string>
@@ -474,7 +427,6 @@
         Şimdi, istediğiniz bir paragrafa çift tıkladığınızda,
         paragrafın metniyle birlikte harici bir çeviri uygulaması açılacaktır.
     </string>
-
     <string name="help_title_how_to_create_color_presets">
         Renk ön ayarlarını nasıl oluşturur ve düzenlerim?
     </string>
@@ -488,7 +440,6 @@
         «Karıştır» simge butonuna tıklayarak tüm renkleri rastgele seçebilirsiniz.
         Bir renk ön ayarını silmek istiyorsanız, «Sil» simge butonuna tıklayın.
     </string>
-
     <string name="help_title_how_to_use_color_presets">
         Renk ön ayarlarını nasıl kullanabilirim?
     </string>
@@ -502,8 +453,7 @@
         Görünüm ayarlarının «Renkler» alt kategorisindeki ilgili ayarı etkinleştirin
         ve ardından Okuyucu\'da üst çubuğu sola veya sağa kaydırarak hızlı bir şekilde renk ön ayarını değiştirin.
     </string>
-
-      <string name="help_title_how_to_use_perception_expander">
+    <string name="help_title_how_to_use_perception_expander">
         Algı genişletici nedir ve nasıl kullanılır?
     </string>
     <string name="help_desc_how_to_use_perception_expander_1">
@@ -517,7 +467,6 @@
         Okurken, her satırdan sonra doğrudan kenarlara bakmadan
         odak noktanızı ekranın merkezinde tutun.
     </string>
-
     <!-- Start -->
     <string name="start_welcome">Book\'s Story\'e hoş geldiniz!</string>
     <string name="start_welcome_desc">
@@ -531,12 +480,10 @@
         Uygulamanın temel ayarlarını başarıyla tamamladınız.
         Yardım ekranını okuyarak uygulamayı nasıl kullanacağınızı öğrenmek ister misiniz?
     </string>
-
     <!-- History -->
     <string name="today">Bugün</string>
     <string name="yesterday">Dün</string>
-
-      <!-- Content description -->
+    <!-- Content description -->
     <string name="continue_reading_content_desc">Okumaya devam et</string>
     <string name="go_back_content_desc">Geri dön</string>
     <string name="cover_image_content_desc">Kapak resmi</string>
