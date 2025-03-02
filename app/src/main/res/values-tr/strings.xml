@@ -58,10 +58,10 @@
     <string name="error_no_dictionary">Sözlük uygulaması bulunamadı.</string>
     <string name="error_no_browser">Tarayıcı uygulaması bulunamadı.</string>
     <string name="error_no_share_app">Paylaşım yapacak uygulama bulunamadı.</string>
-    <string name="error_could_not_get_text">Dosya boş, bozuk veya eksik. Lütfen dosyayı doğrulayın ya da yolu güncelleyerek tekrar deneyin.</string>
+    <string name="error_could_not_get_text">Dosya boş, kayıp veya erişilemez. Dosyayı doğrulayın, ayarları kontrol edin veya yolu değiştirip ardından tekrar deneyin.</string>
     <string name="error_could_not_reset_cover">Kapak resmi sıfırlanamadı.</string>
     <string name="error_closed_source">Kapalı kaynak</string>
-    <string name="error_no_file">Dosya mevcut değil</string>
+    <string name="error_no_file">Dosya mevcut değil veya erişilemez</string>
     <!-- Is Empty messages -->
     <string name="search_field_empty">
         Ara…
@@ -95,7 +95,7 @@
     <string name="done">Tamam</string>
     <string name="web_search">Web\'de ara</string>
     <string name="share">Paylaş</string>
-    <string name="ok">Tamam</string>
+    <string name="ok">TMM</string>
     <string name="change_path">Yolu değiştir</string>
     <!-- Book -->
     <string name="unknown_author">Bilinmeyen</string>
@@ -501,7 +501,7 @@
     <string name="delete_whole_history_content_desc">Tüm geçmişi sil</string>
     <string name="move_books_content_desc">Seçili kitapları taşı</string>
     <string name="delete_books_content_desc">Seçili kitapları sil</string>
-    <string name="revert_content_desc">Geri al</string>
+    <string name="revert_content_desc">Geri</string>
     <string name="selected_content_desc">Seçildi</string>
     <string name="app_icon_content_desc">Uygulama simgesi</string>
     <string name="delete_history_element_content_desc">Geçmiş öğesini sil</string>
@@ -525,4 +525,13 @@
     <string name="show_less_content_desc">Daha az göster</string>
     <string name="show_more_content_desc">Daha fazla göster</string>
     <string name="edit_content_desc">Alanı düzenle</string>
+    <string name="set_up_scanning">Kurulum taranıyor</string>
+    <string name="scan_browse_settings">Tara</string>
+    <string name="browse_scan_option_note">Bu klasörler, göz atmada dosyaları taramak ve almak için kullanılır. Buradaki bir klasörü kaldırma, gerçek dosyaları veya kitapları kütüphaneden silmez. Erişimi iptal etmek için ilgili düğmeyi tıklayın.</string>
+    <string name="start_scan_preferences">Tarama tercihleri</string>
+    <string name="expand_content_desc">Genişlet</string>
+    <string name="collapse_content_desc">Daralt</string>
+    <string name="add_folder">Klasör ekle</string>
+    <string name="note_content_desc">Not</string>
+    <string name="remove_content_desc">Kaldır</string>
 </resources>
