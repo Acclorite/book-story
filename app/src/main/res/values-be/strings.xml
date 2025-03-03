@@ -138,4 +138,21 @@
     <string name="help_title_how_to_customize_app">Як наладзіць прыкладанне?</string>
     <string name="help_desc_how_to_customize_app_1">Перайсці ў</string>
     <string name="help_desc_how_to_customize_app_2">Налады</string>
+    <string name="file_path">Шлях</string>
+    <string name="file_size">Памер</string>
+    <string name="green_theme">Зямля</string>
+    <string name="green2_theme">Io</string>
+    <string name="file_last_opened">Апошняе адкрыццё</string>
+    <string name="unknown">Невядома</string>
+    <string name="no_chapters">Няма раздзелаў</string>
+    <string name="progress_count_percentage">Працэнты</string>
+    <string name="progress_count_quantity">Колькасць</string>
+    <string name="dynamic_theme">Меркурый</string>
+    <string name="blue_theme">Няптун</string>
+    <string name="history_element_deleted">Элемент гісторыі быў паспяхова выдалены.</string>
+    <string name="start_reading">Пачаць</string>
+    <string name="continue_reading_query">Прадоўжыць з %1$s</string>
+    <string name="file_details">Дэталі файла</string>
+    <string name="description_changed">Апісанне было паспяхова зменена.</string>
+    <string name="path_changed">Шлях да файла быў паспяхова зменены.</string>
 </resources>
