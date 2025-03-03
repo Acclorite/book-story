@@ -353,4 +353,6 @@
     <string name="path_changed">O caminho do arquivo foi alterado com sucesso.</string>
     <string name="expand_content_desc">Expandir</string>
     <string name="collapse_content_desc">Colapsar</string>
+    <string name="browse_scan_option_note">Estas pastas serão usadas para escanear e</string>
+    <string name="start_scan_preferences">Preferência de varredura</string>
 </resources>
