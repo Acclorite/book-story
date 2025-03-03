@@ -98,7 +98,7 @@ dependencies {
     implementation("androidx.compose.ui:ui:1.7.8")
     implementation("androidx.compose.ui:ui-graphics:1.7.8")
     implementation("androidx.compose.ui:ui-android:1.8.0-beta03")
-    implementation("androidx.compose.material3:material3:1.4.0-alpha09")
+    implementation("androidx.compose.material3:material3:1.4.0-alpha08")
     implementation("androidx.compose.material3:material3-window-size-class:1.3.1")
     implementation("androidx.compose.material:material-icons-extended:1.7.8")
     implementation("androidx.compose.material:material:1.7.8")
