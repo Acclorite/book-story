@@ -44,7 +44,7 @@ fun StartDoneLayout(
         Icon(
             painter = painterResource(id = R.drawable.start_done),
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
+            tint = MaterialTheme.colorScheme.secondary,
             modifier = Modifier.size(190.dp)
         )
         Spacer(modifier = Modifier.height(16.dp))

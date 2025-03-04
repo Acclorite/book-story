@@ -101,10 +101,13 @@ fun LicensesItem(
                         text = it.name,
                         modifier = Modifier
                             .clip(RoundedCornerShape(100))
-                            .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(100))
+                            .background(
+                                MaterialTheme.colorScheme.secondary,
+                                RoundedCornerShape(100)
+                            )
                             .padding(vertical = 4.dp, horizontal = 8.dp),
                         style = MaterialTheme.typography.bodySmall.copy(
-                            color = MaterialTheme.colorScheme.onPrimary
+                            color = MaterialTheme.colorScheme.onSecondary
                         ),
                         maxLines = 1
                     )

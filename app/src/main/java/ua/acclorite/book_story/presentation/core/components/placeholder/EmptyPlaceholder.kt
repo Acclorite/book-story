@@ -56,7 +56,7 @@ fun EmptyPlaceholder(
             painter = icon,
             contentDescription = message,
             modifier = Modifier.size(150.dp),
-            tint = MaterialTheme.colorScheme.primary
+            tint = MaterialTheme.colorScheme.secondary
         )
         Spacer(modifier = Modifier.height(4.dp))
         StyledText(
@@ -76,7 +76,7 @@ fun EmptyPlaceholder(
                 StyledText(
                     text = actionTitle,
                     style = MaterialTheme.typography.labelLarge.copy(
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.secondary
                     )
                 )
             }

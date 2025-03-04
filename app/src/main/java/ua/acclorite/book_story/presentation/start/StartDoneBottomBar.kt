@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,6 +46,9 @@ fun StartDoneBottomBar(
                 modifier = Modifier.weight(1f),
                 shape = RoundedCornerShape(100),
                 contentPadding = ButtonDefaults.ContentPadding,
+                colors = ButtonDefaults.textButtonColors(
+                    contentColor = MaterialTheme.colorScheme.secondary
+                ),
                 onClick = {
                     navigateToBrowse()
                 }

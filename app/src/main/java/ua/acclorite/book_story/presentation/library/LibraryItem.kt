@@ -50,9 +50,9 @@ fun LazyGridItemScope.LibraryItem(
     navigateToBookInfo: () -> Unit,
     navigateToReader: () -> Unit
 ) {
-    val backgroundColor = if (book.selected) MaterialTheme.colorScheme.primary
+    val backgroundColor = if (book.selected) MaterialTheme.colorScheme.secondary
     else Color.Transparent
-    val fontColor = if (book.selected) MaterialTheme.colorScheme.onPrimary
+    val fontColor = if (book.selected) MaterialTheme.colorScheme.onSecondary
     else MaterialTheme.colorScheme.onSurface
 
     val progress = rememberSaveable(book.data.progress) {
@@ -115,11 +115,11 @@ fun LazyGridItemScope.LibraryItem(
                 modifier = Modifier
                     .padding(6.dp)
                     .clip(MaterialTheme.shapes.small)
-                    .background(MaterialTheme.colorScheme.primary, MaterialTheme.shapes.small)
+                    .background(MaterialTheme.colorScheme.secondary, MaterialTheme.shapes.small)
                     .padding(horizontal = 8.dp, vertical = 4.dp),
                 style = MaterialTheme.typography.bodySmall.copy(
                     textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    color = MaterialTheme.colorScheme.onSecondary,
                 )
             )
 
@@ -131,10 +131,8 @@ fun LazyGridItemScope.LibraryItem(
                     .size(32.dp),
                 shape = MaterialTheme.shapes.medium,
                 colors = IconButtonDefaults.iconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
-                        .copy(0.9f),
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                        .copy(0.9f)
                 )
             ) {
                 Icon(

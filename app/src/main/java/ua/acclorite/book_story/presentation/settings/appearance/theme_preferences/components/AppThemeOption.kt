@@ -155,7 +155,7 @@ private fun AppThemeOptionItem(
                         contentDescription = stringResource(id = R.string.selected_content_desc),
                         modifier = Modifier
                             .size(26.dp),
-                        tint = colorScheme.primary
+                        tint = colorScheme.secondary
                     )
                 }
 

@@ -30,7 +30,7 @@ fun LazyListScope.StartSettingsLayoutGeneral(
         Spacer(modifier = Modifier.height(16.dp))
         SettingsSubcategoryTitle(
             title = stringResource(id = R.string.start_language_preferences),
-            color = MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colorScheme.secondary
         )
         Spacer(modifier = Modifier.height(12.dp))
     }

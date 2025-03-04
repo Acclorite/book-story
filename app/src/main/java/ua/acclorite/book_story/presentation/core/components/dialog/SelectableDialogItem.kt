@@ -42,7 +42,7 @@ fun SelectableDialogItem(
             onClick = null,
             modifier = Modifier.size(24.dp),
             colors = RadioButtonDefaults.colors(
-                selectedColor = MaterialTheme.colorScheme.primary,
+                selectedColor = MaterialTheme.colorScheme.secondary,
                 unselectedColor = MaterialTheme.colorScheme.onSurface
             )
         )

@@ -27,7 +27,7 @@ fun LazyListScope.StartSettingsLayoutScan() {
     item {
         SettingsSubcategoryTitle(
             title = stringResource(id = R.string.start_scan_preferences),
-            color = MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colorScheme.secondary
         )
     }
 

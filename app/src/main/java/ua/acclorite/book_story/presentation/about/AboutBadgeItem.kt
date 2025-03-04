@@ -38,14 +38,14 @@ fun AboutBadgeItem(
                 modifier = Modifier.size(22.dp),
                 painter = painterResource(id = badge.drawable),
                 contentDescription = stringResource(id = badge.contentDescription),
-                tint = MaterialTheme.colorScheme.primary
+                tint = MaterialTheme.colorScheme.tertiary
             )
         } else if (badge.imageVector != null && badge.drawable == null) {
             Icon(
                 modifier = Modifier.size(22.dp),
                 imageVector = badge.imageVector,
                 contentDescription = stringResource(id = badge.contentDescription),
-                tint = MaterialTheme.colorScheme.primary
+                tint = MaterialTheme.colorScheme.tertiary
             )
         }
     }

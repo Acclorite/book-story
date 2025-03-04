@@ -47,12 +47,12 @@ fun LazyItemScope.LicenseInfoItem(
                     showed.value = !showed.value
                 }
                 .background(
-                    MaterialTheme.colorScheme.primary,
+                    MaterialTheme.colorScheme.secondary,
                     RoundedCornerShape(100)
                 )
                 .padding(vertical = 6.dp, horizontal = 12.dp),
             style = MaterialTheme.typography.titleSmall.copy(
-                color = MaterialTheme.colorScheme.onPrimary,
+                color = MaterialTheme.colorScheme.onSecondary,
             ),
             maxLines = 1
         )

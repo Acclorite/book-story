@@ -82,7 +82,7 @@ private fun BrowseSortOptionItem(
             contentDescription = stringResource(id = R.string.sort_order_content_desc),
             modifier = Modifier
                 .size(28.dp),
-            tint = if (isSelected) MaterialTheme.colorScheme.primary
+            tint = if (isSelected) MaterialTheme.colorScheme.secondary
             else Color.Transparent
         )
         Spacer(modifier = Modifier.width(24.dp))

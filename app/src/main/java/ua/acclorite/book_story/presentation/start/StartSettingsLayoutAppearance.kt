@@ -9,6 +9,7 @@
 package ua.acclorite.book_story.presentation.start
 
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.settings.appearance.theme_preferences.ThemePreferencesSubcategory
@@ -16,6 +17,7 @@ import ua.acclorite.book_story.presentation.settings.appearance.theme_preference
 fun LazyListScope.StartSettingsLayoutAppearance() {
     ThemePreferencesSubcategory(
         title = { stringResource(id = R.string.start_theme_preferences) },
+        titleColor = { MaterialTheme.colorScheme.secondary },
         showDivider = false
     )
 }

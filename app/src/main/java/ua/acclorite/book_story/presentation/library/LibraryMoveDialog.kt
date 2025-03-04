@@ -8,7 +8,7 @@ package ua.acclorite.book_story.presentation.library
 
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.DriveFileMove
+import androidx.compose.material.icons.outlined.MoveUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -52,7 +52,7 @@ fun LibraryMoveDialog(
 
     Dialog(
         title = stringResource(id = R.string.move_books),
-        icon = Icons.AutoMirrored.Outlined.DriveFileMove,
+        icon = Icons.Outlined.MoveUp,
         description = stringResource(
             id = R.string.move_books_description,
             selectedItemsCount

@@ -68,10 +68,10 @@ fun CreditItem(
                         text = it.asString(),
                         modifier = Modifier
                             .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.primary)
+                            .background(MaterialTheme.colorScheme.secondary)
                             .padding(vertical = 4.dp, horizontal = 8.dp),
                         style = MaterialTheme.typography.bodySmall.copy(
-                            color = MaterialTheme.colorScheme.onPrimary,
+                            color = MaterialTheme.colorScheme.onSecondary,
                         ),
                         maxLines = 1
                     )

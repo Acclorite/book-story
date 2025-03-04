@@ -48,7 +48,7 @@ fun CircularCheckbox(
                 CircleShape
             )
             .background(
-                if (selected) MaterialTheme.colorScheme.primary else Color.Transparent,
+                if (selected) MaterialTheme.colorScheme.secondary else Color.Transparent,
                 shape = CircleShape
             )
             .padding(4.dp)

@@ -117,7 +117,10 @@ fun SliderWithTitle(
             },
             steps = toValue - fromValue - 1,
             colors = SliderDefaults.colors(
-                activeTickColor = MaterialTheme.colorScheme.onPrimary,
+                activeTrackColor = MaterialTheme.colorScheme.secondary,
+                thumbColor = MaterialTheme.colorScheme.secondary,
+                inactiveTrackColor = MaterialTheme.colorScheme.secondaryContainer,
+                activeTickColor = MaterialTheme.colorScheme.onSecondary,
                 inactiveTickColor = MaterialTheme.colorScheme.onSurfaceVariant
             )
         )
@@ -205,7 +208,10 @@ fun SliderWithTitle(
                 }
             },
             colors = SliderDefaults.colors(
-                activeTickColor = MaterialTheme.colorScheme.onPrimary,
+                activeTrackColor = MaterialTheme.colorScheme.secondary,
+                thumbColor = MaterialTheme.colorScheme.secondary,
+                inactiveTrackColor = MaterialTheme.colorScheme.secondaryContainer,
+                activeTickColor = MaterialTheme.colorScheme.onSecondary,
                 inactiveTickColor = MaterialTheme.colorScheme.onSurfaceVariant
             )
         )

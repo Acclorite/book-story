@@ -77,7 +77,7 @@ fun RowScope.BrowseListFileItem(file: SelectableFile) {
                 contentDescription = stringResource(id = R.string.file_icon_content_desc),
                 modifier = Modifier
                     .size(22.dp),
-                tint = MaterialTheme.colorScheme.primary
+                tint = MaterialTheme.colorScheme.secondary
             )
         }
         Spacer(modifier = Modifier.width(12.dp))
