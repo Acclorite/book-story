@@ -407,7 +407,6 @@ class BrowseModel @Inject constructor(
             _state.update {
                 it.copy(
                     files = this,
-                    selectedItemsCount = 0,
                     hasSelectedItems = false,
                     isLoading = false
                 )

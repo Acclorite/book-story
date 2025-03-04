@@ -307,6 +307,7 @@ class LibraryModel @Inject constructor(
         _state.update {
             it.copy(
                 books = books,
+                hasSelectedItems = false,
                 isLoading = false
             )
         }
