@@ -133,7 +133,7 @@ fun LibraryTopBar(
                             .onGloballyPositioned {
                                 requestFocus(LibraryEvent.OnRequestFocus(focusRequester))
                             },
-                        query = searchQuery,
+                        initialQuery = searchQuery,
                         onQueryChange = {
                             searchQueryChange(LibraryEvent.OnSearchQueryChange(it))
                         },

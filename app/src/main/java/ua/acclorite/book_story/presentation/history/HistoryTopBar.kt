@@ -100,7 +100,7 @@ fun HistoryTopBar(
                             .onGloballyPositioned {
                                 requestFocus(HistoryEvent.OnRequestFocus(focusRequester))
                             },
-                        query = searchQuery,
+                        initialQuery = searchQuery,
                         onQueryChange = {
                             searchQueryChange(HistoryEvent.OnSearchQueryChange(it))
                         },

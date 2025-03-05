@@ -12,6 +12,10 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
@@ -20,6 +24,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.debounce
 import ua.acclorite.book_story.R
 
 /**
@@ -27,21 +34,36 @@ import ua.acclorite.book_story.R
  * Used in main screens for searching.
  *
  * @param modifier Modifier to apply.
- * @param query Search query.
- * @param onQueryChange Callback to change [query].
+ * @param initialQuery Initial search query.
+ * @param onQueryChange Callback to change query.
  * @param onSearch Search action (refresh list, fetch filtered books etc..).
  */
+@OptIn(FlowPreview::class)
 @Composable
 fun SearchTextField(
     modifier: Modifier = Modifier,
-    query: String,
+    initialQuery: String,
     onQueryChange: (String) -> Unit,
     onSearch: () -> Unit
 ) {
     val keyboardManager = LocalSoftwareKeyboardController.current
 
+    val query = remember {
+        mutableStateOf(initialQuery)
+    }
+
+    LaunchedEffect(query) {
+        snapshotFlow {
+            query.value
+        }.debounce(50).collectLatest {
+            if (it == initialQuery) return@collectLatest
+            onQueryChange(it)
+        }
+    }
+
+
     BasicTextField(
-        value = query,
+        value = query.value,
         singleLine = true,
         textStyle = TextStyle(
             color = MaterialTheme.colorScheme.onSurface,
@@ -50,13 +72,16 @@ fun SearchTextField(
             fontFamily = MaterialTheme.typography.titleLarge.fontFamily
         ),
         modifier = modifier,
-        onValueChange = onQueryChange,
+        onValueChange = {
+            query.value = it
+        },
         keyboardOptions = KeyboardOptions(
-            KeyboardCapitalization.Words,
+            KeyboardCapitalization.Sentences,
             imeAction = ImeAction.Search
         ),
         keyboardActions = KeyboardActions(
             onSearch = {
+                onQueryChange(query.value)
                 onSearch()
                 keyboardManager?.hide()
             }
@@ -64,7 +89,7 @@ fun SearchTextField(
         cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurfaceVariant)
     ) { innerText ->
         Box(contentAlignment = Alignment.CenterStart) {
-            if (query.isEmpty()) {
+            if (query.value.isEmpty()) {
                 StyledText(
                     text = stringResource(id = R.string.search_field_empty),
                     style = MaterialTheme.typography.titleLarge.copy(
