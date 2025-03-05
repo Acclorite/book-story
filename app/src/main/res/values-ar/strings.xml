@@ -25,7 +25,7 @@
     <string name="error_something_went_wrong">حدث خطأ ما.</string>
     <string name="error_no_translator">لم يتم العثور على تطبيق ترجمة.</string>
     <string name="error_no_browser">لم يتم العثور على متصفح.</string>
-    <string name="error_could_not_get_text">الملف فارغ أو فاسد أو مفقود. يرجى التحقق من الملف أو تحديث المسار و المحاولة مرة أخرى.</string>
+    <string name="error_could_not_get_text">الملف فارغ أو مفقود أو لا يمكن الوصول إليه. تحقق من الملف أو إعدادات المسح الضوئي أو غيّر المسار، ثم حاول مرة أخرى.</string>
     <string name="error_closed_source">مغلق المصدر</string>
     <string name="library_empty">اقرأ كُتبك المُفضلة و رتبهم باستخدام الفئات</string>
     <string name="history_empty">دع آخر كتاب قرأته يفتح صفحات قصة جديدة عظيمة من رحلة قرائتك</string>
@@ -283,7 +283,7 @@
     <string name="purple_gray_theme">سيريس</string>
     <string name="font_thickness_normal">عادي</string>
     <string name="progress_count_quantity">الكمية</string>
-    <string name="error_no_file">الملف غير موجود</string>
+    <string name="error_no_file">الملف غير موجود أو لا يمكن الوصول إليه</string>
     <string name="change_path">تغيير المسار</string>
     <string name="help_title_how_to_use_color_presets">كيف أستخدم إعدادات الألوان المسبقة؟</string>
     <string name="move_books_content_desc">انقل الكُتب المُحدّدة</string>
@@ -353,4 +353,11 @@
     <string name="app_icon_content_desc">أيقونة التطبيق</string>
     <string name="expand_content_desc">وسّع</string>
     <string name="collapse_content_desc">اطوِ</string>
+    <string name="remove_content_desc">أزِل</string>
+    <string name="note_content_desc">ملحوظة</string>
+    <string name="add_folder">أضف ملف</string>
+    <string name="set_up_scanning">إعداد المسح</string>
+    <string name="scan_browse_settings">المسح</string>
+    <string name="browse_scan_option_note">يتم استخدام هذه المجلدات لمسح الملفات واستردادها في تصفح. إن إزالة المجلد هنا لن يحذف الملفات أو الكتب الفعلية من المكتبة. لإلغاء الوصول، انقر فوق الزر المقابل.</string>
+    <string name="start_scan_preferences">تفضيلات المسح</string>
 </resources>
