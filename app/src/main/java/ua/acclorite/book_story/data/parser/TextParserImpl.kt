@@ -13,6 +13,7 @@ import ua.acclorite.book_story.data.parser.epub.EpubTextParser
 import ua.acclorite.book_story.data.parser.html.HtmlTextParser
 import ua.acclorite.book_story.data.parser.pdf.PdfTextParser
 import ua.acclorite.book_story.data.parser.txt.TxtTextParser
+import ua.acclorite.book_story.data.parser.xml.XmlTextParser
 import ua.acclorite.book_story.domain.file.CachedFile
 import ua.acclorite.book_story.domain.reader.ReaderText
 import javax.inject.Inject
@@ -26,7 +27,8 @@ class TextParserImpl @Inject constructor(
 
     // Document parser (HTML+Markdown)
     private val epubTextParser: EpubTextParser,
-    private val htmlTextParser: HtmlTextParser
+    private val htmlTextParser: HtmlTextParser,
+    private val xmlTextParser: XmlTextParser
 ) : TextParser {
 
     override suspend fun parse(cachedFile: CachedFile): List<ReaderText> {
@@ -51,7 +53,7 @@ class TextParserImpl @Inject constructor(
                 }
 
                 ".fb2" -> {
-                    htmlTextParser.parse(cachedFile)
+                    xmlTextParser.parse(cachedFile)
                 }
 
                 ".html" -> {
