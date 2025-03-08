@@ -143,7 +143,6 @@
     <string name="unknown">غير معروف</string>
     <string name="browse_grid_size_option">حجم الشبكة</string>
     <string name="app_version_option">إصدار التطبيق</string>
-    <string name="app_version_option_desc_1">قصة كتاب الإصدار%1$s</string>
     <string name="licenses_option">رخص مفتوحة المصدر</string>
     <string name="credits_icon">الأيقونات</string>
     <string name="credits_updates">إدارة التحديثات الجديدة</string>
@@ -151,7 +150,6 @@
     <string name="alignment_center">المركز</string>
     <string name="file_path">المسار</string>
     <string name="report_bug_option">الإبلاغ عن خطأ</string>
-    <string name="whats_new_option">ما الجديد</string>
     <string name="alignment_end">النهاية</string>
     <string name="marsh_theme">بلوتو</string>
     <string name="credits_ideas">أفكار</string>
@@ -337,7 +335,6 @@
     <string name="sort_order_content_desc">ترتيب الفرز</string>
     <string name="today">اليوم</string>
     <string name="checkbox_content_desc">مربّع تأشير</string>
-    <string name="github_profile_content_desc">ملف تعريف GitHub</string>
     <string name="checkpoint_back_content_desc">نقطة التحقق إلى الخلف</string>
     <string name="alignment_justify">ساوِ</string>
     <string name="horizontal_gesture_inverse">مُفعّل (عكسي)</string>
@@ -345,7 +342,7 @@
     <string name="highlighted_reading_level">المستوى</string>
     <string name="filter_content_desc">تصفية</string>
     <string name="reset_start_content_desc">إعادة تعيين دليل البدء</string>
-    <string name="tryzub_content_desc">Tryzub</string>
+    <string name="tryzub_badge">Tryzub</string>
     <string name="start_language_preferences">تفضيلات اللغة</string>
     <string name="file_icon_content_desc">الملف</string>
     <string name="open_in_web_content_desc">افتح في الويب</string>

@@ -159,8 +159,7 @@
     <string name="delete_color_preset_content_desc">வண்ண முன்னமைவை நீக்கு</string>
     <string name="create_color_preset_content_desc">புதிய வண்ண முன்னமைவை உருவாக்கவும்</string>
     <string name="shuffle_color_preset_content_desc">கலக்கு வண்ணங்கள்</string>
-    <string name="tryzub_content_desc">TRYZUB</string>
-    <string name="github_profile_content_desc">அறிவிலிமையம் சுயவிவரம்</string>
+    <string name="tryzub_badge">TRYZUB</string>
     <string name="checkpoint_back_content_desc">சோதனைச் சாவடி மீண்டும்</string>
     <string name="checkpoint_forward_content_desc">சோதனைச் சாவடி முன்னோக்கி</string>
     <string name="chapters_content_desc">பாடங்கள்</string>
@@ -249,9 +248,7 @@
     <string name="file_size">கோப்பு அளவு</string>
     <string name="no_chapters">அத்தியாயங்கள் இல்லை</string>
     <string name="chapters">பாடங்கள்</string>
-    <string name="app_version_option_desc_1">புத்தகத்தின் கதை v%1$s</string>
     <string name="report_bug_option">ஒரு பிழையைப் புகாரளிக்கவும்</string>
-    <string name="whats_new_option">புதியது என்ன</string>
     <string name="credits_option">வரவு</string>
     <string name="help_translate_option">மொழிபெயர்க்க உதவுங்கள்</string>
     <string name="contributors_option">பங்களிப்பாளர்கள்</string>

@@ -67,7 +67,6 @@
     <string name="misc_reader_settings">Různé</string>
     <string name="add_books_description">Můžete si vybrat, které knihy chcete přidat. Název i obálku knihy si můžete změnit později. Načítání knih může trvat i několik minut.</string>
     <string name="reader_settings">Čtečka</string>
-    <string name="whats_new_option">Co je nového</string>
     <string name="appearance_settings_desc">Témata, barvy</string>
     <string name="reader_settings_desc">Font, texty, překladač</string>
     <string name="color_preset_selected_query">Vybráno «%1$s»</string>
@@ -163,7 +162,6 @@
     <string name="font_size_option">Velikost fontu</string>
     <string name="paragraph_height_option">Výška odstavce</string>
     <string name="blue_color">Modrá</string>
-    <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
     <string name="absolute_dark_option_desc">Změnit barvu pozadí na čistě černou</string>
     <string name="search_field_empty">Hledat…</string>
     <string name="reading_speed_reader_settings">Rychlost čtení</string>

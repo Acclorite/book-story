@@ -32,7 +32,6 @@
     <string name="open_reader_settings_content_desc">Impostazioni lettore</string>
     <string name="file_icon_content_desc">File</string>
     <string name="sort_order_content_desc">Criterio di ordinamento</string>
-    <string name="github_profile_content_desc">Profilo GitHub</string>
     <string name="browse_grid_size_option">Dimensioni griglia</string>
     <string name="open_in_web_content_desc">Apri sul web</string>
     <string name="delete_book">Eliminare libro?</string>
@@ -288,13 +287,11 @@
     <string name="help_desc_how_to_use_perception_expander_1">L\'espansore di percezione può aiutarti a leggere più velocemente. Per prima cosa, abilitalo nelle impostazioni del Lettore(vedi: Come personalizzare il Lettore?). Una volta abilitato, appariranno due linee verticali su entrambi i lati del Lettore. Per ottimizzare ulteriormente la velocità di lettura, regola il margine per creare meno spazio attorno al centro. Per utilizzarlo, concentrati sul centro dello schermo mentre consenti alla tua visione periferica di cogliere il testo sui lati. Mentre leggi, mantieni la concentrazione sul centro senza guardare direttamente i lati dopo ogni riga.</string>
     <string name="cover_reset">L\'immagine di copertina è stata reimpostata correttamente.</string>
     <string name="credits_ideas">Idea</string>
-    <string name="whats_new_option">Cosa c\'è di nuovo</string>
     <string name="help_desc_how_to_add_books_3">Se non vedi i libri scaricati, prova ad aggiornare l\'elenco tirandolo verso il basso. Assicurati che i tuoi libri abbiano un formato di file supportato. Quindi fai clic sul libro per selezionarlo o tieni premuto per mostrarne la posizione. Dopo aver selezionato tutti i libri desiderati, fai clic sull\'icona del segno di spunta nell\'angolo in alto a destra, attendi che tutti i libri vengano caricati e fai clic su «Aggiungi». Ora dovresti vedere tutti i libri che hai aggiunto nella</string>
     <string name="contributors_option">Contributori</string>
     <string name="help_desc_how_to_customize_app_3">Puoi farlo dalle schermate Libreria, Cronologia e Sfoglia cliccando sui tre puntini nell\'angolo in alto a destra e selezionando «Impostazioni» dal menu a discesa. Quindi vedrai tutte le impostazioni disponibili per questa app. Sentiti libero di sperimentarle!</string>
     <string name="help_desc_how_to_read_book_3">Per iniziare a leggere il libro, clicca sul pulsante nell\'angolo in basso a destra del libro che vuoi leggere. Puoi anche iniziare a leggere il libro cliccando sulla sua immagine di copertina per vedere i dettagli del libro e poi cliccare sul pulsante nell\'angolo in basso a destra. I progressi verranno salvati e ripristinati automaticamente. Puoi portare le barre superiore e inferiore cliccando in qualsiasi punto dello schermo. Cliccando sul titolo del libro verrai trasferito ai dettagli del libro. Cliccando sull\'icona dell\'ingranaggio vedrai le impostazioni del lettore. Puoi usare il cursore della barra inferiore per cambiare i progressi.</string>
     <string name="help_desc_how_to_create_color_presets_1">Vai alle impostazioni Aspetto (vedi: Come personalizzo il Lettore?). Puoi modificare tutte le impostazioni dei preset colore nella casella sotto «Preselezione Colore» nella sottocategoria «Colori». Per creare un nuovo preset colore, clicca sul pulsante icona «Aggiungi». Ci sono diversi modi per modificare un preset colore: cliccando sul campo di testo puoi cambiare il nome del preset colore, spostando i cursori puoi cambiare i colori del preset colore, cliccando sul pulsante icona «Mescola» puoi mescolare tutti i colori. Se vuoi eliminare il preset colore, clicca sul pulsante icona «Elimina».</string>
-    <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
     <string name="help_desc_how_to_use_color_presets_1">Vai alle impostazioni Aspetto (vedi: Come personalizzo il Lettore?). Puoi scegliere quale preset di colore usare nell\'impostazione «Preselezione colore». Fai clic sul preset di colore desiderato per selezionarlo, questo cambierà anche i tuoi colori nel Lettore. Se vuoi riordinare il preset di colore, selezionalo e tieni premuto il pulsante icona «Maniglia», quindi spostalo nella posizione desiderata. Puoi cambiare rapidamente i preset di colore abilitando l\'impostazione corrispondente nella sottocategoria «Colori» delle impostazioni Aspetto, quindi scorrendo la barra superiore verso sinistra o destra nel Lettore, per cambiare rapidamente il preset di colore.</string>
     <string name="images_reader_settings">Immagini</string>
     <string name="images_alignment_option">Allineamento</string>
@@ -320,7 +317,7 @@
     <string name="color_effects_background">Colore di sfondo</string>
     <string name="color_effects_off">Spento</string>
     <string name="absolute_dark_option">Nero assoluto</string>
-    <string name="tryzub_content_desc">Tryzub</string>
+    <string name="tryzub_badge">Tryzub</string>
     <string name="color_preset_placeholder">Assegna un nome a un predefinito…</string>
     <string name="horizontal_gesture_off">Spento</string>
     <string name="screen_orientation_locked_landscape">Blocco orrizzontale</string>

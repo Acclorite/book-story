@@ -167,7 +167,6 @@
     <string name="create_color_preset_content_desc">Utwórz nowe ustawienie koloru</string>
     <string name="help_desc_how_to_customize_app_3">Możesz to zrobić z poziomu ekranu Biblioteka, Historia i Przeglądaj, klikając trzy kropki w prawym górnym rogu i wybierając « Ustawienia » z menu rozwijanego. Następnie zobaczysz wszystkie dostępne ustawienia tej aplikacji. Eksperymentuj z nimi!</string>
     <string name="continue_reading_content_desc">Kontynuuj czytanie</string>
-    <string name="github_profile_content_desc">Profil GitHub</string>
     <string name="help_desc_how_to_customize_reader_1">Zacznij czytać książkę (patrz: Jak mogę przeczytać książkę?), A następnie przynieś górne i dolne paski, klikając w dowolnym miejscu na ekranie. Następnie kliknij ikonę zębatki w prawym górnym rogu. Spowoduje to wyświetlenie wszystkich ustawień Czytnika. Drugim sposobem jest przejście do</string>
     <string name="color_preset_placeholder">Nazwij ustawienie…</string>
     <string name="browse_grid_size_option">Rozmiar siatki</string>
@@ -250,7 +249,6 @@
     <string name="help_title_how_to_customize_reader">Jak mogę dostosować czytnik?</string>
     <string name="start_done">Wszystko gotowe!</string>
     <string name="cover_image_deleted">Obraz okładki został pomyślnie usunięty.</string>
-    <string name="whats_new_option">Co nowego</string>
     <string name="licenses_option">Licencje open source</string>
     <string name="help_desc_how_to_customize_reader_2">Ustawienia</string>
     <string name="error_content_desc">Błąd</string>

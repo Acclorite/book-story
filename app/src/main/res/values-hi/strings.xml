@@ -197,8 +197,6 @@
     <string name="credits_ideas">विचारों</string>
     <string name="help_title_how_to_customize_app">मैं ऐप को कैसे अनुकूलित करूं?</string>
     <string name="help_desc_how_to_customize_app_1">के पास जाओ</string>
-    <string name="app_version_option_desc_1">किताब की कहानी v%1$s</string>
-    <string name="whats_new_option">नया क्या है</string>
     <string name="licenses_option">ओपन सोर्स लाइसेंस</string>
     <string name="credits_icon">माउस</string>
     <string name="credits_fonts">फ़ॉन्ट्स</string>

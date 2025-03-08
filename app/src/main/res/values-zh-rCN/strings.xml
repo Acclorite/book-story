@@ -194,7 +194,6 @@
     <string name="credits_contribution">贡献</string>
     <string name="credits_ideas">想法</string>
     <string name="help_title_how_to_add_books">我应该如何添加书籍到库中？</string>
-    <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
     <string name="help_desc_how_to_add_books_4">书库中</string>
     <string name="file_path">路径</string>
     <string name="credits_icon">图标</string>
@@ -206,7 +205,6 @@
     <string name="credits_translation">翻译</string>
     <string name="help_desc_how_to_add_books_3">如果你没有看见已下载的书可以尝试下拉刷新列表。确保你的书拥有所支持的文件格式。点击书来选择它或者按住来显示它的位置。当你选择了所有想选择的书之后，点击右上角的对勾图标，等待所有的书加载好后点击“添加”。所有你已经添加的书都应该显示在</string>
     <string name="file_size">大小</string>
-    <string name="whats_new_option">新内容</string>
     <string name="licenses_option">开源许可证</string>
     <string name="pure_dark_power_saver">屏保</string>
     <string name="custom_screen_brightness_option">自定义亮度</string>
@@ -294,7 +292,6 @@
     <string name="delete_whole_history_content_desc">删除全部历史记录</string>
     <string name="open_in_web_content_desc">在网页中打开</string>
     <string name="create_color_preset_content_desc">创建新颜色预设</string>
-    <string name="github_profile_content_desc">GitHub 配置文件</string>
     <string name="drag_content_desc">拖动</string>
     <string name="chapters_content_desc">章节</string>
     <string name="more_content_desc">更多</string>
@@ -303,7 +300,7 @@
     <string name="red_gray_theme">木卫一</string>
     <string name="pink2_theme">木卫三</string>
     <string name="yellow2_theme">鸟神星</string>
-    <string name="tryzub_content_desc">三叉戟</string>
+    <string name="tryzub_badge">三叉戟</string>
     <string name="checkpoint_forward_content_desc">取消检查点撤回</string>
     <string name="highlighted_reading_level">层级</string>
     <string name="chapter_title_alignment_option">章节标题对齐</string>

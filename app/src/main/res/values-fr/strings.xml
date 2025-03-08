@@ -133,9 +133,7 @@
     <string name="file_last_opened">Dernier fichier ouvert</string>
     <string name="file_size">Taille du fichier</string>
     <string name="unknown">Inconnu</string>
-    <string name="app_version_option_desc_1">Book\'s Story v%1$s</string>
     <string name="report_bug_option">Signaler un bug</string>
-    <string name="whats_new_option">Nouveautés</string>
     <string name="licenses_option">Licences Open source</string>
     <string name="credits_option">Crédits</string>
     <string name="help_translate_option">Aidez à traduire</string>
@@ -204,8 +202,7 @@
     <string name="open_in_web_content_desc">Ouvrir en ligne</string>
     <string name="delete_color_preset_content_desc">Supprimer le préréglage de couleur</string>
     <string name="shuffle_color_preset_content_desc">Mélanger les couleurs</string>
-    <string name="tryzub_content_desc">Tryzub</string>
-    <string name="github_profile_content_desc">Profile Github</string>
+    <string name="tryzub_badge">Tryzub</string>
     <string name="drag_content_desc">Glisser</string>
     <string name="move_books_description">Choisissez la catégorie dans laquelle vous souhaitez déplacer tous les livres sélectionnés (%1$s). Tous les livres sélectionnés seront déplacés vers la catégorie choisie.</string>
     <string name="add_books">Ajouter des livres ?</string>
