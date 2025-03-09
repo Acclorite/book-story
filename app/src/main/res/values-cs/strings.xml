@@ -10,7 +10,7 @@
     <string name="background_color_option">Barva pozadí</string>
     <string name="font_color_option">Barva fontu</string>
     <string name="dark_theme_follow_system">Podle systému</string>
-    <string name="browse_layout_grid">Mřížka</string>
+    <string name="layout_grid">Mřížka</string>
     <string name="default_string">Výchozí</string>
     <string name="theme_contrast_option">Kontrastní téma</string>
     <string name="screen_orientation_option">Orientace obrazovky</string>
@@ -60,7 +60,7 @@
     <string name="help_translate_option">Pomozte překládat</string>
     <string name="filter_tab">Filtr</string>
     <string name="reader_tab">Čtečka</string>
-    <string name="browse_layout_list">List</string>
+    <string name="layout_list">List</string>
     <string name="absolute_dark_option">Úplně tmavé</string>
     <string name="delete_book">Smazat knihu?</string>
     <string name="misc_reader_settings">Různé</string>

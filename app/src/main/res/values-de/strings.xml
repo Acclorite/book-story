@@ -222,10 +222,10 @@
     <string name="browse_settings_desc">Allgemein, Filter, Sortieren</string>
     <string name="filter_browse_settings">Filter</string>
     <string name="sort_browse_settings">Sortieren</string>
-    <string name="browse_layout_option">Anzeigemodus</string>
+    <string name="layout_option">Anzeigemodus</string>
     <string name="browse_grid_size_option">Rastergröße</string>
-    <string name="browse_layout_list">Liste</string>
-    <string name="browse_layout_grid">Raster</string>
+    <string name="layout_list">Liste</string>
+    <string name="layout_grid">Raster</string>
     <string name="browse_grid_size_auto">Auto</string>
     <string name="browse_grid_size_per_row">Pro Reihe</string>
     <string name="browse_sort_order_name">Alphabetisch</string>

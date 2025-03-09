@@ -224,7 +224,7 @@
     <string name="progress_count_option">İlerleme sayacı</string>
 
       <!-- Browse -->
-    <string name="browse_layout_option">Görüntüleme modu</string>
+    <string name="layout_option">Görüntüleme modu</string>
     <string name="browse_grid_size_option">Izgara boyutu</string>
 
     <!-- Color presets -->
@@ -253,8 +253,8 @@
     <string name="font_style_normal">Normal</string>
 
     <!-- Browse Layout properties -->
-    <string name="browse_layout_list">Liste</string>
-    <string name="browse_layout_grid">Izgara</string>
+    <string name="layout_list">Liste</string>
+    <string name="layout_grid">Izgara</string>
 
     <!-- Browse Grid Size properties -->
     <string name="browse_grid_size_auto">Otomatik</string>

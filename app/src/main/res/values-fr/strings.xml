@@ -82,7 +82,7 @@
     <string name="fast_color_preset_change_option_desc">Balayez la barre supérieure à gauche ou à droite pour changer de couleur par défaut</string>
     <string name="text_alignment_option">Alignement du texte</string>
     <string name="letter_spacing_option">Espacement des lettres</string>
-    <string name="browse_layout_option">Mode d\'affichage</string>
+    <string name="layout_option">Mode d\'affichage</string>
     <string name="browse_grid_size_option">Taille de la grille</string>
     <string name="red_color">Rouge</string>
     <string name="green_color">Vert</string>
@@ -97,8 +97,8 @@
     <string name="theme_contrast_high">Élevé</string>
     <string name="font_style_italic">Italique</string>
     <string name="font_style_normal">Normal</string>
-    <string name="browse_layout_list">Liste</string>
-    <string name="browse_layout_grid">Grille</string>
+    <string name="layout_list">Liste</string>
+    <string name="layout_grid">Grille</string>
     <string name="browse_grid_size_auto">Automatique</string>
     <string name="browse_grid_size_per_row">par ligne</string>
     <string name="browse_sort_order_last_modified">Dernière modification</string>

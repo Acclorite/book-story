@@ -115,7 +115,7 @@
     <string name="perception_expander_option">धारणा विस्तारक</string>
     <string name="perception_expander_option_desc">केंद्र पर ध्यान केंद्रित करके अपनी पढ़ने की गति बढ़ाएँ</string>
     <string name="perception_expander_padding_option">धारणा विस्तारक लाइन पैडिंग</string>
-    <string name="browse_layout_option">प्रदर्शन मोड</string>
+    <string name="layout_option">प्रदर्शन मोड</string>
     <string name="browse_grid_size_option">ग्रिड का आकार</string>
     <string name="green_color">हरा</string>
     <string name="blue_color">नीला</string>
@@ -131,8 +131,8 @@
     <string name="theme_contrast_high">ऊँचा</string>
     <string name="font_style_italic">तिर्छा</string>
     <string name="font_style_normal">साधारण</string>
-    <string name="browse_layout_list">सूची</string>
-    <string name="browse_layout_grid">ग्रिड</string>
+    <string name="layout_list">सूची</string>
+    <string name="layout_grid">ग्रिड</string>
     <string name="browse_grid_size_auto">स्वचालित</string>
     <string name="browse_sort_order_file_format">फाइल का प्रकार</string>
     <string name="browse_sort_order_last_modified">आखिरी बार संशोधित</string>

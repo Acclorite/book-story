@@ -24,13 +24,13 @@ fun BrowseLayoutOption() {
     val state = mainModel.state.collectAsStateWithLifecycle()
 
     SegmentedButtonWithTitle(
-        title = stringResource(id = R.string.browse_layout_option),
+        title = stringResource(id = R.string.layout_option),
         buttons = BrowseLayout.entries.map {
             ButtonItem(
                 it.toString(),
                 when (it) {
-                    BrowseLayout.LIST -> stringResource(id = R.string.browse_layout_list)
-                    BrowseLayout.GRID -> stringResource(id = R.string.browse_layout_grid)
+                    BrowseLayout.LIST -> stringResource(id = R.string.layout_list)
+                    BrowseLayout.GRID -> stringResource(id = R.string.layout_grid)
                 },
                 MaterialTheme.typography.labelLarge,
                 it == state.value.browseLayout

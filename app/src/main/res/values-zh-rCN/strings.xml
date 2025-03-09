@@ -92,7 +92,7 @@
     <string name="fast_color_preset_change_option_desc">向左或向右滑动顶栏以更改颜色预设</string>
     <string name="text_alignment_option">文本对齐</string>
     <string name="letter_spacing_option">字间距</string>
-    <string name="browse_layout_option">显示模式</string>
+    <string name="layout_option">显示模式</string>
     <string name="perception_expander_padding_option">行侧边距</string>
     <string name="app_theme_option">应用主题</string>
     <string name="colors_appearance_settings">颜色</string>
@@ -139,7 +139,7 @@
     <string name="red_theme">火星</string>
     <string name="default_string">默认</string>
     <string name="screen_orientation_option">屏幕方向</string>
-    <string name="browse_layout_list">列表</string>
+    <string name="layout_list">列表</string>
     <string name="browse_grid_size_per_row">每行</string>
     <string name="browse_sort_order_file_format">文件格式</string>
     <string name="alignment_start">开头</string>
@@ -168,7 +168,7 @@
     <string name="reader_tab">阅读器</string>
     <string name="general_settings">常规</string>
     <string name="browse_settings_desc">常规，过滤，排序</string>
-    <string name="browse_layout_grid">网格</string>
+    <string name="layout_grid">网格</string>
     <string name="browse_grid_size_auto">自动</string>
     <string name="books_added">成功添加所有已选择的书。</string>
     <string name="books_deleted">成功删除所有已选择的书。</string>
