@@ -18,8 +18,8 @@ import androidx.compose.ui.Modifier
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.presentation.core.components.modal_bottom_sheet.ModalBottomSheet
+import ua.acclorite.book_story.presentation.settings.browse.display.BrowseDisplaySubcategory
 import ua.acclorite.book_story.presentation.settings.browse.filter.BrowseFilterSubcategory
-import ua.acclorite.book_story.presentation.settings.browse.general.BrowseGeneralSubcategory
 import ua.acclorite.book_story.presentation.settings.browse.sort.BrowseSortSubcategory
 import ua.acclorite.book_story.ui.browse.BrowseEvent
 
@@ -57,7 +57,7 @@ fun BrowseFilterBottomSheet(
             when (page) {
                 0 -> {
                     LazyColumnWithScrollbar(modifier = Modifier.fillMaxSize()) {
-                        BrowseGeneralSubcategory(
+                        BrowseFilterSubcategory(
                             showTitle = false,
                             showDivider = false
                         )
@@ -66,7 +66,7 @@ fun BrowseFilterBottomSheet(
 
                 1 -> {
                     LazyColumnWithScrollbar(modifier = Modifier.fillMaxSize()) {
-                        BrowseFilterSubcategory(
+                        BrowseSortSubcategory(
                             showTitle = false,
                             showDivider = false
                         )
@@ -75,7 +75,7 @@ fun BrowseFilterBottomSheet(
 
                 2 -> {
                     LazyColumnWithScrollbar(modifier = Modifier.fillMaxSize()) {
-                        BrowseSortSubcategory(
+                        BrowseDisplaySubcategory(
                             showTitle = false,
                             showDivider = false
                         )

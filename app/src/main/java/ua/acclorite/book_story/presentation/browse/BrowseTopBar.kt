@@ -26,8 +26,8 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.browse.BrowseLayout
-import ua.acclorite.book_story.domain.browse.SelectableFile
+import ua.acclorite.book_story.domain.browse.display.BrowseLayout
+import ua.acclorite.book_story.domain.browse.file.SelectableFile
 import ua.acclorite.book_story.presentation.core.components.common.IconButton
 import ua.acclorite.book_story.presentation.core.components.common.SearchTextField
 import ua.acclorite.book_story.presentation.core.components.common.StyledText

@@ -96,9 +96,10 @@
     <string name="planning_tab">Планую</string>
     <string name="dropped_tab">Кинуто</string>
     <string name="general_tab">Головні</string>
+    <string name="display_tab">Вигляд</string>
     <string name="color_tab">Кольори</string>
     <string name="filter_tab">Фільтр</string>
-    <string name="sort_tab">Сортування</string>
+    <string name="sort_tab">Сортувати</string>
     <string name="reader_tab">Читач</string>
 
     <!-- Settings categories -->
@@ -126,9 +127,9 @@
     <string name="theme_appearance_settings">Налаштування теми</string>
     <string name="colors_appearance_settings">Кольори</string>
     <string name="scan_browse_settings">Сканування</string>
-    <string name="general_browse_settings">Головні</string>
+    <string name="display_browse_settings">Вигляд</string>
     <string name="filter_browse_settings">Фільтр</string>
-    <string name="sort_browse_settings">Сотрування</string>
+    <string name="sort_browse_settings">Сотрувати</string>
 
     <!-- Settings notes -->
     <string name="browse_scan_option_note">

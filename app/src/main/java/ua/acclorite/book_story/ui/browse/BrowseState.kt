@@ -7,7 +7,7 @@
 package ua.acclorite.book_story.ui.browse
 
 import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.domain.browse.SelectableFile
+import ua.acclorite.book_story.domain.browse.file.SelectableFile
 import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
 import ua.acclorite.book_story.domain.util.BottomSheet
 import ua.acclorite.book_story.domain.util.Dialog

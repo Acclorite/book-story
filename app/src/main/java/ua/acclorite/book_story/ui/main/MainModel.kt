@@ -22,8 +22,8 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
-import ua.acclorite.book_story.domain.browse.toBrowseLayout
-import ua.acclorite.book_story.domain.browse.toBrowseSortOrder
+import ua.acclorite.book_story.domain.browse.display.toBrowseLayout
+import ua.acclorite.book_story.domain.browse.display.toBrowseSortOrder
 import ua.acclorite.book_story.domain.reader.toColorEffects
 import ua.acclorite.book_story.domain.reader.toFontThickness
 import ua.acclorite.book_story.domain.reader.toHorizontalGesture

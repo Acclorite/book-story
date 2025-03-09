@@ -217,7 +217,6 @@
     <string name="color_tab">Couleurs</string>
     <string name="general_settings">Paramètres généraux</string>
     <string name="sort_browse_settings">Trier</string>
-    <string name="general_browse_settings">Général</string>
     <string name="language_option">Langue de l\'application</string>
     <string name="dark_theme_option">Thème sombre</string>
     <string name="pure_dark_option">Noir pur (OLED)</string>

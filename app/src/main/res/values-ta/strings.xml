@@ -122,7 +122,6 @@
     <string name="padding_reader_settings">திணிப்பு</string>
     <string name="misc_reader_settings">இதர</string>
     <string name="colors_appearance_settings">நிறங்கள்</string>
-    <string name="general_browse_settings">பொது</string>
     <string name="double_press_exit_option">வெளியேற டபுள் பேக் பிரச்</string>
     <string name="double_press_exit_option_desc">பயன்பாட்டிலிருந்து வெளியேற இரண்டு முறை மீண்டும் அழுத்தவும்</string>
     <string name="font_family_option">எழுத்துரு குடும்பம்</string>

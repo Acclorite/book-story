@@ -125,6 +125,7 @@
     <string name="planning_tab">Planning</string>
     <string name="dropped_tab">Dropped</string>
     <string name="general_tab">General</string>
+    <string name="display_tab">Display</string>
     <string name="color_tab">Colors</string>
     <string name="filter_tab">Filter</string>
     <string name="sort_tab">Sort</string>
@@ -155,7 +156,7 @@
     <string name="theme_appearance_settings">Theme preferences</string>
     <string name="colors_appearance_settings">Colors</string>
     <string name="scan_browse_settings">Scan</string>
-    <string name="general_browse_settings">General</string>
+    <string name="display_browse_settings">Display</string>
     <string name="filter_browse_settings">Filter</string>
     <string name="sort_browse_settings">Sort</string>
 

@@ -10,9 +10,9 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import ua.acclorite.book_story.domain.browse.BrowseLayout
-import ua.acclorite.book_story.domain.browse.GroupedFiles
-import ua.acclorite.book_story.domain.browse.SelectableFile
+import ua.acclorite.book_story.domain.browse.display.BrowseLayout
+import ua.acclorite.book_story.domain.browse.file.GroupedFiles
+import ua.acclorite.book_story.domain.browse.file.SelectableFile
 import java.io.File
 
 @Composable

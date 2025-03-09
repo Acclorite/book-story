@@ -236,7 +236,6 @@
     <string name="error_no_dictionary">Keine Wörterbuch-App gefunden.</string>
     <string name="web_search">Websuche</string>
     <string name="share">Teilen</string>
-    <string name="general_browse_settings">Allgemein</string>
     <string name="browse_sort_order_last_modified">Zuletzt geändert</string>
     <string name="browse_sort_order_file_size">Dateigröße</string>
     <string name="text_alignment_option">Textausrichtung</string>
