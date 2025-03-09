@@ -289,7 +289,6 @@
     <string name="progress_bar_option">Pasek postępu</string>
     <string name="screen_orientation_free">Darmowy</string>
     <string name="cutout_padding_option">Margines wycięcia</string>
-    <string name="app_version_option_desc_1">Fabuła książki v%1$s</string>
     <string name="double_press_exit_option">Aby wyjść, dwukrotnie naciśnij wstecz</string>
     <string name="progress_bar_option_desc">Wyświetla pasek postępu na dole</string>
     <string name="progress_bar_padding_option">Marginesy</string>
