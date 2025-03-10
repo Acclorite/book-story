@@ -359,4 +359,5 @@
     <string name="browse_scan_option_note">Queste cartelle vengono utilizzate per analizzare e recuperare i file in Sfoglia. La rimozione di una cartella qui non eliminerà i file o i libri effettivi dalla Libreria. Per revocare l\'accesso, fare clic sul pulsante corrispondente.</string>
     <string name="scan_browse_settings">Scansiona</string>
     <string name="set_up_scanning">Imposta la scansione</string>
+    <string name="support_development_option">Sostieni lo sviluppo</string>
 </resources>
