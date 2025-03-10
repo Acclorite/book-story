@@ -1,10 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
-
-<resources>
+  --><resources>
     <string name="history_screen">Historia</string>
     <string name="help_screen">Pomoc</string>
     <string name="move">Przenieś</string>
@@ -89,7 +88,7 @@
     <string name="font_family_option">Rodzina czcionek</string>
     <string name="font_size_option">Rozmiar czcionki</string>
     <string name="line_height_option">Wysokość linii</string>
-    <string name="paragraph_height_option">Wysokość paragrafu</string>
+    <string name="paragraph_height_option">Odstępy między akapitami</string>
     <string name="paragraph_indentation_option">Wcięcie paragrafu</string>
     <string name="color_preset_option">Ustawienie koloru</string>
     <string name="background_color_option">Kolor tła</string>
@@ -111,8 +110,8 @@
     <string name="alignment_center">Środek</string>
     <string name="green_theme">Ziemia</string>
     <string name="press_again_toast">Naciśnij ponownie, aby wyjść</string>
-    <string name="fast_color_preset_change_option_desc">Przesuń w lewo lub w prawo, aby zmienić ustawienie koloru</string>
-    <string name="error_could_not_get_text">Treść książki jest pusta. Upewnij się, że zawartość książki nie jest pusta i zaktualizuj ją.</string>
+    <string name="fast_color_preset_change_option_desc">Przesuń górny pasek w lewo lub w prawo, aby zmienić ustawienia kolorów</string>
+    <string name="error_could_not_get_text">Plik jest pusty, uszkodzony lub go brakuje. Zweryfikuj plik lub zaktualizuj ścieżkę i spróbuj ponownie.</string>
     <string name="error_no_translator">Nie znaleziono aplikacji tłumacza.</string>
     <string name="layout_grid">Siatka</string>
     <string name="theme_contrast_standard">Standardowy</string>
@@ -156,9 +155,9 @@
     <string name="help_desc_how_to_edit_book_3">i kliknij obraz okładki książki, aby zobaczyć szczegóły książki. Teraz możesz przytrzymać tytuł, autora lub opis książki, aby go edytować lub zakryć obraz, aby zmienić, zresetować lub usunąć obraz okładki.</string>
     <string name="help_title_how_to_read_book">Jak mogę przeczytać książkę?</string>
     <string name="help_desc_how_to_read_book_1">Idź do</string>
-    <string name="help_desc_how_to_use_tooltip_1">Większość przycisków ikon ma podpowiedzi, mogą ci pomóc, jeśli nie wiesz, co robi przycisk ikon. Aby wyświetlić podpowiedź, możesz przytrzymać przycisk ikony.</string>
+    <string name="help_desc_how_to_use_tooltip_1">Większość przycisków ikon ma podpowiedzi, które mogą pomóc, jeśli nie wiesz, co robi przycisk ikony. Aby wyświetlić podpowiedź, możesz przytrzymać przycisk ikony.</string>
     <string name="copied">Skopiowano</string>
-    <string name="file_path">Ścieżka pliku</string>
+    <string name="file_path">Ścieżka</string>
     <string name="credits_updates">Zarządzanie nowymi aktualizacjami</string>
     <string name="credits_fonts">Czcionki</string>
     <string name="delete_books_content_desc">Usuń wybrane książki</string>
@@ -180,8 +179,8 @@
     <string name="book_moved">Ta książka została pomyślnie przeniesiona.</string>
     <string name="cover_reset">Obraz okładki został pomyślnie zresetowany.</string>
     <string name="history_element_deleted">Element historii został pomyślnie usunięty.</string>
-    <string name="file_last_opened">Plik ostatnio otwarty</string>
-    <string name="file_size">Rozmiar pliku</string>
+    <string name="file_last_opened">Ostatnio otwarte</string>
+    <string name="file_size">Rozmiar</string>
     <string name="unknown">Nieznany</string>
     <string name="credits_icon">Ikony</string>
     <string name="move_books_content_desc">Przenieś wybrane książki</string>
@@ -196,7 +195,7 @@
     <string name="help_desc_how_to_manage_history_1">Idź do</string>
     <string name="help_desc_how_to_manage_history_2">Historia</string>
     <string name="help_desc_how_to_manage_history_3">Klikając przycisk usuwania po prawej stronie elementu historii, zostanie on usunięty. Historia wpływa na porządek książek w Bibliotece, usuwając element historii, zmieni również kolejność książki. Ostatnio otwarta książka jest zawsze pierwsza w bibliotece i historii.</string>
-    <string name="help_title_how_to_use_tooltip">Jak mogę skorzystać z podpowiedzi?</string>
+    <string name="help_title_how_to_use_tooltip">Jak korzystać z podpowiedzi?</string>
     <string name="help_desc_how_to_use_double_click_translation_1">Najpierw przejdź do ustawień czytnika (patrz: Jak mogę dostosować czytnik?), A następnie włącz odpowiednie ustawienie. Następnie zacznij czytać książkę (patrz: Jak mogę przeczytać książkę?). Teraz, jeśli klikniesz dwukrotnie żądany akapit, zewnętrzny tłumacz zostanie otwarty z tekstem akapitu.</string>
     <string name="help_title_how_to_create_color_presets">Jak mogę tworzyć i modyfikować ustawienia kolorów?</string>
     <string name="start_language_preferences">Preferencje języka</string>
@@ -256,10 +255,89 @@
     <string name="perception_expander_option_desc">Zwiększ prędkość czytania, koncentrując się na środku</string>
     <string name="credits_option">Twórcy</string>
     <string name="default_string">Domyślne</string>
-    <string name="padding_reader_settings">Margines wewnętrzny</string>
+    <string name="padding_reader_settings">Marginesy</string>
     <string name="contributors_option">Współtwórcy</string>
     <string name="system_reader_settings">Ustawienia systemu</string>
     <string name="screen_orientation_portrait">Portret</string>
     <string name="screen_orientation_landscape">Krajobraz</string>
     <string name="lavender_theme">Eris</string>
+    <string name="chapters_reader_settings">Rozdziały</string>
+    <string name="double_click_translation_option">Tłumaczenie po dwukrotnym kliknięciu</string>
+    <string name="reading_mode_reader_settings">Tryb czytania</string>
+    <string name="images_reader_settings">Obrazy</string>
+    <string name="reading_speed_reader_settings">Szybkość czytania</string>
+    <string name="screen_orientation_locked_portrait">Zablokowany portret</string>
+    <string name="error_no_file">Plik nie istnieje</string>
+    <string name="help_title_how_to_use_perception_expander">Czym jest i jak używać ekspandera percepcji?</string>
+    <string name="screen_orientation_locked_landscape">Zablokowany krajobraz</string>
+    <string name="horizontal_gesture_off">Wył.</string>
+    <string name="credits_design">Projekt</string>
+    <string name="edit">Edytuj</string>
+    <string name="ok">OK</string>
+    <string name="progress_count_quantity">Ilość</string>
+    <string name="progress_reader_settings">Postęp</string>
+    <string name="perception_expander_thickness_option">Grubość linii</string>
+    <string name="screen_orientation_option">Orientacja ekranu</string>
+    <string name="custom_screen_brightness_option">Niestandardowa jasność</string>
+    <string name="screen_brightness_option">Jasność</string>
+    <string name="images_option">Obrazy</string>
+    <string name="horizontal_gesture_sensitivity_option">Czułość</string>
+    <string name="images_option_desc">Wyświetlaj obrazy wraz z ich podpisami</string>
+    <string name="images_width_option">Rozmiar</string>
+    <string name="images_color_effects_option">Efekty kolorów</string>
+    <string name="progress_bar_option">Pasek postępu</string>
+    <string name="screen_orientation_free">Darmowy</string>
+    <string name="cutout_padding_option">Margines wycięcia</string>
+    <string name="double_press_exit_option">Aby wyjść, dwukrotnie naciśnij wstecz</string>
+    <string name="progress_bar_option_desc">Wyświetla pasek postępu na dole</string>
+    <string name="progress_bar_padding_option">Marginesy</string>
+    <string name="progress_bar_alignment_option">Wyrównanie</string>
+    <string name="progress_bar_font_size_option">Rozmiar czcionki</string>
+    <string name="color_effects_grayscale">Skala szarości</string>
+    <string name="color_effects_font">Kolor czcionki</string>
+    <string name="change_path">Zmień ścieżkę</string>
+    <string name="show_more_content_desc">Pokaż więcej</string>
+    <string name="show_less_content_desc">Pokaż mniej</string>
+    <string name="edit_content_desc">Edycja pola</string>
+    <string name="checkpoint_back_content_desc">Powrót do punktu kontrolnego</string>
+    <string name="more_content_desc">Więcej</string>
+    <string name="vertical_padding_option">Marginesy pionowe</string>
+    <string name="bottom_bar_padding_option">Margines dolnego paska</string>
+    <string name="help_desc_how_to_use_perception_expander_1">Ekspander percepcji może pomóc w szybszym czytaniu. Najpierw włącz go w ustawieniach Readera (patrz: Jak dostosować Readera?). Po włączeniu, po obu stronach Readera pojawią się dwie pionowe linie. Aby jeszcze bardziej zoptymalizować prędkość czytania, dostosuj margines, aby utworzyć mniej miejsca wokół środka. Aby z niego skorzystać, należy skupić się na środku ekranu, jednocześnie pozwalając peryferyjnemu widzeniu na wychwycenie tekstu po bokach. Podczas czytania należy skupić się na środku, nie patrząc bezpośrednio na boki po każdej linii.</string>
+    <string name="slava_ukraini">Sława Ukrainie!</string>
+    <string name="search_field_empty">Szukaj…</string>
+    <string name="cutout_padding_option_desc">Zastosuj margines do obszaru wycięcia</string>
+    <string name="images_corners_roundness_option">Zaokrąglenie narożników</string>
+    <string name="color_effects_background">Kolor tła</string>
+    <string name="progress_count_percentage">Procent</string>
+    <string name="title_changed">Tytuł został zmieniony.</string>
+    <string name="author_changed">Autor został zmieniony.</string>
+    <string name="path_changed">Ścieżka do pliku została pomyślnie zmieniona.</string>
+    <string name="continue_reading_query">Kontynuuj od %1$s</string>
+    <string name="file_details">Szczegóły pliku</string>
+    <string name="help_title_how_to_use_double_click_translation">Jak korzystać z tłumaczenia dwukrotnego kliknięcia?</string>
+    <string name="expand_content_desc">Rozwiń</string>
+    <string name="collapse_content_desc">Zwiń</string>
+    <string name="description_changed">Opis został poprawnie zmieniony.</string>
+    <string name="progress_count_option">Licznik postępu</string>
+    <string name="horizontal_gesture_on">Włączone</string>
+    <string name="perception_expander_option">Ekspander postrzegania</string>
+    <string name="pure_dark_power_saver">Oszczędzanie</string>
+    <string name="highlighted_reading_option">Wyróżnij słowa</string>
+    <string name="highlighted_reading_option_desc">Wyróżnij początek każdego słowa</string>
+    <string name="highlighted_reading_thickness_option">Grubość wyróżnienia</string>
+    <string name="font_thickness_option">Grubość czcionki</string>
+    <string name="side_padding_option">Marginesy boczne</string>
+    <string name="chapter_title_alignment_option">Wyrównanie tytułów rozdziałów</string>
+    <string name="fullscreen_option_desc">Ukryj paski systemowe i marginesy</string>
+    <string name="images_alignment_option">Wyrównanie</string>
+    <string name="highlighted_reading_level">poziom</string>
+    <string name="font_thickness_thin">Cienki</string>
+    <string name="font_thickness_extra_light">Dodatkowe oświetlenie</string>
+    <string name="font_thickness_light">Światło</string>
+    <string name="font_thickness_normal">Normalne</string>
+    <string name="font_thickness_medium">Średnie</string>
+    <string name="perception_expander_padding_option">Margines linii bocznej</string>
+    <string name="horizontal_gesture_option">Gest poziomy</string>
+    <string name="horizontal_gesture_scroll_option">Frakcja przewijania</string>
 </resources>

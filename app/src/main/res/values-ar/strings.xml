@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
-
-<resources>
+  --><resources>
     <string name="history_screen">التاريخ</string>
     <string name="add_books_description">يمكنك اختيار أي الكُتب تريد إضافتها. يمكنك تعديل العنوان و صورة غلاف الكتاب لاحقا. عملية التحميل يمكن أن تستغرق حتى بضع دقائق.</string>
     <string name="move_book_description">اختر الفئة التي تريد نقل هذا الكتاب إليها. سيتم نقل هذا الكتاب إلى الفئة المُحدّدة.</string>
@@ -28,7 +25,7 @@
     <string name="error_something_went_wrong">حدث خطأ ما.</string>
     <string name="error_no_translator">لم يتم العثور على تطبيق ترجمة.</string>
     <string name="error_no_browser">لم يتم العثور على متصفح.</string>
-    <string name="error_could_not_get_text">الملف فارغ أو فاسد أو مفقود. يرجى التحقق من الملف أو تحديث المسار و المحاولة مرة أخرى.</string>
+    <string name="error_could_not_get_text">الملف فارغ أو مفقود أو لا يمكن الوصول إليه. تحقق من الملف أو إعدادات المسح الضوئي أو غيّر المسار، ثم حاول مرة أخرى.</string>
     <string name="error_closed_source">مغلق المصدر</string>
     <string name="library_empty">اقرأ كُتبك المُفضلة و رتبهم باستخدام الفئات</string>
     <string name="history_empty">دع آخر كتاب قرأته يفتح صفحات قصة جديدة عظيمة من رحلة قرائتك</string>
@@ -47,7 +44,7 @@
     <string name="dark_theme_option">سمة داكنة</string>
     <string name="help_desc_how_to_manage_history_2">التاريخ</string>
     <string name="error_no_description">لا يوجد وصف.</string>
-    <string name="browse_empty">قم بتوسيع مجموعة كتب مكتبتك باستخدام تنزيلاتك</string>
+    <string name="browse_empty">وسّع مجموعة كُتب مكتبتك باستخدام تنزيلاتك</string>
     <string name="selected_items_count_query">حُددت %1$s</string>
     <string name="general_settings_desc">لغة التطبيق</string>
     <string name="appearance_settings_desc">السمات، الألوان</string>
@@ -285,7 +282,7 @@
     <string name="purple_gray_theme">سيريس</string>
     <string name="font_thickness_normal">عادي</string>
     <string name="progress_count_quantity">الكمية</string>
-    <string name="error_no_file">الملف غير موجود</string>
+    <string name="error_no_file">الملف غير موجود أو لا يمكن الوصول إليه</string>
     <string name="change_path">تغيير المسار</string>
     <string name="help_title_how_to_use_color_presets">كيف أستخدم إعدادات الألوان المسبقة؟</string>
     <string name="move_books_content_desc">انقل الكُتب المُحدّدة</string>
@@ -299,16 +296,16 @@
     <string name="selected_content_desc">مُحدّد</string>
     <string name="help_desc_how_to_create_color_presets_1">انتقل إلى إعدادات المظهر (انظر: كيف أخصّص القارئ؟). يمكنك تعديل جميع إعدادات الألوان المسبقة في المربع الموجود أسفل «الألوان المسبقة» في الفئة الفرعية «الألوان». لإنشاء لون مسبق جديد، انقر فوق زر الرمز «أضف». هناك طرق متعددة لتعديل لون مسبق: بالنقر فوق حقل النص، يمكنك تغيير اسم اللون المسبق، عن طريق تحريك أشرطة التمرير، يمكنك تغيير ألوان اللون المسبق، عن طريق النقر فوق زر الرمز «اخلط»، يمكنك خلط جميع الألوان. إذا كنت تريد حذف اللون المسبق، فانقر فوق زر الرمز «احذف».</string>
     <string name="help_desc_how_to_use_color_presets_1">انتقل إلى إعدادات المظهر (انظر: كيف أخصّص القارئ؟). يمكنك اختيار إعداد اللون المسبق الذي تريد استخدامه في إعداد «إعداد اللون المسبق». انقر فوق إعداد اللون المسبق المطلوب لتحديده، وسيؤدي هذا أيضًا إلى تغيير الألوان في القارئ. إذا كنت تريد إعادة ترتيب إعداد اللون المسبق، فحدده واضغط باستمرار على زر أيقونة «المقبض»، ثم انقله إلى الموضع المطلوب. يمكنك تغيير إعدادات اللون المسبقة بسرعة عن طريق تمكين الإعداد المقابل في الفئة الفرعية «الألوان» لإعداد المظهر، ثم تمرير الشريط العلوي إلى اليسار أو اليمين في القارئ، لتغيير إعداد اللون المسبق بسرعة.</string>
-    <string name="perception_expander_option">موسع الإدراك</string>
+    <string name="perception_expander_option">موسّع الإدراك</string>
     <string name="show_less_content_desc">اعرض أقل</string>
     <string name="show_more_content_desc">اعرض المزيد</string>
     <string name="delete_whole_history_content_desc">احذف التاريخ بأكمله</string>
-    <string name="help_title_how_to_use_perception_expander">ما هو موسع الإدراك وكيف أستخدمه؟</string>
+    <string name="help_title_how_to_use_perception_expander">ما هو موسّع الإدراك وكيف أستخدمه؟</string>
     <string name="perception_expander_padding_option">هامش جانب الخط</string>
     <string name="start_done_desc">لقد نجحت بإنجاز الإعدادات الأساسية للتطبيق. هل ترغب في معرفة كيفية استخدام التطبيق من خلال قراءة شاشة المساعدة؟</string>
     <string name="delete_history_element_content_desc">احذف عنصر التاريخ</string>
     <string name="help_desc_how_to_use_double_click_translation_1">أولاً، انتقل إلى إعدادات القارئ (انظر: كيف أخصّص القارئ؟)، ثم فعّل الإعداد المقابل. بعد ذلك، ابدأ في قراءة الكتاب (انظر: كيف أقرأ كتاباً؟). الآن، إذا قمت بالنقر المزدوج على الفقرة المطلوبة، فسيتم فتح المترجم الخارجي بنص الفقرة.</string>
-    <string name="help_desc_how_to_use_perception_expander_1">قد يساعدك موسع الإدراك على القراءة بشكل أسرع. أولاً، قم بتمكينه في إعدادات القارئ (انظر: كيف أخصّص القارئ؟). بمجرد تمكينه، سيظهر خطان رأسيان على جانبي القارئ. لتحسين سرعة القراءة بشكل أكبر، اضبط الهامش لإنشاء مساحة أقل حول المركز. لاستخدامه، ركز على مركز الشاشة مع السماح لرؤيتك الطرفية بالتقاط النص على الجانبين. أثناء القراءة، حافظ على تركيزك على المركز دون النظر مباشرة إلى الجانبين بعد كل سطر.</string>
+    <string name="help_desc_how_to_use_perception_expander_1">قد يساعدك موسّع الإدراك على القراءة بشكل أسرع. أولاً، فعّله في إعدادات القارئ (انظر: كيف أخصّص القارئ؟). بمجرد تمكينه، سيظهر خطان رأسيان على جانبي القارئ. لتحسين سرعة القراءة بشكل أكبر، اضبط الهامش لإنشاء مساحة أقل حول المركز. لاستخدامه، ركز على مركز الشاشة مع السماح لرؤيتك الطرفية بالتقاط النص على الجانبين. أثناء القراءة، حافظ على تركيزك على المركز دون النظر مباشرة إلى الجانبين بعد كل سطر.</string>
     <string name="cover_image_content_desc">غلاف الصورة</string>
     <string name="start_theme_preferences">تفضيلات السمة</string>
     <string name="start_reading">ابدأ</string>
@@ -353,4 +350,13 @@
     <string name="font_thickness_light">خفيف</string>
     <string name="start_done">كل شيء قد تم!</string>
     <string name="app_icon_content_desc">أيقونة التطبيق</string>
+    <string name="expand_content_desc">وسّع</string>
+    <string name="collapse_content_desc">اطوِ</string>
+    <string name="remove_content_desc">أزِل</string>
+    <string name="note_content_desc">ملحوظة</string>
+    <string name="add_folder">أضف ملف</string>
+    <string name="set_up_scanning">إعداد المسح</string>
+    <string name="scan_browse_settings">المسح</string>
+    <string name="browse_scan_option_note">يتم استخدام هذه المجلدات لمسح الملفات واستردادها في تصفح. إن إزالة المجلد هنا لن يحذف الملفات أو الكتب الفعلية من المكتبة. لإلغاء الوصول، انقر فوق الزر المقابل.</string>
+    <string name="start_scan_preferences">تفضيلات المسح</string>
 </resources>

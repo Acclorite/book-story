@@ -1,10 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
-
-<resources>
+  --><resources>
     <string name="red_color">Vermelho</string>
     <string name="move_book">Mover livro?</string>
     <string name="delete_book">Apagar livro?</string>
@@ -214,7 +213,7 @@
     <string name="error_no_share_app">Nenhum aplicativo para compartilhar encontrado.</string>
     <string name="error_no_dictionary">Nenhum aplicativo de dicionário encontrado.</string>
     <string name="error_no_translator">Nenhum aplicativo tradutor encontrado.</string>
-    <string name="error_could_not_get_text">Arquivo está vazio, corrompido ou não existe. Por favor verifique e tente novamente.</string>
+    <string name="error_could_not_get_text">Arquivo está vazio, corrompido ou ausente. Por favor verifique o caminho, opções de varredura ou mude o arquivo o arquivo, então tente novamente.</string>
     <string name="history_empty">Deixe seu último livro lido abrir as páginas para uma grande história na sua jornada de leitura</string>
     <string name="library_empty">Leia seus livros favoritos e organize-os em categorias</string>
     <string name="error_could_not_reset_cover">Não foi possível restaurar a imagem da capa.</string>
@@ -328,7 +327,7 @@
     <string name="delete_whole_history_content_desc">Apagar o histórico inteiro</string>
     <string name="yellow2_theme">Makemake</string>
     <string name="pin_content_desc">Fixar</string>
-    <string name="error_no_file">Arquivo não existe</string>
+    <string name="error_no_file">Arquivo não existe ou está inacessível</string>
     <string name="file_details">Detalhes do arquivo</string>
     <string name="author_changed">Autor foi alterado com sucesso.</string>
     <string name="start_reading">Começar</string>
@@ -349,4 +348,15 @@
     <string name="font_thickness_light">Leve</string>
     <string name="progress_count_percentage">Porcentagem</string>
     <string name="progress_count_quantity">Quantidade</string>
+    <string name="change_path">Mudar caminho</string>
+    <string name="path_changed">O caminho do arquivo foi alterado com sucesso.</string>
+    <string name="expand_content_desc">Expandir</string>
+    <string name="collapse_content_desc">Colapsar</string>
+    <string name="browse_scan_option_note">Estas pastas serão usadas para escanear e</string>
+    <string name="start_scan_preferences">Preferência de varredura</string>
+    <string name="add_folder">Adicionar pasta</string>
+    <string name="set_up_scanning">Configurar varredura</string>
+    <string name="scan_browse_settings">Varredura</string>
+    <string name="note_content_desc">Nota</string>
+    <string name="remove_content_desc">Remover</string>
 </resources>
