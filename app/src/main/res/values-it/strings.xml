@@ -16,7 +16,7 @@
     <string name="background_color_option">Colore di sfondo</string>
     <string name="fullscreen_option">Schermo intero</string>
     <string name="dark_theme_follow_system">Sistema</string>
-    <string name="browse_layout_grid">Griglia</string>
+    <string name="layout_grid">Griglia</string>
     <string name="no_chapters">Nessun capitolo</string>
     <string name="chapters">Capitoli</string>
     <string name="licenses_option">Licenze open source</string>
@@ -123,7 +123,7 @@
     <string name="green_theme">Terra</string>
     <string name="theme_contrast_high">Alto</string>
     <string name="author">Autore</string>
-    <string name="browse_layout_list">Lista</string>
+    <string name="layout_list">Lista</string>
     <string name="credits_translation">Traduzione</string>
     <string name="move_book">Spostare libro?</string>
     <string name="settings_screen">Impostazioni</string>
@@ -143,7 +143,6 @@
     <string name="today">Oggi</string>
     <string name="language_option">Lingua applicazione</string>
     <string name="dark_theme_option">Tema scuro</string>
-    <string name="general_browse_settings">Generale</string>
     <string name="filter_browse_settings">Filtro</string>
     <string name="font_style_normal">Normale</string>
     <string name="delete_whole_history_content_desc">Elimina tutta la cronologia</string>
@@ -151,7 +150,7 @@
     <string name="screen_orientation_option">Orientamento dello schermo</string>
     <string name="dark_theme_off">Disabilitato</string>
     <string name="screen_orientation_free">Libero</string>
-    <string name="browse_layout_option">Modalità di visualizzazione</string>
+    <string name="layout_option">Modalità di visualizzazione</string>
     <string name="reading_speed_reader_settings">Velocità di lettura</string>
     <string name="error_no_share_app">Nessuna app da condividere trovata.</string>
     <string name="history_empty">Lascia che l\'ultimo libro che hai letto apra le pagine di una nuova grande storia del tuo viaggio di lettura</string>

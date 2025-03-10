@@ -17,9 +17,8 @@
     <string name="theme_contrast_medium">Médio</string>
     <string name="theme_contrast_high">Alto</string>
     <string name="font_style_italic">Itálico</string>
-    <string name="browse_layout_list">Lista</string>
+    <string name="layout_list">Lista</string>
     <string name="no">Não</string>
-    <string name="general_browse_settings">Geral</string>
     <string name="history_screen">Histórico</string>
     <string name="browse_screen">Explorar</string>
     <string name="fullscreen_option">Tela cheia</string>
@@ -69,7 +68,7 @@
     <string name="delete_history">Apagar histórico de leitura?</string>
     <string name="author">Autor</string>
     <string name="blue_color">Azul</string>
-    <string name="browse_layout_grid">Grade</string>
+    <string name="layout_grid">Grade</string>
     <string name="today">Hoje</string>
     <string name="browse_grid_size_auto">Automático</string>
     <string name="alignment_start">Começar</string>
@@ -149,7 +148,7 @@
     <string name="paragraph_height_option">Espaçamento do parágrafo</string>
     <string name="color_preset_option">Padrão de cores</string>
     <string name="cutout_padding_option">Margem do recorte</string>
-    <string name="browse_layout_option">Modo de exibição</string>
+    <string name="layout_option">Modo de exibição</string>
     <string name="browse_grid_size_per_row">por linha</string>
     <string name="already_read_tab">Lido</string>
     <string name="browse_grid_size_option">Tamanho da grade</string>

@@ -215,9 +215,8 @@
     <string name="help_desc_how_to_use_color_presets_1">Ve a la configuración de Apariencia (consulta: ¿Cómo personalizo Reader?). Puede elegir qué colores preestablecidos usar en la configuración «Ajuste preestablecido de color». Haz clic en el ajuste preestablecido de color deseado para seleccionarlo; esto también cambiará tus colores en Reader. Si deseas reordenar el ajuste preestablecido de color, selecciona lo y manten presionado el botón con el ícono «Manejar»; luego, muévelo a la posición deseada. Puedes cambiar rápidamente los ajustes preestablecidos de color habilitando la configuración correspondiente en la subcategoría «Colores» de la configuración de Apariencia y luego deslizando la barra superior hacia la izquierda o la derecha en Reader para cambiar rápidamente el ajuste preestablecido de color.</string>
     <string name="tryzub_badge">Tryzub</string>
     <string name="sort_tab">Clasificar</string>
-    <string name="general_browse_settings">General</string>
     <string name="browse_grid_size_option">Tamaño de la cuadrícula</string>
-    <string name="browse_layout_grid">Cuadrícula</string>
+    <string name="layout_grid">Cuadrícula</string>
     <string name="browse_grid_size_per_row">por fila</string>
     <string name="browse_sort_order_file_size">Tamaño del archivo</string>
     <string name="sort_order_content_desc">Orden de clasificación</string>
@@ -230,8 +229,8 @@
     <string name="browse_settings_desc">General, filtrar, clasificar</string>
     <string name="filter_browse_settings">Filtrar</string>
     <string name="sort_browse_settings">Clasificar</string>
-    <string name="browse_layout_option">Modo de visualización</string>
-    <string name="browse_layout_list">Lista</string>
+    <string name="layout_option">Modo de visualización</string>
+    <string name="layout_list">Lista</string>
     <string name="browse_grid_size_auto">Auto</string>
     <string name="browse_sort_order_file_format">Formato del archivo</string>
     <string name="browse_sort_order_name">Alfabéticamente</string>

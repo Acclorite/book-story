@@ -139,7 +139,6 @@
     <string name="progress_reader_settings">İlerleme</string>
     <string name="theme_appearance_settings">Tema tercihleri</string>
     <string name="colors_appearance_settings">Renkler</string>
-    <string name="general_browse_settings">Genel</string>
     <string name="filter_browse_settings">Filtre</string>
     <string name="sort_browse_settings">Sırala</string>
     <!-- Settings options -->
@@ -208,7 +207,7 @@
     <string name="progress_bar_font_size_option">Yazı boyutu</string>
     <string name="progress_count_option">İlerleme sayacı</string>
     <!-- Browse -->
-    <string name="browse_layout_option">Görüntüleme modu</string>
+    <string name="layout_option">Görüntüleme modu</string>
     <string name="browse_grid_size_option">Izgara boyutu</string>
     <!-- Color presets -->
     <string name="red_color">Kırmızı</string>
@@ -231,8 +230,8 @@
     <string name="font_style_italic">İtalik</string>
     <string name="font_style_normal">Normal</string>
     <!-- Browse Layout properties -->
-    <string name="browse_layout_list">Liste</string>
-    <string name="browse_layout_grid">Izgara</string>
+    <string name="layout_list">Liste</string>
+    <string name="layout_grid">Izgara</string>
     <!-- Browse Grid Size properties -->
     <string name="browse_grid_size_auto">Otomatik</string>
     <string name="browse_grid_size_per_row">satır başına</string>

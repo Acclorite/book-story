@@ -28,7 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.browse.SelectableFile
+import ua.acclorite.book_story.domain.browse.file.SelectableFile
 import ua.acclorite.book_story.presentation.core.components.common.CircularCheckbox
 import ua.acclorite.book_story.presentation.core.components.common.StyledText
 import ua.acclorite.book_story.ui.theme.DefaultTransition

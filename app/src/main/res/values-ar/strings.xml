@@ -91,7 +91,6 @@
     <string name="filter_tab">تصفية</string>
     <string name="sort_tab">رتّب</string>
     <string name="browse_settings_desc">عام، تصفية، ترتيب</string>
-    <string name="general_browse_settings">عام</string>
     <string name="filter_browse_settings">تصفية</string>
     <string name="font_style_option">نمط الخط</string>
     <string name="line_height_option">ارتفاع الخط</string>
@@ -99,8 +98,8 @@
     <string name="font_color_option">لون الخط</string>
     <string name="double_click_translation_option">النقر المزدوج للترجمة</string>
     <string name="double_click_translation_option_desc">النقر المزدوج على فقرة لترجمتها</string>
-    <string name="browse_layout_list">قائمة</string>
-    <string name="browse_layout_grid">شبكة</string>
+    <string name="layout_list">قائمة</string>
+    <string name="layout_grid">شبكة</string>
     <string name="browse_settings">تصفح</string>
     <string name="sort_browse_settings">ترتيب</string>
     <string name="error_no_dictionary">لم يتم العثور على تطبيق قاموس.</string>
@@ -197,7 +196,7 @@
     <string name="screen_orientation_option">اتجاه الشاشة</string>
     <string name="screen_orientation_free">حر</string>
     <string name="contributors_option">المساهمون</string>
-    <string name="browse_layout_option">وضع الشاشة</string>
+    <string name="layout_option">وضع الشاشة</string>
     <string name="perception_expander_option_desc">زد من سرعة قرائتك بالتركيز على الوسط</string>
     <string name="fullscreen_option">الشاشة كاملة</string>
     <string name="theme_contrast_standard">قياسي</string>

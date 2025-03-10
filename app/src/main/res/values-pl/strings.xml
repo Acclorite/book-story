@@ -23,7 +23,6 @@
     <string name="sort_tab">Sortuj</string>
     <string name="font_reader_settings">Czcionka</string>
     <string name="colors_appearance_settings">Kolory</string>
-    <string name="general_browse_settings">Ogólne</string>
     <string name="filter_browse_settings">Filtr</string>
     <string name="green_color">Zielony</string>
     <string name="blue_color">Niebieski</string>
@@ -101,7 +100,7 @@
     <string name="pure_dark_off">Wyłączony</string>
     <string name="theme_contrast_medium">Średni</string>
     <string name="font_style_normal">Normalny</string>
-    <string name="browse_layout_list">Lista</string>
+    <string name="layout_list">Lista</string>
     <string name="browse_sort_order_file_format">Format pliku</string>
     <string name="browse_sort_order_last_modified">Ostatnio modyfikowany</string>
     <string name="browse_sort_order_file_size">Rozmiar pliku</string>
@@ -114,7 +113,7 @@
     <string name="fast_color_preset_change_option_desc">Przesuń górny pasek w lewo lub w prawo, aby zmienić ustawienia kolorów</string>
     <string name="error_could_not_get_text">Plik jest pusty, uszkodzony lub go brakuje. Zweryfikuj plik lub zaktualizuj ścieżkę i spróbuj ponownie.</string>
     <string name="error_no_translator">Nie znaleziono aplikacji tłumacza.</string>
-    <string name="browse_layout_grid">Siatka</string>
+    <string name="layout_grid">Siatka</string>
     <string name="theme_contrast_standard">Standardowy</string>
     <string name="reset_cover">Zresetuj obraz okładki</string>
     <string name="move_books">Przenieść książki?</string>
@@ -123,7 +122,7 @@
     <string name="browse_grid_size_per_row">na rząd</string>
     <string name="text_alignment_option">Wyrównanie tekstu</string>
     <string name="dropped_tab">Porzucone</string>
-    <string name="browse_layout_option">Tryb wyświetlania</string>
+    <string name="layout_option">Tryb wyświetlania</string>
     <string name="add_books_description">Możesz wybrać książki, które chcesz dodać. Możesz później edytować tytuł i obraz okładki książki. Proces ładowania może potrwać do kilku minut.</string>
     <string name="error_no_browser">Nie znaleziono aplikacji przeglądarki.</string>
     <string name="purple_theme">Jowisz</string>

@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.domain.browse.BrowseLayout
+import ua.acclorite.book_story.domain.browse.display.BrowseLayout
 import ua.acclorite.book_story.domain.navigator.Screen
 import ua.acclorite.book_story.presentation.browse.BrowseContent
 import ua.acclorite.book_story.presentation.navigator.LocalNavigator

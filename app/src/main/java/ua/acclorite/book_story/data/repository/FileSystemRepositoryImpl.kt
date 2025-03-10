@@ -11,7 +11,7 @@ import android.util.Log
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.local.room.BookDao
 import ua.acclorite.book_story.data.parser.FileParser
-import ua.acclorite.book_story.domain.browse.SelectableFile
+import ua.acclorite.book_story.domain.browse.file.SelectableFile
 import ua.acclorite.book_story.domain.file.CachedFile
 import ua.acclorite.book_story.domain.file.CachedFileCompat
 import ua.acclorite.book_story.domain.library.book.NullableBook

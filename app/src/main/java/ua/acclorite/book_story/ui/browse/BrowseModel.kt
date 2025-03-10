@@ -22,8 +22,8 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.browse.BrowseSortOrder
-import ua.acclorite.book_story.domain.browse.SelectableFile
+import ua.acclorite.book_story.domain.browse.display.BrowseSortOrder
+import ua.acclorite.book_story.domain.browse.file.SelectableFile
 import ua.acclorite.book_story.domain.library.book.NullableBook
 import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
 import ua.acclorite.book_story.domain.use_case.book.InsertBook

@@ -125,6 +125,7 @@
     <string name="planning_tab">Planning</string>
     <string name="dropped_tab">Dropped</string>
     <string name="general_tab">General</string>
+    <string name="display_tab">Display</string>
     <string name="color_tab">Colors</string>
     <string name="filter_tab">Filter</string>
     <string name="sort_tab">Sort</string>
@@ -155,7 +156,7 @@
     <string name="theme_appearance_settings">Theme preferences</string>
     <string name="colors_appearance_settings">Colors</string>
     <string name="scan_browse_settings">Scan</string>
-    <string name="general_browse_settings">General</string>
+    <string name="display_settings">Display</string>
     <string name="filter_browse_settings">Filter</string>
     <string name="sort_browse_settings">Sort</string>
 
@@ -234,7 +235,6 @@
     <string name="progress_count_option">Progress count</string>
 
     <!-- Browse -->
-    <string name="browse_layout_option">Display mode</string>
     <string name="browse_grid_size_option">Grid size</string>
 
     <!-- Color presets -->
@@ -262,10 +262,6 @@
     <string name="font_style_italic">Italic</string>
     <string name="font_style_normal">Normal</string>
 
-    <!-- Browse Layout properties -->
-    <string name="browse_layout_list">List</string>
-    <string name="browse_layout_grid">Grid</string>
-
     <!-- Browse Grid Size properties -->
     <string name="browse_grid_size_auto">Auto</string>
     <string name="browse_grid_size_per_row">per row</string>
@@ -275,6 +271,11 @@
     <string name="browse_sort_order_file_format">File format</string>
     <string name="browse_sort_order_last_modified">Last modified</string>
     <string name="browse_sort_order_file_size">File size</string>
+
+    <!-- Layout properties -->
+    <string name="layout_option">Display mode</string>
+    <string name="layout_list">List</string>
+    <string name="layout_grid">Grid</string>
 
     <!-- Alignment properties -->
     <string name="alignment_start">Start</string>

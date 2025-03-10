@@ -96,9 +96,10 @@
     <string name="planning_tab">Планую</string>
     <string name="dropped_tab">Кинуто</string>
     <string name="general_tab">Головні</string>
+    <string name="display_tab">Вигляд</string>
     <string name="color_tab">Кольори</string>
     <string name="filter_tab">Фільтр</string>
-    <string name="sort_tab">Сортування</string>
+    <string name="sort_tab">Сортувати</string>
     <string name="reader_tab">Читач</string>
 
     <!-- Settings categories -->
@@ -126,9 +127,9 @@
     <string name="theme_appearance_settings">Налаштування теми</string>
     <string name="colors_appearance_settings">Кольори</string>
     <string name="scan_browse_settings">Сканування</string>
-    <string name="general_browse_settings">Головні</string>
+    <string name="display_settings">Вигляд</string>
     <string name="filter_browse_settings">Фільтр</string>
-    <string name="sort_browse_settings">Сотрування</string>
+    <string name="sort_browse_settings">Сотрувати</string>
 
     <!-- Settings notes -->
     <string name="browse_scan_option_note">
@@ -203,7 +204,6 @@
     <string name="progress_count_option">Підрахунок прогресу</string>
 
     <!-- Browse -->
-    <string name="browse_layout_option">Режим відображення</string>
     <string name="browse_grid_size_option">Кількість комірок</string>
 
     <!-- Color presets -->
@@ -231,10 +231,6 @@
     <string name="font_style_italic">Похилий</string>
     <string name="font_style_normal">Нормальний</string>
 
-    <!-- Browse Layout properties -->
-    <string name="browse_layout_list">Список</string>
-    <string name="browse_layout_grid">Сітка</string>
-
     <!-- Browse Grid Size properties -->
     <string name="browse_grid_size_auto">Авто</string>
     <string name="browse_grid_size_per_row">кожен рядок</string>
@@ -245,7 +241,12 @@
     <string name="browse_sort_order_last_modified">Остання зміна</string>
     <string name="browse_sort_order_file_size">Розмір файла</string>
 
-    <!-- Text Alignment properties -->
+    <!-- Layout properties -->
+    <string name="layout_option">Режим відображення</string>
+    <string name="layout_list">Список</string>
+    <string name="layout_grid">Сітка</string>W
+
+    <!-- Alignment properties -->
     <string name="alignment_start">Старт</string>
     <string name="alignment_justify">Рівномірно</string>
     <string name="alignment_center">Центр</string>

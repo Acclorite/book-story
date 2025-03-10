@@ -93,7 +93,7 @@
     <string name="history_empty">நீங்கள் படித்த உங்கள் கடைசி நூல் உங்கள் வாசிப்பு பயணத்தின் புதிய சிறந்த கதையின் பக்கங்களைத் திறக்கட்டும்</string>
     <string name="share">பங்கு</string>
     <string name="never">ஒருபோதும்</string>
-    <string name="browse_layout_option">காட்சி முறை</string>
+    <string name="layout_option">காட்சி முறை</string>
     <string name="browse_sort_order_file_format">கோப்பு வடிவம்</string>
     <string name="default_string">இயல்புநிலை</string>
     <string name="delete_history">வாசிப்பு வரலாற்றை நீக்கவா?</string>
@@ -121,7 +121,6 @@
     <string name="padding_reader_settings">திணிப்பு</string>
     <string name="misc_reader_settings">இதர</string>
     <string name="colors_appearance_settings">நிறங்கள்</string>
-    <string name="general_browse_settings">பொது</string>
     <string name="double_press_exit_option">வெளியேற டபுள் பேக் பிரச்</string>
     <string name="double_press_exit_option_desc">பயன்பாட்டிலிருந்து வெளியேற இரண்டு முறை மீண்டும் அழுத்தவும்</string>
     <string name="font_family_option">எழுத்துரு குடும்பம்</string>
@@ -136,8 +135,8 @@
     <string name="fullscreen_option_desc">கணினி பட்டிகளை மறைத்து, திணிப்பை அகற்றவும்</string>
     <string name="keep_screen_on_option">திரையை தொடர்ந்து வைத்திருங்கள்</string>
     <string name="perception_expander_thickness_option">புலனுணர்வு விரிவாக்க வரி தடிமன்</string>
-    <string name="browse_layout_list">பட்டியல்</string>
-    <string name="browse_layout_grid">வலைவாய்</string>
+    <string name="layout_list">பட்டியல்</string>
+    <string name="layout_grid">வலைவாய்</string>
     <string name="browse_grid_size_auto">தானி</string>
     <string name="browse_grid_size_per_row">ஒரு வரிசையில்</string>
     <string name="alignment_center">நடுவண்</string>

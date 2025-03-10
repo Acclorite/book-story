@@ -17,8 +17,8 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.domain.browse.GroupedFiles
-import ua.acclorite.book_story.domain.browse.SelectableFile
+import ua.acclorite.book_story.domain.browse.file.GroupedFiles
+import ua.acclorite.book_story.domain.browse.file.SelectableFile
 import ua.acclorite.book_story.presentation.core.components.common.LazyVerticalGridWithScrollbar
 import ua.acclorite.book_story.presentation.core.components.common.header
 import ua.acclorite.book_story.presentation.core.constants.Constants

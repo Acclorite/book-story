@@ -13,10 +13,10 @@ import androidx.annotation.Keep
 import androidx.compose.runtime.Immutable
 import androidx.datastore.preferences.core.Preferences
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.domain.browse.BrowseLayout
-import ua.acclorite.book_story.domain.browse.BrowseSortOrder
-import ua.acclorite.book_story.domain.browse.toBrowseLayout
-import ua.acclorite.book_story.domain.browse.toBrowseSortOrder
+import ua.acclorite.book_story.domain.browse.display.BrowseLayout
+import ua.acclorite.book_story.domain.browse.display.BrowseSortOrder
+import ua.acclorite.book_story.domain.browse.display.toBrowseLayout
+import ua.acclorite.book_story.domain.browse.display.toBrowseSortOrder
 import ua.acclorite.book_story.domain.reader.ReaderColorEffects
 import ua.acclorite.book_story.domain.reader.ReaderFontThickness
 import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture

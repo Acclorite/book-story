@@ -12,8 +12,8 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.pullrefresh.PullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.focus.FocusRequester
-import ua.acclorite.book_story.domain.browse.BrowseLayout
-import ua.acclorite.book_story.domain.browse.SelectableFile
+import ua.acclorite.book_story.domain.browse.display.BrowseLayout
+import ua.acclorite.book_story.domain.browse.file.SelectableFile
 import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
 import ua.acclorite.book_story.domain.util.BottomSheet
 import ua.acclorite.book_story.domain.util.Dialog
