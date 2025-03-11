@@ -12,7 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
-import ua.acclorite.book_story.presentation.core.components.settings.SliderWithTitle
+import ua.acclorite.book_story.presentation.core.components.settings.SwitchWithTitle
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.main.MainModel
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
@@ -28,13 +28,14 @@ fun HorizontalGestureAlphaAnimOption() {
             else -> true
         }
     ) {
-        SliderWithTitle(
-            value = state.value.horizontalGestureAlphaAnim to "%",
-            toValue = 100,
+        SwitchWithTitle(
+            selected = state.value.horizontalGestureAlphaAnim,
             title = stringResource(id = R.string.horizontal_gesture_alpha_anim_option),
-            onValueChange = {
+            onClick = {
                 mainModel.onEvent(
-                    MainEvent.OnChangeHorizontalGestureAlphaAnim(it)
+                    MainEvent.OnChangeHorizontalGestureAlphaAnim(
+                        !state.value.horizontalGestureAlphaAnim
+                    )
                 )
             }
         )

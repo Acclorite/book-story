@@ -100,7 +100,7 @@ data class MainState(
     },
     val horizontalGestureScroll: Float = provideDefaultValue { 0.7f },
     val horizontalGestureSensitivity: Float = provideDefaultValue { 0.6f },
-    val horizontalGestureAlphaAnim: Float = provideDefaultValue { 1f },
+    val horizontalGestureAlphaAnim: Boolean = provideDefaultValue { true },
     val bottomBarPadding: Int = provideDefaultValue { 0 },
     val highlightedReading: Boolean = provideDefaultValue { false },
     val highlightedReadingThickness: Int = provideDefaultValue { 2 },
@@ -367,7 +367,7 @@ data class MainState(
                     ) { progressCount },
 
                     horizontalGestureAlphaAnim = provideValue(
-                        HORIZONTAL_GESTURE_ALPHA_ANIM, convert = { toFloat() }
+                        HORIZONTAL_GESTURE_ALPHA_ANIM
                     ) { horizontalGestureAlphaAnim },
                 )
             }

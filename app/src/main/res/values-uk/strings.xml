@@ -186,7 +186,7 @@
     <string name="horizontal_gesture_option">Горизонтальний жест</string>
     <string name="horizontal_gesture_scroll_option">Частка прокрутки</string>
     <string name="horizontal_gesture_sensitivity_option">Чутливість</string>
-    <string name="horizontal_gesture_alpha_anim_option">Анімувати видимість</string>
+    <string name="horizontal_gesture_alpha_anim_option">Анімація видимості</string>
     <string name="bottom_bar_padding_option">Відступ нижньої панелі</string>
     <string name="highlighted_reading_option">Підсвічування слів</string>
     <string name="highlighted_reading_option_desc">Підсвічувати початок кожного слова</string>
