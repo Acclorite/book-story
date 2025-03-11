@@ -57,6 +57,7 @@ fun ReaderLayout(
     horizontalGesture: ReaderHorizontalGesture,
     horizontalGestureScroll: Float,
     horizontalGestureSensitivity: Dp,
+    horizontalGestureAlphaAnim: Float,
     highlightedReading: Boolean,
     highlightedReadingThickness: FontWeight,
     progress: String,
@@ -162,6 +163,7 @@ fun ReaderLayout(
                     horizontalGesture = horizontalGesture,
                     horizontalGestureScroll = horizontalGestureScroll,
                     horizontalGestureSensitivity = horizontalGestureSensitivity,
+                    horizontalGestureAlphaAnim = horizontalGestureAlphaAnim,
                     isLoading = isLoading
                 )
         ) {
@@ -181,7 +183,7 @@ fun ReaderLayout(
             ) {
                 itemsIndexed(
                     text,
-                    key = { index, entry -> index }
+                    key = { index, _ -> index }
                 ) { index, entry ->
                     when {
                         !images && entry is ReaderText.Image -> return@itemsIndexed

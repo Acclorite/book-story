@@ -499,6 +499,14 @@ class MainModel @Inject constructor(
                     it.copy(progressCount = this.toProgressCount())
                 }
             )
+
+            is MainEvent.OnChangeHorizontalGestureAlphaAnim -> handleDatastoreUpdate(
+                key = DataStoreConstants.HORIZONTAL_GESTURE_ALPHA_ANIM,
+                value = event.value.toDouble(),
+                updateState = {
+                    it.copy(horizontalGestureAlphaAnim = this.toFloat())
+                }
+            )
         }
     }
 

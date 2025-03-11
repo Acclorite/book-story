@@ -32,7 +32,6 @@ import ua.acclorite.book_story.domain.use_case.file_system.GetFiles
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.ui.library.LibraryScreen
 import javax.inject.Inject
-import kotlin.collections.map
 
 @HiltViewModel
 class BrowseModel @Inject constructor(

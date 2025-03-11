@@ -65,4 +65,5 @@ sealed class MainEvent {
     data class OnChangeBrowsePinnedPaths(val value: String) : MainEvent()
     data class OnChangeFontThickness(val value: String) : MainEvent()
     data class OnChangeProgressCount(val value: String) : MainEvent()
+    data class OnChangeHorizontalGestureAlphaAnim(val value: Float) : MainEvent()
 }

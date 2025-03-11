@@ -425,6 +425,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             horizontalGesture = mainState.value.horizontalGesture,
             horizontalGestureScroll = mainState.value.horizontalGestureScroll,
             horizontalGestureSensitivity = horizontalGestureSensitivity,
+            horizontalGestureAlphaAnim = mainState.value.horizontalGestureAlphaAnim,
             highlightedReading = mainState.value.highlightedReading,
             highlightedReadingThickness = highlightedReadingThickness,
             progress = progress,
