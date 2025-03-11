@@ -8,11 +8,11 @@ package ua.acclorite.book_story.ui.reader
 
 import android.app.SearchManager
 import android.content.Intent
-import android.net.Uri
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.snapshotFlow
+import androidx.core.net.toUri
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -396,7 +396,7 @@ class ReaderModel @Inject constructor(
 
                         browserIntent.action = Intent.ACTION_VIEW
                         val text = event.textToDefine.trim().replace(" ", "+")
-                        browserIntent.data = Uri.parse("https://www.onelook.com/?w=$text")
+                        browserIntent.data = "https://www.onelook.com/?w=$text".toUri()
 
                         yield()
 

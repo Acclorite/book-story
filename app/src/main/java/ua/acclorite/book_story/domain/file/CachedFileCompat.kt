@@ -38,7 +38,7 @@ object CachedFileCompat {
     ): CachedFile? {
         val uri = try {
             val fullPathUri = DocumentFileCompat.fromFullPath(context, path)?.uri
-            if (fullPathUri == null) throw NullPointerException("Could not get URI from full path.")
+                ?: throw NullPointerException("Could not get URI from full path.")
 
             fullPathUri
         } catch (e: Exception) {
@@ -49,7 +49,7 @@ object CachedFileCompat {
                     context = context,
                     fullPath = path
                 )?.uri
-                if (parentUri == null) throw NullPointerException("Could not get parent URI.")
+                    ?: throw NullPointerException("Could not get parent URI.")
 
                 val storageId = DocumentFileCompat.getStorageId(context, path)
                 if (storageId.isBlank()) throw NullPointerException("Could not get storageId.")

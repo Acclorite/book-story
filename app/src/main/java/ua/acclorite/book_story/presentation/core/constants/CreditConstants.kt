@@ -10,7 +10,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.about.Credit
 import ua.acclorite.book_story.domain.ui.UIText
 
-fun Constants.provideCredits() = listOf(
+fun provideCredits() = listOf(
     Credit(
         name = "Tachiyomi (Mihon)",
         source = "GitHub",

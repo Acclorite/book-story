@@ -37,7 +37,6 @@ import ua.acclorite.book_story.domain.ui.toPureDark
 import ua.acclorite.book_story.domain.ui.toThemeContrast
 import ua.acclorite.book_story.domain.util.HorizontalAlignment
 import ua.acclorite.book_story.domain.util.toHorizontalAlignment
-import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
 import ua.acclorite.book_story.presentation.core.constants.provideFonts
 import ua.acclorite.book_story.presentation.core.constants.provideLanguages
@@ -57,7 +56,7 @@ data class MainState(
     // General Settings
     val language: String = provideDefaultValue {
         val locale = Locale.getDefault().language.take(2)
-        Constants.provideLanguages().any { locale == it.first }.run {
+        provideLanguages().any { locale == it.first }.run {
             if (this) locale
             else "en"// Default language.
         }
@@ -71,7 +70,7 @@ data class MainState(
     val doublePressExit: Boolean = provideDefaultValue { false },
 
     // Reader Settings
-    val fontFamily: String = provideDefaultValue { Constants.provideFonts()[0].id },
+    val fontFamily: String = provideDefaultValue { provideFonts()[0].id },
     val fontThickness: ReaderFontThickness = provideDefaultValue { ReaderFontThickness.NORMAL },
     val isItalic: Boolean = provideDefaultValue { false },
     val fontSize: Int = provideDefaultValue { 16 },

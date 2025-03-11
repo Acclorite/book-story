@@ -6,7 +6,6 @@
 
 package ua.acclorite.book_story.presentation.browse
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
@@ -21,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.browse.file.SelectableFile
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BrowseGridItem(
     modifier: Modifier,

@@ -169,7 +169,7 @@ class BrowseModel @Inject constructor(
                 viewModelScope.launch(Dispatchers.IO) {
                     _state.update {
                         it.copy(
-                            files = it.files.map { it.copy(selected = false) },
+                            files = it.files.map { file -> file.copy(selected = false) },
                             hasSelectedItems = false
                         )
                     }
@@ -446,7 +446,7 @@ class BrowseModel @Inject constructor(
         return files
             .filterFiles()
             .sortedWith(
-                compareByWithOrder<SelectableFile> {
+                compareByWithOrder {
                     when (sortOrder) {
                         BrowseSortOrder.NAME -> {
                             it.data.name.trim()

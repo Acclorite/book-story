@@ -7,14 +7,12 @@
 package ua.acclorite.book_story.presentation.book_info
 
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import ua.acclorite.book_story.domain.library.book.Book
 import ua.acclorite.book_story.domain.util.BottomSheet
 import ua.acclorite.book_story.domain.util.Dialog
 import ua.acclorite.book_story.ui.book_info.BookInfoEvent
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun BookInfoContent(
     book: Book,

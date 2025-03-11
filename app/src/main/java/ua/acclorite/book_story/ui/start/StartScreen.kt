@@ -8,7 +8,6 @@ package ua.acclorite.book_story.ui.start
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -21,7 +20,6 @@ import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.domain.navigator.Screen
 import ua.acclorite.book_story.domain.navigator.StackEvent
 import ua.acclorite.book_story.domain.ui.ButtonItem
-import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideLanguages
 import ua.acclorite.book_story.presentation.core.util.LocalActivity
 import ua.acclorite.book_story.presentation.navigator.LocalNavigator
@@ -50,7 +48,6 @@ object StartScreen : Screen, Parcelable {
     const val DONE = "done"
 
     @SuppressLint("InlinedApi")
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
@@ -64,7 +61,7 @@ object StartScreen : Screen, Parcelable {
         val stackEvent = remember { mutableStateOf(StackEvent.Default) }
 
         val languages = remember(mainState.value.language) {
-            Constants.provideLanguages().sortedBy { it.second }.map {
+            provideLanguages().sortedBy { it.second }.map {
                 ButtonItem(
                     id = it.first,
                     title = it.second,

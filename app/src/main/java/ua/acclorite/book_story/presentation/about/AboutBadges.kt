@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideAboutBadges
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.ui.about.AboutEvent
@@ -39,7 +38,7 @@ fun AboutBadges(
             horizontalArrangement = Arrangement.spacedBy(13.dp)
         ) {
             items(
-                Constants.provideAboutBadges(),
+                provideAboutBadges(),
                 key = { it.id }
             ) { badge ->
                 AboutBadgeItem(badge = badge) {

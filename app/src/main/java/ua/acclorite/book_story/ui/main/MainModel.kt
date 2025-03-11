@@ -37,7 +37,6 @@ import ua.acclorite.book_story.domain.use_case.data_store.ChangeLanguage
 import ua.acclorite.book_story.domain.use_case.data_store.GetAllSettings
 import ua.acclorite.book_story.domain.use_case.data_store.SetDatastore
 import ua.acclorite.book_story.domain.util.toHorizontalAlignment
-import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
 import ua.acclorite.book_story.presentation.core.constants.provideFonts
 import ua.acclorite.book_story.presentation.core.constants.provideMainState
@@ -62,7 +61,7 @@ class MainModel @Inject constructor(
     private val mainModelReady = MutableStateFlow(false)
 
     private val _state: MutableStateFlow<MainState> = MutableStateFlow(
-        stateHandle[Constants.provideMainState()] ?: MainState()
+        stateHandle[provideMainState()] ?: MainState()
     )
     val state = _state.asStateFlow()
 
@@ -107,7 +106,7 @@ class MainModel @Inject constructor(
                 value = event.value,
                 updateState = {
                     it.copy(
-                        fontFamily = Constants.provideFonts().run {
+                        fontFamily = provideFonts().run {
                             find { font ->
                                 font.id == event.value
                             }?.id ?: get(0).id
@@ -605,7 +604,7 @@ class MainModel @Inject constructor(
     ) {
         withContext(Dispatchers.Main.immediate) {
             _state.update {
-                stateHandle[Constants.provideMainState()] = function(it)
+                stateHandle[provideMainState()] = function(it)
                 function(it)
             }
         }

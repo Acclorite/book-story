@@ -23,7 +23,7 @@ import java.util.UUID
  * Faster than [androidx.documentfile.provider.DocumentFile].
  * Saves all it's variables after initialized.
  */
-@Suppress("unused")
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 @Immutable
 class CachedFile(
     private val context: Context,

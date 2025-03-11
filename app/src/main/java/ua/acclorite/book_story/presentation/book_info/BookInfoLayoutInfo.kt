@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.library.book.Book
 import ua.acclorite.book_story.ui.book_info.BookInfoEvent
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun BookInfoLayoutInfo(
     book: Book,

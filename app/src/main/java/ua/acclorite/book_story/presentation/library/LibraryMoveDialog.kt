@@ -46,7 +46,7 @@ fun LibraryMoveDialog(
             }
         }
     }
-    var selectedCategory = remember {
+    val selectedCategory = remember {
         mutableStateOf(moveCategories.value[0])
     }
 

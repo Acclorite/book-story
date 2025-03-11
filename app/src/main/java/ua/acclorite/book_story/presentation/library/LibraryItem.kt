@@ -6,7 +6,6 @@
 
 package ua.acclorite.book_story.presentation.library
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
@@ -41,7 +40,6 @@ import ua.acclorite.book_story.presentation.core.components.common.AsyncCoverIma
 import ua.acclorite.book_story.presentation.core.components.common.StyledText
 import ua.acclorite.book_story.presentation.core.util.calculateProgress
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LazyGridItemScope.LibraryItem(
     book: SelectableBook,

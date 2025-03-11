@@ -15,10 +15,10 @@ import ua.acclorite.book_story.domain.reader.ColorPreset
 import ua.acclorite.book_story.domain.ui.UIText
 
 // Main State
-fun Constants.provideMainState() = "main_state"
+fun provideMainState() = "main_state"
 
 // Empty Book
-fun Constants.provideEmptyBook() = Book(
+fun provideEmptyBook() = Book(
     id = -1,
     title = "",
     author = UIText.StringValue(""),
@@ -33,7 +33,7 @@ fun Constants.provideEmptyBook() = Book(
 )
 
 // Default Color Preset
-fun Constants.provideDefaultColorPreset() = ColorPreset(
+fun provideDefaultColorPreset() = ColorPreset(
     id = -1,
     name = null,
     backgroundColor = Color(0xFFFAF8FF), // Blue Light Surface (hardcoded)

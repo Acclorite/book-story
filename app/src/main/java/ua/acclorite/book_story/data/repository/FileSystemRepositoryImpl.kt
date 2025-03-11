@@ -19,7 +19,6 @@ import ua.acclorite.book_story.domain.library.book.NullableBook.NotNull
 import ua.acclorite.book_story.domain.library.book.NullableBook.Null
 import ua.acclorite.book_story.domain.repository.FileSystemRepository
 import ua.acclorite.book_story.domain.ui.UIText
-import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideExtensions
 import java.util.UUID
 import javax.inject.Inject
@@ -49,7 +48,7 @@ class FileSystemRepositoryImpl @Inject constructor(
         val existingPaths = database
             .searchBooks("")
             .map { it.filePath }
-        val supportedExtensions = Constants.provideExtensions()
+        val supportedExtensions = provideExtensions()
 
         /**
          * Verify that [CachedFile] is valid and can be shown correctly.
