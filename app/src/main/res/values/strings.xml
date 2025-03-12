@@ -218,6 +218,13 @@
     <string name="horizontal_gesture_scroll_option">Scroll fraction</string>
     <string name="horizontal_gesture_sensitivity_option">Sensitivity</string>
     <string name="horizontal_gesture_alpha_anim_option">Visibility animation</string>
+    <string name="horizontal_gesture_alpha_anim_option_desc">
+        Enable visibility animation when using horizontal gesture
+    </string>
+    <string name="horizontal_gesture_pull_anim_option">Pull animation</string>
+    <string name="horizontal_gesture_pull_anim_option_desc">
+        Enable pull animation when using horizontal gesture
+    </string>
     <string name="bottom_bar_padding_option">Bottom bar margin</string>
     <string name="highlighted_reading_option">Highlight words</string>
     <string name="highlighted_reading_option_desc">Highlight the beginning of each word</string>

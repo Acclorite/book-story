@@ -17,6 +17,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.reading_mode.components.HorizontalGestureAlphaAnimOption
 import ua.acclorite.book_story.presentation.settings.reader.reading_mode.components.HorizontalGestureOption
+import ua.acclorite.book_story.presentation.settings.reader.reading_mode.components.HorizontalGesturePullAnimOption
 import ua.acclorite.book_story.presentation.settings.reader.reading_mode.components.HorizontalGestureScrollOption
 import ua.acclorite.book_story.presentation.settings.reader.reading_mode.components.HorizontalGestureSensitivityOption
 
@@ -42,6 +43,10 @@ fun LazyListScope.ReadingModeSubcategory(
 
         item {
             HorizontalGestureSensitivityOption()
+        }
+
+        item {
+            HorizontalGesturePullAnimOption()
         }
 
         item {

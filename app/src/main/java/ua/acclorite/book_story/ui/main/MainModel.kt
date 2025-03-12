@@ -506,6 +506,14 @@ class MainModel @Inject constructor(
                     it.copy(horizontalGestureAlphaAnim = this)
                 }
             )
+
+            is MainEvent.OnChangeHorizontalGesturePullAnim -> handleDatastoreUpdate(
+                key = DataStoreConstants.HORIZONTAL_GESTURE_PULL_ANIM,
+                value = event.value,
+                updateState = {
+                    it.copy(horizontalGesturePullAnim = this)
+                }
+            )
         }
     }
 

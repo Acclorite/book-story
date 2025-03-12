@@ -18,7 +18,7 @@ import ua.acclorite.book_story.ui.main.MainModel
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
-fun HorizontalGestureAlphaAnimOption() {
+fun HorizontalGesturePullAnimOption() {
     val mainModel = hiltViewModel<MainModel>()
     val state = mainModel.state.collectAsStateWithLifecycle()
 
@@ -29,13 +29,13 @@ fun HorizontalGestureAlphaAnimOption() {
         }
     ) {
         SwitchWithTitle(
-            selected = state.value.horizontalGestureAlphaAnim,
-            title = stringResource(id = R.string.horizontal_gesture_alpha_anim_option),
-            description = stringResource(id = R.string.horizontal_gesture_alpha_anim_option_desc),
+            selected = state.value.horizontalGesturePullAnim,
+            title = stringResource(id = R.string.horizontal_gesture_pull_anim_option),
+            description = stringResource(id = R.string.horizontal_gesture_pull_anim_option_desc),
             onClick = {
                 mainModel.onEvent(
-                    MainEvent.OnChangeHorizontalGestureAlphaAnim(
-                        !state.value.horizontalGestureAlphaAnim
+                    MainEvent.OnChangeHorizontalGesturePullAnim(
+                        !state.value.horizontalGesturePullAnim
                     )
                 )
             }

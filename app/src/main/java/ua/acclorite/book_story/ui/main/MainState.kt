@@ -101,6 +101,7 @@ data class MainState(
     val horizontalGestureScroll: Float = provideDefaultValue { 0.7f },
     val horizontalGestureSensitivity: Float = provideDefaultValue { 0.6f },
     val horizontalGestureAlphaAnim: Boolean = provideDefaultValue { true },
+    val horizontalGesturePullAnim: Boolean = provideDefaultValue { true },
     val bottomBarPadding: Int = provideDefaultValue { 0 },
     val highlightedReading: Boolean = provideDefaultValue { false },
     val highlightedReadingThickness: Int = provideDefaultValue { 2 },
@@ -369,6 +370,10 @@ data class MainState(
                     horizontalGestureAlphaAnim = provideValue(
                         HORIZONTAL_GESTURE_ALPHA_ANIM
                     ) { horizontalGestureAlphaAnim },
+
+                    horizontalGesturePullAnim = provideValue(
+                        HORIZONTAL_GESTURE_PULL_ANIM
+                    ) { horizontalGesturePullAnim },
                 )
             }
         }
