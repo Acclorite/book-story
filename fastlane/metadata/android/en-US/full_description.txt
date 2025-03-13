@@ -1,6 +1,7 @@
 Book's Story — Material You eBook reader built with Jetpack Compose. Free & Open source & Ad-free, with extensive customization options and support for multiple file formats.
 
 Main Features:
+* Storage Access Framework
 * 7 supported file formats(.pdf, .txt, .epub, .fb2, .html, .htm, .md)
 * Material You design with unique themes and color presets
 * Organized Library with categories and chapters in Reader
