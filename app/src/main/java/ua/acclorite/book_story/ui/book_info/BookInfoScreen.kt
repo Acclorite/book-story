@@ -10,7 +10,6 @@ import android.os.Parcelable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -44,7 +43,6 @@ data class BookInfoScreen(val bookId: Int) : Screen, Parcelable {
         val changePathChannel: Channel<Boolean> = Channel(Channel.CONFLATED)
     }
 
-    @OptIn(ExperimentalMaterialApi::class)
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current

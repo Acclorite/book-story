@@ -42,7 +42,7 @@ class DocumentParser @Inject constructor(
         var chapterAdded = false
 
         document.selectFirst("body")
-            .run { if (this == null) document.body() else this }
+            .run { this ?: document.body() }
             .apply {
                 // Remove manual line breaks from all <p>, <a>
                 select("p").forEach { element ->

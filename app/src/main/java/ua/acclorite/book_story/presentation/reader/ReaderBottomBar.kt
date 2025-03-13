@@ -54,10 +54,15 @@ fun ReaderBottomBar(
     scroll: (ReaderEvent.OnScroll) -> Unit,
     changeProgress: (ReaderEvent.OnChangeProgress) -> Unit
 ) {
-    val arrowDirection = remember(checkpoint.index, listState.firstVisibleItemIndex) {
+    val firstVisibleItemIndex = remember {
+        derivedStateOf {
+            listState.firstVisibleItemIndex
+        }
+    }
+    val arrowDirection = remember(checkpoint.index, firstVisibleItemIndex) {
         derivedStateOf {
             val checkpointIndex = checkpoint.index
-            val index = listState.firstVisibleItemIndex
+            val index = firstVisibleItemIndex.value
 
             when {
                 checkpointIndex > index -> Direction.END

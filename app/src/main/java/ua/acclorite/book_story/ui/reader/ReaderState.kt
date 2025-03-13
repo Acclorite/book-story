@@ -15,12 +15,11 @@ import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
 import ua.acclorite.book_story.domain.ui.UIText
 import ua.acclorite.book_story.domain.util.BottomSheet
 import ua.acclorite.book_story.domain.util.Drawer
-import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideEmptyBook
 
 @Immutable
 data class ReaderState(
-    val book: Book = Constants.provideEmptyBook(),
+    val book: Book = provideEmptyBook(),
     val text: List<ReaderText> = emptyList(),
     val listState: LazyListState = LazyListState(),
 

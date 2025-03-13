@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,7 +34,6 @@ import ua.acclorite.book_story.ui.history.HistoryScreen
 import ua.acclorite.book_story.ui.library.LibraryScreen
 import javax.inject.Inject
 
-@OptIn(FlowPreview::class)
 @HiltViewModel
 class BookInfoModel @Inject constructor(
     private val getBookById: GetBookById,

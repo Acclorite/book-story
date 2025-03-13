@@ -48,7 +48,6 @@ import ua.acclorite.book_story.domain.navigator.Screen
 import ua.acclorite.book_story.domain.reader.ReaderColorEffects
 import ua.acclorite.book_story.domain.reader.ReaderProgressCount
 import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
-import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideFonts
 import ua.acclorite.book_story.presentation.core.util.LocalActivity
 import ua.acclorite.book_story.presentation.core.util.calculateProgress
@@ -118,7 +117,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
         }
 
         val fontFamily = remember(mainState.value.fontFamily) {
-            Constants.provideFonts().run {
+            provideFonts().run {
                 find {
                     it.id == mainState.value.fontFamily
                 } ?: get(0)
@@ -425,6 +424,8 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             horizontalGesture = mainState.value.horizontalGesture,
             horizontalGestureScroll = mainState.value.horizontalGestureScroll,
             horizontalGestureSensitivity = horizontalGestureSensitivity,
+            horizontalGestureAlphaAnim = mainState.value.horizontalGestureAlphaAnim,
+            horizontalGesturePullAnim = mainState.value.horizontalGesturePullAnim,
             highlightedReading = mainState.value.highlightedReading,
             highlightedReadingThickness = highlightedReadingThickness,
             progress = progress,

@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.util.Position
 import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideHelpTips
 
 @Composable
@@ -32,14 +31,14 @@ fun HelpLayout(
         contentPadding = PaddingValues(vertical = 16.dp)
     ) {
         itemsIndexed(
-            Constants.provideHelpTips(),
+            provideHelpTips(),
             key = { _, helpTip -> helpTip.title }
         ) { index, helpTip ->
             HelpItem(
                 helpTip = helpTip,
                 position = when (index) {
                     0 -> Position.TOP
-                    Constants.provideHelpTips().lastIndex -> Position.BOTTOM
+                    provideHelpTips().lastIndex -> Position.BOTTOM
                     else -> Position.CENTER
                 }
             )

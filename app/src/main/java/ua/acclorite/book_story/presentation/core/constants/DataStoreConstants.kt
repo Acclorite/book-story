@@ -50,6 +50,8 @@ object DataStoreConstants {
     val HORIZONTAL_GESTURE = stringPreferencesKey("horizontal_gesture")
     val HORIZONTAL_GESTURE_SCROLL = doublePreferencesKey("horizontal_gesture_scroll")
     val HORIZONTAL_GESTURE_SENSITIVITY = doublePreferencesKey("horizontal_gesture_sensitivity")
+    val HORIZONTAL_GESTURE_ALPHA_ANIM = booleanPreferencesKey("horizontal_gesture_alpha_anim_bool")
+    val HORIZONTAL_GESTURE_PULL_ANIM = booleanPreferencesKey("horizontal_gesture_pull_anim")
     val BOTTOM_BAR_PADDING = intPreferencesKey("bottom_bar_padding")
     val HIGHLIGHTED_READING = booleanPreferencesKey("highlighted_reading")
     val HIGHLIGHTED_READING_THICKNESS = intPreferencesKey("highlighted_reading_thickness")

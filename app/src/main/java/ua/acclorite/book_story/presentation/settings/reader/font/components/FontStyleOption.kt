@@ -16,7 +16,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.ui.ButtonItem
 import ua.acclorite.book_story.presentation.core.components.settings.SegmentedButtonWithTitle
-import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideFonts
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.main.MainModel
@@ -27,7 +26,7 @@ fun FontStyleOption() {
     val state = mainModel.state.collectAsStateWithLifecycle()
 
     val fontFamily = remember(state.value.fontFamily) {
-        Constants.provideFonts().run {
+        provideFonts().run {
             find {
                 it.id == state.value.fontFamily
             } ?: get(0)

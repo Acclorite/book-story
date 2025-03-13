@@ -22,7 +22,6 @@ import ua.acclorite.book_story.domain.file.CachedFileCompat
 import ua.acclorite.book_story.domain.library.book.Book
 import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.presentation.core.components.modal_bottom_sheet.ModalBottomSheet
-import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideExtensions
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategoryTitle
 import ua.acclorite.book_story.ui.book_info.BookInfoEvent
@@ -61,7 +60,7 @@ fun BookInfoDetailsBottomSheet(
 
     val fileExists = remember(cachedFile) {
         cachedFile.let {
-            it != null && it.canAccess() && !it.isDirectory && Constants.provideExtensions()
+            it != null && it.canAccess() && !it.isDirectory && provideExtensions()
                 .any { ext ->
                     it.name.endsWith(ext, ignoreCase = true)
                 }

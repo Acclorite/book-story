@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
+import androidx.core.net.toUri
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.data.local.room.BookDao
@@ -191,7 +192,7 @@ class BookRepositoryImpl @Inject constructor(
             listOf(
                 bookMapper.toBookEntity(
                     book.copy(
-                        coverImage = if (entity.image != null) Uri.parse(entity.image) else null
+                        coverImage = if (entity.image != null) entity.image.toUri() else null
                     )
                 )
             )
@@ -357,7 +358,7 @@ class BookRepositoryImpl @Inject constructor(
         val currentCover = try {
             MediaStore.Images.Media.getBitmap(
                 application.contentResolver,
-                Uri.parse(book.image)
+                book.image.toUri()
             )
         } catch (e: Exception) {
             Log.i(CAN_RESET_COVER, "Can reset cover image. (could not get current)")

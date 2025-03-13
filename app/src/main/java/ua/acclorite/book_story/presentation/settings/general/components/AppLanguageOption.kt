@@ -14,7 +14,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.ui.ButtonItem
 import ua.acclorite.book_story.presentation.core.components.settings.ChipsWithTitle
-import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideLanguages
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.main.MainModel
@@ -26,7 +25,7 @@ fun AppLanguageOption() {
 
     ChipsWithTitle(
         title = stringResource(id = R.string.language_option),
-        chips = Constants.provideLanguages().sortedBy { it.second }.map {
+        chips = provideLanguages().sortedBy { it.second }.map {
             ButtonItem(
                 it.first,
                 it.second,

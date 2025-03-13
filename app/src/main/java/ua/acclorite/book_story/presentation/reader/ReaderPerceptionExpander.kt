@@ -14,10 +14,10 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.coerceAtMost
-import androidx.compose.ui.unit.dp
 
 @Composable
 fun ReaderPerceptionExpander(
@@ -32,9 +32,11 @@ fun ReaderPerceptionExpander(
                 .fillMaxSize()
                 .padding(
                     horizontal = perceptionExpanderPadding.coerceAtMost(
-                        LocalConfiguration.current.screenWidthDp.run {
+                        with(LocalDensity.current) {
+                            LocalWindowInfo.current.containerSize.width.toDp()
+                        }.run {
                             this / 2f - (this * 0.1f)
-                        }.dp
+                        }
                     )
                 ),
             horizontalArrangement = Arrangement.SpaceBetween

@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.history.GroupedHistory
 import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.providePrimaryScrollbar
 import ua.acclorite.book_story.presentation.core.util.LocalActivity
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategoryTitle
@@ -43,7 +42,7 @@ fun HistoryLayout(
         LazyColumnWithScrollbar(
             modifier = Modifier.fillMaxSize(),
             state = listState,
-            scrollbarSettings = Constants.providePrimaryScrollbar(false)
+            scrollbarSettings = providePrimaryScrollbar(false)
         ) {
             item {
                 Spacer(modifier = Modifier.height(12.dp))

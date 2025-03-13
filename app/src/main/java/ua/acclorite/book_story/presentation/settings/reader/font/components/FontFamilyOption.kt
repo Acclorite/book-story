@@ -15,7 +15,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.ui.ButtonItem
 import ua.acclorite.book_story.presentation.core.components.settings.ChipsWithTitle
-import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.provideFonts
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.main.MainModel
@@ -26,7 +25,7 @@ fun FontFamilyOption() {
     val state = mainModel.state.collectAsStateWithLifecycle()
 
     val fontFamily = remember(state.value.fontFamily) {
-        Constants.provideFonts().run {
+        provideFonts().run {
             find {
                 it.id == state.value.fontFamily
             } ?: get(0)
@@ -35,7 +34,7 @@ fun FontFamilyOption() {
 
     ChipsWithTitle(
         title = stringResource(id = R.string.font_family_option),
-        chips = Constants.provideFonts()
+        chips = provideFonts()
             .map {
                 ButtonItem(
                     id = it.id,

@@ -17,8 +17,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.reader.FontWithName
 import ua.acclorite.book_story.domain.ui.UIText
 
-@OptIn(ExperimentalTextApi::class)
-fun Constants.provideFonts(): List<FontWithName> {
+fun provideFonts(): List<FontWithName> {
     return mutableListOf(
         FontWithName(
             "default",

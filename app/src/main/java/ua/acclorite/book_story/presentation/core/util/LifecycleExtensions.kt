@@ -22,12 +22,12 @@ inline fun Intent.launchActivity(
     success: () -> Unit = {},
     error: () -> Unit = {}
 ) {
-    val intent = if (createChooser) Intent.createChooser(this, "") else this
-    if (openInNewWindow) {
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-    }
-
     try {
+        val intent = if (createChooser) Intent.createChooser(this, "") else this
+        if (openInNewWindow) {
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+
         activity.baseContext.startActivity(intent)
     } catch (e: Exception) {
         e.printStackTrace()

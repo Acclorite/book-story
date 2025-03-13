@@ -6,7 +6,7 @@
 
 package ua.acclorite.book_story.presentation.core.constants
 
-fun Constants.provideLanguages() = listOf(
+fun provideLanguages() = listOf(
     Pair("en", "English"),
     Pair("uk", "Українська"),
     Pair("de", "Deutsch"),

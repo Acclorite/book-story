@@ -9,7 +9,7 @@ package ua.acclorite.book_story.presentation.core.constants
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.about.Badge
 
-fun Constants.provideAboutBadges() = listOf(
+fun provideAboutBadges() = listOf(
     Badge(
         id = "github",
         drawable = R.drawable.github,

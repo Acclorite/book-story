@@ -6,7 +6,6 @@
 
 package ua.acclorite.book_story.presentation.browse
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Row
@@ -26,7 +25,6 @@ import ua.acclorite.book_story.domain.browse.file.SelectableFile
 import ua.acclorite.book_story.presentation.core.components.common.CircularCheckbox
 import ua.acclorite.book_story.ui.theme.FadeTransitionPreservingSpace
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BrowseListItem(
     modifier: Modifier,

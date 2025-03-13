@@ -11,7 +11,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.help.HelpTip
 import ua.acclorite.book_story.presentation.help.HelpAnnotation
 
-fun Constants.provideHelpTips() = listOf(
+fun provideHelpTips() = listOf(
     HelpTip(
         title = R.string.help_title_how_to_add_books,
         description = {

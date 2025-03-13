@@ -34,11 +34,15 @@ fun Modifier.readerHorizontalGesture(
     horizontalGesture: ReaderHorizontalGesture,
     horizontalGestureScroll: Float,
     horizontalGestureSensitivity: Dp,
+    horizontalGestureAlphaAnim: Boolean,
+    horizontalGesturePullAnim: Boolean,
     isLoading: Boolean
 ): Modifier {
     if (horizontalGesture == ReaderHorizontalGesture.OFF || isLoading) return this
     val inverted = rememberUpdatedState(horizontalGesture == ReaderHorizontalGesture.INVERSE)
     val sensitivity = rememberUpdatedState(horizontalGestureSensitivity)
+    val alphaAnim = rememberUpdatedState(horizontalGestureAlphaAnim)
+    val pullAnim = rememberUpdatedState(horizontalGesturePullAnim)
 
     val scope = rememberCoroutineScope()
     val density = LocalDensity.current
@@ -69,7 +73,9 @@ fun Modifier.readerHorizontalGesture(
     @Composable
     fun calculateAlpha(): Float {
         return animateFloatAsState(
-            1f - (abs(with(density) { horizontalOffset.floatValue.toDp() }.value) / sensitivity.value.value)
+            if (!alphaAnim.value) 1f
+            else 1f - abs(with(density) { horizontalOffset.floatValue.toDp() }.value)
+                .div(sensitivity.value.value)
         ).value
     }
 
@@ -80,7 +86,8 @@ fun Modifier.readerHorizontalGesture(
         .alpha(calculateAlpha())
         .offset {
             IntOffset(
-                x = animatedHorizontalOffset.value.roundToInt(),
+                x = if (pullAnim.value) animatedHorizontalOffset.value.roundToInt()
+                else 0,
                 y = 0
             )
         }
@@ -89,7 +96,7 @@ fun Modifier.readerHorizontalGesture(
                 onDragStart = {
                     horizontalOffset.floatValue = 0f
                 },
-                onHorizontalDrag = { change, dragAmount ->
+                onHorizontalDrag = { _, dragAmount ->
                     horizontalOffset.floatValue += (dragAmount * 0.15f)
                 },
                 onDragCancel = {

@@ -6,7 +6,7 @@
 
 package ua.acclorite.book_story.data.mapper.book
 
-import android.net.Uri
+import androidx.core.net.toUri
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.local.dto.BookEntity
 import ua.acclorite.book_story.domain.library.book.Book
@@ -43,7 +43,7 @@ class BookMapperImpl @Inject constructor() : BookMapper {
             filePath = bookEntity.filePath,
             lastOpened = null,
             category = bookEntity.category,
-            coverImage = if (bookEntity.image != null) Uri.parse(bookEntity.image) else null
+            coverImage = if (bookEntity.image != null) bookEntity.image.toUri() else null
         )
     }
 }

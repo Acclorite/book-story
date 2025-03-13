@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlin.collections.plus
 
 @HiltViewModel(assistedFactory = Navigator.Factory::class)
 class Navigator @AssistedInject constructor(
@@ -25,7 +24,7 @@ class Navigator @AssistedInject constructor(
     @Assisted private val initialScreen: Screen
 ) : ViewModel() {
 
-    val items = savedStateHandle.getStateFlow("items", mutableListOf<Screen>(initialScreen))
+    val items = savedStateHandle.getStateFlow("items", mutableListOf(initialScreen))
     private fun StateFlow<MutableList<Screen>>.removeLast() {
         savedStateHandle["items"] = value.dropLast(1)
     }
@@ -43,7 +42,7 @@ class Navigator @AssistedInject constructor(
     )
 
     val lastEvent = savedStateHandle.getStateFlow("stack_event", StackEvent.Default)
-    private fun StateFlow<StackEvent>.change(stackEvent: StackEvent) {
+    private fun changeStackEvent(stackEvent: StackEvent) {
         savedStateHandle["stack_event"] = stackEvent
     }
 
@@ -56,7 +55,7 @@ class Navigator @AssistedInject constructor(
         if (lastItem.value::class == targetScreen::class) return
         if (!saveInBackStack) items.removeLast()
 
-        lastEvent.change(
+        changeStackEvent(
             if (popping) StackEvent.Pop
             else StackEvent.Default
         )
@@ -67,7 +66,7 @@ class Navigator @AssistedInject constructor(
 
     fun pop(popping: Boolean = true) {
         if (items.value.count() > 1) {
-            lastEvent.change(
+            changeStackEvent(
                 if (popping) StackEvent.Pop
                 else StackEvent.Default
             )

@@ -32,7 +32,6 @@ import ua.acclorite.book_story.domain.use_case.file_system.GetFiles
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.ui.library.LibraryScreen
 import javax.inject.Inject
-import kotlin.collections.map
 
 @HiltViewModel
 class BrowseModel @Inject constructor(
@@ -170,7 +169,7 @@ class BrowseModel @Inject constructor(
                 viewModelScope.launch(Dispatchers.IO) {
                     _state.update {
                         it.copy(
-                            files = it.files.map { it.copy(selected = false) },
+                            files = it.files.map { file -> file.copy(selected = false) },
                             hasSelectedItems = false
                         )
                     }
@@ -447,7 +446,7 @@ class BrowseModel @Inject constructor(
         return files
             .filterFiles()
             .sortedWith(
-                compareByWithOrder<SelectableFile> {
+                compareByWithOrder {
                     when (sortOrder) {
                         BrowseSortOrder.NAME -> {
                             it.data.name.trim()

@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.browse.file.GroupedFiles
 import ua.acclorite.book_story.domain.browse.file.SelectableFile
 import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.presentation.core.constants.Constants
 import ua.acclorite.book_story.presentation.core.constants.providePrimaryScrollbar
 
 @Composable
@@ -33,7 +32,7 @@ fun BrowseListLayout(
         state = listState,
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(horizontal = 8.dp),
-        scrollbarSettings = Constants.providePrimaryScrollbar(false)
+        scrollbarSettings = providePrimaryScrollbar(false)
     ) {
         groupedFiles.forEach { group ->
             stickyHeader {
