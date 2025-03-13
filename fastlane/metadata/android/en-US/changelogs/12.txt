@@ -1,0 +1,7 @@
+* Storage Folder Access (SAF)
+* Remove network permission
+* Nested chapters in Reader
+* New options
+* UI improvements
+* Bug fixes
+* More...
