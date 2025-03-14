@@ -44,11 +44,11 @@
     <string name="font_family_option">Familia de fuente</string>
     <string name="font_style_option">Estilo de fuente</string>
     <string name="line_height_option">Altura de la línea</string>
-    <string name="paragraph_height_option">Altura del párrafo</string>
+    <string name="paragraph_height_option">Separación de párrafos</string>
     <string name="paragraph_indentation_option">Indentación del párrafo</string>
     <string name="background_color_option">Color de fondo</string>
     <string name="font_color_option">Color de fuente</string>
-    <string name="side_padding_option">Relleno lateral</string>
+    <string name="side_padding_option">Margen lateral</string>
     <string name="double_click_translation_option">Traducción de doble clic</string>
     <string name="red_color">Rojo</string>
     <string name="dark_theme_on">Habilitado</string>
@@ -75,7 +75,7 @@
     <string name="add_books_description">Puede escoger qué libros desea añadir. Puede editar el título y la portada del libro más adelante. El proceso de carga puede durar varios minutos.</string>
     <string name="delete_book_description">Eliminará este libro de la base de datos. No eliminará este libro de su dispositivo.</string>
     <string name="error_no_translator">No se ha encontrado ninguna aplicación de traducción.</string>
-    <string name="error_could_not_get_text">El contenido del libro está vacío. Por favor, asegúrate de que el contenido del libro no está vacío y actualizado.</string>
+    <string name="error_could_not_get_text">El fichero está vacío, desaparecido o inaccesible. Por favor, revisa el fichero y los ajustes de escaneo, y prueba de nuevo.</string>
     <string name="error_could_not_reset_cover">No se pudo reiniciar la portada.</string>
     <string name="browse_empty">Expanda la colección de libros de la biblioteca con sus descargas</string>
     <string name="library_empty">Lea sus libros favoritos y ordénelos en categorías</string>
@@ -254,15 +254,15 @@
     <string name="letter_spacing_option">Espaciado entre letras</string>
     <string name="absolute_dark_option_desc">Cambiar el color de fondo para que sea completamente negro</string>
     <string name="absolute_dark_option">Negro puro</string>
-    <string name="fullscreen_option_desc">Ocultar las barras del sistema y eliminar el relleno</string>
+    <string name="fullscreen_option_desc">Ocultar barras del sistema y márgenes</string>
     <string name="reader_tab">Lector</string>
     <string name="misc_reader_settings">Varios</string>
     <string name="keep_screen_on_option">Mantener la pantalla encendida</string>
     <string name="fullscreen_option">Pantalla completa</string>
-    <string name="cutout_padding_option">Relleno del recorte</string>
+    <string name="cutout_padding_option">Margen del recorte</string>
     <string name="padding_reader_settings">Márgenes</string>
-    <string name="vertical_padding_option">Relleno vertical</string>
-    <string name="cutout_padding_option_desc">Aplicar relleno a la zona recortada</string>
+    <string name="vertical_padding_option">Margen vertical</string>
+    <string name="cutout_padding_option_desc">Aplicar margen a la zona recortada</string>
     <string name="checkpoint_forward_content_desc">Punto de control nuevo</string>
     <string name="hide_bars_on_fast_scroll_option">Ocultar barras en el desplazamiento rápido</string>
     <string name="checkpoint_back_content_desc">Volver al punto de control</string>
@@ -284,7 +284,7 @@
     <string name="help_title_how_to_use_perception_expander">¿Qué es un potenciador de la percepción y cómo utilizarlo?</string>
     <string name="help_desc_how_to_use_perception_expander_1">El expansor de percepción puede ayudarte a leer más rápido. En primer lugar, actívelo en los ajustes del Lector (consulte: ¿Cómo personalizo el Lector?). Una vez activado, aparecerán dos líneas verticales a cada lado del Reader. Para optimizar aún más su velocidad de lectura, ajuste el relleno para crear menos espacio alrededor del centro. Para utilizarlo, concéntrate en el centro de la pantalla y deja que tu visión periférica capte el texto de los lados. Mientras lees, mantén la atención en el centro sin mirar directamente a los lados después de cada línea.</string>
     <string name="perception_expander_padding_option">Sangrías en la línea de mejoran la percepción.</string>
-    <string name="perception_expander_thickness_option">Grosor de la línea mejora la percepción</string>
+    <string name="perception_expander_thickness_option">Grosor de la línea</string>
     <string name="more_content_desc">Más</string>
     <string name="search_field_empty">Buscar…</string>
     <string name="screen_brightness_option">Brillo</string>
@@ -295,7 +295,7 @@
     <string name="chapters_reader_settings">Capítulos</string>
     <string name="highlighted_reading_level">nivel</string>
     <string name="images_alignment_option">Alineamiento</string>
-    <string name="error_no_file">El archivo no existe</string>
+    <string name="error_no_file">El archivo no existe o es inaccesible</string>
     <string name="author_changed">El autor fue cambiado correctamente.</string>
     <string name="title_changed">El título fue cambiado correctamente.</string>
     <string name="description_changed">La descripción fue cambiada correctamente.</string>
@@ -328,4 +328,12 @@
     <string name="continue_reading_query">Continuar desde %1$s</string>
     <string name="color_effects_background">Color de fondo</string>
     <string name="progress_bar_alignment_option">Alineamiento</string>
+    <string name="scan_browse_settings">Escanear</string>
+    <string name="browse_scan_option_note">Estas carpetas se usan para escanear y obtener ficheros en \"Explorar\". Borrar una carpeta aquí no eliminará los ficheros reales ni libros de la Librería. Para revocar acceso, pulsa en el botón correspondiente.</string>
+    <string name="display_settings">Visual</string>
+    <string name="ok">Vale</string>
+    <string name="change_path">Cambiar ruta</string>
+    <string name="display_tab">Visual</string>
+    <string name="add_folder">Añadir carpeta</string>
+    <string name="set_up_scanning">Configurar escaneo</string>
 </resources>
