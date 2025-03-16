@@ -10,6 +10,7 @@ import android.content.Context
 import android.net.Uri
 import android.provider.DocumentsContract
 import com.anggrayudi.storage.file.DocumentFileCompat
+import com.anggrayudi.storage.file.getAbsolutePath
 
 object CachedFileCompat {
     fun fromUri(context: Context, uri: Uri, builder: CachedFileBuilder? = null): CachedFile {
@@ -37,37 +38,32 @@ object CachedFileCompat {
         builder: CachedFileBuilder? = null
     ): CachedFile? {
         val uri = try {
-            val fullPathUri = DocumentFileCompat.fromFullPath(context, path)?.uri
-                ?: throw NullPointerException("Could not get URI from full path.")
+            val storageId = DocumentFileCompat.getStorageId(context, path)
+            if (storageId.isBlank()) throw NullPointerException("Could not get storageId.")
 
-            fullPathUri
+            val basePath = DocumentFileCompat.getBasePath(context, path)
+            if (basePath.isBlank()) throw NullPointerException("Could not get basePath.")
+
+            val parentUri = context.contentResolver.persistedUriPermissions.find {
+                try {
+                    val persistedUri = DocumentFileCompat.fromUri(context, it.uri)
+                    val persistedUriPath = persistedUri?.getAbsolutePath(context)
+
+                    return@find !(persistedUri == null ||
+                            !persistedUri.canRead() ||
+                            persistedUriPath.isNullOrBlank() ||
+                            !path.startsWith(persistedUriPath, ignoreCase = true))
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    return@find false
+                }
+            }?.uri
+            if (parentUri == null) throw NullPointerException("Could not get parentUri.")
+
+            DocumentsContract.buildDocumentUriUsingTree(parentUri, "$storageId:$basePath")
         } catch (e: Exception) {
             e.printStackTrace()
-
-            try {
-                val parentUri = DocumentFileCompat.getAccessibleRootDocumentFile(
-                    context = context,
-                    fullPath = path
-                )?.uri
-                    ?: throw NullPointerException("Could not get parent URI.")
-
-                val storageId = DocumentFileCompat.getStorageId(context, path)
-                if (storageId.isBlank()) throw NullPointerException("Could not get storageId.")
-
-                val basePath = DocumentFileCompat.getBasePath(context, path)
-                if (basePath.isBlank()) throw NullPointerException("Could not get basePath.")
-
-                val documentUri = DocumentsContract.buildDocumentUriUsingTree(
-                    parentUri,
-                    "$storageId:$basePath"
-                )
-                if (documentUri == null) throw NullPointerException("Could not get document URI.")
-
-                documentUri
-            } catch (e: Exception) {
-                e.printStackTrace()
-                return null
-            }
+            return null
         }
 
         val cachedFile = CachedFile(
