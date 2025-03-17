@@ -131,4 +131,26 @@
     <string name="yes_go_to_help">Da, mergeți la ajutor</string>
     <string name="set_up_scanning">Configurați scanarea</string>
     <string name="library_empty">Citiți cărțile preferate și sortați-le pe categorii</string>
+    <string name="file_size">Dimensiune</string>
+    <string name="browse_sort_order_name">Alfabetic</string>
+    <string name="file_path">Locație</string>
+    <string name="file_last_opened">Ultima dată deschis</string>
+    <string name="edit_content_desc">Editează câmpul</string>
+    <string name="letter_spacing_option">Spațiere între litere</string>
+    <string name="start_done_desc">Ați finalizat cu succes setarea de bază a aplicației. Doriți să învățați cum să utilizați aplicația citind ecranul de ajutor?</string>
+    <string name="reader_settings">Cititor</string>
+    <string name="browse_sort_order_file_size">Dimensiunea fișierului</string>
+    <string name="scan_browse_settings">Scanare</string>
+    <string name="browse_grid_size_per_row">pe rând</string>
+    <string name="layout_option">Mod de afișare</string>
+    <string name="start_scan_preferences">Preferințe de scanare</string>
+    <string name="move_books_content_desc">Mutați cărțile selectate</string>
+    <string name="delete_books_content_desc">Ștergeți cărțile selectate</string>
+    <string name="padding_reader_settings">Margini</string>
+    <string name="misc_reader_settings">Diverse</string>
+    <string name="browse_scan_option_note">Aceste directoare sunt utilizate pentru a scana și a recupera fișiere în secțiunea navigare. Ștergerea unui director de aici nu va șterge fișierele sau cărțile reale din bibliotecă. Pentru a revoca accesul, faceți clic pe butonul corespunzător.</string>
+    <string name="images_option">Imagini</string>
+    <string name="layout_list">Listă</string>
+    <string name="add_folder">Adaugă director</string>
+    <string name="file_details">Detaliile fișierului</string>
 </resources>
