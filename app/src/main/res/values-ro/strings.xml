@@ -83,4 +83,22 @@
     <string name="color_tab">Culori</string>
     <string name="help_desc_how_to_customize_reader_3">și selectați categoria cititor pentru a personaliza setările generale sau categoria aspect pentru a personaliza setările culorilor.</string>
     <string name="reading_tab">Se citesc</string>
+    <string name="add_books_description">Puteți alege ce cărți doriți să adăugați. Puteți edita titlul și imaginea de copertă a cărții mai târziu. Procesul de încărcare poate dura până la câteva minute.</string>
+    <string name="delete_history_description">Va șterge întreaga istorie din baza de date. După ștergerea întregii istorii, ordinea cărților va fi resetată.</string>
+    <string name="help_title_how_to_customize_reader">Cum personalizez cititorul de cărți?</string>
+    <string name="error_something_went_wrong">A intervenit o problemă.</string>
+    <string name="move_book_description">Alegeți categoria în care doriți să mutați această carte. Cartea va fi mutată în categoria selectată.</string>
+    <string name="done">Gata</string>
+    <string name="move_book">Mutați cartea?</string>
+    <string name="move_books_description">Alegeți categoria în care doriți să mutați toate cărțile selectate (%1$s). Toate cărțile selectate vor fi mutate în categoria selectată.</string>
+    <string name="delete_books_description">Va șterge toate cărțile selectate (%1$s) din baza de date. Nu va șterge cărțile selectate de pe dispozitivul dumneavoastră.</string>
+    <string name="help_title_how_to_move_or_delete_books">Cum mut sau șterg cărți?</string>
+    <string name="delete_history">Ștergeți istoricul lecturilor?</string>
+    <string name="help_title_how_to_customize_app">Cum personalizez aplicația?</string>
+    <string name="unknown_author">Necunoscut</string>
+    <string name="help_title_how_to_add_books">Cum adaug cărți în bibliotecă?</string>
+    <string name="ok">Ok</string>
+    <string name="change_cover">Schimbă imaginea de copertă</string>
+    <string name="delete_book">Ștergeți cartea?</string>
+    <string name="delete_book_description">Va șterge această carte din baza de date. Nu va șterge această carte de pe dispozitivul dumneavoastră.</string>
 </resources>
