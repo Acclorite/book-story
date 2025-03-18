@@ -300,7 +300,7 @@
     <string name="yellow2_theme">鸟神星</string>
     <string name="tryzub_badge">三叉戟</string>
     <string name="checkpoint_forward_content_desc">取消检查点撤回</string>
-    <string name="highlighted_reading_level">层级</string>
+    <string name="highlighted_reading_level">程度</string>
     <string name="chapter_title_alignment_option">章节标题对齐</string>
     <string name="highlighted_reading_option">高亮词语</string>
     <string name="highlighted_reading_option_desc">高亮标记每个词的开头</string>
