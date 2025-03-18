@@ -207,4 +207,11 @@
     <string name="error_no_share_app">Nu a fost găsită nicio aplicație de partajat.</string>
     <string name="error_no_file">Fișierul nu există sau este inaccesibil</string>
     <string name="error_closed_source">Sursă închisă</string>
+    <string name="help_title_how_to_use_tooltip">Cum pot folosi balone explicative?</string>
+    <string name="help_desc_how_to_customize_reader_1">Începeți să citiți cartea (vezi: Cum citesc o carte?), după aceea afișați barele de sus și de jos ale aplicației făcând clic pe orice parte a ecranului. După aceea, faceți clic pe iconița de roată dințată din colțul dreapta sus. Acest lucru va afișa toate setările cititorului. A doua modalitate este să mergeți la</string>
+    <string name="help_desc_how_to_add_books_4">Bibliotecă</string>
+    <string name="help_desc_how_to_add_books_3">Dacă nu vedeți cărțile descărcate, încercați să reîmprospătați lista trăgând-o în jos. Asigurați-vă că cărțile dumneavoastră au un format de fișier suportat. Apoi, faceți clic pe carte pentru a o selecta sau țineți apăsat pentru a arăta locația ei. După ce ați selectat toate cărțile pe care le doriți, faceți clic pe iconița de bifare din colțul dreapta sus, așteptați până când toate cărțile se încarcă și faceți clic pe «Adaugă». Acum ar trebui să vedeți toate cărțile pe care le-ați adăugat în</string>
+    <string name="help_desc_how_to_manage_history_3">Făcând clic pe butonul de ștergere din dreapta elementului de istoric, acesta va fi șters. Istoricul afectează ordinea cărților în Bibliotecă, prin ștergerea unui element de istoric se va reordona și cartea respectivă. Ultima carte deschisă este întotdeauna prima în Bibliotecă și Istoric.</string>
+    <string name="help_desc_how_to_customize_app_3">Puteți face acest lucru din oricare din ecranele Bibliotecă, Istoric sau Navigare, făcând clic pe cele trei puncte din colțul dreapta sus și selectând «Setări» din meniul derulant. Apoi veți vedea toate setările disponibile pentru această aplicație. Simțiți-vă liberi să experimentați cu acestea!</string>
+    <string name="help_desc_how_to_use_tooltip_1">Majoritatea butoanelor cu iconițe au sfaturi (baloane explicative), care vă pot ajuta dacă nu știți ce face o anumită iconiță. Pentru a afișa un sfat, puteți ține apăsat pe o iconiță.</string>
 </resources>
