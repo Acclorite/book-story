@@ -45,7 +45,7 @@
     <string name="library_screen">Bibliotecă</string>
     <string name="red_color">Roșu</string>
     <string name="blue_color">Albastru</string>
-    <string name="alignment_center">Centru</string>
+    <string name="alignment_center">Centrează</string>
     <string name="purple_gray_theme">Ceres</string>
     <string name="green_gray_theme">Enceladus</string>
     <string name="red_gray_theme">Callisto</string>
@@ -159,8 +159,8 @@
     <string name="screen_orientation_portrait">Portret</string>
     <string name="horizontal_gesture_option">Gesturi pe orizontală</string>
     <string name="screen_orientation_free">Liber</string>
-    <string name="alignment_end">Sfârșit</string>
-    <string name="alignment_start">Început</string>
+    <string name="alignment_end">Aliniază la dreapta</string>
+    <string name="alignment_start">Aliniează la stânga</string>
     <string name="horizontal_gesture_inverse">Activat (invers)</string>
     <string name="continue_reading_query">Continuă de la %1$s</string>
     <string name="today">Astăzi</string>
@@ -189,4 +189,22 @@
     <string name="highlighted_reading_option_desc">Evidențiați începutul fiecărui cuvânt</string>
     <string name="progress_bar_font_size_option">Dimensiunea fontului</string>
     <string name="general_tab">General</string>
+    <string name="background_color_option">Culoarea fundalului</string>
+    <string name="font_style_option">Stilul fontului</string>
+    <string name="text_alignment_option">Alinierea textului</string>
+    <string name="images_alignment_option">Aliniere</string>
+    <string name="open_reader_settings_content_desc">Setările cititorului</string>
+    <string name="font_color_option">Culoarea fontului</string>
+    <string name="alignment_justify">Margini</string>
+    <string name="font_family_option">Familia de fonturi</string>
+    <string name="delete_whole_history_content_desc">Șterge întregul istoric</string>
+    <string name="reader_tab">Cititor</string>
+    <string name="double_click_translation_option">Dublu clic pentru traducere</string>
+    <string name="cancel">Anulează</string>
+    <string name="progress_bar_alignment_option">Aliniere</string>
+    <string name="share">Partajează</string>
+    <string name="change_cover_desc">Alegeți o copertă nouă din fotografiile dumneavoastră</string>
+    <string name="error_no_share_app">Nu a fost găsită nicio aplicație de partajat.</string>
+    <string name="error_no_file">Fișierul nu există sau este inaccesibil</string>
+    <string name="error_closed_source">Sursă închisă</string>
 </resources>
