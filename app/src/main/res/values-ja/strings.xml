@@ -319,4 +319,17 @@
     <string name="start_done">すべて終わりました!</string>
     <string name="yesterday">昨日</string>
     <string name="continue_reading_content_desc">読書を続ける</string>
+    <string name="show_less_content_desc">表示を減らす</string>
+    <string name="pin_content_desc">固定</string>
+    <string name="collapse_content_desc">崩壊</string>
+    <string name="remove_content_desc">取り除く</string>
+    <string name="filter_content_desc">フィルタ</string>
+    <string name="checkpoint_forward_content_desc">次のチェックポイント</string>
+    <string name="edit_content_desc">編集フィールド</string>
+    <string name="checkpoint_back_content_desc">チェックポイントに戻る</string>
+    <string name="chapters_content_desc">チャプター</string>
+    <string name="more_content_desc">もっと</string>
+    <string name="show_more_content_desc">表示を増やす</string>
+    <string name="expand_content_desc">拡大する</string>
+    <string name="note_content_desc">備考</string>
 </resources>
