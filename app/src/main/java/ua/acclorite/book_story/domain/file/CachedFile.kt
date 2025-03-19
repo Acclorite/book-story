@@ -176,7 +176,7 @@ class CachedFile(
         if (isDirectory) return null
 
         val cacheDir = context.cacheDir
-        val fileName = path.replace("_", "-").replace("/", "_")
+        val fileName = path.replace("_", "-").replace("/", "_").take(80) + "_${path.length}"
         val cacheFile = File(cacheDir, fileName)
         val tempFile = File(cacheDir, "$fileName.tmp")
 
