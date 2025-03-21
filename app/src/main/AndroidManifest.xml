@@ -35,6 +35,7 @@
         tools:ignore="DataExtractionRules"
         tools:targetApi="tiramisu">
 
+        <!-- Main activity -->
         <activity
             android:name=".ui.main.MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|locale|density|uiMode"
@@ -46,6 +47,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Crash activity -->
+        <activity
+            android:name=".ui.crash.CrashActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|locale|density|uiMode"
+            android:exported="false"
+            android:theme="@style/BookStory"
+            android:windowSoftInputMode="adjustResize"></activity>
 
         <!-- Save app locales -->
         <service

@@ -37,8 +37,6 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
-import kotlin.collections.component1
-import kotlin.collections.component2
 
 @HiltViewModel
 class HistoryModel @Inject constructor(

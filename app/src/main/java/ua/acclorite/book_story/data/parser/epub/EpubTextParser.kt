@@ -29,7 +29,6 @@ import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import javax.inject.Inject
-import kotlin.collections.set
 
 private const val EPUB_TAG = "EPUB Parser"
 private typealias Source = String

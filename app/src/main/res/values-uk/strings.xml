@@ -67,6 +67,7 @@
     <string name="never">Ніколи</string>
     <string name="undo">Скасувати</string>
     <string name="copy">Копіювати</string>
+    <string name="report">Повідомити</string>
     <string name="translate">Перекласти</string>
     <string name="dictionary">Словник</string>
     <string name="next">Далі</string>
@@ -430,6 +431,10 @@
     <!-- History -->
     <string name="today">Сьогодні</string>
     <string name="yesterday">Вчора</string>
+
+    <!-- Crash -->
+    <string name="crash_title">Ой! Застосунок крашнувся.</string>
+    <string name="crash_description">Будь ласка, повідомте про цей збій у найзручніший для вас спосіб.</string>
 
     <!-- Content description -->
     <string name="continue_reading_content_desc">Продовжити читання</string>

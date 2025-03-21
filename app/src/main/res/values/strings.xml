@@ -96,6 +96,7 @@
     <string name="never">Never</string>
     <string name="undo">Undo</string>
     <string name="copy">Copy</string>
+    <string name="report">Report</string>
     <string name="translate">Translate</string>
     <string name="dictionary">Dictionary</string>
     <string name="next">Next</string>
@@ -565,6 +566,10 @@
     <!-- History -->
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
+
+    <!-- Crash -->
+    <string name="crash_title">Oops! The app crashed.</string>
+    <string name="crash_description">Please report this crash message in the most convenient way for you.</string>
 
     <!-- Content description -->
     <string name="continue_reading_content_desc">Continue reading</string>
