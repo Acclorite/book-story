@@ -42,6 +42,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.core.components.common.IconButton
 import ua.acclorite.book_story.presentation.core.components.common.StyledText
 import ua.acclorite.book_story.presentation.core.util.noRippleClickable
+import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.ui.browse.BrowseScreen
 import ua.acclorite.book_story.ui.settings.SettingsEvent
 import ua.acclorite.book_story.ui.settings.SettingsModel
@@ -108,7 +109,14 @@ fun BrowseScanOption() {
 
     BrowseScanAction(
         requestPersistableUriPermission = {
-            persistedUriIntent.launch(null)
+            try {
+                persistedUriIntent.launch(null)
+            } catch (e: Exception) {
+                e.printStackTrace()
+
+                context.getString(R.string.error_no_file_manager_app)
+                    .showToast(context, longToast = false)
+            }
         }
     )
 }

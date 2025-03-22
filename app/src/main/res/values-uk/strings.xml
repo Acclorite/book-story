@@ -40,6 +40,11 @@
     <string name="error_no_dictionary">Не знайдено жодного словника.</string>
     <string name="error_no_browser">Не знайдено жодного браузера.</string>
     <string name="error_no_share_app">Не знайдено застосунка щоб поділитися.</string>
+    <string name="error_no_translator">Жодного перекладача не знайдено.</string>
+    <string name="error_no_dictionary">Жодного словника не знайдено.</string>
+    <string name="error_no_browser">Жодного браузера не знайдено.</string>
+    <string name="error_no_share_app">Не знайдено застосунок, щоб поділитися.</string>
+    <string name="error_no_file_manager_app">Не знайдено застосунку для вибору теки.</string>
     <string name="error_could_not_get_text">
         Файл порожній, відсутній або недоступний.
         Перевірте файл, налаштування сканування або змініть шлях і спробуйте ще раз.
