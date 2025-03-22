@@ -36,10 +36,6 @@
     <!-- Errors -->
     <string name="error_no_description">Немає опису.</string>
     <string name="error_something_went_wrong">Який жах! Щось пішло не так.</string>
-    <string name="error_no_translator">Не знайдено жодного перекладача.</string>
-    <string name="error_no_dictionary">Не знайдено жодного словника.</string>
-    <string name="error_no_browser">Не знайдено жодного браузера.</string>
-    <string name="error_no_share_app">Не знайдено застосунка щоб поділитися.</string>
     <string name="error_no_translator">Жодного перекладача не знайдено.</string>
     <string name="error_no_dictionary">Жодного словника не знайдено.</string>
     <string name="error_no_browser">Жодного браузера не знайдено.</string>
