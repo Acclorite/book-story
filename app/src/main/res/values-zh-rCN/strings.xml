@@ -365,4 +365,8 @@
     <string name="support_development_option">支持开发</string>
     <string name="add_folder">添加文件夹</string>
     <string name="set_up_scanning">设置扫描</string>
+    <string name="crash_title">哎呀！应用崩了。</string>
+    <string name="crash_description">请用对你而言最便捷的方式报告此崩溃消息。</string>
+    <string name="report">报告</string>
+    <string name="error_no_file_manager_app">没找到选择文件夹的应用。</string>
 </resources>
