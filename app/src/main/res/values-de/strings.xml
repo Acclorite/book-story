@@ -19,7 +19,7 @@
     <string name="delete_book_description">Dadurch wird das Buch aus der Datenbank gelöscht. Von Ihrem Gerät wird das Buch jedoch nicht gelöscht.</string>
     <string name="move_book_description">Wählen Sie die Kategorie aus, in die Sie dieses Buch verschieben möchten. Dieses Buch wird in die ausgewählte Kategorie verschoben.</string>
     <string name="error_no_description">Keine Beschreibung.</string>
-    <string name="error_could_not_get_text">Die Datei ist leer, beschädigt oder fehlt. Bitte überprüfen Sie die Datei oder aktualisieren Sie den Pfad und versuchen Sie es erneut.</string>
+    <string name="error_could_not_get_text">Die Datei ist leer, fehlt oder ist unzugänglich. Überprüfe die Datei, überprüfe die Einstellungen oder änder den Pfad und versuche es dann erneut.</string>
     <string name="error_could_not_reset_cover">Titelbild konnte nicht zurückgesetzt werden.</string>
     <string name="error_closed_source">Geschlossene Quelle</string>
     <string name="library_empty">Lesen Sie Ihre Lieblingsbücher und sortieren Sie sie nach Kategorien</string>
@@ -327,7 +327,7 @@
     <string name="highlighted_reading_option_desc">Markieren Sie den Anfang jedes Wortes</string>
     <string name="highlighted_reading_thickness_option">Stärke der Markierungen</string>
     <string name="horizontal_gesture_off">Aus</string>
-    <string name="error_no_file">Datei existiert nicht</string>
+    <string name="error_no_file">Die Datei existiert nicht oder ist unzugänglich</string>
     <string name="continue_reading_query">Weiterlesen bei %1$s</string>
     <string name="edit">Bearbeiten</string>
     <string name="progress_count_option">Fortschrittsanzeige</string>
@@ -352,4 +352,22 @@
     <string name="show_less_content_desc">Weniger zeigen</string>
     <string name="expand_content_desc">Erweitern</string>
     <string name="collapse_content_desc">Verringern</string>
+    <string name="error_no_file_manager_app">Keine App zur Auswahl des Ordners gefunden.</string>
+    <string name="report">Melden</string>
+    <string name="add_folder">Ordner hinzufügen</string>
+    <string name="set_up_scanning">Scannen einrichten</string>
+    <string name="scan_browse_settings">Scannen</string>
+    <string name="horizontal_gesture_alpha_anim_option_desc">Aktivieren der Sichtbarkeitsanimation bei Verwendung der horizontalen Geste</string>
+    <string name="horizontal_gesture_pull_anim_option">Zieh-Animation</string>
+    <string name="crash_title">Huch! Die App ist abgestürzt.</string>
+    <string name="crash_description">Bitte melde diese Absturzmeldung auf die für dich am besten geeignete Weise.</string>
+    <string name="remove_content_desc">Entfernen</string>
+    <string name="note_content_desc">Notiz</string>
+    <string name="start_scan_preferences">Scan Einstellungen</string>
+    <string name="display_tab">Anzeige</string>
+    <string name="display_settings">Anzeie</string>
+    <string name="browse_scan_option_note">Diese Ordner werden zum Scannen und Abrufen von Dateien in der Suchfunktion verwendet. Wenn du einen Ordner entfernst werden die eigentlichen Dateien oder Bücher nicht aus der Bibliothek gelöscht. Um den Zugriff zu widerrufen, klicke auf die entsprechende Schaltfläche.</string>
+    <string name="support_development_option">Development unterstützen</string>
+    <string name="horizontal_gesture_pull_anim_option_desc">Zieh-Animation bei Verwendung der horizontalen Geste aktivieren</string>
+    <string name="horizontal_gesture_alpha_anim_option">Sichtbarkeitsanimation</string>
 </resources>
