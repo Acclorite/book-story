@@ -366,4 +366,8 @@
     <string name="support_development_option">ادعم التطوير</string>
     <string name="horizontal_gesture_pull_anim_option">اسحب الرسوم المتحركة</string>
     <string name="horizontal_gesture_pull_anim_option_desc">فعّل سحب الرسوم المتحركة عند استخدام إيماءة أفقية</string>
+    <string name="error_no_file_manager_app">لم يتم العثور على التطبيق لاختيار المجلد.</string>
+    <string name="crash_title">عفواً! لقد تعطل التطبيق.</string>
+    <string name="crash_description">يُرجى الإبلاغ عن رسالة التعطل هذه بالطريقة الأكثر ملاءمة لك.</string>
+    <string name="report">بلّغ</string>
 </resources>
