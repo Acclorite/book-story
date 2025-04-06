@@ -336,4 +336,6 @@
     <string name="display_tab">Visual</string>
     <string name="add_folder">Añadir carpeta</string>
     <string name="set_up_scanning">Configurar escaneo</string>
+    <string name="error_no_file_manager_app">No hay un gestor de archivos disponible.</string>
+    <string name="report">Reportar</string>
 </resources>
