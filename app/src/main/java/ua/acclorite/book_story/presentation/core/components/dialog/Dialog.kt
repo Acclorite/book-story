@@ -61,6 +61,8 @@ fun Dialog(
     actionEnabled: Boolean?,
     onDismiss: () -> Unit,
     onAction: () -> Unit,
+    secondaryAction: String? = null,
+    onSecondaryAction: (() -> Unit)? = null,
     withContent: Boolean,
     items: (LazyListScope.() -> Unit) = {}
 ) {
@@ -150,41 +152,66 @@ fun Dialog(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 24.dp),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.End)
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        TextButton(
-                            onClick = {
-                                if (disableOnClick) {
-                                    actionClicked = true
-                                }
-                                onDismiss()
-                            },
-                            enabled = !actionClicked
-                        ) {
-                            StyledText(
-                                text = stringResource(id = R.string.cancel),
-                                style = MaterialTheme.typography.labelLarge.copy(
-                                    color = MaterialTheme.colorScheme.primary
+                        if (secondaryAction != null && onSecondaryAction != null) {
+                            TextButton(
+                                onClick = {
+                                    if (disableOnClick) {
+                                        actionClicked = true
+                                    }
+                                    onSecondaryAction()
+                                },
+                                enabled = !actionClicked
+                            ) {
+                                StyledText(
+                                    text = secondaryAction,
+                                    style = MaterialTheme.typography.labelLarge.copy(
+                                        color = MaterialTheme.colorScheme.primary
+                                    )
                                 )
-                            )
+                            }
                         }
 
-                        TextButton(
-                            onClick = {
-                                if (disableOnClick) {
-                                    actionClicked = true
-                                }
-                                onAction()
-                            },
-                            enabled = actionEnabled == true && !actionClicked
+                        Row(
+                            modifier = Modifier.weight(1f),
+                            horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.End),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            StyledText(
-                                text = stringResource(id = R.string.ok),
-                                style = MaterialTheme.typography.labelLarge.copy(
-                                    color = if (actionEnabled == true) MaterialTheme.colorScheme.primary
-                                    else MaterialTheme.colorScheme.primary.copy(0.5f)
+                            TextButton(
+                                onClick = {
+                                    if (disableOnClick) {
+                                        actionClicked = true
+                                    }
+                                    onDismiss()
+                                },
+                                enabled = !actionClicked
+                            ) {
+                                StyledText(
+                                    text = stringResource(id = R.string.cancel),
+                                    style = MaterialTheme.typography.labelLarge.copy(
+                                        color = MaterialTheme.colorScheme.primary
+                                    )
                                 )
-                            )
+                            }
+
+                            TextButton(
+                                onClick = {
+                                    if (disableOnClick) {
+                                        actionClicked = true
+                                    }
+                                    onAction()
+                                },
+                                enabled = actionEnabled == true && !actionClicked
+                            ) {
+                                StyledText(
+                                    text = stringResource(id = R.string.ok),
+                                    style = MaterialTheme.typography.labelLarge.copy(
+                                        color = if (actionEnabled == true) MaterialTheme.colorScheme.primary
+                                        else MaterialTheme.colorScheme.primary.copy(0.5f)
+                                    )
+                                )
+                            }
                         }
                     }
                 }
