@@ -359,4 +359,15 @@
     <string name="scan_browse_settings">المسح</string>
     <string name="browse_scan_option_note">يتم استخدام هذه المجلدات لمسح الملفات واستردادها في تصفح. إن إزالة المجلد هنا لن يحذف الملفات أو الكتب الفعلية من المكتبة. لإلغاء الوصول، انقر فوق الزر المقابل.</string>
     <string name="start_scan_preferences">تفضيلات المسح</string>
+    <string name="display_settings">العرض</string>
+    <string name="horizontal_gesture_alpha_anim_option">الرسوم المتحركة الرؤية</string>
+    <string name="display_tab">عرض</string>
+    <string name="horizontal_gesture_alpha_anim_option_desc">فعّل الرسوم المتحركة الرؤية عند استخدام إيماءة أفقية</string>
+    <string name="support_development_option">ادعم التطوير</string>
+    <string name="horizontal_gesture_pull_anim_option">اسحب الرسوم المتحركة</string>
+    <string name="horizontal_gesture_pull_anim_option_desc">فعّل سحب الرسوم المتحركة عند استخدام إيماءة أفقية</string>
+    <string name="error_no_file_manager_app">لم يتم العثور على التطبيق لاختيار المجلد.</string>
+    <string name="crash_title">عفواً! لقد تعطل التطبيق.</string>
+    <string name="crash_description">يُرجى الإبلاغ عن رسالة التعطل هذه بالطريقة الأكثر ملاءمة لك.</string>
+    <string name="report">بلّغ</string>
 </resources>

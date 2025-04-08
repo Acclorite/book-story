@@ -33,7 +33,7 @@
     <string name="error_something_went_wrong">出现了一些错误。</string>
     <string name="error_no_share_app">未找到要共享的应用。</string>
     <string name="error_no_dictionary">未发现词典应用。</string>
-    <string name="error_could_not_get_text">这本书的内容为空，或有损坏和缺失。请核对文件或尝试更新文件路径。</string>
+    <string name="error_could_not_get_text">文件为空，或有损坏和缺失。请验证文件、扫描设置或修改路径后重试。</string>
     <string name="error_could_not_reset_cover">无法重置封面图片。</string>
     <string name="error_closed_source">关闭的源</string>
     <string name="browse_empty">通过下载扩展图书馆的藏书</string>
@@ -300,7 +300,7 @@
     <string name="yellow2_theme">鸟神星</string>
     <string name="tryzub_badge">三叉戟</string>
     <string name="checkpoint_forward_content_desc">取消检查点撤回</string>
-    <string name="highlighted_reading_level">层级</string>
+    <string name="highlighted_reading_level">程度</string>
     <string name="chapter_title_alignment_option">章节标题对齐</string>
     <string name="highlighted_reading_option">高亮词语</string>
     <string name="highlighted_reading_option_desc">高亮标记每个词的开头</string>
@@ -325,7 +325,7 @@
     <string name="green_gray_theme">土卫二</string>
     <string name="purple_gray_theme">谷神星</string>
     <string name="progress_bar_option">进度条</string>
-    <string name="error_no_file">文件不存在</string>
+    <string name="error_no_file">文件不存在或无法访问</string>
     <string name="start_reading">开始</string>
     <string name="description_changed">已成功更改描述。</string>
     <string name="continue_reading_query">继续从%1$s开始</string>
@@ -351,4 +351,22 @@
     <string name="pin_content_desc">固定</string>
     <string name="expand_content_desc">展开</string>
     <string name="collapse_content_desc">折叠</string>
+    <string name="scan_browse_settings">扫描</string>
+    <string name="browse_scan_option_note">这些文件夹用于扫描和检索浏览器中的文件。在此处删除文件夹不会从库中删除实际文件或书籍。要撤销访问权限，请单击相应的按钮。</string>
+    <string name="horizontal_gesture_alpha_anim_option">视觉动画</string>
+    <string name="start_scan_preferences">扫描首选项</string>
+    <string name="display_tab">显示</string>
+    <string name="display_settings">显示</string>
+    <string name="remove_content_desc">移除</string>
+    <string name="note_content_desc">笔记</string>
+    <string name="horizontal_gesture_alpha_anim_option_desc">使用水平手势时启用视觉动画</string>
+    <string name="horizontal_gesture_pull_anim_option">拉动动画</string>
+    <string name="horizontal_gesture_pull_anim_option_desc">使用水平手势时启用拉动动画</string>
+    <string name="support_development_option">支持开发</string>
+    <string name="add_folder">添加文件夹</string>
+    <string name="set_up_scanning">设置扫描</string>
+    <string name="crash_title">哎呀！应用崩了。</string>
+    <string name="crash_description">请用对你而言最便捷的方式报告此崩溃消息。</string>
+    <string name="report">报告</string>
+    <string name="error_no_file_manager_app">没找到选择文件夹的应用。</string>
 </resources>
