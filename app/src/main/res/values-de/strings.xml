@@ -89,7 +89,7 @@
     <string name="book_deleted">Dieses Buch wurde erfolgreich gelöscht.</string>
     <string name="book_moved">Dieses Buch wurde erfolgreich verschoben.</string>
     <string name="copied">Kopieren</string>
-    <string name="history_deleted">Dieses Buch wurde erfolgreich gelöscht.</string>
+    <string name="history_deleted">Der Verlauf wurde erfolgreich gelöscht.</string>
     <string name="cover_reset">Das Titelbild wurde erfolgreich zurückgesetzt.</string>
     <string name="history_element_deleted">Das Verlaufselement wurde erfolgreich gelöscht.</string>
     <string name="dynamic_theme">Quecksilber</string>
