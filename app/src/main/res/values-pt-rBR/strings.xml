@@ -178,7 +178,7 @@
     <string name="start_done">Está tudo feito!</string>
     <string name="cover_image_content_desc">Imagem da capa</string>
     <string name="open_reader_settings_content_desc">Configurações do leitor</string>
-    <string name="slava_ukraini">Slava Ukraini!</string>
+    <string name="slava_ukraini">Glória à Ucrânia!</string>
     <string name="exit_search_content_desc">Fechar pesquisa</string>
     <string name="app_icon_content_desc">Ícone do App</string>
     <string name="add_book">Adicione um livro</string>
@@ -276,7 +276,7 @@
     <string name="progress_bar_option">Barra de progresso</string>
     <string name="books_added">Todos os livros selecionados foram adicionados com sucesso.</string>
     <string name="start_done_desc">Você concluiu com sucesso a configuração básica do aplicativo. Gostaria de aprender a usar o aplicativo lendo a tela de Ajuda?</string>
-    <string name="history_deleted">Histórico foi apagado com sucesso</string>
+    <string name="history_deleted">Histórico foi apagado com sucesso.</string>
     <string name="help_title_how_to_use_color_presets">Como usar predefinições de cores?</string>
     <string name="help_title_how_to_use_tooltip">Como usar dicas?</string>
     <string name="press_again_toast">Voltar para sair</string>
@@ -352,11 +352,22 @@
     <string name="path_changed">O caminho do arquivo foi alterado com sucesso.</string>
     <string name="expand_content_desc">Expandir</string>
     <string name="collapse_content_desc">Colapsar</string>
-    <string name="browse_scan_option_note">Estas pastas serão usadas para escanear e</string>
+    <string name="browse_scan_option_note">Estas pastas serão usadas para escanear e buscar arquivos na seção \"Explorar\". Remover uma pasta daqui não excluirá os arquivos em si ou os livros da Biblioteca. Para remover o acesso, clique no botão correspondente.</string>
     <string name="start_scan_preferences">Preferência de varredura</string>
     <string name="add_folder">Adicionar pasta</string>
     <string name="set_up_scanning">Configurar varredura</string>
     <string name="scan_browse_settings">Varredura</string>
     <string name="note_content_desc">Nota</string>
     <string name="remove_content_desc">Remover</string>
+    <string name="error_no_file_manager_app">Nenhum aplicativo para escolher a pasta foi encontrado.</string>
+    <string name="report">Reportar</string>
+    <string name="horizontal_gesture_alpha_anim_option">Animação de transição suave</string>
+    <string name="horizontal_gesture_alpha_anim_option_desc">Habilitar transição suave ao usar gesto horizontal</string>
+    <string name="horizontal_gesture_pull_anim_option">Animação de puxar</string>
+    <string name="crash_title">Ops! O aplicativo parou de funcionar.</string>
+    <string name="display_tab">Exibição</string>
+    <string name="display_settings">Exibição</string>
+    <string name="support_development_option">Apoiar o desenvolvimento</string>
+    <string name="crash_description">Por favor, reporte essa mensagem de erro da forma que lhe for mais conveniente.</string>
+    <string name="horizontal_gesture_pull_anim_option_desc">Habilitar animação de puxar ao usar gesto horizontal</string>
 </resources>
