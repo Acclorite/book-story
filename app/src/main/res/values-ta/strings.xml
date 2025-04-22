@@ -196,7 +196,7 @@
     <string name="general_tab">பொது</string>
     <string name="filter_browse_settings">வடிப்பி</string>
     <string name="sort_browse_settings">வரிசைப்படுத்து</string>
-    <string name="pure_dark_option">தூய இருண்ட (OLED)</string>
+    <string name="pure_dark_option">தூய இருண்ட</string>
     <string name="absolute_dark_option">முழுமையான இருண்ட</string>
     <string name="theme_contrast_option">கருப்பொருள் மாறுபாடு</string>
     <string name="app_theme_option">பயன்பாட்டு கருப்பொருள்</string>

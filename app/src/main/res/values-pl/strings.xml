@@ -79,7 +79,7 @@
     <string name="general_settings_desc">Język aplikacji</string>
     <string name="misc_reader_settings">Różne</string>
     <string name="dark_theme_option">Ciemny motyw</string>
-    <string name="pure_dark_option">Czysta ciemność (OLED)</string>
+    <string name="pure_dark_option">Czysta ciemność</string>
     <string name="absolute_dark_option">Absolutna ciemność</string>
     <string name="absolute_dark_option_desc">Zmień kolor tła na całkowicie czarny</string>
     <string name="theme_contrast_option">Kontrast motywu</string>

@@ -218,7 +218,7 @@
     <string name="sort_browse_settings">Trier</string>
     <string name="language_option">Langue de l\'application</string>
     <string name="dark_theme_option">Thème sombre</string>
-    <string name="pure_dark_option">Noir pur (OLED)</string>
+    <string name="pure_dark_option">Noir pur</string>
     <string name="app_theme_option">Thème de l\'application</string>
     <string name="double_press_exit_option">Double retour en arrière pour sortir</string>
     <string name="paragraph_height_option">Hauteur du paragraphe</string>

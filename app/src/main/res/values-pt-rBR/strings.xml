@@ -182,7 +182,7 @@
     <string name="exit_search_content_desc">Fechar pesquisa</string>
     <string name="app_icon_content_desc">Ícone do App</string>
     <string name="add_book">Adicione um livro</string>
-    <string name="pure_dark_option">Preto puro (OLED)</string>
+    <string name="pure_dark_option">Preto puro</string>
     <string name="start_welcome">Boas vindas ao Book\'s Story!</string>
     <string name="shuffle_color_preset_content_desc">Sortear cores</string>
     <string name="delete_cover">Apagar imagem da capa</string>

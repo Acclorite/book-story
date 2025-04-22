@@ -152,7 +152,7 @@
     <string name="color_tab">Barvy</string>
     <string name="sort_tab">Řadit</string>
     <string name="general_settings">Obecné</string>
-    <string name="pure_dark_option">Úplně tmavé (OLED)</string>
+    <string name="pure_dark_option">Úplně tmavé</string>
     <string name="browse_settings_desc">Obecné, filtr, řadit</string>
     <string name="font_reader_settings">Font</string>
     <string name="text_reader_settings">Text</string>

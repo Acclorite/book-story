@@ -165,7 +165,7 @@
     <string name="colors_appearance_settings">Farben</string>
     <string name="language_option">App-Sprache</string>
     <string name="dark_theme_option">Dunkles Design</string>
-    <string name="pure_dark_option">Reines Dunkel (OLED)</string>
+    <string name="pure_dark_option">Reines Dunkel</string>
     <string name="theme_contrast_standard">Standard</string>
     <string name="theme_contrast_medium">Medium</string>
     <string name="theme_contrast_high">Hoch</string>

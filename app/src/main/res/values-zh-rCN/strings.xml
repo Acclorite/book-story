@@ -75,7 +75,7 @@
     <string name="text_reader_settings">文本</string>
     <string name="theme_appearance_settings">主题偏好</string>
     <string name="language_option">应用语言</string>
-    <string name="pure_dark_option">纯黑（OLED）</string>
+    <string name="pure_dark_option">纯黑</string>
     <string name="theme_contrast_option">主题对比</string>
     <string name="double_press_exit_option">双击返回退出</string>
     <string name="double_press_exit_option_desc">双击返回退出应用</string>

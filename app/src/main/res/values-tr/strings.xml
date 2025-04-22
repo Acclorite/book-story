@@ -145,7 +145,7 @@
     <!-- General -->
     <string name="language_option">Uygulama dili</string>
     <string name="dark_theme_option">Karanlık tema</string>
-    <string name="pure_dark_option">Saf karanlık (OLED)</string>
+    <string name="pure_dark_option">Saf karanlık</string>
     <string name="absolute_dark_option">Mutlak karanlık</string>
     <string name="absolute_dark_option_desc">Arka plan rengini tamamen siyah yap</string>
     <string name="theme_contrast_option">Tema kontrastı</string>

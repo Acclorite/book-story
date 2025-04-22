@@ -91,7 +91,7 @@
     <string name="reset_cover">कवर छवि रीसेट करें</string>
     <string name="change_cover">कवर छवि बदलें</string>
     <string name="dark_theme_option">डार्क थीम</string>
-    <string name="pure_dark_option">शुद्ध डार्क (OLED)</string>
+    <string name="pure_dark_option">शुद्ध डार्क</string>
     <string name="absolute_dark_option">पूर्ण डार्क</string>
     <string name="absolute_dark_option_desc">पृष्ठभूमि का रंग पूरी तरह से काला करें</string>
     <string name="theme_contrast_option">थीम कंट्रास्ट</string>

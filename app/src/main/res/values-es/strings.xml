@@ -39,7 +39,7 @@
     <string name="dropped_tab">Abandonado</string>
     <string name="language_option">Lenguaje de la aplicación</string>
     <string name="dark_theme_option">Tema oscuro</string>
-    <string name="pure_dark_option">Oscuro puro (OLED)</string>
+    <string name="pure_dark_option">Oscuro puro</string>
     <string name="theme_contrast_option">Contraste del tema</string>
     <string name="font_family_option">Familia de fuente</string>
     <string name="font_style_option">Estilo de fuente</string>

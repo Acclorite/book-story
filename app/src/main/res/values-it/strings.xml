@@ -209,7 +209,7 @@
     <string name="clear_selected_items_content_desc">Cancella gli elementi selezionati</string>
     <string name="revert_content_desc">Ripristina</string>
     <string name="reading_mode_reader_settings">Modalità di lettura</string>
-    <string name="pure_dark_option">Buio puro (OLED)</string>
+    <string name="pure_dark_option">Buio puro</string>
     <string name="double_press_exit_option_desc">Premi indietro due volte per uscire dall\'app</string>
     <string name="keep_screen_on_option">Mantieni lo schermo acceso</string>
     <string name="help_title_how_to_customize_app">Come posso personalizzare l\'app?</string>
