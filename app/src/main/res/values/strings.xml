@@ -558,10 +558,10 @@
     <string name="start_language_preferences">Language preferences</string>
     <string name="start_theme_preferences">Theme preferences</string>
     <string name="start_scan_preferences">Scan preferences</string>
-    <string name="start_done">Everything\'s done!</string>
+    <string name="start_done">Everything is done!</string>
     <string name="start_done_desc">
-        You\'re successfully done basic setting of the app.
-        Would you like to learn how to use the app by reading Help screen?
+        Setup completed.
+        Would you like to go to the Help screen?
     </string>
 
     <!-- History -->
