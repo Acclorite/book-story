@@ -427,7 +427,10 @@
     <string name="start_theme_preferences">Налаштування теми</string>
     <string name="start_scan_preferences">Налаштування сканування</string>
     <string name="start_done">Все готово!</string>
-    <string name="start_done_desc">Ви успішно закінчили базове налаштовування застосунку. Бажаєте дізнатися, як користуватися застосунком, прочитавши екран Довідки?</string>
+    <string name="start_done_desc">
+        Налаштування завершено.
+        Бажаєте перейти до екрана Довідки?
+    </string>
 
     <!-- History -->
     <string name="today">Сьогодні</string>
