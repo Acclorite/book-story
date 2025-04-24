@@ -84,7 +84,7 @@ aboutLibraries {
 dependencies {
 
     // Core
-    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.core:core-ktx:1.16.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
     implementation("androidx.activity:activity-compose:1.10.1")
 
@@ -115,11 +115,11 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     // Room
-    implementation("androidx.room:room-runtime:2.6.1")
-    ksp("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-runtime:2.7.1")
+    ksp("androidx.room:room-compiler:2.7.1")
 
     // Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.6.1")
+    implementation("androidx.room:room-ktx:2.7.1")
 
     // Datastore (Settings)
     implementation("androidx.datastore:datastore-preferences:1.1.3")
@@ -137,7 +137,7 @@ dependencies {
     implementation("org.jsoup:jsoup:1.18.3")
 
     // FB2 parser
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.1")
 
     // Language Switcher
     implementation("androidx.appcompat:appcompat:1.7.0")
