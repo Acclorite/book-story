@@ -475,10 +475,7 @@
     <string name="start_language_preferences">Dil tercihleri</string>
     <string name="start_theme_preferences">Tema tercihleri</string>
     <string name="start_done">Her şey tamam!</string>
-    <string name="start_done_desc">
-        Uygulamanın temel ayarlarını başarıyla tamamladınız.
-        Yardım ekranını okuyarak uygulamayı nasıl kullanacağınızı öğrenmek ister misiniz?
-    </string>
+    <string name="start_done_desc">Uygulamanın temel ayarlarını başarıyla tamamladınız. Yardım ekranını okuyarak uygulamayı nasıl kullanacağınızı öğrenmek ister misiniz?</string>
     <!-- History -->
     <string name="today">Bugün</string>
     <string name="yesterday">Dün</string>
