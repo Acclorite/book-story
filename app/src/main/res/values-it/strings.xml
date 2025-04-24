@@ -360,4 +360,12 @@
     <string name="scan_browse_settings">Scansiona</string>
     <string name="set_up_scanning">Imposta la scansione</string>
     <string name="support_development_option">Sostieni lo sviluppo</string>
+    <string name="horizontal_gesture_alpha_anim_option">Visibilità animazione</string>
+    <string name="error_no_file_manager_app">Nessuna app trovata per scegliere la cartella.</string>
+    <string name="report">Rapporto</string>
+    <string name="horizontal_gesture_pull_anim_option">Spingi animazione</string>
+    <string name="crash_title">Oops! L\'applicazione è andata in crash.</string>
+    <string name="crash_description">Segnala questo messaggio di arresto anomalo nel modo più comodo per te.</string>
+    <string name="horizontal_gesture_alpha_anim_option_desc">Abilita visibilità dell\'animazione quando si utilizza il gesto orizzontale</string>
+    <string name="horizontal_gesture_pull_anim_option_desc">Abilita l\'animazione di trazione quando si utilizza il gesto orizzontale</string>
 </resources>
