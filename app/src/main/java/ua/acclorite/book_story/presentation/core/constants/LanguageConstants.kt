@@ -25,4 +25,5 @@ fun provideLanguages() = listOf(
     Pair("cs", "Čeština"),
     Pair("ro", "Română"),
     Pair("be", "Беларуская"),
+    Pair("ja", "日本語"),
 )
