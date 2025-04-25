@@ -43,7 +43,7 @@ class BookMapperImpl @Inject constructor() : BookMapper {
             filePath = bookEntity.filePath,
             lastOpened = null,
             category = bookEntity.category,
-            coverImage = if (bookEntity.image != null) bookEntity.image.toUri() else null
+            coverImage = bookEntity.image?.toUri()
         )
     }
 }

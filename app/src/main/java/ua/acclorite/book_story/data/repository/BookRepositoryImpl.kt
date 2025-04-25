@@ -192,7 +192,7 @@ class BookRepositoryImpl @Inject constructor(
             listOf(
                 bookMapper.toBookEntity(
                     book.copy(
-                        coverImage = if (entity.image != null) entity.image.toUri() else null
+                        coverImage = entity.image?.toUri()
                     )
                 )
             )

@@ -54,7 +54,7 @@
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|locale|density|uiMode"
             android:exported="false"
             android:theme="@style/BookStory"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
 
         <!-- Save app locales -->
         <service
