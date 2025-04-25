@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
@@ -275,7 +274,7 @@
     <string name="filter_content_desc">Filtro</string>
     <string name="help_desc_how_to_customize_reader_3">e seleziona la categoria Lettore per personalizzare le impostazioni generali oppure la categoria Aspetto per personalizzare le impostazioni Colori.</string>
     <string name="help_title_how_to_use_double_click_translation">Come si usa la traduzione con doppio clic?</string>
-    <string name="start_done_desc">Hai completato con successo le impostazioni di base dell\'app. Vuoi imparare a usare l\'app leggendo la schermata di Aiuto?</string>
+    <string name="start_done_desc">Configurazione completata. Vuoi andare alla schermata di Aiuto?</string>
     <string name="add_files_content_desc">Aggiungi file</string>
     <string name="library_content_desc">La tua libreria</string>
     <string name="reset_start_content_desc">Ripristina la guida all\'avvio</string>
