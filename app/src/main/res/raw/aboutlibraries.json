@@ -669,13 +669,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.15.0",
+      "artifactVersion": "1.16.0",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Core",
-      "website": "https://developer.android.com/jetpack/androidx/releases/core#1.15.0",
+      "website": "https://developer.android.com/jetpack/androidx/releases/core#1.16.0",
       "licenses": [
         "Apache-2.0"
       ],
@@ -690,13 +690,13 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "1.15.0",
+      "artifactVersion": "1.16.0",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Core Kotlin Extensions",
-      "website": "https://developer.android.com/jetpack/androidx/releases/core#1.15.0",
+      "website": "https://developer.android.com/jetpack/androidx/releases/core#1.16.0",
       "licenses": [
         "Apache-2.0"
       ],
@@ -1599,22 +1599,25 @@
       ]
     },
     {
-      "uniqueId": "androidx.room:room-common",
+      "uniqueId": "androidx.room:room-common-jvm",
       "developers": [
         {
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "2.6.1",
+      "artifactVersion": "2.7.1",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Room-Common",
-      "website": "https://developer.android.com/jetpack/androidx/releases/room#2.6.1",
+      "website": "https://developer.android.com/jetpack/androidx/releases/room#2.7.1",
       "licenses": [
         "Apache-2.0"
-      ]
+      ],
+      "organization": {
+        "name": "The Android Open Source Project"
+      }
     },
     {
       "uniqueId": "androidx.room:room-ktx",
@@ -1623,34 +1626,40 @@
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "2.6.1",
+      "artifactVersion": "2.7.1",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Room Kotlin Extensions",
-      "website": "https://developer.android.com/jetpack/androidx/releases/room#2.6.1",
+      "website": "https://developer.android.com/jetpack/androidx/releases/room#2.7.1",
       "licenses": [
         "Apache-2.0"
-      ]
+      ],
+      "organization": {
+        "name": "The Android Open Source Project"
+      }
     },
     {
-      "uniqueId": "androidx.room:room-runtime",
+      "uniqueId": "androidx.room:room-runtime-android",
       "developers": [
         {
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "2.6.1",
+      "artifactVersion": "2.7.1",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "Room-Runtime",
-      "website": "https://developer.android.com/jetpack/androidx/releases/room#2.6.1",
+      "website": "https://developer.android.com/jetpack/androidx/releases/room#2.7.1",
       "licenses": [
         "Apache-2.0"
-      ]
+      ],
+      "organization": {
+        "name": "The Android Open Source Project"
+      }
     },
     {
       "uniqueId": "androidx.savedstate:savedstate",
@@ -1689,40 +1698,46 @@
       ]
     },
     {
-      "uniqueId": "androidx.sqlite:sqlite",
+      "uniqueId": "androidx.sqlite:sqlite-android",
       "developers": [
         {
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "2.4.0",
+      "artifactVersion": "2.5.0",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "SQLite",
-      "website": "https://developer.android.com/jetpack/androidx/releases/sqlite#2.4.0",
+      "website": "https://developer.android.com/jetpack/androidx/releases/sqlite#2.5.0",
       "licenses": [
         "Apache-2.0"
-      ]
+      ],
+      "organization": {
+        "name": "The Android Open Source Project"
+      }
     },
     {
-      "uniqueId": "androidx.sqlite:sqlite-framework",
+      "uniqueId": "androidx.sqlite:sqlite-framework-android",
       "developers": [
         {
           "name": "The Android Open Source Project"
         }
       ],
-      "artifactVersion": "2.4.0",
+      "artifactVersion": "2.5.0",
       "scm": {
         "connection": "scm:git:https://android.googlesource.com/platform/frameworks/support",
         "url": "https://cs.android.com/androidx/platform/frameworks/support"
       },
       "name": "SQLite Framework Integration",
-      "website": "https://developer.android.com/jetpack/androidx/releases/sqlite#2.4.0",
+      "website": "https://developer.android.com/jetpack/androidx/releases/sqlite#2.5.0",
       "licenses": [
         "Apache-2.0"
-      ]
+      ],
+      "organization": {
+        "name": "The Android Open Source Project"
+      }
     },
     {
       "uniqueId": "androidx.startup:startup-runtime",
@@ -2684,7 +2699,7 @@
           "name": "Kotlin Team"
         }
       ],
-      "artifactVersion": "2.1.10",
+      "artifactVersion": "2.1.20",
       "scm": {
         "connection": "scm:git:https://github.com/JetBrains/kotlin.git",
         "url": "https://github.com/JetBrains/kotlin",
@@ -2834,7 +2849,7 @@
           "name": "JetBrains Team"
         }
       ],
-      "artifactVersion": "1.8.0",
+      "artifactVersion": "1.8.1",
       "scm": {
         "url": "https://github.com/Kotlin/kotlinx.serialization"
       },
@@ -2852,7 +2867,7 @@
           "name": "JetBrains Team"
         }
       ],
-      "artifactVersion": "1.8.0",
+      "artifactVersion": "1.8.1",
       "scm": {
         "url": "https://github.com/Kotlin/kotlinx.serialization"
       },
@@ -2870,7 +2885,7 @@
           "name": "JetBrains Team"
         }
       ],
-      "artifactVersion": "1.8.0",
+      "artifactVersion": "1.8.1",
       "scm": {
         "url": "https://github.com/Kotlin/kotlinx.serialization"
       },
