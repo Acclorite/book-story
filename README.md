@@ -53,7 +53,7 @@ open-source, offering you a personalized, ad-free journey through your favorite 
 
 <!------------ Features ------------>
 
-## ✨ Features
+## 🔮 Features
 
 - Storage Access Framework
 - 7 supported file formats(.pdf, .txt, .epub, .fb2, .html, .htm, .md)
@@ -65,11 +65,11 @@ open-source, offering you a personalized, ad-free journey through your favorite 
 
 <!------------ Download guide ------------>
 
-## ✈️ Download
+## 🚚 Downloads
 
-- _Please note, that the app supports Android versions only from Android 8.0_
+- _The app supports only Android versions from **Android 8.0** and above_
 
-<div align="left">
+<div>
 
 [<img src="https://raw.githubusercontent.com/Kunzisoft/Github-badge/main/get-it-on-github.png" alt='Get it on GitHub' height="80">](https://github.com/Acclorite/book-story/releases/latest)
 [<img src="https://censorship.no/img/gitlab-badge.png" alt='Get it on GitLab' height="80">](https://gitlab.com/Acclorite/book-story/-/releases)
@@ -80,7 +80,7 @@ open-source, offering you a personalized, ad-free journey through your favorite 
 
 ---
 
-### 📲 How to download and install
+### 📲 How to install
 
 - _**Installing from GitHub, GitLab, Codeberg**_: Click the "Get it on ..." badge above, select
   desired release, scroll down, and download
@@ -91,23 +91,12 @@ open-source, offering you a personalized, ad-free journey through your favorite 
 - _**Installing from IzzyOnDroid**_: Click the "Get it on IzzyOnDroid" badge above, scroll down, and
   click "Download" to get the latest APK from IzzyOnDroid. Once downloaded, locate the file and
   install it.
-- If you're unsure how to install an APK file,
-  follow [this](https://www.lifewire.com/install-apk-on-android-4177185) guide.
-
----
-
-### 🧭 Afterwards
-
-Open the app and follow the basic instructions. If you're unsure how to use the app, refer to the
-Help screen (accessible via: Library, History, Browse → Three Dots → Help). If you still have
-questions, feel free to ask me anywhere (for example, *Discussions*
-or [Matrix server](https://matrix.to/#/#book-story:matrix.org)).
 
 ---
 
 <!------------ Translation ------------>
 
-## 🌐 Translation
+## 📜 Translation
 
 [<img src="https://hosted.weblate.org/widget/book-story/book-story-translation/horizontal-auto.svg" alt="Translation progress">](https://hosted.weblate.org/engage/book-story/)
 <br/>
