@@ -1,0 +1,3 @@
+* New languages: Japanese
+* Crash screen (catches crashes)
+* Various bug fixes and small improvements
