@@ -23,8 +23,9 @@ import ua.acclorite.book_story.domain.navigator.Screen
 import ua.acclorite.book_story.presentation.book_info.BookInfoContent
 import ua.acclorite.book_story.presentation.navigator.LocalNavigator
 import ua.acclorite.book_story.ui.history.HistoryScreen
-import ua.acclorite.book_story.ui.library.LibraryScreen
 import ua.acclorite.book_story.ui.reader.ReaderScreen
+import ua.acclorite.book_story.ui.settings.LibrarySettingsScreen
+import ua.acclorite.book_story.ui.settings.SettingsModel
 
 @Parcelize
 data class BookInfoScreen(val bookId: Int) : Screen, Parcelable {
@@ -47,7 +48,9 @@ data class BookInfoScreen(val bookId: Int) : Screen, Parcelable {
     override fun Content() {
         val navigator = LocalNavigator.current
         val screenModel = hiltViewModel<BookInfoModel>()
+        val settingsModel = hiltViewModel<SettingsModel>()
 
+        val settingsState = settingsModel.state.collectAsStateWithLifecycle()
         val state = screenModel.state.collectAsStateWithLifecycle()
         val listState = rememberLazyListState()
 
@@ -72,6 +75,7 @@ data class BookInfoScreen(val bookId: Int) : Screen, Parcelable {
         if (state.value.book.id == bookId) {
             BookInfoContent(
                 book = state.value.book,
+                categories = settingsState.value.categories,
                 bottomSheet = state.value.bottomSheet,
                 dialog = state.value.dialog,
                 listState = listState,
@@ -102,12 +106,8 @@ data class BookInfoScreen(val bookId: Int) : Screen, Parcelable {
                         navigator.push(ReaderScreen(state.value.book.id))
                     }
                 },
-                navigateToLibrary = {
-                    navigator.push(
-                        LibraryScreen,
-                        popping = true,
-                        saveInBackStack = false
-                    )
+                navigateToLibrarySettings = {
+                    navigator.push(LibrarySettingsScreen)
                 },
                 navigateBack = {
                     navigator.pop()

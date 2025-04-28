@@ -9,9 +9,8 @@ package ua.acclorite.book_story.domain.library.category
 import androidx.compose.runtime.Immutable
 
 @Immutable
-enum class Category {
-    READING,
-    ALREADY_READ,
-    PLANNING,
-    DROPPED
-}
+data class Category(
+    val id: Int = 0,
+    val title: String,
+    val order: Int = 0
+)

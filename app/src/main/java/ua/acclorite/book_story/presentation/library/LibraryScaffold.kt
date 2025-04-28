@@ -18,14 +18,25 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import ua.acclorite.book_story.domain.library.category.CategoryWithBooks
+import ua.acclorite.book_story.domain.library.book.SelectableBook
+import ua.acclorite.book_story.domain.library.category.Category
+import ua.acclorite.book_story.domain.library.category.CategorySort
+import ua.acclorite.book_story.domain.library.display.LibraryLayout
+import ua.acclorite.book_story.domain.library.display.LibrarySortOrder
+import ua.acclorite.book_story.domain.library.display.LibraryTitlePosition
 import ua.acclorite.book_story.ui.library.LibraryEvent
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun LibraryScaffold(
+    books: List<SelectableBook>,
     selectedItemsCount: Int,
     hasSelectedItems: Boolean,
+    titlePosition: LibraryTitlePosition,
+    readButton: Boolean,
+    showProgress: Boolean,
+    showCategoryTabs: Boolean,
+    showBookCount: Boolean,
     showSearch: Boolean,
     searchQuery: String,
     bookCount: Int,
@@ -34,7 +45,15 @@ fun LibraryScaffold(
     isLoading: Boolean,
     isRefreshing: Boolean,
     refreshState: PullRefreshState,
-    categories: List<CategoryWithBooks>,
+    layout: LibraryLayout,
+    gridSize: Int,
+    autoGridSize: Boolean,
+    categories: List<Category>,
+    showDefaultCategory: Boolean,
+    perCategorySort: Boolean,
+    categoriesSort: List<CategorySort>,
+    sortOrder: LibrarySortOrder,
+    sortOrderDescending: Boolean,
     searchVisibility: (LibraryEvent.OnSearchVisibility) -> Unit,
     selectBook: (LibraryEvent.OnSelectBook) -> Unit,
     requestFocus: (LibraryEvent.OnRequestFocus) -> Unit,
@@ -43,6 +62,7 @@ fun LibraryScaffold(
     clearSelectedBooks: (LibraryEvent.OnClearSelectedBooks) -> Unit,
     showMoveDialog: (LibraryEvent.OnShowMoveDialog) -> Unit,
     showDeleteDialog: (LibraryEvent.OnShowDeleteDialog) -> Unit,
+    showFilterBottomSheet: (LibraryEvent.OnShowFilterBottomSheet) -> Unit,
     navigateToBrowse: () -> Unit,
     navigateToBookInfo: (id: Int) -> Unit,
     navigateToReader: (id: Int) -> Unit,
@@ -54,8 +74,11 @@ fun LibraryScaffold(
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             LibraryTopBar(
+                books = books,
                 selectedItemsCount = selectedItemsCount,
                 hasSelectedItems = hasSelectedItems,
+                showBookCount = showBookCount,
+                showCategoryTabs = showCategoryTabs,
                 showSearch = showSearch,
                 searchQuery = searchQuery,
                 bookCount = bookCount,
@@ -64,13 +87,15 @@ fun LibraryScaffold(
                 isLoading = isLoading,
                 isRefreshing = isRefreshing,
                 categories = categories,
+                showDefaultCategory = showDefaultCategory,
                 searchVisibility = searchVisibility,
                 requestFocus = requestFocus,
                 searchQueryChange = searchQueryChange,
                 search = search,
                 clearSelectedBooks = clearSelectedBooks,
                 showMoveDialog = showMoveDialog,
-                showDeleteDialog = showDeleteDialog
+                showDeleteDialog = showDeleteDialog,
+                showFilterBottomSheet = showFilterBottomSheet
             )
         }
     ) { paddingValues ->
@@ -80,15 +105,27 @@ fun LibraryScaffold(
                 .padding(top = paddingValues.calculateTopPadding())
         ) {
             LibraryPager(
+                books = books,
                 pagerState = pagerState,
                 categories = categories,
+                showDefaultCategory = showDefaultCategory,
+                perCategorySort = perCategorySort,
+                categoriesSort = categoriesSort,
+                sortOrder = sortOrder,
+                sortOrderDescending = sortOrderDescending,
+                layout = layout,
+                gridSize = gridSize,
+                autoGridSize = autoGridSize,
                 hasSelectedItems = hasSelectedItems,
+                titlePosition = titlePosition,
+                readButton = readButton,
+                showProgress = showProgress,
                 isLoading = isLoading,
                 isRefreshing = isRefreshing,
                 selectBook = selectBook,
                 navigateToBrowse = navigateToBrowse,
                 navigateToReader = navigateToReader,
-                navigateToBookInfo = navigateToBookInfo,
+                navigateToBookInfo = navigateToBookInfo
             )
 
             LibraryRefreshIndicator(

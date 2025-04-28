@@ -20,22 +20,16 @@
 
     <!-- Dialog Labels -->
     <string name="add_books">Add books?</string>
-    <string name="move_books">Move books?</string>
     <string name="delete_books">Delete books?</string>
     <string name="delete_book">Delete book?</string>
-    <string name="move_book">Move book?</string>
     <string name="delete_history">Delete reading history?</string>
-    <string name="edit">Edit</string>
+    <string name="remove_category">Remove category?</string>
 
     <!-- Dialog Descriptions -->
     <string name="add_books_description">
         You can choose which books you want to add.
         You can edit Title and Cover image of the book later.
         The loading process can take up to several minutes.
-    </string>
-    <string name="move_books_description">
-        Choose the category to which you want to move all the selected books(%1$s).
-        All selected books will be moved to the selected category.
     </string>
     <string name="delete_books_description">
         It will delete all selected books(%1$s) from the database.
@@ -45,13 +39,12 @@
         It will delete this book from the database.
         It will not delete this book from your device.
     </string>
-    <string name="move_book_description">
-        Choose the category to which you want to move this book.
-        This book will be moved to the selected category.
-    </string>
     <string name="delete_history_description">
         It will delete the whole history from the database.
         After deleting the whole history, the order of the books will be reset.
+    </string>
+    <string name="remove_category_description">
+        This will remove this category from the Library but will not delete any books.
     </string>
 
     <!-- Errors -->
@@ -69,6 +62,7 @@
     <string name="error_could_not_reset_cover">Could not reset cover image.</string>
     <string name="error_closed_source">Closed source</string>
     <string name="error_no_file">File does not exist or inaccessible</string>
+    <string name="error_field_empty">This field should not be empty.</string>
 
     <!-- Is Empty messages -->
     <string name="search_field_empty">
@@ -83,6 +77,7 @@
     <string name="history_empty">
         Let your last book you read open the pages of a new great story of your reading journey
     </string>
+    <string name="categories_empty">No categories.</string>
 
     <!-- Query strings -->
     <string name="selected_items_count_query">%1$s selected</string>
@@ -109,6 +104,8 @@
     <string name="ok">OK</string>
     <string name="change_path">Change path</string>
     <string name="add_folder">Add folder</string>
+    <string name="edit">Edit</string>
+    <string name="create_category">Create category</string>
     <string name="set_up_scanning">Set up scanning</string>
 
     <!-- Book -->
@@ -122,10 +119,7 @@
     <string name="author">Author</string>
 
     <!-- Tabs -->
-    <string name="reading_tab">Reading</string>
-    <string name="already_read_tab">Already Read</string>
-    <string name="planning_tab">Planning</string>
-    <string name="dropped_tab">Dropped</string>
+    <string name="default_tab">Default</string>
     <string name="general_tab">General</string>
     <string name="display_tab">Display</string>
     <string name="color_tab">Colors</string>
@@ -139,9 +133,11 @@
     <string name="appearance_settings">Appearance</string>
     <string name="appearance_settings_desc">Theme, colors</string>
     <string name="reader_settings">Reader</string>
-    <string name="reader_settings_desc">Font, text, translator</string>
+    <string name="reader_settings_desc">Font, text</string>
     <string name="browse_settings">Browse</string>
-    <string name="browse_settings_desc">General, filter, sort</string>
+    <string name="browse_settings_desc">Scan, display</string>
+    <string name="library_settings">Library</string>
+    <string name="library_settings_desc">Categories, display, tabs</string>
 
     <!-- Settings subcategories -->
     <string name="font_reader_settings">Font</string>
@@ -159,14 +155,22 @@
     <string name="colors_appearance_settings">Colors</string>
     <string name="scan_browse_settings">Scan</string>
     <string name="display_settings">Display</string>
+    <string name="tabs_settings">Tabs</string>
+    <string name="categories_settings">Categories</string>
     <string name="filter_browse_settings">Filter</string>
-    <string name="sort_browse_settings">Sort</string>
+    <string name="sort_settings">Sort</string>
 
     <!-- Settings notes -->
     <string name="browse_scan_option_note">
         These folders are used to scan and retrieve files in the Browse.
         Removing a folder here will not delete actual files or books from the Library.
         To revoke access, click the corresponding button.
+    </string>
+    <string name="library_categories_option_note">
+        Initially, books are added to the default category,
+        but can belong to several custom categories created here.
+        Removing a category here will not delete books from the Library.
+        Hold and move the category icon to rearrange the categories.
     </string>
 
     <!-- Settings options -->
@@ -244,8 +248,14 @@
     <string name="progress_bar_font_size_option">Font size</string>
     <string name="progress_count_option">Progress count</string>
 
-    <!-- Browse -->
-    <string name="browse_grid_size_option">Grid size</string>
+    <!-- Library -->
+    <string name="read_button_option">Show «Read» button</string>
+    <string name="show_progress_option">Show progress</string>
+    <string name="title_position_option">Title position</string>
+    <string name="show_book_count_option">Show book count</string>
+    <string name="show_category_tabs_option">Show category tabs</string>
+    <string name="always_show_default_tab_option">Always show default tab</string>
+    <string name="per_category_sort_option">Per-category sorting</string>
 
     <!-- Color presets -->
     <string name="red_color">Red</string>
@@ -272,20 +282,32 @@
     <string name="font_style_italic">Italic</string>
     <string name="font_style_normal">Normal</string>
 
-    <!-- Browse Grid Size properties -->
-    <string name="browse_grid_size_auto">Auto</string>
-    <string name="browse_grid_size_per_row">per row</string>
+    <!-- Library Title Position properties -->
+    <string name="library_title_position_off">Hidden</string>
+    <string name="library_title_position_below">Below</string>
+    <string name="library_title_position_inside">Inside</string>
 
-    <!-- Browse Sort Order properties -->
-    <string name="browse_sort_order_name">Alphabetically</string>
-    <string name="browse_sort_order_file_format">File format</string>
-    <string name="browse_sort_order_last_modified">Last modified</string>
-    <string name="browse_sort_order_file_size">File size</string>
+    <!-- Library Categories properties -->
+    <string name="library_categories_create_category_placeholder">Title</string>
 
     <!-- Layout properties -->
     <string name="layout_option">Display mode</string>
     <string name="layout_list">List</string>
     <string name="layout_grid">Grid</string>
+
+    <!-- Sort Order properties -->
+    <string name="sort_order_name">Alphabetically</string>
+    <string name="sort_order_file_format">File format</string>
+    <string name="sort_order_last_modified">Last modified</string>
+    <string name="sort_order_file_size">File size</string>
+    <string name="sort_order_last_read">Last read</string>
+    <string name="sort_order_progress">Progress</string>
+    <string name="sort_order_author">Author</string>
+
+    <!-- Grid Size properties -->
+    <string name="grid_size_option">Grid size</string>
+    <string name="grid_size_auto">Auto</string>
+    <string name="grid_size_per_row">per row</string>
 
     <!-- Alignment properties -->
     <string name="alignment_start">Start</string>
@@ -612,7 +634,7 @@
     <string name="pin_content_desc">Pin</string>
     <string name="show_less_content_desc">Show less</string>
     <string name="show_more_content_desc">Show more</string>
-    <string name="edit_content_desc">Edit field</string>
+    <string name="edit_content_desc">Edit</string>
     <string name="expand_content_desc">Expand</string>
     <string name="collapse_content_desc">Collapse</string>
     <string name="remove_content_desc">Remove</string>

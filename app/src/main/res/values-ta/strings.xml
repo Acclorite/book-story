@@ -4,13 +4,14 @@
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  --><resources>
+  -->
+
+<resources>
     <string name="drag_content_desc">பின்னிழுப்பு, பின்னிழுவிசை</string>
     <string name="filter_content_desc">வடிப்பி</string>
     <string name="library_screen">நூலகம்</string>
     <string name="history_screen">வரலாறு</string>
     <string name="add_books">புத்தகங்களைச் சேர்க்கவா?</string>
-    <string name="move_book_description">இந்த புத்தகத்தை நீங்கள் நகர்த்த விரும்பும் வகையைத் தேர்வுசெய்க. இந்த நூல் தேர்ந்தெடுக்கப்பட்ட வகைக்கு மாற்றப்படும்.</string>
     <string name="error_something_went_wrong">ஏதோ தவறு நடந்தது.</string>
     <string name="error_closed_source">மூடிய மூல</string>
     <string name="browse_empty">உங்கள் பதிவிறக்கங்களுடன் நூலகத்தின் புத்தக சேகரிப்பை விரிவாக்குங்கள்</string>
@@ -95,7 +96,7 @@
     <string name="share">பங்கு</string>
     <string name="never">ஒருபோதும்</string>
     <string name="layout_option">காட்சி முறை</string>
-    <string name="browse_sort_order_file_format">கோப்பு வடிவம்</string>
+    <string name="sort_order_file_format">கோப்பு வடிவம்</string>
     <string name="default_string">இயல்புநிலை</string>
     <string name="delete_history">வாசிப்பு வரலாற்றை நீக்கவா?</string>
     <string name="error_no_description">விளக்கம் இல்லை.</string>
@@ -138,8 +139,8 @@
     <string name="perception_expander_thickness_option">புலனுணர்வு விரிவாக்க வரி தடிமன்</string>
     <string name="layout_list">பட்டியல்</string>
     <string name="layout_grid">வலைவாய்</string>
-    <string name="browse_grid_size_auto">தானி</string>
-    <string name="browse_grid_size_per_row">ஒரு வரிசையில்</string>
+    <string name="grid_size_auto">தானி</string>
+    <string name="grid_size_per_row">ஒரு வரிசையில்</string>
     <string name="alignment_center">நடுவண்</string>
     <string name="help_title_how_to_edit_book">நான் ஒரு புத்தகத்தை எவ்வாறு திருத்துவது?</string>
     <string name="help_desc_how_to_edit_book_2">நூலகம்</string>
@@ -170,12 +171,9 @@
     <string name="settings_screen">அமைப்புகள்</string>
     <string name="about_screen">பயன்பாடு பற்றி</string>
     <string name="help_screen">உதவி</string>
-    <string name="move_books">புத்தகங்களை நகர்த்தவா?</string>
     <string name="delete_books">புத்தகங்களை நீக்கவா?</string>
     <string name="delete_book">புத்தகத்தை நீக்கவா?</string>
-    <string name="move_book">புத்தகத்தை நகர்த்தவா?</string>
     <string name="add_books_description">நீங்கள் எந்த புத்தகங்களைச் சேர்க்க விரும்புகிறீர்கள் என்பதை நீங்கள் தேர்வு செய்யலாம். புத்தகத்தின் தலைப்பு மற்றும் படத்தை பின்னர் திருத்தலாம். ஏற்றுதல் செயல்முறை பல நிமிடங்கள் வரை ஆகலாம்.</string>
-    <string name="move_books_description">தேர்ந்தெடுக்கப்பட்ட அனைத்து புத்தகங்களையும் (%1$s) நகர்த்த விரும்பும் வகையைத் தேர்வுசெய்க. தேர்ந்தெடுக்கப்பட்ட அனைத்து புத்தகங்களும் தேர்ந்தெடுக்கப்பட்ட வகைக்கு மாற்றப்படும்.</string>
     <string name="delete_books_description">இது தரவுத்தளத்திலிருந்து தேர்ந்தெடுக்கப்பட்ட அனைத்து புத்தகங்களையும் (%1$s) நீக்கிவிடும். இது உங்கள் சாதனத்திலிருந்து தேர்ந்தெடுக்கப்பட்ட புத்தகங்களை நீக்காது.</string>
     <string name="delete_history_description">இது முழு வரலாற்றையும் தரவுத்தளத்திலிருந்து நீக்குகிறது. முழு வரலாற்றையும் நீக்கிய பிறகு, புத்தகங்களின் வரிசை மீட்டமைக்கப்படும்.</string>
     <string name="delete_book_description">இது இந்த புத்தகத்தை தரவுத்தளத்திலிருந்து நீக்கிவிடும். இது உங்கள் சாதனத்திலிருந்து இந்த புத்தகத்தை நீக்காது.</string>
@@ -190,13 +188,9 @@
     <string name="delete_cover">கவர் படத்தை நீக்கு</string>
     <string name="delete_cover_desc">புத்தகத்தின் தற்போதைய அட்டை படத்தை நீக்கு</string>
     <string name="author">நூலாசிரியர்</string>
-    <string name="reading_tab">படித்தல்</string>
-    <string name="already_read_tab">ஏற்கனவே படித்தார்</string>
-    <string name="planning_tab">திட்டமிடல்</string>
-    <string name="dropped_tab">கைவிடப்பட்டது</string>
     <string name="general_tab">பொது</string>
     <string name="filter_browse_settings">வடிப்பி</string>
-    <string name="sort_browse_settings">வரிசைப்படுத்து</string>
+    <string name="sort_settings">வரிசைப்படுத்து</string>
     <string name="pure_dark_option">தூய இருண்ட</string>
     <string name="absolute_dark_option">முழுமையான இருண்ட</string>
     <string name="theme_contrast_option">கருப்பொருள் மாறுபாடு</string>
@@ -211,7 +205,7 @@
     <string name="fast_color_preset_change_option_desc">வண்ண முன்னமைவை மாற்ற மேல் பட்டியை இடது அல்லது வலதுபுறமாக ச்வைப் செய்யவும்</string>
     <string name="letter_spacing_option">கடிதம் இடைவெளி</string>
     <string name="screen_orientation_option">திரை நோக்குநிலை</string>
-    <string name="browse_grid_size_option">கட்டம் அளவு</string>
+    <string name="grid_size_option">கட்டம் அளவு</string>
     <string name="red_color">சிவப்பு</string>
     <string name="green_color">பச்சை</string>
     <string name="blue_color">நீலம்</string>
@@ -220,9 +214,9 @@
     <string name="theme_contrast_high">உயர்ந்த</string>
     <string name="font_style_italic">சாய்வு</string>
     <string name="font_style_normal">சாதாரண</string>
-    <string name="browse_sort_order_name">அகரவரிசை</string>
-    <string name="browse_sort_order_last_modified">கடைசியாக மாற்றப்பட்டது</string>
-    <string name="browse_sort_order_file_size">கோப்பு அளவு</string>
+    <string name="sort_order_name">அகரவரிசை</string>
+    <string name="sort_order_last_modified">கடைசியாக மாற்றப்பட்டது</string>
+    <string name="sort_order_file_size">கோப்பு அளவு</string>
     <string name="alignment_start">தொடங்கு</string>
     <string name="alignment_justify">நியாயப்படுத்துங்கள்</string>
     <string name="screen_orientation_locked_portrait">பூட்டப்பட்ட உருவப்படம்</string>

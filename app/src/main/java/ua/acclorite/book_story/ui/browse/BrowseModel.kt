@@ -29,6 +29,7 @@ import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
 import ua.acclorite.book_story.domain.use_case.book.InsertBook
 import ua.acclorite.book_story.domain.use_case.file_system.GetBookFromFile
 import ua.acclorite.book_story.domain.use_case.file_system.GetFiles
+import ua.acclorite.book_story.presentation.core.util.compareByWithOrder
 import ua.acclorite.book_story.presentation.core.util.showToast
 import ua.acclorite.book_story.ui.library.LibraryScreen
 import javax.inject.Inject
@@ -419,16 +420,6 @@ class BrowseModel @Inject constructor(
         includedFilterItems: List<String>,
         sortOrder: BrowseSortOrder
     ): List<SelectableFile> {
-        fun <T> compareByWithOrder(
-            selector: (T) -> Comparable<*>?
-        ): Comparator<T> {
-            return if (sortOrderDescending) {
-                compareByDescending(selector)
-            } else {
-                compareBy(selector)
-            }
-        }
-
         fun List<SelectableFile>.filterFiles(): List<SelectableFile> {
             if (includedFilterItems.isEmpty()) {
                 return this
@@ -446,7 +437,7 @@ class BrowseModel @Inject constructor(
         return files
             .filterFiles()
             .sortedWith(
-                compareByWithOrder {
+                compareByWithOrder(sortOrderDescending) {
                     when (sortOrder) {
                         BrowseSortOrder.NAME -> {
                             it.data.name.trim()

@@ -19,7 +19,7 @@ import ua.acclorite.book_story.presentation.settings.components.SettingsSubcateg
 
 fun LazyListScope.BrowseSortSubcategory(
     titleColor: @Composable () -> Color = { MaterialTheme.colorScheme.primary },
-    title: @Composable () -> String = { stringResource(id = R.string.sort_browse_settings) },
+    title: @Composable () -> String = { stringResource(id = R.string.sort_settings) },
     showTitle: Boolean = true,
     showDivider: Boolean = true
 ) {

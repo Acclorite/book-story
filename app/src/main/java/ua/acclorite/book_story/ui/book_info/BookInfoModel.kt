@@ -21,7 +21,6 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.library.category.Category
 import ua.acclorite.book_story.domain.use_case.book.CanResetCover
 import ua.acclorite.book_story.domain.use_case.book.DeleteBooks
 import ua.acclorite.book_story.domain.use_case.book.GetBookById
@@ -357,34 +356,22 @@ class BookInfoModel @Inject constructor(
                     launch {
                         _state.update {
                             it.copy(
+                                book = it.book.copy(
+                                    categories = event.selectedCategories.map { it.id }
+                                ),
                                 dialog = null,
                                 bottomSheet = null
-                            )
-                        }
-
-                        _state.update {
-                            it.copy(
-                                book = it.book.copy(
-                                    category = event.category
-                                )
                             )
                         }
                         updateBook.execute(_state.value.book)
 
                         LibraryScreen.refreshListChannel.trySend(0)
-                        LibraryScreen.scrollToPageCompositionChannel.trySend(
-                            Category.entries.dropLastWhile {
-                                it != event.category
-                            }.size - 1
-                        )
                         HistoryScreen.refreshListChannel.trySend(0)
 
                         withContext(Dispatchers.Main) {
                             event.context.getString(R.string.book_moved)
                                 .showToast(context = event.context)
                         }
-
-                        event.navigateToLibrary()
                     }
                 }
 

@@ -10,6 +10,8 @@ import android.content.Context
 import android.net.Uri
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import ua.acclorite.book_story.domain.library.category.Category
+import ua.acclorite.book_story.domain.library.display.LibrarySortOrder
 import ua.acclorite.book_story.domain.util.ID
 
 @Immutable
@@ -20,6 +22,29 @@ sealed class SettingsEvent {
 
     data class OnReleasePersistableUriPermission(
         val uri: Uri
+    ) : SettingsEvent()
+
+    data class OnCreateCategory(
+        val title: String
+    ) : SettingsEvent()
+
+    data class OnUpdateCategoryTitle(
+        val id: Int,
+        val title: String
+    ) : SettingsEvent()
+
+    data class OnUpdateCategoryOrder(
+        val categories: List<Category>
+    ) : SettingsEvent()
+
+    data class OnRemoveCategory(
+        val category: Category
+    ) : SettingsEvent()
+
+    data class OnUpdateCategorySort(
+        val categoryId: Int,
+        val sortOrder: LibrarySortOrder,
+        val sortOrderDescending: Boolean
     ) : SettingsEvent()
 
     data class OnSelectColorPreset(

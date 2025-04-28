@@ -7,12 +7,11 @@
 package ua.acclorite.book_story.domain.library.category
 
 import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.domain.library.book.SelectableBook
-import ua.acclorite.book_story.domain.ui.UIText
+import ua.acclorite.book_story.domain.library.display.LibrarySortOrder
 
 @Immutable
-data class CategoryWithBooks(
-    val category: Category,
-    val title: UIText,
-    val books: List<SelectableBook>
+data class CategorySort(
+    val categoryId: Int,
+    val sortOrder: LibrarySortOrder,
+    val sortOrderDescending: Boolean
 )

@@ -4,7 +4,9 @@
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  --><resources>
+  -->
+
+<resources>
     <string name="history_screen">Historia</string>
     <string name="help_screen">Pomoc</string>
     <string name="move">Przenieś</string>
@@ -33,7 +35,7 @@
     <string name="browse_screen">Przeglądaj</string>
     <string name="cancel">Anuluj</string>
     <string name="delete">Usuń</string>
-    <string name="sort_browse_settings">Sortuj</string>
+    <string name="sort_settings">Sortuj</string>
     <string name="red_color">Czerwony</string>
     <string name="general_settings">Ogólne</string>
     <string name="appearance_settings">Wygląd</string>
@@ -42,10 +44,9 @@
     <string name="dark_theme_on">Włączono</string>
     <string name="dynamic_theme">Merkury</string>
     <string name="blue_theme">Neptun</string>
-    <string name="move_book_description">Wybierz kategorię, do której chcesz przenieść tę książkę. Ta książka zostanie przeniesiona do wybranej kategorii.</string>
     <string name="reset_cover_desc">Zresetuj obraz okładki książki do domyślnego</string>
     <string name="red_theme">Mars</string>
-    <string name="browse_sort_order_name">Alfabetycznie</string>
+    <string name="sort_order_name">Alfabetycznie</string>
     <string name="pure_dark_on">Właczony</string>
     <string name="font_style_option">Styl czcionki</string>
     <string name="letter_spacing_option">Odstępy między literami</string>
@@ -53,15 +54,12 @@
     <string name="yes_go_to_help">Tak, przejdź do Pomoc</string>
     <string name="delete_cover">Usuń obraz okładki</string>
     <string name="marsh_theme">Pluton</string>
-    <string name="planning_tab">Planowanie</string>
     <string name="fast_color_preset_change_option">Szybka zmiana ustawienia koloru</string>
     <string name="about_screen">O aplikacji</string>
     <string name="add_books">Dodać książki?</string>
     <string name="delete_books">Usunąć książki?</string>
     <string name="delete_book">Usunąć książkę?</string>
-    <string name="move_book">Przenieść książkę?</string>
     <string name="delete_history">Usunąć historię czytania?</string>
-    <string name="move_books_description">Wybierz kategorię, do której chcesz przenieść wszystkie wybrane książki (%1$s). Wszystkie wybrane książki zostaną przeniesione do wybranej kategorii.</string>
     <string name="delete_book_description">To spowoduje usunięcie tej książki z bazy danych, ale nie usunie jej z twojego urządzenia.</string>
     <string name="delete_history_description">To spowoduje usuniecie całej historii z bazy danych. Po usunięciu całej historii kolejność książek zostanie zresetowana.</string>
     <string name="error_no_description">Brak opisu.</string>
@@ -75,8 +73,6 @@
     <string name="selected_items_count_query">Wybrano %1$s</string>
     <string name="web_search">Wyszukiwanie w sieci</string>
     <string name="change_cover">Zmień obraz okładki</string>
-    <string name="reading_tab">Czytanie</string>
-    <string name="already_read_tab">Przeczytano</string>
     <string name="general_settings_desc">Język aplikacji</string>
     <string name="misc_reader_settings">Różne</string>
     <string name="dark_theme_option">Ciemny motyw</string>
@@ -102,9 +98,9 @@
     <string name="theme_contrast_medium">Średni</string>
     <string name="font_style_normal">Normalny</string>
     <string name="layout_list">Lista</string>
-    <string name="browse_sort_order_file_format">Format pliku</string>
-    <string name="browse_sort_order_last_modified">Ostatnio modyfikowany</string>
-    <string name="browse_sort_order_file_size">Rozmiar pliku</string>
+    <string name="sort_order_file_format">Format pliku</string>
+    <string name="sort_order_last_modified">Ostatnio modyfikowany</string>
+    <string name="sort_order_file_size">Rozmiar pliku</string>
     <string name="alignment_start">Start</string>
     <string name="alignment_justify">Uzasadnij</string>
     <string name="alignment_end">Koniec</string>
@@ -117,12 +113,10 @@
     <string name="layout_grid">Siatka</string>
     <string name="theme_contrast_standard">Standardowy</string>
     <string name="reset_cover">Zresetuj obraz okładki</string>
-    <string name="move_books">Przenieść książki?</string>
     <string name="error_could_not_reset_cover">Nie można zresetować obrazu okładki.</string>
     <string name="delete_books_description">To spowoduje usunięcie wszystkie wybranych książek (%1$s) z bazy danych. Nie usunie wybranych książek z twojego urządzenia.</string>
-    <string name="browse_grid_size_per_row">na rząd</string>
+    <string name="grid_size_per_row">na rząd</string>
     <string name="text_alignment_option">Wyrównanie tekstu</string>
-    <string name="dropped_tab">Porzucone</string>
     <string name="layout_option">Tryb wyświetlania</string>
     <string name="add_books_description">Możesz wybrać książki, które chcesz dodać. Możesz później edytować tytuł i obraz okładki książki. Proces ładowania może potrwać do kilku minut.</string>
     <string name="error_no_browser">Nie znaleziono aplikacji przeglądarki.</string>
@@ -143,7 +137,7 @@
     <string name="color_preset_query">Preset %1$s</string>
     <string name="delete_cover_desc">Usuń bieżący obraz okładki książki</string>
     <string name="color_preset_selected_query">Wybrano «%1$s»</string>
-    <string name="browse_grid_size_auto">Automatyczny</string>
+    <string name="grid_size_auto">Automatyczny</string>
     <string name="books_added">Wszystkie wybrane książki zostały pomyślnie dodane.</string>
     <string name="help_title_how_to_customize_app">Jak mogę dostosować aplikację?</string>
     <string name="start_welcome">Witamy w Book\'s Story!</string>
@@ -168,7 +162,7 @@
     <string name="continue_reading_content_desc">Kontynuuj czytanie</string>
     <string name="help_desc_how_to_customize_reader_1">Zacznij czytać książkę (patrz: Jak mogę przeczytać książkę?), A następnie przynieś górne i dolne paski, klikając w dowolnym miejscu na ekranie. Następnie kliknij ikonę zębatki w prawym górnym rogu. Spowoduje to wyświetlenie wszystkich ustawień Czytnika. Drugim sposobem jest przejście do</string>
     <string name="color_preset_placeholder">Nazwij ustawienie…</string>
-    <string name="browse_grid_size_option">Rozmiar siatki</string>
+    <string name="grid_size_option">Rozmiar siatki</string>
     <string name="sort_order_content_desc">Kolejność sortowania</string>
     <string name="cover_image_not_found_content_desc">Nie znaleziono obrazu okładki</string>
     <string name="credits_contribution">Wnieśli wkład</string>

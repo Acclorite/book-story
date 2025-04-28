@@ -9,6 +9,8 @@ package ua.acclorite.book_story.presentation.library
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.MoveUp
@@ -26,6 +29,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -35,7 +40,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.library.category.CategoryWithBooks
+import ua.acclorite.book_story.domain.library.book.SelectableBook
+import ua.acclorite.book_story.domain.library.category.Category
+import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
 import ua.acclorite.book_story.presentation.core.components.common.IconButton
 import ua.acclorite.book_story.presentation.core.components.common.SearchTextField
 import ua.acclorite.book_story.presentation.core.components.common.StyledText
@@ -47,8 +54,11 @@ import ua.acclorite.book_story.ui.library.LibraryEvent
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LibraryTopBar(
+    books: List<SelectableBook>,
     selectedItemsCount: Int,
     hasSelectedItems: Boolean,
+    showBookCount: Boolean,
+    showCategoryTabs: Boolean,
     showSearch: Boolean,
     searchQuery: String,
     bookCount: Int,
@@ -56,15 +66,49 @@ fun LibraryTopBar(
     pagerState: PagerState,
     isLoading: Boolean,
     isRefreshing: Boolean,
-    categories: List<CategoryWithBooks>,
+    categories: List<Category>,
+    showDefaultCategory: Boolean,
     searchVisibility: (LibraryEvent.OnSearchVisibility) -> Unit,
     requestFocus: (LibraryEvent.OnRequestFocus) -> Unit,
     searchQueryChange: (LibraryEvent.OnSearchQueryChange) -> Unit,
     search: (LibraryEvent.OnSearch) -> Unit,
     clearSelectedBooks: (LibraryEvent.OnClearSelectedBooks) -> Unit,
     showMoveDialog: (LibraryEvent.OnShowMoveDialog) -> Unit,
-    showDeleteDialog: (LibraryEvent.OnShowDeleteDialog) -> Unit
+    showDeleteDialog: (LibraryEvent.OnShowDeleteDialog) -> Unit,
+    showFilterBottomSheet: (LibraryEvent.OnShowFilterBottomSheet) -> Unit
 ) {
+    val defaultCategory = stringResource(id = R.string.default_tab)
+    val categoriesWithBookCount = remember(
+        books,
+        categories,
+        showDefaultCategory,
+        defaultCategory
+    ) {
+        derivedStateOf {
+            categories.map { category ->
+                category to books.count { it.data.categories.any { it == category.id } }
+            }.toMutableList().apply {
+                if (showDefaultCategory) {
+                    val categoryIds = categories.map { it.id }.toSet()
+                    add(
+                        0,
+                        Category(
+                            id = -1,
+                            title = defaultCategory
+                        ) to books.count { book ->
+                            book.data.categories.none { category -> category in categoryIds }
+                        }
+                    )
+                }
+            }.toList()
+        }
+    }
+    val currentCategory = remember(pagerState.currentPage, categoriesWithBookCount) {
+        derivedStateOf {
+            categoriesWithBookCount.value[pagerState.currentPage]
+        }
+    }
+
     val animatedItemCountBackgroundColor = animateColorAsState(
         if (hasSelectedItems) MaterialTheme.colorScheme.surfaceContainerHighest
         else MaterialTheme.colorScheme.surfaceContainer,
@@ -86,21 +130,28 @@ fun LibraryTopBar(
                 contentNavigationIcon = {},
                 contentTitle = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        StyledText(text = stringResource(id = R.string.library_screen))
-                        Spacer(modifier = Modifier.width(6.dp))
                         StyledText(
-                            text = bookCount.toString(),
-                            modifier = Modifier
-                                .background(
-                                    MaterialTheme.colorScheme.surfaceContainer,
-                                    RoundedCornerShape(14.dp)
-                                )
-                                .padding(horizontal = 8.dp, vertical = 3.dp),
-                            style = LocalTextStyle.current.copy(
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                fontSize = 16.sp
-                            )
+                            text = if (showCategoryTabs) stringResource(id = R.string.library_screen)
+                            else currentCategory.value.first.title
                         )
+
+                        if (showBookCount) {
+                            Spacer(modifier = Modifier.width(6.dp))
+                            StyledText(
+                                text = if (showCategoryTabs) bookCount.toString()
+                                else currentCategory.value.second.toString(),
+                                modifier = Modifier
+                                    .background(
+                                        MaterialTheme.colorScheme.surfaceContainer,
+                                        RoundedCornerShape(14.dp)
+                                    )
+                                    .padding(horizontal = 8.dp, vertical = 3.dp),
+                                style = LocalTextStyle.current.copy(
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    fontSize = 16.sp
+                                )
+                            )
+                        }
                     }
                 },
                 contentActions = {
@@ -110,6 +161,13 @@ fun LibraryTopBar(
                         disableOnClick = true,
                     ) {
                         searchVisibility(LibraryEvent.OnSearchVisibility(true))
+                    }
+                    IconButton(
+                        icon = Icons.Default.FilterList,
+                        contentDescription = R.string.filter_content_desc,
+                        disableOnClick = false,
+                    ) {
+                        showFilterBottomSheet(LibraryEvent.OnShowFilterBottomSheet)
                     }
                     NavigatorIconButton()
                 }
@@ -188,11 +246,18 @@ fun LibraryTopBar(
             ),
         ),
         customContent = {
-            LibraryTabs(
-                categories = categories,
-                pagerState = pagerState,
-                itemCountBackgroundColor = animatedItemCountBackgroundColor.value
-            )
+            AnimatedVisibility(
+                visible = showCategoryTabs,
+                enter = expandVertically(),
+                exit = shrinkVertically()
+            ) {
+                LibraryTabs(
+                    categoriesWithBookCount = categoriesWithBookCount.value,
+                    pagerState = pagerState,
+                    itemCountBackgroundColor = animatedItemCountBackgroundColor.value,
+                    showBookCount = showBookCount
+                )
+            }
         }
     )
 }

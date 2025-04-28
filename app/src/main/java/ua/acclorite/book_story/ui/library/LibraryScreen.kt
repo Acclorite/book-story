@@ -23,11 +23,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.library.category.Category
-import ua.acclorite.book_story.domain.library.category.CategoryWithBooks
 import ua.acclorite.book_story.domain.navigator.Screen
-import ua.acclorite.book_story.domain.ui.UIText
 import ua.acclorite.book_story.presentation.library.LibraryContent
 import ua.acclorite.book_story.presentation.navigator.LocalNavigator
 import ua.acclorite.book_story.ui.book_info.BookInfoScreen
@@ -35,6 +31,8 @@ import ua.acclorite.book_story.ui.browse.BrowseScreen
 import ua.acclorite.book_story.ui.history.HistoryScreen
 import ua.acclorite.book_story.ui.main.MainModel
 import ua.acclorite.book_story.ui.reader.ReaderScreen
+import ua.acclorite.book_story.ui.settings.LibrarySettingsScreen
+import ua.acclorite.book_story.ui.settings.SettingsModel
 
 @Parcelize
 object LibraryScreen : Screen, Parcelable {
@@ -44,6 +42,9 @@ object LibraryScreen : Screen, Parcelable {
 
     @IgnoredOnParcel
     const val DELETE_DIALOG = "delete_dialog"
+
+    @IgnoredOnParcel
+    const val FILTER_BOTTOM_SHEET = "filter_bottom_sheet"
 
     @IgnoredOnParcel
     val refreshListChannel: Channel<Long> = Channel(Channel.CONFLATED)
@@ -61,34 +62,19 @@ object LibraryScreen : Screen, Parcelable {
 
         val screenModel = hiltViewModel<LibraryModel>()
         val mainModel = hiltViewModel<MainModel>()
+        val settingsModel = hiltViewModel<SettingsModel>()
 
         val state = screenModel.state.collectAsStateWithLifecycle()
         val mainState = mainModel.state.collectAsStateWithLifecycle()
+        val settingsState = settingsModel.state.collectAsStateWithLifecycle()
 
-        val categories = remember(state.value.books) {
+        val showDefaultCategory = remember(state.value.books, settingsState.value.categories) {
             derivedStateOf {
-                listOf(
-                    CategoryWithBooks(
-                        category = Category.READING,
-                        title = UIText.StringResource(R.string.reading_tab),
-                        books = state.value.books.filter { it.data.category == Category.READING }
-                    ),
-                    CategoryWithBooks(
-                        category = Category.ALREADY_READ,
-                        title = UIText.StringResource(R.string.already_read_tab),
-                        books = state.value.books.filter { it.data.category == Category.ALREADY_READ }
-                    ),
-                    CategoryWithBooks(
-                        category = Category.PLANNING,
-                        title = UIText.StringResource(R.string.planning_tab),
-                        books = state.value.books.filter { it.data.category == Category.PLANNING }
-                    ),
-                    CategoryWithBooks(
-                        category = Category.DROPPED,
-                        title = UIText.StringResource(R.string.dropped_tab),
-                        books = state.value.books.filter { it.data.category == Category.DROPPED }
-                    )
-                )
+                val categoryIds = settingsState.value.categories.map { it.id }.toSet()
+                state.value.books.any { book ->
+                    book.data.categories.none { category -> category in categoryIds }
+                } || settingsState.value.categories.isEmpty()
+                        || mainState.value.libraryAlwaysShowDefaultTab
             }
         }
 
@@ -107,12 +93,14 @@ object LibraryScreen : Screen, Parcelable {
 
         val pagerState = rememberPagerState(
             initialPage = initialPage
-        ) { categories.value.count() }
+        ) {
+            settingsState.value.categories.count().plus(if (showDefaultCategory.value) 1 else 0)
+        }
         DisposableEffect(Unit) { onDispose { initialPage = pagerState.currentPage } }
 
         LaunchedEffect(Unit) {
             scrollToPageCompositionChannel.receiveAsFlow().collectLatest {
-                pagerState.animateScrollToPage(it)
+                pagerState.scrollToPage(it)
             }
         }
 
@@ -120,6 +108,11 @@ object LibraryScreen : Screen, Parcelable {
             books = state.value.books,
             selectedItemsCount = state.value.selectedItemsCount,
             hasSelectedItems = state.value.hasSelectedItems,
+            titlePosition = mainState.value.libraryTitlePosition,
+            readButton = mainState.value.libraryReadButton,
+            showProgress = mainState.value.libraryShowProgress,
+            showCategoryTabs = mainState.value.libraryShowCategoryTabs,
+            showBookCount = mainState.value.libraryShowBookCount,
             showSearch = state.value.showSearch,
             searchQuery = state.value.searchQuery,
             bookCount = state.value.books.count(),
@@ -128,9 +121,21 @@ object LibraryScreen : Screen, Parcelable {
             isLoading = state.value.isLoading,
             isRefreshing = state.value.isRefreshing,
             doublePressExit = mainState.value.doublePressExit,
-            categories = categories.value,
+            layout = mainState.value.libraryLayout,
+            gridSize = mainState.value.libraryGridSize,
+            autoGridSize = mainState.value.libraryAutoGridSize,
+            categories = settingsState.value.categories,
+            showDefaultCategory = showDefaultCategory.value,
+            categoriesSort = settingsState.value.categoriesSort,
+            sortOrder = mainState.value.librarySortOrder,
+            sortOrderDescending = mainState.value.librarySortOrderDescending,
+            perCategorySort = mainState.value.libraryPerCategorySort,
             refreshState = refreshState,
             dialog = state.value.dialog,
+            bottomSheet = state.value.bottomSheet,
+            updateCategorySort = settingsModel::onEvent,
+            changeLibrarySortOrder = mainModel::onEvent,
+            changeLibrarySortOrderDescending = mainModel::onEvent,
             selectBook = screenModel::onEvent,
             searchVisibility = screenModel::onEvent,
             requestFocus = screenModel::onEvent,
@@ -141,6 +146,8 @@ object LibraryScreen : Screen, Parcelable {
             actionMoveDialog = screenModel::onEvent,
             actionDeleteDialog = screenModel::onEvent,
             showDeleteDialog = screenModel::onEvent,
+            showFilterBottomSheet = screenModel::onEvent,
+            dismissBottomSheet = screenModel::onEvent,
             dismissDialog = screenModel::onEvent,
             navigateToBrowse = {
                 navigator.push(BrowseScreen)
@@ -151,6 +158,9 @@ object LibraryScreen : Screen, Parcelable {
             },
             navigateToBookInfo = {
                 navigator.push(BookInfoScreen(bookId = it))
+            },
+            navigateToLibrarySettings = {
+                navigator.push(LibrarySettingsScreen)
             }
         )
     }

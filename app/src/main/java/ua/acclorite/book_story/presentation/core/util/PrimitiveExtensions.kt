@@ -66,3 +66,14 @@ fun Char.isVisibleCharacter(): Boolean {
         else -> false
     }
 }
+
+fun <T> compareByWithOrder(
+    descending: Boolean,
+    selector: (T) -> Comparable<*>?
+): Comparator<T> {
+    return if (descending) {
+        compareByDescending(selector)
+    } else {
+        compareBy(selector)
+    }
+}

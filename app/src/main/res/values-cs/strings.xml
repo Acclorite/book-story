@@ -4,7 +4,9 @@
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  --><resources>
+  -->
+
+<resources>
     <string name="book_deleted">Tato kniha byla úspěšně smazána.</string>
     <string name="blue_theme">Neptun</string>
     <string name="background_color_option">Barva pozadí</string>
@@ -38,20 +40,18 @@
     <string name="pure_dark_off">Vypnutý</string>
     <string name="history_screen">Historie</string>
     <string name="dark_theme_option">Tmavé téma</string>
-    <string name="move_books_description">Vyberte kategorii, do které chcete přesunout všechny vybrané knihy. (%1$s). Všechny vybrané knihy do ní budou přesunuty.</string>
     <string name="cancel">Zrušit</string>
     <string name="error_could_not_reset_cover">Nelze resetovat obálku.</string>
     <string name="file_last_opened">Naposledy otevřeno</string>
     <string name="filter_browse_settings">Filtr</string>
     <string name="double_press_exit_option">Dvojitým zpětným klepnutím ukončíte</string>
-    <string name="move_books">Přesunout knihy?</string>
     <string name="credits_icon">Ikony</string>
     <string name="credits_ideas">Nápady</string>
     <string name="delete_history">Smazat historii čtení?</string>
     <string name="unknown">Neznámý</string>
     <string name="credits_fonts">Fonty</string>
     <string name="theme_contrast_standard">Standardní</string>
-    <string name="browse_sort_order_name">Abecedně</string>
+    <string name="sort_order_name">Abecedně</string>
     <string name="file_path">Cesta k souboru</string>
     <string name="books_added">Všechny vybrané knihy byly úspěšně přidány.</string>
     <string name="book_moved">Tato kniha byla úspěšně přesunuta.</string>
@@ -71,35 +71,31 @@
     <string name="color_preset_selected_query">Vybráno «%1$s»</string>
     <string name="file_size">Velikost souboru</string>
     <string name="app_theme_option">Téma aplikace</string>
-    <string name="sort_browse_settings">Řadit</string>
+    <string name="sort_settings">Řadit</string>
     <string name="dynamic_theme">Merkur</string>
     <string name="font_style_italic">Kurzíva</string>
     <string name="browse_screen">Procházet</string>
     <string name="error_no_share_app">Žádná aplikace pro sdílení nebyla nalezena.</string>
     <string name="help_desc_how_to_add_books_2">Procházet</string>
-    <string name="browse_grid_size_option">Velikost mřížky</string>
+    <string name="grid_size_option">Velikost mřížky</string>
     <string name="delete_books">Smazat knihy?</string>
     <string name="font_style_normal">Normální</string>
     <string name="error_no_translator">Žádná aplikace pro překladač nebyla nalezena.</string>
     <string name="reset_cover_desc">Resetovat obálku knihy na výchozí</string>
     <string name="books_deleted">Všechny vybrané videa byly úspěšně smazány.</string>
-    <string name="browse_sort_order_last_modified">Naposledy změněno</string>
+    <string name="sort_order_last_modified">Naposledy změněno</string>
     <string name="help_desc_how_to_add_books_1">Přejít na</string>
-    <string name="reading_tab">Právě čtu</string>
     <string name="delete_history_description">Smaže to celou historii z databáze. Po smazaní z historie bude pořadí knih resetováno.</string>
     <string name="library_screen">Knihovna</string>
-    <string name="browse_grid_size_auto">Automaticky</string>
+    <string name="grid_size_auto">Automaticky</string>
     <string name="delete_cover">Smazat obálku</string>
     <string name="general_settings_desc">Jazyk aplikace</string>
     <string name="lavender_theme">Eris</string>
     <string name="author">Autor</string>
-    <string name="move_book_description">Vyberte kategorii, do které chcete přesunout tuto knihu. Vybraná kniha do ní bude přesunuta.</string>
-    <string name="planning_tab">Budu číst</string>
     <string name="help_screen">Pomoc</string>
     <string name="error_no_dictionary">Žádná aplikace pro slovník nebyla nalezena.</string>
     <string name="selected_items_count_query">%1$s vybráno</string>
     <string name="licenses_option">Open source licence</string>
-    <string name="dropped_tab">Opuštěné</string>
     <string name="move">Přesunout</string>
     <string name="delete">Smazat</string>
     <string name="green_color">Zelená</string>
@@ -107,8 +103,8 @@
     <string name="fullscreen_option">Celá obrazovka</string>
     <string name="double_click_translation_option">Překlad na dvojité kliknutí</string>
     <string name="keep_screen_on_option">Nechat obrazovku zapnutou</string>
-    <string name="browse_sort_order_file_format">Formát souboru</string>
-    <string name="browse_sort_order_file_size">Velikost souboru</string>
+    <string name="sort_order_file_format">Formát souboru</string>
+    <string name="sort_order_file_size">Velikost souboru</string>
     <string name="alignment_start">Začátek</string>
     <string name="alignment_end">Konec</string>
     <string name="screen_orientation_portrait">Na výšku</string>
@@ -132,7 +128,6 @@
     <string name="browse_settings">Procházet</string>
     <string name="about_screen">O aplikaci</string>
     <string name="add_books">Přidat knihy?</string>
-    <string name="move_book">Přesunout knihu?</string>
     <string name="delete_book_description">Smaže to tuto knihu z databáze. Nesmaže to na vašem zařízení.</string>
     <string name="error_no_description">Žádný popis.</string>
     <string name="error_something_went_wrong">Něco se pokazilo.</string>
@@ -147,7 +142,6 @@
     <string name="change_cover">Změnit obálku</string>
     <string name="change_cover_desc">Vybrat novou obálku z galerie</string>
     <string name="delete_cover_desc">Smazat aktuální obálku knihy</string>
-    <string name="already_read_tab">Přečteno</string>
     <string name="general_tab">Obecné</string>
     <string name="color_tab">Barvy</string>
     <string name="sort_tab">Řadit</string>
@@ -171,7 +165,7 @@
     <string name="pure_dark_power_saver">Spořič</string>
     <string name="theme_contrast_medium">Střední</string>
     <string name="theme_contrast_high">Vysoký</string>
-    <string name="browse_grid_size_per_row">na řádku</string>
+    <string name="grid_size_per_row">na řádku</string>
     <string name="alignment_justify">Zarovnat</string>
     <string name="alignment_center">Do prostřed</string>
     <string name="purple_theme">Jupiter</string>

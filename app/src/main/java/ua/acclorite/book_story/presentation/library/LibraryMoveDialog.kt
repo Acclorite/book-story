@@ -6,57 +6,54 @@
 
 package ua.acclorite.book_story.presentation.library
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.MoveUp
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.library.book.SelectableBook
-import ua.acclorite.book_story.domain.library.category.CategoryWithBooks
+import ua.acclorite.book_story.domain.library.category.Category
+import ua.acclorite.book_story.presentation.core.components.common.StyledText
+import ua.acclorite.book_story.presentation.core.components.dialog.CheckboxDialogItem
 import ua.acclorite.book_story.presentation.core.components.dialog.Dialog
-import ua.acclorite.book_story.presentation.core.components.dialog.SelectableDialogItem
 import ua.acclorite.book_story.ui.library.LibraryEvent
 
 @Composable
 fun LibraryMoveDialog(
     books: List<SelectableBook>,
-    categories: List<CategoryWithBooks>,
-    selectedItemsCount: Int,
+    categories: List<Category>,
     actionMoveDialog: (LibraryEvent.OnActionMoveDialog) -> Unit,
-    dismissDialog: (LibraryEvent.OnDismissDialog) -> Unit
+    dismissDialog: (LibraryEvent.OnDismissDialog) -> Unit,
+    navigateToLibrarySettings: () -> Unit
 ) {
     val context = LocalContext.current
+
     val selectedBooks = remember {
         derivedStateOf {
             books.filter { it.selected }
         }
     }
-    val moveCategories = remember {
-        derivedStateOf {
-            categories.mapNotNull { category ->
-                if (!selectedBooks.value.all { it.data.category == category.category }) {
-                    return@mapNotNull category
+    val selectedCategories = remember {
+        mutableStateListOf<Category>().apply {
+            clear()
+            categories.forEach { category ->
+                if (selectedBooks.value.all { it.data.categories.any { it == category.id } }) {
+                    add(category)
                 }
-                return@mapNotNull null
             }
         }
     }
-    val selectedCategory = remember {
-        mutableStateOf(moveCategories.value[0])
-    }
 
     Dialog(
-        title = stringResource(id = R.string.move_books),
-        icon = Icons.Outlined.MoveUp,
-        description = stringResource(
-            id = R.string.move_books_description,
-            selectedItemsCount
-        ),
+        title = stringResource(id = R.string.move),
+        description = null,
         actionEnabled = true,
         onDismiss = {
             dismissDialog(LibraryEvent.OnDismissDialog)
@@ -64,20 +61,46 @@ fun LibraryMoveDialog(
         onAction = {
             actionMoveDialog(
                 LibraryEvent.OnActionMoveDialog(
-                    selectedCategory = selectedCategory.value.category,
-                    categories = categories,
+                    selectedCategories = selectedCategories,
                     context = context
                 )
             )
         },
+        secondaryAction = stringResource(id = R.string.edit),
+        onSecondaryAction = {
+            navigateToLibrarySettings()
+            dismissDialog(LibraryEvent.OnDismissDialog)
+        },
         withContent = true,
         items = {
-            items(moveCategories.value) { category ->
-                SelectableDialogItem(
-                    selected = category == selectedCategory.value,
-                    title = category.title.asString()
+            items(categories) { category ->
+                val selected = remember(
+                    category,
+                    selectedCategories
                 ) {
-                    selectedCategory.value = category
+                    derivedStateOf {
+                        selectedCategories.any { it == category }
+                    }
+                }
+
+                CheckboxDialogItem(
+                    selected = selected.value,
+                    title = category.title
+                ) {
+                    if (selected.value) selectedCategories.remove(category)
+                    else selectedCategories.add(category)
+                }
+            }
+
+            if (categories.isEmpty()) {
+                item {
+                    StyledText(
+                        text = stringResource(id = R.string.categories_empty),
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    )
                 }
             }
         }

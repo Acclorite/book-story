@@ -11,7 +11,6 @@ import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.domain.file.CachedFile
 import ua.acclorite.book_story.domain.library.book.Book
 import ua.acclorite.book_story.domain.library.book.BookWithCover
-import ua.acclorite.book_story.domain.library.category.Category
 import ua.acclorite.book_story.domain.ui.UIText
 import javax.inject.Inject
 
@@ -32,7 +31,7 @@ class TxtFileParser @Inject constructor() : FileParser {
                     progress = 0f,
                     filePath = cachedFile.path,
                     lastOpened = null,
-                    category = Category.entries[0],
+                    categories = emptyList(),
                     coverImage = null
                 ),
                 coverImage = null

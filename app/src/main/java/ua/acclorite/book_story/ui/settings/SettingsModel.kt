@@ -20,7 +20,16 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.domain.library.category.Category
+import ua.acclorite.book_story.domain.library.category.CategorySort
 import ua.acclorite.book_story.domain.reader.ColorPreset
+import ua.acclorite.book_story.domain.use_case.category.DeleteCategory
+import ua.acclorite.book_story.domain.use_case.category.GetCategories
+import ua.acclorite.book_story.domain.use_case.category.GetCategorySort
+import ua.acclorite.book_story.domain.use_case.category.InsertCategory
+import ua.acclorite.book_story.domain.use_case.category.UpdateCategoryOrder
+import ua.acclorite.book_story.domain.use_case.category.UpdateCategorySort
+import ua.acclorite.book_story.domain.use_case.category.UpdateCategoryTitle
 import ua.acclorite.book_story.domain.use_case.color_preset.DeleteColorPreset
 import ua.acclorite.book_story.domain.use_case.color_preset.GetColorPresets
 import ua.acclorite.book_story.domain.use_case.color_preset.ReorderColorPresets
@@ -41,7 +50,14 @@ class SettingsModel @Inject constructor(
     private val reorderColorPresets: ReorderColorPresets,
     private val deleteColorPreset: DeleteColorPreset,
     private val grantPersistableUriPermission: GrantPersistableUriPermission,
-    private val releasePersistableUriPermission: ReleasePersistableUriPermission
+    private val releasePersistableUriPermission: ReleasePersistableUriPermission,
+    private val insertCategory: InsertCategory,
+    private val getCategories: GetCategories,
+    private val updateCategoryTitle: UpdateCategoryTitle,
+    private val updateCategoryOrder: UpdateCategoryOrder,
+    private val deleteCategory: DeleteCategory,
+    private val updateCategorySort: UpdateCategorySort,
+    private val getCategoriesSort: GetCategorySort,
 ) : ViewModel() {
 
     private val mutex = Mutex()
@@ -85,7 +101,9 @@ class SettingsModel @Inject constructor(
             _state.update {
                 it.copy(
                     selectedColorPreset = colorPresets.selected(),
-                    colorPresets = colorPresets
+                    colorPresets = colorPresets,
+                    categories = getCategories.execute(), // Getting categories
+                    categoriesSort = getCategoriesSort.execute()
                 )
             }
 
@@ -109,6 +127,78 @@ class SettingsModel @Inject constructor(
                     releasePersistableUriPermission.execute(
                         event.uri
                     )
+                }
+            }
+
+            is SettingsEvent.OnCreateCategory -> {
+                viewModelScope.launch {
+                    insertCategory.execute(
+                        category = Category(
+                            title = event.title
+                        )
+                    )
+                    _state.update {
+                        it.copy(
+                            categories = getCategories.execute()
+                        )
+                    }
+                }
+            }
+
+            is SettingsEvent.OnUpdateCategoryTitle -> {
+                viewModelScope.launch {
+                    updateCategoryTitle.execute(
+                        id = event.id,
+                        title = event.title
+                    )
+                    _state.update {
+                        it.copy(
+                            categories = getCategories.execute()
+                        )
+                    }
+                }
+            }
+
+            is SettingsEvent.OnUpdateCategoryOrder -> {
+                viewModelScope.launch {
+                    updateCategoryOrder.execute(
+                        categories = event.categories
+                    )
+                    _state.update {
+                        it.copy(
+                            categories = getCategories.execute()
+                        )
+                    }
+                }
+            }
+
+            is SettingsEvent.OnRemoveCategory -> {
+                viewModelScope.launch {
+                    deleteCategory.execute(
+                        category = event.category
+                    )
+                    _state.update {
+                        it.copy(
+                            categories = getCategories.execute()
+                        )
+                    }
+                }
+            }
+
+            is SettingsEvent.OnUpdateCategorySort -> {
+                viewModelScope.launch {
+                    updateCategorySort.execute(
+                        categorySort = CategorySort(
+                            categoryId = event.categoryId,
+                            sortOrder = event.sortOrder,
+                            sortOrderDescending = event.sortOrderDescending
+                        )
+                    )
+                    _state.update {
+                        it.copy(
+                            categoriesSort = getCategoriesSort.execute()
+                        )
+                    }
                 }
             }
 

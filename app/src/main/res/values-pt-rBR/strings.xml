@@ -4,16 +4,17 @@
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  --><resources>
+  -->
+
+<resources>
     <string name="red_color">Vermelho</string>
-    <string name="move_book">Mover livro?</string>
     <string name="delete_book">Apagar livro?</string>
     <string name="default_string">Padrão</string>
     <string name="cancel">Cancelar</string>
     <string name="move">Mover</string>
     <string name="never">Nunca</string>
     <string name="colors_appearance_settings">Cores</string>
-    <string name="sort_browse_settings">Organizar</string>
+    <string name="sort_settings">Organizar</string>
     <string name="green_color">Verde</string>
     <string name="theme_contrast_medium">Médio</string>
     <string name="theme_contrast_high">Alto</string>
@@ -30,7 +31,6 @@
     <string name="settings_screen">Configurações</string>
     <string name="about_screen">Sobre o app</string>
     <string name="help_screen">Ajuda</string>
-    <string name="move_books">Mover livros?</string>
     <string name="add_books_description">Você pode escolher que livros adicionar. Você pode editar o título e a capa do livro depois. O processo pode levar alguns minutos.</string>
     <string name="copy">Copiar</string>
     <string name="translate">Traduzir</string>
@@ -38,9 +38,6 @@
     <string name="next">Próximo</string>
     <string name="share">Compartilhar</string>
     <string name="unknown_author">Desconhecido</string>
-    <string name="reading_tab">Lendo</string>
-    <string name="planning_tab">Planejando</string>
-    <string name="dropped_tab">Abandonado</string>
     <string name="color_tab">Cores</string>
     <string name="filter_tab">Filtro</string>
     <string name="general_tab">Geral</string>
@@ -71,7 +68,7 @@
     <string name="blue_color">Azul</string>
     <string name="layout_grid">Grade</string>
     <string name="today">Hoje</string>
-    <string name="browse_grid_size_auto">Automático</string>
+    <string name="grid_size_auto">Automático</string>
     <string name="alignment_start">Começar</string>
     <string name="alignment_end">Fim</string>
     <string name="dynamic_theme">Mercúrio</string>
@@ -104,13 +101,12 @@
     <string name="search_content_desc">Pesquisar</string>
     <string name="copied">Copiado</string>
     <string name="alignment_justify">Justificar</string>
-    <string name="move_books_description">Escolha a categoria da qual você quer mover todos os livros selecionados(%1$s). Todos os livros selecionados serão movidos para essa categoria.</string>
     <string name="delete_books_description">Isto irá apagar todos os livros selecionados(%1$s) da base de dados. Isso não irá apagar os livros do seu dispositivo.</string>
     <string name="alignment_center">Centro</string>
     <string name="help_desc_how_to_customize_reader_2">Configurações</string>
     <string name="revert_content_desc">Reverter</string>
     <string name="help_desc_how_to_customize_app_2">Configurações</string>
-    <string name="browse_sort_order_name">Alfabeticamente</string>
+    <string name="sort_order_name">Alfabeticamente</string>
     <string name="selected_content_desc">Selecionado</string>
     <string name="arrow_content_desc">Seta</string>
     <string name="credits_design">Design</string>
@@ -124,7 +120,6 @@
     <string name="appearance_settings_desc">Tema, cores</string>
     <string name="language_option">Linguagem do aplicativo</string>
     <string name="dark_theme_option">Tema escuro</string>
-    <string name="move_book_description">Escolha a categoria para qual você quer mover este livro. Esse livro será movido para tal categoria.</string>
     <string name="delete_history_description">Isto irá deletar todo o histórico da base de dados. Após deletá-lo, a ordem dos livros será restaurada.</string>
     <string name="paragraph_indentation_option">Recuo de parágrafo</string>
     <string name="letter_spacing_option">Espaçamento das letras</string>
@@ -150,18 +145,17 @@
     <string name="color_preset_option">Padrão de cores</string>
     <string name="cutout_padding_option">Margem do recorte</string>
     <string name="layout_option">Modo de exibição</string>
-    <string name="browse_grid_size_per_row">por linha</string>
-    <string name="already_read_tab">Lido</string>
-    <string name="browse_grid_size_option">Tamanho da grade</string>
+    <string name="grid_size_per_row">por linha</string>
+    <string name="grid_size_option">Tamanho da grade</string>
     <string name="error_no_description">Sem descrição.</string>
     <string name="selected_items_count_query">%1$s selecionado</string>
     <string name="error_closed_source">Código fechado</string>
     <string name="web_search">Pesquisa web</string>
     <string name="side_padding_option">Margens laterais</string>
     <string name="screen_brightness_option">Iluminação</string>
-    <string name="browse_sort_order_file_format">Formato de arquivo</string>
-    <string name="browse_sort_order_last_modified">Modificação mais recente</string>
-    <string name="browse_sort_order_file_size">Tamanho do arquivo</string>
+    <string name="sort_order_file_format">Formato de arquivo</string>
+    <string name="sort_order_last_modified">Modificação mais recente</string>
+    <string name="sort_order_file_size">Tamanho do arquivo</string>
     <string name="screen_orientation_free">Livre</string>
     <string name="screen_orientation_portrait">Retrato</string>
     <string name="screen_orientation_landscape">Paisagem</string>

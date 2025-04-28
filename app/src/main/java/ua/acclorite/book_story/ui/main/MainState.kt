@@ -17,6 +17,12 @@ import ua.acclorite.book_story.domain.browse.display.BrowseLayout
 import ua.acclorite.book_story.domain.browse.display.BrowseSortOrder
 import ua.acclorite.book_story.domain.browse.display.toBrowseLayout
 import ua.acclorite.book_story.domain.browse.display.toBrowseSortOrder
+import ua.acclorite.book_story.domain.library.display.LibraryLayout
+import ua.acclorite.book_story.domain.library.display.LibrarySortOrder
+import ua.acclorite.book_story.domain.library.display.LibraryTitlePosition
+import ua.acclorite.book_story.domain.library.display.toLibraryLayout
+import ua.acclorite.book_story.domain.library.display.toLibrarySortOrder
+import ua.acclorite.book_story.domain.library.display.toLibraryTitlePosition
 import ua.acclorite.book_story.domain.reader.ReaderColorEffects
 import ua.acclorite.book_story.domain.reader.ReaderFontThickness
 import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
@@ -116,6 +122,20 @@ data class MainState(
     val progressBarAlignment: HorizontalAlignment = provideDefaultValue { HorizontalAlignment.CENTER },
     val progressBarFontSize: Int = provideDefaultValue { 8 },
     val progressCount: ReaderProgressCount = provideDefaultValue { ReaderProgressCount.PERCENTAGE },
+
+    // Library settings
+    val libraryLayout: LibraryLayout = provideDefaultValue { LibraryLayout.GRID },
+    val libraryAutoGridSize: Boolean = provideDefaultValue { true },
+    val libraryGridSize: Int = provideDefaultValue { 0 },
+    val libraryTitlePosition: LibraryTitlePosition = provideDefaultValue { LibraryTitlePosition.BELOW },
+    val libraryReadButton: Boolean = provideDefaultValue { true },
+    val libraryShowProgress: Boolean = provideDefaultValue { true },
+    val libraryShowBookCount: Boolean = provideDefaultValue { true },
+    val libraryShowCategoryTabs: Boolean = provideDefaultValue { true },
+    val libraryAlwaysShowDefaultTab: Boolean = provideDefaultValue { false },
+    val librarySortOrder: LibrarySortOrder = provideDefaultValue { LibrarySortOrder.LAST_READ },
+    val librarySortOrderDescending: Boolean = provideDefaultValue { true },
+    val libraryPerCategorySort: Boolean = provideDefaultValue { false },
 
     // Browse Settings
     val browseLayout: BrowseLayout = provideDefaultValue { BrowseLayout.LIST },
@@ -374,6 +394,54 @@ data class MainState(
                     horizontalGesturePullAnim = provideValue(
                         HORIZONTAL_GESTURE_PULL_ANIM
                     ) { horizontalGesturePullAnim },
+
+                    libraryLayout = provideValue(
+                        LIBRARY_LAYOUT, convert = { toLibraryLayout() }
+                    ) { libraryLayout },
+
+                    libraryAutoGridSize = provideValue(
+                        LIBRARY_AUTO_GRID_SIZE
+                    ) { libraryAutoGridSize },
+
+                    libraryGridSize = provideValue(
+                        LIBRARY_GRID_SIZE
+                    ) { libraryGridSize },
+
+                    libraryReadButton = provideValue(
+                        LIBRARY_READ_BUTTON
+                    ) { libraryReadButton },
+
+                    libraryShowProgress = provideValue(
+                        LIBRARY_SHOW_PROGRESS
+                    ) { libraryShowProgress },
+
+                    libraryTitlePosition = provideValue(
+                        LIBRARY_TITLE_POSITION, convert = { toLibraryTitlePosition() }
+                    ) { libraryTitlePosition },
+
+                    libraryShowBookCount = provideValue(
+                        LIBRARY_SHOW_BOOK_COUNT
+                    ) { libraryShowBookCount },
+
+                    libraryShowCategoryTabs = provideValue(
+                        LIBRARY_SHOW_CATEGORY_TABS
+                    ) { libraryShowCategoryTabs },
+
+                    libraryAlwaysShowDefaultTab = provideValue(
+                        LIBRARY_ALWAYS_SHOW_DEFAULT_TAB
+                    ) { libraryAlwaysShowDefaultTab },
+
+                    librarySortOrder = provideValue(
+                        LIBRARY_SORT_ORDER, convert = { toLibrarySortOrder() }
+                    ) { librarySortOrder },
+
+                    librarySortOrderDescending = provideValue(
+                        LIBRARY_SORT_ORDER_DESCENDING
+                    ) { librarySortOrderDescending },
+
+                    libraryPerCategorySort = provideValue(
+                        LIBRARY_PER_CATEGORY_SORT
+                    ) { libraryPerCategorySort },
                 )
             }
         }
