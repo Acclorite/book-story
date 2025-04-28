@@ -19,20 +19,19 @@
 
     <!-- Dialog Labels -->
     <string name="add_books">Додати книги?</string>
-    <string name="move_books">Перемістити книги?</string>
     <string name="delete_books">Видалити книги?</string>
     <string name="delete_book">Видалити книгу?</string>
-    <string name="move_book">Перемістити книгу?</string>
     <string name="delete_history">Видалити історію читання?</string>
-    <string name="edit">Редагувати</string>
+    <string name="remove_category">Видалити категорію?</string>
 
     <!-- Dialog Descriptions -->
     <string name="add_books_description">Ви можете вибрати книги, які хочете додати. Ви зможете відредагувати Назву та Обкладинку книги пізніше. Процес завантаження може зайняти декілька хвилин.</string>
-    <string name="move_books_description">Виберіть категорію, в яку ви хочете перемістити всі обрані книги(%1$s). Всі обрані книги будуть переміщені в обрану категорію.</string>
     <string name="delete_books_description">Це видалить всі обрані книги(%1$s) з бази даних. Це не видалить обрані книги з вашого пристрою.</string>
     <string name="delete_book_description">Це видалить цю книгу з бази даних. Це не видалить цю книгу з вашого пристрою.</string>
-    <string name="move_book_description">Виберіть категорію, в яку ви хочете перемістити цю книгу. Ця книга буде переміщена в обрану категорію.</string>
     <string name="delete_history_description">Це видалить всю історію з бази даних. Після видалення всієї історії порядок книг буде скинутий.</string>
+    <string name="remove_category_description">
+        Це видалить цю категорію з Бібліотеки, але не видалить книги.
+    </string>
 
     <!-- Errors -->
     <string name="error_no_description">Немає опису.</string>
@@ -49,12 +48,14 @@
     <string name="error_could_not_reset_cover">Не вдалося скинути обкладинку.</string>
     <string name="error_closed_source">Закритий код</string>
     <string name="error_no_file">Файла не існує або він недоступний</string>
+    <string name="error_field_empty">Це поле не повинно бути пустим.</string>
 
     <!-- Is Empty messages -->
     <string name="search_field_empty">Пошук…</string>
     <string name="browse_empty">Розширюйте книжковий арсенал бібліотеки своїми завантаженнями</string>
     <string name="library_empty">Читайте ваші улюблені книги та сортуйте їх між категоріями</string>
     <string name="history_empty">Нехай ваша остання прочитана книга відкриє перед вами сторінки нової великої історії вашого читацького шляху</string>
+    <string name="categories_empty">Немає категорій.</string>
 
     <!-- Query strings -->
     <string name="selected_items_count_query">%1$s обрано</string>
@@ -81,6 +82,8 @@
     <string name="ok">ОК</string>
     <string name="change_path">Змінити шлях</string>
     <string name="add_folder">Додати теку</string>
+    <string name="edit">Редагувати</string>
+    <string name="create_category">Створити категорію</string>
     <string name="set_up_scanning">Налаштувати сканування</string>
 
     <!-- Book -->
@@ -94,10 +97,7 @@
     <string name="author">Автор</string>
 
     <!-- Tabs -->
-    <string name="reading_tab">Читаю</string>
-    <string name="already_read_tab">Прочитано</string>
-    <string name="planning_tab">Планую</string>
-    <string name="dropped_tab">Кинуто</string>
+    <string name="default_tab">Типово</string>
     <string name="general_tab">Головні</string>
     <string name="display_tab">Вигляд</string>
     <string name="color_tab">Кольори</string>
@@ -111,9 +111,11 @@
     <string name="appearance_settings">Зовнішній вигляд</string>
     <string name="appearance_settings_desc">Тема, кольори</string>
     <string name="reader_settings">Читач</string>
-    <string name="reader_settings_desc">Шрифт, текст, перекладач</string>
+    <string name="reader_settings_desc">Шрифт, текст</string>
     <string name="browse_settings">Огляд</string>
-    <string name="browse_settings_desc">Головні, фільтр, сортування</string>
+    <string name="browse_settings_desc">Сканування, вигляд</string>
+    <string name="library_settings">Бібліотека</string>
+    <string name="library_settings_desc">Категорії, вигляд</string>
 
     <!-- Settings subcategories -->
     <string name="font_reader_settings">Шрифт</string>
@@ -131,14 +133,22 @@
     <string name="colors_appearance_settings">Кольори</string>
     <string name="scan_browse_settings">Сканування</string>
     <string name="display_settings">Вигляд</string>
+    <string name="tabs_settings">Вкладки</string>
+    <string name="categories_settings">Категорії</string>
     <string name="filter_browse_settings">Фільтр</string>
-    <string name="sort_browse_settings">Сотрувати</string>
+    <string name="sort_settings">Сотрувати</string>
 
     <!-- Settings notes -->
     <string name="browse_scan_option_note">
         Ці теки використовуються для сканування та отримання файлів у Огляді.
         Видалення теки тут не видалить фактичні файли чи книги з Бібліотеки.
         Щоб відкликати доступ, натисніть відповідну кнопку.
+    </string>
+    <string name="library_categories_option_note">
+        Спочатку книги додаються до категорії за замовчуванням,
+        але можуть належати до кількох користувацьких категорій створених тут.
+        Видалення категорії тут не видалить книги з Бібліотеки.
+        Затисніть і перетягніть іконку категорії, щоб змінити порядок категорій.
     </string>
 
     <!-- Settings options -->
@@ -214,8 +224,14 @@
     <string name="progress_bar_font_size_option">Розмір шрифта</string>
     <string name="progress_count_option">Підрахунок прогресу</string>
 
-    <!-- Browse -->
-    <string name="browse_grid_size_option">Кількість комірок</string>
+    <!-- Library -->
+    <string name="read_button_option">Показувати кнопку «Читати»</string>
+    <string name="show_progress_option">Показувати прогрес</string>
+    <string name="title_position_option">Розміщення заголовка</string>
+    <string name="show_book_count_option">Показувати кількість книжок</string>
+    <string name="show_category_tabs_option">Показувати вкладки категорій</string>
+    <string name="always_show_default_tab_option">Завжди показувати типову вкладку</string>
+    <string name="per_category_sort_option">Сортування за категоріями</string>
 
     <!-- Color presets -->
     <string name="red_color">Червоний</string>
@@ -242,20 +258,32 @@
     <string name="font_style_italic">Похилий</string>
     <string name="font_style_normal">Нормальний</string>
 
-    <!-- Browse Grid Size properties -->
-    <string name="browse_grid_size_auto">Авто</string>
-    <string name="browse_grid_size_per_row">кожен рядок</string>
+    <!-- Library Title Position properties -->
+    <string name="library_title_position_off">Схований</string>
+    <string name="library_title_position_below">Знизу</string>
+    <string name="library_title_position_inside">Всередині</string>
 
-    <!-- Browse Sort Order properties -->
-    <string name="browse_sort_order_name">За алфавітом</string>
-    <string name="browse_sort_order_file_format">Формат файла</string>
-    <string name="browse_sort_order_last_modified">Остання зміна</string>
-    <string name="browse_sort_order_file_size">Розмір файла</string>
+    <!-- Library Categories properties -->
+    <string name="library_categories_create_category_placeholder">Заголовок</string>
 
     <!-- Layout properties -->
     <string name="layout_option">Режим відображення</string>
     <string name="layout_list">Список</string>
-    <string name="layout_grid">Сітка</string>W
+    <string name="layout_grid">Сітка</string>
+
+    <!-- Sort Order properties -->
+    <string name="sort_order_name">За алфавітом</string>
+    <string name="sort_order_file_format">Формат файла</string>
+    <string name="sort_order_last_modified">Остання зміна</string>
+    <string name="sort_order_file_size">Розмір файла</string>
+    <string name="sort_order_last_read">Останнє читання</string>
+    <string name="sort_order_progress">Прогрес</string>
+    <string name="sort_order_author">Автор</string>
+
+    <!-- Grid Size properties -->
+    <string name="grid_size_option">Кількість комірок</string>
+    <string name="grid_size_auto">Авто</string>
+    <string name="grid_size_per_row">кожен рядок</string>
 
     <!-- Alignment properties -->
     <string name="alignment_start">Старт</string>
@@ -470,7 +498,7 @@
     <string name="pin_content_desc">Закріпити</string>
     <string name="show_less_content_desc">Показати менше</string>
     <string name="show_more_content_desc">Показати більше</string>
-    <string name="edit_content_desc">Редагувати поле</string>
+    <string name="edit_content_desc">Редагувати</string>
     <string name="expand_content_desc">Розгорнути</string>
     <string name="collapse_content_desc">Згорнути</string>
     <string name="remove_content_desc">Прибрати</string>

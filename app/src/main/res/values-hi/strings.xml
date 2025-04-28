@@ -4,7 +4,9 @@
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  --><resources>
+  -->
+
+<resources>
     <string name="library_screen">पुस्तकालय</string>
     <string name="history_screen">इतिहास</string>
     <string name="settings_screen">सेटिंग्स</string>
@@ -12,9 +14,7 @@
     <string name="default_string">डिफ़ॉल्ट</string>
     <string name="help_screen">सहायता</string>
     <string name="add_books">किताबें शामिल करें ?</string>
-    <string name="move_books">किताबें स्थानांतरित करें?</string>
     <string name="delete_book">किताब हटाएं?</string>
-    <string name="move_books_description">वह श्रेणी चुनें जिसमें आप सभी चयनित पुस्तकों को ले जाना चाहते हैं(%1$s)। सभी चयनित पुस्तकें चयनित श्रेणी में ले जाई जाएँगी।</string>
     <string name="error_something_went_wrong">कुछ गड़बड़ हुआ है ।</string>
     <string name="error_no_translator">कोई अनुवादक ऐप नहीं मिला ।</string>
     <string name="error_no_share_app">शेर करने के लिए कोई ऐप नहीं मिला ।</string>
@@ -42,10 +42,6 @@
     <string name="delete_cover">कवर छवि मिटाएँ</string>
     <string name="delete_cover_desc">पुस्तक का वर्तमान कवर चित्र मिटाएं</string>
     <string name="author">लेखक</string>
-    <string name="reading_tab">पढ़ रहे हैं</string>
-    <string name="already_read_tab">पढ़ चुके हैं</string>
-    <string name="planning_tab">योजना</string>
-    <string name="dropped_tab">गिरा दिया</string>
     <string name="general_tab">सामान्य</string>
     <string name="color_tab">रंग</string>
     <string name="filter_tab">फ़िल्टर</string>
@@ -63,10 +59,9 @@
     <string name="reading_speed_reader_settings">पढ़ने की गति</string>
     <string name="theme_appearance_settings">थीम सेटिंग्स</string>
     <string name="colors_appearance_settings">रंगों</string>
-    <string name="sort_browse_settings">क्रमबद्ध करना</string>
+    <string name="sort_settings">क्रमबद्ध करना</string>
     <string name="language_option">ऐप भाषा</string>
     <string name="delete_books">किताबें हटाएँ?</string>
-    <string name="move_book">किताब को स्थानांतरित करें ?</string>
     <string name="browse_screen">और देखें</string>
     <string name="delete_history">पढ़ने का इतिहास मिटाएँ?</string>
     <string name="general_settings_desc">ऐप भाषा</string>
@@ -78,7 +73,6 @@
     <string name="add_books_description">आप चुन सकते हैं कि आप कौन सी किताबें जोड़ना चाहते हैं। आप बाद में किताब का शीर्षक और कवर छवि संपादित कर सकते हैं। लोडिंग प्रक्रिया में कई मिनट लग सकते हैं।</string>
     <string name="delete_books_description">यह डेटाबेस से सभी चयनित पुस्तकों(%1$s) को हटा देगा। यह आपके डिवाइस से चयनित पुस्तकों को नहीं हटाएगा।</string>
     <string name="delete_book_description">यह इस पुस्तक को डेटाबेस से हटा देगा. यह आपकी डिवाइस से इस पुस्तक को नहीं हटाएगा।</string>
-    <string name="move_book_description">वह श्रेणी चुनें जिसमें आप इस पुस्तक को ले जाना चाहते हैं। यह पुस्तक चयनित श्रेणी में ले जाई जाएगी।</string>
     <string name="delete_history_description">यह डेटाबेस से पूरा इतिहास मिटा देगा। पूरा इतिहास मिटाने के बाद, किताबों का क्रम फिर से सेट हो जाएगा।</string>
     <string name="error_no_description">कोई वर्णन नहीं।</string>
     <string name="error_no_dictionary">कोई शब्दकोश ऐप नहीं मिला ।</string>
@@ -116,7 +110,7 @@
     <string name="perception_expander_option_desc">केंद्र पर ध्यान केंद्रित करके अपनी पढ़ने की गति बढ़ाएँ</string>
     <string name="perception_expander_padding_option">धारणा विस्तारक लाइन पैडिंग</string>
     <string name="layout_option">प्रदर्शन मोड</string>
-    <string name="browse_grid_size_option">ग्रिड का आकार</string>
+    <string name="grid_size_option">ग्रिड का आकार</string>
     <string name="green_color">हरा</string>
     <string name="blue_color">नीला</string>
     <string name="color_preset_placeholder">प्रीसेट को नाम दें…</string>
@@ -133,9 +127,9 @@
     <string name="font_style_normal">साधारण</string>
     <string name="layout_list">सूची</string>
     <string name="layout_grid">ग्रिड</string>
-    <string name="browse_grid_size_auto">स्वचालित</string>
-    <string name="browse_sort_order_file_format">फाइल का प्रकार</string>
-    <string name="browse_sort_order_last_modified">आखिरी बार संशोधित</string>
+    <string name="grid_size_auto">स्वचालित</string>
+    <string name="sort_order_file_format">फाइल का प्रकार</string>
+    <string name="sort_order_last_modified">आखिरी बार संशोधित</string>
     <string name="alignment_start">प्रारंभ</string>
     <string name="alignment_justify">सममित करें</string>
     <string name="alignment_center">मध्य</string>
@@ -157,9 +151,9 @@
     <string name="cover_image_changed">कवर छवि सफलतापूर्वक बदल दी गई।</string>
     <string name="book_moved">यह पुस्तक सफलतापूर्वक स्थानांतरित कर दी गई।</string>
     <string name="copied">कॉपी हो चुका</string>
-    <string name="browse_grid_size_per_row">प्रति पंक्ति</string>
-    <string name="browse_sort_order_name">वर्णक्रम</string>
-    <string name="browse_sort_order_file_size">फ़ाइल साइज़</string>
+    <string name="grid_size_per_row">प्रति पंक्ति</string>
+    <string name="sort_order_name">वर्णक्रम</string>
+    <string name="sort_order_file_size">फ़ाइल साइज़</string>
     <string name="screen_orientation_free">निःशुल्क</string>
     <string name="pink_theme">शनि ग्रह</string>
     <string name="lavender_theme">एरीस</string>

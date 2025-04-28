@@ -4,7 +4,9 @@
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  --><resources>
+  -->
+
+<resources>
     <string name="library_screen">Bibliothèque</string>
     <string name="history_screen">Historique</string>
     <string name="browse_screen">Naviguer</string>
@@ -12,14 +14,11 @@
     <string name="about_screen">À propos de l\'application</string>
     <string name="help_screen">Aide</string>
     <string name="delete_books">Supprimer des livres ?</string>
-    <string name="move_books">Déplacer des livres ?</string>
     <string name="delete_book">Supprimer le livre ?</string>
-    <string name="move_book">Déplacer le livre ?</string>
     <string name="delete_history">Effacer l\'historique de lecture ?</string>
     <string name="add_books_description">Vous pouvez choisir les livres que vous souhaitez ajouter. Vous pouvez modifier le titre et l\'image de couverture du livre par la suite. Le chargement peut prendre plusieurs minutes.</string>
     <string name="delete_books_description">Cela supprimera tous les livres sélectionnés (%1$s) de la base de données. Ceci ne supprimera pas les livres sélectionnés de votre appareil.</string>
     <string name="delete_book_description">Cela supprimera ce livre de la base de données. Ceci ne le supprimera pas de votre appareil.</string>
-    <string name="move_book_description">Choisissez la catégorie dans laquelle vous souhaitez déplacer ce livre. Ce dernier sera déplacé vers la catégorie choisie.</string>
     <string name="error_no_translator">Aucune application de traduction n\'a été trouvée.</string>
     <string name="error_no_dictionary">Aucune application de dictionnaire n\'a été trouvée.</string>
     <string name="error_no_share_app">Aucune application pour partager n\'a été trouvée.</string>
@@ -51,10 +50,6 @@
     <string name="delete_cover">Supprimez l\'image de couverture</string>
     <string name="delete_cover_desc">Supprimer l\'image actuelle de la couverture du livre</string>
     <string name="author">Auteur</string>
-    <string name="reading_tab">Lecture en cours</string>
-    <string name="already_read_tab">Déjà lu</string>
-    <string name="planning_tab">À lire</string>
-    <string name="dropped_tab">Abandonné</string>
     <string name="general_tab">Général</string>
     <string name="filter_tab">Filtres</string>
     <string name="sort_tab">Trier</string>
@@ -83,7 +78,7 @@
     <string name="text_alignment_option">Alignement du texte</string>
     <string name="letter_spacing_option">Espacement des lettres</string>
     <string name="layout_option">Mode d\'affichage</string>
-    <string name="browse_grid_size_option">Taille de la grille</string>
+    <string name="grid_size_option">Taille de la grille</string>
     <string name="red_color">Rouge</string>
     <string name="green_color">Vert</string>
     <string name="blue_color">Bleu</string>
@@ -99,10 +94,10 @@
     <string name="font_style_normal">Normal</string>
     <string name="layout_list">Liste</string>
     <string name="layout_grid">Grille</string>
-    <string name="browse_grid_size_auto">Automatique</string>
-    <string name="browse_grid_size_per_row">par ligne</string>
-    <string name="browse_sort_order_last_modified">Dernière modification</string>
-    <string name="browse_sort_order_file_size">Taille de fichier</string>
+    <string name="grid_size_auto">Automatique</string>
+    <string name="grid_size_per_row">par ligne</string>
+    <string name="sort_order_last_modified">Dernière modification</string>
+    <string name="sort_order_file_size">Taille de fichier</string>
     <string name="alignment_start">Début</string>
     <string name="alignment_justify">Justifier</string>
     <string name="alignment_center">Centrer</string>
@@ -204,7 +199,6 @@
     <string name="shuffle_color_preset_content_desc">Mélanger les couleurs</string>
     <string name="tryzub_badge">Tryzub</string>
     <string name="drag_content_desc">Glisser</string>
-    <string name="move_books_description">Choisissez la catégorie dans laquelle vous souhaitez déplacer tous les livres sélectionnés (%1$s). Tous les livres sélectionnés seront déplacés vers la catégorie choisie.</string>
     <string name="add_books">Ajouter des livres ?</string>
     <string name="error_no_description">Pas de description.</string>
     <string name="error_something_went_wrong">Quelque chose s\'est mal passé.</string>
@@ -216,7 +210,7 @@
     <string name="add_book">Ajouter un livre</string>
     <string name="color_tab">Couleurs</string>
     <string name="general_settings">Paramètres généraux</string>
-    <string name="sort_browse_settings">Trier</string>
+    <string name="sort_settings">Trier</string>
     <string name="language_option">Langue de l\'application</string>
     <string name="dark_theme_option">Thème sombre</string>
     <string name="pure_dark_option">Noir pur</string>
@@ -231,8 +225,8 @@
     <string name="line_height_option">Hauteur de la ligne</string>
     <string name="dark_theme_on">Activé</string>
     <string name="pure_dark_off">Désactivé</string>
-    <string name="browse_sort_order_file_format">Format de fichier</string>
-    <string name="browse_sort_order_name">Alphabétiquement</string>
+    <string name="sort_order_file_format">Format de fichier</string>
+    <string name="sort_order_name">Alphabétiquement</string>
     <string name="app_version_option">Version de l\'application</string>
     <string name="credits_design">Design</string>
     <string name="credits_translation">Traduction</string>

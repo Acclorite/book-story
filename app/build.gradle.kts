@@ -136,9 +136,6 @@ dependencies {
     // EPUB parser
     implementation("org.jsoup:jsoup:1.18.3")
 
-    // FB2 parser
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.1")
-
     // Language Switcher
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.appcompat:appcompat-resources:1.7.0")
@@ -156,9 +153,9 @@ dependencies {
     // Scrollbar
     implementation("com.github.nanihadesuka:LazyColumnScrollbar:2.2.0")
 
-    // Gson
-    implementation("com.google.code.gson:gson:2.11.0")
-
     // Markdown
     implementation("org.commonmark:commonmark:0.24.0")
+
+    // Json
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
 }

@@ -8,7 +8,7 @@ package ua.acclorite.book_story.presentation.library
 
 import androidx.compose.runtime.Composable
 import ua.acclorite.book_story.domain.library.book.SelectableBook
-import ua.acclorite.book_story.domain.library.category.CategoryWithBooks
+import ua.acclorite.book_story.domain.library.category.Category
 import ua.acclorite.book_story.domain.util.Dialog
 import ua.acclorite.book_story.ui.library.LibraryEvent
 import ua.acclorite.book_story.ui.library.LibraryScreen
@@ -17,20 +17,21 @@ import ua.acclorite.book_story.ui.library.LibraryScreen
 fun LibraryDialog(
     dialog: Dialog?,
     books: List<SelectableBook>,
-    categories: List<CategoryWithBooks>,
+    categories: List<Category>,
     selectedItemsCount: Int,
     actionMoveDialog: (LibraryEvent.OnActionMoveDialog) -> Unit,
     actionDeleteDialog: (LibraryEvent.OnActionDeleteDialog) -> Unit,
-    dismissDialog: (LibraryEvent.OnDismissDialog) -> Unit
+    dismissDialog: (LibraryEvent.OnDismissDialog) -> Unit,
+    navigateToLibrarySettings: () -> Unit
 ) {
     when (dialog) {
         LibraryScreen.MOVE_DIALOG -> {
             LibraryMoveDialog(
                 books = books,
                 categories = categories,
-                selectedItemsCount = selectedItemsCount,
                 actionMoveDialog = actionMoveDialog,
-                dismissDialog = dismissDialog
+                dismissDialog = dismissDialog,
+                navigateToLibrarySettings = navigateToLibrarySettings
             )
         }
 

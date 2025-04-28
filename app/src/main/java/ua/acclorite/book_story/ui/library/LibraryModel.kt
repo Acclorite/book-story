@@ -210,7 +210,7 @@ class LibraryModel @Inject constructor(
                         if (!book.selected) return@forEach
                         moveBooks.execute(
                             book.data.copy(
-                                category = event.selectedCategory
+                                categories = event.selectedCategories.map { it.id }
                             )
                         )
                     }
@@ -221,7 +221,7 @@ class LibraryModel @Inject constructor(
                                 if (!book.selected) return@map book
                                 book.copy(
                                     data = book.data.copy(
-                                        category = event.selectedCategory
+                                        categories = event.selectedCategories.map { it.id }
                                     ),
                                     selected = false
                                 )
@@ -232,11 +232,6 @@ class LibraryModel @Inject constructor(
                     }
 
                     HistoryScreen.refreshListChannel.trySend(0)
-                    LibraryScreen.scrollToPageCompositionChannel.trySend(
-                        event.categories.dropLastWhile {
-                            it.category != event.selectedCategory
-                        }.lastIndex
-                    )
 
                     withContext(Dispatchers.Main) {
                         event.context
@@ -289,6 +284,26 @@ class LibraryModel @Inject constructor(
                     _state.update {
                         it.copy(
                             dialog = null
+                        )
+                    }
+                }
+            }
+
+            is LibraryEvent.OnShowFilterBottomSheet -> {
+                viewModelScope.launch {
+                    _state.update {
+                        it.copy(
+                            bottomSheet = LibraryScreen.FILTER_BOTTOM_SHEET
+                        )
+                    }
+                }
+            }
+
+            is LibraryEvent.OnDismissBottomSheet -> {
+                viewModelScope.launch {
+                    _state.update {
+                        it.copy(
+                            bottomSheet = null
                         )
                     }
                 }

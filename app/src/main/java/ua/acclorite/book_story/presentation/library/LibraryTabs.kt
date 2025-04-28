@@ -29,14 +29,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import ua.acclorite.book_story.domain.library.category.CategoryWithBooks
+import ua.acclorite.book_story.domain.library.category.Category
 import ua.acclorite.book_story.presentation.core.components.common.StyledText
 
 @Composable
 fun LibraryTabs(
-    categories: List<CategoryWithBooks>,
+    categoriesWithBookCount: List<Pair<Category, Int>>,
     pagerState: PagerState,
     itemCountBackgroundColor: Color,
+    showBookCount: Boolean
 ) {
     val scope = rememberCoroutineScope()
 
@@ -69,7 +70,7 @@ fun LibraryTabs(
                 }
             }
         ) {
-            categories.forEachIndexed { index, tabItem ->
+            categoriesWithBookCount.forEachIndexed { index, tabItem ->
                 Tab(
                     selected = pagerState.currentPage == index,
                     onClick = {
@@ -82,23 +83,26 @@ fun LibraryTabs(
                     text = {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             StyledText(
-                                text = tabItem.title.asString(),
+                                text = tabItem.first.title,
                                 style = MaterialTheme.typography.bodyLarge,
                                 maxLines = 1,
                             )
-                            Spacer(modifier = Modifier.width(6.dp))
-                            StyledText(
-                                text = tabItem.books.count().toString(),
-                                modifier = Modifier
-                                    .background(
-                                        itemCountBackgroundColor,
-                                        MaterialTheme.shapes.medium
+
+                            if (showBookCount) {
+                                Spacer(modifier = Modifier.width(6.dp))
+                                StyledText(
+                                    text = tabItem.second.toString(),
+                                    modifier = Modifier
+                                        .background(
+                                            itemCountBackgroundColor,
+                                            MaterialTheme.shapes.medium
+                                        )
+                                        .padding(horizontal = 8.dp, vertical = 4.dp),
+                                    style = MaterialTheme.typography.bodyMedium.copy(
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
-                                    .padding(horizontal = 8.dp, vertical = 4.dp),
-                                style = MaterialTheme.typography.bodyMedium.copy(
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
-                            )
+                            }
                         }
                     }
                 )

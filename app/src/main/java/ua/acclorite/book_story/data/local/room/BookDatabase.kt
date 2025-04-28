@@ -16,6 +16,8 @@ import androidx.room.migration.AutoMigrationSpec
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import ua.acclorite.book_story.data.local.dto.BookEntity
+import ua.acclorite.book_story.data.local.dto.CategoryEntity
+import ua.acclorite.book_story.data.local.dto.CategorySortEntity
 import ua.acclorite.book_story.data.local.dto.ColorPresetEntity
 import ua.acclorite.book_story.data.local.dto.HistoryEntity
 import java.io.File
@@ -25,8 +27,10 @@ import java.io.File
         BookEntity::class,
         HistoryEntity::class,
         ColorPresetEntity::class,
+        CategoryEntity::class,
+        CategorySortEntity::class
     ],
-    version = 9,
+    version = 13,
     autoMigrations = [
         AutoMigration(1, 2),
         AutoMigration(2, 3),
@@ -36,6 +40,10 @@ import java.io.File
         AutoMigration(6, 7),
         AutoMigration(7, 8, spec = DatabaseHelper.MIGRATION_7_8::class),
         AutoMigration(8, 9, spec = DatabaseHelper.MIGRATION_8_9::class),
+        AutoMigration(9, 10, spec = DatabaseHelper.MIGRATION_9_10::class),
+        AutoMigration(10, 11),
+        AutoMigration(11, 12),
+        AutoMigration(12, 13),
     ],
     exportSchema = true
 )
@@ -113,4 +121,7 @@ object DatabaseHelper {
 
     @DeleteTable("FavoriteDirectoryEntity")
     class MIGRATION_8_9 : AutoMigrationSpec
+
+    @DeleteColumn("BookEntity", "category")
+    class MIGRATION_9_10 : AutoMigrationSpec
 }

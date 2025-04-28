@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.CollectionsBookmark
 import androidx.compose.material.icons.outlined.DisplaySettings
 import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.LocalLibrary
@@ -29,6 +30,7 @@ fun SettingsLayout(
     navigateToGeneralSettings: () -> Unit,
     navigateToAppearanceSettings: () -> Unit,
     navigateToReaderSettings: () -> Unit,
+    navigateToLibrarySettings: () -> Unit,
     navigateToBrowseSettings: () -> Unit
 ) {
     LazyColumnWithScrollbar(
@@ -74,6 +76,17 @@ fun SettingsLayout(
         item {
             SettingsLayoutItem(
                 index = 3,
+                icon = Icons.Outlined.CollectionsBookmark,
+                title = stringResource(id = R.string.library_settings),
+                description = stringResource(id = R.string.library_settings_desc)
+            ) {
+                navigateToLibrarySettings()
+            }
+        }
+
+        item {
+            SettingsLayoutItem(
+                index = 4,
                 icon = Icons.Outlined.Explore,
                 title = stringResource(id = R.string.browse_settings),
                 description = stringResource(id = R.string.browse_settings_desc)

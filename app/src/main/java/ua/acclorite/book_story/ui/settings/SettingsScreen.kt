@@ -37,6 +37,9 @@ object SettingsScreen : Screen, Parcelable {
             navigateToReaderSettings = {
                 navigator.push(ReaderSettingsScreen)
             },
+            navigateToLibrarySettings = {
+                navigator.push(LibrarySettingsScreen)
+            },
             navigateToBrowseSettings = {
                 navigator.push(BrowseSettingsScreen)
             },

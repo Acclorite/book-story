@@ -8,6 +8,7 @@ package ua.acclorite.book_story.presentation.book_info
 
 import androidx.compose.runtime.Composable
 import ua.acclorite.book_story.domain.library.book.Book
+import ua.acclorite.book_story.domain.library.category.Category
 import ua.acclorite.book_story.domain.util.Dialog
 import ua.acclorite.book_story.ui.book_info.BookInfoEvent
 import ua.acclorite.book_story.ui.book_info.BookInfoScreen
@@ -16,6 +17,7 @@ import ua.acclorite.book_story.ui.book_info.BookInfoScreen
 fun BookInfoDialog(
     dialog: Dialog?,
     book: Book,
+    categories: List<Category>,
     actionTitleDialog: (BookInfoEvent.OnActionTitleDialog) -> Unit,
     actionAuthorDialog: (BookInfoEvent.OnActionAuthorDialog) -> Unit,
     actionDescriptionDialog: (BookInfoEvent.OnActionDescriptionDialog) -> Unit,
@@ -24,7 +26,7 @@ fun BookInfoDialog(
     actionMoveDialog: (BookInfoEvent.OnActionMoveDialog) -> Unit,
     dismissDialog: (BookInfoEvent.OnDismissDialog) -> Unit,
     navigateBack: () -> Unit,
-    navigateToLibrary: () -> Unit
+    navigateToLibrarySettings: () -> Unit
 ) {
     when (dialog) {
         BookInfoScreen.DELETE_DIALOG -> {
@@ -38,9 +40,10 @@ fun BookInfoDialog(
         BookInfoScreen.MOVE_DIALOG -> {
             BookInfoMoveDialog(
                 book = book,
+                categories = categories,
                 actionMoveDialog = actionMoveDialog,
                 dismissDialog = dismissDialog,
-                navigateToLibrary = navigateToLibrary
+                navigateToLibrarySettings = navigateToLibrarySettings
             )
         }
 

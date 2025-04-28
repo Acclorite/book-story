@@ -90,10 +90,10 @@ private fun BrowseSortOptionItem(
         StyledText(
             text = stringResource(
                 when (item) {
-                    BrowseSortOrder.NAME -> R.string.browse_sort_order_name
-                    BrowseSortOrder.FILE_FORMAT -> R.string.browse_sort_order_file_format
-                    BrowseSortOrder.LAST_MODIFIED -> R.string.browse_sort_order_last_modified
-                    BrowseSortOrder.FILE_SIZE -> R.string.browse_sort_order_file_size
+                    BrowseSortOrder.NAME -> R.string.sort_order_name
+                    BrowseSortOrder.FILE_FORMAT -> R.string.sort_order_file_format
+                    BrowseSortOrder.LAST_MODIFIED -> R.string.sort_order_last_modified
+                    BrowseSortOrder.FILE_SIZE -> R.string.sort_order_file_size
                 }
             ),
             style = MaterialTheme.typography.bodyLarge,

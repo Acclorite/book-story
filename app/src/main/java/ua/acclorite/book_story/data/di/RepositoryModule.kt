@@ -14,6 +14,10 @@ import ua.acclorite.book_story.data.local.data_store.DataStore
 import ua.acclorite.book_story.data.local.data_store.DataStoreImpl
 import ua.acclorite.book_story.data.mapper.book.BookMapper
 import ua.acclorite.book_story.data.mapper.book.BookMapperImpl
+import ua.acclorite.book_story.data.mapper.category.CategoryMapper
+import ua.acclorite.book_story.data.mapper.category.CategoryMapperImpl
+import ua.acclorite.book_story.data.mapper.category_sort.CategorySortMapper
+import ua.acclorite.book_story.data.mapper.category_sort.CategorySortSortMapperImpl
 import ua.acclorite.book_story.data.mapper.color_preset.ColorPresetMapper
 import ua.acclorite.book_story.data.mapper.color_preset.ColorPresetMapperImpl
 import ua.acclorite.book_story.data.mapper.history.HistoryMapper
@@ -23,12 +27,14 @@ import ua.acclorite.book_story.data.parser.FileParserImpl
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.data.parser.TextParserImpl
 import ua.acclorite.book_story.data.repository.BookRepositoryImpl
+import ua.acclorite.book_story.data.repository.CategoryRepositoryImpl
 import ua.acclorite.book_story.data.repository.ColorPresetRepositoryImpl
 import ua.acclorite.book_story.data.repository.DataStoreRepositoryImpl
 import ua.acclorite.book_story.data.repository.FileSystemRepositoryImpl
 import ua.acclorite.book_story.data.repository.HistoryRepositoryImpl
 import ua.acclorite.book_story.data.repository.PermissionRepositoryImpl
 import ua.acclorite.book_story.domain.repository.BookRepository
+import ua.acclorite.book_story.domain.repository.CategoryRepository
 import ua.acclorite.book_story.domain.repository.ColorPresetRepository
 import ua.acclorite.book_story.domain.repository.DataStoreRepository
 import ua.acclorite.book_story.domain.repository.FileSystemRepository
@@ -83,6 +89,12 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
+    abstract fun bindCategoryRepository(
+        categoryRepositoryImpl: CategoryRepositoryImpl
+    ): CategoryRepository
+
+    @Binds
+    @Singleton
     abstract fun bindBookMapper(
         bookMapperImpl: BookMapperImpl
     ): BookMapper
@@ -98,6 +110,18 @@ abstract class RepositoryModule {
     abstract fun bindColorPresetMapper(
         colorPresetMapperImpl: ColorPresetMapperImpl
     ): ColorPresetMapper
+
+    @Binds
+    @Singleton
+    abstract fun bindCategoryMapper(
+        categoryMapperImpl: CategoryMapperImpl
+    ): CategoryMapper
+
+    @Binds
+    @Singleton
+    abstract fun bindCategorySortMapper(
+        categorySortSortMapperImpl: CategorySortSortMapperImpl
+    ): CategorySortMapper
 
     @Binds
     @Singleton

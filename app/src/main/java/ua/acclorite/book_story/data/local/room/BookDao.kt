@@ -14,6 +14,8 @@ import androidx.room.Query
 import androidx.room.Update
 import androidx.room.Upsert
 import ua.acclorite.book_story.data.local.dto.BookEntity
+import ua.acclorite.book_story.data.local.dto.CategoryEntity
+import ua.acclorite.book_story.data.local.dto.CategorySortEntity
 import ua.acclorite.book_story.data.local.dto.ColorPresetEntity
 import ua.acclorite.book_story.data.local.dto.HistoryEntity
 
@@ -92,5 +94,48 @@ interface BookDao {
 
     @Query("DELETE FROM colorpresetentity")
     suspend fun deleteColorPresets()
+    /* - - - - - - - - - - - - - - - - - - - - - - */
+
+
+    /* ------ CategoryEntity ----------------- */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCategory(
+        category: CategoryEntity
+    )
+
+    @Query("SELECT * FROM categoryentity")
+    suspend fun getCategories(): List<CategoryEntity>
+
+    @Query("SELECT COUNT(*) FROM categoryentity")
+    suspend fun getCategoriesCount(): Int
+
+    @Query("UPDATE categoryentity SET title=:title WHERE id=:id")
+    suspend fun updateCategoryTitle(
+        id: Int,
+        title: String
+    )
+
+    @Query("UPDATE categoryentity SET `order`=:order WHERE id=:id")
+    suspend fun updateCategoryOrder(
+        id: Int,
+        order: Int
+    )
+
+    @Delete
+    suspend fun deleteCategory(
+        category: CategoryEntity
+    )
+    /* - - - - - - - - - - - - - - - - - - - - - - */
+
+
+    /* ------ CategorySortEntity ----------------- */
+    @Upsert
+    suspend fun updateCategorySort(categorySort: CategorySortEntity)
+
+    @Query("SELECT * FROM categorysortentity")
+    suspend fun getCategorySortEntities(): List<CategorySortEntity>
+
+    @Query("DELETE FROM categorysortentity WHERE categoryId=:categoryId")
+    suspend fun deleteCategorySortEntity(categoryId: Int)
     /* - - - - - - - - - - - - - - - - - - - - - - */
 }

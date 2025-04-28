@@ -4,7 +4,9 @@
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  --><resources>
+  -->
+
+<resources>
     <!-- Basic Strings -->
     <string name="default_string">Varsayılan</string>
     <!-- Screens -->
@@ -16,10 +18,8 @@
     <string name="help_screen">Yardım</string>
     <!-- Dialog Labels -->
     <string name="add_books">Kitaplar eklensin mi?</string>
-    <string name="move_books">Kitaplar taşınsın mı?</string>
     <string name="delete_books">Kitaplar silinsin mi?</string>
     <string name="delete_book">Kitap silinsin mi?</string>
-    <string name="move_book">Kitap taşınsın mı?</string>
     <string name="delete_history">Okuma geçmişi silinsin mi?</string>
     <string name="edit">Düzenle</string>
     <!-- Dialog Descriptions -->
@@ -28,10 +28,6 @@
         Kitabın başlığını ve kapak resmini daha sonra düzenleyebilirsiniz.
         Yükleme işlemi birkaç dakika sürebilir.
     </string>
-    <string name="move_books_description">
-        Seçili kitapları (%1$s) taşımak istediğiniz kategoriyi seçin.
-        Tüm seçili kitaplar belirlenen kategoriye taşınacaktır.
-    </string>
     <string name="delete_books_description">
         Seçili kitaplar (%1$s) veritabanından silinecektir.
         Ancak cihazınızdaki kitaplar silinmeyecektir.
@@ -39,10 +35,6 @@
     <string name="delete_book_description">
         Bu kitap veritabanından silinecektir.
         Ancak cihazınızdan silinmeyecektir.
-    </string>
-    <string name="move_book_description">
-        Bu kitabı taşımak istediğiniz kategoriyi seçin.
-        Kitap belirlenen kategoriye taşınacaktır.
     </string>
     <string name="delete_history_description">
         Tüm geçmiş veritabanından silinecektir.
@@ -108,10 +100,6 @@
     <string name="delete_cover_desc">Kitabın mevcut kapak resmini sil</string>
     <string name="author">Yazar</string>
     <!-- Tabs -->
-    <string name="reading_tab">Okunan</string>
-    <string name="already_read_tab">Okundu</string>
-    <string name="planning_tab">Planlanan</string>
-    <string name="dropped_tab">Bırakılan</string>
     <string name="general_tab">Genel</string>
     <string name="color_tab">Renkler</string>
     <string name="filter_tab">Filtre</string>
@@ -141,7 +129,7 @@
     <string name="theme_appearance_settings">Tema tercihleri</string>
     <string name="colors_appearance_settings">Renkler</string>
     <string name="filter_browse_settings">Filtre</string>
-    <string name="sort_browse_settings">Sırala</string>
+    <string name="sort_settings">Sırala</string>
     <!-- Settings options -->
     <!-- General -->
     <string name="language_option">Uygulama dili</string>
@@ -209,7 +197,7 @@
     <string name="progress_count_option">İlerleme sayacı</string>
     <!-- Browse -->
     <string name="layout_option">Görüntüleme modu</string>
-    <string name="browse_grid_size_option">Izgara boyutu</string>
+    <string name="grid_size_option">Izgara boyutu</string>
     <!-- Color presets -->
     <string name="red_color">Kırmızı</string>
     <string name="green_color">Yeşil</string>
@@ -234,13 +222,13 @@
     <string name="layout_list">Liste</string>
     <string name="layout_grid">Izgara</string>
     <!-- Browse Grid Size properties -->
-    <string name="browse_grid_size_auto">Otomatik</string>
-    <string name="browse_grid_size_per_row">satır başına</string>
+    <string name="grid_size_auto">Otomatik</string>
+    <string name="grid_size_per_row">satır başına</string>
     <!-- Browse Sort Order properties -->
-    <string name="browse_sort_order_name">Alfabetik</string>
-    <string name="browse_sort_order_file_format">Dosya formatı</string>
-    <string name="browse_sort_order_last_modified">Son değiştirilme</string>
-    <string name="browse_sort_order_file_size">Dosya boyutu</string>
+    <string name="sort_order_name">Alfabetik</string>
+    <string name="sort_order_file_format">Dosya formatı</string>
+    <string name="sort_order_last_modified">Son değiştirilme</string>
+    <string name="sort_order_file_size">Dosya boyutu</string>
     <!-- Alignment properties -->
     <string name="alignment_start">Başlangıç</string>
     <string name="alignment_justify">İki yana yasla</string>

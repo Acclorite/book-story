@@ -17,8 +17,8 @@ fun BrowseFilterBottomSheetTabRow(
     scrollToPage: (Int) -> Unit
 ) {
     val tabItems = listOf(
-        stringResource(id = R.string.filter_tab),
         stringResource(id = R.string.sort_tab),
+        stringResource(id = R.string.filter_tab),
         stringResource(id = R.string.display_tab)
     )
 

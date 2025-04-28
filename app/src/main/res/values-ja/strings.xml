@@ -10,11 +10,8 @@
     <string name="about_screen">アプリについて</string>
     <string name="help_screen">ヘルプ</string>
     <string name="add_books">書籍の追加?</string>
-    <string name="move_books">書籍の移動?</string>
     <string name="delete_book">書籍の削除?</string>
-    <string name="move_book">書籍の移動?</string>
     <string name="delete_history">読書履歴を消去しますか?</string>
-    <string name="move_books_description">選択したすべての書籍(%1$s)を移動するカテゴリを選択します。 選択したすべての書籍を選択したカテゴリに移動します。</string>
     <string name="delete_books_description">データベースから選択したすべての書籍(%1$s)を削除します。 選択した書籍はデバイスから削除されません。</string>
     <string name="delete_history_description">すべての履歴をデータベースから削除します。すべての履歴が削除されると、書籍の順序はリセットされます。</string>
     <string name="error_something_went_wrong">問題が発生しました。</string>
@@ -45,7 +42,6 @@
     <string name="change_cover">カバー画像を変更する</string>
     <string name="delete_cover">カバー画像を消去する</string>
     <string name="author">著者</string>
-    <string name="planning_tab">計画</string>
     <string name="general_tab">一般</string>
     <string name="sort_tab">並び替え</string>
     <string name="reader_tab">リーダー</string>
@@ -69,7 +65,6 @@
     <string name="scan_browse_settings">スキャン</string>
     <string name="display_settings">表示</string>
     <string name="filter_browse_settings">フィルタ</string>
-    <string name="sort_browse_settings">並び替え</string>
     <string name="error_could_not_reset_cover">カバー画像をリセットできません。</string>
     <string name="edit">編集</string>
     <string name="delete_books">書籍の削除?</string>
@@ -93,8 +88,6 @@
     <string name="translate">翻訳</string>
     <string name="change_path">パスを変更</string>
     <string name="add_folder">フォルダを追加</string>
-    <string name="reading_tab">閲覧中</string>
-    <string name="already_read_tab">既読</string>
     <string name="color_tab">カラー</string>
     <string name="filter_tab">フィルタ</string>
     <string name="appearance_settings_desc">テーマ、カラー</string>
@@ -102,7 +95,6 @@
     <string name="language_option">アプリの言語</string>
     <string name="reading_speed_reader_settings">読書速度</string>
     <string name="dark_theme_option">ダークテーマ</string>
-    <string name="move_book_description">この本を移動させたいカテゴリを選択してください。本は選択されたカテゴリに移動されます。</string>
     <string name="library_screen">ライブラリ</string>
     <string name="browse_screen">ブラウズ</string>
     <string name="pure_dark_option">真っ黒(OLED)</string>
@@ -141,9 +133,6 @@
     <string name="highlighted_reading_thickness_option">ハイライトの太さ</string>
     <string name="font_style_italic">イタリック</string>
     <string name="font_style_normal">ノーマル</string>
-    <string name="browse_grid_size_auto">自動</string>
-    <string name="browse_grid_size_per_row">毎行</string>
-    <string name="browse_sort_order_name">アルファベット順</string>
     <string name="theme_contrast_high">高</string>
     <string name="color_effects_grayscale">グレースケール</string>
     <string name="color_effects_background">背景色</string>
@@ -179,7 +168,6 @@
     <string name="progress_bar_alignment_option">配置</string>
     <string name="progress_bar_font_size_option">フォントサイズ</string>
     <string name="progress_count_option">進捗状況カウント</string>
-    <string name="browse_grid_size_option">格子サイズ</string>
     <string name="green_color">緑</string>
     <string name="blue_color">青</string>
     <string name="color_preset_placeholder">プリセット名…</string>
@@ -190,9 +178,6 @@
     <string name="pure_dark_power_saver">セーバー</string>
     <string name="theme_contrast_standard">スタンダード</string>
     <string name="theme_contrast_medium">中</string>
-    <string name="browse_sort_order_file_format">ファイル形式</string>
-    <string name="browse_sort_order_last_modified">最終更新</string>
-    <string name="browse_sort_order_file_size">ファイルサイズ</string>
     <string name="layout_option">表示形式</string>
     <string name="layout_list">リスト</string>
     <string name="layout_grid">グリッド</string>
@@ -299,7 +284,6 @@
     <string name="help_title_how_to_manage_history">履歴はどうやって管理するのですか?</string>
     <string name="help_title_how_to_use_tooltip">ツールチップはどうやって使いますか?</string>
     <string name="help_desc_how_to_create_color_presets_1">外観設定に移動します(参照：リーダーをカスタマイズするにはどうすればいいですか?)。すべてのカラープリセットの設定を変更する場合、「カラー」カテゴリのサブカテゴリである『カラープリセット』の下のボックスを使用します。新しいカラープリセットを作成するには、「追加」アイコンボタンをクリックします。プリセットを変更する場合は複数の方法があります。テキストフィールドをクリックするとカラープリセットの名前を変更でき、スライダーを動かすとプリセットの色を変えることが出来ます。また、「シャッフル」ボタンをクリックするとすべての色をシャッフルすることが出来ます。カラープリセットを削除する場合は「削除」アイコンボタンをクリックします。</string>
-    <string name="dropped_tab">中断</string>
     <string name="display_tab">表示</string>
     <string name="cutout_padding_option">切り抜き余白</string>
     <string name="perception_expander_option">知覚拡張</string>

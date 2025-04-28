@@ -9,6 +9,7 @@ package ua.acclorite.book_story.presentation.book_info
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import ua.acclorite.book_story.domain.library.book.Book
+import ua.acclorite.book_story.domain.library.category.Category
 import ua.acclorite.book_story.domain.util.BottomSheet
 import ua.acclorite.book_story.domain.util.Dialog
 import ua.acclorite.book_story.ui.book_info.BookInfoEvent
@@ -16,6 +17,7 @@ import ua.acclorite.book_story.ui.book_info.BookInfoEvent
 @Composable
 fun BookInfoContent(
     book: Book,
+    categories: List<Category>,
     bottomSheet: BottomSheet?,
     dialog: Dialog?,
     listState: LazyListState,
@@ -41,12 +43,13 @@ fun BookInfoContent(
     dismissDialog: (BookInfoEvent.OnDismissDialog) -> Unit,
     dismissBottomSheet: (BookInfoEvent.OnDismissBottomSheet) -> Unit,
     navigateToReader: () -> Unit,
-    navigateToLibrary: () -> Unit,
+    navigateToLibrarySettings: () -> Unit,
     navigateBack: () -> Unit
 ) {
     BookInfoDialog(
         dialog = dialog,
         book = book,
+        categories = categories,
         actionTitleDialog = actionTitleDialog,
         actionAuthorDialog = actionAuthorDialog,
         actionDescriptionDialog = actionDescriptionDialog,
@@ -54,8 +57,8 @@ fun BookInfoContent(
         actionDeleteDialog = actionDeleteDialog,
         actionMoveDialog = actionMoveDialog,
         dismissDialog = dismissDialog,
-        navigateToLibrary = navigateToLibrary,
-        navigateBack = navigateBack
+        navigateBack = navigateBack,
+        navigateToLibrarySettings = navigateToLibrarySettings
     )
 
     BookInfoBottomSheet(

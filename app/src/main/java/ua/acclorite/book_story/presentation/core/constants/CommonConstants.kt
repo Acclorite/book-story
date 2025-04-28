@@ -10,7 +10,6 @@ package ua.acclorite.book_story.presentation.core.constants
 
 import androidx.compose.ui.graphics.Color
 import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.domain.library.category.Category
 import ua.acclorite.book_story.domain.reader.ColorPreset
 import ua.acclorite.book_story.domain.ui.UIText
 
@@ -29,7 +28,7 @@ fun provideEmptyBook() = Book(
     scrollOffset = 0,
     progress = 0f,
     lastOpened = null,
-    category = Category.READING
+    categories = emptyList()
 )
 
 // Default Color Preset

@@ -4,8 +4,9 @@
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  --><resources>
-    <string name="move_books">移动书籍？</string>
+  -->
+
+<resources>
     <string name="delete_history">删除阅读历史？</string>
     <string name="delete_book">删除书籍？</string>
     <string name="no">否</string>
@@ -25,10 +26,8 @@
     <string name="history_screen">历史</string>
     <string name="browse_screen">浏览</string>
     <string name="about_screen">关于 app</string>
-    <string name="move_book">移动书籍？</string>
     <string name="delete_books_description">所有已选择的书（%1$s）将会从数据库中删除，但不会从您的设备上删除。</string>
     <string name="delete_book_description">这本书将会从数据库中删除，但不会从您的设备上删除。</string>
-    <string name="move_book_description">选择你想将这本书移动到的分类。这本书将会被移动到指定的分类。</string>
     <string name="delete_history_description">所有的历史将从数据库中被删除。删除所有的历史后，书的顺序将会被重置。</string>
     <string name="error_no_description">无简介。</string>
     <string name="error_something_went_wrong">出现了一些错误。</string>
@@ -46,8 +45,6 @@
     <string name="unknown_author">未知</string>
     <string name="change_cover">修改封面图片</string>
     <string name="delete_cover_desc">删除这本书当前的封面图片</string>
-    <string name="reading_tab">正在阅读</string>
-    <string name="already_read_tab">已阅读</string>
     <string name="add_books">添加书籍？</string>
     <string name="error_no_browser">未发现浏览器应用。</string>
     <string name="add_book">添加一本书</string>
@@ -62,14 +59,13 @@
     <string name="selected_items_count_query">已选择 %1$s</string>
     <string name="delete_books">删除书籍？</string>
     <string name="add_books_description">您可以挑选您想添加哪些书。您可以在之后编辑书的标题与封面图片。加载过程可能会花费数分钟。</string>
-    <string name="move_books_description">选择你想将所选的书（%1$s）移动到的分类。所有被选择的书将会被移动到指定的分类。</string>
     <string name="reading_speed_reader_settings">阅读速度</string>
     <string name="dark_theme_option">暗黑主题</string>
     <string name="absolute_dark_option">绝对黑暗</string>
     <string name="absolute_dark_option_desc">改变背景颜色使完全黑暗</string>
     <string name="cutout_padding_option">刘海边距</string>
     <string name="cutout_padding_option_desc">将边距应用于刘海区域</string>
-    <string name="browse_grid_size_option">网格大小</string>
+    <string name="grid_size_option">网格大小</string>
     <string name="dark_theme_follow_system">系统</string>
     <string name="font_style_normal">正常</string>
     <string name="pure_dark_off">已禁用</string>
@@ -97,10 +93,9 @@
     <string name="app_theme_option">应用主题</string>
     <string name="colors_appearance_settings">颜色</string>
     <string name="translator_reader_settings">翻译器</string>
-    <string name="sort_browse_settings">排序</string>
+    <string name="sort_settings">排序</string>
     <string name="blue_color">蓝色</string>
     <string name="paragraph_height_option">段落间距</string>
-    <string name="dropped_tab">已放弃</string>
     <string name="color_tab">颜色</string>
     <string name="filter_tab">过滤</string>
     <string name="general_settings_desc">应用语言</string>
@@ -123,7 +118,6 @@
     <string name="font_color_option">字体颜色</string>
     <string name="filter_browse_settings">过滤</string>
     <string name="reader_settings">阅读器</string>
-    <string name="planning_tab">计划中</string>
     <string name="font_style_italic">斜体</string>
     <string name="red_color">红色</string>
     <string name="sort_tab">排序</string>
@@ -140,8 +134,8 @@
     <string name="default_string">默认</string>
     <string name="screen_orientation_option">屏幕方向</string>
     <string name="layout_list">列表</string>
-    <string name="browse_grid_size_per_row">每行</string>
-    <string name="browse_sort_order_file_format">文件格式</string>
+    <string name="grid_size_per_row">每行</string>
+    <string name="sort_order_file_format">文件格式</string>
     <string name="alignment_start">开头</string>
     <string name="alignment_end">末尾</string>
     <string name="screen_orientation_free">自由</string>
@@ -156,20 +150,20 @@
     <string name="aqua_theme">天王星</string>
     <string name="press_again_toast">再次点击返回退出</string>
     <string name="system_reader_settings">系统</string>
-    <string name="browse_sort_order_name">字母顺序</string>
+    <string name="sort_order_name">字母顺序</string>
     <string name="screen_orientation_portrait">竖屏</string>
     <string name="pink_theme">土星</string>
     <string name="alignment_center">居中</string>
     <string name="dynamic_theme">水星</string>
     <string name="lavender_theme">阋神星</string>
-    <string name="browse_sort_order_file_size">文件大小</string>
-    <string name="browse_sort_order_last_modified">最后修改</string>
+    <string name="sort_order_file_size">文件大小</string>
+    <string name="sort_order_last_modified">最后修改</string>
     <string name="general_tab">常规</string>
     <string name="reader_tab">阅读器</string>
     <string name="general_settings">常规</string>
     <string name="browse_settings_desc">常规，过滤，排序</string>
     <string name="layout_grid">网格</string>
-    <string name="browse_grid_size_auto">自动</string>
+    <string name="grid_size_auto">自动</string>
     <string name="books_added">成功添加所有已选择的书。</string>
     <string name="books_deleted">成功删除所有已选择的书。</string>
     <string name="cover_image_deleted">成功删除了封面图片。</string>

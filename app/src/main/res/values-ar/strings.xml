@@ -4,22 +4,20 @@
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  --><resources>
+  -->
+
+<resources>
     <string name="history_screen">التاريخ</string>
     <string name="add_books_description">يمكنك اختيار أي الكُتب تريد إضافتها. يمكنك تعديل العنوان و صورة غلاف الكتاب لاحقا. عملية التحميل يمكن أن تستغرق حتى بضع دقائق.</string>
-    <string name="move_book_description">اختر الفئة التي تريد نقل هذا الكتاب إليها. سيتم نقل هذا الكتاب إلى الفئة المُحدّدة.</string>
     <string name="library_screen">المكتبة</string>
     <string name="browse_screen">تصفح</string>
     <string name="settings_screen">الإعدادات</string>
     <string name="about_screen">عن التطبيق</string>
     <string name="help_screen">مساعدة</string>
     <string name="add_books">إضافة الكُتب؟</string>
-    <string name="move_books">نقل الكُتب؟</string>
     <string name="delete_books">حذف الكُتب؟</string>
     <string name="delete_book">حذف الكتاب؟</string>
-    <string name="move_book">نقل الكتاب؟</string>
     <string name="delete_history">حذف تاريخ القراءة؟</string>
-    <string name="move_books_description">اختر الفئة التي تريد نقل جميع الكُتب (%1$s) المُحدّدة. جميع الكُتب المُحدّدة سيتم نقلها إلى الفئة المُحدّدة.</string>
     <string name="delete_books_description">هذا سيحذف جميع الكُتب (%1$s) المُحدّدة من قاعدة البيانات. هذا لن يحذف الكُتب المُحدّدة مِن جهازك.</string>
     <string name="delete_book_description">هذا سيحذف هذا الكتاب من قاعدة البيانات. هذا لن يحذف الكتاب من جهازك.</string>
     <string name="delete_history_description">هذا سيحذف التاريخ بأكمله من قاعدة البيانات. بعد حذف التاريخ بأكمله، سيتم إعادة ضبط ترتيب الكُتب.</string>
@@ -69,8 +67,6 @@
     <string name="delete_cover">حذف صورة الغلاف</string>
     <string name="delete_cover_desc">حذف صورة غلاف الكتاب الحالية</string>
     <string name="author">المؤلف</string>
-    <string name="reading_tab">يقرأ</string>
-    <string name="already_read_tab">يقرأ بالفعل</string>
     <string name="general_tab">عام</string>
     <string name="color_tab">الألوان</string>
     <string name="pure_dark_option">أسود نقي</string>
@@ -88,7 +84,6 @@
     <string name="theme_contrast_medium">متوسط</string>
     <string name="web_search">بحث على الويب</string>
     <string name="share">مشاركة</string>
-    <string name="planning_tab">أخطط</string>
     <string name="filter_tab">تصفية</string>
     <string name="sort_tab">رتّب</string>
     <string name="browse_settings_desc">عام، تصفية، ترتيب</string>
@@ -102,7 +97,7 @@
     <string name="layout_list">قائمة</string>
     <string name="layout_grid">شبكة</string>
     <string name="browse_settings">تصفح</string>
-    <string name="sort_browse_settings">ترتيب</string>
+    <string name="sort_settings">ترتيب</string>
     <string name="error_no_dictionary">لم يتم العثور على تطبيق قاموس.</string>
     <string name="error_no_share_app">لم يتم العثور على تطبيق للمشاركة.</string>
     <string name="font_style_italic">مائل</string>
@@ -121,16 +116,16 @@
     <string name="history_deleted">حُذف التاريخ بنجاح.</string>
     <string name="cover_reset">تم إعادة تعيين صورة الغلاف بنجاح.</string>
     <string name="theme_contrast_high">عالي</string>
-    <string name="browse_grid_size_auto">اوتوماتيكي</string>
-    <string name="browse_grid_size_per_row">بالسطر</string>
-    <string name="browse_sort_order_name">أبجديا</string>
+    <string name="grid_size_auto">اوتوماتيكي</string>
+    <string name="grid_size_per_row">بالسطر</string>
+    <string name="sort_order_name">أبجديا</string>
     <string name="blue_theme">نبتون</string>
     <string name="red_theme">المريخ</string>
     <string name="purple_theme">المشتري</string>
     <string name="book_deleted">تم حذف هذا الكتاب بنجاح.</string>
     <string name="book_moved">تم نقل هذا الكتاب بنجاح.</string>
-    <string name="browse_sort_order_file_format">صيغة الملف</string>
-    <string name="browse_sort_order_file_size">حجم الملف</string>
+    <string name="sort_order_file_format">صيغة الملف</string>
+    <string name="sort_order_file_size">حجم الملف</string>
     <string name="green_theme">الارض</string>
     <string name="books_moved">نُقلت جميع الكُتب المُحدّدة بنجاح.</string>
     <string name="books_added">أُضيفت جميع الكُتب المُحدّدة بنجاح.</string>
@@ -138,7 +133,7 @@
     <string name="history_element_deleted">تم محو عناصر التاريخ بنجاح.</string>
     <string name="file_size">الحجم</string>
     <string name="unknown">غير معروف</string>
-    <string name="browse_grid_size_option">حجم الشبكة</string>
+    <string name="grid_size_option">حجم الشبكة</string>
     <string name="app_version_option">إصدار التطبيق</string>
     <string name="licenses_option">رخص مفتوحة المصدر</string>
     <string name="credits_icon">الأيقونات</string>
@@ -160,7 +155,7 @@
     <string name="fast_color_preset_change_option_desc">مرر الشريط العلوي لليسار أو اليمين لتغيير إعداد اللون المسبق</string>
     <string name="color_preset_placeholder">تسمية إعداد مسبق…</string>
     <string name="pure_dark_power_saver">توفير</string>
-    <string name="browse_sort_order_last_modified">آخر تعديل</string>
+    <string name="sort_order_last_modified">آخر تعديل</string>
     <string name="text_alignment_option">مواءمة النص</string>
     <string name="double_press_exit_option">اضغط مرة أخرى مزدوجة للخروج</string>
     <string name="double_press_exit_option_desc">اضغط مرتين للخروج من التطبيق</string>
@@ -185,7 +180,6 @@
     <string name="color_preset_option">إعداد اللون المسبق</string>
     <string name="absolute_dark_option">مظلم بالكامل</string>
     <string name="absolute_dark_option_desc">تغيير لون الخلفية لتصبح سوداء بالكامل</string>
-    <string name="dropped_tab">مهمل</string>
     <string name="reader_tab">قارئ</string>
     <string name="misc_reader_settings">متنوع</string>
     <string name="padding_reader_settings">الهوامش</string>

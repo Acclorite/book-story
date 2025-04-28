@@ -57,7 +57,7 @@ fun BrowseFilterBottomSheet(
             when (page) {
                 0 -> {
                     LazyColumnWithScrollbar(modifier = Modifier.fillMaxSize()) {
-                        BrowseFilterSubcategory(
+                        BrowseSortSubcategory(
                             showTitle = false,
                             showDivider = false
                         )
@@ -66,7 +66,7 @@ fun BrowseFilterBottomSheet(
 
                 1 -> {
                     LazyColumnWithScrollbar(modifier = Modifier.fillMaxSize()) {
-                        BrowseSortSubcategory(
+                        BrowseFilterSubcategory(
                             showTitle = false,
                             showDivider = false
                         )

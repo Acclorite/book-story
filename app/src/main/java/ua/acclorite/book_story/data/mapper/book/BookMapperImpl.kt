@@ -25,7 +25,7 @@ class BookMapperImpl @Inject constructor() : BookMapper {
             author = book.author.getAsString(),
             description = book.description,
             image = book.coverImage?.toString(),
-            category = book.category
+            categories = book.categories
         )
     }
 
@@ -42,8 +42,8 @@ class BookMapperImpl @Inject constructor() : BookMapper {
             progress = bookEntity.progress,
             filePath = bookEntity.filePath,
             lastOpened = null,
-            category = bookEntity.category,
-            coverImage = bookEntity.image?.toUri()
+            coverImage = bookEntity.image?.toUri(),
+            categories = bookEntity.categories
         )
     }
 }

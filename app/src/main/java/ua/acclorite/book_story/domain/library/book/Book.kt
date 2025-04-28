@@ -10,7 +10,6 @@ import android.net.Uri
 import android.os.Parcelable
 import androidx.compose.runtime.Immutable
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.domain.library.category.Category
 import ua.acclorite.book_story.domain.ui.UIText
 
 @Parcelize
@@ -30,5 +29,5 @@ data class Book(
     val progress: Float,
 
     val lastOpened: Long?,
-    val category: Category
+    val categories: List<Int>
 ) : Parcelable

@@ -4,21 +4,19 @@
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  --><resources>
+  -->
+
+<resources>
     <string name="library_screen">Bibliothek</string>
     <string name="history_screen">Verlauf</string>
     <string name="browse_screen">Durchsuchen</string>
     <string name="settings_screen">Einstellungen</string>
     <string name="about_screen">Über diese App</string>
-    <string name="move_books">Bücher verschieben?</string>
     <string name="delete_books">Bücher löschen?</string>
     <string name="delete_book">Buch löschen?</string>
-    <string name="move_book">Buch verschieben?</string>
     <string name="delete_history">Leseverlauf löschen?</string>
     <string name="add_books_description">Sie können auswählen, welche Bücher Sie hinzufügen möchten. Titel und Coverbild des Buches können Sie später bearbeiten. Der Ladevorgang kann mehrere Minuten dauern.</string>
-    <string name="move_books_description">Wählen Sie die Kategorie, in die Sie alle ausgewählten Bücher verschieben möchten (%1$s). Alle ausgewählten Bücher werden in die ausgewählte Kategorie verschoben.</string>
     <string name="delete_book_description">Dadurch wird das Buch aus der Datenbank gelöscht. Von Ihrem Gerät wird das Buch jedoch nicht gelöscht.</string>
-    <string name="move_book_description">Wählen Sie die Kategorie aus, in die Sie dieses Buch verschieben möchten. Dieses Buch wird in die ausgewählte Kategorie verschoben.</string>
     <string name="error_no_description">Keine Beschreibung.</string>
     <string name="error_could_not_get_text">Die Datei ist leer, fehlt oder ist unzugänglich. Überprüfe die Datei, überprüfe die Einstellungen oder änder den Pfad und versuche es dann erneut.</string>
     <string name="error_could_not_reset_cover">Titelbild konnte nicht zurückgesetzt werden.</string>
@@ -44,10 +42,6 @@
     <string name="delete_cover">Titelbild löschen</string>
     <string name="delete_cover_desc">Aktuelles Coverbild des Buches löschen</string>
     <string name="author">Author</string>
-    <string name="reading_tab">Lesend</string>
-    <string name="already_read_tab">Schon gelesen</string>
-    <string name="planning_tab">Geplant</string>
-    <string name="dropped_tab">Abgebrochen</string>
     <string name="general_tab">Allgemein</string>
     <string name="color_tab">Farben</string>
     <string name="general_settings_desc">App-Sprache</string>
@@ -221,23 +215,23 @@
     <string name="browse_settings">Durchsuchen</string>
     <string name="browse_settings_desc">Allgemein, Filter, Sortieren</string>
     <string name="filter_browse_settings">Filter</string>
-    <string name="sort_browse_settings">Sortieren</string>
+    <string name="sort_settings">Sortieren</string>
     <string name="layout_option">Anzeigemodus</string>
-    <string name="browse_grid_size_option">Rastergröße</string>
+    <string name="grid_size_option">Rastergröße</string>
     <string name="layout_list">Liste</string>
     <string name="layout_grid">Raster</string>
-    <string name="browse_grid_size_auto">Auto</string>
-    <string name="browse_grid_size_per_row">Pro Reihe</string>
-    <string name="browse_sort_order_name">Alphabetisch</string>
-    <string name="browse_sort_order_file_format">Dateiformat</string>
+    <string name="grid_size_auto">Auto</string>
+    <string name="grid_size_per_row">Pro Reihe</string>
+    <string name="sort_order_name">Alphabetisch</string>
+    <string name="sort_order_file_format">Dateiformat</string>
     <string name="sort_order_content_desc">Sortierung</string>
     <string name="select_all_files_content_desc">Alle Dateien auswählen</string>
     <string name="error_no_share_app">Keine App zum Teilen gefunden.</string>
     <string name="error_no_dictionary">Keine Wörterbuch-App gefunden.</string>
     <string name="web_search">Websuche</string>
     <string name="share">Teilen</string>
-    <string name="browse_sort_order_last_modified">Zuletzt geändert</string>
-    <string name="browse_sort_order_file_size">Dateigröße</string>
+    <string name="sort_order_last_modified">Zuletzt geändert</string>
+    <string name="sort_order_file_size">Dateigröße</string>
     <string name="text_alignment_option">Textausrichtung</string>
     <string name="alignment_start">Start</string>
     <string name="alignment_justify">Blocksatz</string>

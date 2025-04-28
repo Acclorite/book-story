@@ -10,7 +10,6 @@ import android.content.Context
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.domain.library.category.Category
-import ua.acclorite.book_story.domain.library.category.CategoryWithBooks
 
 @Immutable
 sealed class LibraryEvent {
@@ -43,8 +42,7 @@ sealed class LibraryEvent {
     data object OnShowMoveDialog : LibraryEvent()
 
     data class OnActionMoveDialog(
-        val selectedCategory: Category,
-        val categories: List<CategoryWithBooks>,
+        val selectedCategories: List<Category>,
         val context: Context
     ) : LibraryEvent()
 
@@ -55,4 +53,8 @@ sealed class LibraryEvent {
     ) : LibraryEvent()
 
     data object OnDismissDialog : LibraryEvent()
+
+    data object OnShowFilterBottomSheet : LibraryEvent()
+
+    data object OnDismissBottomSheet : LibraryEvent()
 }
