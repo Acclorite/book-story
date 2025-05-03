@@ -33,20 +33,20 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.reader.FontWithName
-import ua.acclorite.book_story.domain.reader.ReaderFontThickness
-import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
 import ua.acclorite.book_story.domain.reader.ReaderText
-import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
-import ua.acclorite.book_story.domain.util.HorizontalAlignment
-import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.presentation.core.components.common.SelectionContainer
-import ua.acclorite.book_story.presentation.core.components.common.SpacedItem
-import ua.acclorite.book_story.presentation.core.util.LocalActivity
-import ua.acclorite.book_story.presentation.core.util.noRippleClickable
-import ua.acclorite.book_story.presentation.core.util.showToast
+import ua.acclorite.book_story.presentation.common.components.common.AnimatedVisibility
+import ua.acclorite.book_story.presentation.common.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.common.components.common.SelectionContainer
+import ua.acclorite.book_story.presentation.common.components.common.SpacedItem
+import ua.acclorite.book_story.presentation.common.util.LocalActivity
+import ua.acclorite.book_story.presentation.common.util.noRippleClickable
+import ua.acclorite.book_story.presentation.common.util.showToast
+import ua.acclorite.book_story.presentation.reader.model.FontWithName
+import ua.acclorite.book_story.ui.main.model.HorizontalAlignment
 import ua.acclorite.book_story.ui.reader.ReaderEvent
+import ua.acclorite.book_story.ui.reader.model.ReaderFontThickness
+import ua.acclorite.book_story.ui.reader.model.ReaderHorizontalGesture
+import ua.acclorite.book_story.ui.reader.model.ReaderTextAlignment
 
 @Composable
 fun ReaderLayout(

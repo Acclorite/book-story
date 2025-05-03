@@ -20,12 +20,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.library.book.NullableBook
-import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
-import ua.acclorite.book_story.presentation.core.components.dialog.Dialog
-import ua.acclorite.book_story.presentation.core.components.progress_indicator.CircularProgressIndicator
-import ua.acclorite.book_story.presentation.core.util.showToast
+import ua.acclorite.book_story.data.model.common.NullableBook
+import ua.acclorite.book_story.presentation.common.components.dialog.Dialog
+import ua.acclorite.book_story.presentation.common.components.progress_indicator.CircularProgressIndicator
+import ua.acclorite.book_story.presentation.common.util.showToast
 import ua.acclorite.book_story.ui.browse.BrowseEvent
+import ua.acclorite.book_story.ui.library.model.SelectableNullableBook
 import java.util.UUID
 
 @Composable

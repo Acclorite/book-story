@@ -23,13 +23,13 @@ import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import ua.acclorite.book_story.domain.reader.FontWithName
-import ua.acclorite.book_story.domain.reader.ReaderFontThickness
 import ua.acclorite.book_story.domain.reader.ReaderText.Text
-import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
-import ua.acclorite.book_story.presentation.core.util.noRippleClickable
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.util.noRippleClickable
+import ua.acclorite.book_story.presentation.reader.model.FontWithName
 import ua.acclorite.book_story.ui.reader.ReaderEvent
+import ua.acclorite.book_story.ui.reader.model.ReaderFontThickness
+import ua.acclorite.book_story.ui.reader.model.ReaderTextAlignment
 
 @Composable
 fun LazyItemScope.ReaderLayoutTextParagraph(

@@ -18,11 +18,11 @@ import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.util.withJson
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.navigator.Screen
-import ua.acclorite.book_story.presentation.core.components.top_bar.collapsibleTopAppBarScrollBehavior
+import ua.acclorite.book_story.presentation.common.components.top_bar.collapsibleTopAppBarScrollBehavior
 import ua.acclorite.book_story.presentation.license_info.LicenseInfoContent
 import ua.acclorite.book_story.presentation.navigator.LocalNavigator
 import ua.acclorite.book_story.ui.about.AboutModel
+import ua.acclorite.book_story.ui.navigator.Screen
 
 @Parcelize
 data class LicenseInfoScreen(val uniqueId: String) : Screen, Parcelable {

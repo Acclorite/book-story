@@ -6,10 +6,10 @@
 
 package ua.acclorite.book_story.domain.repository
 
-import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.domain.library.book.BookWithCover
+import ua.acclorite.book_story.core.CoverImage
+import ua.acclorite.book_story.data.model.library.BookWithCover
+import ua.acclorite.book_story.domain.library.Book
 import ua.acclorite.book_story.domain.reader.ReaderText
-import ua.acclorite.book_story.domain.util.CoverImage
 
 interface BookRepository {
 

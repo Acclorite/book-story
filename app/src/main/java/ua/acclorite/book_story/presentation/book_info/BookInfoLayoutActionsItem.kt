@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
 
 @Composable
 fun BookInfoLayoutActionsItem(

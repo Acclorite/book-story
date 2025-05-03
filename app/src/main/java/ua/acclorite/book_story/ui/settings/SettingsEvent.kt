@@ -10,9 +10,9 @@ import android.content.Context
 import android.net.Uri
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
-import ua.acclorite.book_story.domain.library.category.Category
-import ua.acclorite.book_story.domain.library.display.LibrarySortOrder
-import ua.acclorite.book_story.domain.util.ID
+import ua.acclorite.book_story.core.ID
+import ua.acclorite.book_story.domain.library.Category
+import ua.acclorite.book_story.ui.library.model.LibrarySortOrder
 
 @Immutable
 sealed class SettingsEvent {

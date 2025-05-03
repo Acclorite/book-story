@@ -18,8 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.constants.provideAboutBadges
-import ua.acclorite.book_story.presentation.core.util.showToast
+import ua.acclorite.book_story.presentation.common.constants.provideAboutBadges
+import ua.acclorite.book_story.presentation.common.util.showToast
 import ua.acclorite.book_story.ui.about.AboutEvent
 
 @Composable

@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import ua.acclorite.book_story.domain.reader.ReaderText
-import ua.acclorite.book_story.domain.util.HorizontalAlignment
+import ua.acclorite.book_story.ui.main.model.HorizontalAlignment
 
 @Composable
 fun LazyItemScope.ReaderLayoutTextImage(

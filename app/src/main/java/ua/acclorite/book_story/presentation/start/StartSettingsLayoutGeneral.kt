@@ -17,8 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.ui.ButtonItem
-import ua.acclorite.book_story.presentation.core.components.dialog.SelectableDialogItem
+import ua.acclorite.book_story.presentation.common.components.dialog.SelectableDialogItem
+import ua.acclorite.book_story.presentation.common.model.ButtonItem
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategoryTitle
 import ua.acclorite.book_story.ui.main.MainEvent
 

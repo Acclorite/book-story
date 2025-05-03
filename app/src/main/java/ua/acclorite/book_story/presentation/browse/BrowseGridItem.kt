@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.domain.browse.file.SelectableFile
+import ua.acclorite.book_story.ui.browse.model.SelectableFile
 
 @Composable
 fun BrowseGridItem(

@@ -29,8 +29,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import ua.acclorite.book_story.domain.library.category.Category
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
+import ua.acclorite.book_story.domain.library.Category
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
 
 @Composable
 fun LibraryTabs(

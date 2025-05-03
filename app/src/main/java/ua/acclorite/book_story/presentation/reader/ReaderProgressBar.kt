@@ -16,8 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import ua.acclorite.book_story.domain.util.HorizontalAlignment
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
+import ua.acclorite.book_story.ui.main.model.HorizontalAlignment
 
 @Composable
 fun ReaderProgressBar(

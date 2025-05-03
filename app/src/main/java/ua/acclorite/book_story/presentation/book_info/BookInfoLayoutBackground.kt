@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.core.components.common.AsyncCoverImage
+import ua.acclorite.book_story.presentation.common.components.common.AsyncCoverImage
 
 @Composable
 fun BookInfoLayoutBackground(height: Dp, image: Uri) {

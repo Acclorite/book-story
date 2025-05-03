@@ -15,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.core.components.progress_indicator.CircularProgressIndicator
+import ua.acclorite.book_story.presentation.common.components.progress_indicator.CircularProgressIndicator
 
 @Composable
 fun ReaderLoadingPlaceholder() {

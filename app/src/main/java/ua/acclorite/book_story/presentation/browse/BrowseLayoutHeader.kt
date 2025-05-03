@@ -23,8 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
-import ua.acclorite.book_story.presentation.core.util.noRippleClickable
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.util.noRippleClickable
 
 @Composable
 fun BrowseLayoutHeader(

@@ -8,7 +8,7 @@ package ua.acclorite.book_story.presentation.reader
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
-import ua.acclorite.book_story.presentation.core.util.LocalActivity
+import ua.acclorite.book_story.presentation.common.util.LocalActivity
 import ua.acclorite.book_story.ui.reader.ReaderEvent
 
 @Composable

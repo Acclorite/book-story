@@ -7,7 +7,7 @@
 package ua.acclorite.book_story.presentation.browse
 
 import androidx.compose.runtime.Composable
-import ua.acclorite.book_story.domain.util.BottomSheet
+import ua.acclorite.book_story.core.BottomSheet
 import ua.acclorite.book_story.ui.browse.BrowseEvent
 import ua.acclorite.book_story.ui.browse.BrowseScreen
 

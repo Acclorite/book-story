@@ -18,12 +18,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.library.book.SelectableBook
-import ua.acclorite.book_story.domain.library.category.Category
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
-import ua.acclorite.book_story.presentation.core.components.dialog.CheckboxDialogItem
-import ua.acclorite.book_story.presentation.core.components.dialog.Dialog
+import ua.acclorite.book_story.domain.library.Category
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.components.dialog.CheckboxDialogItem
+import ua.acclorite.book_story.presentation.common.components.dialog.Dialog
 import ua.acclorite.book_story.ui.library.LibraryEvent
+import ua.acclorite.book_story.ui.library.model.SelectableBook
 
 @Composable
 fun LibraryMoveDialog(

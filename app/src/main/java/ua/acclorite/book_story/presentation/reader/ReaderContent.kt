@@ -18,19 +18,19 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.domain.reader.Checkpoint
-import ua.acclorite.book_story.domain.reader.FontWithName
-import ua.acclorite.book_story.domain.reader.ReaderFontThickness
-import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
+import ua.acclorite.book_story.core.BottomSheet
+import ua.acclorite.book_story.core.Drawer
+import ua.acclorite.book_story.core.ui.UIText
+import ua.acclorite.book_story.domain.library.Book
 import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
-import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
-import ua.acclorite.book_story.domain.ui.UIText
-import ua.acclorite.book_story.domain.util.BottomSheet
-import ua.acclorite.book_story.domain.util.Drawer
-import ua.acclorite.book_story.domain.util.HorizontalAlignment
+import ua.acclorite.book_story.presentation.reader.model.FontWithName
+import ua.acclorite.book_story.ui.main.model.HorizontalAlignment
 import ua.acclorite.book_story.ui.reader.ReaderEvent
+import ua.acclorite.book_story.ui.reader.model.Checkpoint
+import ua.acclorite.book_story.ui.reader.model.ReaderFontThickness
+import ua.acclorite.book_story.ui.reader.model.ReaderHorizontalGesture
+import ua.acclorite.book_story.ui.reader.model.ReaderTextAlignment
 import ua.acclorite.book_story.ui.settings.SettingsEvent
 
 @Composable

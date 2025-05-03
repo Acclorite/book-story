@@ -17,13 +17,13 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import org.jsoup.Jsoup
+import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.data.parser.DocumentParser
 import ua.acclorite.book_story.data.parser.TextParser
-import ua.acclorite.book_story.domain.file.CachedFile
 import ua.acclorite.book_story.domain.reader.ReaderText
-import ua.acclorite.book_story.presentation.core.constants.provideImageExtensions
-import ua.acclorite.book_story.presentation.core.util.addAll
-import ua.acclorite.book_story.presentation.core.util.containsVisibleText
+import ua.acclorite.book_story.presentation.common.constants.provideImageExtensions
+import ua.acclorite.book_story.presentation.common.util.addAll
+import ua.acclorite.book_story.presentation.common.util.containsVisibleText
 import java.io.File
 import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.zip.ZipEntry

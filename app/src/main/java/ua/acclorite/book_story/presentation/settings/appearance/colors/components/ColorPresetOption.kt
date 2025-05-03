@@ -63,12 +63,12 @@ import sh.calvin.reorderable.ReorderableCollectionItemScope
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.core.Selected
 import ua.acclorite.book_story.domain.reader.ColorPreset
-import ua.acclorite.book_story.domain.util.Selected
-import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.common.IconButton
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
-import ua.acclorite.book_story.presentation.core.components.settings.ColorPickerWithTitle
+import ua.acclorite.book_story.presentation.common.components.common.AnimatedVisibility
+import ua.acclorite.book_story.presentation.common.components.common.IconButton
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.components.settings.ColorPickerWithTitle
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategoryTitle
 import ua.acclorite.book_story.ui.settings.SettingsEvent
 import ua.acclorite.book_story.ui.settings.SettingsModel

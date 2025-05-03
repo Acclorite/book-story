@@ -20,8 +20,8 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.library.category.Category
-import ua.acclorite.book_story.domain.library.category.CategorySort
+import ua.acclorite.book_story.domain.library.Category
+import ua.acclorite.book_story.domain.library.CategorySort
 import ua.acclorite.book_story.domain.reader.ColorPreset
 import ua.acclorite.book_story.domain.use_case.category.DeleteCategory
 import ua.acclorite.book_story.domain.use_case.category.GetCategories
@@ -37,8 +37,8 @@ import ua.acclorite.book_story.domain.use_case.color_preset.SelectColorPreset
 import ua.acclorite.book_story.domain.use_case.color_preset.UpdateColorPreset
 import ua.acclorite.book_story.domain.use_case.permission.GrantPersistableUriPermission
 import ua.acclorite.book_story.domain.use_case.permission.ReleasePersistableUriPermission
-import ua.acclorite.book_story.presentation.core.constants.provideDefaultColorPreset
-import ua.acclorite.book_story.presentation.core.util.showToast
+import ua.acclorite.book_story.presentation.common.constants.provideDefaultColorPreset
+import ua.acclorite.book_story.presentation.common.util.showToast
 import javax.inject.Inject
 import kotlin.random.Random
 

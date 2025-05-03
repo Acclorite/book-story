@@ -16,8 +16,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.channels.Channel
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.util.Position
-import ua.acclorite.book_story.presentation.core.components.modal_bottom_sheet.ModalBottomSheet
+import ua.acclorite.book_story.presentation.common.components.modal_bottom_sheet.ModalBottomSheet
+import ua.acclorite.book_story.presentation.common.model.Position
 import ua.acclorite.book_story.ui.about.AboutScreen
 import ua.acclorite.book_story.ui.help.HelpScreen
 import ua.acclorite.book_story.ui.settings.SettingsScreen

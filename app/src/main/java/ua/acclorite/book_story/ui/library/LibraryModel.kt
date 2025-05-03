@@ -22,14 +22,14 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.domain.library.book.SelectableBook
+import ua.acclorite.book_story.domain.library.Book
 import ua.acclorite.book_story.domain.use_case.book.DeleteBooks
 import ua.acclorite.book_story.domain.use_case.book.GetBooks
 import ua.acclorite.book_story.domain.use_case.book.UpdateBook
-import ua.acclorite.book_story.presentation.core.util.showToast
+import ua.acclorite.book_story.presentation.common.util.showToast
 import ua.acclorite.book_story.ui.browse.BrowseScreen
 import ua.acclorite.book_story.ui.history.HistoryScreen
+import ua.acclorite.book_story.ui.library.model.SelectableBook
 import javax.inject.Inject
 
 @HiltViewModel

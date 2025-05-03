@@ -22,8 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.domain.about.Credit
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
+import ua.acclorite.book_story.presentation.about.model.Credit
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
 
 @Composable
 fun CreditItem(

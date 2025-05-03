@@ -18,13 +18,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import ua.acclorite.book_story.domain.library.book.SelectableBook
-import ua.acclorite.book_story.domain.library.category.Category
-import ua.acclorite.book_story.domain.library.category.CategorySort
-import ua.acclorite.book_story.domain.library.display.LibraryLayout
-import ua.acclorite.book_story.domain.library.display.LibrarySortOrder
-import ua.acclorite.book_story.domain.library.display.LibraryTitlePosition
+import ua.acclorite.book_story.domain.library.Category
+import ua.acclorite.book_story.domain.library.CategorySort
 import ua.acclorite.book_story.ui.library.LibraryEvent
+import ua.acclorite.book_story.ui.library.model.LibraryLayout
+import ua.acclorite.book_story.ui.library.model.LibrarySortOrder
+import ua.acclorite.book_story.ui.library.model.LibraryTitlePosition
+import ua.acclorite.book_story.ui.library.model.SelectableBook
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

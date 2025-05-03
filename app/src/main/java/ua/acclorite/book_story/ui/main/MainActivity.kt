@@ -23,12 +23,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.internal.immutableListOf
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.navigator.NavigatorItem
-import ua.acclorite.book_story.domain.navigator.StackEvent
-import ua.acclorite.book_story.domain.ui.isDark
-import ua.acclorite.book_story.domain.ui.isPureDark
-import ua.acclorite.book_story.presentation.core.components.navigation_bar.NavigationBar
-import ua.acclorite.book_story.presentation.core.components.navigation_rail.NavigationRail
+import ua.acclorite.book_story.presentation.common.components.navigation_bar.NavigationBar
+import ua.acclorite.book_story.presentation.common.components.navigation_rail.NavigationRail
 import ua.acclorite.book_story.presentation.main.MainActivityKeyboardManager
 import ua.acclorite.book_story.presentation.navigator.Navigator
 import ua.acclorite.book_story.presentation.navigator.NavigatorTabs
@@ -38,6 +34,10 @@ import ua.acclorite.book_story.ui.history.HistoryModel
 import ua.acclorite.book_story.ui.history.HistoryScreen
 import ua.acclorite.book_story.ui.library.LibraryModel
 import ua.acclorite.book_story.ui.library.LibraryScreen
+import ua.acclorite.book_story.ui.main.model.isDark
+import ua.acclorite.book_story.ui.main.model.isPureDark
+import ua.acclorite.book_story.ui.navigator.NavigatorItem
+import ua.acclorite.book_story.ui.navigator.StackEvent
 import ua.acclorite.book_story.ui.settings.SettingsModel
 import ua.acclorite.book_story.ui.start.StartScreen
 import ua.acclorite.book_story.ui.theme.BookStoryTheme

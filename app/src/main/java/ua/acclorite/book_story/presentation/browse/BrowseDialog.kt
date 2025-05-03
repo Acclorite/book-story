@@ -7,10 +7,10 @@
 package ua.acclorite.book_story.presentation.browse
 
 import androidx.compose.runtime.Composable
-import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
-import ua.acclorite.book_story.domain.util.Dialog
+import ua.acclorite.book_story.core.Dialog
 import ua.acclorite.book_story.ui.browse.BrowseEvent
 import ua.acclorite.book_story.ui.browse.BrowseScreen
+import ua.acclorite.book_story.ui.library.model.SelectableNullableBook
 
 @Composable
 fun BrowseDialog(

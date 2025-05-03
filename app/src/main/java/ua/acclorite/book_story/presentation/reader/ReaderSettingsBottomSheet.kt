@@ -25,9 +25,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.launch
-import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.presentation.core.components.modal_bottom_sheet.ModalBottomSheet
-import ua.acclorite.book_story.presentation.core.util.LocalActivity
+import ua.acclorite.book_story.presentation.common.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.common.components.modal_bottom_sheet.ModalBottomSheet
+import ua.acclorite.book_story.presentation.common.util.LocalActivity
 import ua.acclorite.book_story.presentation.settings.appearance.colors.ColorsSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.chapters.ChaptersSubcategory
 import ua.acclorite.book_story.presentation.settings.reader.font.FontSubcategory

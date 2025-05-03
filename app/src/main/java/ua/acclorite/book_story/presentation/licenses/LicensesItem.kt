@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.ui.compose.m3.util.author
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
 
 @Composable
 fun LicensesItem(

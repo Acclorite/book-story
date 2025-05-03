@@ -19,11 +19,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.ui.UIText
-import ua.acclorite.book_story.presentation.core.components.placeholder.ErrorPlaceholder
-import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBar
-import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBarData
-import ua.acclorite.book_story.presentation.core.util.LocalActivity
+import ua.acclorite.book_story.core.ui.UIText
+import ua.acclorite.book_story.presentation.common.components.placeholder.ErrorPlaceholder
+import ua.acclorite.book_story.presentation.common.components.top_bar.TopAppBar
+import ua.acclorite.book_story.presentation.common.components.top_bar.TopAppBarData
+import ua.acclorite.book_story.presentation.common.util.LocalActivity
 import ua.acclorite.book_story.presentation.navigator.NavigatorBackIconButton
 import ua.acclorite.book_story.ui.reader.ReaderEvent
 

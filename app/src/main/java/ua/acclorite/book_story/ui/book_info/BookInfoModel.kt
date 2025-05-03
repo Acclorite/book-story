@@ -27,7 +27,7 @@ import ua.acclorite.book_story.domain.use_case.book.GetBookById
 import ua.acclorite.book_story.domain.use_case.book.ResetCoverImage
 import ua.acclorite.book_story.domain.use_case.book.UpdateBook
 import ua.acclorite.book_story.domain.use_case.book.UpdateCoverImageOfBook
-import ua.acclorite.book_story.presentation.core.util.showToast
+import ua.acclorite.book_story.presentation.common.util.showToast
 import ua.acclorite.book_story.ui.browse.BrowseScreen
 import ua.acclorite.book_story.ui.history.HistoryScreen
 import ua.acclorite.book_story.ui.library.LibraryScreen

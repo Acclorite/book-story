@@ -8,8 +8,8 @@ package ua.acclorite.book_story.presentation.book_info
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.presentation.core.components.dialog.DialogWithTextField
+import ua.acclorite.book_story.domain.library.Book
+import ua.acclorite.book_story.presentation.common.components.dialog.DialogWithTextField
 import ua.acclorite.book_story.ui.book_info.BookInfoEvent
 
 @Composable

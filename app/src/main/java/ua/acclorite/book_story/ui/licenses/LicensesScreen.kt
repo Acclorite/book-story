@@ -20,11 +20,11 @@ import com.mikepenz.aboutlibraries.util.withJson
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.navigator.Screen
-import ua.acclorite.book_story.presentation.core.components.top_bar.collapsibleTopAppBarScrollBehavior
+import ua.acclorite.book_story.presentation.common.components.top_bar.collapsibleTopAppBarScrollBehavior
 import ua.acclorite.book_story.presentation.licenses.LicensesContent
 import ua.acclorite.book_story.presentation.navigator.LocalNavigator
 import ua.acclorite.book_story.ui.license_info.LicenseInfoScreen
+import ua.acclorite.book_story.ui.navigator.Screen
 
 @Parcelize
 object LicensesScreen : Screen, Parcelable {

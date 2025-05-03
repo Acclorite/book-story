@@ -11,8 +11,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.domain.about.Badge
-import ua.acclorite.book_story.presentation.core.components.common.IconButton
+import ua.acclorite.book_story.presentation.about.model.Badge
+import ua.acclorite.book_story.presentation.common.components.common.IconButton
 
 @Composable
 fun AboutBadgeItem(

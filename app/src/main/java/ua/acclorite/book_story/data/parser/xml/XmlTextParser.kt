@@ -10,9 +10,9 @@ import android.util.Log
 import kotlinx.coroutines.yield
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
+import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.data.parser.DocumentParser
 import ua.acclorite.book_story.data.parser.TextParser
-import ua.acclorite.book_story.domain.file.CachedFile
 import ua.acclorite.book_story.domain.reader.ReaderText
 import javax.inject.Inject
 

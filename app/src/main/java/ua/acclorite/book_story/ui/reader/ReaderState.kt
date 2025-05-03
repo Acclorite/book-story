@@ -8,14 +8,14 @@ package ua.acclorite.book_story.ui.reader
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.domain.reader.Checkpoint
+import ua.acclorite.book_story.core.BottomSheet
+import ua.acclorite.book_story.core.Drawer
+import ua.acclorite.book_story.core.ui.UIText
+import ua.acclorite.book_story.domain.library.Book
 import ua.acclorite.book_story.domain.reader.ReaderText
 import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
-import ua.acclorite.book_story.domain.ui.UIText
-import ua.acclorite.book_story.domain.util.BottomSheet
-import ua.acclorite.book_story.domain.util.Drawer
-import ua.acclorite.book_story.presentation.core.constants.provideEmptyBook
+import ua.acclorite.book_story.presentation.common.constants.provideEmptyBook
+import ua.acclorite.book_story.ui.reader.model.Checkpoint
 
 @Immutable
 data class ReaderState(

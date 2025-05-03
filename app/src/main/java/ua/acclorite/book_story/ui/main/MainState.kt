@@ -13,39 +13,24 @@ import androidx.annotation.Keep
 import androidx.compose.runtime.Immutable
 import androidx.datastore.preferences.core.Preferences
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.domain.browse.display.BrowseLayout
-import ua.acclorite.book_story.domain.browse.display.BrowseSortOrder
-import ua.acclorite.book_story.domain.browse.display.toBrowseLayout
-import ua.acclorite.book_story.domain.browse.display.toBrowseSortOrder
-import ua.acclorite.book_story.domain.library.display.LibraryLayout
-import ua.acclorite.book_story.domain.library.display.LibrarySortOrder
-import ua.acclorite.book_story.domain.library.display.LibraryTitlePosition
-import ua.acclorite.book_story.domain.library.display.toLibraryLayout
-import ua.acclorite.book_story.domain.library.display.toLibrarySortOrder
-import ua.acclorite.book_story.domain.library.display.toLibraryTitlePosition
-import ua.acclorite.book_story.domain.reader.ReaderColorEffects
-import ua.acclorite.book_story.domain.reader.ReaderFontThickness
-import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
-import ua.acclorite.book_story.domain.reader.ReaderProgressCount
-import ua.acclorite.book_story.domain.reader.ReaderScreenOrientation
-import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
-import ua.acclorite.book_story.domain.reader.toColorEffects
-import ua.acclorite.book_story.domain.reader.toFontThickness
-import ua.acclorite.book_story.domain.reader.toHorizontalGesture
-import ua.acclorite.book_story.domain.reader.toProgressCount
-import ua.acclorite.book_story.domain.reader.toReaderScreenOrientation
-import ua.acclorite.book_story.domain.reader.toTextAlignment
-import ua.acclorite.book_story.domain.ui.DarkTheme
-import ua.acclorite.book_story.domain.ui.PureDark
-import ua.acclorite.book_story.domain.ui.ThemeContrast
-import ua.acclorite.book_story.domain.ui.toDarkTheme
-import ua.acclorite.book_story.domain.ui.toPureDark
-import ua.acclorite.book_story.domain.ui.toThemeContrast
-import ua.acclorite.book_story.domain.util.HorizontalAlignment
-import ua.acclorite.book_story.domain.util.toHorizontalAlignment
-import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
-import ua.acclorite.book_story.presentation.core.constants.provideFonts
-import ua.acclorite.book_story.presentation.core.constants.provideLanguages
+import ua.acclorite.book_story.presentation.common.constants.DataStoreConstants
+import ua.acclorite.book_story.presentation.common.constants.provideFonts
+import ua.acclorite.book_story.presentation.common.constants.provideLanguages
+import ua.acclorite.book_story.ui.browse.model.BrowseLayout
+import ua.acclorite.book_story.ui.browse.model.BrowseSortOrder
+import ua.acclorite.book_story.ui.library.model.LibraryLayout
+import ua.acclorite.book_story.ui.library.model.LibrarySortOrder
+import ua.acclorite.book_story.ui.library.model.LibraryTitlePosition
+import ua.acclorite.book_story.ui.main.model.DarkTheme
+import ua.acclorite.book_story.ui.main.model.HorizontalAlignment
+import ua.acclorite.book_story.ui.main.model.PureDark
+import ua.acclorite.book_story.ui.main.model.ThemeContrast
+import ua.acclorite.book_story.ui.reader.model.ReaderColorEffects
+import ua.acclorite.book_story.ui.reader.model.ReaderFontThickness
+import ua.acclorite.book_story.ui.reader.model.ReaderHorizontalGesture
+import ua.acclorite.book_story.ui.reader.model.ReaderProgressCount
+import ua.acclorite.book_story.ui.reader.model.ReaderScreenOrientation
+import ua.acclorite.book_story.ui.reader.model.ReaderTextAlignment
 import ua.acclorite.book_story.ui.theme.Theme
 import ua.acclorite.book_story.ui.theme.toTheme
 import java.util.Locale
@@ -176,11 +161,11 @@ data class MainState(
                     ) { theme },
 
                     darkTheme = provideValue(
-                        DARK_THEME, convert = { toDarkTheme() }
+                        DARK_THEME, convert = { DarkTheme.valueOf(this) }
                     ) { darkTheme },
 
                     pureDark = provideValue(
-                        PURE_DARK, convert = { toPureDark() }
+                        PURE_DARK, convert = { PureDark.valueOf(this) }
                     ) { pureDark },
 
                     absoluteDark = provideValue(
@@ -188,7 +173,7 @@ data class MainState(
                     ) { absoluteDark },
 
                     themeContrast = provideValue(
-                        THEME_CONTRAST, convert = { toThemeContrast() }
+                        THEME_CONTRAST, convert = { ThemeContrast.valueOf(this) }
                     ) { themeContrast },
 
                     showStartScreen = provideValue(
@@ -232,7 +217,7 @@ data class MainState(
                     ) { fastColorPresetChange },
 
                     browseLayout = provideValue(
-                        BROWSE_LAYOUT, convert = { toBrowseLayout() }
+                        BROWSE_LAYOUT, convert = { BrowseLayout.valueOf(this) }
                     ) { browseLayout },
 
                     browseAutoGridSize = provideValue(
@@ -244,7 +229,7 @@ data class MainState(
                     ) { browseGridSize },
 
                     browseSortOrder = provideValue(
-                        BROWSE_SORT_ORDER, convert = { toBrowseSortOrder() }
+                        BROWSE_SORT_ORDER, convert = { BrowseSortOrder.valueOf(this) }
                     ) { browseSortOrder },
 
                     browseSortOrderDescending = provideValue(
@@ -256,7 +241,7 @@ data class MainState(
                     ) { browseIncludedFilterItems },
 
                     textAlignment = provideValue(
-                        TEXT_ALIGNMENT, convert = { toTextAlignment() }
+                        TEXT_ALIGNMENT, convert = { ReaderTextAlignment.valueOf(this) }
                     ) { textAlignment },
 
                     doublePressExit = provideValue(
@@ -300,7 +285,7 @@ data class MainState(
                     ) { perceptionExpanderThickness },
 
                     screenOrientation = provideValue(
-                        SCREEN_ORIENTATION, convert = { toReaderScreenOrientation() }
+                        SCREEN_ORIENTATION, convert = { ReaderScreenOrientation.valueOf(this) }
                     ) { screenOrientation },
 
                     customScreenBrightness = provideValue(
@@ -312,7 +297,7 @@ data class MainState(
                     ) { screenBrightness },
 
                     horizontalGesture = provideValue(
-                        HORIZONTAL_GESTURE, convert = { toHorizontalGesture() }
+                        HORIZONTAL_GESTURE, convert = { ReaderHorizontalGesture.valueOf(this) }
                     ) { horizontalGesture },
 
                     horizontalGestureScroll = provideValue(
@@ -336,7 +321,7 @@ data class MainState(
                     ) { highlightedReadingThickness },
 
                     chapterTitleAlignment = provideValue(
-                        CHAPTER_TITLE_ALIGNMENT, convert = { toTextAlignment() }
+                        CHAPTER_TITLE_ALIGNMENT, convert = { ReaderTextAlignment.valueOf(this) }
                     ) { chapterTitleAlignment },
 
                     images = provideValue(
@@ -348,7 +333,7 @@ data class MainState(
                     ) { imagesCornersRoundness },
 
                     imagesAlignment = provideValue(
-                        IMAGES_ALIGNMENT, convert = { toHorizontalAlignment() }
+                        IMAGES_ALIGNMENT, convert = { HorizontalAlignment.valueOf(this) }
                     ) { imagesAlignment },
 
                     imagesWidth = provideValue(
@@ -356,7 +341,7 @@ data class MainState(
                     ) { imagesWidth },
 
                     imagesColorEffects = provideValue(
-                        IMAGES_COLOR_EFFECTS, convert = { toColorEffects() }
+                        IMAGES_COLOR_EFFECTS, convert = { ReaderColorEffects.valueOf(this) }
                     ) { imagesColorEffects },
 
                     progressBar = provideValue(
@@ -368,7 +353,7 @@ data class MainState(
                     ) { progressBarPadding },
 
                     progressBarAlignment = provideValue(
-                        PROGRESS_BAR_ALIGNMENT, convert = { toHorizontalAlignment() }
+                        PROGRESS_BAR_ALIGNMENT, convert = { HorizontalAlignment.valueOf(this) }
                     ) { progressBarAlignment },
 
                     progressBarFontSize = provideValue(
@@ -380,11 +365,11 @@ data class MainState(
                     ) { browsePinnedPaths },
 
                     fontThickness = provideValue(
-                        FONT_THICKNESS, convert = { toFontThickness() }
+                        FONT_THICKNESS, convert = { ReaderFontThickness.valueOf(this) }
                     ) { fontThickness },
 
                     progressCount = provideValue(
-                        PROGRESS_COUNT, convert = { toProgressCount() }
+                        PROGRESS_COUNT, convert = { ReaderProgressCount.valueOf(this) }
                     ) { progressCount },
 
                     horizontalGestureAlphaAnim = provideValue(
@@ -396,7 +381,7 @@ data class MainState(
                     ) { horizontalGesturePullAnim },
 
                     libraryLayout = provideValue(
-                        LIBRARY_LAYOUT, convert = { toLibraryLayout() }
+                        LIBRARY_LAYOUT, convert = { LibraryLayout.valueOf(this) }
                     ) { libraryLayout },
 
                     libraryAutoGridSize = provideValue(
@@ -416,7 +401,7 @@ data class MainState(
                     ) { libraryShowProgress },
 
                     libraryTitlePosition = provideValue(
-                        LIBRARY_TITLE_POSITION, convert = { toLibraryTitlePosition() }
+                        LIBRARY_TITLE_POSITION, convert = { LibraryTitlePosition.valueOf(this) }
                     ) { libraryTitlePosition },
 
                     libraryShowBookCount = provideValue(
@@ -432,7 +417,7 @@ data class MainState(
                     ) { libraryAlwaysShowDefaultTab },
 
                     librarySortOrder = provideValue(
-                        LIBRARY_SORT_ORDER, convert = { toLibrarySortOrder() }
+                        LIBRARY_SORT_ORDER, convert = { LibrarySortOrder.valueOf(this) }
                     ) { librarySortOrder },
 
                     librarySortOrderDescending = provideValue(

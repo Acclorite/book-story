@@ -14,9 +14,9 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.domain.util.Position
-import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.presentation.core.constants.provideHelpTips
+import ua.acclorite.book_story.presentation.common.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.common.constants.provideHelpTips
+import ua.acclorite.book_story.presentation.common.model.Position
 
 @Composable
 fun HelpLayout(

@@ -11,7 +11,7 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import ua.acclorite.book_story.domain.navigator.StackEvent
+import ua.acclorite.book_story.ui.navigator.StackEvent
 import ua.acclorite.book_story.ui.theme.Transitions
 
 @Composable

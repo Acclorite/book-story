@@ -31,8 +31,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.browse.file.SelectableFile
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
+import ua.acclorite.book_story.ui.browse.model.SelectableFile
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -41,10 +41,10 @@ import java.util.Locale
 fun RowScope.BrowseListFileItem(file: SelectableFile) {
     val lastModified = rememberSaveable {
         SimpleDateFormat("HH:mm dd MMM yyyy", Locale.getDefault())
-            .format(Date(file.data.lastModified))
+            .format(Date(file.lastModified))
     }
 
-    val sizeBytes = rememberSaveable { file.data.size }
+    val sizeBytes = rememberSaveable { file.size }
     val fileSizeKB = rememberSaveable {
         if (sizeBytes > 0) sizeBytes.toDouble() / 1024.0 else 0.0
     }
@@ -83,7 +83,7 @@ fun RowScope.BrowseListFileItem(file: SelectableFile) {
         Spacer(modifier = Modifier.width(12.dp))
         Column(verticalArrangement = Arrangement.Center) {
             StyledText(
-                text = file.data.name,
+                text = file.name,
                 modifier = Modifier.fillMaxWidth(),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     color = MaterialTheme.colorScheme.onSurface,

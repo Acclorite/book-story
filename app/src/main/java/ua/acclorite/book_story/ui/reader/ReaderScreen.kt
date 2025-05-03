@@ -44,18 +44,18 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.domain.navigator.Screen
-import ua.acclorite.book_story.domain.reader.ReaderColorEffects
-import ua.acclorite.book_story.domain.reader.ReaderProgressCount
-import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
-import ua.acclorite.book_story.presentation.core.constants.provideFonts
-import ua.acclorite.book_story.presentation.core.util.LocalActivity
-import ua.acclorite.book_story.presentation.core.util.calculateProgress
-import ua.acclorite.book_story.presentation.core.util.setBrightness
+import ua.acclorite.book_story.presentation.common.constants.provideFonts
+import ua.acclorite.book_story.presentation.common.util.LocalActivity
+import ua.acclorite.book_story.presentation.common.util.calculateProgress
+import ua.acclorite.book_story.presentation.common.util.setBrightness
 import ua.acclorite.book_story.presentation.navigator.LocalNavigator
 import ua.acclorite.book_story.presentation.reader.ReaderContent
 import ua.acclorite.book_story.ui.book_info.BookInfoScreen
 import ua.acclorite.book_story.ui.main.MainModel
+import ua.acclorite.book_story.ui.navigator.Screen
+import ua.acclorite.book_story.ui.reader.model.ReaderColorEffects
+import ua.acclorite.book_story.ui.reader.model.ReaderProgressCount
+import ua.acclorite.book_story.ui.reader.model.ReaderTextAlignment
 import ua.acclorite.book_story.ui.settings.SettingsModel
 import kotlin.math.roundToInt
 

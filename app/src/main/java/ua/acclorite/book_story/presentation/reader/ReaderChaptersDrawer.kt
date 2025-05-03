@@ -22,14 +22,14 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.reader.ExpandableChapter
 import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
-import ua.acclorite.book_story.presentation.core.components.modal_drawer.ModalDrawer
-import ua.acclorite.book_story.presentation.core.components.modal_drawer.ModalDrawerSelectableItem
-import ua.acclorite.book_story.presentation.core.components.modal_drawer.ModalDrawerTitleItem
-import ua.acclorite.book_story.presentation.core.util.calculateProgress
-import ua.acclorite.book_story.presentation.core.util.noRippleClickable
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.components.modal_drawer.ModalDrawer
+import ua.acclorite.book_story.presentation.common.components.modal_drawer.ModalDrawerSelectableItem
+import ua.acclorite.book_story.presentation.common.components.modal_drawer.ModalDrawerTitleItem
+import ua.acclorite.book_story.presentation.common.util.calculateProgress
+import ua.acclorite.book_story.presentation.common.util.noRippleClickable
+import ua.acclorite.book_story.presentation.reader.model.ExpandableChapter
 import ua.acclorite.book_story.ui.reader.ReaderEvent
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
 

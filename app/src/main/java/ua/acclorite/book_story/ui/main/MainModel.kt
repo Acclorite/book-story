@@ -22,27 +22,27 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
-import ua.acclorite.book_story.domain.browse.display.toBrowseLayout
-import ua.acclorite.book_story.domain.browse.display.toBrowseSortOrder
-import ua.acclorite.book_story.domain.library.display.toLibraryLayout
-import ua.acclorite.book_story.domain.library.display.toLibrarySortOrder
-import ua.acclorite.book_story.domain.library.display.toLibraryTitlePosition
-import ua.acclorite.book_story.domain.reader.toColorEffects
-import ua.acclorite.book_story.domain.reader.toFontThickness
-import ua.acclorite.book_story.domain.reader.toHorizontalGesture
-import ua.acclorite.book_story.domain.reader.toProgressCount
-import ua.acclorite.book_story.domain.reader.toReaderScreenOrientation
-import ua.acclorite.book_story.domain.reader.toTextAlignment
-import ua.acclorite.book_story.domain.ui.toDarkTheme
-import ua.acclorite.book_story.domain.ui.toPureDark
-import ua.acclorite.book_story.domain.ui.toThemeContrast
 import ua.acclorite.book_story.domain.use_case.data_store.ChangeLanguage
 import ua.acclorite.book_story.domain.use_case.data_store.GetAllSettings
 import ua.acclorite.book_story.domain.use_case.data_store.SetDatastore
-import ua.acclorite.book_story.domain.util.toHorizontalAlignment
-import ua.acclorite.book_story.presentation.core.constants.DataStoreConstants
-import ua.acclorite.book_story.presentation.core.constants.provideFonts
-import ua.acclorite.book_story.presentation.core.constants.provideMainState
+import ua.acclorite.book_story.presentation.common.constants.DataStoreConstants
+import ua.acclorite.book_story.presentation.common.constants.provideFonts
+import ua.acclorite.book_story.presentation.common.constants.provideMainState
+import ua.acclorite.book_story.ui.browse.model.BrowseLayout
+import ua.acclorite.book_story.ui.browse.model.BrowseSortOrder
+import ua.acclorite.book_story.ui.library.model.LibraryLayout
+import ua.acclorite.book_story.ui.library.model.LibrarySortOrder
+import ua.acclorite.book_story.ui.library.model.LibraryTitlePosition
+import ua.acclorite.book_story.ui.main.model.DarkTheme
+import ua.acclorite.book_story.ui.main.model.HorizontalAlignment
+import ua.acclorite.book_story.ui.main.model.PureDark
+import ua.acclorite.book_story.ui.main.model.ThemeContrast
+import ua.acclorite.book_story.ui.reader.model.ReaderColorEffects
+import ua.acclorite.book_story.ui.reader.model.ReaderFontThickness
+import ua.acclorite.book_story.ui.reader.model.ReaderHorizontalGesture
+import ua.acclorite.book_story.ui.reader.model.ReaderProgressCount
+import ua.acclorite.book_story.ui.reader.model.ReaderScreenOrientation
+import ua.acclorite.book_story.ui.reader.model.ReaderTextAlignment
 import ua.acclorite.book_story.ui.theme.toTheme
 import javax.inject.Inject
 
@@ -76,7 +76,7 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.DARK_THEME,
                 value = event.value,
                 updateState = {
-                    it.copy(darkTheme = toDarkTheme())
+                    it.copy(darkTheme = DarkTheme.valueOf(this))
                 }
             )
 
@@ -84,7 +84,7 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.PURE_DARK,
                 value = event.value,
                 updateState = {
-                    it.copy(pureDark = toPureDark())
+                    it.copy(pureDark = PureDark.valueOf(this))
                 }
             )
 
@@ -92,7 +92,7 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.THEME_CONTRAST,
                 value = event.value,
                 updateState = {
-                    it.copy(themeContrast = toThemeContrast())
+                    it.copy(themeContrast = ThemeContrast.valueOf(this))
                 }
             )
 
@@ -194,7 +194,7 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.BROWSE_LAYOUT,
                 value = event.value,
                 updateState = {
-                    it.copy(browseLayout = toBrowseLayout())
+                    it.copy(browseLayout = BrowseLayout.valueOf(this))
                 }
             )
 
@@ -218,7 +218,7 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.BROWSE_SORT_ORDER,
                 value = event.value,
                 updateState = {
-                    it.copy(browseSortOrder = toBrowseSortOrder())
+                    it.copy(browseSortOrder = BrowseSortOrder.valueOf(this))
                 }
             )
 
@@ -238,7 +238,7 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.TEXT_ALIGNMENT,
                 value = event.value,
                 updateState = {
-                    it.copy(textAlignment = toTextAlignment())
+                    it.copy(textAlignment = ReaderTextAlignment.valueOf(this))
                 }
             )
 
@@ -334,7 +334,7 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.SCREEN_ORIENTATION,
                 value = event.value,
                 updateState = {
-                    it.copy(screenOrientation = toReaderScreenOrientation())
+                    it.copy(screenOrientation = ReaderScreenOrientation.valueOf(this))
                 }
             )
 
@@ -358,7 +358,7 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.HORIZONTAL_GESTURE,
                 value = event.value,
                 updateState = {
-                    it.copy(horizontalGesture = toHorizontalGesture())
+                    it.copy(horizontalGesture = ReaderHorizontalGesture.valueOf(this))
                 }
             )
 
@@ -406,7 +406,7 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.CHAPTER_TITLE_ALIGNMENT,
                 value = event.value,
                 updateState = {
-                    it.copy(chapterTitleAlignment = toTextAlignment())
+                    it.copy(chapterTitleAlignment = ReaderTextAlignment.valueOf(this))
                 }
             )
 
@@ -430,7 +430,7 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.IMAGES_ALIGNMENT,
                 value = event.value,
                 updateState = {
-                    it.copy(imagesAlignment = this.toHorizontalAlignment())
+                    it.copy(imagesAlignment = HorizontalAlignment.valueOf(this))
                 }
             )
 
@@ -446,7 +446,7 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.IMAGES_COLOR_EFFECTS,
                 value = event.value,
                 updateState = {
-                    it.copy(imagesColorEffects = this.toColorEffects())
+                    it.copy(imagesColorEffects = ReaderColorEffects.valueOf(this))
                 }
             )
 
@@ -470,7 +470,7 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.PROGRESS_BAR_ALIGNMENT,
                 value = event.value,
                 updateState = {
-                    it.copy(progressBarAlignment = this.toHorizontalAlignment())
+                    it.copy(progressBarAlignment = HorizontalAlignment.valueOf(this))
                 }
             )
 
@@ -490,7 +490,7 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.FONT_THICKNESS,
                 value = event.value,
                 updateState = {
-                    it.copy(fontThickness = this.toFontThickness())
+                    it.copy(fontThickness = ReaderFontThickness.valueOf(this))
                 }
             )
 
@@ -498,7 +498,7 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.PROGRESS_COUNT,
                 value = event.value,
                 updateState = {
-                    it.copy(progressCount = this.toProgressCount())
+                    it.copy(progressCount = ReaderProgressCount.valueOf(this))
                 }
             )
 
@@ -522,7 +522,7 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.LIBRARY_LAYOUT,
                 value = event.value,
                 updateState = {
-                    it.copy(libraryLayout = this.toLibraryLayout())
+                    it.copy(libraryLayout = LibraryLayout.valueOf(this))
                 }
             )
 
@@ -562,7 +562,7 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.LIBRARY_TITLE_POSITION,
                 value = event.value,
                 updateState = {
-                    it.copy(libraryTitlePosition = this.toLibraryTitlePosition())
+                    it.copy(libraryTitlePosition = LibraryTitlePosition.valueOf(this))
                 }
             )
 
@@ -594,7 +594,7 @@ class MainModel @Inject constructor(
                 key = DataStoreConstants.LIBRARY_SORT_ORDER,
                 value = event.value,
                 updateState = {
-                    it.copy(librarySortOrder = this.toLibrarySortOrder())
+                    it.copy(librarySortOrder = LibrarySortOrder.valueOf(this))
                 }
             )
 

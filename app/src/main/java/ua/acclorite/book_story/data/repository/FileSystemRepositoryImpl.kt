@@ -9,17 +9,17 @@ package ua.acclorite.book_story.data.repository
 import android.app.Application
 import android.util.Log
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.data.local.room.BookDao
+import ua.acclorite.book_story.data.model.common.NullableBook
+import ua.acclorite.book_story.data.model.common.NullableBook.NotNull
+import ua.acclorite.book_story.data.model.common.NullableBook.Null
+import ua.acclorite.book_story.data.model.file.CachedFile
+import ua.acclorite.book_story.data.model.file.CachedFileCompat
 import ua.acclorite.book_story.data.parser.FileParser
-import ua.acclorite.book_story.domain.browse.file.SelectableFile
-import ua.acclorite.book_story.domain.file.CachedFile
-import ua.acclorite.book_story.domain.file.CachedFileCompat
-import ua.acclorite.book_story.domain.library.book.NullableBook
-import ua.acclorite.book_story.domain.library.book.NullableBook.NotNull
-import ua.acclorite.book_story.domain.library.book.NullableBook.Null
+import ua.acclorite.book_story.domain.file.File
 import ua.acclorite.book_story.domain.repository.FileSystemRepository
-import ua.acclorite.book_story.domain.ui.UIText
-import ua.acclorite.book_story.presentation.core.constants.provideExtensions
+import ua.acclorite.book_story.presentation.common.constants.provideExtensions
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -42,7 +42,7 @@ class FileSystemRepositoryImpl @Inject constructor(
      * Gets all matching files from device.
      * Filters by [query] and sorts out not supported file formats and already added files.
      */
-    override suspend fun getFiles(query: String): List<SelectableFile> {
+    override suspend fun getFiles(query: String): List<File> {
         Log.i(GET_FILES, "Getting files from device, query: \"$query\".")
 
         val existingPaths = database
@@ -74,21 +74,25 @@ class FileSystemRepositoryImpl @Inject constructor(
             return true
         }
 
-        fun CachedFile.getSelectableFilesFromStorage(): List<SelectableFile> {
-            val selectableFiles = mutableListOf<SelectableFile>()
+        fun CachedFile.getSelectableFilesFromStorage(): List<File> {
+            val files = mutableListOf<File>()
 
             walk { file ->
                 if (!file.isValid()) return@walk
 
-                selectableFiles.add(
-                    SelectableFile(
-                        data = file,
-                        selected = false
+                files.add(
+                    File(
+                        name = file.name,
+                        uri = file.uri,
+                        path = file.path,
+                        size = file.size,
+                        lastModified = file.lastModified,
+                        isDirectory = file.isDirectory
                     )
                 )
             }
 
-            return selectableFiles
+            return files
         }
 
         fun getAllStorages(): List<CachedFile> {
@@ -119,7 +123,7 @@ class FileSystemRepositoryImpl @Inject constructor(
 
         return try {
             val storages = getAllStorages()
-            val files = mutableListOf<SelectableFile>()
+            val files = mutableListOf<File>()
 
             for (storage in storages) {
                 files.addAll(storage.getSelectableFilesFromStorage())
@@ -138,7 +142,19 @@ class FileSystemRepositoryImpl @Inject constructor(
     /**
      * Gets book from given file. If error happened, returns [NullableBook.Null].
      */
-    override suspend fun getBookFromFile(cachedFile: CachedFile): NullableBook {
+    override suspend fun getBookFromFile(file: File): NullableBook {
+        val cachedFile = CachedFileCompat.fromUri(
+            context = application,
+            uri = file.uri,
+            builder = CachedFileCompat.build(
+                name = file.name,
+                path = file.path,
+                size = file.size,
+                lastModified = file.lastModified,
+                isDirectory = file.isDirectory
+            )
+        )
+
         val parsedBook = fileParser.parse(cachedFile)
         if (parsedBook == null) {
             Log.e(GET_BOOK_FROM_FILE, "Parsed file(${cachedFile.name}) is null.")

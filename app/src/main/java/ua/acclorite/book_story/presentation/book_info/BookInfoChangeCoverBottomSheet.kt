@@ -24,8 +24,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.presentation.core.components.modal_bottom_sheet.ModalBottomSheet
+import ua.acclorite.book_story.domain.library.Book
+import ua.acclorite.book_story.presentation.common.components.modal_bottom_sheet.ModalBottomSheet
 import ua.acclorite.book_story.ui.book_info.BookInfoEvent
 
 @Composable

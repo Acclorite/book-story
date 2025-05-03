@@ -6,7 +6,7 @@
 
 package ua.acclorite.book_story.domain.use_case.category
 
-import ua.acclorite.book_story.domain.library.category.CategorySort
+import ua.acclorite.book_story.domain.library.CategorySort
 import ua.acclorite.book_story.domain.repository.CategoryRepository
 import javax.inject.Inject
 

@@ -12,12 +12,12 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.pullrefresh.PullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.focus.FocusRequester
-import ua.acclorite.book_story.domain.browse.display.BrowseLayout
-import ua.acclorite.book_story.domain.browse.file.SelectableFile
-import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
-import ua.acclorite.book_story.domain.util.BottomSheet
-import ua.acclorite.book_story.domain.util.Dialog
+import ua.acclorite.book_story.core.BottomSheet
+import ua.acclorite.book_story.core.Dialog
 import ua.acclorite.book_story.ui.browse.BrowseEvent
+import ua.acclorite.book_story.ui.browse.model.BrowseLayout
+import ua.acclorite.book_story.ui.browse.model.SelectableFile
+import ua.acclorite.book_story.ui.library.model.SelectableNullableBook
 import ua.acclorite.book_story.ui.main.MainEvent
 
 @OptIn(ExperimentalMaterialApi::class)

@@ -7,9 +7,9 @@
 package ua.acclorite.book_story.presentation.library
 
 import androidx.compose.runtime.Composable
-import ua.acclorite.book_story.domain.library.book.SelectableBook
-import ua.acclorite.book_story.domain.library.display.LibraryLayout
-import ua.acclorite.book_story.domain.library.display.LibraryTitlePosition
+import ua.acclorite.book_story.ui.library.model.LibraryLayout
+import ua.acclorite.book_story.ui.library.model.LibraryTitlePosition
+import ua.acclorite.book_story.ui.library.model.SelectableBook
 
 @Composable
 fun LibraryItem(

@@ -20,11 +20,11 @@ import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.crash.CrashUtils
-import ua.acclorite.book_story.domain.navigator.Screen
-import ua.acclorite.book_story.presentation.core.util.LocalActivity
-import ua.acclorite.book_story.presentation.core.util.launchActivity
-import ua.acclorite.book_story.presentation.core.util.showToast
+import ua.acclorite.book_story.presentation.common.util.LocalActivity
+import ua.acclorite.book_story.presentation.common.util.launchActivity
+import ua.acclorite.book_story.presentation.common.util.showToast
 import ua.acclorite.book_story.presentation.crash.CrashContent
+import ua.acclorite.book_story.ui.navigator.Screen
 
 @Parcelize
 object CrashScreen : Screen, Parcelable {

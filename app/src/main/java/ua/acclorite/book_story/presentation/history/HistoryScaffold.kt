@@ -19,9 +19,9 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import ua.acclorite.book_story.domain.history.GroupedHistory
-import ua.acclorite.book_story.presentation.core.components.common.Snackbar
+import ua.acclorite.book_story.presentation.common.components.common.Snackbar
 import ua.acclorite.book_story.ui.history.HistoryEvent
+import ua.acclorite.book_story.ui.history.model.GroupedHistory
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

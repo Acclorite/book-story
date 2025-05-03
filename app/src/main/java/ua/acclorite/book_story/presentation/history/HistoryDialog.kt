@@ -7,7 +7,7 @@
 package ua.acclorite.book_story.presentation.history
 
 import androidx.compose.runtime.Composable
-import ua.acclorite.book_story.domain.util.Dialog
+import ua.acclorite.book_story.core.Dialog
 import ua.acclorite.book_story.ui.history.HistoryEvent
 import ua.acclorite.book_story.ui.history.HistoryScreen
 

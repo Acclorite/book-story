@@ -8,9 +8,9 @@ package ua.acclorite.book_story.data.mapper.book
 
 import androidx.core.net.toUri
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.data.local.dto.BookEntity
-import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.domain.ui.UIText
+import ua.acclorite.book_story.domain.library.Book
 import javax.inject.Inject
 
 class BookMapperImpl @Inject constructor() : BookMapper {

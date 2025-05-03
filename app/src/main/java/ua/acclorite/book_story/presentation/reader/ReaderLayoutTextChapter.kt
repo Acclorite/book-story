@@ -22,8 +22,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
-import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
+import ua.acclorite.book_story.ui.reader.model.ReaderTextAlignment
 
 @Composable
 fun LazyItemScope.ReaderLayoutTextChapter(

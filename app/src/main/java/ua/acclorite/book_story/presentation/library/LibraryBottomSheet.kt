@@ -8,12 +8,12 @@ package ua.acclorite.book_story.presentation.library
 
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
-import ua.acclorite.book_story.domain.library.category.Category
-import ua.acclorite.book_story.domain.library.category.CategorySort
-import ua.acclorite.book_story.domain.library.display.LibrarySortOrder
-import ua.acclorite.book_story.domain.util.BottomSheet
+import ua.acclorite.book_story.core.BottomSheet
+import ua.acclorite.book_story.domain.library.Category
+import ua.acclorite.book_story.domain.library.CategorySort
 import ua.acclorite.book_story.ui.library.LibraryEvent
 import ua.acclorite.book_story.ui.library.LibraryScreen
+import ua.acclorite.book_story.ui.library.model.LibrarySortOrder
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.settings.SettingsEvent
 

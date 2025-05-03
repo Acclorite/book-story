@@ -11,7 +11,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import ua.acclorite.book_story.domain.ui.ThemeContrast
+import ua.acclorite.book_story.ui.main.model.ThemeContrast
 
 @Composable
 private fun animateColor(targetColor: Color): Color {

@@ -12,7 +12,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.common.components.common.LazyColumnWithScrollbar
 
 @Composable
 fun CrashLayout(

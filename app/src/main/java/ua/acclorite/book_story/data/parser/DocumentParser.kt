@@ -12,9 +12,9 @@ import androidx.compose.ui.graphics.asImageBitmap
 import kotlinx.coroutines.yield
 import org.jsoup.nodes.Document
 import ua.acclorite.book_story.domain.reader.ReaderText
-import ua.acclorite.book_story.presentation.core.util.clearAllMarkdown
-import ua.acclorite.book_story.presentation.core.util.clearMarkdown
-import ua.acclorite.book_story.presentation.core.util.containsVisibleText
+import ua.acclorite.book_story.presentation.common.util.clearAllMarkdown
+import ua.acclorite.book_story.presentation.common.util.clearMarkdown
+import ua.acclorite.book_story.presentation.common.util.containsVisibleText
 import java.io.File
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile

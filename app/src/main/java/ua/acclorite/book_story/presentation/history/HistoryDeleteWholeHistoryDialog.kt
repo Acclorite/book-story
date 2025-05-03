@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.dialog.Dialog
+import ua.acclorite.book_story.presentation.common.components.dialog.Dialog
 import ua.acclorite.book_story.ui.history.HistoryEvent
 
 @Composable

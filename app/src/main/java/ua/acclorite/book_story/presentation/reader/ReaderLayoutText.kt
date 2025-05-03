@@ -16,12 +16,12 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import ua.acclorite.book_story.domain.reader.FontWithName
-import ua.acclorite.book_story.domain.reader.ReaderFontThickness
 import ua.acclorite.book_story.domain.reader.ReaderText
-import ua.acclorite.book_story.domain.reader.ReaderTextAlignment
-import ua.acclorite.book_story.domain.util.HorizontalAlignment
+import ua.acclorite.book_story.presentation.reader.model.FontWithName
+import ua.acclorite.book_story.ui.main.model.HorizontalAlignment
 import ua.acclorite.book_story.ui.reader.ReaderEvent
+import ua.acclorite.book_story.ui.reader.model.ReaderFontThickness
+import ua.acclorite.book_story.ui.reader.model.ReaderTextAlignment
 
 @Composable
 fun LazyItemScope.ReaderLayoutText(

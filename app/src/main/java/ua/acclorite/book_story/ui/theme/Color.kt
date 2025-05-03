@@ -12,7 +12,7 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.ui.ThemeContrast
+import ua.acclorite.book_story.ui.main.model.ThemeContrast
 import ua.acclorite.book_story.ui.theme.color.aquaTheme
 import ua.acclorite.book_story.ui.theme.color.blackTheme
 import ua.acclorite.book_story.ui.theme.color.blueTheme

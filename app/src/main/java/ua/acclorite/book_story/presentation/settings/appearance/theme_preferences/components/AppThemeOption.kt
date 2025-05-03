@@ -42,14 +42,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.ui.ThemeContrast
-import ua.acclorite.book_story.domain.ui.isDark
-import ua.acclorite.book_story.domain.ui.isPureDark
-import ua.acclorite.book_story.presentation.core.components.common.AnimatedVisibility
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.components.common.AnimatedVisibility
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategoryTitle
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.main.MainModel
+import ua.acclorite.book_story.ui.main.model.ThemeContrast
+import ua.acclorite.book_story.ui.main.model.isDark
+import ua.acclorite.book_story.ui.main.model.isPureDark
 import ua.acclorite.book_story.ui.theme.Theme
 import ua.acclorite.book_story.ui.theme.animatedColorScheme
 

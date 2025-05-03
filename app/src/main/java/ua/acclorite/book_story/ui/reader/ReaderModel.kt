@@ -35,19 +35,19 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.reader.Checkpoint
+import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
-import ua.acclorite.book_story.domain.ui.UIText
 import ua.acclorite.book_story.domain.use_case.book.GetBookById
 import ua.acclorite.book_story.domain.use_case.book.GetText
 import ua.acclorite.book_story.domain.use_case.book.UpdateBook
 import ua.acclorite.book_story.domain.use_case.history.GetLatestHistory
-import ua.acclorite.book_story.presentation.core.util.coerceAndPreventNaN
-import ua.acclorite.book_story.presentation.core.util.launchActivity
-import ua.acclorite.book_story.presentation.core.util.setBrightness
-import ua.acclorite.book_story.presentation.core.util.showToast
+import ua.acclorite.book_story.presentation.common.util.coerceAndPreventNaN
+import ua.acclorite.book_story.presentation.common.util.launchActivity
+import ua.acclorite.book_story.presentation.common.util.setBrightness
+import ua.acclorite.book_story.presentation.common.util.showToast
 import ua.acclorite.book_story.ui.history.HistoryScreen
 import ua.acclorite.book_story.ui.library.LibraryScreen
+import ua.acclorite.book_story.ui.reader.model.Checkpoint
 import javax.inject.Inject
 import kotlin.math.roundToInt
 

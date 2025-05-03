@@ -16,7 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import ua.acclorite.book_story.domain.library.book.Book
+import ua.acclorite.book_story.domain.library.Book
 import ua.acclorite.book_story.ui.book_info.BookInfoEvent
 
 @Composable

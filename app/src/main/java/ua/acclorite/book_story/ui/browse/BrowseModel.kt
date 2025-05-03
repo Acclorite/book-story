@@ -22,16 +22,17 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.browse.display.BrowseSortOrder
-import ua.acclorite.book_story.domain.browse.file.SelectableFile
-import ua.acclorite.book_story.domain.library.book.NullableBook
-import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
+import ua.acclorite.book_story.data.model.common.NullableBook
+import ua.acclorite.book_story.domain.file.File
 import ua.acclorite.book_story.domain.use_case.book.InsertBook
 import ua.acclorite.book_story.domain.use_case.file_system.GetBookFromFile
 import ua.acclorite.book_story.domain.use_case.file_system.GetFiles
-import ua.acclorite.book_story.presentation.core.util.compareByWithOrder
-import ua.acclorite.book_story.presentation.core.util.showToast
+import ua.acclorite.book_story.presentation.common.util.compareByWithOrder
+import ua.acclorite.book_story.presentation.common.util.showToast
+import ua.acclorite.book_story.ui.browse.model.BrowseSortOrder
+import ua.acclorite.book_story.ui.browse.model.SelectableFile
 import ua.acclorite.book_story.ui.library.LibraryScreen
+import ua.acclorite.book_story.ui.library.model.SelectableNullableBook
 import javax.inject.Inject
 
 @HiltViewModel
@@ -182,11 +183,11 @@ class BrowseModel @Inject constructor(
                     val editedList = _state.value.files.map { file ->
                         if (
                             event.files.any {
-                                file.data.path.startsWith(it.data.path)
+                                file.path.startsWith(it.path)
                             } && event.includedFileFormats.run {
                                 if (isEmpty()) return@run true
                                 any {
-                                    file.data.path.endsWith(it, ignoreCase = true)
+                                    file.path.endsWith(it, ignoreCase = true)
                                 }
                             }
                         ) {
@@ -216,7 +217,7 @@ class BrowseModel @Inject constructor(
             is BrowseEvent.OnSelectFile -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     val editedList = _state.value.files.map { file ->
-                        if (event.file.data.path == file.data.path) {
+                        if (event.file.path == file.path) {
                             file.copy(
                                 selected = !file.selected
                             )
@@ -294,7 +295,18 @@ class BrowseModel @Inject constructor(
                             }
                             .forEach {
                                 yield()
-                                books.add(getBookFromFile.execute(it.data))
+                                books.add(
+                                    getBookFromFile.execute(
+                                        File(
+                                            name = it.name,
+                                            uri = it.uri,
+                                            path = it.path,
+                                            size = it.size,
+                                            lastModified = it.lastModified,
+                                            isDirectory = it.isDirectory
+                                        )
+                                    )
+                                )
                             }
 
                         yield()
@@ -406,7 +418,17 @@ class BrowseModel @Inject constructor(
             yield()
             _state.update {
                 it.copy(
-                    files = this,
+                    files = map {
+                        SelectableFile(
+                            name = it.name,
+                            uri = it.uri,
+                            path = it.path,
+                            size = it.size,
+                            lastModified = it.lastModified,
+                            isDirectory = it.isDirectory,
+                            selected = false
+                        )
+                    },
                     hasSelectedItems = false,
                     isLoading = false
                 )
@@ -427,7 +449,7 @@ class BrowseModel @Inject constructor(
 
             return filter { file ->
                 includedFilterItems.any {
-                    file.data.path.endsWith(
+                    file.path.endsWith(
                         it, ignoreCase = true
                     )
                 }
@@ -440,19 +462,19 @@ class BrowseModel @Inject constructor(
                 compareByWithOrder(sortOrderDescending) {
                     when (sortOrder) {
                         BrowseSortOrder.NAME -> {
-                            it.data.name.trim()
+                            it.name.trim()
                         }
 
                         BrowseSortOrder.FILE_FORMAT -> {
-                            it.data.path.substringAfterLast(".").lowercase().trimEnd()
+                            it.path.substringAfterLast(".").lowercase().trimEnd()
                         }
 
                         BrowseSortOrder.FILE_SIZE -> {
-                            it.data.size
+                            it.size
                         }
 
                         else -> {
-                            it.data.lastModified
+                            it.lastModified
                         }
                     }
                 }

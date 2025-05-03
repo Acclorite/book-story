@@ -16,8 +16,8 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.launch
-import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.presentation.core.components.modal_bottom_sheet.ModalBottomSheet
+import ua.acclorite.book_story.presentation.common.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.common.components.modal_bottom_sheet.ModalBottomSheet
 import ua.acclorite.book_story.presentation.settings.browse.display.BrowseDisplaySubcategory
 import ua.acclorite.book_story.presentation.settings.browse.filter.BrowseFilterSubcategory
 import ua.acclorite.book_story.presentation.settings.browse.sort.BrowseSortSubcategory

@@ -26,12 +26,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.presentation.core.constants.provideContributorsPage
-import ua.acclorite.book_story.presentation.core.constants.provideIssuesPage
-import ua.acclorite.book_story.presentation.core.constants.provideReleasesPage
-import ua.acclorite.book_story.presentation.core.constants.provideSupportPage
-import ua.acclorite.book_story.presentation.core.constants.provideTranslationPage
+import ua.acclorite.book_story.presentation.common.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.common.constants.provideContributorsPage
+import ua.acclorite.book_story.presentation.common.constants.provideIssuesPage
+import ua.acclorite.book_story.presentation.common.constants.provideReleasesPage
+import ua.acclorite.book_story.presentation.common.constants.provideSupportPage
+import ua.acclorite.book_story.presentation.common.constants.provideTranslationPage
 import ua.acclorite.book_story.ui.about.AboutEvent
 
 @Composable

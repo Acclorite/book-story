@@ -8,8 +8,8 @@ package ua.acclorite.book_story.presentation.browse
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import ua.acclorite.book_story.domain.browse.display.BrowseLayout
-import ua.acclorite.book_story.domain.browse.file.SelectableFile
+import ua.acclorite.book_story.ui.browse.model.BrowseLayout
+import ua.acclorite.book_story.ui.browse.model.SelectableFile
 
 @Composable
 fun BrowseItem(

@@ -10,7 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.common.IconButton
+import ua.acclorite.book_story.presentation.common.components.common.IconButton
 
 @Composable
 fun NavigatorBackIconButton(

@@ -16,10 +16,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.domain.browse.file.GroupedFiles
-import ua.acclorite.book_story.domain.browse.file.SelectableFile
-import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.presentation.core.constants.providePrimaryScrollbar
+import ua.acclorite.book_story.presentation.common.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.common.constants.providePrimaryScrollbar
+import ua.acclorite.book_story.ui.browse.model.GroupedFiles
+import ua.acclorite.book_story.ui.browse.model.SelectableFile
 
 @Composable
 fun BrowseListLayout(
@@ -43,7 +43,7 @@ fun BrowseListLayout(
 
             items(
                 group.files,
-                key = { it.data.path }
+                key = { it.path }
             ) { selectableFile ->
                 Box(Modifier.animateItem()) {
                     itemContent(selectableFile, group.files)

@@ -7,9 +7,9 @@
 package ua.acclorite.book_story.presentation.start
 
 import androidx.compose.runtime.Composable
-import ua.acclorite.book_story.domain.navigator.StackEvent
-import ua.acclorite.book_story.domain.ui.ButtonItem
+import ua.acclorite.book_story.presentation.common.model.ButtonItem
 import ua.acclorite.book_story.ui.main.MainEvent
+import ua.acclorite.book_story.ui.navigator.StackEvent
 import ua.acclorite.book_story.ui.start.StartScreen
 
 @Composable

@@ -12,11 +12,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
-import ua.acclorite.book_story.domain.ui.ButtonItem
-import ua.acclorite.book_story.presentation.core.components.settings.ChipsWithTitle
+import ua.acclorite.book_story.presentation.common.components.settings.ChipsWithTitle
+import ua.acclorite.book_story.presentation.common.model.ButtonItem
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.main.MainModel
+import ua.acclorite.book_story.ui.reader.model.ReaderHorizontalGesture
 
 @Composable
 fun HorizontalGestureOption() {

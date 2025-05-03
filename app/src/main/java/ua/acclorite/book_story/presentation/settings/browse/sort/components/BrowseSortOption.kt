@@ -31,8 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.browse.display.BrowseSortOrder
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
+import ua.acclorite.book_story.ui.browse.model.BrowseSortOrder
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.main.MainModel
 

@@ -20,10 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.Dispatchers
-import ua.acclorite.book_story.domain.navigator.Navigator
-import ua.acclorite.book_story.domain.navigator.Screen
-import ua.acclorite.book_story.domain.navigator.StackEvent
-import ua.acclorite.book_story.presentation.core.util.LocalActivity
+import ua.acclorite.book_story.presentation.common.util.LocalActivity
+import ua.acclorite.book_story.ui.navigator.Navigator
+import ua.acclorite.book_story.ui.navigator.Screen
+import ua.acclorite.book_story.ui.navigator.StackEvent
 
 @Composable
 fun rememberNavigator(initialScreen: Screen): Navigator {

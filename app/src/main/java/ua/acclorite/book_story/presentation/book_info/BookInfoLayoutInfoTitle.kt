@@ -10,9 +10,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
-import ua.acclorite.book_story.presentation.core.util.noRippleClickable
+import ua.acclorite.book_story.domain.library.Book
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.util.noRippleClickable
 import ua.acclorite.book_story.ui.book_info.BookInfoEvent
 
 @Composable

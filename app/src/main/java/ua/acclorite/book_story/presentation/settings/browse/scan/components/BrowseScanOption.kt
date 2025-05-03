@@ -39,10 +39,10 @@ import com.anggrayudi.storage.file.DocumentFileCompat
 import com.anggrayudi.storage.file.getBasePath
 import com.anggrayudi.storage.file.getRootPath
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.common.IconButton
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
-import ua.acclorite.book_story.presentation.core.util.noRippleClickable
-import ua.acclorite.book_story.presentation.core.util.showToast
+import ua.acclorite.book_story.presentation.common.components.common.IconButton
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.util.noRippleClickable
+import ua.acclorite.book_story.presentation.common.util.showToast
 import ua.acclorite.book_story.ui.browse.BrowseScreen
 import ua.acclorite.book_story.ui.settings.SettingsEvent
 import ua.acclorite.book_story.ui.settings.SettingsModel

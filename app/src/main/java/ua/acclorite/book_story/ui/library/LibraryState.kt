@@ -7,9 +7,9 @@
 package ua.acclorite.book_story.ui.library
 
 import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.domain.library.book.SelectableBook
-import ua.acclorite.book_story.domain.util.BottomSheet
-import ua.acclorite.book_story.domain.util.Dialog
+import ua.acclorite.book_story.core.BottomSheet
+import ua.acclorite.book_story.core.Dialog
+import ua.acclorite.book_story.ui.library.model.SelectableBook
 
 @Immutable
 data class LibraryState(

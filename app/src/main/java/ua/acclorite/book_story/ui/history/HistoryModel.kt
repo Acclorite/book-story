@@ -23,14 +23,14 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.history.GroupedHistory
 import ua.acclorite.book_story.domain.history.History
 import ua.acclorite.book_story.domain.use_case.book.GetBooksById
 import ua.acclorite.book_story.domain.use_case.history.DeleteHistory
 import ua.acclorite.book_story.domain.use_case.history.DeleteWholeHistory
 import ua.acclorite.book_story.domain.use_case.history.GetHistory
 import ua.acclorite.book_story.domain.use_case.history.InsertHistory
-import ua.acclorite.book_story.presentation.core.util.showToast
+import ua.acclorite.book_story.presentation.common.util.showToast
+import ua.acclorite.book_story.ui.history.model.GroupedHistory
 import ua.acclorite.book_story.ui.library.LibraryScreen
 import java.text.SimpleDateFormat
 import java.util.Calendar

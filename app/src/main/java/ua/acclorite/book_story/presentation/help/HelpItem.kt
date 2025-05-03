@@ -38,10 +38,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.help.HelpTip
-import ua.acclorite.book_story.domain.util.Position
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
-import ua.acclorite.book_story.presentation.core.util.noRippleClickable
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.model.Position
+import ua.acclorite.book_story.presentation.common.util.noRippleClickable
+import ua.acclorite.book_story.presentation.help.model.HelpTip
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable

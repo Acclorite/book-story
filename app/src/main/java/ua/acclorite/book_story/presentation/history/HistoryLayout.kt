@@ -17,12 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.history.GroupedHistory
-import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.presentation.core.constants.providePrimaryScrollbar
-import ua.acclorite.book_story.presentation.core.util.LocalActivity
+import ua.acclorite.book_story.presentation.common.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.common.constants.providePrimaryScrollbar
+import ua.acclorite.book_story.presentation.common.util.LocalActivity
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategoryTitle
 import ua.acclorite.book_story.ui.history.HistoryEvent
+import ua.acclorite.book_story.ui.history.model.GroupedHistory
 import ua.acclorite.book_story.ui.theme.DefaultTransition
 
 @Composable

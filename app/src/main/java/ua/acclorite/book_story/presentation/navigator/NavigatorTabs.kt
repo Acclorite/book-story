@@ -26,8 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.receiveAsFlow
-import ua.acclorite.book_story.domain.navigator.Screen
-import ua.acclorite.book_story.presentation.core.util.LocalActivity
+import ua.acclorite.book_story.presentation.common.util.LocalActivity
+import ua.acclorite.book_story.ui.navigator.Screen
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable

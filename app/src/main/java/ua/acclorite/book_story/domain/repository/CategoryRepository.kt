@@ -6,8 +6,8 @@
 
 package ua.acclorite.book_story.domain.repository
 
-import ua.acclorite.book_story.domain.library.category.Category
-import ua.acclorite.book_story.domain.library.category.CategorySort
+import ua.acclorite.book_story.domain.library.Category
+import ua.acclorite.book_story.domain.library.CategorySort
 
 interface CategoryRepository {
 

@@ -39,11 +39,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.library.book.SelectableBook
-import ua.acclorite.book_story.domain.library.display.LibraryTitlePosition
-import ua.acclorite.book_story.presentation.core.components.common.AsyncCoverImage
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
-import ua.acclorite.book_story.presentation.core.util.calculateProgress
+import ua.acclorite.book_story.presentation.common.components.common.AsyncCoverImage
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.util.calculateProgress
+import ua.acclorite.book_story.ui.library.model.LibraryTitlePosition
+import ua.acclorite.book_story.ui.library.model.SelectableBook
 
 @Composable
 fun LibraryGridItem(

@@ -28,9 +28,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.browse.file.SelectableFile
-import ua.acclorite.book_story.presentation.core.components.common.CircularCheckbox
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.components.common.CircularCheckbox
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
+import ua.acclorite.book_story.ui.browse.model.SelectableFile
 import ua.acclorite.book_story.ui.theme.DefaultTransition
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -40,10 +40,10 @@ import java.util.Locale
 fun BrowseGridFileItem(file: SelectableFile, hasSelectedItems: Boolean) {
     val lastModified = rememberSaveable {
         SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
-            .format(Date(file.data.lastModified))
+            .format(Date(file.lastModified))
     }
 
-    val sizeBytes = rememberSaveable { file.data.size }
+    val sizeBytes = rememberSaveable { file.size }
     val fileSizeKB = rememberSaveable {
         if (sizeBytes > 0) sizeBytes.toDouble() / 1024.0 else 0.0
     }
@@ -94,7 +94,7 @@ fun BrowseGridFileItem(file: SelectableFile, hasSelectedItems: Boolean) {
         Spacer(modifier = Modifier.height(8.dp))
 
         StyledText(
-            text = file.data.name,
+            text = file.name,
             style = MaterialTheme.typography.bodyLarge.copy(
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,

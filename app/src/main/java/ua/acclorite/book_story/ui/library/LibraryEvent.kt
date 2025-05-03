@@ -9,7 +9,7 @@ package ua.acclorite.book_story.ui.library
 import android.content.Context
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.focus.FocusRequester
-import ua.acclorite.book_story.domain.library.category.Category
+import ua.acclorite.book_story.domain.library.Category
 
 @Immutable
 sealed class LibraryEvent {

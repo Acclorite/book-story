@@ -22,11 +22,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.channels.Channel
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.domain.navigator.Screen
 import ua.acclorite.book_story.presentation.history.HistoryContent
 import ua.acclorite.book_story.presentation.navigator.LocalNavigator
 import ua.acclorite.book_story.ui.book_info.BookInfoScreen
 import ua.acclorite.book_story.ui.library.LibraryScreen
+import ua.acclorite.book_story.ui.navigator.Screen
 import ua.acclorite.book_story.ui.reader.ReaderScreen
 
 @Parcelize

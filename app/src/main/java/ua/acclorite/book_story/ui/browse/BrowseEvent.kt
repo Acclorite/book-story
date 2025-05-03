@@ -9,8 +9,8 @@ package ua.acclorite.book_story.ui.browse
 import android.content.Context
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.focus.FocusRequester
-import ua.acclorite.book_story.domain.browse.file.SelectableFile
-import ua.acclorite.book_story.domain.library.book.SelectableNullableBook
+import ua.acclorite.book_story.ui.browse.model.SelectableFile
+import ua.acclorite.book_story.ui.library.model.SelectableNullableBook
 
 @Immutable
 sealed class BrowseEvent {

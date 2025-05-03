@@ -24,7 +24,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import kotlinx.coroutines.launch
-import ua.acclorite.book_story.domain.reader.ReaderHorizontalGesture
+import ua.acclorite.book_story.ui.reader.model.ReaderHorizontalGesture
 import kotlin.math.abs
 import kotlin.math.roundToInt
 

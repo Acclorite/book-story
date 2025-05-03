@@ -11,7 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.runtime.Composable
-import ua.acclorite.book_story.domain.library.book.Book
+import ua.acclorite.book_story.domain.library.Book
 import ua.acclorite.book_story.ui.reader.ReaderEvent
 
 @Composable

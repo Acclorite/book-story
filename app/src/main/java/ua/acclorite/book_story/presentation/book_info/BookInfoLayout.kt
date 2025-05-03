@@ -17,9 +17,9 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.presentation.core.constants.providePrimaryScrollbar
+import ua.acclorite.book_story.domain.library.Book
+import ua.acclorite.book_story.presentation.common.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.common.constants.providePrimaryScrollbar
 import ua.acclorite.book_story.ui.book_info.BookInfoEvent
 
 @Composable

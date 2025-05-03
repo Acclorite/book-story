@@ -12,7 +12,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.core.view.WindowCompat
-import ua.acclorite.book_story.domain.ui.ThemeContrast
+import ua.acclorite.book_story.ui.main.model.ThemeContrast
 import ua.acclorite.book_story.ui.theme.BookStoryTheme
 import ua.acclorite.book_story.ui.theme.Theme
 

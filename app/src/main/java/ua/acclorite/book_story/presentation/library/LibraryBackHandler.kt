@@ -14,8 +14,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.util.LocalActivity
-import ua.acclorite.book_story.presentation.core.util.showToast
+import ua.acclorite.book_story.presentation.common.util.LocalActivity
+import ua.acclorite.book_story.presentation.common.util.showToast
 import ua.acclorite.book_story.ui.library.LibraryEvent
 
 @Composable

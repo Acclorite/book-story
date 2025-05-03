@@ -7,7 +7,7 @@
 package ua.acclorite.book_story.domain.history
 
 import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.domain.library.book.Book
+import ua.acclorite.book_story.domain.library.Book
 
 @Immutable
 data class History(

@@ -19,10 +19,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.getOrElse
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.domain.navigator.Screen
 import ua.acclorite.book_story.presentation.book_info.BookInfoContent
 import ua.acclorite.book_story.presentation.navigator.LocalNavigator
 import ua.acclorite.book_story.ui.history.HistoryScreen
+import ua.acclorite.book_story.ui.navigator.Screen
 import ua.acclorite.book_story.ui.reader.ReaderScreen
 import ua.acclorite.book_story.ui.settings.LibrarySettingsScreen
 import ua.acclorite.book_story.ui.settings.SettingsModel

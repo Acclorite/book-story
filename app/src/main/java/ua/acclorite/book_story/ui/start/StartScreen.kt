@@ -17,17 +17,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.domain.navigator.Screen
-import ua.acclorite.book_story.domain.navigator.StackEvent
-import ua.acclorite.book_story.domain.ui.ButtonItem
-import ua.acclorite.book_story.presentation.core.constants.provideLanguages
-import ua.acclorite.book_story.presentation.core.util.LocalActivity
+import ua.acclorite.book_story.presentation.common.constants.provideLanguages
+import ua.acclorite.book_story.presentation.common.model.ButtonItem
+import ua.acclorite.book_story.presentation.common.util.LocalActivity
 import ua.acclorite.book_story.presentation.navigator.LocalNavigator
 import ua.acclorite.book_story.presentation.start.StartContent
 import ua.acclorite.book_story.ui.browse.BrowseScreen
 import ua.acclorite.book_story.ui.help.HelpScreen
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.main.MainModel
+import ua.acclorite.book_story.ui.navigator.Screen
+import ua.acclorite.book_story.ui.navigator.StackEvent
 
 @Parcelize
 object StartScreen : Screen, Parcelable {

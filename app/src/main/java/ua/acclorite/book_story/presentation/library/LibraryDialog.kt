@@ -7,11 +7,11 @@
 package ua.acclorite.book_story.presentation.library
 
 import androidx.compose.runtime.Composable
-import ua.acclorite.book_story.domain.library.book.SelectableBook
-import ua.acclorite.book_story.domain.library.category.Category
-import ua.acclorite.book_story.domain.util.Dialog
+import ua.acclorite.book_story.core.Dialog
+import ua.acclorite.book_story.domain.library.Category
 import ua.acclorite.book_story.ui.library.LibraryEvent
 import ua.acclorite.book_story.ui.library.LibraryScreen
+import ua.acclorite.book_story.ui.library.model.SelectableBook
 
 @Composable
 fun LibraryDialog(

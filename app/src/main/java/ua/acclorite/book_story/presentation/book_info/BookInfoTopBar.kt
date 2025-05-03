@@ -15,11 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.presentation.core.components.common.IconButton
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
-import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBar
-import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBarData
+import ua.acclorite.book_story.domain.library.Book
+import ua.acclorite.book_story.presentation.common.components.common.IconButton
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.components.top_bar.TopAppBar
+import ua.acclorite.book_story.presentation.common.components.top_bar.TopAppBarData
 import ua.acclorite.book_story.presentation.navigator.NavigatorBackIconButton
 import ua.acclorite.book_story.ui.book_info.BookInfoEvent
 import ua.acclorite.book_story.ui.theme.DefaultTransition

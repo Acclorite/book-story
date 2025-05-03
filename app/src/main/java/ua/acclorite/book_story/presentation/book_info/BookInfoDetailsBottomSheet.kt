@@ -18,11 +18,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.file.CachedFileCompat
-import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.presentation.core.components.modal_bottom_sheet.ModalBottomSheet
-import ua.acclorite.book_story.presentation.core.constants.provideExtensions
+import ua.acclorite.book_story.data.model.file.CachedFileCompat
+import ua.acclorite.book_story.domain.library.Book
+import ua.acclorite.book_story.presentation.common.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.common.components.modal_bottom_sheet.ModalBottomSheet
+import ua.acclorite.book_story.presentation.common.constants.provideExtensions
 import ua.acclorite.book_story.presentation.settings.components.SettingsSubcategoryTitle
 import ua.acclorite.book_story.ui.book_info.BookInfoEvent
 import java.text.SimpleDateFormat

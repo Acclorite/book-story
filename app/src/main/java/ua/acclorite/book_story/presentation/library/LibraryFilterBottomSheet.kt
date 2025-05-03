@@ -22,15 +22,15 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import ua.acclorite.book_story.domain.library.category.Category
-import ua.acclorite.book_story.domain.library.category.CategorySort
-import ua.acclorite.book_story.domain.library.display.LibrarySortOrder
-import ua.acclorite.book_story.presentation.core.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.presentation.core.components.modal_bottom_sheet.ModalBottomSheet
+import ua.acclorite.book_story.domain.library.Category
+import ua.acclorite.book_story.domain.library.CategorySort
+import ua.acclorite.book_story.presentation.common.components.common.LazyColumnWithScrollbar
+import ua.acclorite.book_story.presentation.common.components.modal_bottom_sheet.ModalBottomSheet
 import ua.acclorite.book_story.presentation.settings.library.display.LibraryDisplaySubcategory
 import ua.acclorite.book_story.presentation.settings.library.sort.components.LibrarySortOption
 import ua.acclorite.book_story.presentation.settings.library.tabs.LibraryTabsSubcategory
 import ua.acclorite.book_story.ui.library.LibraryEvent
+import ua.acclorite.book_story.ui.library.model.LibrarySortOrder
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.settings.SettingsEvent
 

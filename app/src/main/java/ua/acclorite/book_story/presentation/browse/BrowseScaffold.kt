@@ -19,9 +19,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import ua.acclorite.book_story.domain.browse.display.BrowseLayout
-import ua.acclorite.book_story.domain.browse.file.SelectableFile
 import ua.acclorite.book_story.ui.browse.BrowseEvent
+import ua.acclorite.book_story.ui.browse.model.BrowseLayout
+import ua.acclorite.book_story.ui.browse.model.SelectableFile
 import ua.acclorite.book_story.ui.main.MainEvent
 import ua.acclorite.book_story.ui.theme.DefaultTransition
 

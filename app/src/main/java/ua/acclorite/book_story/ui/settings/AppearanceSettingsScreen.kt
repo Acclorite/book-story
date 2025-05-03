@@ -11,10 +11,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.domain.navigator.Screen
-import ua.acclorite.book_story.presentation.core.components.top_bar.collapsibleTopAppBarScrollBehavior
+import ua.acclorite.book_story.presentation.common.components.top_bar.collapsibleTopAppBarScrollBehavior
 import ua.acclorite.book_story.presentation.navigator.LocalNavigator
 import ua.acclorite.book_story.presentation.settings.appearance.AppearanceSettingsContent
+import ua.acclorite.book_story.ui.navigator.Screen
 
 @Parcelize
 object AppearanceSettingsScreen : Screen, Parcelable {

@@ -7,8 +7,8 @@
 package ua.acclorite.book_story.ui.history
 
 import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.domain.history.GroupedHistory
-import ua.acclorite.book_story.domain.util.Dialog
+import ua.acclorite.book_story.core.Dialog
+import ua.acclorite.book_story.ui.history.model.GroupedHistory
 
 @Immutable
 data class HistoryState(

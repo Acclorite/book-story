@@ -29,12 +29,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.library.book.Book
+import ua.acclorite.book_story.domain.library.Book
 import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
-import ua.acclorite.book_story.presentation.core.components.common.IconButton
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
-import ua.acclorite.book_story.presentation.core.util.LocalActivity
-import ua.acclorite.book_story.presentation.core.util.noRippleClickable
+import ua.acclorite.book_story.presentation.common.components.common.IconButton
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.util.LocalActivity
+import ua.acclorite.book_story.presentation.common.util.noRippleClickable
 import ua.acclorite.book_story.ui.reader.ReaderEvent
 import ua.acclorite.book_story.ui.settings.SettingsEvent
 import ua.acclorite.book_story.ui.theme.readerBarsColor

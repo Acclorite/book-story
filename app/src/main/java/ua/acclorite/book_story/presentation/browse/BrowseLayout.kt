@@ -10,9 +10,9 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import ua.acclorite.book_story.domain.browse.display.BrowseLayout
-import ua.acclorite.book_story.domain.browse.file.GroupedFiles
-import ua.acclorite.book_story.domain.browse.file.SelectableFile
+import ua.acclorite.book_story.ui.browse.model.BrowseLayout
+import ua.acclorite.book_story.ui.browse.model.GroupedFiles
+import ua.acclorite.book_story.ui.browse.model.SelectableFile
 import java.io.File
 
 @Composable
@@ -29,7 +29,7 @@ fun BrowseLayout(
 ) {
     val groupedFiles = remember(files, pinnedPaths) {
         files.groupBy { file ->
-            file.data.path.substringBeforeLast(File.separator)
+            file.path.substringBeforeLast(File.separator)
         }.map { (header, files) ->
             GroupedFiles(
                 header = header,

@@ -18,11 +18,11 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.core.components.common.IconButton
-import ua.acclorite.book_story.presentation.core.components.common.SearchTextField
-import ua.acclorite.book_story.presentation.core.components.common.StyledText
-import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBar
-import ua.acclorite.book_story.presentation.core.components.top_bar.TopAppBarData
+import ua.acclorite.book_story.presentation.common.components.common.IconButton
+import ua.acclorite.book_story.presentation.common.components.common.SearchTextField
+import ua.acclorite.book_story.presentation.common.components.common.StyledText
+import ua.acclorite.book_story.presentation.common.components.top_bar.TopAppBar
+import ua.acclorite.book_story.presentation.common.components.top_bar.TopAppBarData
 import ua.acclorite.book_story.presentation.navigator.NavigatorIconButton
 import ua.acclorite.book_story.ui.history.HistoryEvent
 

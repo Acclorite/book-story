@@ -23,13 +23,13 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.domain.navigator.Screen
 import ua.acclorite.book_story.presentation.library.LibraryContent
 import ua.acclorite.book_story.presentation.navigator.LocalNavigator
 import ua.acclorite.book_story.ui.book_info.BookInfoScreen
 import ua.acclorite.book_story.ui.browse.BrowseScreen
 import ua.acclorite.book_story.ui.history.HistoryScreen
 import ua.acclorite.book_story.ui.main.MainModel
+import ua.acclorite.book_story.ui.navigator.Screen
 import ua.acclorite.book_story.ui.reader.ReaderScreen
 import ua.acclorite.book_story.ui.settings.LibrarySettingsScreen
 import ua.acclorite.book_story.ui.settings.SettingsModel

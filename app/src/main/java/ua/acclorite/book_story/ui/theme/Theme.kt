@@ -16,7 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import ua.acclorite.book_story.domain.ui.ThemeContrast
+import ua.acclorite.book_story.ui.main.model.ThemeContrast
 
 @Composable
 fun BookStoryTheme(
