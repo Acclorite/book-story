@@ -9,7 +9,7 @@ package ua.acclorite.book_story.domain.use_case.data_store
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import ua.acclorite.book_story.domain.repository.DataStoreRepository
-import ua.acclorite.book_story.presentation.common.constants.DataStoreConstants
+import ua.acclorite.book_story.ui.common.constants.DataStoreConstants
 import javax.inject.Inject
 
 class ChangeLanguage @Inject constructor(

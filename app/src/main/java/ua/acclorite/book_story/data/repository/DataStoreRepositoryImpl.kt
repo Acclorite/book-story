@@ -15,7 +15,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.data.local.data_store.DataStore
 import ua.acclorite.book_story.domain.repository.DataStoreRepository
-import ua.acclorite.book_story.ui.main.MainState
+import ua.acclorite.book_story.presentation.main.MainState
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton

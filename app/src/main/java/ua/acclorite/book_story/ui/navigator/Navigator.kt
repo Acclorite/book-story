@@ -6,76 +6,70 @@
 
 package ua.acclorite.book_story.ui.navigator
 
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import androidx.activity.compose.BackHandler
+import androidx.activity.viewModels
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.ContentTransform
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import dagger.hilt.android.lifecycle.withCreationCallback
+import kotlinx.coroutines.Dispatchers
+import ua.acclorite.book_story.presentation.navigator.Navigator
+import ua.acclorite.book_story.presentation.navigator.Screen
+import ua.acclorite.book_story.presentation.navigator.StackEvent
+import ua.acclorite.book_story.ui.common.util.LocalActivity
 
-@HiltViewModel(assistedFactory = Navigator.Factory::class)
-class Navigator @AssistedInject constructor(
-    private val savedStateHandle: SavedStateHandle,
-    @Assisted private val initialScreen: Screen
-) : ViewModel() {
+@Composable
+fun rememberNavigator(initialScreen: Screen): Navigator {
+    val activity = LocalActivity.current
+    return activity.viewModels<Navigator>(
+        extrasProducer = {
+            activity.defaultViewModelCreationExtras
+                .withCreationCallback<Navigator.Factory> { factory ->
+                    factory.create(initialScreen)
+                }
+        }
+    ).value
+}
 
-    val items = savedStateHandle.getStateFlow("items", mutableListOf(initialScreen))
-    private fun StateFlow<MutableList<Screen>>.removeLast() {
-        savedStateHandle["items"] = value.dropLast(1)
-    }
-
-    private fun StateFlow<MutableList<Screen>>.add(item: Screen) {
-        savedStateHandle["items"] = value + item
-    }
-
-    val lastItem = items.map {
-        it.lastOrNull() ?: initialScreen
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.Eagerly,
-        initialValue = initialScreen
+@Composable
+fun Navigator(
+    modifier: Modifier = Modifier,
+    initialScreen: Screen,
+    transitionSpec: AnimatedContentTransitionScope<Screen>.(lastEvent: StackEvent) -> ContentTransform,
+    contentKey: (Screen) -> Any? = { it },
+    backHandlerEnabled: (Screen) -> Boolean = { true },
+    content: @Composable (currentScreen: Screen) -> Unit
+) {
+    val navigator = rememberNavigator(initialScreen = initialScreen)
+    val currentScreen = navigator.lastItem.collectAsStateWithLifecycle(
+        context = Dispatchers.Main.immediate
+    )
+    val lastEvent = navigator.lastEvent.collectAsStateWithLifecycle(
+        context = Dispatchers.Main.immediate
     )
 
-    val lastEvent = savedStateHandle.getStateFlow("stack_event", StackEvent.Default)
-    private fun changeStackEvent(stackEvent: StackEvent) {
-        savedStateHandle["stack_event"] = stackEvent
-    }
-
-
-    fun push(
-        targetScreen: Screen,
-        popping: Boolean = false,
-        saveInBackStack: Boolean = true
-    ) {
-        if (lastItem.value::class == targetScreen::class) return
-        if (!saveInBackStack) items.removeLast()
-
-        changeStackEvent(
-            if (popping) StackEvent.Pop
-            else StackEvent.Default
+    CompositionLocalProvider(LocalNavigator provides navigator) {
+        AnimatedContent(
+            modifier = modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.surface),
+            targetState = currentScreen.value,
+            transitionSpec = {
+                transitionSpec(this, lastEvent.value)
+            },
+            contentKey = contentKey,
+            content = { content(it) }
         )
-
-        if (lastItem.value::class == targetScreen::class) items.removeLast()
-        items.add(targetScreen)
     }
 
-    fun pop(popping: Boolean = true) {
-        if (items.value.count() > 1) {
-            changeStackEvent(
-                if (popping) StackEvent.Pop
-                else StackEvent.Default
-            )
-            items.removeLast()
-        }
-    }
-
-    @AssistedFactory
-    interface Factory {
-        fun create(startScreen: Screen): Navigator
+    BackHandler(enabled = backHandlerEnabled.invoke(currentScreen.value)) {
+        navigator.pop()
     }
 }

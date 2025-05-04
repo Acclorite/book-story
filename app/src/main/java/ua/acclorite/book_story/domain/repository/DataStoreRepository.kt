@@ -7,7 +7,7 @@
 package ua.acclorite.book_story.domain.repository
 
 import androidx.datastore.preferences.core.Preferences
-import ua.acclorite.book_story.ui.main.MainState
+import ua.acclorite.book_story.presentation.main.MainState
 
 interface DataStoreRepository {
 

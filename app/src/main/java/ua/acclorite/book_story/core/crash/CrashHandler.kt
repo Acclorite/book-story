@@ -10,7 +10,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Process
 import android.util.Log
-import ua.acclorite.book_story.ui.crash.CrashActivity
+import ua.acclorite.book_story.presentation.crash.CrashActivity
 import kotlin.system.exitProcess
 
 private const val CRASH_TAG = "CRASH, APP"

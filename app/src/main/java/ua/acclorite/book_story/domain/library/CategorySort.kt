@@ -7,7 +7,7 @@
 package ua.acclorite.book_story.domain.library
 
 import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.ui.library.model.LibrarySortOrder
+import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
 
 @Immutable
 data class CategorySort(

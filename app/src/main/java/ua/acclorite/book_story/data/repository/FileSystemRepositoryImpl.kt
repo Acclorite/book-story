@@ -19,7 +19,7 @@ import ua.acclorite.book_story.data.model.file.CachedFileCompat
 import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.domain.file.File
 import ua.acclorite.book_story.domain.repository.FileSystemRepository
-import ua.acclorite.book_story.presentation.common.constants.provideExtensions
+import ua.acclorite.book_story.ui.common.constants.provideExtensions
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton

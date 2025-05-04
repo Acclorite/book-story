@@ -8,7 +8,7 @@ package ua.acclorite.book_story.data.local.dto
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import ua.acclorite.book_story.ui.library.model.LibrarySortOrder
+import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
 
 @Entity
 data class CategorySortEntity(

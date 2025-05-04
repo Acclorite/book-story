@@ -16,7 +16,7 @@ import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.data.parser.MarkdownParser
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.domain.reader.ReaderText
-import ua.acclorite.book_story.presentation.common.util.clearAllMarkdown
+import ua.acclorite.book_story.ui.common.util.clearAllMarkdown
 import javax.inject.Inject
 
 private const val PDF_TAG = "PDF Parser"
