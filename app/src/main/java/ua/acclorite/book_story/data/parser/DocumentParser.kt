@@ -19,6 +19,8 @@ import java.io.File
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import javax.inject.Inject
+import java.net.URLDecoder
+import java.nio.charset.StandardCharsets
 
 class DocumentParser @Inject constructor(
     private val markdownParser: MarkdownParser
@@ -81,6 +83,7 @@ class DocumentParser @Inject constructor(
                 // Image (<img>)
                 select("img").forEach { element ->
                     val src = element.attr("src")
+                        .let { URLDecoder.decode(it, StandardCharsets.UTF_8.name()) }
                         .trim()
                         .substringAfterLast(File.separator)
                         .lowercase()
@@ -100,6 +103,7 @@ class DocumentParser @Inject constructor(
                 // Image (<image>)
                 select("image").forEach { element ->
                     val src = element.attr("xlink:href")
+                        .let { URLDecoder.decode(it, StandardCharsets.UTF_8.name()) }
                         .trim()
                         .substringAfterLast(File.separator)
                         .lowercase()
