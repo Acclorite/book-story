@@ -40,16 +40,13 @@ interface BookDao {
     suspend fun searchBooks(query: String): List<BookEntity>
 
     @Query("SELECT * FROM bookentity WHERE id=:id")
-    suspend fun findBookById(id: Int): BookEntity
-
-    @Query("SELECT * FROM bookentity WHERE id IN (:ids)")
-    suspend fun findBooksById(ids: List<Int>): List<BookEntity>
+    suspend fun findBookById(id: Int): BookEntity?
 
     @Delete
-    suspend fun deleteBooks(books: List<BookEntity>)
+    suspend fun deleteBook(book: BookEntity): Int
 
     @Update
-    suspend fun updateBooks(books: List<BookEntity>)
+    suspend fun updateBook(book: BookEntity): Int
     /* - - - - - - - - - - - - - - - - - - - - - - */
 
 
@@ -58,21 +55,21 @@ interface BookDao {
     suspend fun getHistory(): List<HistoryEntity>
 
     @Query("SELECT * FROM historyentity WHERE bookId = :bookId ORDER BY time DESC LIMIT 1")
-    fun getLatestHistoryForBook(bookId: Int): HistoryEntity?
+    fun getHistoryForBook(bookId: Int): HistoryEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertHistory(
-        history: List<HistoryEntity>
+        history: HistoryEntity
     )
 
     @Query("DELETE FROM historyentity")
-    suspend fun deleteWholeHistory()
+    suspend fun deleteWholeHistory(): Int
 
     @Query("DELETE FROM historyentity WHERE bookId = :bookId")
-    suspend fun deleteBookHistory(bookId: Int)
+    suspend fun deleteHistoryForBook(bookId: Int): Int
 
     @Delete
-    suspend fun deleteHistory(history: List<HistoryEntity>)
+    suspend fun deleteHistory(history: HistoryEntity): Int
     /* - - - - - - - - - - - - - - - - - - - - - - */
 
 

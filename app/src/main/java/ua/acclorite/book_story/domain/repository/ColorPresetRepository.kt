@@ -9,22 +9,21 @@ package ua.acclorite.book_story.domain.repository
 import ua.acclorite.book_story.domain.reader.ColorPreset
 
 interface ColorPresetRepository {
+    suspend fun getColorPresets(): Result<List<ColorPreset>>
 
     suspend fun updateColorPreset(
         colorPreset: ColorPreset
-    )
+    ): Result<Unit>
 
     suspend fun selectColorPreset(
         colorPreset: ColorPreset
-    )
-
-    suspend fun getColorPresets(): List<ColorPreset>
+    ): Result<Unit>
 
     suspend fun reorderColorPresets(
-        orderedColorPresets: List<ColorPreset>
-    )
+        colorPresets: List<ColorPreset>
+    ): Result<Unit>
 
     suspend fun deleteColorPreset(
         colorPreset: ColorPreset
-    )
+    ): Result<Unit>
 }

@@ -11,7 +11,7 @@ import ua.acclorite.book_story.domain.library.Category
 import javax.inject.Inject
 
 class CategoryMapperImpl @Inject constructor() : CategoryMapper {
-    override suspend fun toCategoryEntity(category: Category): CategoryEntity {
+    override fun toCategoryEntity(category: Category): CategoryEntity {
         return CategoryEntity(
             id = category.id,
             title = category.title,
@@ -19,7 +19,7 @@ class CategoryMapperImpl @Inject constructor() : CategoryMapper {
         )
     }
 
-    override suspend fun toCategory(categoryEntity: CategoryEntity): Category {
+    override fun toCategory(categoryEntity: CategoryEntity): Category {
         return Category(
             id = categoryEntity.id,
             title = categoryEntity.title,

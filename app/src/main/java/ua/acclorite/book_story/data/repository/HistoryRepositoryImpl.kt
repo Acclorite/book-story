@@ -13,73 +13,42 @@ import ua.acclorite.book_story.domain.repository.HistoryRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * History repository.
- * Manages all [History] related work.
- */
 @Singleton
 class HistoryRepositoryImpl @Inject constructor(
     private val database: BookDao,
-
-    private val historyMapper: HistoryMapper,
+    private val historyMapper: HistoryMapper
 ) : HistoryRepository {
 
-    /**
-     * Insert history in database.
-     */
-    override suspend fun insertHistory(history: History) {
-        database.insertHistory(
-            listOf(
-                historyMapper.toHistoryEntity(
-                    history
-                )
-            )
-        )
-    }
-
-    /**
-     * Get all history from database.
-     */
-    override suspend fun getHistory(): List<History> {
-        return database.getHistory().map {
-            historyMapper.toHistory(
-                it
-            )
+    override suspend fun getHistoryForBook(bookId: Int): Result<History> = runCatching {
+        database.getHistoryForBook(bookId).let {
+            if (it == null) throw NoSuchElementException("Could not get history from [$bookId].")
+            else historyMapper.toHistory(it)
         }
     }
 
-    /**
-     * Get latest history of the matching [bookId].
-     */
-    override suspend fun getLatestBookHistory(bookId: Int): History? {
-        val history = database.getLatestHistoryForBook(bookId)
-        return history?.let { historyMapper.toHistory(it) }
+    override suspend fun addHistory(history: History): Result<Unit> = runCatching {
+        database.insertHistory(historyMapper.toHistoryEntity(history))
     }
 
-    /**
-     * Delete whole history.
-     */
-    override suspend fun deleteWholeHistory() {
-        database.deleteWholeHistory()
+    override suspend fun getHistory(): Result<List<History>> = runCatching {
+        database.getHistory().map { historyMapper.toHistory(it) }
     }
 
-    /**
-     * Delete all history of the matching [bookId].
-     */
-    override suspend fun deleteBookHistory(bookId: Int) {
-        database.deleteBookHistory(bookId)
+    override suspend fun deleteWholeHistory(): Result<Unit> = runCatching {
+        database.deleteWholeHistory().also {
+            if (it == 0) throw Exception("Could not delete whole history in database.")
+        }
     }
 
-    /**
-     * Delete specific history item.
-     */
-    override suspend fun deleteHistory(history: History) {
-        database.deleteHistory(
-            listOf(
-                historyMapper.toHistoryEntity(
-                    history
-                )
-            )
-        )
+    override suspend fun deleteHistoryForBook(bookId: Int): Result<Unit> = runCatching {
+        database.deleteHistoryForBook(bookId = bookId).also {
+            if (it == 0) throw Exception("Could not delete history for book [$bookId] in database.")
+        }
+    }
+
+    override suspend fun deleteHistory(history: History): Result<Unit> = runCatching {
+        database.deleteHistory(historyMapper.toHistoryEntity(history)).also {
+            if (it == 0) throw Exception("Could not delete history in database.")
+        }
     }
 }

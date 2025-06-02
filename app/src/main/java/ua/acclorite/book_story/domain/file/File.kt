@@ -6,13 +6,12 @@
 
 package ua.acclorite.book_story.domain.file
 
-import android.net.Uri
 import androidx.compose.runtime.Immutable
 
 @Immutable
 data class File(
     val name: String,
-    val uri: Uri,
+    val uri: String,
     val path: String,
     val size: Long,
     val lastModified: Long,

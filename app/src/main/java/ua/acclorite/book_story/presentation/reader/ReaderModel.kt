@@ -37,10 +37,10 @@ import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
-import ua.acclorite.book_story.domain.use_case.book.GetBookById
-import ua.acclorite.book_story.domain.use_case.book.GetText
-import ua.acclorite.book_story.domain.use_case.book.UpdateBook
-import ua.acclorite.book_story.domain.use_case.history.GetLatestHistory
+import ua.acclorite.book_story.domain.use_case.book.GetBookUseCase
+import ua.acclorite.book_story.domain.use_case.book.GetTextUseCase
+import ua.acclorite.book_story.domain.use_case.book.UpdateBookUseCase
+import ua.acclorite.book_story.domain.use_case.history.GetHistoryForBookUseCase
 import ua.acclorite.book_story.presentation.history.HistoryScreen
 import ua.acclorite.book_story.presentation.library.LibraryScreen
 import ua.acclorite.book_story.presentation.reader.model.Checkpoint
@@ -55,10 +55,10 @@ private const val READER = "READER, MODEL"
 
 @HiltViewModel
 class ReaderModel @Inject constructor(
-    private val getBookById: GetBookById,
-    private val updateBook: UpdateBook,
-    private val getText: GetText,
-    private val getLatestHistory: GetLatestHistory
+    private val updateBookUseCase: UpdateBookUseCase,
+    private val getTextUseCase: GetTextUseCase,
+    private val getBookUseCase: GetBookUseCase,
+    private val getHistoryForBookUseCase: GetHistoryForBookUseCase
 ) : ViewModel() {
 
     private val mutex = Mutex()
@@ -76,7 +76,7 @@ class ReaderModel @Inject constructor(
             when (event) {
                 is ReaderEvent.OnLoadText -> {
                     launch(Dispatchers.IO) {
-                        val text = getText.execute(_state.value.book.id)
+                        val text = getTextUseCase(_state.value.book.id)
                         yield()
 
                         if (text.isEmpty()) {
@@ -95,7 +95,7 @@ class ReaderModel @Inject constructor(
                             activity = event.activity
                         )
 
-                        val lastOpened = getLatestHistory.execute(_state.value.book.id)?.time
+                        val lastOpened = getHistoryForBookUseCase(_state.value.book.id)?.time
                         yield()
 
                         _state.update {
@@ -110,7 +110,7 @@ class ReaderModel @Inject constructor(
 
                         yield()
 
-                        updateBook.execute(_state.value.book)
+                        updateBookUseCase(_state.value.book)
 
                         LibraryScreen.refreshListChannel.trySend(0)
                         HistoryScreen.refreshListChannel.trySend(0)
@@ -177,7 +177,7 @@ class ReaderModel @Inject constructor(
                             )
                         }
 
-                        updateBook.execute(_state.value.book)
+                        updateBookUseCase(_state.value.book)
 
                         LibraryScreen.refreshListChannel.trySend(300)
                         HistoryScreen.refreshListChannel.trySend(300)
@@ -265,7 +265,7 @@ class ReaderModel @Inject constructor(
                                 )
                             }
 
-                            updateBook.execute(_state.value.book)
+                            updateBookUseCase(_state.value.book)
 
                             LibraryScreen.refreshListChannel.trySend(0)
                             HistoryScreen.refreshListChannel.trySend(0)
@@ -466,7 +466,7 @@ class ReaderModel @Inject constructor(
         navigateBack: () -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val book = getBookById.execute(bookId)
+            val book = getBookUseCase(bookId)
 
             if (book == null) {
                 navigateBack()
@@ -518,7 +518,7 @@ class ReaderModel @Inject constructor(
                     )
                 }
 
-                updateBook.execute(_state.value.book)
+                updateBookUseCase(_state.value.book)
 
                 LibraryScreen.refreshListChannel.trySend(0)
                 HistoryScreen.refreshListChannel.trySend(0)

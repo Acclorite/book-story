@@ -6,6 +6,7 @@
 
 package ua.acclorite.book_story.presentation.browse
 
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,9 +25,9 @@ import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.model.common.NullableBook
 import ua.acclorite.book_story.domain.file.File
-import ua.acclorite.book_story.domain.use_case.book.InsertBook
-import ua.acclorite.book_story.domain.use_case.file_system.GetBookFromFile
-import ua.acclorite.book_story.domain.use_case.file_system.GetFiles
+import ua.acclorite.book_story.domain.use_case.book.AddBookUseCase
+import ua.acclorite.book_story.domain.use_case.file_system.GetBookFromFileUseCase
+import ua.acclorite.book_story.domain.use_case.file_system.SearchFilesUseCase
 import ua.acclorite.book_story.presentation.browse.model.BrowseSortOrder
 import ua.acclorite.book_story.presentation.browse.model.SelectableFile
 import ua.acclorite.book_story.presentation.library.LibraryScreen
@@ -37,9 +38,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BrowseModel @Inject constructor(
-    private val getFiles: GetFiles,
-    private val getBookFromFile: GetBookFromFile,
-    private val insertBook: InsertBook
+    private val addBookUseCase: AddBookUseCase,
+    private val searchFilesUseCase: SearchFilesUseCase,
+    private val getBookFromFileUseCase: GetBookFromFileUseCase
 ) : ViewModel() {
 
     private val mutex = Mutex()
@@ -296,10 +297,10 @@ class BrowseModel @Inject constructor(
                             .forEach {
                                 yield()
                                 books.add(
-                                    getBookFromFile.execute(
+                                    getBookFromFileUseCase(
                                         File(
                                             name = it.name,
-                                            uri = it.uri,
+                                            uri = it.uri.toString(),
                                             path = it.path,
                                             size = it.size,
                                             lastModified = it.lastModified,
@@ -347,7 +348,12 @@ class BrowseModel @Inject constructor(
                     }.ifEmpty { return@launch }
 
                     for (book in booksToInsert) {
-                        insertBook.execute(book.bookWithCover!!)
+                        book.bookWithCover?.let {
+                            addBookUseCase(
+                                it.book,
+                                it.coverImage
+                            )
+                        }
                     }
 
                     LibraryScreen.refreshListChannel.trySend(0)
@@ -414,14 +420,14 @@ class BrowseModel @Inject constructor(
     private suspend fun getFilesFromDownloads(
         query: String = if (_state.value.showSearch) _state.value.searchQuery else ""
     ) {
-        getFiles.execute(query).apply {
+        searchFilesUseCase(query).apply {
             yield()
             _state.update {
                 it.copy(
                     files = map {
                         SelectableFile(
                             name = it.name,
-                            uri = it.uri,
+                            uri = it.uri.toUri(),
                             path = it.path,
                             size = it.size,
                             lastModified = it.lastModified,

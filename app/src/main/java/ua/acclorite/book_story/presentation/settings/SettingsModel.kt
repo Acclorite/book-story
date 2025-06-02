@@ -20,23 +20,22 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.library.Category
 import ua.acclorite.book_story.domain.library.CategorySort
 import ua.acclorite.book_story.domain.reader.ColorPreset
-import ua.acclorite.book_story.domain.use_case.category.DeleteCategory
-import ua.acclorite.book_story.domain.use_case.category.GetCategories
-import ua.acclorite.book_story.domain.use_case.category.GetCategorySort
-import ua.acclorite.book_story.domain.use_case.category.InsertCategory
-import ua.acclorite.book_story.domain.use_case.category.UpdateCategoryOrder
-import ua.acclorite.book_story.domain.use_case.category.UpdateCategorySort
-import ua.acclorite.book_story.domain.use_case.category.UpdateCategoryTitle
-import ua.acclorite.book_story.domain.use_case.color_preset.DeleteColorPreset
-import ua.acclorite.book_story.domain.use_case.color_preset.GetColorPresets
-import ua.acclorite.book_story.domain.use_case.color_preset.ReorderColorPresets
-import ua.acclorite.book_story.domain.use_case.color_preset.SelectColorPreset
-import ua.acclorite.book_story.domain.use_case.color_preset.UpdateColorPreset
-import ua.acclorite.book_story.domain.use_case.permission.GrantPersistableUriPermission
-import ua.acclorite.book_story.domain.use_case.permission.ReleasePersistableUriPermission
+import ua.acclorite.book_story.domain.use_case.category.AddCategoryUseCase
+import ua.acclorite.book_story.domain.use_case.category.DeleteCategoryUseCase
+import ua.acclorite.book_story.domain.use_case.category.GetCategoriesUseCase
+import ua.acclorite.book_story.domain.use_case.category.GetCategorySortingUseCase
+import ua.acclorite.book_story.domain.use_case.category.UpdateCategoriesOrderUseCase
+import ua.acclorite.book_story.domain.use_case.category.UpdateCategorySortingUseCase
+import ua.acclorite.book_story.domain.use_case.category.UpdateCategoryUseCase
+import ua.acclorite.book_story.domain.use_case.color_preset.DeleteColorPresetUseCase
+import ua.acclorite.book_story.domain.use_case.color_preset.GetColorPresetsUseCase
+import ua.acclorite.book_story.domain.use_case.color_preset.ReorderColorPresetsUseCase
+import ua.acclorite.book_story.domain.use_case.color_preset.SelectColorPresetUseCase
+import ua.acclorite.book_story.domain.use_case.color_preset.UpdateColorPresetUseCase
+import ua.acclorite.book_story.domain.use_case.permission.GrantPersistableUriPermissionUseCase
+import ua.acclorite.book_story.domain.use_case.permission.ReleasePersistableUriPermissionUseCase
 import ua.acclorite.book_story.ui.common.constants.provideDefaultColorPreset
 import ua.acclorite.book_story.ui.common.util.showToast
 import javax.inject.Inject
@@ -44,20 +43,20 @@ import kotlin.random.Random
 
 @HiltViewModel
 class SettingsModel @Inject constructor(
-    private val getColorPresets: GetColorPresets,
-    private val updateColorPreset: UpdateColorPreset,
-    private val selectColorPreset: SelectColorPreset,
-    private val reorderColorPresets: ReorderColorPresets,
-    private val deleteColorPreset: DeleteColorPreset,
-    private val grantPersistableUriPermission: GrantPersistableUriPermission,
-    private val releasePersistableUriPermission: ReleasePersistableUriPermission,
-    private val insertCategory: InsertCategory,
-    private val getCategories: GetCategories,
-    private val updateCategoryTitle: UpdateCategoryTitle,
-    private val updateCategoryOrder: UpdateCategoryOrder,
-    private val deleteCategory: DeleteCategory,
-    private val updateCategorySort: UpdateCategorySort,
-    private val getCategoriesSort: GetCategorySort,
+    private val getColorPresetsUseCase: GetColorPresetsUseCase,
+    private val updateColorPresetUseCase: UpdateColorPresetUseCase,
+    private val selectColorPresetUseCase: SelectColorPresetUseCase,
+    private val reorderColorPresetsUseCase: ReorderColorPresetsUseCase,
+    private val deleteColorPresetUseCase: DeleteColorPresetUseCase,
+    private val grantPersistableUriPermissionUseCase: GrantPersistableUriPermissionUseCase,
+    private val releasePersistableUriPermissionUseCase: ReleasePersistableUriPermissionUseCase,
+    private val addCategoryUseCase: AddCategoryUseCase,
+    private val getCategoriesUseCase: GetCategoriesUseCase,
+    private val updateCategoryUseCase: UpdateCategoryUseCase,
+    private val updateCategoriesOrderUseCase: UpdateCategoriesOrderUseCase,
+    private val deleteCategoryUseCase: DeleteCategoryUseCase,
+    private val updateCategorySortingUseCase: UpdateCategorySortingUseCase,
+    private val getCategorySortingUseCase: GetCategorySortingUseCase
 ) : ViewModel() {
 
     private val mutex = Mutex()
@@ -77,12 +76,12 @@ class SettingsModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            var colorPresets = getColorPresets.execute()
+            var colorPresets = getColorPresetsUseCase()
 
             if (colorPresets.isEmpty()) {
-                updateColorPreset.execute(provideDefaultColorPreset())
-                getColorPresets.execute().first().select()
-                colorPresets = getColorPresets.execute()
+                updateColorPresetUseCase(provideDefaultColorPreset())
+                getColorPresetsUseCase().first().select()
+                colorPresets = getColorPresetsUseCase()
             }
 
             val scrollIndex = colorPresets.indexOfFirst {
@@ -102,8 +101,8 @@ class SettingsModel @Inject constructor(
                 it.copy(
                     selectedColorPreset = colorPresets.selected(),
                     colorPresets = colorPresets,
-                    categories = getCategories.execute(), // Getting categories
-                    categoriesSort = getCategoriesSort.execute()
+                    categories = getCategoriesUseCase(), // Getting categories
+                    categoriesSort = getCategorySortingUseCase()
                 )
             }
 
@@ -116,30 +115,26 @@ class SettingsModel @Inject constructor(
         when (event) {
             is SettingsEvent.OnGrantPersistableUriPermission -> {
                 viewModelScope.launch {
-                    grantPersistableUriPermission.execute(
-                        event.uri
+                    grantPersistableUriPermissionUseCase(
+                        event.uri.toString()
                     )
                 }
             }
 
             is SettingsEvent.OnReleasePersistableUriPermission -> {
                 viewModelScope.launch {
-                    releasePersistableUriPermission.execute(
-                        event.uri
+                    releasePersistableUriPermissionUseCase(
+                        event.uri.toString()
                     )
                 }
             }
 
             is SettingsEvent.OnCreateCategory -> {
                 viewModelScope.launch {
-                    insertCategory.execute(
-                        category = Category(
-                            title = event.title
-                        )
-                    )
+                    addCategoryUseCase(event.title)
                     _state.update {
                         it.copy(
-                            categories = getCategories.execute()
+                            categories = getCategoriesUseCase()
                         )
                     }
                 }
@@ -147,13 +142,13 @@ class SettingsModel @Inject constructor(
 
             is SettingsEvent.OnUpdateCategoryTitle -> {
                 viewModelScope.launch {
-                    updateCategoryTitle.execute(
-                        id = event.id,
-                        title = event.title
+                    updateCategoryUseCase(
+                        categoryId = event.id,
+                        newTitle = event.title
                     )
                     _state.update {
                         it.copy(
-                            categories = getCategories.execute()
+                            categories = getCategoriesUseCase()
                         )
                     }
                 }
@@ -161,12 +156,12 @@ class SettingsModel @Inject constructor(
 
             is SettingsEvent.OnUpdateCategoryOrder -> {
                 viewModelScope.launch {
-                    updateCategoryOrder.execute(
+                    updateCategoriesOrderUseCase(
                         categories = event.categories
                     )
                     _state.update {
                         it.copy(
-                            categories = getCategories.execute()
+                            categories = getCategoriesUseCase()
                         )
                     }
                 }
@@ -174,12 +169,12 @@ class SettingsModel @Inject constructor(
 
             is SettingsEvent.OnRemoveCategory -> {
                 viewModelScope.launch {
-                    deleteCategory.execute(
+                    deleteCategoryUseCase(
                         category = event.category
                     )
                     _state.update {
                         it.copy(
-                            categories = getCategories.execute()
+                            categories = getCategoriesUseCase()
                         )
                     }
                 }
@@ -187,7 +182,7 @@ class SettingsModel @Inject constructor(
 
             is SettingsEvent.OnUpdateCategorySort -> {
                 viewModelScope.launch {
-                    updateCategorySort.execute(
+                    updateCategorySortingUseCase(
                         categorySort = CategorySort(
                             categoryId = event.categoryId,
                             sortOrder = event.sortOrder,
@@ -196,7 +191,7 @@ class SettingsModel @Inject constructor(
                     )
                     _state.update {
                         it.copy(
-                            categoriesSort = getCategoriesSort.execute()
+                            categoriesSort = getCategorySortingUseCase()
                         )
                     }
                 }
@@ -206,7 +201,8 @@ class SettingsModel @Inject constructor(
                 viewModelScope.launch {
                     cancelColorPresetJobs()
                     selectColorPresetJob = launch {
-                        val colorPreset = event.id.getColorPresetById() ?: return@launch
+                        val colorPreset = _state.value.colorPresets.getColorPresetById(event.id)
+                            ?: return@launch
 
                         yield()
 
@@ -345,7 +341,8 @@ class SettingsModel @Inject constructor(
                     cancelColorPresetJobs()
                     deleteColorPresetJob = launch {
                         if (_state.value.colorPresets.size == 1) return@launch
-                        val colorPreset = event.id.getColorPresetById() ?: return@launch
+                        val colorPreset = _state.value.colorPresets.getColorPresetById(event.id)
+                            ?: return@launch
 
                         yield()
 
@@ -362,12 +359,12 @@ class SettingsModel @Inject constructor(
 
                         yield()
 
-                        deleteColorPreset.execute(colorPreset)
-                        val nextColorPreset = getColorPresets.execute().getOrNull(nextPosition)
+                        deleteColorPresetUseCase(colorPreset)
+                        val nextColorPreset = getColorPresetsUseCase().getOrNull(nextPosition)
                             ?: return@launch
 
                         nextColorPreset.select()
-                        val colorPresets = getColorPresets.execute()
+                        val colorPresets = getColorPresetsUseCase()
 
                         _state.update {
                             it.copy(
@@ -389,7 +386,8 @@ class SettingsModel @Inject constructor(
                 viewModelScope.launch {
                     cancelColorPresetJobs()
                     updateTitleColorPresetJob = launch {
-                        val colorPreset = event.id.getColorPresetById() ?: return@launch
+                        val colorPreset = _state.value.colorPresets.getColorPresetById(event.id)
+                            ?: return@launch
 
                         yield()
 
@@ -399,7 +397,7 @@ class SettingsModel @Inject constructor(
 
                         yield()
 
-                        updateColorPreset.execute(updatedColorPreset)
+                        updateColorPresetUseCase(updatedColorPreset)
                         _state.update {
                             it.copy(
                                 selectedColorPreset = updatedColorPreset,
@@ -416,7 +414,8 @@ class SettingsModel @Inject constructor(
                 viewModelScope.launch {
                     cancelColorPresetJobs()
                     shuffleColorPresetJob = launch {
-                        val colorPreset = event.id.getColorPresetById() ?: return@launch
+                        val colorPreset = _state.value.colorPresets.getColorPresetById(event.id)
+                            ?: return@launch
 
                         yield()
 
@@ -435,7 +434,7 @@ class SettingsModel @Inject constructor(
 
                         yield()
 
-                        updateColorPreset.execute(shuffledColorPreset)
+                        updateColorPresetUseCase(shuffledColorPreset)
                         _state.update {
                             it.copy(
                                 selectedColorPreset = shuffledColorPreset,
@@ -458,10 +457,10 @@ class SettingsModel @Inject constructor(
                             backgroundColor = event.backgroundColor,
                             fontColor = event.fontColor
                         )
-                        updateColorPreset.execute(newColorPreset)
+                        updateColorPresetUseCase(newColorPreset)
 
-                        getColorPresets.execute().last().select()
-                        val colorPresets = getColorPresets.execute()
+                        getColorPresetsUseCase().last().select()
+                        val colorPresets = getColorPresetsUseCase()
 
                         _state.update {
                             it.copy(
@@ -479,7 +478,8 @@ class SettingsModel @Inject constructor(
                 viewModelScope.launch {
                     cancelColorPresetJobs()
                     updateColorColorPresetJob = launch {
-                        val colorPreset = event.id.getColorPresetById() ?: return@launch
+                        val colorPreset = _state.value.colorPresets.getColorPresetById(event.id)
+                            ?: return@launch
 
                         yield()
 
@@ -492,7 +492,7 @@ class SettingsModel @Inject constructor(
 
                         yield()
 
-                        updateColorPreset.execute(updatedColorPreset)
+                        updateColorPresetUseCase(updatedColorPreset)
                         _state.update {
                             it.copy(
                                 selectedColorPreset = updatedColorPreset,
@@ -528,7 +528,7 @@ class SettingsModel @Inject constructor(
                 viewModelScope.launch {
                     cancelColorPresetJobs()
                     launch {
-                        reorderColorPresets.execute(_state.value.colorPresets)
+                        reorderColorPresetsUseCase(_state.value.colorPresets)
                     }
                 }
             }
@@ -548,7 +548,7 @@ class SettingsModel @Inject constructor(
     }
 
     private suspend fun ColorPreset.select(animate: Boolean = false) {
-        selectColorPreset.execute(this)
+        selectColorPresetUseCase(this)
         _state.update {
             it.copy(
                 animateColorPreset = animate
@@ -556,9 +556,9 @@ class SettingsModel @Inject constructor(
         }
     }
 
-    private fun Int.getColorPresetById(): ColorPreset? {
-        return _state.value.colorPresets.firstOrNull {
-            it.id == this
+    private fun List<ColorPreset>.getColorPresetById(id: Int): ColorPreset? {
+        return firstOrNull {
+            it.id == id
         }
     }
 

@@ -22,7 +22,7 @@ class CategoryRepositoryImpl @Inject constructor(
     private val categorySortMapper: CategorySortMapper,
 ) : CategoryRepository {
 
-    override suspend fun insertCategory(category: Category) {
+    override suspend fun addCategory(category: Category): Result<Unit> = runCatching {
         database.insertCategory(
             categoryMapper.toCategoryEntity(
                 category.copy(
@@ -32,39 +32,41 @@ class CategoryRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun getCategories(): List<Category> {
-        return database.getCategories().map { categoryMapper.toCategory(it) }.sortedBy { it.order }
+    override suspend fun getCategories(): Result<List<Category>> = runCatching {
+        database.getCategories().map { categoryMapper.toCategory(it) }.sortedBy { it.order }
     }
 
-    override suspend fun updateCategoryTitle(id: Int, title: String) {
+    override suspend fun updateCategory(category: Category): Result<Unit> = runCatching {
         database.updateCategoryTitle(
-            id = id,
-            title = title
+            id = category.id,
+            title = category.title
         )
-        updateCategoriesOrder(getCategories())
+        updateOrder(getCategories().getOrThrow())
     }
 
-    override suspend fun updateCategoriesOrder(categories: List<Category>) {
-        categories.mapIndexed { index, category ->
+    override suspend fun updateOrder(categories: List<Category>): Result<Unit> = runCatching {
+        categories.forEachIndexed { index, category ->
             database.updateCategoryOrder(category.id, index)
         }
     }
 
-    override suspend fun deleteCategory(category: Category) {
+    override suspend fun deleteCategory(category: Category): Result<Unit> = runCatching {
         database.deleteCategory(categoryMapper.toCategoryEntity(category))
         database.deleteCategorySortEntity(category.id)
 
-        updateCategoriesOrder(getCategories())
+        updateOrder(getCategories().getOrThrow())
     }
 
-    override suspend fun updateCategorySortEntity(categorySort: CategorySort) {
+    override suspend fun updateCategorySorting(
+        categorySort: CategorySort
+    ): Result<Unit> = runCatching {
         database.updateCategorySort(
             categorySortMapper.toCategorySortEntity(categorySort)
         )
     }
 
-    override suspend fun getCategorySortEntities(): List<CategorySort> {
-        return database.getCategorySortEntities().map {
+    override suspend fun getCategorySorting(): Result<List<CategorySort>> = runCatching {
+        database.getCategorySortEntities().map {
             categorySortMapper.toCategorySort(it)
         }
     }

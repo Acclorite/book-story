@@ -23,9 +23,9 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.library.Book
-import ua.acclorite.book_story.domain.use_case.book.DeleteBooks
-import ua.acclorite.book_story.domain.use_case.book.GetBooks
-import ua.acclorite.book_story.domain.use_case.book.UpdateBook
+import ua.acclorite.book_story.domain.use_case.book.DeleteBookUseCase
+import ua.acclorite.book_story.domain.use_case.book.SearchBooksUseCase
+import ua.acclorite.book_story.domain.use_case.book.UpdateBookUseCase
 import ua.acclorite.book_story.presentation.browse.BrowseScreen
 import ua.acclorite.book_story.presentation.history.HistoryScreen
 import ua.acclorite.book_story.presentation.library.model.SelectableBook
@@ -34,9 +34,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LibraryModel @Inject constructor(
-    private val getBooks: GetBooks,
-    private val deleteBooks: DeleteBooks,
-    private val moveBooks: UpdateBook
+    private val updateBookUseCase: UpdateBookUseCase,
+    private val searchBooksUseCase: SearchBooksUseCase,
+    private val deleteBookUseCase: DeleteBookUseCase
 ) : ViewModel() {
 
     private val mutex = Mutex()
@@ -208,7 +208,7 @@ class LibraryModel @Inject constructor(
                 viewModelScope.launch {
                     _state.value.books.forEach { book ->
                         if (!book.selected) return@forEach
-                        moveBooks.execute(
+                        updateBookUseCase(
                             book.data.copy(
                                 categories = event.selectedCategories.map { it.id }
                             )
@@ -253,12 +253,10 @@ class LibraryModel @Inject constructor(
 
             is LibraryEvent.OnActionDeleteDialog -> {
                 viewModelScope.launch {
-                    deleteBooks.execute(
-                        _state.value.books.mapNotNull {
-                            if (!it.selected) return@mapNotNull null
-                            it.data
-                        }
-                    )
+                    _state.value.books.forEach {
+                        if (!it.selected) return@forEach
+                        deleteBookUseCase(it.data)
+                    }
 
                     _state.update {
                         it.copy(
@@ -314,8 +312,7 @@ class LibraryModel @Inject constructor(
     private suspend fun getBooksFromDatabase(
         query: String = if (_state.value.showSearch) _state.value.searchQuery else ""
     ) {
-        val books = getBooks
-            .execute(query)
+        val books = searchBooksUseCase(query)
             .sortedWith(compareByDescending<Book> { it.lastOpened }.thenBy { it.title })
             .map { book -> SelectableBook(book, false) }
 

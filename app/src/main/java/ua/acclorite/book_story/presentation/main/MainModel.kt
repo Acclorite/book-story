@@ -22,9 +22,9 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
-import ua.acclorite.book_story.domain.use_case.data_store.ChangeLanguage
-import ua.acclorite.book_story.domain.use_case.data_store.GetAllSettings
-import ua.acclorite.book_story.domain.use_case.data_store.SetDatastore
+import ua.acclorite.book_story.domain.use_case.data_store.ChangeLanguagePreferenceUseCase
+import ua.acclorite.book_story.domain.use_case.data_store.GetPreferencesUseCase
+import ua.acclorite.book_story.domain.use_case.data_store.PutPreferenceUseCase
 import ua.acclorite.book_story.presentation.browse.model.BrowseLayout
 import ua.acclorite.book_story.presentation.browse.model.BrowseSortOrder
 import ua.acclorite.book_story.presentation.library.model.LibraryLayout
@@ -50,10 +50,9 @@ import javax.inject.Inject
 @HiltViewModel
 class MainModel @Inject constructor(
     private val stateHandle: SavedStateHandle,
-
-    private val setDatastore: SetDatastore,
-    private val changeLanguage: ChangeLanguage,
-    private val getAllSettings: GetAllSettings
+    private val putPreferenceUseCase: PutPreferenceUseCase,
+    private val changeLanguagePreferenceUseCase: ChangeLanguagePreferenceUseCase,
+    private val getPreferencesUseCase: GetPreferencesUseCase
 ) : ViewModel() {
 
     private val mutex = Mutex()
@@ -618,10 +617,10 @@ class MainModel @Inject constructor(
 
     fun init(settingsModelReady: StateFlow<Boolean>) {
         viewModelScope.launch(Dispatchers.Main) {
-            val settings = getAllSettings.execute()
+            val settings = getPreferencesUseCase()
 
             /* All additional execution */
-            changeLanguage.execute(settings.language)
+            changeLanguagePreferenceUseCase(settings.language)
 
             updateStateWithSavedHandle { settings }
             mainModelReady.update { true }
@@ -648,7 +647,7 @@ class MainModel @Inject constructor(
 
     private fun handleLanguageUpdate(event: MainEvent.OnChangeLanguage) {
         viewModelScope.launch(Dispatchers.Main.immediate) {
-            changeLanguage.execute(event.value)
+            changeLanguagePreferenceUseCase(event.value)
             updateStateWithSavedHandle {
                 it.copy(language = event.value)
             }
@@ -696,7 +695,7 @@ class MainModel @Inject constructor(
         updateState: V.(MainState) -> MainState
     ) {
         viewModelScope.launch(Dispatchers.Main.immediate) {
-            setDatastore.execute(key = key, value = value)
+            putPreferenceUseCase(key = key, value = value)
             updateStateWithSavedHandle {
                 value.updateState(it)
             }

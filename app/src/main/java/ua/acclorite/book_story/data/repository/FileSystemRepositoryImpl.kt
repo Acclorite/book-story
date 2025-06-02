@@ -6,26 +6,17 @@
 
 package ua.acclorite.book_story.data.repository
 
-import android.app.Application
-import android.util.Log
-import ua.acclorite.book_story.R
-import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.data.local.room.BookDao
-import ua.acclorite.book_story.data.model.common.NullableBook
-import ua.acclorite.book_story.data.model.common.NullableBook.NotNull
-import ua.acclorite.book_story.data.model.common.NullableBook.Null
+import ua.acclorite.book_story.data.mapper.file.FileMapper
 import ua.acclorite.book_story.data.model.file.CachedFile
-import ua.acclorite.book_story.data.model.file.CachedFileCompat
+import ua.acclorite.book_story.data.model.library.BookWithCover
 import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.domain.file.File
 import ua.acclorite.book_story.domain.repository.FileSystemRepository
+import ua.acclorite.book_story.domain.service.FileProvider
 import ua.acclorite.book_story.ui.common.constants.provideExtensions
-import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
-
-private const val GET_BOOK_FROM_FILE = "BOOK FROM FILE, REPO"
-private const val GET_FILES = "FILES, REPO"
 
 /**
  * File System repository.
@@ -33,138 +24,50 @@ private const val GET_FILES = "FILES, REPO"
  */
 @Singleton
 class FileSystemRepositoryImpl @Inject constructor(
-    private val application: Application,
     private val database: BookDao,
-    private val fileParser: FileParser
+    private val fileMapper: FileMapper,
+    private val fileParser: FileParser,
+    private val fileProvider: FileProvider
 ) : FileSystemRepository {
 
-    /**
-     * Gets all matching files from device.
-     * Filters by [query] and sorts out not supported file formats and already added files.
-     */
-    override suspend fun getFiles(query: String): List<File> {
-        Log.i(GET_FILES, "Getting files from device, query: \"$query\".")
+    override suspend fun searchFiles(query: String): Result<List<File>> {
+        return fileProvider.getStorageFiles().mapCatching { storages ->
+            val existingFiles = database.searchBooks("").map { it.filePath }
 
-        val existingPaths = database
-            .searchBooks("")
-            .map { it.filePath }
-        val supportedExtensions = provideExtensions()
-
-        /**
-         * Verify that [CachedFile] is valid and can be shown correctly.
-         */
-        fun CachedFile.isValid(): Boolean {
-            // First: Ensuring supported extension
-            supportedExtensions.any { ext ->
-                name.endsWith(ext, ignoreCase = true)
-            }.let { if (!it) return false }
-
-            // Second: Ensuring query to match
-            if (query.isNotBlank()) {
-                name.contains(query.trim(), ignoreCase = true).let {
-                    if (!it) return false
-                }
-            }
-
-            // Third: Ensuring that a file is not added already
-            existingPaths.none { existingPath ->
-                existingPath.equals(path, ignoreCase = true)
-            }.let { if (!it) return false }
-
-            return true
-        }
-
-        fun CachedFile.getSelectableFilesFromStorage(): List<File> {
-            val files = mutableListOf<File>()
-
-            walk { file ->
-                if (!file.isValid()) return@walk
-
-                files.add(
-                    File(
-                        name = file.name,
-                        uri = file.uri,
-                        path = file.path,
-                        size = file.size,
-                        lastModified = file.lastModified,
-                        isDirectory = file.isDirectory
-                    )
+            storages.map { storage ->
+                storage.getFilesFromStorage(
+                    query = query,
+                    existingFiles = existingFiles
                 )
-            }
-
-            return files
-        }
-
-        fun getAllStorages(): List<CachedFile> {
-            return application.contentResolver.persistedUriPermissions.mapNotNull { permission ->
-                val storage = CachedFileCompat.fromUri(
-                    application,
-                    permission.uri,
-                    builder = CachedFileCompat.build(
-                        name = UUID.randomUUID().toString(),
-                        size = 0,
-                        lastModified = 0
-                    )
-                )
-                if (!storage.isDirectory) return@mapNotNull null
-
-                storage
-            }.let { storages ->
-                storages.filter { storage ->
-                    storages.none {
-                        it.path != storage.path && storage.path.startsWith(
-                            it.path,
-                            ignoreCase = true
-                        )
-                    }
-                }
-            }
-        }
-
-        return try {
-            val storages = getAllStorages()
-            val files = mutableListOf<File>()
-
-            for (storage in storages) {
-                files.addAll(storage.getSelectableFilesFromStorage())
-            }
-
-            Log.i(GET_FILES, "Successfully got all matching files.")
-            files
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Log.e(GET_FILES, "Couldn't get all matching files.")
-
-            emptyList()
+            }.flatten()
         }
     }
 
-    /**
-     * Gets book from given file. If error happened, returns [NullableBook.Null].
-     */
-    override suspend fun getBookFromFile(file: File): NullableBook {
-        val cachedFile = CachedFileCompat.fromUri(
-            context = application,
-            uri = file.uri,
-            builder = CachedFileCompat.build(
-                name = file.name,
-                path = file.path,
-                size = file.size,
-                lastModified = file.lastModified,
-                isDirectory = file.isDirectory
-            )
-        )
+    private fun CachedFile.isValid(
+        query: String,
+        existingFiles: List<String>
+    ): Boolean {
+        if (provideExtensions().none { name.endsWith(it, ignoreCase = true) }) return false
+        if (query.isNotBlank() && !name.contains(query.trim(), ignoreCase = true)) return false
+        if (existingFiles.any { it.equals(path, ignoreCase = true) }) return false
+        return true
+    }
 
-        val parsedBook = fileParser.parse(cachedFile)
-        if (parsedBook == null) {
-            Log.e(GET_BOOK_FROM_FILE, "Parsed file(${cachedFile.name}) is null.")
-            return Null(
-                cachedFile.name,
-                UIText.StringResource(R.string.error_something_went_wrong)
-            )
+    private fun CachedFile.getFilesFromStorage(
+        query: String,
+        existingFiles: List<String>
+    ): List<File> {
+        val files = mutableListOf<File>()
+        walk { cachedFile ->
+            if (cachedFile.isValid(query, existingFiles)) {
+                files.add(fileMapper.toFile(cachedFile))
+            }
         }
+        return files
+    }
 
-        Log.i(GET_BOOK_FROM_FILE, "Successfully got book from file.")
-        return NotNull(bookWithCover = parsedBook)
+    override suspend fun getBookFromFile(file: File): Result<BookWithCover> = runCatching {
+        fileParser.parse(fileMapper.toCachedFile(file))
+            ?: throw Exception("Could not parse ${file.name}.")
     }
 }

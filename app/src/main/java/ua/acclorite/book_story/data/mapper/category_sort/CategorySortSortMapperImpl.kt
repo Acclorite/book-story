@@ -11,7 +11,7 @@ import ua.acclorite.book_story.domain.library.CategorySort
 import javax.inject.Inject
 
 class CategorySortSortMapperImpl @Inject constructor() : CategorySortMapper {
-    override suspend fun toCategorySortEntity(categorySort: CategorySort): CategorySortEntity {
+    override fun toCategorySortEntity(categorySort: CategorySort): CategorySortEntity {
         return CategorySortEntity(
             categoryId = categorySort.categoryId,
             sortOrder = categorySort.sortOrder,
@@ -19,7 +19,7 @@ class CategorySortSortMapperImpl @Inject constructor() : CategorySortMapper {
         )
     }
 
-    override suspend fun toCategorySort(categorySortEntity: CategorySortEntity): CategorySort {
+    override fun toCategorySort(categorySortEntity: CategorySortEntity): CategorySort {
         return CategorySort(
             categoryId = categorySortEntity.categoryId,
             sortOrder = categorySortEntity.sortOrder,

@@ -24,11 +24,11 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.history.History
-import ua.acclorite.book_story.domain.use_case.book.GetBooksById
-import ua.acclorite.book_story.domain.use_case.history.DeleteHistory
-import ua.acclorite.book_story.domain.use_case.history.DeleteWholeHistory
-import ua.acclorite.book_story.domain.use_case.history.GetHistory
-import ua.acclorite.book_story.domain.use_case.history.InsertHistory
+import ua.acclorite.book_story.domain.use_case.book.GetBookUseCase
+import ua.acclorite.book_story.domain.use_case.history.AddHistoryUseCase
+import ua.acclorite.book_story.domain.use_case.history.DeleteHistoryUseCase
+import ua.acclorite.book_story.domain.use_case.history.DeleteWholeHistoryUseCase
+import ua.acclorite.book_story.domain.use_case.history.GetHistoryUseCase
 import ua.acclorite.book_story.presentation.history.model.GroupedHistory
 import ua.acclorite.book_story.presentation.library.LibraryScreen
 import ua.acclorite.book_story.ui.common.util.showToast
@@ -40,11 +40,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HistoryModel @Inject constructor(
-    private val getHistory: GetHistory,
-    private val getBooksById: GetBooksById,
-    private val insertHistory: InsertHistory,
-    private val deleteHistory: DeleteHistory,
-    private val deleteWholeHistory: DeleteWholeHistory
+    private val getBookUseCase: GetBookUseCase,
+    private val getHistoryUseCase: GetHistoryUseCase,
+    private val addHistoryUseCase: AddHistoryUseCase,
+    private val deleteHistoryUseCase: DeleteHistoryUseCase,
+    private val deleteWholeHistoryUseCase: DeleteWholeHistoryUseCase
 ) : ViewModel() {
 
     private val mutex = Mutex()
@@ -78,7 +78,7 @@ class HistoryModel @Inject constructor(
         }
         viewModelScope.launch(Dispatchers.IO) {
             HistoryScreen.insertHistoryChannel.receiveAsFlow().collectLatest {
-                insertHistory.execute(
+                addHistoryUseCase(
                     History(
                         bookId = it,
                         book = null,
@@ -199,7 +199,7 @@ class HistoryModel @Inject constructor(
 
             is HistoryEvent.OnDeleteHistoryEntry -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    deleteHistory.execute(event.history)
+                    deleteHistoryUseCase(event.history)
 
                     onEvent(
                         HistoryEvent.OnRefreshList(
@@ -229,7 +229,7 @@ class HistoryModel @Inject constructor(
                     when (snackbarResult) {
                         SnackbarResult.Dismissed -> Unit
                         SnackbarResult.ActionPerformed -> {
-                            insertHistory.execute(event.history)
+                            addHistoryUseCase(event.history)
                             LibraryScreen.refreshListChannel.trySend(0)
 
                             onEvent(
@@ -262,7 +262,7 @@ class HistoryModel @Inject constructor(
                         )
                     }
 
-                    deleteWholeHistory.execute()
+                    deleteWholeHistoryUseCase()
                     LibraryScreen.refreshListChannel.trySend(0)
                     onEvent(
                         HistoryEvent.OnRefreshList(
@@ -307,12 +307,12 @@ class HistoryModel @Inject constructor(
             return maxElementsById.filterNotNull()
         }
 
-        val history = getHistory.execute().sortedByDescending {
+        val history = getHistoryUseCase().sortedByDescending {
             it.time
         }.run {
-            val books = getBooksById.execute(
-                this.map { it.bookId }.distinct()
-            ).toMutableList()
+            val books = map { it.bookId }.distinct().mapNotNull {
+                getBookUseCase(it)
+            }.toMutableList()
 
             mapNotNull {
                 val book = books.find { book -> book.id == it.bookId } ?: return@mapNotNull null

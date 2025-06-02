@@ -21,12 +21,12 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.use_case.book.CanResetCover
-import ua.acclorite.book_story.domain.use_case.book.DeleteBooks
-import ua.acclorite.book_story.domain.use_case.book.GetBookById
-import ua.acclorite.book_story.domain.use_case.book.ResetCoverImage
-import ua.acclorite.book_story.domain.use_case.book.UpdateBook
-import ua.acclorite.book_story.domain.use_case.book.UpdateCoverImageOfBook
+import ua.acclorite.book_story.domain.use_case.book.CanResetCoverImageUseCase
+import ua.acclorite.book_story.domain.use_case.book.DeleteBookUseCase
+import ua.acclorite.book_story.domain.use_case.book.GetBookUseCase
+import ua.acclorite.book_story.domain.use_case.book.ResetCoverImageUseCase
+import ua.acclorite.book_story.domain.use_case.book.UpdateBookUseCase
+import ua.acclorite.book_story.domain.use_case.book.UpdateCoverImageUseCase
 import ua.acclorite.book_story.presentation.browse.BrowseScreen
 import ua.acclorite.book_story.presentation.history.HistoryScreen
 import ua.acclorite.book_story.presentation.library.LibraryScreen
@@ -35,12 +35,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BookInfoModel @Inject constructor(
-    private val getBookById: GetBookById,
-    private val updateBook: UpdateBook,
-    private val canResetCover: CanResetCover,
-    private val updateCoverImageOfBook: UpdateCoverImageOfBook,
-    private val resetCoverImage: ResetCoverImage,
-    private val deleteBooks: DeleteBooks
+    private val updateCoverImageUseCase: UpdateCoverImageUseCase,
+    private val updateBookUseCase: UpdateBookUseCase,
+    private val getBookUseCase: GetBookUseCase,
+    private val deleteBookUseCase: DeleteBookUseCase,
+    private val canResetCoverImageUseCase: CanResetCoverImageUseCase,
+    private val resetCoverImageUseCase: ResetCoverImageUseCase
 ) : ViewModel() {
 
     private val mutex = Mutex()
@@ -76,14 +76,10 @@ class BookInfoModel @Inject constructor(
                             BitmapFactory.decodeStream(it)
                         } ?: return@launch
 
-                        updateCoverImageOfBook.execute(
-                            _state.value.book,
-                            image
-                        )
+                        updateCoverImageUseCase(_state.value.book.id, image)
 
-                        val newCoverImage = getBookById.execute(
-                            _state.value.book.id
-                        )?.coverImage ?: return@launch
+                        val newCoverImage = getBookUseCase(_state.value.book.id)?.coverImage
+                            ?: return@launch
 
                         _state.update {
                             it.copy(
@@ -91,7 +87,7 @@ class BookInfoModel @Inject constructor(
                                     coverImage = newCoverImage
                                 ),
                                 bottomSheet = null,
-                                canResetCover = canResetCover.execute(bookId = it.book.id)
+                                canResetCover = canResetCoverImageUseCase(it.book.id)
                             )
                         }
 
@@ -107,7 +103,7 @@ class BookInfoModel @Inject constructor(
 
                 is BookInfoEvent.OnResetCover -> {
                     launch {
-                        val result = resetCoverImage.execute(_state.value.book.id)
+                        val result = resetCoverImageUseCase(_state.value.book.id)
 
                         if (!result) {
                             withContext(Dispatchers.Main) {
@@ -117,7 +113,7 @@ class BookInfoModel @Inject constructor(
                             return@launch
                         }
 
-                        val book = getBookById.execute(_state.value.book.id)
+                        val book = getBookUseCase(_state.value.book.id)
 
                         if (book == null) {
                             withContext(Dispatchers.Main) {
@@ -151,17 +147,14 @@ class BookInfoModel @Inject constructor(
                             return@launch
                         }
 
-                        updateCoverImageOfBook.execute(
-                            bookWithOldCover = _state.value.book,
-                            newCoverImage = null
-                        )
+                        updateCoverImageUseCase(_state.value.book.id, null)
                         _state.update {
                             it.copy(
                                 book = it.book.copy(
                                     coverImage = null
                                 ),
                                 bottomSheet = null,
-                                canResetCover = canResetCover.execute(bookId = it.book.id)
+                                canResetCover = canResetCoverImageUseCase(it.book.id)
                             )
                         }
 
@@ -178,7 +171,7 @@ class BookInfoModel @Inject constructor(
                 is BookInfoEvent.OnCheckCoverReset -> {
                     launch(Dispatchers.IO) {
                         if (_state.value.book.id == -1) return@launch
-                        canResetCover.execute(_state.value.book.id).apply {
+                        canResetCoverImageUseCase(_state.value.book.id).apply {
                             _state.update {
                                 it.copy(
                                     canResetCover = this
@@ -213,7 +206,7 @@ class BookInfoModel @Inject constructor(
                                 )
                             )
                         }
-                        updateBook.execute(_state.value.book)
+                        updateBookUseCase(_state.value.book)
 
                         LibraryScreen.refreshListChannel.trySend(0)
                         HistoryScreen.refreshListChannel.trySend(0)
@@ -242,7 +235,7 @@ class BookInfoModel @Inject constructor(
                                 )
                             )
                         }
-                        updateBook.execute(_state.value.book)
+                        updateBookUseCase(_state.value.book)
 
                         LibraryScreen.refreshListChannel.trySend(0)
                         HistoryScreen.refreshListChannel.trySend(0)
@@ -271,7 +264,7 @@ class BookInfoModel @Inject constructor(
                                 )
                             )
                         }
-                        updateBook.execute(_state.value.book)
+                        updateBookUseCase(_state.value.book)
 
                         LibraryScreen.refreshListChannel.trySend(0)
                         HistoryScreen.refreshListChannel.trySend(0)
@@ -300,7 +293,7 @@ class BookInfoModel @Inject constructor(
                                 )
                             )
                         }
-                        updateBook.execute(_state.value.book)
+                        updateBookUseCase(_state.value.book)
 
                         LibraryScreen.refreshListChannel.trySend(0)
                         HistoryScreen.refreshListChannel.trySend(0)
@@ -329,7 +322,7 @@ class BookInfoModel @Inject constructor(
                             )
                         }
 
-                        deleteBooks.execute(listOf(_state.value.book))
+                        deleteBookUseCase(_state.value.book)
 
                         LibraryScreen.refreshListChannel.trySend(0)
                         HistoryScreen.refreshListChannel.trySend(0)
@@ -363,7 +356,7 @@ class BookInfoModel @Inject constructor(
                                 bottomSheet = null
                             )
                         }
-                        updateBook.execute(_state.value.book)
+                        updateBookUseCase(_state.value.book)
 
                         LibraryScreen.refreshListChannel.trySend(0)
                         HistoryScreen.refreshListChannel.trySend(0)
@@ -392,7 +385,7 @@ class BookInfoModel @Inject constructor(
         navigateBack: () -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val book = getBookById.execute(bookId)
+            val book = getBookUseCase(bookId)
 
             if (book == null) {
                 navigateBack()

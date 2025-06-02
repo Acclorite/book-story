@@ -10,7 +10,6 @@ import ua.acclorite.book_story.data.local.dto.BookEntity
 import ua.acclorite.book_story.domain.library.Book
 
 interface BookMapper {
-    suspend fun toBookEntity(book: Book): BookEntity
-
-    suspend fun toBook(bookEntity: BookEntity): Book
+    fun toBookEntity(book: Book): BookEntity
+    fun toBook(bookEntity: BookEntity): Book
 }

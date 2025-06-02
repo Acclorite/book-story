@@ -6,16 +6,15 @@
 
 package ua.acclorite.book_story.domain.repository
 
-import ua.acclorite.book_story.data.model.common.NullableBook
+import ua.acclorite.book_story.data.model.library.BookWithCover
 import ua.acclorite.book_story.domain.file.File
 
 interface FileSystemRepository {
-
-    suspend fun getFiles(
+    suspend fun searchFiles(
         query: String = ""
-    ): List<File>
+    ): Result<List<File>>
 
     suspend fun getBookFromFile(
         file: File
-    ): NullableBook
+    ): Result<BookWithCover>
 }

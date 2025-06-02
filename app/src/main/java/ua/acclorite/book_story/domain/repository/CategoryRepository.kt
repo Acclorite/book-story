@@ -10,29 +10,27 @@ import ua.acclorite.book_story.domain.library.Category
 import ua.acclorite.book_story.domain.library.CategorySort
 
 interface CategoryRepository {
-
-    suspend fun insertCategory(
+    suspend fun addCategory(
         category: Category
-    )
+    ): Result<Unit>
 
-    suspend fun getCategories(): List<Category>
+    suspend fun getCategories(): Result<List<Category>>
 
-    suspend fun updateCategoryTitle(
-        id: Int,
-        title: String
-    )
+    suspend fun updateCategory(
+        category: Category
+    ): Result<Unit>
 
-    suspend fun updateCategoriesOrder(
+    suspend fun updateOrder(
         categories: List<Category>
-    )
+    ): Result<Unit>
 
     suspend fun deleteCategory(
         category: Category
-    )
+    ): Result<Unit>
 
-    suspend fun updateCategorySortEntity(
+    suspend fun updateCategorySorting(
         categorySort: CategorySort
-    )
+    ): Result<Unit>
 
-    suspend fun getCategorySortEntities(): List<CategorySort>
+    suspend fun getCategorySorting(): Result<List<CategorySort>>
 }
