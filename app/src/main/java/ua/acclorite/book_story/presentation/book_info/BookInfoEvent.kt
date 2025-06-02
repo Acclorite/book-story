@@ -10,7 +10,7 @@ import android.content.Context
 import android.net.Uri
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.core.ui.UIText
-import ua.acclorite.book_story.domain.library.Category
+import ua.acclorite.book_story.domain.model.library.Category
 
 @Immutable
 sealed class BookInfoEvent {

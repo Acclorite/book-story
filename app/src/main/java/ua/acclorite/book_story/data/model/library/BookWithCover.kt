@@ -8,7 +8,7 @@ package ua.acclorite.book_story.data.model.library
 
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.core.CoverImage
-import ua.acclorite.book_story.domain.library.Book
+import ua.acclorite.book_story.domain.model.library.Book
 
 @Immutable
 data class BookWithCover(

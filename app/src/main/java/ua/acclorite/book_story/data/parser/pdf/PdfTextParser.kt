@@ -15,7 +15,7 @@ import kotlinx.coroutines.yield
 import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.data.parser.MarkdownParser
 import ua.acclorite.book_story.data.parser.TextParser
-import ua.acclorite.book_story.domain.reader.ReaderText
+import ua.acclorite.book_story.domain.model.reader.ReaderText
 import ua.acclorite.book_story.ui.common.util.clearAllMarkdown
 import javax.inject.Inject
 

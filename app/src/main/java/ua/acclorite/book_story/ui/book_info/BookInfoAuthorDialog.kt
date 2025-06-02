@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.ui.UIText
-import ua.acclorite.book_story.domain.library.Book
+import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.presentation.book_info.BookInfoEvent
 import ua.acclorite.book_story.ui.common.components.dialog.DialogWithTextField
 

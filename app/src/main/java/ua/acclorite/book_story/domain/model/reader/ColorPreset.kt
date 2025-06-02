@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.domain.reader
+package ua.acclorite.book_story.domain.model.reader
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color

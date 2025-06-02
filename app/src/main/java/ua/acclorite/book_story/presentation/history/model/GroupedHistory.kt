@@ -7,7 +7,7 @@
 package ua.acclorite.book_story.presentation.history.model
 
 import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.domain.history.History
+import ua.acclorite.book_story.domain.model.history.History
 
 @Immutable
 data class GroupedHistory(

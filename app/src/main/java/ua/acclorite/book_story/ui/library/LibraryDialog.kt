@@ -8,7 +8,7 @@ package ua.acclorite.book_story.ui.library
 
 import androidx.compose.runtime.Composable
 import ua.acclorite.book_story.core.Dialog
-import ua.acclorite.book_story.domain.library.Category
+import ua.acclorite.book_story.domain.model.library.Category
 import ua.acclorite.book_story.presentation.library.LibraryEvent
 import ua.acclorite.book_story.presentation.library.LibraryScreen
 import ua.acclorite.book_story.presentation.library.model.SelectableBook

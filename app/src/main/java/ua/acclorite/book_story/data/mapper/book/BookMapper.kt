@@ -7,7 +7,7 @@
 package ua.acclorite.book_story.data.mapper.book
 
 import ua.acclorite.book_story.data.local.dto.BookEntity
-import ua.acclorite.book_story.domain.library.Book
+import ua.acclorite.book_story.domain.model.library.Book
 
 interface BookMapper {
     fun toBookEntity(book: Book): BookEntity

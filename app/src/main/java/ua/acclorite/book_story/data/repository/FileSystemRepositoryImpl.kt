@@ -11,7 +11,7 @@ import ua.acclorite.book_story.data.mapper.file.FileMapper
 import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.data.model.library.BookWithCover
 import ua.acclorite.book_story.data.parser.FileParser
-import ua.acclorite.book_story.domain.file.File
+import ua.acclorite.book_story.domain.model.file.File
 import ua.acclorite.book_story.domain.repository.FileSystemRepository
 import ua.acclorite.book_story.domain.service.FileProvider
 import ua.acclorite.book_story.ui.common.constants.provideExtensions

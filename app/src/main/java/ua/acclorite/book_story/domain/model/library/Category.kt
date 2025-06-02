@@ -4,16 +4,13 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.domain.file
+package ua.acclorite.book_story.domain.model.library
 
 import androidx.compose.runtime.Immutable
 
 @Immutable
-data class File(
-    val name: String,
-    val uri: String,
-    val path: String,
-    val size: Long,
-    val lastModified: Long,
-    val isDirectory: Boolean
+data class Category(
+    val id: Int = 0,
+    val title: String,
+    val order: Int = 0
 )

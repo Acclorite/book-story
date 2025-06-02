@@ -4,10 +4,10 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.domain.history
+package ua.acclorite.book_story.domain.model.history
 
 import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.domain.library.Book
+import ua.acclorite.book_story.domain.model.library.Book
 
 @Immutable
 data class History(

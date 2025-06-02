@@ -13,7 +13,7 @@ import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.data.model.common.NullableBook
 import ua.acclorite.book_story.data.model.common.NullableBook.NotNull
 import ua.acclorite.book_story.data.model.common.NullableBook.Null
-import ua.acclorite.book_story.domain.file.File
+import ua.acclorite.book_story.domain.model.file.File
 import ua.acclorite.book_story.domain.repository.FileSystemRepository
 import javax.inject.Inject
 

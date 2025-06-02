@@ -23,7 +23,7 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.history.History
+import ua.acclorite.book_story.domain.model.history.History
 import ua.acclorite.book_story.domain.use_case.book.GetBookUseCase
 import ua.acclorite.book_story.domain.use_case.history.AddHistoryUseCase
 import ua.acclorite.book_story.domain.use_case.history.DeleteHistoryUseCase

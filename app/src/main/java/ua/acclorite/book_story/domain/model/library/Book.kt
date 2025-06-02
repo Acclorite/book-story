@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.domain.library
+package ua.acclorite.book_story.domain.model.library
 
 import android.net.Uri
 import android.os.Parcelable

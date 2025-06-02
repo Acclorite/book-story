@@ -9,7 +9,7 @@ package ua.acclorite.book_story.data.service
 import android.app.Application
 import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.data.model.file.CachedFileCompat
-import ua.acclorite.book_story.domain.library.Book
+import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.domain.service.FileProvider
 import javax.inject.Inject
 

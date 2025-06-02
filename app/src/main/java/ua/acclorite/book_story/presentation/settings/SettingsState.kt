@@ -8,9 +8,9 @@ package ua.acclorite.book_story.presentation.settings
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.domain.library.Category
-import ua.acclorite.book_story.domain.library.CategorySort
-import ua.acclorite.book_story.domain.reader.ColorPreset
+import ua.acclorite.book_story.domain.model.library.Category
+import ua.acclorite.book_story.domain.model.library.CategorySort
+import ua.acclorite.book_story.domain.model.reader.ColorPreset
 import ua.acclorite.book_story.ui.common.constants.provideDefaultColorPreset
 
 @Immutable

@@ -7,7 +7,7 @@
 package ua.acclorite.book_story.data.mapper.category
 
 import ua.acclorite.book_story.data.local.dto.CategoryEntity
-import ua.acclorite.book_story.domain.library.Category
+import ua.acclorite.book_story.domain.model.library.Category
 
 interface CategoryMapper {
     fun toCategoryEntity(category: Category): CategoryEntity

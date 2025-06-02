@@ -8,7 +8,7 @@ package ua.acclorite.book_story.ui.reader
 
 import androidx.compose.runtime.Composable
 import ua.acclorite.book_story.core.Drawer
-import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
+import ua.acclorite.book_story.domain.model.reader.ReaderText.Chapter
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.presentation.reader.ReaderScreen
 

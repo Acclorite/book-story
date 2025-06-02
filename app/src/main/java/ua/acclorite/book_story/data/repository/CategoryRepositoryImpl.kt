@@ -9,8 +9,8 @@ package ua.acclorite.book_story.data.repository
 import ua.acclorite.book_story.data.local.room.BookDao
 import ua.acclorite.book_story.data.mapper.category.CategoryMapper
 import ua.acclorite.book_story.data.mapper.category_sort.CategorySortMapper
-import ua.acclorite.book_story.domain.library.Category
-import ua.acclorite.book_story.domain.library.CategorySort
+import ua.acclorite.book_story.domain.model.library.Category
+import ua.acclorite.book_story.domain.model.library.CategorySort
 import ua.acclorite.book_story.domain.repository.CategoryRepository
 import javax.inject.Inject
 import javax.inject.Singleton

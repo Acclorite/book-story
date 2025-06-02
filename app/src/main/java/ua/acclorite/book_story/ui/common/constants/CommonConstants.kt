@@ -10,8 +10,8 @@ package ua.acclorite.book_story.ui.common.constants
 
 import androidx.compose.ui.graphics.Color
 import ua.acclorite.book_story.core.ui.UIText
-import ua.acclorite.book_story.domain.library.Book
-import ua.acclorite.book_story.domain.reader.ColorPreset
+import ua.acclorite.book_story.domain.model.library.Book
+import ua.acclorite.book_story.domain.model.reader.ColorPreset
 
 // Main State
 fun provideMainState() = "main_state"

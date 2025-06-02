@@ -15,7 +15,7 @@ import ua.acclorite.book_story.data.parser.html.HtmlTextParser
 import ua.acclorite.book_story.data.parser.pdf.PdfTextParser
 import ua.acclorite.book_story.data.parser.txt.TxtTextParser
 import ua.acclorite.book_story.data.parser.xml.XmlTextParser
-import ua.acclorite.book_story.domain.reader.ReaderText
+import ua.acclorite.book_story.domain.model.reader.ReaderText
 import javax.inject.Inject
 
 private const val TEXT_PARSER = "Text Parser"

@@ -9,7 +9,7 @@ package ua.acclorite.book_story.domain.use_case.book
 import ua.acclorite.book_story.core.logE
 import ua.acclorite.book_story.core.logI
 import ua.acclorite.book_story.core.logW
-import ua.acclorite.book_story.domain.library.Book
+import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.domain.repository.BookRepository
 import ua.acclorite.book_story.domain.repository.HistoryRepository
 import ua.acclorite.book_story.domain.service.CoverImageHandler

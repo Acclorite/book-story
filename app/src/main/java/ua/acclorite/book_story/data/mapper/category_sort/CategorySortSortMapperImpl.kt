@@ -7,7 +7,7 @@
 package ua.acclorite.book_story.data.mapper.category_sort
 
 import ua.acclorite.book_story.data.local.dto.CategorySortEntity
-import ua.acclorite.book_story.domain.library.CategorySort
+import ua.acclorite.book_story.domain.model.library.CategorySort
 import javax.inject.Inject
 
 class CategorySortSortMapperImpl @Inject constructor() : CategorySortMapper {

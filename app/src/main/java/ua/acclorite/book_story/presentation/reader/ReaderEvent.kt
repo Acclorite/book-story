@@ -8,7 +8,7 @@ package ua.acclorite.book_story.presentation.reader
 
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.domain.reader.ReaderText.Chapter
+import ua.acclorite.book_story.domain.model.reader.ReaderText.Chapter
 
 @Immutable
 sealed class ReaderEvent {

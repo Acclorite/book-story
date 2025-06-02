@@ -20,8 +20,8 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.library.CategorySort
-import ua.acclorite.book_story.domain.reader.ColorPreset
+import ua.acclorite.book_story.domain.model.library.CategorySort
+import ua.acclorite.book_story.domain.model.reader.ColorPreset
 import ua.acclorite.book_story.domain.use_case.category.AddCategoryUseCase
 import ua.acclorite.book_story.domain.use_case.category.DeleteCategoryUseCase
 import ua.acclorite.book_story.domain.use_case.category.GetCategoriesUseCase

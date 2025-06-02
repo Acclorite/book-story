@@ -8,7 +8,7 @@ package ua.acclorite.book_story.data.repository
 
 import ua.acclorite.book_story.data.local.room.BookDao
 import ua.acclorite.book_story.data.mapper.history.HistoryMapper
-import ua.acclorite.book_story.domain.history.History
+import ua.acclorite.book_story.domain.model.history.History
 import ua.acclorite.book_story.domain.repository.HistoryRepository
 import javax.inject.Inject
 import javax.inject.Singleton

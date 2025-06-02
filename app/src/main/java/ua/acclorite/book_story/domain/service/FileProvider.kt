@@ -7,7 +7,7 @@
 package ua.acclorite.book_story.domain.service
 
 import ua.acclorite.book_story.data.model.file.CachedFile
-import ua.acclorite.book_story.domain.library.Book
+import ua.acclorite.book_story.domain.model.library.Book
 
 interface FileProvider {
     fun getFileFromBook(book: Book): Result<CachedFile>

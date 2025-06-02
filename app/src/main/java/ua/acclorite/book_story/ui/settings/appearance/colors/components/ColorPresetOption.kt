@@ -64,7 +64,7 @@ import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.Selected
-import ua.acclorite.book_story.domain.reader.ColorPreset
+import ua.acclorite.book_story.domain.model.reader.ColorPreset
 import ua.acclorite.book_story.presentation.settings.SettingsEvent
 import ua.acclorite.book_story.presentation.settings.SettingsModel
 import ua.acclorite.book_story.presentation.theme.FadeTransitionPreservingSpace

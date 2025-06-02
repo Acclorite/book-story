@@ -6,7 +6,7 @@
 
 package ua.acclorite.book_story.domain.repository
 
-import ua.acclorite.book_story.domain.reader.ColorPreset
+import ua.acclorite.book_story.domain.model.reader.ColorPreset
 
 interface ColorPresetRepository {
     suspend fun getColorPresets(): Result<List<ColorPreset>>

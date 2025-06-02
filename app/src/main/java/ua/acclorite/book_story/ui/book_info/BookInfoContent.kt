@@ -10,8 +10,8 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import ua.acclorite.book_story.core.BottomSheet
 import ua.acclorite.book_story.core.Dialog
-import ua.acclorite.book_story.domain.library.Book
-import ua.acclorite.book_story.domain.library.Category
+import ua.acclorite.book_story.domain.model.library.Book
+import ua.acclorite.book_story.domain.model.library.Category
 import ua.acclorite.book_story.presentation.book_info.BookInfoEvent
 
 @Composable

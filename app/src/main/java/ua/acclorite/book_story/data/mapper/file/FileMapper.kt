@@ -7,7 +7,7 @@
 package ua.acclorite.book_story.data.mapper.file
 
 import ua.acclorite.book_story.data.model.file.CachedFile
-import ua.acclorite.book_story.domain.file.File
+import ua.acclorite.book_story.domain.model.file.File
 
 interface FileMapper {
     fun toCachedFile(file: File): CachedFile

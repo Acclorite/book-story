@@ -10,7 +10,7 @@ import android.app.Application
 import androidx.core.net.toUri
 import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.data.model.file.CachedFileCompat
-import ua.acclorite.book_story.domain.file.File
+import ua.acclorite.book_story.domain.model.file.File
 import javax.inject.Inject
 
 class FileMapperImpl @Inject constructor(

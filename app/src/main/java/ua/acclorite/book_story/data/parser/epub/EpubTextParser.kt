@@ -20,7 +20,7 @@ import org.jsoup.Jsoup
 import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.data.parser.DocumentParser
 import ua.acclorite.book_story.data.parser.TextParser
-import ua.acclorite.book_story.domain.reader.ReaderText
+import ua.acclorite.book_story.domain.model.reader.ReaderText
 import ua.acclorite.book_story.ui.common.constants.provideImageExtensions
 import ua.acclorite.book_story.ui.common.util.addAll
 import ua.acclorite.book_story.ui.common.util.containsVisibleText

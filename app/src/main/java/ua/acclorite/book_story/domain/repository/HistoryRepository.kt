@@ -6,7 +6,7 @@
 
 package ua.acclorite.book_story.domain.repository
 
-import ua.acclorite.book_story.domain.history.History
+import ua.acclorite.book_story.domain.model.history.History
 
 interface HistoryRepository {
     suspend fun getHistoryForBook(

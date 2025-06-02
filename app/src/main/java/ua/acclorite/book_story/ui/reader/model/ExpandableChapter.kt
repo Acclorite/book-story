@@ -7,7 +7,7 @@
 package ua.acclorite.book_story.ui.reader.model
 
 import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.domain.reader.ReaderText
+import ua.acclorite.book_story.domain.model.reader.ReaderText
 
 @Immutable
 data class ExpandableChapter(

@@ -24,7 +24,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.data.model.common.NullableBook
-import ua.acclorite.book_story.domain.file.File
+import ua.acclorite.book_story.domain.model.file.File
 import ua.acclorite.book_story.domain.use_case.book.AddBookUseCase
 import ua.acclorite.book_story.domain.use_case.file_system.GetBookFromFileUseCase
 import ua.acclorite.book_story.domain.use_case.file_system.SearchFilesUseCase
