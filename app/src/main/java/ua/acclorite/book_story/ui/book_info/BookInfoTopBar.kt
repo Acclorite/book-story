@@ -17,12 +17,12 @@ import androidx.compose.runtime.remember
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.presentation.book_info.BookInfoEvent
-import ua.acclorite.book_story.presentation.theme.DefaultTransition
 import ua.acclorite.book_story.ui.common.components.common.IconButton
 import ua.acclorite.book_story.ui.common.components.common.StyledText
 import ua.acclorite.book_story.ui.common.components.top_bar.TopAppBar
 import ua.acclorite.book_story.ui.common.components.top_bar.TopAppBarData
 import ua.acclorite.book_story.ui.navigator.NavigatorBackIconButton
+import ua.acclorite.book_story.ui.theme.DefaultTransition
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

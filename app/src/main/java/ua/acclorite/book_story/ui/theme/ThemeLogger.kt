@@ -6,7 +6,7 @@
 
 @file:Suppress("unused")
 
-package ua.acclorite.book_story.presentation.theme
+package ua.acclorite.book_story.ui.theme
 
 import android.util.Log
 import androidx.compose.material3.ColorScheme

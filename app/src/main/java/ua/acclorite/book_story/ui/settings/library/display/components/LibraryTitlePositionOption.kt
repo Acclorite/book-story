@@ -16,9 +16,9 @@ import ua.acclorite.book_story.presentation.library.model.LibraryLayout
 import ua.acclorite.book_story.presentation.library.model.LibraryTitlePosition
 import ua.acclorite.book_story.presentation.main.MainEvent
 import ua.acclorite.book_story.presentation.main.MainModel
-import ua.acclorite.book_story.presentation.theme.ExpandingTransition
 import ua.acclorite.book_story.ui.common.components.settings.ChipsWithTitle
 import ua.acclorite.book_story.ui.common.model.ButtonItem
+import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
 fun LibraryTitlePositionOption() {

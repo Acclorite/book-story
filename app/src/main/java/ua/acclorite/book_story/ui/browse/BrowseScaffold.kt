@@ -23,7 +23,7 @@ import ua.acclorite.book_story.presentation.browse.BrowseEvent
 import ua.acclorite.book_story.presentation.browse.model.BrowseLayout
 import ua.acclorite.book_story.presentation.browse.model.SelectableFile
 import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.theme.DefaultTransition
+import ua.acclorite.book_story.ui.theme.DefaultTransition
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

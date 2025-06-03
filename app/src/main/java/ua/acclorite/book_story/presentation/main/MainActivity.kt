@@ -21,7 +21,7 @@ import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.internal.immutableListOf
+import kotlinx.collections.immutable.persistentListOf
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.browse.BrowseModel
 import ua.acclorite.book_story.presentation.browse.BrowseScreen
@@ -35,13 +35,13 @@ import ua.acclorite.book_story.presentation.navigator.NavigatorItem
 import ua.acclorite.book_story.presentation.navigator.StackEvent
 import ua.acclorite.book_story.presentation.settings.SettingsModel
 import ua.acclorite.book_story.presentation.start.StartScreen
-import ua.acclorite.book_story.presentation.theme.BookStoryTheme
-import ua.acclorite.book_story.presentation.theme.Transitions
 import ua.acclorite.book_story.ui.common.components.navigation_bar.NavigationBar
 import ua.acclorite.book_story.ui.common.components.navigation_rail.NavigationRail
 import ua.acclorite.book_story.ui.main.MainActivityKeyboardManager
 import ua.acclorite.book_story.ui.navigator.Navigator
 import ua.acclorite.book_story.ui.navigator.NavigatorTabs
+import ua.acclorite.book_story.ui.theme.BookStoryTheme
+import ua.acclorite.book_story.ui.theme.Transitions
 import java.lang.reflect.Field
 
 
@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
             val state = mainModel.state.collectAsStateWithLifecycle()
             val isLoaded = mainModel.isReady.collectAsStateWithLifecycle()
 
-            val tabs = immutableListOf(
+            val tabs = persistentListOf(
                 NavigatorItem(
                     screen = LibraryScreen,
                     title = R.string.library_screen,

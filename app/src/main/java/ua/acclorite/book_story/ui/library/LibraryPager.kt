@@ -21,8 +21,8 @@ import ua.acclorite.book_story.presentation.library.model.LibraryLayout
 import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
 import ua.acclorite.book_story.presentation.library.model.LibraryTitlePosition
 import ua.acclorite.book_story.presentation.library.model.SelectableBook
-import ua.acclorite.book_story.presentation.theme.DefaultTransition
 import ua.acclorite.book_story.ui.common.util.compareByWithOrder
+import ua.acclorite.book_story.ui.theme.DefaultTransition
 
 @Composable
 fun LibraryPager(

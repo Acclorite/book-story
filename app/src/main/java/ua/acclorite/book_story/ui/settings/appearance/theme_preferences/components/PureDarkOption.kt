@@ -16,9 +16,9 @@ import ua.acclorite.book_story.presentation.main.MainEvent
 import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.presentation.main.model.PureDark
 import ua.acclorite.book_story.presentation.main.model.isDark
-import ua.acclorite.book_story.presentation.theme.ExpandingTransition
 import ua.acclorite.book_story.ui.common.components.settings.SegmentedButtonWithTitle
 import ua.acclorite.book_story.ui.common.model.ButtonItem
+import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
 fun PureDarkOption() {

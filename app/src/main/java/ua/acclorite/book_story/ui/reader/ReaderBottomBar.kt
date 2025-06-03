@@ -34,12 +34,12 @@ import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.domain.model.reader.ReaderText
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.presentation.reader.model.Checkpoint
-import ua.acclorite.book_story.presentation.theme.HorizontalExpandingTransition
-import ua.acclorite.book_story.presentation.theme.readerBarsColor
 import ua.acclorite.book_story.ui.common.components.common.IconButton
 import ua.acclorite.book_story.ui.common.components.common.StyledText
 import ua.acclorite.book_story.ui.common.model.Direction
 import ua.acclorite.book_story.ui.common.util.noRippleClickable
+import ua.acclorite.book_story.ui.theme.HorizontalExpandingTransition
+import ua.acclorite.book_story.ui.theme.readerBarsColor
 
 @Composable
 fun ReaderBottomBar(

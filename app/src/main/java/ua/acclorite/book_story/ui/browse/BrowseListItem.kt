@@ -22,8 +22,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.browse.model.SelectableFile
-import ua.acclorite.book_story.presentation.theme.FadeTransitionPreservingSpace
 import ua.acclorite.book_story.ui.common.components.common.CircularCheckbox
+import ua.acclorite.book_story.ui.theme.FadeTransitionPreservingSpace
 
 @Composable
 fun BrowseListItem(

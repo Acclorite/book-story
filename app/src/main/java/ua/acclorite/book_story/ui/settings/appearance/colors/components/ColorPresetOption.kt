@@ -67,13 +67,13 @@ import ua.acclorite.book_story.core.Selected
 import ua.acclorite.book_story.domain.model.reader.ColorPreset
 import ua.acclorite.book_story.presentation.settings.SettingsEvent
 import ua.acclorite.book_story.presentation.settings.SettingsModel
-import ua.acclorite.book_story.presentation.theme.FadeTransitionPreservingSpace
-import ua.acclorite.book_story.presentation.theme.Transitions
 import ua.acclorite.book_story.ui.common.components.common.AnimatedVisibility
 import ua.acclorite.book_story.ui.common.components.common.IconButton
 import ua.acclorite.book_story.ui.common.components.common.StyledText
 import ua.acclorite.book_story.ui.common.components.settings.ColorPickerWithTitle
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategoryTitle
+import ua.acclorite.book_story.ui.theme.FadeTransitionPreservingSpace
+import ua.acclorite.book_story.ui.theme.Transitions
 
 @Composable
 fun ColorPresetOption(backgroundColor: Color) {

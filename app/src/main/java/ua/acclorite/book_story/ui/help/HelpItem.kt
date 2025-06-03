@@ -38,11 +38,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.theme.ExpandingTransition
 import ua.acclorite.book_story.ui.common.components.common.StyledText
 import ua.acclorite.book_story.ui.common.model.Position
 import ua.acclorite.book_story.ui.common.util.noRippleClickable
 import ua.acclorite.book_story.ui.help.model.HelpTip
+import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
 fun HelpItem(

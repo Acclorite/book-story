@@ -16,8 +16,8 @@ import ua.acclorite.book_story.presentation.main.MainEvent
 import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.presentation.main.model.isDark
 import ua.acclorite.book_story.presentation.main.model.isPureDark
-import ua.acclorite.book_story.presentation.theme.ExpandingTransition
 import ua.acclorite.book_story.ui.common.components.settings.SwitchWithTitle
+import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
 fun AbsoluteDarkOption() {

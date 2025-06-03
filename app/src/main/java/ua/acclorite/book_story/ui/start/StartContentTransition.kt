@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import ua.acclorite.book_story.presentation.navigator.StackEvent
-import ua.acclorite.book_story.presentation.theme.Transitions
+import ua.acclorite.book_story.ui.theme.Transitions
 
 @Composable
 fun StartContentTransition(

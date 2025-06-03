@@ -14,8 +14,8 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.main.MainEvent
 import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.presentation.reader.model.ReaderHorizontalGesture
-import ua.acclorite.book_story.presentation.theme.ExpandingTransition
 import ua.acclorite.book_story.ui.common.components.settings.SliderWithTitle
+import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
 fun HorizontalGestureSensitivityOption() {

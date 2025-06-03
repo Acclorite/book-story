@@ -25,8 +25,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ua.acclorite.book_story.presentation.theme.dynamicListItemColor
 import ua.acclorite.book_story.ui.common.components.common.StyledText
+import ua.acclorite.book_story.ui.theme.dynamicListItemColor
 
 @Composable
 fun SettingsLayoutItem(

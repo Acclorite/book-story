@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.presentation.theme
+package ua.acclorite.book_story.ui.theme
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween

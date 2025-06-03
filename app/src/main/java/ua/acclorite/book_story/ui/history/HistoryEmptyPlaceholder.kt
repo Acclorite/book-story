@@ -15,9 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.theme.Transitions
 import ua.acclorite.book_story.ui.common.components.common.AnimatedVisibility
 import ua.acclorite.book_story.ui.common.components.placeholder.EmptyPlaceholder
+import ua.acclorite.book_story.ui.theme.Transitions
 
 @Composable
 fun BoxScope.HistoryEmptyPlaceholder(

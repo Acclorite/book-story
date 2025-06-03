@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.core.view.WindowCompat
 import ua.acclorite.book_story.presentation.main.model.ThemeContrast
-import ua.acclorite.book_story.presentation.theme.BookStoryTheme
-import ua.acclorite.book_story.presentation.theme.Theme
+import ua.acclorite.book_story.ui.theme.BookStoryTheme
+import ua.acclorite.book_story.ui.theme.Theme
 
 class CrashActivity : AppCompatActivity() {
 

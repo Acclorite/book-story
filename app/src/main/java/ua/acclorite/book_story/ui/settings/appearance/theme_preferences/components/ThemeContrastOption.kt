@@ -21,10 +21,10 @@ import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.presentation.main.model.ThemeContrast
 import ua.acclorite.book_story.presentation.main.model.isDark
 import ua.acclorite.book_story.presentation.main.model.isPureDark
-import ua.acclorite.book_story.presentation.theme.BookStoryTheme
-import ua.acclorite.book_story.presentation.theme.ExpandingTransition
 import ua.acclorite.book_story.ui.common.components.settings.SegmentedButtonWithTitle
 import ua.acclorite.book_story.ui.common.model.ButtonItem
+import ua.acclorite.book_story.ui.theme.BookStoryTheme
+import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
 fun ThemeContrastOption() {

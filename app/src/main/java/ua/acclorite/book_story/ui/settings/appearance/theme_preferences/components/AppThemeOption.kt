@@ -47,11 +47,11 @@ import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.presentation.main.model.ThemeContrast
 import ua.acclorite.book_story.presentation.main.model.isDark
 import ua.acclorite.book_story.presentation.main.model.isPureDark
-import ua.acclorite.book_story.presentation.theme.Theme
-import ua.acclorite.book_story.presentation.theme.animatedColorScheme
 import ua.acclorite.book_story.ui.common.components.common.AnimatedVisibility
 import ua.acclorite.book_story.ui.common.components.common.StyledText
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategoryTitle
+import ua.acclorite.book_story.ui.theme.Theme
+import ua.acclorite.book_story.ui.theme.animatedColorScheme
 
 @Composable
 fun AppThemeOption() {

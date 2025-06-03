@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.presentation.theme.color
+package ua.acclorite.book_story.ui.theme.color
 
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable

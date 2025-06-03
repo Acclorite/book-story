@@ -29,9 +29,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.browse.model.SelectableFile
-import ua.acclorite.book_story.presentation.theme.DefaultTransition
 import ua.acclorite.book_story.ui.common.components.common.CircularCheckbox
 import ua.acclorite.book_story.ui.common.components.common.StyledText
+import ua.acclorite.book_story.ui.theme.DefaultTransition
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

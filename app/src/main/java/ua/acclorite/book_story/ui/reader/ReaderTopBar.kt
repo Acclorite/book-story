@@ -33,11 +33,11 @@ import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.domain.model.reader.ReaderText.Chapter
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.presentation.settings.SettingsEvent
-import ua.acclorite.book_story.presentation.theme.readerBarsColor
 import ua.acclorite.book_story.ui.common.components.common.IconButton
 import ua.acclorite.book_story.ui.common.components.common.StyledText
 import ua.acclorite.book_story.ui.common.util.LocalActivity
 import ua.acclorite.book_story.ui.common.util.noRippleClickable
+import ua.acclorite.book_story.ui.theme.readerBarsColor
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable

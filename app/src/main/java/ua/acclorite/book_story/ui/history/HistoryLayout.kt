@@ -19,11 +19,11 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.history.HistoryEvent
 import ua.acclorite.book_story.presentation.history.model.GroupedHistory
-import ua.acclorite.book_story.presentation.theme.DefaultTransition
 import ua.acclorite.book_story.ui.common.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.ui.common.constants.providePrimaryScrollbar
 import ua.acclorite.book_story.ui.common.util.LocalActivity
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategoryTitle
+import ua.acclorite.book_story.ui.theme.DefaultTransition
 
 @Composable
 fun HistoryLayout(

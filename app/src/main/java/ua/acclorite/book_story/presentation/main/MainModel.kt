@@ -40,10 +40,10 @@ import ua.acclorite.book_story.presentation.reader.model.ReaderHorizontalGesture
 import ua.acclorite.book_story.presentation.reader.model.ReaderProgressCount
 import ua.acclorite.book_story.presentation.reader.model.ReaderScreenOrientation
 import ua.acclorite.book_story.presentation.reader.model.ReaderTextAlignment
-import ua.acclorite.book_story.presentation.theme.toTheme
 import ua.acclorite.book_story.ui.common.constants.DataStoreConstants
 import ua.acclorite.book_story.ui.common.constants.provideFonts
 import ua.acclorite.book_story.ui.common.constants.provideMainState
+import ua.acclorite.book_story.ui.theme.toTheme
 import javax.inject.Inject
 
 

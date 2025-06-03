@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.presentation.theme
+package ua.acclorite.book_story.ui.theme
 
 import android.os.Build
 import androidx.annotation.StringRes
@@ -13,23 +13,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.main.model.ThemeContrast
-import ua.acclorite.book_story.presentation.theme.color.aquaTheme
-import ua.acclorite.book_story.presentation.theme.color.blackTheme
-import ua.acclorite.book_story.presentation.theme.color.blueTheme
-import ua.acclorite.book_story.presentation.theme.color.dynamicTheme
-import ua.acclorite.book_story.presentation.theme.color.green2Theme
-import ua.acclorite.book_story.presentation.theme.color.greenGrayTheme
-import ua.acclorite.book_story.presentation.theme.color.greenTheme
-import ua.acclorite.book_story.presentation.theme.color.lavenderTheme
-import ua.acclorite.book_story.presentation.theme.color.marshTheme
-import ua.acclorite.book_story.presentation.theme.color.pink2Theme
-import ua.acclorite.book_story.presentation.theme.color.pinkTheme
-import ua.acclorite.book_story.presentation.theme.color.purpleGrayTheme
-import ua.acclorite.book_story.presentation.theme.color.purpleTheme
-import ua.acclorite.book_story.presentation.theme.color.redGrayTheme
-import ua.acclorite.book_story.presentation.theme.color.redTheme
-import ua.acclorite.book_story.presentation.theme.color.yellow2Theme
-import ua.acclorite.book_story.presentation.theme.color.yellowTheme
+import ua.acclorite.book_story.ui.theme.color.aquaTheme
+import ua.acclorite.book_story.ui.theme.color.blackTheme
+import ua.acclorite.book_story.ui.theme.color.blueTheme
+import ua.acclorite.book_story.ui.theme.color.dynamicTheme
+import ua.acclorite.book_story.ui.theme.color.green2Theme
+import ua.acclorite.book_story.ui.theme.color.greenGrayTheme
+import ua.acclorite.book_story.ui.theme.color.greenTheme
+import ua.acclorite.book_story.ui.theme.color.lavenderTheme
+import ua.acclorite.book_story.ui.theme.color.marshTheme
+import ua.acclorite.book_story.ui.theme.color.pink2Theme
+import ua.acclorite.book_story.ui.theme.color.pinkTheme
+import ua.acclorite.book_story.ui.theme.color.purpleGrayTheme
+import ua.acclorite.book_story.ui.theme.color.purpleTheme
+import ua.acclorite.book_story.ui.theme.color.redGrayTheme
+import ua.acclorite.book_story.ui.theme.color.redTheme
+import ua.acclorite.book_story.ui.theme.color.yellow2Theme
+import ua.acclorite.book_story.ui.theme.color.yellowTheme
 
 
 @Immutable
@@ -57,8 +57,8 @@ enum class Theme(
     companion object {
         fun entries(): List<Theme> {
             return when {
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> Theme.entries
-                else -> Theme.entries.dropWhile { it == DYNAMIC }
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> entries
+                else -> entries.dropWhile { it == DYNAMIC }
             }
         }
     }
