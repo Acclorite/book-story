@@ -65,13 +65,6 @@ enum class Theme(
 }
 
 /**
- * Converting [String] into [Theme].
- */
-fun String.toTheme(): Theme {
-    return Theme.valueOf(this)
-}
-
-/**
  * Creates a colorscheme based on [Theme].
  *
  * @param theme a [Theme].
