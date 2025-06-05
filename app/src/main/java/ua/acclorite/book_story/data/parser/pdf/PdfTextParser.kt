@@ -12,11 +12,11 @@ import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.text.PDFTextStripper
 import kotlinx.coroutines.yield
+import ua.acclorite.book_story.core.helpers.clearAllMarkdown
+import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.data.parser.MarkdownParser
 import ua.acclorite.book_story.data.parser.TextParser
-import ua.acclorite.book_story.domain.file.CachedFile
-import ua.acclorite.book_story.domain.reader.ReaderText
-import ua.acclorite.book_story.presentation.core.util.clearAllMarkdown
+import ua.acclorite.book_story.domain.model.reader.ReaderText
 import javax.inject.Inject
 
 private const val PDF_TAG = "PDF Parser"

@@ -6,17 +6,15 @@
 
 package ua.acclorite.book_story.domain.repository
 
-import ua.acclorite.book_story.domain.browse.file.SelectableFile
-import ua.acclorite.book_story.domain.file.CachedFile
-import ua.acclorite.book_story.domain.library.book.NullableBook
+import ua.acclorite.book_story.data.model.library.BookWithCover
+import ua.acclorite.book_story.domain.model.file.File
 
 interface FileSystemRepository {
-
-    suspend fun getFiles(
+    suspend fun searchFiles(
         query: String = ""
-    ): List<SelectableFile>
+    ): Result<List<File>>
 
     suspend fun getBookFromFile(
-        cachedFile: CachedFile
-    ): NullableBook
+        file: File
+    ): Result<BookWithCover>
 }

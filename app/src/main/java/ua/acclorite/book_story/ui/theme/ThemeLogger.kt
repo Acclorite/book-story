@@ -8,12 +8,10 @@
 
 package ua.acclorite.book_story.ui.theme
 
-import android.util.Log
 import androidx.compose.material3.ColorScheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-
-private const val THEME = "THEME"
+import ua.acclorite.book_story.core.log.logD
 
 /**
  * This function logs all the colors of the colorScheme.
@@ -33,8 +31,7 @@ fun ColorScheme.logTheme(darkTheme: Boolean): ColorScheme {
         return "private val $variableName$suffix = Color(0x${this.convertToHex()})\n"
     }
 
-    Log.i(
-        THEME,
+    logD(
         "Theme $suffix:\n" +
                 "------------------------\n" +
                 primary.convertToVal("primary") +

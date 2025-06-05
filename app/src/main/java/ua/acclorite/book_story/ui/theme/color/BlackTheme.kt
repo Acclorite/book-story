@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ua.acclorite.book_story.ui.main.MainModel
+import ua.acclorite.book_story.presentation.main.MainModel
 
 @Composable
 fun blackTheme(initialTheme: ColorScheme): ColorScheme {

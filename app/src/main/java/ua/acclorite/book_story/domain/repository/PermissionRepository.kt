@@ -6,15 +6,12 @@
 
 package ua.acclorite.book_story.domain.repository
 
-import android.net.Uri
-
 interface PermissionRepository {
-
     suspend fun grantPersistableUriPermission(
-        uri: Uri
-    )
+        uri: String
+    ): Result<Unit>
 
     suspend fun releasePersistableUriPermission(
-        uri: Uri
-    )
+        uri: String
+    ): Result<Unit>
 }

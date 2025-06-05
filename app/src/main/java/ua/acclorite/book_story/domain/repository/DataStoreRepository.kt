@@ -7,14 +7,16 @@
 package ua.acclorite.book_story.domain.repository
 
 import androidx.datastore.preferences.core.Preferences
-import ua.acclorite.book_story.ui.main.MainState
 
 interface DataStoreRepository {
-
-    suspend fun <T> putDataToDataStore(
+    suspend fun <T> putPreference(
         key: Preferences.Key<T>,
         value: T
-    )
+    ): Result<Unit>
 
-    suspend fun getAllSettings(): MainState
+    suspend fun <T> getPreference(
+        key: Preferences.Key<T>,
+    ): Result<T>
+
+    suspend fun getAllPreferences(): Result<Set<Preferences.Key<*>>>
 }

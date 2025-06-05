@@ -7,13 +7,13 @@
 package ua.acclorite.book_story.data.parser
 
 import android.util.Log
+import ua.acclorite.book_story.data.model.file.CachedFile
+import ua.acclorite.book_story.data.model.library.BookWithCover
 import ua.acclorite.book_story.data.parser.epub.EpubFileParser
 import ua.acclorite.book_story.data.parser.fb2.Fb2FileParser
 import ua.acclorite.book_story.data.parser.html.HtmlFileParser
 import ua.acclorite.book_story.data.parser.pdf.PdfFileParser
 import ua.acclorite.book_story.data.parser.txt.TxtFileParser
-import ua.acclorite.book_story.domain.file.CachedFile
-import ua.acclorite.book_story.domain.library.book.BookWithCover
 import javax.inject.Inject
 
 private const val FILE_PARSER = "File Parser"

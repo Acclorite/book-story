@@ -6,47 +6,36 @@
 
 package ua.acclorite.book_story.domain.repository
 
-import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.domain.library.book.BookWithCover
-import ua.acclorite.book_story.domain.reader.ReaderText
-import ua.acclorite.book_story.domain.util.CoverImage
+import ua.acclorite.book_story.core.CoverImage
+import ua.acclorite.book_story.domain.model.library.Book
+import ua.acclorite.book_story.domain.model.reader.ReaderText
 
 interface BookRepository {
-
-    suspend fun getBooks(
+    suspend fun searchBooks(
         query: String
-    ): List<Book>
+    ): Result<List<Book>>
 
-    suspend fun getBooksById(
-        ids: List<Int>
-    ): List<Book>
-
-    suspend fun getBookText(
+    suspend fun getBook(
         bookId: Int
-    ): List<ReaderText>
+    ): Result<Book>
 
-    suspend fun insertBook(
-        bookWithCover: BookWithCover
-    )
+    suspend fun getText(
+        bookId: Int
+    ): Result<List<ReaderText>>
+
+    suspend fun addBook(
+        book: Book
+    ): Result<Unit>
 
     suspend fun updateBook(
         book: Book
-    )
+    ): Result<Unit>
 
-    suspend fun updateCoverImageOfBook(
-        bookWithOldCover: Book,
-        newCoverImage: CoverImage?
-    )
+    suspend fun deleteBook(
+        book: Book
+    ): Result<Unit>
 
-    suspend fun deleteBooks(
-        books: List<Book>
-    )
-
-    suspend fun canResetCover(
-        bookId: Int
-    ): Boolean
-
-    suspend fun resetCoverImage(
-        bookId: Int
-    ): Boolean
+    suspend fun getDefaultCover(
+        book: Book
+    ): Result<CoverImage?>
 }

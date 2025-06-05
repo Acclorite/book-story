@@ -23,7 +23,7 @@ import org.commonmark.node.Node
 import org.commonmark.node.StrongEmphasis
 import org.commonmark.node.Text
 import org.commonmark.parser.Parser
-import ua.acclorite.book_story.presentation.core.util.clearMarkdown
+import ua.acclorite.book_story.core.helpers.clearMarkdown
 import javax.inject.Inject
 
 class MarkdownParser @Inject constructor(

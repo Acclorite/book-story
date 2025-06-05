@@ -12,7 +12,7 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.ui.ThemeContrast
+import ua.acclorite.book_story.presentation.main.model.ThemeContrast
 import ua.acclorite.book_story.ui.theme.color.aquaTheme
 import ua.acclorite.book_story.ui.theme.color.blackTheme
 import ua.acclorite.book_story.ui.theme.color.blueTheme
@@ -57,18 +57,11 @@ enum class Theme(
     companion object {
         fun entries(): List<Theme> {
             return when {
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> Theme.entries
-                else -> Theme.entries.dropWhile { it == DYNAMIC }
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> entries
+                else -> entries.dropWhile { it == DYNAMIC }
             }
         }
     }
-}
-
-/**
- * Converting [String] into [Theme].
- */
-fun String.toTheme(): Theme {
-    return Theme.valueOf(this)
 }
 
 /**

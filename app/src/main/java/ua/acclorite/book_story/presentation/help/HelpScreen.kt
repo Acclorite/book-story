@@ -1,0 +1,52 @@
+/*
+ * Book's Story — free and open-source Material You eBook reader.
+ * Copyright (C) 2024-2025 Acclorite
+ * SPDX-License-Identifier: GPL-3.0-only
+ */
+
+package ua.acclorite.book_story.presentation.help
+
+import android.os.Parcelable
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.parcelize.Parcelize
+import ua.acclorite.book_story.presentation.browse.BrowseScreen
+import ua.acclorite.book_story.presentation.main.MainEvent
+import ua.acclorite.book_story.presentation.main.MainModel
+import ua.acclorite.book_story.presentation.navigator.Screen
+import ua.acclorite.book_story.presentation.start.StartScreen
+import ua.acclorite.book_story.ui.common.components.top_bar.collapsibleTopAppBarScrollBehavior
+import ua.acclorite.book_story.ui.help.HelpContent
+import ua.acclorite.book_story.ui.navigator.LocalNavigator
+
+@Parcelize
+data class HelpScreen(val fromStart: Boolean) : Screen, Parcelable {
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    override fun Content() {
+        val navigator = LocalNavigator.current
+        val mainModel = hiltViewModel<MainModel>()
+
+        val (scrollBehavior, listState) = TopAppBarDefaults.collapsibleTopAppBarScrollBehavior()
+
+        HelpContent(
+            fromStart = fromStart,
+            scrollBehavior = scrollBehavior,
+            listState = listState,
+            changeShowStartScreen = mainModel::onEvent,
+            navigateToBrowse = {
+                navigator.push(BrowseScreen, saveInBackStack = false)
+            },
+            navigateToStart = {
+                mainModel.onEvent(MainEvent.OnChangeShowStartScreen(true))
+                navigator.push(StartScreen, saveInBackStack = false)
+            },
+            navigateBack = {
+                navigator.pop()
+            }
+        )
+    }
+}

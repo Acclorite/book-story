@@ -11,7 +11,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import ua.acclorite.book_story.domain.ui.ThemeContrast
+import ua.acclorite.book_story.presentation.main.model.ThemeContrast
 
 
 private val primaryLight = Color(0xFF116682)

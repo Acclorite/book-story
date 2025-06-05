@@ -10,11 +10,11 @@ import android.app.Application
 import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.core.ui.UIText
+import ua.acclorite.book_story.data.model.file.CachedFile
+import ua.acclorite.book_story.data.model.library.BookWithCover
 import ua.acclorite.book_story.data.parser.FileParser
-import ua.acclorite.book_story.domain.file.CachedFile
-import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.domain.library.book.BookWithCover
-import ua.acclorite.book_story.domain.ui.UIText
+import ua.acclorite.book_story.domain.model.library.Book
 import javax.inject.Inject
 
 class PdfFileParser @Inject constructor(

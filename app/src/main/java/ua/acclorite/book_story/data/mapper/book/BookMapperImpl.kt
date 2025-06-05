@@ -8,13 +8,13 @@ package ua.acclorite.book_story.data.mapper.book
 
 import androidx.core.net.toUri
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.data.local.dto.BookEntity
-import ua.acclorite.book_story.domain.library.book.Book
-import ua.acclorite.book_story.domain.ui.UIText
+import ua.acclorite.book_story.domain.model.library.Book
 import javax.inject.Inject
 
 class BookMapperImpl @Inject constructor() : BookMapper {
-    override suspend fun toBookEntity(book: Book): BookEntity {
+    override fun toBookEntity(book: Book): BookEntity {
         return BookEntity(
             id = book.id,
             title = book.title,
@@ -29,7 +29,7 @@ class BookMapperImpl @Inject constructor() : BookMapper {
         )
     }
 
-    override suspend fun toBook(bookEntity: BookEntity): Book {
+    override fun toBook(bookEntity: BookEntity): Book {
         return Book(
             id = bookEntity.id,
             title = bookEntity.title,

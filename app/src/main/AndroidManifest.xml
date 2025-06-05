@@ -37,7 +37,7 @@
 
         <!-- Main activity -->
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".presentation.main.MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|locale|density|uiMode"
             android:exported="true"
             android:theme="@style/Splash"
@@ -50,7 +50,7 @@
 
         <!-- Crash activity -->
         <activity
-            android:name=".ui.crash.CrashActivity"
+            android:name=".presentation.crash.CrashActivity"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|locale|density|uiMode"
             android:exported="false"
             android:theme="@style/BookStory"

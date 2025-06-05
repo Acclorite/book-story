@@ -10,11 +10,11 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
+import ua.acclorite.book_story.core.helpers.clearAllMarkdown
+import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.data.parser.MarkdownParser
 import ua.acclorite.book_story.data.parser.TextParser
-import ua.acclorite.book_story.domain.file.CachedFile
-import ua.acclorite.book_story.domain.reader.ReaderText
-import ua.acclorite.book_story.presentation.core.util.clearAllMarkdown
+import ua.acclorite.book_story.domain.model.reader.ReaderText
 import javax.inject.Inject
 
 private const val TXT_TAG = "TXT Parser"

@@ -6,8 +6,8 @@
 
 package ua.acclorite.book_story.data.parser
 
-import ua.acclorite.book_story.domain.file.CachedFile
-import ua.acclorite.book_story.domain.reader.ReaderText
+import ua.acclorite.book_story.data.model.file.CachedFile
+import ua.acclorite.book_story.domain.model.reader.ReaderText
 
 interface TextParser {
 
