@@ -23,7 +23,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.presentation.book_info.BookInfoEvent
 import ua.acclorite.book_story.ui.common.components.common.StyledText
-import ua.acclorite.book_story.ui.common.util.noRippleClickable
+import ua.acclorite.book_story.ui.common.helpers.noRippleClickable
 
 @Composable
 fun BookInfoLayoutInfoAuthor(

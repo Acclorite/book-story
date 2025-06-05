@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.ui.common.util
+package ua.acclorite.book_story.ui.common.helpers
 
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.ui.Modifier

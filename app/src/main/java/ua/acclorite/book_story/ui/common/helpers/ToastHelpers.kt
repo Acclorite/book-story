@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.ui.common.util
+package ua.acclorite.book_story.ui.common.helpers
 
 import android.content.Context
 import android.widget.Toast

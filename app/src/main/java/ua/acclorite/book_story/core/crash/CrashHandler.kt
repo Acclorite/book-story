@@ -9,7 +9,7 @@ package ua.acclorite.book_story.core.crash
 import android.content.Context
 import android.content.Intent
 import android.os.Process
-import ua.acclorite.book_story.core.logE
+import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.presentation.crash.CrashActivity
 import kotlin.system.exitProcess
 

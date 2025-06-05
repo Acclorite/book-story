@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.ui.common.util
+package ua.acclorite.book_story.core.helpers
 
 fun String.removeTrailingZero(): String {
     if (!this.contains('.'))
@@ -64,16 +64,5 @@ fun Char.isVisibleCharacter(): Boolean {
         CharCategory.OTHER_PUNCTUATION -> true
 
         else -> false
-    }
-}
-
-fun <T> compareByWithOrder(
-    descending: Boolean,
-    selector: (T) -> Comparable<*>?
-): Comparator<T> {
-    return if (descending) {
-        compareByDescending(selector)
-    } else {
-        compareBy(selector)
     }
 }

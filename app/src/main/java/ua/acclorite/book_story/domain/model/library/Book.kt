@@ -30,4 +30,20 @@ data class Book(
 
     val lastOpened: Long?,
     val categories: List<Int>
-) : Parcelable
+) : Parcelable {
+    companion object {
+        val default = Book(
+            id = -1,
+            title = "",
+            author = UIText.StringValue(""),
+            description = null,
+            filePath = "",
+            coverImage = null,
+            scrollIndex = 0,
+            scrollOffset = 0,
+            progress = 0f,
+            lastOpened = null,
+            categories = emptyList()
+        )
+    }
+}

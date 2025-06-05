@@ -31,7 +31,7 @@ import ua.acclorite.book_story.domain.use_case.history.DeleteWholeHistoryUseCase
 import ua.acclorite.book_story.domain.use_case.history.GetHistoryUseCase
 import ua.acclorite.book_story.presentation.history.model.GroupedHistory
 import ua.acclorite.book_story.presentation.library.LibraryScreen
-import ua.acclorite.book_story.ui.common.util.showToast
+import ua.acclorite.book_story.ui.common.helpers.showToast
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date

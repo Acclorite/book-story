@@ -23,6 +23,7 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.core.helpers.compareByWithOrder
 import ua.acclorite.book_story.data.model.common.NullableBook
 import ua.acclorite.book_story.domain.model.file.File
 import ua.acclorite.book_story.domain.use_case.book.AddBookUseCase
@@ -32,8 +33,7 @@ import ua.acclorite.book_story.presentation.browse.model.BrowseSortOrder
 import ua.acclorite.book_story.presentation.browse.model.SelectableFile
 import ua.acclorite.book_story.presentation.library.LibraryScreen
 import ua.acclorite.book_story.presentation.library.model.SelectableNullableBook
-import ua.acclorite.book_story.ui.common.util.compareByWithOrder
-import ua.acclorite.book_story.ui.common.util.showToast
+import ua.acclorite.book_story.ui.common.helpers.showToast
 import javax.inject.Inject
 
 @HiltViewModel

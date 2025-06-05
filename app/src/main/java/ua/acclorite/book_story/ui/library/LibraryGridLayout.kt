@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.library.model.SelectableBook
 import ua.acclorite.book_story.ui.common.components.common.LazyVerticalGridWithScrollbar
-import ua.acclorite.book_story.ui.common.constants.providePrimaryScrollbar
+import ua.acclorite.book_story.ui.common.data.ScrollbarData
 
 @Composable
 fun LibraryGridLayout(
@@ -29,7 +29,7 @@ fun LibraryGridLayout(
         columns = if (autoGridSize) GridCells.Adaptive(120.dp)
         else GridCells.Fixed(gridSize.coerceAtLeast(1)),
         modifier = Modifier.fillMaxSize(),
-        scrollbarSettings = providePrimaryScrollbar(false),
+        scrollbarSettings = ScrollbarData.primaryScrollbar,
         contentPadding = PaddingValues(8.dp)
     ) {
         items(

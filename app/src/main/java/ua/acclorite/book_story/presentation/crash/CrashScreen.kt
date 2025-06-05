@@ -21,9 +21,9 @@ import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.crash.CrashUtils
 import ua.acclorite.book_story.presentation.navigator.Screen
-import ua.acclorite.book_story.ui.common.util.LocalActivity
-import ua.acclorite.book_story.ui.common.util.launchActivity
-import ua.acclorite.book_story.ui.common.util.showToast
+import ua.acclorite.book_story.ui.common.helpers.LocalActivity
+import ua.acclorite.book_story.ui.common.helpers.launchActivity
+import ua.acclorite.book_story.ui.common.helpers.showToast
 import ua.acclorite.book_story.ui.crash.CrashContent
 
 @Parcelize

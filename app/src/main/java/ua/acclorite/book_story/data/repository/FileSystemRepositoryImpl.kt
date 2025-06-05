@@ -6,6 +6,7 @@
 
 package ua.acclorite.book_story.data.repository
 
+import ua.acclorite.book_story.core.data.ExtensionsData
 import ua.acclorite.book_story.data.local.room.BookDao
 import ua.acclorite.book_story.data.mapper.file.FileMapper
 import ua.acclorite.book_story.data.model.file.CachedFile
@@ -14,7 +15,6 @@ import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.domain.model.file.File
 import ua.acclorite.book_story.domain.repository.FileSystemRepository
 import ua.acclorite.book_story.domain.service.FileProvider
-import ua.acclorite.book_story.ui.common.constants.provideExtensions
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -47,7 +47,14 @@ class FileSystemRepositoryImpl @Inject constructor(
         query: String,
         existingFiles: List<String>
     ): Boolean {
-        if (provideExtensions().none { name.endsWith(it, ignoreCase = true) }) return false
+        if (
+            ExtensionsData.fileExtensions.none {
+                name.endsWith(
+                    it,
+                    ignoreCase = true
+                )
+            }
+        ) return false
         if (query.isNotBlank() && !name.contains(query.trim(), ignoreCase = true)) return false
         if (existingFiles.any { it.equals(path, ignoreCase = true) }) return false
         return true

@@ -19,8 +19,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.about.AboutEvent
-import ua.acclorite.book_story.ui.common.constants.provideAboutBadges
-import ua.acclorite.book_story.ui.common.util.showToast
+import ua.acclorite.book_story.ui.about.data.AboutData
+import ua.acclorite.book_story.ui.common.helpers.showToast
 
 @Composable
 fun AboutBadges(
@@ -38,7 +38,7 @@ fun AboutBadges(
             horizontalArrangement = Arrangement.spacedBy(13.dp)
         ) {
             items(
-                provideAboutBadges(),
+                AboutData.badges,
                 key = { it.id }
             ) { badge ->
                 AboutBadgeItem(badge = badge) {

@@ -29,7 +29,7 @@ import ua.acclorite.book_story.domain.use_case.book.UpdateBookUseCase
 import ua.acclorite.book_story.presentation.browse.BrowseScreen
 import ua.acclorite.book_story.presentation.history.HistoryScreen
 import ua.acclorite.book_story.presentation.library.model.SelectableBook
-import ua.acclorite.book_story.ui.common.util.showToast
+import ua.acclorite.book_story.ui.common.helpers.showToast
 import javax.inject.Inject
 
 @HiltViewModel

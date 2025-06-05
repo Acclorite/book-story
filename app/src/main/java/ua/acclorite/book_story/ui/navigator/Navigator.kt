@@ -23,7 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import ua.acclorite.book_story.presentation.navigator.Navigator
 import ua.acclorite.book_story.presentation.navigator.Screen
 import ua.acclorite.book_story.presentation.navigator.StackEvent
-import ua.acclorite.book_story.ui.common.util.LocalActivity
+import ua.acclorite.book_story.ui.common.helpers.LocalActivity
 
 @Composable
 fun rememberNavigator(initialScreen: Screen): Navigator {

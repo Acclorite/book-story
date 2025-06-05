@@ -13,11 +13,13 @@ import androidx.annotation.Keep
 import androidx.compose.runtime.Immutable
 import androidx.datastore.preferences.core.Preferences
 import kotlinx.parcelize.Parcelize
+import ua.acclorite.book_story.core.data.CoreData
 import ua.acclorite.book_story.presentation.browse.model.BrowseLayout
 import ua.acclorite.book_story.presentation.browse.model.BrowseSortOrder
 import ua.acclorite.book_story.presentation.library.model.LibraryLayout
 import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
 import ua.acclorite.book_story.presentation.library.model.LibraryTitlePosition
+import ua.acclorite.book_story.presentation.main.data.DataStoreData
 import ua.acclorite.book_story.presentation.main.model.DarkTheme
 import ua.acclorite.book_story.presentation.main.model.HorizontalAlignment
 import ua.acclorite.book_story.presentation.main.model.PureDark
@@ -28,11 +30,8 @@ import ua.acclorite.book_story.presentation.reader.model.ReaderHorizontalGesture
 import ua.acclorite.book_story.presentation.reader.model.ReaderProgressCount
 import ua.acclorite.book_story.presentation.reader.model.ReaderScreenOrientation
 import ua.acclorite.book_story.presentation.reader.model.ReaderTextAlignment
-import ua.acclorite.book_story.ui.common.constants.DataStoreConstants
-import ua.acclorite.book_story.ui.common.constants.provideFonts
-import ua.acclorite.book_story.ui.common.constants.provideLanguages
+import ua.acclorite.book_story.ui.reader.data.ReaderData
 import ua.acclorite.book_story.ui.theme.Theme
-import ua.acclorite.book_story.ui.theme.toTheme
 import java.util.Locale
 
 /**
@@ -47,7 +46,7 @@ data class MainState(
     // General Settings
     val language: String = provideDefaultValue {
         val locale = Locale.getDefault().language.take(2)
-        provideLanguages().any { locale == it.first }.run {
+        CoreData.languages.any { locale == it.first }.run {
             if (this) locale
             else "en"// Default language.
         }
@@ -61,7 +60,7 @@ data class MainState(
     val doublePressExit: Boolean = provideDefaultValue { false },
 
     // Reader Settings
-    val fontFamily: String = provideDefaultValue { provideFonts()[0].id },
+    val fontFamily: String = provideDefaultValue { ReaderData.fonts[0].id },
     val fontThickness: ReaderFontThickness = provideDefaultValue { ReaderFontThickness.NORMAL },
     val isItalic: Boolean = provideDefaultValue { false },
     val fontSize: Int = provideDefaultValue { 16 },
@@ -150,14 +149,14 @@ data class MainState(
                 return (data[key.name] as? T)?.convert() ?: defaultState.default()
             }
 
-            return DataStoreConstants.run {
+            return DataStoreData.run {
                 MainState(
                     language = provideValue(
                         LANGUAGE
                     ) { language },
 
                     theme = provideValue(
-                        THEME, convert = { toTheme() }
+                        THEME, convert = { Theme.valueOf(this) }
                     ) { theme },
 
                     darkTheme = provideValue(

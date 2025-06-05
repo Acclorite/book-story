@@ -36,8 +36,8 @@ import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.presentation.reader.model.Checkpoint
 import ua.acclorite.book_story.ui.common.components.common.IconButton
 import ua.acclorite.book_story.ui.common.components.common.StyledText
+import ua.acclorite.book_story.ui.common.helpers.noRippleClickable
 import ua.acclorite.book_story.ui.common.model.Direction
-import ua.acclorite.book_story.ui.common.util.noRippleClickable
 import ua.acclorite.book_story.ui.theme.HorizontalExpandingTransition
 import ua.acclorite.book_story.ui.theme.readerBarsColor
 

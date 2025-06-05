@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.presentation.book_info.BookInfoEvent
 import ua.acclorite.book_story.ui.common.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.ui.common.constants.providePrimaryScrollbar
+import ua.acclorite.book_story.ui.common.data.ScrollbarData
 
 @Composable
 fun BookInfoLayout(
@@ -38,7 +38,7 @@ fun BookInfoLayout(
     LazyColumnWithScrollbar(
         modifier = Modifier.fillMaxSize(),
         state = listState,
-        scrollbarSettings = providePrimaryScrollbar(false),
+        scrollbarSettings = ScrollbarData.primaryScrollbar,
         contentPadding = PaddingValues(bottom = 18.dp)
     ) {
         item {

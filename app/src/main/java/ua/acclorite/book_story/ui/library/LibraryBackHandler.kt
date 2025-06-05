@@ -15,8 +15,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.library.LibraryEvent
-import ua.acclorite.book_story.ui.common.util.LocalActivity
-import ua.acclorite.book_story.ui.common.util.showToast
+import ua.acclorite.book_story.ui.common.helpers.LocalActivity
+import ua.acclorite.book_story.ui.common.helpers.showToast
 
 @Composable
 fun LibraryBackHandler(

@@ -11,12 +11,11 @@ import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.domain.model.library.Category
 import ua.acclorite.book_story.domain.model.library.CategorySort
 import ua.acclorite.book_story.domain.model.reader.ColorPreset
-import ua.acclorite.book_story.ui.common.constants.provideDefaultColorPreset
 
 @Immutable
 data class SettingsState(
     val colorPresets: List<ColorPreset> = emptyList(),
-    val selectedColorPreset: ColorPreset = provideDefaultColorPreset(),
+    val selectedColorPreset: ColorPreset = ColorPreset.default,
     val animateColorPreset: Boolean = false,
     val colorPresetListState: LazyListState = LazyListState(),
 

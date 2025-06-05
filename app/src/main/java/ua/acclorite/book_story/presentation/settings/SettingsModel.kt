@@ -36,8 +36,7 @@ import ua.acclorite.book_story.domain.use_case.color_preset.SelectColorPresetUse
 import ua.acclorite.book_story.domain.use_case.color_preset.UpdateColorPresetUseCase
 import ua.acclorite.book_story.domain.use_case.permission.GrantPersistableUriPermissionUseCase
 import ua.acclorite.book_story.domain.use_case.permission.ReleasePersistableUriPermissionUseCase
-import ua.acclorite.book_story.ui.common.constants.provideDefaultColorPreset
-import ua.acclorite.book_story.ui.common.util.showToast
+import ua.acclorite.book_story.ui.common.helpers.showToast
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -79,7 +78,7 @@ class SettingsModel @Inject constructor(
             var colorPresets = getColorPresetsUseCase()
 
             if (colorPresets.isEmpty()) {
-                updateColorPresetUseCase(provideDefaultColorPreset())
+                updateColorPresetUseCase(ColorPreset.default)
                 getColorPresetsUseCase().first().select()
                 colorPresets = getColorPresetsUseCase()
             }
@@ -453,7 +452,7 @@ class SettingsModel @Inject constructor(
                     addColorPresetJob = launch {
                         yield()
 
-                        val newColorPreset = provideDefaultColorPreset().copy(
+                        val newColorPreset = ColorPreset.default.copy(
                             backgroundColor = event.backgroundColor,
                             fontColor = event.fontColor
                         )
@@ -572,7 +571,7 @@ class SettingsModel @Inject constructor(
         val selectedPreset = presets.firstOrNull { it.isSelected }
 
         if (selectedPreset == null) {
-            return provideDefaultColorPreset()
+            return ColorPreset.default
         }
 
         return selectedPreset

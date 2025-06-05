@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import ua.acclorite.book_story.core.helpers.compareByWithOrder
 import ua.acclorite.book_story.domain.model.library.Category
 import ua.acclorite.book_story.domain.model.library.CategorySort
 import ua.acclorite.book_story.presentation.library.LibraryEvent
@@ -21,7 +22,6 @@ import ua.acclorite.book_story.presentation.library.model.LibraryLayout
 import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
 import ua.acclorite.book_story.presentation.library.model.LibraryTitlePosition
 import ua.acclorite.book_story.presentation.library.model.SelectableBook
-import ua.acclorite.book_story.ui.common.util.compareByWithOrder
 import ua.acclorite.book_story.ui.theme.DefaultTransition
 
 @Composable

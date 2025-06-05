@@ -41,8 +41,8 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.ui.common.components.common.AnimatedVisibility
 import ua.acclorite.book_story.ui.common.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.ui.common.constants.providePrimaryScrollbar
-import ua.acclorite.book_story.ui.common.util.noRippleClickable
+import ua.acclorite.book_story.ui.common.data.ScrollbarData
+import ua.acclorite.book_story.ui.common.helpers.noRippleClickable
 
 /**
  * Modal Drawer.
@@ -145,7 +145,7 @@ fun ModalDrawer(
                 LazyColumnWithScrollbar(
                     state = rememberLazyListState(startIndex),
                     modifier = Modifier.fillMaxSize(),
-                    scrollbarSettings = providePrimaryScrollbar(),
+                    scrollbarSettings = ScrollbarData.primarySelectableScrollbar,
                     contentPadding = PaddingValues(vertical = 9.dp)
                 ) {
                     content()

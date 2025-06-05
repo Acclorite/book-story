@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.ui.common.constants
+package ua.acclorite.book_story.presentation.main.data
 
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.doublePreferencesKey
@@ -12,7 +12,7 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 
-object DataStoreConstants {
+object DataStoreData {
     // General settings
     val LANGUAGE = stringPreferencesKey("language")
     val THEME = stringPreferencesKey("theme")

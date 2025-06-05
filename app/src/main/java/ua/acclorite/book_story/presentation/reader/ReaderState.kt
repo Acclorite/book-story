@@ -15,11 +15,10 @@ import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.domain.model.reader.ReaderText
 import ua.acclorite.book_story.domain.model.reader.ReaderText.Chapter
 import ua.acclorite.book_story.presentation.reader.model.Checkpoint
-import ua.acclorite.book_story.ui.common.constants.provideEmptyBook
 
 @Immutable
 data class ReaderState(
-    val book: Book = provideEmptyBook(),
+    val book: Book = Book.default,
     val text: List<ReaderText> = emptyList(),
     val listState: LazyListState = LazyListState(),
 

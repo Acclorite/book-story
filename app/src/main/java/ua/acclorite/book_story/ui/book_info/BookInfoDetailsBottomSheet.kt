@@ -18,12 +18,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.core.data.ExtensionsData
 import ua.acclorite.book_story.data.model.file.CachedFileCompat
 import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.presentation.book_info.BookInfoEvent
 import ua.acclorite.book_story.ui.common.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.ui.common.components.modal_bottom_sheet.ModalBottomSheet
-import ua.acclorite.book_story.ui.common.constants.provideExtensions
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategoryTitle
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -60,7 +60,7 @@ fun BookInfoDetailsBottomSheet(
 
     val fileExists = remember(cachedFile) {
         cachedFile.let {
-            it != null && it.canAccess() && !it.isDirectory && provideExtensions()
+            it != null && it.canAccess() && !it.isDirectory && ExtensionsData.fileExtensions
                 .any { ext ->
                     it.name.endsWith(ext, ignoreCase = true)
                 }

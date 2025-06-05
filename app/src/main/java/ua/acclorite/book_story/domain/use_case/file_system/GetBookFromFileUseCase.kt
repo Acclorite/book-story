@@ -7,8 +7,8 @@
 package ua.acclorite.book_story.domain.use_case.file_system
 
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.core.logE
-import ua.acclorite.book_story.core.logI
+import ua.acclorite.book_story.core.log.logE
+import ua.acclorite.book_story.core.log.logI
 import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.data.model.common.NullableBook
 import ua.acclorite.book_story.data.model.common.NullableBook.NotNull

@@ -6,7 +6,7 @@
 
 package ua.acclorite.book_story.domain.use_case.category
 
-import ua.acclorite.book_story.core.logI
+import ua.acclorite.book_story.core.log.logI
 import ua.acclorite.book_story.domain.model.library.Category
 import ua.acclorite.book_story.domain.repository.CategoryRepository
 import javax.inject.Inject

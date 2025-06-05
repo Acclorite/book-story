@@ -26,13 +26,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.core.data.LinkData
 import ua.acclorite.book_story.presentation.about.AboutEvent
 import ua.acclorite.book_story.ui.common.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.ui.common.constants.provideContributorsPage
-import ua.acclorite.book_story.ui.common.constants.provideIssuesPage
-import ua.acclorite.book_story.ui.common.constants.provideReleasesPage
-import ua.acclorite.book_story.ui.common.constants.provideSupportPage
-import ua.acclorite.book_story.ui.common.constants.provideTranslationPage
 
 @Composable
 fun AboutLayout(
@@ -85,7 +81,7 @@ fun AboutLayout(
             ) {
                 navigateToBrowserPage(
                     AboutEvent.OnNavigateToBrowserPage(
-                        page = provideReleasesPage(),
+                        page = LinkData.RELEASES,
                         context = context
                     )
                 )
@@ -99,7 +95,7 @@ fun AboutLayout(
             ) {
                 navigateToBrowserPage(
                     AboutEvent.OnNavigateToBrowserPage(
-                        page = provideIssuesPage(),
+                        page = LinkData.ISSUES,
                         context = context
                     )
                 )
@@ -114,7 +110,7 @@ fun AboutLayout(
             ) {
                 navigateToBrowserPage(
                     AboutEvent.OnNavigateToBrowserPage(
-                        page = provideContributorsPage(),
+                        page = LinkData.CONTRIBUTORS,
                         context = context
                     )
                 )
@@ -146,7 +142,7 @@ fun AboutLayout(
             ) {
                 navigateToBrowserPage(
                     AboutEvent.OnNavigateToBrowserPage(
-                        page = provideTranslationPage(),
+                        page = LinkData.TRANSLATION,
                         context = context
                     )
                 )
@@ -160,7 +156,7 @@ fun AboutLayout(
             ) {
                 navigateToBrowserPage(
                     AboutEvent.OnNavigateToBrowserPage(
-                        page = provideSupportPage(),
+                        page = LinkData.SUPPORT,
                         context = context
                     )
                 )

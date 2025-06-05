@@ -16,8 +16,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.ui.common.util.launchActivity
-import ua.acclorite.book_story.ui.common.util.showToast
+import ua.acclorite.book_story.ui.common.helpers.launchActivity
+import ua.acclorite.book_story.ui.common.helpers.showToast
 import javax.inject.Inject
 
 @HiltViewModel

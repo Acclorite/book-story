@@ -11,7 +11,7 @@ package ua.acclorite.book_story.ui.theme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import ua.acclorite.book_story.core.logD
+import ua.acclorite.book_story.core.log.logD
 
 /**
  * This function logs all the colors of the colorScheme.

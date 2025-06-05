@@ -25,7 +25,7 @@ import ua.acclorite.book_story.presentation.browse.BrowseEvent
 import ua.acclorite.book_story.presentation.library.model.SelectableNullableBook
 import ua.acclorite.book_story.ui.common.components.dialog.Dialog
 import ua.acclorite.book_story.ui.common.components.progress_indicator.CircularProgressIndicator
-import ua.acclorite.book_story.ui.common.util.showToast
+import ua.acclorite.book_story.ui.common.helpers.showToast
 import java.util.UUID
 
 @Composable

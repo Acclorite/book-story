@@ -39,8 +39,8 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.common.components.common.StyledText
+import ua.acclorite.book_story.ui.common.helpers.noRippleClickable
 import ua.acclorite.book_story.ui.common.model.Position
-import ua.acclorite.book_story.ui.common.util.noRippleClickable
 import ua.acclorite.book_story.ui.help.model.HelpTip
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
 

@@ -17,8 +17,8 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.main.MainEvent
 import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.ui.common.components.settings.SegmentedButtonWithTitle
-import ua.acclorite.book_story.ui.common.constants.provideFonts
 import ua.acclorite.book_story.ui.common.model.ButtonItem
+import ua.acclorite.book_story.ui.reader.data.ReaderData
 
 @Composable
 fun FontStyleOption() {
@@ -26,7 +26,7 @@ fun FontStyleOption() {
     val state = mainModel.state.collectAsStateWithLifecycle()
 
     val fontFamily = remember(state.value.fontFamily) {
-        provideFonts().run {
+        ReaderData.fonts.run {
             find {
                 it.id == state.value.fontFamily
             } ?: get(0)

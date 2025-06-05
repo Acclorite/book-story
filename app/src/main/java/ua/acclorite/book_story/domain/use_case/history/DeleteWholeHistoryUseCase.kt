@@ -6,8 +6,8 @@
 
 package ua.acclorite.book_story.domain.use_case.history
 
-import ua.acclorite.book_story.core.logE
-import ua.acclorite.book_story.core.logI
+import ua.acclorite.book_story.core.log.logE
+import ua.acclorite.book_story.core.log.logI
 import ua.acclorite.book_story.domain.repository.HistoryRepository
 import javax.inject.Inject
 

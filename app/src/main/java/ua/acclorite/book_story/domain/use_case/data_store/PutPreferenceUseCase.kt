@@ -7,8 +7,8 @@
 package ua.acclorite.book_story.domain.use_case.data_store
 
 import androidx.datastore.preferences.core.Preferences
-import ua.acclorite.book_story.core.logE
-import ua.acclorite.book_story.core.logI
+import ua.acclorite.book_story.core.log.logE
+import ua.acclorite.book_story.core.log.logI
 import ua.acclorite.book_story.domain.repository.DataStoreRepository
 import javax.inject.Inject
 

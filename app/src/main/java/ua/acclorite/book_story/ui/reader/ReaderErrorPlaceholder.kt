@@ -24,7 +24,7 @@ import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.ui.common.components.placeholder.ErrorPlaceholder
 import ua.acclorite.book_story.ui.common.components.top_bar.TopAppBar
 import ua.acclorite.book_story.ui.common.components.top_bar.TopAppBarData
-import ua.acclorite.book_story.ui.common.util.LocalActivity
+import ua.acclorite.book_story.ui.common.helpers.LocalActivity
 import ua.acclorite.book_story.ui.navigator.NavigatorBackIconButton
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -55,7 +55,7 @@ import ua.acclorite.book_story.ui.common.components.common.IconButton
 import ua.acclorite.book_story.ui.common.components.common.StyledText
 import ua.acclorite.book_story.ui.common.components.dialog.Dialog
 import ua.acclorite.book_story.ui.common.components.dialog.DialogWithTextField
-import ua.acclorite.book_story.ui.common.util.noRippleClickable
+import ua.acclorite.book_story.ui.common.helpers.noRippleClickable
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
 import ua.acclorite.book_story.ui.theme.dynamicListItemColor
 

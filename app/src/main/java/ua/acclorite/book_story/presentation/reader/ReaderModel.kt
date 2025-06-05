@@ -35,6 +35,7 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.core.helpers.coerceAndPreventNaN
 import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.domain.model.reader.ReaderText.Chapter
 import ua.acclorite.book_story.domain.use_case.book.GetBookUseCase
@@ -44,10 +45,9 @@ import ua.acclorite.book_story.domain.use_case.history.GetHistoryForBookUseCase
 import ua.acclorite.book_story.presentation.history.HistoryScreen
 import ua.acclorite.book_story.presentation.library.LibraryScreen
 import ua.acclorite.book_story.presentation.reader.model.Checkpoint
-import ua.acclorite.book_story.ui.common.util.coerceAndPreventNaN
-import ua.acclorite.book_story.ui.common.util.launchActivity
-import ua.acclorite.book_story.ui.common.util.setBrightness
-import ua.acclorite.book_story.ui.common.util.showToast
+import ua.acclorite.book_story.ui.common.helpers.launchActivity
+import ua.acclorite.book_story.ui.common.helpers.setBrightness
+import ua.acclorite.book_story.ui.common.helpers.showToast
 import javax.inject.Inject
 import kotlin.math.roundToInt
 

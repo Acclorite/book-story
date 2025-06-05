@@ -30,6 +30,7 @@ import ua.acclorite.book_story.presentation.browse.model.BrowseSortOrder
 import ua.acclorite.book_story.presentation.library.model.LibraryLayout
 import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
 import ua.acclorite.book_story.presentation.library.model.LibraryTitlePosition
+import ua.acclorite.book_story.presentation.main.data.DataStoreData
 import ua.acclorite.book_story.presentation.main.model.DarkTheme
 import ua.acclorite.book_story.presentation.main.model.HorizontalAlignment
 import ua.acclorite.book_story.presentation.main.model.PureDark
@@ -40,10 +41,8 @@ import ua.acclorite.book_story.presentation.reader.model.ReaderHorizontalGesture
 import ua.acclorite.book_story.presentation.reader.model.ReaderProgressCount
 import ua.acclorite.book_story.presentation.reader.model.ReaderScreenOrientation
 import ua.acclorite.book_story.presentation.reader.model.ReaderTextAlignment
-import ua.acclorite.book_story.ui.common.constants.DataStoreConstants
-import ua.acclorite.book_story.ui.common.constants.provideFonts
-import ua.acclorite.book_story.ui.common.constants.provideMainState
-import ua.acclorite.book_story.ui.theme.toTheme
+import ua.acclorite.book_story.ui.reader.data.ReaderData
+import ua.acclorite.book_story.ui.theme.Theme
 import javax.inject.Inject
 
 
@@ -63,7 +62,7 @@ class MainModel @Inject constructor(
     private val mainModelReady = MutableStateFlow(false)
 
     private val _state: MutableStateFlow<MainState> = MutableStateFlow(
-        stateHandle[provideMainState()] ?: MainState()
+        stateHandle["main_state"] ?: MainState()
     )
     val state = _state.asStateFlow()
 
@@ -72,7 +71,7 @@ class MainModel @Inject constructor(
             is MainEvent.OnChangeLanguage -> handleLanguageUpdate(event)
 
             is MainEvent.OnChangeDarkTheme -> handleDatastoreUpdate(
-                key = DataStoreConstants.DARK_THEME,
+                key = DataStoreData.DARK_THEME,
                 value = event.value,
                 updateState = {
                     it.copy(darkTheme = DarkTheme.valueOf(this))
@@ -80,7 +79,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangePureDark -> handleDatastoreUpdate(
-                key = DataStoreConstants.PURE_DARK,
+                key = DataStoreData.PURE_DARK,
                 value = event.value,
                 updateState = {
                     it.copy(pureDark = PureDark.valueOf(this))
@@ -88,7 +87,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeThemeContrast -> handleDatastoreUpdate(
-                key = DataStoreConstants.THEME_CONTRAST,
+                key = DataStoreData.THEME_CONTRAST,
                 value = event.value,
                 updateState = {
                     it.copy(themeContrast = ThemeContrast.valueOf(this))
@@ -96,19 +95,19 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeTheme -> handleDatastoreUpdate(
-                key = DataStoreConstants.THEME,
+                key = DataStoreData.THEME,
                 value = event.value,
                 updateState = {
-                    it.copy(theme = toTheme())
+                    it.copy(theme = Theme.valueOf(this))
                 }
             )
 
             is MainEvent.OnChangeFontFamily -> handleDatastoreUpdate(
-                key = DataStoreConstants.FONT,
+                key = DataStoreData.FONT,
                 value = event.value,
                 updateState = {
                     it.copy(
-                        fontFamily = provideFonts().run {
+                        fontFamily = ReaderData.fonts.run {
                             find { font ->
                                 font.id == event.value
                             }?.id ?: get(0).id
@@ -118,7 +117,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeFontStyle -> handleDatastoreUpdate(
-                key = DataStoreConstants.IS_ITALIC,
+                key = DataStoreData.IS_ITALIC,
                 value = event.value,
                 updateState = {
                     it.copy(isItalic = this)
@@ -126,7 +125,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeFontSize -> handleDatastoreUpdate(
-                key = DataStoreConstants.FONT_SIZE,
+                key = DataStoreData.FONT_SIZE,
                 value = event.value,
                 updateState = {
                     it.copy(fontSize = this)
@@ -134,7 +133,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeLineHeight -> handleDatastoreUpdate(
-                key = DataStoreConstants.LINE_HEIGHT,
+                key = DataStoreData.LINE_HEIGHT,
                 value = event.value,
                 updateState = {
                     it.copy(lineHeight = this)
@@ -142,7 +141,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeParagraphHeight -> handleDatastoreUpdate(
-                key = DataStoreConstants.PARAGRAPH_HEIGHT,
+                key = DataStoreData.PARAGRAPH_HEIGHT,
                 value = event.value,
                 updateState = {
                     it.copy(paragraphHeight = this)
@@ -150,7 +149,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeParagraphIndentation -> handleDatastoreUpdate(
-                key = DataStoreConstants.PARAGRAPH_INDENTATION,
+                key = DataStoreData.PARAGRAPH_INDENTATION,
                 value = event.value,
                 updateState = {
                     it.copy(paragraphIndentation = this)
@@ -158,7 +157,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeShowStartScreen -> handleDatastoreUpdate(
-                key = DataStoreConstants.SHOW_START_SCREEN,
+                key = DataStoreData.SHOW_START_SCREEN,
                 value = event.value,
                 updateState = {
                     it.copy(showStartScreen = this)
@@ -166,7 +165,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeSidePadding -> handleDatastoreUpdate(
-                key = DataStoreConstants.SIDE_PADDING,
+                key = DataStoreData.SIDE_PADDING,
                 value = event.value,
                 updateState = {
                     it.copy(sidePadding = this)
@@ -174,7 +173,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeDoubleClickTranslation -> handleDatastoreUpdate(
-                key = DataStoreConstants.DOUBLE_CLICK_TRANSLATION,
+                key = DataStoreData.DOUBLE_CLICK_TRANSLATION,
                 value = event.value,
                 updateState = {
                     it.copy(doubleClickTranslation = this)
@@ -182,7 +181,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeFastColorPresetChange -> handleDatastoreUpdate(
-                key = DataStoreConstants.FAST_COLOR_PRESET_CHANGE,
+                key = DataStoreData.FAST_COLOR_PRESET_CHANGE,
                 value = event.value,
                 updateState = {
                     it.copy(fastColorPresetChange = this)
@@ -190,7 +189,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeBrowseLayout -> handleDatastoreUpdate(
-                key = DataStoreConstants.BROWSE_LAYOUT,
+                key = DataStoreData.BROWSE_LAYOUT,
                 value = event.value,
                 updateState = {
                     it.copy(browseLayout = BrowseLayout.valueOf(this))
@@ -198,7 +197,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeBrowseAutoGridSize -> handleDatastoreUpdate(
-                key = DataStoreConstants.BROWSE_AUTO_GRID_SIZE,
+                key = DataStoreData.BROWSE_AUTO_GRID_SIZE,
                 value = event.value,
                 updateState = {
                     it.copy(browseAutoGridSize = this)
@@ -206,7 +205,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeBrowseGridSize -> handleDatastoreUpdate(
-                key = DataStoreConstants.BROWSE_GRID_SIZE,
+                key = DataStoreData.BROWSE_GRID_SIZE,
                 value = event.value,
                 updateState = {
                     it.copy(browseGridSize = this)
@@ -214,7 +213,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeBrowseSortOrder -> handleDatastoreUpdate(
-                key = DataStoreConstants.BROWSE_SORT_ORDER,
+                key = DataStoreData.BROWSE_SORT_ORDER,
                 value = event.value,
                 updateState = {
                     it.copy(browseSortOrder = BrowseSortOrder.valueOf(this))
@@ -222,7 +221,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeBrowseSortOrderDescending -> handleDatastoreUpdate(
-                key = DataStoreConstants.BROWSE_SORT_ORDER_DESCENDING,
+                key = DataStoreData.BROWSE_SORT_ORDER_DESCENDING,
                 value = event.value,
                 updateState = {
                     it.copy(browseSortOrderDescending = this)
@@ -234,7 +233,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeTextAlignment -> handleDatastoreUpdate(
-                key = DataStoreConstants.TEXT_ALIGNMENT,
+                key = DataStoreData.TEXT_ALIGNMENT,
                 value = event.value,
                 updateState = {
                     it.copy(textAlignment = ReaderTextAlignment.valueOf(this))
@@ -242,7 +241,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeDoublePressExit -> handleDatastoreUpdate(
-                key = DataStoreConstants.DOUBLE_PRESS_EXIT,
+                key = DataStoreData.DOUBLE_PRESS_EXIT,
                 value = event.value,
                 updateState = {
                     it.copy(doublePressExit = this)
@@ -250,7 +249,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeLetterSpacing -> handleDatastoreUpdate(
-                key = DataStoreConstants.LETTER_SPACING,
+                key = DataStoreData.LETTER_SPACING,
                 value = event.value,
                 updateState = {
                     it.copy(letterSpacing = this)
@@ -258,7 +257,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeAbsoluteDark -> handleDatastoreUpdate(
-                key = DataStoreConstants.ABSOLUTE_DARK,
+                key = DataStoreData.ABSOLUTE_DARK,
                 value = event.value,
                 updateState = {
                     it.copy(absoluteDark = this)
@@ -266,7 +265,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeCutoutPadding -> handleDatastoreUpdate(
-                key = DataStoreConstants.CUTOUT_PADDING,
+                key = DataStoreData.CUTOUT_PADDING,
                 value = event.value,
                 updateState = {
                     it.copy(cutoutPadding = this)
@@ -274,7 +273,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeFullscreen -> handleDatastoreUpdate(
-                key = DataStoreConstants.FULLSCREEN,
+                key = DataStoreData.FULLSCREEN,
                 value = event.value,
                 updateState = {
                     it.copy(fullscreen = this)
@@ -282,7 +281,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeKeepScreenOn -> handleDatastoreUpdate(
-                key = DataStoreConstants.KEEP_SCREEN_ON,
+                key = DataStoreData.KEEP_SCREEN_ON,
                 value = event.value,
                 updateState = {
                     it.copy(keepScreenOn = this)
@@ -290,7 +289,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeVerticalPadding -> handleDatastoreUpdate(
-                key = DataStoreConstants.VERTICAL_PADDING,
+                key = DataStoreData.VERTICAL_PADDING,
                 value = event.value,
                 updateState = {
                     it.copy(verticalPadding = this)
@@ -298,7 +297,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeHideBarsOnFastScroll -> handleDatastoreUpdate(
-                key = DataStoreConstants.HIDE_BARS_ON_FAST_SCROLL,
+                key = DataStoreData.HIDE_BARS_ON_FAST_SCROLL,
                 value = event.value,
                 updateState = {
                     it.copy(hideBarsOnFastScroll = this)
@@ -306,7 +305,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangePerceptionExpander -> handleDatastoreUpdate(
-                key = DataStoreConstants.PERCEPTION_EXPANDER,
+                key = DataStoreData.PERCEPTION_EXPANDER,
                 value = event.value,
                 updateState = {
                     it.copy(perceptionExpander = this)
@@ -314,7 +313,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangePerceptionExpanderPadding -> handleDatastoreUpdate(
-                key = DataStoreConstants.PERCEPTION_EXPANDER_PADDING,
+                key = DataStoreData.PERCEPTION_EXPANDER_PADDING,
                 value = event.value,
                 updateState = {
                     it.copy(perceptionExpanderPadding = this)
@@ -322,7 +321,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangePerceptionExpanderThickness -> handleDatastoreUpdate(
-                key = DataStoreConstants.PERCEPTION_EXPANDER_THICKNESS,
+                key = DataStoreData.PERCEPTION_EXPANDER_THICKNESS,
                 value = event.value,
                 updateState = {
                     it.copy(perceptionExpanderThickness = this)
@@ -330,7 +329,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeScreenOrientation -> handleDatastoreUpdate(
-                key = DataStoreConstants.SCREEN_ORIENTATION,
+                key = DataStoreData.SCREEN_ORIENTATION,
                 value = event.value,
                 updateState = {
                     it.copy(screenOrientation = ReaderScreenOrientation.valueOf(this))
@@ -338,7 +337,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeCustomScreenBrightness -> handleDatastoreUpdate(
-                key = DataStoreConstants.CUSTOM_SCREEN_BRIGHTNESS,
+                key = DataStoreData.CUSTOM_SCREEN_BRIGHTNESS,
                 value = event.value,
                 updateState = {
                     it.copy(customScreenBrightness = this)
@@ -346,7 +345,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeScreenBrightness -> handleDatastoreUpdate(
-                key = DataStoreConstants.SCREEN_BRIGHTNESS,
+                key = DataStoreData.SCREEN_BRIGHTNESS,
                 value = event.value.toDouble(),
                 updateState = {
                     it.copy(screenBrightness = this.toFloat())
@@ -354,7 +353,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeHorizontalGesture -> handleDatastoreUpdate(
-                key = DataStoreConstants.HORIZONTAL_GESTURE,
+                key = DataStoreData.HORIZONTAL_GESTURE,
                 value = event.value,
                 updateState = {
                     it.copy(horizontalGesture = ReaderHorizontalGesture.valueOf(this))
@@ -362,7 +361,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeHorizontalGestureScroll -> handleDatastoreUpdate(
-                key = DataStoreConstants.HORIZONTAL_GESTURE_SCROLL,
+                key = DataStoreData.HORIZONTAL_GESTURE_SCROLL,
                 value = event.value.toDouble(),
                 updateState = {
                     it.copy(horizontalGestureScroll = this.toFloat())
@@ -370,7 +369,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeHorizontalGestureSensitivity -> handleDatastoreUpdate(
-                key = DataStoreConstants.HORIZONTAL_GESTURE_SENSITIVITY,
+                key = DataStoreData.HORIZONTAL_GESTURE_SENSITIVITY,
                 value = event.value.toDouble(),
                 updateState = {
                     it.copy(horizontalGestureSensitivity = this.toFloat())
@@ -378,7 +377,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeBottomBarPadding -> handleDatastoreUpdate(
-                key = DataStoreConstants.BOTTOM_BAR_PADDING,
+                key = DataStoreData.BOTTOM_BAR_PADDING,
                 value = event.value,
                 updateState = {
                     it.copy(bottomBarPadding = this)
@@ -386,7 +385,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeHighlightedReading -> handleDatastoreUpdate(
-                key = DataStoreConstants.HIGHLIGHTED_READING,
+                key = DataStoreData.HIGHLIGHTED_READING,
                 value = event.value,
                 updateState = {
                     it.copy(highlightedReading = this)
@@ -394,7 +393,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeHighlightedReadingThickness -> handleDatastoreUpdate(
-                key = DataStoreConstants.HIGHLIGHTED_READING_THICKNESS,
+                key = DataStoreData.HIGHLIGHTED_READING_THICKNESS,
                 value = event.value,
                 updateState = {
                     it.copy(highlightedReadingThickness = this)
@@ -402,7 +401,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeChapterTitleAlignment -> handleDatastoreUpdate(
-                key = DataStoreConstants.CHAPTER_TITLE_ALIGNMENT,
+                key = DataStoreData.CHAPTER_TITLE_ALIGNMENT,
                 value = event.value,
                 updateState = {
                     it.copy(chapterTitleAlignment = ReaderTextAlignment.valueOf(this))
@@ -410,7 +409,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeImages -> handleDatastoreUpdate(
-                key = DataStoreConstants.IMAGES,
+                key = DataStoreData.IMAGES,
                 value = event.value,
                 updateState = {
                     it.copy(images = this)
@@ -418,7 +417,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeImagesCornersRoundness -> handleDatastoreUpdate(
-                key = DataStoreConstants.IMAGES_CORNERS_ROUNDNESS,
+                key = DataStoreData.IMAGES_CORNERS_ROUNDNESS,
                 value = event.value,
                 updateState = {
                     it.copy(imagesCornersRoundness = this)
@@ -426,7 +425,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeImagesAlignment -> handleDatastoreUpdate(
-                key = DataStoreConstants.IMAGES_ALIGNMENT,
+                key = DataStoreData.IMAGES_ALIGNMENT,
                 value = event.value,
                 updateState = {
                     it.copy(imagesAlignment = HorizontalAlignment.valueOf(this))
@@ -434,7 +433,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeImagesWidth -> handleDatastoreUpdate(
-                key = DataStoreConstants.IMAGES_WIDTH,
+                key = DataStoreData.IMAGES_WIDTH,
                 value = event.value.toDouble(),
                 updateState = {
                     it.copy(imagesWidth = this.toFloat())
@@ -442,7 +441,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeImagesColorEffects -> handleDatastoreUpdate(
-                key = DataStoreConstants.IMAGES_COLOR_EFFECTS,
+                key = DataStoreData.IMAGES_COLOR_EFFECTS,
                 value = event.value,
                 updateState = {
                     it.copy(imagesColorEffects = ReaderColorEffects.valueOf(this))
@@ -450,7 +449,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeProgressBar -> handleDatastoreUpdate(
-                key = DataStoreConstants.PROGRESS_BAR,
+                key = DataStoreData.PROGRESS_BAR,
                 value = event.value,
                 updateState = {
                     it.copy(progressBar = this)
@@ -458,7 +457,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeProgressBarPadding -> handleDatastoreUpdate(
-                key = DataStoreConstants.PROGRESS_BAR_PADDING,
+                key = DataStoreData.PROGRESS_BAR_PADDING,
                 value = event.value,
                 updateState = {
                     it.copy(progressBarPadding = this)
@@ -466,7 +465,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeProgressBarAlignment -> handleDatastoreUpdate(
-                key = DataStoreConstants.PROGRESS_BAR_ALIGNMENT,
+                key = DataStoreData.PROGRESS_BAR_ALIGNMENT,
                 value = event.value,
                 updateState = {
                     it.copy(progressBarAlignment = HorizontalAlignment.valueOf(this))
@@ -474,7 +473,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeProgressBarFontSize -> handleDatastoreUpdate(
-                key = DataStoreConstants.PROGRESS_BAR_FONT_SIZE,
+                key = DataStoreData.PROGRESS_BAR_FONT_SIZE,
                 value = event.value,
                 updateState = {
                     it.copy(progressBarFontSize = this)
@@ -486,7 +485,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeFontThickness -> handleDatastoreUpdate(
-                key = DataStoreConstants.FONT_THICKNESS,
+                key = DataStoreData.FONT_THICKNESS,
                 value = event.value,
                 updateState = {
                     it.copy(fontThickness = ReaderFontThickness.valueOf(this))
@@ -494,7 +493,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeProgressCount -> handleDatastoreUpdate(
-                key = DataStoreConstants.PROGRESS_COUNT,
+                key = DataStoreData.PROGRESS_COUNT,
                 value = event.value,
                 updateState = {
                     it.copy(progressCount = ReaderProgressCount.valueOf(this))
@@ -502,7 +501,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeHorizontalGestureAlphaAnim -> handleDatastoreUpdate(
-                key = DataStoreConstants.HORIZONTAL_GESTURE_ALPHA_ANIM,
+                key = DataStoreData.HORIZONTAL_GESTURE_ALPHA_ANIM,
                 value = event.value,
                 updateState = {
                     it.copy(horizontalGestureAlphaAnim = this)
@@ -510,7 +509,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeHorizontalGesturePullAnim -> handleDatastoreUpdate(
-                key = DataStoreConstants.HORIZONTAL_GESTURE_PULL_ANIM,
+                key = DataStoreData.HORIZONTAL_GESTURE_PULL_ANIM,
                 value = event.value,
                 updateState = {
                     it.copy(horizontalGesturePullAnim = this)
@@ -518,7 +517,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeLibraryLayout -> handleDatastoreUpdate(
-                key = DataStoreConstants.LIBRARY_LAYOUT,
+                key = DataStoreData.LIBRARY_LAYOUT,
                 value = event.value,
                 updateState = {
                     it.copy(libraryLayout = LibraryLayout.valueOf(this))
@@ -526,7 +525,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeLibraryAutoGridSize -> handleDatastoreUpdate(
-                key = DataStoreConstants.LIBRARY_AUTO_GRID_SIZE,
+                key = DataStoreData.LIBRARY_AUTO_GRID_SIZE,
                 value = event.value,
                 updateState = {
                     it.copy(libraryAutoGridSize = this)
@@ -534,7 +533,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeLibraryGridSize -> handleDatastoreUpdate(
-                key = DataStoreConstants.LIBRARY_GRID_SIZE,
+                key = DataStoreData.LIBRARY_GRID_SIZE,
                 value = event.value,
                 updateState = {
                     it.copy(libraryGridSize = this)
@@ -542,7 +541,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeLibraryReadButton -> handleDatastoreUpdate(
-                key = DataStoreConstants.LIBRARY_READ_BUTTON,
+                key = DataStoreData.LIBRARY_READ_BUTTON,
                 value = event.value,
                 updateState = {
                     it.copy(libraryReadButton = this)
@@ -550,7 +549,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeLibraryShowProgress -> handleDatastoreUpdate(
-                key = DataStoreConstants.LIBRARY_SHOW_PROGRESS,
+                key = DataStoreData.LIBRARY_SHOW_PROGRESS,
                 value = event.value,
                 updateState = {
                     it.copy(libraryShowProgress = this)
@@ -558,7 +557,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeLibraryTitlePosition -> handleDatastoreUpdate(
-                key = DataStoreConstants.LIBRARY_TITLE_POSITION,
+                key = DataStoreData.LIBRARY_TITLE_POSITION,
                 value = event.value,
                 updateState = {
                     it.copy(libraryTitlePosition = LibraryTitlePosition.valueOf(this))
@@ -566,7 +565,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeLibraryShowBookCount -> handleDatastoreUpdate(
-                key = DataStoreConstants.LIBRARY_SHOW_BOOK_COUNT,
+                key = DataStoreData.LIBRARY_SHOW_BOOK_COUNT,
                 value = event.value,
                 updateState = {
                     it.copy(libraryShowBookCount = this)
@@ -574,7 +573,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeLibraryShowCategoryTabs -> handleDatastoreUpdate(
-                key = DataStoreConstants.LIBRARY_SHOW_CATEGORY_TABS,
+                key = DataStoreData.LIBRARY_SHOW_CATEGORY_TABS,
                 value = event.value,
                 updateState = {
                     it.copy(libraryShowCategoryTabs = this)
@@ -582,7 +581,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeLibraryAlwaysShowDefaultTab -> handleDatastoreUpdate(
-                key = DataStoreConstants.LIBRARY_ALWAYS_SHOW_DEFAULT_TAB,
+                key = DataStoreData.LIBRARY_ALWAYS_SHOW_DEFAULT_TAB,
                 value = event.value,
                 updateState = {
                     it.copy(libraryAlwaysShowDefaultTab = this)
@@ -590,7 +589,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeLibrarySortOrder -> handleDatastoreUpdate(
-                key = DataStoreConstants.LIBRARY_SORT_ORDER,
+                key = DataStoreData.LIBRARY_SORT_ORDER,
                 value = event.value,
                 updateState = {
                     it.copy(librarySortOrder = LibrarySortOrder.valueOf(this))
@@ -598,7 +597,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeLibrarySortOrderDescending -> handleDatastoreUpdate(
-                key = DataStoreConstants.LIBRARY_SORT_ORDER_DESCENDING,
+                key = DataStoreData.LIBRARY_SORT_ORDER_DESCENDING,
                 value = event.value,
                 updateState = {
                     it.copy(librarySortOrderDescending = this)
@@ -606,7 +605,7 @@ class MainModel @Inject constructor(
             )
 
             is MainEvent.OnChangeLibraryPerCategorySort -> handleDatastoreUpdate(
-                key = DataStoreConstants.LIBRARY_PER_CATEGORY_SORT,
+                key = DataStoreData.LIBRARY_PER_CATEGORY_SORT,
                 value = event.value,
                 updateState = {
                     it.copy(libraryPerCategorySort = this)
@@ -662,7 +661,7 @@ class MainModel @Inject constructor(
             set.remove(event.value)
         }
         handleDatastoreUpdate(
-            key = DataStoreConstants.BROWSE_INCLUDED_FILTER_ITEMS,
+            key = DataStoreData.BROWSE_INCLUDED_FILTER_ITEMS,
             value = set,
             updateState = {
                 it.copy(browseIncludedFilterItems = toList())
@@ -678,7 +677,7 @@ class MainModel @Inject constructor(
             set.remove(event.value)
         }
         handleDatastoreUpdate(
-            key = DataStoreConstants.BROWSE_PINNED_PATHS,
+            key = DataStoreData.BROWSE_PINNED_PATHS,
             value = set,
             updateState = {
                 it.copy(browsePinnedPaths = toList())
@@ -710,7 +709,7 @@ class MainModel @Inject constructor(
     ) {
         withContext(Dispatchers.Main.immediate) {
             _state.update {
-                stateHandle[provideMainState()] = function(it)
+                stateHandle["main_state"] = function(it)
                 function(it)
             }
         }

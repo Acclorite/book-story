@@ -44,8 +44,8 @@ import ua.acclorite.book_story.presentation.settings.SettingsEvent
 import ua.acclorite.book_story.presentation.settings.SettingsModel
 import ua.acclorite.book_story.ui.common.components.common.IconButton
 import ua.acclorite.book_story.ui.common.components.common.StyledText
-import ua.acclorite.book_story.ui.common.util.noRippleClickable
-import ua.acclorite.book_story.ui.common.util.showToast
+import ua.acclorite.book_story.ui.common.helpers.noRippleClickable
+import ua.acclorite.book_story.ui.common.helpers.showToast
 import ua.acclorite.book_story.ui.theme.dynamicListItemColor
 
 @Composable

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.core
+package ua.acclorite.book_story.core.log
 
 import android.util.Log
 

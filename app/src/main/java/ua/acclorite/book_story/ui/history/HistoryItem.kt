@@ -40,7 +40,7 @@ import ua.acclorite.book_story.domain.model.history.History
 import ua.acclorite.book_story.ui.common.components.common.AsyncCoverImage
 import ua.acclorite.book_story.ui.common.components.common.IconButton
 import ua.acclorite.book_story.ui.common.components.common.StyledText
-import ua.acclorite.book_story.ui.common.util.noRippleClickable
+import ua.acclorite.book_story.ui.common.helpers.noRippleClickable
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import ua.acclorite.book_story.presentation.about.AboutEvent
 import ua.acclorite.book_story.ui.common.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.ui.common.constants.provideCredits
+import ua.acclorite.book_story.ui.credits.data.CreditData
 
 @Composable
 fun CreditsLayout(
@@ -32,7 +32,7 @@ fun CreditsLayout(
         state = listState
     ) {
         items(
-            provideCredits(),
+            CreditData.credits,
             key = { it.name }
         ) { credit ->
             CreditItem(credit = credit) {

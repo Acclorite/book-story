@@ -20,8 +20,8 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.history.HistoryEvent
 import ua.acclorite.book_story.presentation.history.model.GroupedHistory
 import ua.acclorite.book_story.ui.common.components.common.LazyColumnWithScrollbar
-import ua.acclorite.book_story.ui.common.constants.providePrimaryScrollbar
-import ua.acclorite.book_story.ui.common.util.LocalActivity
+import ua.acclorite.book_story.ui.common.data.ScrollbarData
+import ua.acclorite.book_story.ui.common.helpers.LocalActivity
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategoryTitle
 import ua.acclorite.book_story.ui.theme.DefaultTransition
 
@@ -42,7 +42,7 @@ fun HistoryLayout(
         LazyColumnWithScrollbar(
             modifier = Modifier.fillMaxSize(),
             state = listState,
-            scrollbarSettings = providePrimaryScrollbar(false)
+            scrollbarSettings = ScrollbarData.primaryScrollbar
         ) {
             item {
                 Spacer(modifier = Modifier.height(12.dp))

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.ui.common.constants
+package ua.acclorite.book_story.ui.reader.data
 
 import androidx.annotation.FontRes
 import androidx.compose.ui.text.ExperimentalTextApi
@@ -13,12 +13,13 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontVariation
 import androidx.compose.ui.text.font.FontWeight
+import kotlinx.collections.immutable.persistentListOf
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.ui.reader.model.FontWithName
 
-fun provideFonts(): List<FontWithName> {
-    return mutableListOf(
+object ReaderData {
+    val fonts = persistentListOf(
         FontWithName(
             "default",
             UIText.StringResource(R.string.default_string),

@@ -12,10 +12,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.core.data.CoreData
 import ua.acclorite.book_story.presentation.main.MainEvent
 import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.ui.common.components.settings.ChipsWithTitle
-import ua.acclorite.book_story.ui.common.constants.provideLanguages
 import ua.acclorite.book_story.ui.common.model.ButtonItem
 
 @Composable
@@ -25,7 +25,7 @@ fun AppLanguageOption() {
 
     ChipsWithTitle(
         title = stringResource(id = R.string.language_option),
-        chips = provideLanguages().sortedBy { it.second }.map {
+        chips = CoreData.languages.sortedBy { it.second }.map {
             ButtonItem(
                 it.first,
                 it.second,

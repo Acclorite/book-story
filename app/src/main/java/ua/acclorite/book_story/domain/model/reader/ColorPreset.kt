@@ -17,4 +17,14 @@ data class ColorPreset(
     val backgroundColor: Color,
     val fontColor: Color,
     val isSelected: Selected
-)
+) {
+    companion object {
+        val default = ColorPreset(
+            id = -1,
+            name = null,
+            backgroundColor = Color(0xFFFAF8FF), // Blue Light Surface (hardcoded)
+            fontColor = Color(0xFF44464F), // Blue Light OnSurfaceVariant (hardcoded)
+            isSelected = false
+        )
+    }
+}
