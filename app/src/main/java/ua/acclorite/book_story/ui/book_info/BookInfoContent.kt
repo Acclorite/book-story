@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import ua.acclorite.book_story.core.BottomSheet
 import ua.acclorite.book_story.core.Dialog
+import ua.acclorite.book_story.domain.model.file.File
 import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.domain.model.library.Category
 import ua.acclorite.book_story.presentation.book_info.BookInfoEvent
@@ -17,6 +18,7 @@ import ua.acclorite.book_story.presentation.book_info.BookInfoEvent
 @Composable
 fun BookInfoContent(
     book: Book,
+    file: File?,
     categories: List<Category>,
     bottomSheet: BottomSheet?,
     dialog: Dialog?,
@@ -64,6 +66,7 @@ fun BookInfoContent(
     BookInfoBottomSheet(
         bottomSheet = bottomSheet,
         book = book,
+        file = file,
         showPathDialog = showPathDialog,
         canResetCover = canResetCover,
         changeCover = changeCover,

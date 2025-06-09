@@ -8,6 +8,7 @@ package ua.acclorite.book_story.ui.book_info
 
 import androidx.compose.runtime.Composable
 import ua.acclorite.book_story.core.BottomSheet
+import ua.acclorite.book_story.domain.model.file.File
 import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.presentation.book_info.BookInfoEvent
 import ua.acclorite.book_story.presentation.book_info.BookInfoScreen
@@ -16,6 +17,7 @@ import ua.acclorite.book_story.presentation.book_info.BookInfoScreen
 fun BookInfoBottomSheet(
     bottomSheet: BottomSheet?,
     book: Book,
+    file: File?,
     canResetCover: Boolean,
     showPathDialog: (BookInfoEvent.OnShowPathDialog) -> Unit,
     changeCover: (BookInfoEvent.OnChangeCover) -> Unit,
@@ -40,6 +42,7 @@ fun BookInfoBottomSheet(
         BookInfoScreen.DETAILS_BOTTOM_SHEET -> {
             BookInfoDetailsBottomSheet(
                 book = book,
+                file = file,
                 showPathDialog = showPathDialog,
                 dismissBottomSheet = dismissBottomSheet
             )

@@ -18,21 +18,23 @@ class FileProviderImpl @Inject constructor(
 ) : FileProvider {
 
     override fun getFileFromBook(book: Book): Result<CachedFile> = runCatching {
-        CachedFileCompat.fromFullPath(
-            context = application,
-            path = book.filePath,
-            builder = CachedFileCompat.build(
-                name = book.filePath.substringAfterLast(java.io.File.separator),
-                path = book.filePath,
-                isDirectory = false
+        application.contentResolver.persistedUriPermissions.forEach { storage ->
+            val storageFile = CachedFileCompat.fromUri(
+                application,
+                storage.uri
             )
-        ).let { file ->
-            if (file == null || !file.canAccess()) {
-                throw NoSuchElementException("Could not load CachedFile.")
-            }
 
-            file
+            if (!storageFile.isDirectory) return@forEach
+            if (!book.filePath.startsWith(storageFile.path, ignoreCase = true)) return@forEach
+
+            storageFile.walk().forEach { file ->
+                if (book.filePath.equals(file.path, ignoreCase = true)) {
+                    return@runCatching file
+                }
+            }
         }
+
+        throw NoSuchElementException("Could not find file from book.")
     }
 
     override fun getStorageFiles(): Result<List<CachedFile>> = runCatching {

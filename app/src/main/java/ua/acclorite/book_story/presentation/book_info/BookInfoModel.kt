@@ -24,6 +24,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.use_case.book.CanResetCoverImageUseCase
 import ua.acclorite.book_story.domain.use_case.book.DeleteBookUseCase
 import ua.acclorite.book_story.domain.use_case.book.GetBookUseCase
+import ua.acclorite.book_story.domain.use_case.book.GetFileFromBookUseCase
 import ua.acclorite.book_story.domain.use_case.book.ResetCoverImageUseCase
 import ua.acclorite.book_story.domain.use_case.book.UpdateBookUseCase
 import ua.acclorite.book_story.domain.use_case.book.UpdateCoverImageUseCase
@@ -38,6 +39,7 @@ class BookInfoModel @Inject constructor(
     private val updateCoverImageUseCase: UpdateCoverImageUseCase,
     private val updateBookUseCase: UpdateBookUseCase,
     private val getBookUseCase: GetBookUseCase,
+    private val getFileFromBookUseCase: GetFileFromBookUseCase,
     private val deleteBookUseCase: DeleteBookUseCase,
     private val canResetCoverImageUseCase: CanResetCoverImageUseCase,
     private val resetCoverImageUseCase: ResetCoverImageUseCase
@@ -302,6 +304,13 @@ class BookInfoModel @Inject constructor(
                             event.context.getString(R.string.path_changed)
                                 .showToast(context = event.context)
                         }
+
+                        val file = getFileFromBookUseCase(_state.value.book.id)
+                        _state.update {
+                            it.copy(
+                                file = file
+                            )
+                        }
                     }
                 }
 
@@ -408,6 +417,13 @@ class BookInfoModel @Inject constructor(
                 onEvent(BookInfoEvent.OnShowPathDialog)
             }
             onEvent(BookInfoEvent.OnCheckCoverReset)
+
+            val file = getFileFromBookUseCase(bookId)
+            _state.update {
+                it.copy(
+                    file = file
+                )
+            }
         }
     }
 
