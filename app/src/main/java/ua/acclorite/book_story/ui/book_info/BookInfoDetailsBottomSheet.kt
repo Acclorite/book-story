@@ -14,12 +14,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.data.ExtensionsData
-import ua.acclorite.book_story.data.model.file.CachedFileCompat
+import ua.acclorite.book_story.domain.model.file.File
 import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.presentation.book_info.BookInfoEvent
 import ua.acclorite.book_story.ui.common.components.common.LazyColumnWithScrollbar
@@ -32,20 +31,16 @@ import java.util.Locale
 @Composable
 fun BookInfoDetailsBottomSheet(
     book: Book,
+    file: File?,
     showPathDialog: (BookInfoEvent.OnShowPathDialog) -> Unit,
     dismissBottomSheet: (BookInfoEvent.OnDismissBottomSheet) -> Unit
 ) {
     val pattern = remember { SimpleDateFormat("HH:mm dd MMM yyyy", Locale.getDefault()) }
     val lastOpened = remember(book.lastOpened) { pattern.format(Date(book.lastOpened ?: 0)) }
 
-    val context = LocalContext.current
-    val cachedFile = remember(book.filePath) {
-        CachedFileCompat.fromFullPath(context, book.filePath)
-    }
-
-    val fileSize = remember(cachedFile) {
-        if (cachedFile != null && cachedFile.canAccess()) {
-            val sizeBytes = cachedFile.size
+    val fileSize = remember(file) {
+        if (file != null) {
+            val sizeBytes = file.size
             val sizeKB = sizeBytes / 1024f
             val sizeMB = sizeKB / 1024f
             when {
@@ -53,17 +48,25 @@ fun BookInfoDetailsBottomSheet(
                 sizeKB > 0f -> "%.2f KB".format(sizeKB)
                 else -> ""
             }
-        } else {
-            ""
-        }
+        } else ""
     }
 
-    val fileExists = remember(cachedFile) {
-        cachedFile.let {
-            it != null && it.canAccess() && !it.isDirectory && ExtensionsData.fileExtensions
-                .any { ext ->
-                    it.name.endsWith(ext, ignoreCase = true)
+    val fileExists = remember(file) {
+        file.let { file ->
+            if (file == null) return@let false
+            if (file.isDirectory) return@let false
+            if (
+                ExtensionsData.fileExtensions.none { ext ->
+                    file.name.endsWith(
+                        ext,
+                        ignoreCase = true
+                    )
                 }
+            ) {
+                return@let false
+            }
+
+            return@let true
         }
     }
 

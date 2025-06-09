@@ -7,6 +7,7 @@
 package ua.acclorite.book_story.domain.repository
 
 import ua.acclorite.book_story.core.CoverImage
+import ua.acclorite.book_story.domain.model.file.File
 import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.domain.model.reader.ReaderText
 
@@ -22,6 +23,10 @@ interface BookRepository {
     suspend fun getText(
         bookId: Int
     ): Result<List<ReaderText>>
+
+    suspend fun getFileFromBook(
+        bookId: Int
+    ): Result<File>
 
     suspend fun addBook(
         book: Book

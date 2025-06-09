@@ -9,8 +9,10 @@ package ua.acclorite.book_story.data.repository
 import ua.acclorite.book_story.core.CoverImage
 import ua.acclorite.book_story.data.local.room.BookDao
 import ua.acclorite.book_story.data.mapper.book.BookMapper
+import ua.acclorite.book_story.data.mapper.file.FileMapper
 import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.data.parser.TextParser
+import ua.acclorite.book_story.domain.model.file.File
 import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.domain.model.reader.ReaderText
 import ua.acclorite.book_story.domain.repository.BookRepository
@@ -22,6 +24,7 @@ import javax.inject.Singleton
 class BookRepositoryImpl @Inject constructor(
     private val database: BookDao,
     private val bookMapper: BookMapper,
+    private val fileMapper: FileMapper,
     private val fileParser: FileParser,
     private val textParser: TextParser,
     private val fileProvider: FileProvider
@@ -42,6 +45,12 @@ class BookRepositoryImpl @Inject constructor(
         return getBook(bookId)
             .mapCatching { fileProvider.getFileFromBook(it).getOrThrow() }
             .mapCatching { textParser.parse(it) }
+    }
+
+    override suspend fun getFileFromBook(bookId: Int): Result<File> {
+        return getBook(bookId)
+            .mapCatching { fileProvider.getFileFromBook(it).getOrThrow() }
+            .mapCatching { fileMapper.toFile(it) }
     }
 
     override suspend fun addBook(book: Book): Result<Unit> = runCatching {
