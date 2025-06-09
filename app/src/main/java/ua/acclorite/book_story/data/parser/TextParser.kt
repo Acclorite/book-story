@@ -10,6 +10,5 @@ import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.domain.model.reader.ReaderText
 
 interface TextParser {
-
     suspend fun parse(cachedFile: CachedFile): List<ReaderText>
 }

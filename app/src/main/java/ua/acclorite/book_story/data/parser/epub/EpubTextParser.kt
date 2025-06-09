@@ -17,6 +17,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import org.jsoup.Jsoup
+import org.jsoup.parser.Parser
 import ua.acclorite.book_story.core.data.ExtensionsData
 import ua.acclorite.book_story.core.helpers.addAll
 import ua.acclorite.book_story.core.helpers.containsVisibleText
@@ -25,6 +26,8 @@ import ua.acclorite.book_story.data.parser.DocumentParser
 import ua.acclorite.book_story.data.parser.TextParser
 import ua.acclorite.book_story.domain.model.reader.ReaderText
 import java.io.File
+import java.net.URLDecoder
+import java.nio.charset.StandardCharsets
 import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
@@ -117,7 +120,7 @@ class EpubTextParser @Inject constructor(
             val unformattedText = ConcurrentLinkedQueue<Pair<Int, List<ReaderText>>>()
 
             // Asynchronously getting all chapters with text
-            val jobs = chapterEntries.mapIndexed { index, entry ->
+            chapterEntries.mapIndexed { index, entry ->
                 async(dispatcher) {
                     yield()
 
@@ -131,8 +134,7 @@ class EpubTextParser @Inject constructor(
 
                     yield()
                 }
-            }
-            jobs.awaitAll()
+            }.awaitAll()
 
             // Sorting chapters in correct order
             readerText.addAll {
@@ -167,7 +169,7 @@ class EpubTextParser @Inject constructor(
             zip.getInputStream(entry)
         }.bufferedReader().use { it.readText() }
         var readerText = documentParser.parseDocument(
-            document = Jsoup.parse(content),
+            document = Jsoup.parse(content, Parser.htmlParser()),
             zipFile = zip,
             imageEntries = imageEntries,
             includeChapter = false
@@ -236,21 +238,21 @@ class EpubTextParser @Inject constructor(
                 }
 
             val source = navPoint.selectFirst("content")?.attr("src")?.trim()
-                .let { source ->
-                    if (source.isNullOrBlank()) return@forEach
-                    source.toUri().path ?: source
-                }.substringAfterLast(File.separator)
+                .also { src -> if (src.isNullOrBlank()) return@forEach }
+                .let { src -> URLDecoder.decode(src, StandardCharsets.UTF_8.name()) }
+                .let { src -> src.toUri().path ?: src }
+                .substringAfterLast(File.separator)
 
             val parent = navPoint.parent()
-                .let { parent ->
-                    if (parent == null) return@let null
+                ?.let { parent ->
                     if (!parent.tagName().equals("navPoint", ignoreCase = true)) return@let null
 
                     val parentSource = parent.selectFirst("content")?.attr("src")?.trim()
-                        .let { parentSource ->
-                            if (parentSource.isNullOrBlank()) return@forEach
-                            parentSource.toUri().path ?: parentSource
-                        }.substringAfterLast(File.separator)
+                        .also { src -> if (src.isNullOrBlank()) return@forEach }
+                        .let { src -> URLDecoder.decode(src, StandardCharsets.UTF_8.name()) }
+                        .let { src -> src.toUri().path ?: src }
+                        .substringAfterLast(File.separator)
+
                     if (parentSource == source) return@let null
                     return@let parentSource
                 }
@@ -278,9 +280,7 @@ class EpubTextParser @Inject constructor(
         chapterTitleMap: Map<Source, ReaderText.Chapter>?
     ): ReaderText.Chapter? {
         if (chapterTitleMap.isNullOrEmpty()) return null
-        return chapterTitleMap.getOrElse(chapterSource.substringAfterLast(File.separator)) {
-            null
-        }
+        return chapterTitleMap.getOrElse(chapterSource.substringAfterLast(File.separator)) { null }
     }
 
     /**
@@ -297,19 +297,27 @@ class EpubTextParser @Inject constructor(
             val opfContent = getInputStream(opfEntry).bufferedReader().use {
                 it.readText()
             }
-            val document = Jsoup.parse(opfContent)
+            val document = Jsoup.parse(opfContent, Parser.xmlParser())
             val zipEntries = entries().toList()
 
             val manifestItems = document.select("manifest > item").associate {
-                it.attr("id") to it.attr("href")
+                it.attr("id").to(
+                    it.attr("href").let { src ->
+                        URLDecoder.decode(src, StandardCharsets.UTF_8.name())
+                    }
+                )
             }
 
             document.select("spine > itemref").mapNotNull { itemRef ->
                 val spineId = itemRef.attr("idref")
                 val chapterSource = manifestItems[spineId]
-                    ?.substringAfterLast(File.separator)
-                    ?.lowercase()
-                    ?: return@mapNotNull null
+                    .let { src ->
+                        if (src.isNullOrBlank()) return@mapNotNull null
+                        URLDecoder.decode(
+                            src.substringAfterLast(File.separator).lowercase(),
+                            StandardCharsets.UTF_8.name()
+                        )
+                    }
 
                 zipEntries.find { entry ->
                     entry.name.substringAfterLast(File.separator).lowercase() == chapterSource

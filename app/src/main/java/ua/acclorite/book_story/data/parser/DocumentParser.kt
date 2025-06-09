@@ -16,6 +16,8 @@ import ua.acclorite.book_story.core.helpers.clearMarkdown
 import ua.acclorite.book_story.core.helpers.containsVisibleText
 import ua.acclorite.book_story.domain.model.reader.ReaderText
 import java.io.File
+import java.net.URLDecoder
+import java.nio.charset.StandardCharsets
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import javax.inject.Inject
@@ -71,7 +73,7 @@ class DocumentParser @Inject constructor(
                     if (!link.startsWith("http") || element.wholeText().isBlank()) return@forEach
 
                     if (link.startsWith("http://")) {
-                        link = link.replace("http://", "https://")
+                        link = link.replaceFirst("http://", "https://")
                     }
 
                     element.prepend("[")
@@ -84,6 +86,7 @@ class DocumentParser @Inject constructor(
                         .trim()
                         .substringAfterLast(File.separator)
                         .lowercase()
+                        .let { src -> URLDecoder.decode(src, StandardCharsets.UTF_8.name()) }
                         .takeIf {
                             it.containsVisibleText() && imageEntries?.any { image ->
                                 it == image.name.substringAfterLast(File.separator).lowercase()
@@ -103,6 +106,7 @@ class DocumentParser @Inject constructor(
                         .trim()
                         .substringAfterLast(File.separator)
                         .lowercase()
+                        .let { src -> URLDecoder.decode(src, StandardCharsets.UTF_8.name()) }
                         .takeIf {
                             it.containsVisibleText() && imageEntries?.any { image ->
                                 it == image.name.substringAfterLast(File.separator).lowercase()
