@@ -11,6 +11,5 @@ import ua.acclorite.book_story.data.model.library.BookWithCover
 
 
 interface FileParser {
-
     suspend fun parse(cachedFile: CachedFile): BookWithCover?
 }
