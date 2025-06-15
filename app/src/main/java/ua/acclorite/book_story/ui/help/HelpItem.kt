@@ -50,58 +50,49 @@ fun HelpItem(
     position: Position
 ) {
     val showDescription = rememberSaveable { mutableStateOf(false) }
-
-    val animatedArrowRotation = animateFloatAsState(
-        targetValue = if (showDescription.value) 0f else -180f,
-        animationSpec = tween(400)
-    )
-    val animatedBackgroundColor = animateColorAsState(
-        targetValue = if (showDescription.value) {
-            MaterialTheme.colorScheme.surfaceContainerHigh
-        } else MaterialTheme.colorScheme.surfaceContainerLow,
-        animationSpec = tween(400)
-    )
-    val animatedArrowContainerColor = animateColorAsState(
-        targetValue = if (showDescription.value) {
-            MaterialTheme.colorScheme.surfaceContainerHighest
-        } else MaterialTheme.colorScheme.surfaceContainer,
-        animationSpec = tween(400)
-    )
-
     val extraLargeShape = MaterialTheme.shapes.extraLarge
-    val shape = remember(position) {
-        when (position) {
-            Position.TOP -> extraLargeShape.copy(
-                bottomStart = CornerSize(3.dp),
-                bottomEnd = CornerSize(3.dp)
-            )
-
-            Position.CENTER -> RoundedCornerShape(3.dp)
-
-            Position.SOLO -> extraLargeShape
-
-            Position.BOTTOM -> extraLargeShape.copy(
-                topStart = CornerSize(3.dp),
-                topEnd = CornerSize(3.dp)
-            )
-        }
-    }
-    val paddingValues = remember(position) {
-        when (position) {
-            Position.TOP -> PaddingValues(top = 4.dp, bottom = 1.dp)
-            Position.CENTER -> PaddingValues(vertical = 1.dp)
-            Position.SOLO -> PaddingValues(0.dp)
-            Position.BOTTOM -> PaddingValues(bottom = 4.dp, top = 1.dp)
-        }
-    }
 
     Column(
         Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
-            .padding(paddingValues)
-            .clip(shape)
-            .background(animatedBackgroundColor.value)
+            .padding(
+                remember(position) {
+                    when (position) {
+                        Position.TOP -> PaddingValues(top = 4.dp, bottom = 1.dp)
+                        Position.CENTER -> PaddingValues(vertical = 1.dp)
+                        Position.SOLO -> PaddingValues(0.dp)
+                        Position.BOTTOM -> PaddingValues(bottom = 4.dp, top = 1.dp)
+                    }
+                }
+            )
+            .clip(
+                remember(position) {
+                    when (position) {
+                        Position.TOP -> extraLargeShape.copy(
+                            bottomStart = CornerSize(3.dp),
+                            bottomEnd = CornerSize(3.dp)
+                        )
+
+                        Position.CENTER -> RoundedCornerShape(3.dp)
+
+                        Position.SOLO -> extraLargeShape
+
+                        Position.BOTTOM -> extraLargeShape.copy(
+                            topStart = CornerSize(3.dp),
+                            topEnd = CornerSize(3.dp)
+                        )
+                    }
+                }
+            )
+            .background(
+                animateColorAsState(
+                    targetValue = if (showDescription.value) {
+                        MaterialTheme.colorScheme.surfaceContainerHigh
+                    } else MaterialTheme.colorScheme.surfaceContainerLow,
+                    animationSpec = tween(400)
+                ).value
+            )
             .padding(vertical = 18.dp, horizontal = 18.dp)
     ) {
         Row(
@@ -126,12 +117,22 @@ fun HelpItem(
                 modifier = Modifier
                     .clip(MaterialTheme.shapes.large)
                     .background(
-                        animatedArrowContainerColor.value,
+                        animateColorAsState(
+                            targetValue = if (showDescription.value) {
+                                MaterialTheme.colorScheme.surfaceContainerHighest
+                            } else MaterialTheme.colorScheme.surfaceContainer,
+                            animationSpec = tween(400)
+                        ).value,
                         MaterialTheme.shapes.large
                     )
                     .padding(8.dp)
                     .size(24.dp)
-                    .rotate(animatedArrowRotation.value),
+                    .rotate(
+                        animateFloatAsState(
+                            targetValue = if (showDescription.value) 0f else -180f,
+                            animationSpec = tween(400)
+                        ).value
+                    ),
                 contentDescription = stringResource(id = R.string.arrow_content_desc)
             )
         }
