@@ -493,36 +493,40 @@ class ReaderModel @Inject constructor(
     }
 
     @OptIn(FlowPreview::class)
-    fun updateProgress(listState: LazyListState) {
-        viewModelScope.launch(Dispatchers.Main) {
-            snapshotFlow {
-                listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
-            }.distinctUntilChanged().debounce(300).collectLatest { (index, offset) ->
-                val progress = calculateProgress(index)
-                if (progress == _state.value.book.progress) return@collectLatest
-                val (currentChapter, currentChapterProgress) = calculateCurrentChapter(index)
+    suspend fun updateProgress(listState: LazyListState) {
+        snapshotFlow {
+            listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
+        }.distinctUntilChanged().debounce(300).collectLatest { (index, offset) ->
+            if (
+                _state.value.isLoading ||
+                listState.layoutInfo.totalItemsCount == 0 ||
+                _state.value.text.isEmpty() ||
+                _state.value.errorMessage != null
+            ) return@collectLatest
 
-                Log.i(
-                    READER,
-                    "Changed progress|currentChapter: $progress; ${currentChapter?.title}"
+            val progress = calculateProgress(index)
+            val (currentChapter, currentChapterProgress) = calculateCurrentChapter(index)
+
+            Log.i(
+                READER,
+                "Changed progress|currentChapter: $progress; ${currentChapter?.title}"
+            )
+            _state.update {
+                it.copy(
+                    book = it.book.copy(
+                        progress = progress,
+                        scrollIndex = index,
+                        scrollOffset = offset
+                    ),
+                    currentChapter = currentChapter,
+                    currentChapterProgress = currentChapterProgress
                 )
-                _state.update {
-                    it.copy(
-                        book = it.book.copy(
-                            progress = progress,
-                            scrollIndex = index,
-                            scrollOffset = offset
-                        ),
-                        currentChapter = currentChapter,
-                        currentChapterProgress = currentChapterProgress
-                    )
-                }
-
-                updateBookUseCase(_state.value.book)
-
-                LibraryScreen.refreshListChannel.trySend(0)
-                HistoryScreen.refreshListChannel.trySend(0)
             }
+
+            updateBookUseCase(_state.value.book)
+
+            LibraryScreen.refreshListChannel.trySend(0)
+            HistoryScreen.refreshListChannel.trySend(0)
         }
     }
 
