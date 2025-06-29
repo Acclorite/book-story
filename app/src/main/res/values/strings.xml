@@ -366,6 +366,7 @@
     <string name="yellow_theme">Venus</string>
     <string name="yellow2_theme">Makemake</string>
     <string name="aqua_theme">Uranus</string>
+    <string name="gray_theme">Iapetus</string>
 
     <!-- Toast messages -->
     <string name="press_again_toast">Press back again to exit</string>

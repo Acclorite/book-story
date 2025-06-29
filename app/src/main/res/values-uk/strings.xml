@@ -342,6 +342,7 @@
     <string name="yellow_theme">Венера</string>
     <string name="yellow2_theme">Макемаке</string>
     <string name="aqua_theme">Уран</string>
+    <string name="gray_theme">Япет</string>
 
     <!-- Toast messages -->
     <string name="press_again_toast">Натисніть ще раз, щоб вийти</string>
