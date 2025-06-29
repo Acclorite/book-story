@@ -95,7 +95,7 @@ class DocumentParser @Inject constructor(
 
                     val alt = element.attr("alt").trim().takeIf {
                         it.clearMarkdown().containsVisibleText()
-                    } ?: src.substringBeforeLast(".")
+                    } ?: "Image"
 
                     element.append("\n[[$src|$alt]]\n")
                 }
@@ -113,7 +113,7 @@ class DocumentParser @Inject constructor(
                             } == true
                         } ?: return@forEach
 
-                    val alt = src.substringBeforeLast(".")
+                    val alt = "Image"
 
                     element.append("\n[[$src|$alt]]\n")
                 }

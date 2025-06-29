@@ -57,6 +57,7 @@ object DataStoreData {
     val HIGHLIGHTED_READING_THICKNESS = intPreferencesKey("highlighted_reading_thickness")
     val CHAPTER_TITLE_ALIGNMENT = stringPreferencesKey("chapter_title_alignment")
     val IMAGES = booleanPreferencesKey("images")
+    val IMAGES_CAPTIONS = booleanPreferencesKey("images_captions")
     val IMAGES_CORNERS_ROUNDNESS = intPreferencesKey("images_corners_roundness")
     val IMAGES_ALIGNMENT = stringPreferencesKey("images_alignment")
     val IMAGES_WIDTH = doublePreferencesKey("images_width")

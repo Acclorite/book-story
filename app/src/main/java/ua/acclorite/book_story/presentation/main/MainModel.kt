@@ -416,6 +416,14 @@ class MainModel @Inject constructor(
                 }
             )
 
+            is MainEvent.OnChangeImagesCaptions -> handleDatastoreUpdate(
+                key = DataStoreData.IMAGES_CAPTIONS,
+                value = event.value,
+                updateState = {
+                    it.copy(imagesCaptions = this)
+                }
+            )
+
             is MainEvent.OnChangeImagesCornersRoundness -> handleDatastoreUpdate(
                 key = DataStoreData.IMAGES_CORNERS_ROUNDNESS,
                 value = event.value,

@@ -236,7 +236,9 @@
     <string name="highlighted_reading_option_desc">Highlight the beginning of each word</string>
     <string name="highlighted_reading_thickness_option">Highlight thickness</string>
     <string name="images_option">Images</string>
-    <string name="images_option_desc">Display images along with their captions</string>
+    <string name="images_option_desc">Display images</string>
+    <string name="images_captions_option">Captions</string>
+    <string name="images_captions_option_desc">Display captions under images</string>
     <string name="images_corners_roundness_option">Corners roundness</string>
     <string name="images_alignment_option">Alignment</string>
     <string name="images_width_option">Size</string>
