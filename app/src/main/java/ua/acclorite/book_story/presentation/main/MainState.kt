@@ -97,6 +97,7 @@ data class MainState(
     val highlightedReadingThickness: Int = provideDefaultValue { 2 },
     val chapterTitleAlignment: ReaderTextAlignment = provideDefaultValue { ReaderTextAlignment.JUSTIFY },
     val images: Boolean = provideDefaultValue { true },
+    val imagesCaptions: Boolean = provideDefaultValue { true },
     val imagesCornersRoundness: Int = provideDefaultValue { 8 },
     val imagesAlignment: HorizontalAlignment = provideDefaultValue { HorizontalAlignment.START },
     val imagesWidth: Float = provideDefaultValue { 0.8f },
@@ -326,6 +327,10 @@ data class MainState(
                     images = provideValue(
                         IMAGES
                     ) { images },
+
+                    imagesCaptions = provideValue(
+                        IMAGES_CAPTIONS
+                    ) { imagesCaptions },
 
                     imagesCornersRoundness = provideValue(
                         IMAGES_CORNERS_ROUNDNESS

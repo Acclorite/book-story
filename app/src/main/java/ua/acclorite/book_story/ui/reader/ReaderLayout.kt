@@ -71,6 +71,7 @@ fun ReaderLayout(
     backgroundColor: Color,
     fontColor: Color,
     images: Boolean,
+    imagesCaptions: Boolean,
     imagesCornersRoundness: Dp,
     imagesAlignment: HorizontalAlignment,
     imagesWidth: Float,
@@ -187,8 +188,11 @@ fun ReaderLayout(
                     text,
                     key = { index, _ -> index }
                 ) { index, entry ->
+                    val previousEntry = text.getOrNull(index - 1)
+
                     when {
-                        !images && entry is ReaderText.Image -> return@itemsIndexed
+                        !images && (entry is ReaderText.Image || previousEntry is ReaderText.Image) -> return@itemsIndexed
+                        !imagesCaptions && previousEntry is ReaderText.Image -> return@itemsIndexed
                         else -> {
                             SpacedItem(
                                 index = index,

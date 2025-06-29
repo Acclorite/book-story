@@ -439,6 +439,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             backgroundColor = backgroundColor.value,
             fontColor = fontColor.value,
             images = mainState.value.images,
+            imagesCaptions = mainState.value.imagesCaptions,
             imagesCornersRoundness = imagesCornersRoundness,
             imagesAlignment = mainState.value.imagesAlignment,
             imagesWidth = imagesWidth,

@@ -212,7 +212,9 @@
     <string name="highlighted_reading_option_desc">Підсвічувати початок кожного слова</string>
     <string name="highlighted_reading_thickness_option">Товщина підсвічування</string>
     <string name="images_option">Зображення</string>
-    <string name="images_option_desc">Показувати зображення разом із написами до них</string>
+    <string name="images_option_desc">Показувати зображення</string>
+    <string name="images_captions_option">Написи</string>
+    <string name="images_captions_option_desc">Показувати написи під зображеннями</string>
     <string name="images_corners_roundness_option">Округлість кутків</string>
     <string name="images_alignment_option">Розташування</string>
     <string name="images_width_option">Розмір</string>
