@@ -416,7 +416,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             currentChapterProgress = state.value.currentChapterProgress,
             isLoading = state.value.isLoading,
             errorMessage = state.value.errorMessage,
-            checkpoint = state.value.checkpoint,
+            checkpoints = state.value.checkpoints,
             showMenu = state.value.showMenu,
             lockMenu = state.value.lockMenu,
             contentPadding = contentPadding,
