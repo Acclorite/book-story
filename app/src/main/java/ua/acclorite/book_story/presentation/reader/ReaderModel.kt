@@ -143,7 +143,7 @@ class ReaderModel @Inject constructor(
                 }
 
                 is ReaderEvent.OnMenuVisibility -> {
-                    launch {
+                    launch(Dispatchers.Default) {
                         if (_state.value.lockMenu) return@launch
 
                         yield()
@@ -152,21 +152,31 @@ class ReaderModel @Inject constructor(
                             show = event.show || !event.fullscreenMode,
                             activity = event.activity
                         )
+
+                        val checkpoints = _state.value.checkpoints.toMutableList()
+                        if (event.saveCheckpoint && event.show) {
+                            checkpoints.removeIf {
+                                it.index == _state.value.listState.firstVisibleItemIndex
+                            }
+                            checkpoints.add(
+                                Checkpoint(
+                                    _state.value.listState.firstVisibleItemIndex,
+                                    _state.value.listState.firstVisibleItemScrollOffset
+                                )
+                            )
+                        }
+
                         _state.update {
                             it.copy(
                                 showMenu = event.show,
-                                checkpoint = _state.value.listState.run {
-                                    if (!event.show || !event.saveCheckpoint) return@run it.checkpoint
-
-                                    Checkpoint(firstVisibleItemIndex, firstVisibleItemScrollOffset)
-                                }
+                                checkpoints = checkpoints
                             )
                         }
                     }
                 }
 
                 is ReaderEvent.OnChangeProgress -> {
-                    launch(Dispatchers.IO) {
+                    launch(Dispatchers.Default) {
                         _state.update {
                             it.copy(
                                 book = it.book.copy(
@@ -185,7 +195,7 @@ class ReaderModel @Inject constructor(
                 }
 
                 is ReaderEvent.OnScrollToChapter -> {
-                    launch {
+                    launch(Dispatchers.Default) {
                         _state.value.apply {
                             val chapterIndex = text.indexOf(event.chapter).takeIf { it != -1 }
                             if (chapterIndex == null) {
@@ -207,40 +217,52 @@ class ReaderModel @Inject constructor(
 
                 is ReaderEvent.OnScroll -> {
                     scrollJob?.cancel()
-                    scrollJob = launch {
+                    scrollJob = launch(Dispatchers.Main) {
                         delay(300)
-                        yield()
 
                         val scrollTo = (_state.value.text.lastIndex * event.progress).roundToInt()
-                        _state.value.listState.requestScrollToItem(scrollTo)
                         updateChapter(scrollTo)
-                    }
-                }
+                        try {
+                            _state.value.listState.requestScrollToItem(scrollTo)
+                        } catch (_: Exception) {
 
-                is ReaderEvent.OnRestoreCheckpoint -> {
-                    launch {
-                        _state.value.apply {
-                            listState.requestScrollToItem(
-                                checkpoint.index,
-                                checkpoint.offset
-                            )
-
-                            updateChapter(checkpoint.index)
-                            onEvent(
-                                ReaderEvent.OnChangeProgress(
-                                    progress = calculateProgress(checkpoint.index),
-                                    firstVisibleItemIndex = checkpoint.index,
-                                    firstVisibleItemOffset = checkpoint.offset,
-                                )
-                            )
                         }
                     }
                 }
 
-                is ReaderEvent.OnLeave -> {
-                    launch {
-                        yield()
+                is ReaderEvent.OnRestoreCheckpoint -> {
+                    launch(Dispatchers.Default) {
+                        _state.update {
+                            val checkpoints = it.checkpoints.toMutableList()
+                            if (checkpoints.size > 1) checkpoints.remove(event.checkpoint)
 
+                            it.copy(
+                                checkpoints = checkpoints
+                            )
+                        }
+
+                        try {
+                            _state.value.listState.requestScrollToItem(
+                                event.checkpoint.index,
+                                event.checkpoint.offset
+                            )
+                        } catch (_: Exception) {
+
+                        }
+
+                        updateChapter(event.checkpoint.index)
+                        onEvent(
+                            ReaderEvent.OnChangeProgress(
+                                progress = calculateProgress(event.checkpoint.index),
+                                firstVisibleItemIndex = event.checkpoint.index,
+                                firstVisibleItemOffset = event.checkpoint.offset,
+                            )
+                        )
+                    }
+                }
+
+                is ReaderEvent.OnLeave -> {
+                    launch(Dispatchers.Main) {
                         _state.update {
                             it.copy(
                                 lockMenu = true
@@ -282,7 +304,7 @@ class ReaderModel @Inject constructor(
                 }
 
                 is ReaderEvent.OnOpenTranslator -> {
-                    launch {
+                    launch(Dispatchers.Default) {
                         val translatorIntent = Intent()
                         val browserIntent = Intent()
 
@@ -324,7 +346,7 @@ class ReaderModel @Inject constructor(
                 }
 
                 is ReaderEvent.OnOpenShareApp -> {
-                    launch {
+                    launch(Dispatchers.Default) {
                         val shareIntent = Intent()
 
                         shareIntent.action = Intent.ACTION_SEND
@@ -356,7 +378,7 @@ class ReaderModel @Inject constructor(
                 }
 
                 is ReaderEvent.OnOpenWebBrowser -> {
-                    launch {
+                    launch(Dispatchers.Default) {
                         val browserIntent = Intent()
 
                         browserIntent.action = Intent.ACTION_WEB_SEARCH
@@ -382,7 +404,7 @@ class ReaderModel @Inject constructor(
                 }
 
                 is ReaderEvent.OnOpenDictionary -> {
-                    launch {
+                    launch(Dispatchers.Default) {
                         val dictionaryIntent = Intent()
                         val browserIntent = Intent()
 

@@ -9,6 +9,7 @@ package ua.acclorite.book_story.presentation.reader
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.domain.model.reader.ReaderText.Chapter
+import ua.acclorite.book_story.presentation.reader.model.Checkpoint
 
 @Immutable
 sealed class ReaderEvent {
@@ -39,7 +40,9 @@ sealed class ReaderEvent {
         val progress: Float
     ) : ReaderEvent()
 
-    data object OnRestoreCheckpoint : ReaderEvent()
+    data class OnRestoreCheckpoint(
+        val checkpoint: Checkpoint
+    ) : ReaderEvent()
 
     data class OnLeave(
         val activity: ComponentActivity,

@@ -29,7 +29,7 @@ data class ReaderState(
     val isLoading: Boolean = true,
 
     val showMenu: Boolean = false,
-    val checkpoint: Checkpoint = Checkpoint(0, 0),
+    val checkpoints: List<Checkpoint> = emptyList(),
     val lockMenu: Boolean = false,
 
     val bottomSheet: BottomSheet? = null,
