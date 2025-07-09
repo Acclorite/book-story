@@ -113,7 +113,7 @@
     <string name="press_again_toast">Apăsați butonul înapoi din nou pentru a ieși</string>
     <string name="search_content_desc">Caută</string>
     <string name="absolute_dark_option_desc">Schimbați culoarea fundalului pentru a fi complet negru</string>
-    <string name="start_welcome">Bine ați venit la Book\'s Story!</string>
+    <string name="start_welcome">Bine ați venit la %1$s!</string>
     <string name="start_welcome_desc">Într-o lume în care cuvintele fermecă, învață și conduc spre aventuri incredibile! Haide să configurăm câteva lucruri!</string>
     <string name="browse_empty">Extindeți colecția de cărți a bibliotecii cu descărcările dumneavoastră</string>
     <string name="history_empty">Lăsați ultima carte citită să vă deschidă paginile unei noi povești minunate din călătoria dumneavoastră de citit</string>

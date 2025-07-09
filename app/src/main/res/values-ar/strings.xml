@@ -282,7 +282,7 @@
     <string name="help_title_how_to_use_color_presets">كيف أستخدم إعدادات الألوان المسبقة؟</string>
     <string name="move_books_content_desc">انقل الكُتب المُحدّدة</string>
     <string name="start_welcome_desc">إلى عالم حيث الكلمات تسحر وتعلم وتقود إلى مغامرات لا تصدق! دعنا نرتب بعض الأمور!</string>
-    <string name="start_welcome">مرحبًا بك في Book\'s Story!</string>
+    <string name="start_welcome">مرحبًا بك في %1$s!</string>
     <string name="delete_books_content_desc">احذف الكُتب المُحدّدة</string>
     <string name="delete_color_preset_content_desc">احذف إعداد اللون المسبق</string>
     <string name="create_color_preset_content_desc">أنشئ إعداد لون مسبق جديد</string>

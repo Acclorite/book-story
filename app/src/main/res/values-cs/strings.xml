@@ -190,7 +190,7 @@
     <string name="delete_books_content_desc">Smazat vybrané knihy</string>
     <string name="browse_content_desc">Přidat knihy</string>
     <string name="move_books_content_desc">Přesunout vybrané knihy</string>
-    <string name="start_welcome">Vítejte v Book\'s Story!</string>
+    <string name="start_welcome">Vítejte v %1$s!</string>
     <string name="help_title_how_to_move_or_delete_books">Jak přesunu nebo smažu knihy?</string>
     <string name="add_files_content_desc">Přidat soubory</string>
     <string name="error_closed_source">Uzavřený zdroj</string>

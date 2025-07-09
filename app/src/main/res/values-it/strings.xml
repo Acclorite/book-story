@@ -172,7 +172,7 @@
     <string name="sort_settings">Ordinamento</string>
     <string name="font_family_option">Famiglia di font</string>
     <string name="help_desc_how_to_read_book_2">Libreria</string>
-    <string name="start_welcome">Benvenuti in Book\'s Story!</string>
+    <string name="start_welcome">Benvenuti in %1$s!</string>
     <string name="grid_size_per_row">per riga</string>
     <string name="history_deleted">La cronologia è stata eliminata correttamente.</string>
     <string name="press_again_toast">Premere di nuovo Indietro per uscire</string>

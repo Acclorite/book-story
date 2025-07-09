@@ -288,7 +288,7 @@
     <string name="cutout_padding_option">切り抜き余白</string>
     <string name="perception_expander_option">知覚拡張</string>
     <string name="help_title_how_to_use_color_presets">カラープリセットはどうやって使いますか?</string>
-    <string name="start_welcome">Book\'s Story へようこそ!</string>
+    <string name="start_welcome">%1$s へようこそ!</string>
     <string name="start_welcome_desc">言葉が人を魅了し、教え、そして素晴らしい冒険へと導く世界へ!準備を整えましょう!</string>
     <string name="start_language_preferences">言語設定</string>
     <string name="start_theme_preferences">テーマの設定</string>

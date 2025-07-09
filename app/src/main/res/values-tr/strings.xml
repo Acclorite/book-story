@@ -456,7 +456,7 @@
         odak noktanızı ekranın merkezinde tutun.
     </string>
     <!-- Start -->
-    <string name="start_welcome">Book\'s Story\'e hoş geldiniz!</string>
+    <string name="start_welcome">%1$s\'e hoş geldiniz!</string>
     <string name="start_welcome_desc">
         Kelimelerin büyülediği, öğrettiği ve inanılmaz maceralara sürüklediği bir dünyaya hoş geldiniz!
         Hadi, bazı ayarları yapalım!

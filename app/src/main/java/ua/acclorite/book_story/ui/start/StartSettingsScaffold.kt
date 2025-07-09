@@ -56,7 +56,10 @@ fun StartSettingsScaffold(
             )
             Spacer(modifier = Modifier.height(12.dp))
             StyledText(
-                text = stringResource(id = R.string.start_welcome),
+                text = stringResource(
+                    id = R.string.start_welcome,
+                    stringResource(R.string.app_name)
+                ),
                 style = MaterialTheme.typography.headlineSmall.copy(
                     color = MaterialTheme.colorScheme.onSurface
                 )

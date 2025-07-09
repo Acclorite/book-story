@@ -64,7 +64,7 @@
     <string name="help_desc_how_to_customize_app_3">Puedes hacerlo desde las pantallas de Biblioteca, Historial y Explorar haciendo clic en tres puntos en la esquina superior derecha y seleccionando «Ajustes» desde el menú desplegable. A continuación, verá todos los ajustes disponibles para esta aplicación. ¡No dudes en experimentar con ellos!</string>
     <string name="start_language_preferences">Configuración del idioma</string>
     <string name="start_theme_preferences">Preferencias de tema</string>
-    <string name="start_welcome">¡Bienvenid@ a Book\'s Story!</string>
+    <string name="start_welcome">¡Bienvenid@ a %1$s!</string>
     <string name="drag_content_desc">Arrastrar</string>
     <string name="delete">Borrar</string>
     <string name="delete_books_description">Eliminará todos los libros seleccionados(%1$s) de la base de datos. No eliminará los libros seleccionados de su dispositivo.</string>

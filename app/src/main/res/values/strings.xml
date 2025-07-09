@@ -573,7 +573,8 @@
 
 
     <!-- Start -->
-    <string name="start_welcome">Welcome to Book\'s Story!</string>
+    <!-- Welcome message. %1$s is the application name. -->
+    <string name="start_welcome">Welcome to %1$s!</string>
     <string name="start_welcome_desc">
         To a world where words charm,
         teach and lead on incredible adventures!

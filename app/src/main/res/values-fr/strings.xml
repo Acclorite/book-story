@@ -165,7 +165,7 @@
     <string name="help_title_how_to_create_color_presets">Comment créer et modifier des préréglages de couleurs?</string>
     <string name="help_title_how_to_use_color_presets">Comment utiliser les préréglages de couleur?</string>
     <string name="help_desc_how_to_use_color_presets_1">Allez dans les paramètres d\'apparence(voir: Comment personnaliser le Reader?). Vous pouvez choisir le préréglage de couleur à utiliser dans le paramètre «Préréglage de couleur». Cliquez sur le préréglage de couleur souhaité pour le sélectionner, ce qui modifiera également vos couleurs dans le lecteur. Si vous souhaitez réorganiser le préréglage des couleurs, sélectionnez-le et maintenez le bouton «Poignée» enfoncé, puis déplacez-le à la position souhaitée. Vous pouvez changer rapidement les préréglages de couleurs en activant le paramètre correspondant dans la sous-catégorie «Couleurs» des paramètres d\'apparence, puis en balayant la barre supérieure vers la gauche ou la droite dans Reader, pour changer rapidement les préréglages de couleurs.</string>
-    <string name="start_welcome">Bienvenue sur Book\'s Story!</string>
+    <string name="start_welcome">Bienvenue sur %1$s!</string>
     <string name="start_welcome_desc">Pour un monde où les mots charment, enseignent et mènent à des aventures incroyables! Mettons les choses au point!</string>
     <string name="start_language_preferences">Préférences de langue</string>
     <string name="start_theme_preferences">Préférences de thèmes</string>

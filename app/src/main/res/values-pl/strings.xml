@@ -140,7 +140,7 @@
     <string name="grid_size_auto">Automatyczny</string>
     <string name="books_added">Wszystkie wybrane książki zostały pomyślnie dodane.</string>
     <string name="help_title_how_to_customize_app">Jak mogę dostosować aplikację?</string>
-    <string name="start_welcome">Witamy w Book\'s Story!</string>
+    <string name="start_welcome">Witamy w %1$s!</string>
     <string name="help_title_how_to_add_books">Jak mogę dodać książki do biblioteki?</string>
     <string name="help_desc_how_to_add_books_1">Idź do</string>
     <string name="help_title_how_to_move_or_delete_books">Jak mogę przenieść lub usunąć książki?</string>
