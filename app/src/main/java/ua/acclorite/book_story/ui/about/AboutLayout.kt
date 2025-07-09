@@ -25,6 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import ua.acclorite.book_story.BuildConfig
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.data.LinkData
 import ua.acclorite.book_story.presentation.about.AboutEvent
@@ -77,7 +78,7 @@ fun AboutLayout(
         item {
             AboutItem(
                 title = stringResource(id = R.string.app_version_option),
-                description = "Book's Story v${stringResource(id = R.string.app_version)}",
+                description = "${stringResource(R.string.app_name)} v${BuildConfig.VERSION_NAME}",
             ) {
                 navigateToBrowserPage(
                     AboutEvent.OnNavigateToBrowserPage(
