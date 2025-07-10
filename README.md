@@ -72,7 +72,7 @@ open-source, offering you a personalized, ad-free journey through your favorite 
 <div>
 
 [<img src="https://raw.githubusercontent.com/Kunzisoft/Github-badge/main/get-it-on-github.png" alt='Get it on GitHub' height="80">](https://github.com/Acclorite/book-story/releases/latest)
-[<img src="https://censorship.no/img/gitlab-badge.png" alt='Get it on GitLab' height="80">](https://gitlab.com/Acclorite/book-story/-/releases)
+[<img src="fastlane/metadata/android/en-US/images/gitlab-badge.png" alt='Get it on GitLab' height="80">](https://gitlab.com/Acclorite/book-story/-/releases)
 [<img src="fastlane/metadata/android/en-US/images/codeberg-badge.png" alt='Get it on Codeberg' height="80">](https://codeberg.org/Acclorite/book-story/releases)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/en/packages/ua.acclorite.book_story/)
 [<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Get it on IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/ua.acclorite.book_story)
@@ -136,7 +136,6 @@ _Help translate the app on [Hosted Weblate](https://hosted.weblate.org/engage/bo
 - [Material Design Icons](https://fonts.google.com/icons) (Google Fonts)
 - [Material Design Fonts](https://fonts.google.com) (Google Fonts)
 - [Weblate Translators](https://hosted.weblate.org/projects/book-story) (Hosted Weblate)
-- [Censorship / GitLab Badge](https://censorship.no/en/index.html) (Censorship Website)
 - [GitHub Badge](https://github.com/Kunzisoft/Github-badge) (GitHub)
 - [Codeberg Badge](https://codeberg.org/Codeberg/GetItOnCodeberg) (Codeberg)
 - Also listed in About > Credits.
