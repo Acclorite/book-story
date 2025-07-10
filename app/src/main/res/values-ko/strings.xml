@@ -1,7 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
-
-<resources></resources>
+  --><resources>
+    <string name="default_string">기본</string>
+    <string name="library_screen">라이브러리</string>
+    <string name="history_screen">기록</string>
+    <string name="browse_screen">검색</string>
+    <string name="settings_screen">설정</string>
+</resources>
