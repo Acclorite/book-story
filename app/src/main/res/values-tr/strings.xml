@@ -516,4 +516,6 @@
     <string name="add_folder">Klasör ekle</string>
     <string name="note_content_desc">Not</string>
     <string name="remove_content_desc">Kaldır</string>
+    <string name="error_no_file_manager_app">Klasör seçmek için uygun bir uygulama bulunamadı.</string>
+    <string name="report">Rapor</string>
 </resources>
