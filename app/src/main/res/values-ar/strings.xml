@@ -33,7 +33,7 @@
     <string name="reset_cover">إعادة ضبط صورة الغلاف</string>
     <string name="appearance_settings">المظهر</string>
     <string name="reader_settings">قارئ</string>
-    <string name="reader_settings_desc">الخط، النص، المترجم</string>
+    <string name="reader_settings_desc">الخط، النص</string>
     <string name="translator_reader_settings">مترجم</string>
     <string name="theme_appearance_settings">تفضيلات السمة</string>
     <string name="language_option">لغة التطبيق</string>
@@ -362,4 +362,18 @@
     <string name="crash_title">عفواً! لقد تعطل التطبيق.</string>
     <string name="crash_description">يُرجى الإبلاغ عن رسالة التعطل هذه بالطريقة الأكثر ملاءمة لك.</string>
     <string name="report">بلّغ</string>
+    <string name="remove_category">إزالة الفئة؟</string>
+    <string name="remove_category_description">سيؤدي هذا إلى إزالة هذه الفئة من المكتبة ولكنه لن يحذف أي كتب.</string>
+    <string name="error_field_empty">يجب ألا يكون هذا الحقل فارغًا.</string>
+    <string name="categories_empty">لا توجد فئات.</string>
+    <string name="create_category">أنشئ فئة</string>
+    <string name="default_tab">الافتراضي</string>
+    <string name="library_settings">مكتبة</string>
+    <string name="library_settings_desc">الفئات، العرض، علامات التبويب</string>
+    <string name="tabs_settings">علامات التبويب</string>
+    <string name="categories_settings">الفئات</string>
+    <string name="library_categories_option_note">في البداية، تُضاف الكتب إلى الفئة الافتراضية، ولكن يمكن أن تنتمي إلى عدة فئات مخصّصة أُنشئت هنا. إزالة فئة من هنا لن يحذف الكتب من المكتبة. اضغط مع الاستمرار وحرك أيقونة الفئة لإعادة ترتيب الفئات.</string>
+    <string name="images_captions_option">التسميات التوضيحية</string>
+    <string name="images_captions_option_desc">اعرض التسميات التوضيحية أسفل الصور</string>
+    <string name="read_button_option">إظهار زر «قراءة»</string>
 </resources>
