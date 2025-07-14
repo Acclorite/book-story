@@ -375,5 +375,19 @@
     <string name="library_categories_option_note">في البداية، تُضاف الكتب إلى الفئة الافتراضية، ولكن يمكن أن تنتمي إلى عدة فئات مخصّصة أُنشئت هنا. إزالة فئة من هنا لن يحذف الكتب من المكتبة. اضغط مع الاستمرار وحرك أيقونة الفئة لإعادة ترتيب الفئات.</string>
     <string name="images_captions_option">التسميات التوضيحية</string>
     <string name="images_captions_option_desc">اعرض التسميات التوضيحية أسفل الصور</string>
-    <string name="read_button_option">إظهار زر «قراءة»</string>
+    <string name="read_button_option">أظهر زر «قراءة»</string>
+    <string name="show_progress_option">أظهر التقدم</string>
+    <string name="title_position_option">المسمى الوظيفي</string>
+    <string name="show_book_count_option">أظهر عدد الكتب</string>
+    <string name="show_category_tabs_option">أظهر علامات تبويب الفئات</string>
+    <string name="always_show_default_tab_option">أظهر علامة التبويب الافتراضية دائمًا</string>
+    <string name="per_category_sort_option">الفرز حسب الفئة</string>
+    <string name="library_title_position_off">مخفي</string>
+    <string name="library_title_position_below">أسفل</string>
+    <string name="library_title_position_inside">الداخل</string>
+    <string name="library_categories_create_category_placeholder">العنوان</string>
+    <string name="sort_order_last_read">آخر قراءة</string>
+    <string name="sort_order_progress">التقدم</string>
+    <string name="sort_order_author">المؤلف</string>
+    <string name="gray_theme">يافث</string>
 </resources>
