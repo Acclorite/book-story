@@ -362,4 +362,7 @@
     <string name="support_development_option">Apoiar o desenvolvimento</string>
     <string name="crash_description">Por favor, reporte essa mensagem de erro da forma que lhe for mais conveniente.</string>
     <string name="horizontal_gesture_pull_anim_option_desc">Habilitar animação de puxar ao usar gesto horizontal</string>
+    <string name="remove_category">Remover categoria?</string>
+    <string name="remove_category_description">Isso vai remover essa categoria da Biblioteca, mas não excluirá nenhum livro.</string>
+    <string name="error_field_empty">Esse campo não deve estar vazio</string>
 </resources>
