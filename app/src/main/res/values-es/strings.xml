@@ -91,7 +91,7 @@
     <string name="author">Autor</string>
     <string name="general_settings_desc">Lenguaje de la aplicación</string>
     <string name="reader_settings">Lector</string>
-    <string name="reader_settings_desc">Fuente, texto, traductor</string>
+    <string name="reader_settings_desc">Fuente, texto</string>
     <string name="translator_reader_settings">Traductor</string>
     <string name="text_reader_settings">Texto</string>
     <string name="theme_appearance_settings">Preferencias de tema</string>
@@ -218,7 +218,7 @@
     <string name="share">Compartir</string>
     <string name="filter_tab">Filtrar</string>
     <string name="browse_settings">Navegar</string>
-    <string name="browse_settings_desc">General, filtrar, clasificar</string>
+    <string name="browse_settings_desc">Escanear, clasificar</string>
     <string name="filter_browse_settings">Filtrar</string>
     <string name="sort_settings">Clasificar</string>
     <string name="layout_option">Modo de visualización</string>
@@ -330,4 +330,26 @@
     <string name="set_up_scanning">Configurar escaneo</string>
     <string name="error_no_file_manager_app">No hay un gestor de archivos disponible.</string>
     <string name="report">Reportar</string>
+    <string name="remove_category">¿Remover categoría?</string>
+    <string name="remove_category_description">Esto removerá esta categoría de la Librería pero no eliminará ningún libro.</string>
+    <string name="error_field_empty">Este espació no debe estar vacío.</string>
+    <string name="categories_empty">Sin categorías</string>
+    <string name="create_category">Crear categoría</string>
+    <string name="default_tab">Predeterminado</string>
+    <string name="library_settings">Librería</string>
+    <string name="categories_settings">Categorías</string>
+    <string name="library_categories_option_note">Inicialmente, los libros se añaden a la categoría predeterminada, pero pueden pertenecer a varías categorías personalizadas. Remover una categoría no eliminará libros de la Librería. Mantén y mueve el ícono de la categoría para reorganizar las categorías</string>
+    <string name="images_option">Imágenes</string>
+    <string name="images_option_desc">Mostrar imágenes</string>
+    <string name="images_captions_option">Descripciones</string>
+    <string name="images_captions_option_desc">Mostrar descripciones bajo las imágenes</string>
+    <string name="show_progress_option">Mostrar progreso</string>
+    <string name="title_position_option">Posición del Título</string>
+    <string name="library_title_position_off">Oculto</string>
+    <string name="library_categories_create_category_placeholder">Título</string>
+    <string name="sort_order_progress">Progreso</string>
+    <string name="sort_order_author">Autor</string>
+    <string name="crash_title">¡Ups! La aplicación dejó de funcionar.</string>
+    <string name="edit_content_desc">Editar</string>
+    <string name="remove_content_desc">Remover</string>
 </resources>
