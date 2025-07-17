@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.data.model.library
+package ua.acclorite.book_story.data.model.common
 
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.core.CoverImage
