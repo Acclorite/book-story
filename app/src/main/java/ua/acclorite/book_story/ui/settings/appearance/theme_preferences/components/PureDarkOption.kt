@@ -9,23 +9,18 @@ package ua.acclorite.book_story.ui.settings.appearance.theme_preferences.compone
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
-import ua.acclorite.book_story.presentation.main.model.PureDark
-import ua.acclorite.book_story.presentation.main.model.isDark
 import ua.acclorite.book_story.ui.common.components.settings.SegmentedButtonWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.common.model.ButtonItem
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
+import ua.acclorite.book_story.ui.theme.model.PureDark
 
 @Composable
 fun PureDarkOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
-    ExpandingTransition(visible = state.value.darkTheme.isDark()) {
+    ExpandingTransition(visible = settings.darkTheme.value.isDark()) {
         SegmentedButtonWithTitle(
             title = stringResource(id = R.string.pure_dark_option),
             buttons = PureDark.entries.map {
@@ -37,15 +32,11 @@ fun PureDarkOption() {
                         PureDark.SAVER -> stringResource(id = R.string.pure_dark_power_saver)
                     },
                     textStyle = MaterialTheme.typography.labelLarge,
-                    selected = it == state.value.pureDark
+                    selected = it == settings.pureDark.value
                 )
             }
         ) {
-            mainModel.onEvent(
-                MainEvent.OnChangePureDark(
-                    it.id
-                )
-            )
+            settings.pureDark.update(PureDark.valueOf(it.id))
         }
     }
 }

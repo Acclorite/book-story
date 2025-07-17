@@ -6,7 +6,7 @@
 
 package ua.acclorite.book_story.domain.repository
 
-import ua.acclorite.book_story.data.model.library.BookWithCover
+import ua.acclorite.book_story.data.model.common.BookWithCover
 import ua.acclorite.book_story.domain.model.file.File
 
 interface FileSystemRepository {

@@ -13,10 +13,6 @@ import ua.acclorite.book_story.domain.repository.ColorPresetRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Color Preset repository.
- * Manages all [ColorPreset] related work.
- */
 @Singleton
 class ColorPresetRepositoryImpl @Inject constructor(
     private val database: BookDao,

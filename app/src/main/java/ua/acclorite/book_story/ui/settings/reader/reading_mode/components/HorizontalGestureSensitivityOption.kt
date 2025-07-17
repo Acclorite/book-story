@@ -8,34 +8,28 @@ package ua.acclorite.book_story.ui.settings.reader.reading_mode.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.presentation.reader.model.ReaderHorizontalGesture
 import ua.acclorite.book_story.ui.common.components.settings.SliderWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
 fun HorizontalGestureSensitivityOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
     ExpandingTransition(
-        visible = when (state.value.horizontalGesture) {
+        visible = when (settings.horizontalGesture.value) {
             ReaderHorizontalGesture.OFF -> false
             else -> true
         }
     ) {
         SliderWithTitle(
-            value = state.value.horizontalGestureSensitivity to "%",
+            value = settings.horizontalGestureSensitivity.value to "%",
             toValue = 100,
             title = stringResource(id = R.string.horizontal_gesture_sensitivity_option),
             onValueChange = {
-                mainModel.onEvent(
-                    MainEvent.OnChangeHorizontalGestureSensitivity(it)
-                )
+                settings.horizontalGestureSensitivity.update(it)
             }
         )
     }

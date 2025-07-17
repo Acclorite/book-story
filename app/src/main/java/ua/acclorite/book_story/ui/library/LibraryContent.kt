@@ -20,7 +20,6 @@ import ua.acclorite.book_story.presentation.library.model.LibraryLayout
 import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
 import ua.acclorite.book_story.presentation.library.model.LibraryTitlePosition
 import ua.acclorite.book_story.presentation.library.model.SelectableBook
-import ua.acclorite.book_story.presentation.main.MainEvent
 import ua.acclorite.book_story.presentation.settings.SettingsEvent
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -55,8 +54,8 @@ fun LibraryContent(
     dialog: Dialog?,
     bottomSheet: BottomSheet?,
     updateCategorySort: (SettingsEvent.OnUpdateCategorySort) -> Unit,
-    changeLibrarySortOrder: (MainEvent.OnChangeLibrarySortOrder) -> Unit,
-    changeLibrarySortOrderDescending: (MainEvent.OnChangeLibrarySortOrderDescending) -> Unit,
+    changeSortOrder: (LibrarySortOrder) -> Unit,
+    changeSortOrderDescending: (Boolean) -> Unit,
     selectBook: (LibraryEvent.OnSelectBook) -> Unit,
     searchVisibility: (LibraryEvent.OnSearchVisibility) -> Unit,
     requestFocus: (LibraryEvent.OnRequestFocus) -> Unit,
@@ -95,8 +94,8 @@ fun LibraryContent(
         sortOrder = sortOrder,
         sortOrderDescending = sortOrderDescending,
         perCategorySort = perCategorySort,
-        changeLibrarySortOrder = changeLibrarySortOrder,
-        changeLibrarySortOrderDescending = changeLibrarySortOrderDescending,
+        changeSortOrder = changeSortOrder,
+        changeSortOrderDescending = changeSortOrderDescending,
         updateCategorySort = updateCategorySort,
         dismissBottomSheet = dismissBottomSheet
     )

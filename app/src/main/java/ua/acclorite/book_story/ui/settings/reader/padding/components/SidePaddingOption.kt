@@ -8,27 +8,21 @@ package ua.acclorite.book_story.ui.settings.reader.padding.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.ui.common.components.settings.SliderWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 
 @Composable
 fun SidePaddingOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
     SliderWithTitle(
-        value = state.value.sidePadding to "pt",
+        value = settings.sidePadding.value to "pt",
         fromValue = 1,
         toValue = 20,
         title = stringResource(id = R.string.side_padding_option),
         onValueChange = {
-            mainModel.onEvent(
-                MainEvent.OnChangeSidePadding(it)
-            )
+            settings.sidePadding.update(it)
         }
     )
 }

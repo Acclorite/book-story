@@ -13,41 +13,35 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
-import ua.acclorite.book_story.presentation.main.model.ThemeContrast
-import ua.acclorite.book_story.presentation.main.model.isDark
-import ua.acclorite.book_story.presentation.main.model.isPureDark
 import ua.acclorite.book_story.ui.common.components.settings.SegmentedButtonWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.common.model.ButtonItem
 import ua.acclorite.book_story.ui.theme.BookStoryTheme
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
+import ua.acclorite.book_story.ui.theme.model.ThemeContrast
 
 @Composable
 fun ThemeContrastOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
-    val themeContrastTheme = remember { mutableStateOf(state.value.theme) }
-    LaunchedEffect(state.value.theme) {
-        if (state.value.theme.hasThemeContrast) {
-            themeContrastTheme.value = state.value.theme
+    val themeContrastTheme = remember { mutableStateOf(settings.theme.lastValue) }
+    LaunchedEffect(settings.theme.value) {
+        if (settings.theme.lastValue.hasThemeContrast) {
+            themeContrastTheme.value = settings.theme.lastValue
         }
     }
 
     BookStoryTheme(
         theme = themeContrastTheme.value,
-        isDark = state.value.darkTheme.isDark(),
-        isPureDark = state.value.pureDark.isPureDark(context = LocalContext.current),
-        themeContrast = state.value.themeContrast
+        isDark = settings.darkTheme.value.isDark(),
+        isPureDark = settings.pureDark.value.isPureDark(context = LocalContext.current),
+        themeContrast = settings.themeContrast.value
     ) {
-        ExpandingTransition(visible = state.value.theme.hasThemeContrast) {
+        ExpandingTransition(visible = settings.theme.value.hasThemeContrast) {
             SegmentedButtonWithTitle(
                 title = stringResource(id = R.string.theme_contrast_option),
-                enabled = state.value.theme.hasThemeContrast,
+                enabled = settings.theme.value.hasThemeContrast,
                 buttons = ThemeContrast.entries.map {
                     ButtonItem(
                         id = it.toString(),
@@ -57,15 +51,11 @@ fun ThemeContrastOption() {
                             ThemeContrast.HIGH -> stringResource(id = R.string.theme_contrast_high)
                         },
                         textStyle = MaterialTheme.typography.labelLarge,
-                        selected = it == state.value.themeContrast
+                        selected = it == settings.themeContrast.value
                     )
                 }
             ) {
-                mainModel.onEvent(
-                    MainEvent.OnChangeThemeContrast(
-                        it.id
-                    )
-                )
+                settings.themeContrast.update(ThemeContrast.valueOf(it.id))
             }
         }
     }

@@ -16,6 +16,10 @@ import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
 
 @Immutable
 sealed class SettingsEvent {
+    data class OnUpdateLanguage(
+        val language: String
+    ) : SettingsEvent()
+
     data class OnGrantPersistableUriPermission(
         val uri: Uri
     ) : SettingsEvent()

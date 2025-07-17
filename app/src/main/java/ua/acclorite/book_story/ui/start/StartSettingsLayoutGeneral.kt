@@ -17,14 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
 import ua.acclorite.book_story.ui.common.components.dialog.SelectableDialogItem
 import ua.acclorite.book_story.ui.common.model.ButtonItem
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategoryTitle
 
 fun LazyListScope.StartSettingsLayoutGeneral(
     languages: List<ButtonItem>,
-    changeLanguage: (MainEvent.OnChangeLanguage) -> Unit
+    updateLanguage: (String) -> Unit,
 ) {
     item {
         Spacer(modifier = Modifier.height(16.dp))
@@ -41,7 +40,7 @@ fun LazyListScope.StartSettingsLayoutGeneral(
             title = it.title,
             horizontalPadding = 18.dp
         ) {
-            changeLanguage(MainEvent.OnChangeLanguage(it.id))
+            updateLanguage(it.id)
         }
     }
 

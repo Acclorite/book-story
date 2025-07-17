@@ -9,35 +9,31 @@ package ua.acclorite.book_story.ui.settings.appearance.theme_preferences.compone
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
-import ua.acclorite.book_story.presentation.main.model.DarkTheme
 import ua.acclorite.book_story.ui.common.components.settings.SegmentedButtonWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.common.model.ButtonItem
+import ua.acclorite.book_story.ui.theme.model.DarkTheme
 
 @Composable
 fun DarkThemeOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
     SegmentedButtonWithTitle(
         title = stringResource(id = R.string.dark_theme_option),
         buttons = DarkTheme.entries.map {
             ButtonItem(
-                it.toString(),
+                it.name,
                 title = when (it) {
                     DarkTheme.OFF -> stringResource(id = R.string.dark_theme_off)
                     DarkTheme.ON -> stringResource(id = R.string.dark_theme_on)
                     DarkTheme.FOLLOW_SYSTEM -> stringResource(id = R.string.dark_theme_follow_system)
                 },
                 textStyle = MaterialTheme.typography.labelLarge,
-                selected = it == state.value.darkTheme
+                selected = it == settings.darkTheme.value
             )
         }
     ) {
-        mainModel.onEvent(MainEvent.OnChangeDarkTheme(it.id))
+        settings.darkTheme.update(DarkTheme.valueOf(it.id))
     }
 }

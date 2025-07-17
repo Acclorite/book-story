@@ -26,11 +26,11 @@ import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.presentation.book_info.BookInfoScreen
 import ua.acclorite.book_story.presentation.browse.BrowseScreen
 import ua.acclorite.book_story.presentation.history.HistoryScreen
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.presentation.navigator.Screen
 import ua.acclorite.book_story.presentation.reader.ReaderScreen
 import ua.acclorite.book_story.presentation.settings.LibrarySettingsScreen
 import ua.acclorite.book_story.presentation.settings.SettingsModel
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.library.LibraryContent
 import ua.acclorite.book_story.ui.navigator.LocalNavigator
 
@@ -59,22 +59,23 @@ object LibraryScreen : Screen, Parcelable {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
-
         val screenModel = hiltViewModel<LibraryModel>()
-        val mainModel = hiltViewModel<MainModel>()
         val settingsModel = hiltViewModel<SettingsModel>()
+        val settings = LocalSettings.current
 
         val state = screenModel.state.collectAsStateWithLifecycle()
-        val mainState = mainModel.state.collectAsStateWithLifecycle()
         val settingsState = settingsModel.state.collectAsStateWithLifecycle()
 
-        val showDefaultCategory = remember(state.value.books, settingsState.value.categories) {
+        val showDefaultCategory = remember(
+            state.value.books,
+            settingsState.value.categories,
+            settings.libraryShowDefaultTab.value
+        ) {
             derivedStateOf {
                 val categoryIds = settingsState.value.categories.map { it.id }.toSet()
                 state.value.books.any { book ->
                     book.data.categories.none { category -> category in categoryIds }
-                } || settingsState.value.categories.isEmpty()
-                        || mainState.value.libraryAlwaysShowDefaultTab
+                } || settingsState.value.categories.isEmpty() || settings.libraryShowDefaultTab.lastValue
             }
         }
 
@@ -108,11 +109,11 @@ object LibraryScreen : Screen, Parcelable {
             books = state.value.books,
             selectedItemsCount = state.value.selectedItemsCount,
             hasSelectedItems = state.value.hasSelectedItems,
-            titlePosition = mainState.value.libraryTitlePosition,
-            readButton = mainState.value.libraryReadButton,
-            showProgress = mainState.value.libraryShowProgress,
-            showCategoryTabs = mainState.value.libraryShowCategoryTabs,
-            showBookCount = mainState.value.libraryShowBookCount,
+            titlePosition = settings.libraryTitlePosition.value,
+            readButton = settings.libraryShowReadButton.value,
+            showProgress = settings.libraryShowProgress.value,
+            showCategoryTabs = settings.libraryShowCategoryTabs.value,
+            showBookCount = settings.libraryShowBookCount.value,
             showSearch = state.value.showSearch,
             searchQuery = state.value.searchQuery,
             bookCount = state.value.books.count(),
@@ -120,22 +121,22 @@ object LibraryScreen : Screen, Parcelable {
             pagerState = pagerState,
             isLoading = state.value.isLoading,
             isRefreshing = state.value.isRefreshing,
-            doublePressExit = mainState.value.doublePressExit,
-            layout = mainState.value.libraryLayout,
-            gridSize = mainState.value.libraryGridSize,
-            autoGridSize = mainState.value.libraryAutoGridSize,
+            doublePressExit = settings.doublePressExit.value,
+            layout = settings.libraryLayout.value,
+            gridSize = settings.libraryGridSize.value,
+            autoGridSize = settings.libraryAutoGridSize.value,
             categories = settingsState.value.categories,
             showDefaultCategory = showDefaultCategory.value,
             categoriesSort = settingsState.value.categoriesSort,
-            sortOrder = mainState.value.librarySortOrder,
-            sortOrderDescending = mainState.value.librarySortOrderDescending,
-            perCategorySort = mainState.value.libraryPerCategorySort,
+            sortOrder = settings.librarySortOrder.value,
+            sortOrderDescending = settings.librarySortOrderDescending.value,
+            perCategorySort = settings.libraryPerCategorySort.value,
             refreshState = refreshState,
             dialog = state.value.dialog,
             bottomSheet = state.value.bottomSheet,
             updateCategorySort = settingsModel::onEvent,
-            changeLibrarySortOrder = mainModel::onEvent,
-            changeLibrarySortOrderDescending = mainModel::onEvent,
+            changeSortOrder = { settings.librarySortOrder.update(it) },
+            changeSortOrderDescending = { settings.librarySortOrderDescending.update(it) },
             selectBook = screenModel::onEvent,
             searchVisibility = screenModel::onEvent,
             requestFocus = screenModel::onEvent,

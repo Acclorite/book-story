@@ -23,44 +23,42 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.collections.immutable.persistentListOf
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.data.settings.SettingsManager
 import ua.acclorite.book_story.presentation.browse.BrowseModel
 import ua.acclorite.book_story.presentation.browse.BrowseScreen
 import ua.acclorite.book_story.presentation.history.HistoryModel
 import ua.acclorite.book_story.presentation.history.HistoryScreen
 import ua.acclorite.book_story.presentation.library.LibraryModel
 import ua.acclorite.book_story.presentation.library.LibraryScreen
-import ua.acclorite.book_story.presentation.main.model.isDark
-import ua.acclorite.book_story.presentation.main.model.isPureDark
 import ua.acclorite.book_story.presentation.navigator.NavigatorItem
 import ua.acclorite.book_story.presentation.navigator.StackEvent
 import ua.acclorite.book_story.presentation.settings.SettingsModel
 import ua.acclorite.book_story.presentation.start.StartScreen
 import ua.acclorite.book_story.ui.common.components.navigation_bar.NavigationBar
 import ua.acclorite.book_story.ui.common.components.navigation_rail.NavigationRail
+import ua.acclorite.book_story.ui.common.helpers.ProvideSettings
 import ua.acclorite.book_story.ui.main.MainActivityKeyboardManager
 import ua.acclorite.book_story.ui.navigator.Navigator
 import ua.acclorite.book_story.ui.navigator.NavigatorTabs
 import ua.acclorite.book_story.ui.theme.BookStoryTheme
 import ua.acclorite.book_story.ui.theme.Transitions
 import java.lang.reflect.Field
+import javax.inject.Inject
 
 
 @SuppressLint("DiscouragedPrivateApi")
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    // Creating an instance of Models
-    private val mainModel: MainModel by viewModels()
+
+    @Inject
+    lateinit var settings: SettingsManager
     private val settingsModel: SettingsModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Splash screen
-        installSplashScreen().apply {
-            setKeepOnScreenCondition {
-                !mainModel.isReady.value
-            }
+        installSplashScreen().setKeepOnScreenCondition {
+            !settings.initialized.value || !settingsModel.isReady.value
         }
 
-        // Default super
         super.onCreate(savedInstanceState)
 
         // Bigger Cursor size for Room
@@ -72,9 +70,6 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
 
-        // Initializing the MainModel
-        mainModel.init(settingsModel.isReady)
-
         // Edge to edge
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -85,83 +80,82 @@ class MainActivity : AppCompatActivity() {
             val historyModel = hiltViewModel<HistoryModel>()
             val browseModel = hiltViewModel<BrowseModel>()
 
-            val state = mainModel.state.collectAsStateWithLifecycle()
-            val isLoaded = mainModel.isReady.collectAsStateWithLifecycle()
-
-            val tabs = persistentListOf(
-                NavigatorItem(
-                    screen = LibraryScreen,
-                    title = R.string.library_screen,
-                    tooltip = R.string.library_content_desc,
-                    selectedIcon = R.drawable.library_screen_filled,
-                    unselectedIcon = R.drawable.library_screen_outlined
-                ),
-                NavigatorItem(
-                    screen = HistoryScreen,
-                    title = R.string.history_screen,
-                    tooltip = R.string.history_content_desc,
-                    selectedIcon = R.drawable.history_screen_filled,
-                    unselectedIcon = R.drawable.history_screen_outlined
-                ),
-                NavigatorItem(
-                    screen = BrowseScreen,
-                    title = R.string.browse_screen,
-                    tooltip = R.string.browse_content_desc,
-                    selectedIcon = R.drawable.browse_screen_filled,
-                    unselectedIcon = R.drawable.browse_screen_outlined
+            ProvideSettings(settings) {
+                val tabs = persistentListOf(
+                    NavigatorItem(
+                        screen = LibraryScreen,
+                        title = R.string.library_screen,
+                        tooltip = R.string.library_content_desc,
+                        selectedIcon = R.drawable.library_screen_filled,
+                        unselectedIcon = R.drawable.library_screen_outlined
+                    ),
+                    NavigatorItem(
+                        screen = HistoryScreen,
+                        title = R.string.history_screen,
+                        tooltip = R.string.history_content_desc,
+                        selectedIcon = R.drawable.history_screen_filled,
+                        unselectedIcon = R.drawable.history_screen_outlined
+                    ),
+                    NavigatorItem(
+                        screen = BrowseScreen,
+                        title = R.string.browse_screen,
+                        tooltip = R.string.browse_content_desc,
+                        selectedIcon = R.drawable.browse_screen_filled,
+                        unselectedIcon = R.drawable.browse_screen_outlined
+                    )
                 )
-            )
 
-            MainActivityKeyboardManager()
+                MainActivityKeyboardManager()
 
-            if (isLoaded.value) {
-                BookStoryTheme(
-                    theme = state.value.theme,
-                    isDark = state.value.darkTheme.isDark(),
-                    isPureDark = state.value.pureDark.isPureDark(this),
-                    themeContrast = state.value.themeContrast
-                ) {
-                    Navigator(
-                        initialScreen = if (state.value.showStartScreen) StartScreen
-                        else LibraryScreen,
-                        transitionSpec = { lastEvent ->
-                            when (lastEvent) {
-                                StackEvent.Default -> {
-                                    Transitions.SlidingTransitionIn
-                                        .togetherWith(Transitions.SlidingTransitionOut)
+                if (settings.initialized.collectAsStateWithLifecycle().value) {
+                    BookStoryTheme(
+                        theme = settings.theme.value,
+                        isDark = settings.darkTheme.value.isDark(),
+                        isPureDark = settings.pureDark.value.isPureDark(this),
+                        themeContrast = settings.themeContrast.value
+                    ) {
+                        Navigator(
+                            initialScreen = if (settings.showStartScreen.value) StartScreen
+                            else LibraryScreen,
+                            transitionSpec = { lastEvent ->
+                                when (lastEvent) {
+                                    StackEvent.Default -> {
+                                        Transitions.SlidingTransitionIn
+                                            .togetherWith(Transitions.SlidingTransitionOut)
+                                    }
+
+                                    StackEvent.Pop -> {
+                                        Transitions.BackSlidingTransitionIn
+                                            .togetherWith(Transitions.BackSlidingTransitionOut)
+                                    }
+                                }
+                            },
+                            contentKey = {
+                                when (it) {
+                                    LibraryScreen, HistoryScreen, BrowseScreen -> "tabs"
+                                    else -> it
+                                }
+                            },
+                            backHandlerEnabled = { it != StartScreen }
+                        ) { screen ->
+                            when (screen) {
+                                LibraryScreen, HistoryScreen, BrowseScreen -> {
+                                    NavigatorTabs(
+                                        currentTab = screen,
+                                        transitionSpec = {
+                                            Transitions.FadeTransitionIn
+                                                .togetherWith(Transitions.FadeTransitionOut)
+                                        },
+                                        navigationBar = { NavigationBar(tabs = tabs) },
+                                        navigationRail = { NavigationRail(tabs = tabs) }
+                                    ) { tab ->
+                                        tab.Content()
+                                    }
                                 }
 
-                                StackEvent.Pop -> {
-                                    Transitions.BackSlidingTransitionIn
-                                        .togetherWith(Transitions.BackSlidingTransitionOut)
+                                else -> {
+                                    screen.Content()
                                 }
-                            }
-                        },
-                        contentKey = {
-                            when (it) {
-                                LibraryScreen, HistoryScreen, BrowseScreen -> "tabs"
-                                else -> it
-                            }
-                        },
-                        backHandlerEnabled = { it != StartScreen }
-                    ) { screen ->
-                        when (screen) {
-                            LibraryScreen, HistoryScreen, BrowseScreen -> {
-                                NavigatorTabs(
-                                    currentTab = screen,
-                                    transitionSpec = {
-                                        Transitions.FadeTransitionIn
-                                            .togetherWith(Transitions.FadeTransitionOut)
-                                    },
-                                    navigationBar = { NavigationBar(tabs = tabs) },
-                                    navigationRail = { NavigationRail(tabs = tabs) }
-                                ) { tab ->
-                                    tab.Content()
-                                }
-                            }
-
-                            else -> {
-                                screen.Content()
                             }
                         }
                     }

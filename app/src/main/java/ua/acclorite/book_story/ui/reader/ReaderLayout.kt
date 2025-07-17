@@ -34,7 +34,6 @@ import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.reader.ReaderText
-import ua.acclorite.book_story.presentation.main.model.HorizontalAlignment
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.presentation.reader.model.ReaderFontThickness
 import ua.acclorite.book_story.presentation.reader.model.ReaderHorizontalGesture
@@ -47,6 +46,7 @@ import ua.acclorite.book_story.ui.common.helpers.LocalActivity
 import ua.acclorite.book_story.ui.common.helpers.noRippleClickable
 import ua.acclorite.book_story.ui.common.helpers.showToast
 import ua.acclorite.book_story.ui.reader.model.FontWithName
+import ua.acclorite.book_story.ui.theme.model.HorizontalAlignment
 
 @Composable
 fun ReaderLayout(

@@ -8,27 +8,21 @@ package ua.acclorite.book_story.ui.settings.reader.font.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.ui.common.components.settings.SliderWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 
 @Composable
 fun FontSizeOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
     SliderWithTitle(
-        value = state.value.fontSize to "pt",
+        value = settings.fontSize.value to "pt",
         fromValue = 10,
         toValue = 35,
         title = stringResource(id = R.string.font_size_option),
         onValueChange = {
-            mainModel.onEvent(
-                MainEvent.OnChangeFontSize(it)
-            )
+            settings.fontSize.update(it)
         }
     )
 }

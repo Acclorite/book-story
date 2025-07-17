@@ -10,14 +10,12 @@ import android.os.Parcelable
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.presentation.browse.BrowseScreen
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.presentation.navigator.Screen
 import ua.acclorite.book_story.presentation.start.StartScreen
 import ua.acclorite.book_story.ui.common.components.top_bar.collapsibleTopAppBarScrollBehavior
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.help.HelpContent
 import ua.acclorite.book_story.ui.navigator.LocalNavigator
 
@@ -28,7 +26,7 @@ data class HelpScreen(val fromStart: Boolean) : Screen, Parcelable {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
-        val mainModel = hiltViewModel<MainModel>()
+        val settings = LocalSettings.current
 
         val (scrollBehavior, listState) = TopAppBarDefaults.collapsibleTopAppBarScrollBehavior()
 
@@ -36,12 +34,12 @@ data class HelpScreen(val fromStart: Boolean) : Screen, Parcelable {
             fromStart = fromStart,
             scrollBehavior = scrollBehavior,
             listState = listState,
-            changeShowStartScreen = mainModel::onEvent,
+            changeShowStartScreen = { settings.showStartScreen.update(it) },
             navigateToBrowse = {
                 navigator.push(BrowseScreen, saveInBackStack = false)
             },
             navigateToStart = {
-                mainModel.onEvent(MainEvent.OnChangeShowStartScreen(true))
+                settings.showStartScreen.update(true)
                 navigator.push(StartScreen, saveInBackStack = false)
             },
             navigateBack = {

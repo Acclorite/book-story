@@ -4,11 +4,9 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.presentation.main.model
+package ua.acclorite.book_story.ui.theme.model
 
-import androidx.compose.runtime.Immutable
 
-@Immutable
 enum class ThemeContrast {
     STANDARD,
     MEDIUM,

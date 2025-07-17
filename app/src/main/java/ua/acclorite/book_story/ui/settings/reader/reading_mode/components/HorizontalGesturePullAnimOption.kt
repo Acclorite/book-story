@@ -8,36 +8,28 @@ package ua.acclorite.book_story.ui.settings.reader.reading_mode.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.presentation.reader.model.ReaderHorizontalGesture
 import ua.acclorite.book_story.ui.common.components.settings.SwitchWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
 fun HorizontalGesturePullAnimOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
     ExpandingTransition(
-        visible = when (state.value.horizontalGesture) {
+        visible = when (settings.horizontalGesture.value) {
             ReaderHorizontalGesture.OFF -> false
             else -> true
         }
     ) {
         SwitchWithTitle(
-            selected = state.value.horizontalGesturePullAnim,
+            selected = settings.horizontalGesturePullAnim.value,
             title = stringResource(id = R.string.horizontal_gesture_pull_anim_option),
             description = stringResource(id = R.string.horizontal_gesture_pull_anim_option_desc),
             onClick = {
-                mainModel.onEvent(
-                    MainEvent.OnChangeHorizontalGesturePullAnim(
-                        !state.value.horizontalGesturePullAnim
-                    )
-                )
+                settings.horizontalGesturePullAnim.update(!settings.horizontalGesturePullAnim.lastValue)
             }
         )
     }

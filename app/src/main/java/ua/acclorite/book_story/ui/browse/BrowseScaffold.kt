@@ -22,7 +22,6 @@ import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.presentation.browse.BrowseEvent
 import ua.acclorite.book_story.presentation.browse.model.BrowseLayout
 import ua.acclorite.book_story.presentation.browse.model.SelectableFile
-import ua.acclorite.book_story.presentation.main.MainEvent
 import ua.acclorite.book_story.ui.theme.DefaultTransition
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -57,7 +56,7 @@ fun BrowseScaffold(
     selectFile: (BrowseEvent.OnSelectFile) -> Unit,
     showFilterBottomSheet: (BrowseEvent.OnShowFilterBottomSheet) -> Unit,
     showAddDialog: (BrowseEvent.OnShowAddDialog) -> Unit,
-    changePinnedPaths: (MainEvent.OnChangeBrowsePinnedPaths) -> Unit,
+    updatePinnedPaths: (String) -> Unit,
     navigateToBrowseSettings: () -> Unit,
 ) {
     Scaffold(
@@ -107,11 +106,7 @@ fun BrowseScaffold(
                             header = header,
                             pinned = pinned,
                             pin = {
-                                changePinnedPaths(
-                                    MainEvent.OnChangeBrowsePinnedPaths(
-                                        value = header
-                                    )
-                                )
+                                updatePinnedPaths(header)
                             }
                         )
                     },

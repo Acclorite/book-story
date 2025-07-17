@@ -14,7 +14,6 @@ import ua.acclorite.book_story.domain.model.library.CategorySort
 import ua.acclorite.book_story.presentation.library.LibraryEvent
 import ua.acclorite.book_story.presentation.library.LibraryScreen
 import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
-import ua.acclorite.book_story.presentation.main.MainEvent
 import ua.acclorite.book_story.presentation.settings.SettingsEvent
 
 @Composable
@@ -27,8 +26,8 @@ fun LibraryBottomSheet(
     sortOrder: LibrarySortOrder,
     sortOrderDescending: Boolean,
     perCategorySort: Boolean,
-    changeLibrarySortOrder: (MainEvent.OnChangeLibrarySortOrder) -> Unit,
-    changeLibrarySortOrderDescending: (MainEvent.OnChangeLibrarySortOrderDescending) -> Unit,
+    changeSortOrder: (LibrarySortOrder) -> Unit,
+    changeSortOrderDescending: (Boolean) -> Unit,
     updateCategorySort: (SettingsEvent.OnUpdateCategorySort) -> Unit,
     dismissBottomSheet: (LibraryEvent.OnDismissBottomSheet) -> Unit
 ) {
@@ -42,8 +41,8 @@ fun LibraryBottomSheet(
                 sortOrderDescending = sortOrderDescending,
                 categoriesSort = categoriesSort,
                 perCategorySort = perCategorySort,
-                changeLibrarySortOrder = changeLibrarySortOrder,
-                changeLibrarySortOrderDescending = changeLibrarySortOrderDescending,
+                changeSortOrder = changeSortOrder,
+                changeSortOrderDescending = changeSortOrderDescending,
                 updateCategorySort = updateCategorySort,
                 dismissBottomSheet = dismissBottomSheet
             )

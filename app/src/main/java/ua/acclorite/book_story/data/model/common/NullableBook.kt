@@ -8,7 +8,6 @@ package ua.acclorite.book_story.data.model.common
 
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.core.ui.UIText
-import ua.acclorite.book_story.data.model.library.BookWithCover
 
 @Immutable
 sealed class NullableBook(

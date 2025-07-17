@@ -8,29 +8,23 @@ package ua.acclorite.book_story.ui.settings.reader.reading_speed.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.ui.common.components.settings.SliderWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
 fun PerceptionExpanderThicknessOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
-    ExpandingTransition(visible = state.value.perceptionExpander) {
+    ExpandingTransition(visible = settings.perceptionExpander.value) {
         SliderWithTitle(
-            value = state.value.perceptionExpanderThickness to "pt",
+            value = settings.perceptionExpanderThickness.value to "pt",
             fromValue = 1,
             toValue = 12,
             title = stringResource(id = R.string.perception_expander_thickness_option),
             onValueChange = {
-                mainModel.onEvent(
-                    MainEvent.OnChangePerceptionExpanderThickness(it)
-                )
+                settings.perceptionExpanderThickness.update(it)
             }
         )
     }

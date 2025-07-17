@@ -8,28 +8,20 @@ package ua.acclorite.book_story.ui.settings.reader.reading_speed.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.ui.common.components.settings.SwitchWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 
 @Composable
 fun HighlightedReadingOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
     SwitchWithTitle(
-        selected = state.value.highlightedReading,
+        selected = settings.highlightedReading.value,
         title = stringResource(id = R.string.highlighted_reading_option),
         description = stringResource(id = R.string.highlighted_reading_option_desc),
         onClick = {
-            mainModel.onEvent(
-                MainEvent.OnChangeHighlightedReading(
-                    !state.value.highlightedReading
-                )
-            )
+            settings.highlightedReading.update(!settings.highlightedReading.lastValue)
         }
     )
 }

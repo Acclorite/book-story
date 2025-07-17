@@ -28,33 +28,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.browse.model.BrowseSortOrder
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.ui.common.components.common.StyledText
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 
 fun LazyListScope.BrowseSortOption() {
     items(BrowseSortOrder.entries, key = { it.name }) {
-        val mainModel = hiltViewModel<MainModel>()
-        val state = mainModel.state.collectAsStateWithLifecycle()
+        val settings = LocalSettings.current
 
         BrowseSortOptionItem(
             item = it,
-            isSelected = state.value.browseSortOrder == it,
-            isDescending = state.value.browseSortOrderDescending
+            isSelected = settings.browseSortOrder.value == it,
+            isDescending = settings.browseSortOrderDescending.value
         ) {
-            if (state.value.browseSortOrder == it) {
-                mainModel.onEvent(
-                    MainEvent.OnChangeBrowseSortOrderDescending(
-                        !state.value.browseSortOrderDescending
-                    )
-                )
+            if (settings.browseSortOrder.lastValue == it) {
+                settings.browseSortOrderDescending.update(!settings.browseSortOrderDescending.lastValue)
             } else {
-                mainModel.onEvent(MainEvent.OnChangeBrowseSortOrderDescending(true))
-                mainModel.onEvent(MainEvent.OnChangeBrowseSortOrder(it.name))
+                settings.browseSortOrderDescending.update(true)
+                settings.browseSortOrder.update(it)
             }
         }
     }

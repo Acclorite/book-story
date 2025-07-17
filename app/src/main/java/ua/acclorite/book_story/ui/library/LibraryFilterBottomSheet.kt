@@ -26,7 +26,6 @@ import ua.acclorite.book_story.domain.model.library.Category
 import ua.acclorite.book_story.domain.model.library.CategorySort
 import ua.acclorite.book_story.presentation.library.LibraryEvent
 import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
-import ua.acclorite.book_story.presentation.main.MainEvent
 import ua.acclorite.book_story.presentation.settings.SettingsEvent
 import ua.acclorite.book_story.ui.common.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.ui.common.components.modal_bottom_sheet.ModalBottomSheet
@@ -45,8 +44,8 @@ fun LibraryFilterBottomSheet(
     sortOrderDescending: Boolean,
     categoriesSort: List<CategorySort>,
     perCategorySort: Boolean,
-    changeLibrarySortOrder: (MainEvent.OnChangeLibrarySortOrder) -> Unit,
-    changeLibrarySortOrderDescending: (MainEvent.OnChangeLibrarySortOrderDescending) -> Unit,
+    changeSortOrder: (LibrarySortOrder) -> Unit,
+    changeSortOrderDescending: (Boolean) -> Unit,
     updateCategorySort: (SettingsEvent.OnUpdateCategorySort) -> Unit,
     dismissBottomSheet: (LibraryEvent.OnDismissBottomSheet) -> Unit
 ) {
@@ -123,16 +122,8 @@ fun LibraryFilterBottomSheet(
                                         )
                                     )
                                 } else {
-                                    changeLibrarySortOrder(
-                                        MainEvent.OnChangeLibrarySortOrder(
-                                            sortOrder.name
-                                        )
-                                    )
-                                    changeLibrarySortOrderDescending(
-                                        MainEvent.OnChangeLibrarySortOrderDescending(
-                                            sortOrderDescending
-                                        )
-                                    )
+                                    changeSortOrder(sortOrder)
+                                    changeSortOrderDescending(sortOrderDescending)
                                 }
                             }
                         )

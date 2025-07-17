@@ -18,7 +18,6 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import ua.acclorite.book_story.presentation.main.MainEvent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,7 +25,7 @@ fun HelpScaffold(
     fromStart: Boolean,
     listState: LazyListState,
     scrollBehavior: TopAppBarScrollBehavior,
-    changeShowStartScreen: (MainEvent.OnChangeShowStartScreen) -> Unit,
+    changeShowStartScreen: (Boolean) -> Unit,
     navigateToBrowse: () -> Unit,
     navigateToStart: () -> Unit,
     navigateBack: () -> Unit

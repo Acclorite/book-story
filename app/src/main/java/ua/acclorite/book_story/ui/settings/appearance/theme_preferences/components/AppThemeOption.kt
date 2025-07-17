@@ -39,24 +39,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
-import ua.acclorite.book_story.presentation.main.model.ThemeContrast
-import ua.acclorite.book_story.presentation.main.model.isDark
-import ua.acclorite.book_story.presentation.main.model.isPureDark
 import ua.acclorite.book_story.ui.common.components.common.AnimatedVisibility
 import ua.acclorite.book_story.ui.common.components.common.StyledText
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategoryTitle
-import ua.acclorite.book_story.ui.theme.Theme
 import ua.acclorite.book_story.ui.theme.animatedColorScheme
+import ua.acclorite.book_story.ui.theme.model.Theme
+import ua.acclorite.book_story.ui.theme.model.ThemeContrast
 
 @Composable
 fun AppThemeOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
     Column(
         Modifier
@@ -76,15 +70,15 @@ fun AppThemeOption() {
             items(
                 Theme.entries(),
                 key = { theme -> theme.name }
-            ) { theme ->
+            ) { themeEntry ->
                 AppThemeOptionItem(
-                    theme = theme,
-                    darkTheme = state.value.darkTheme.isDark(),
-                    themeContrast = state.value.themeContrast,
-                    isPureDark = state.value.pureDark.isPureDark(context = LocalContext.current),
-                    selected = state.value.theme == theme
+                    theme = themeEntry,
+                    darkTheme = settings.darkTheme.value.isDark(),
+                    themeContrast = settings.themeContrast.value,
+                    isPureDark = settings.pureDark.value.isPureDark(context = LocalContext.current),
+                    selected = settings.theme.value == themeEntry
                 ) {
-                    mainModel.onEvent(MainEvent.OnChangeTheme(theme.name))
+                    settings.theme.update(themeEntry)
                 }
             }
         }

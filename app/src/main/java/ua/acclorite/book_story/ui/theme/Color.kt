@@ -6,13 +6,8 @@
 
 package ua.acclorite.book_story.ui.theme
 
-import android.os.Build
-import androidx.annotation.StringRes
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.model.ThemeContrast
 import ua.acclorite.book_story.ui.theme.color.aquaTheme
 import ua.acclorite.book_story.ui.theme.color.blackTheme
 import ua.acclorite.book_story.ui.theme.color.blueTheme
@@ -31,48 +26,10 @@ import ua.acclorite.book_story.ui.theme.color.redGrayTheme
 import ua.acclorite.book_story.ui.theme.color.redTheme
 import ua.acclorite.book_story.ui.theme.color.yellow2Theme
 import ua.acclorite.book_story.ui.theme.color.yellowTheme
+import ua.acclorite.book_story.ui.theme.model.Theme
+import ua.acclorite.book_story.ui.theme.model.ThemeContrast
 
 
-@Immutable
-enum class Theme(
-    val hasThemeContrast: Boolean,
-    @StringRes val title: Int
-) {
-    DYNAMIC(hasThemeContrast = false, title = R.string.dynamic_theme),
-    BLUE(hasThemeContrast = true, title = R.string.blue_theme),
-    GREEN(hasThemeContrast = true, title = R.string.green_theme),
-    GREEN2(hasThemeContrast = false, title = R.string.green2_theme),
-    GREEN_GRAY(hasThemeContrast = false, title = R.string.green_gray_theme),
-    MARSH(hasThemeContrast = true, title = R.string.marsh_theme),
-    RED(hasThemeContrast = true, title = R.string.red_theme),
-    RED_GRAY(hasThemeContrast = false, title = R.string.red_gray_theme),
-    PURPLE(hasThemeContrast = true, title = R.string.purple_theme),
-    PURPLE_GRAY(hasThemeContrast = false, title = R.string.purple_gray_theme),
-    LAVENDER(hasThemeContrast = true, title = R.string.lavender_theme),
-    PINK(hasThemeContrast = true, title = R.string.pink_theme),
-    PINK2(hasThemeContrast = false, title = R.string.pink2_theme),
-    YELLOW(hasThemeContrast = true, title = R.string.yellow_theme),
-    YELLOW2(hasThemeContrast = false, title = R.string.yellow2_theme),
-    AQUA(hasThemeContrast = true, title = R.string.aqua_theme),
-    GRAY(hasThemeContrast = false, title = R.string.gray_theme);
-
-    companion object {
-        fun entries(): List<Theme> {
-            return when {
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> entries
-                else -> entries.dropWhile { it == DYNAMIC }
-            }
-        }
-    }
-}
-
-/**
- * Creates a colorscheme based on [Theme].
- *
- * @param theme a [Theme].
- *
- * @return a [ColorScheme].
- */
 @Composable
 fun colorScheme(
     theme: Theme,

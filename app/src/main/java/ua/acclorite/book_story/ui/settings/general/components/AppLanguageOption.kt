@@ -10,18 +10,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.data.CoreData
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
+import ua.acclorite.book_story.presentation.settings.SettingsEvent
+import ua.acclorite.book_story.presentation.settings.SettingsModel
 import ua.acclorite.book_story.ui.common.components.settings.ChipsWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.common.model.ButtonItem
 
 @Composable
 fun AppLanguageOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settingsModel = hiltViewModel<SettingsModel>()
+    val settings = LocalSettings.current
 
     ChipsWithTitle(
         title = stringResource(id = R.string.language_option),
@@ -30,10 +30,10 @@ fun AppLanguageOption() {
                 it.first,
                 it.second,
                 MaterialTheme.typography.labelLarge,
-                it.first == state.value.language
+                it.first == settings.language.value
             )
-        }.sortedBy { it.title }
+        }
     ) {
-        mainModel.onEvent(MainEvent.OnChangeLanguage(it.id))
+        settingsModel.onEvent(SettingsEvent.OnUpdateLanguage(it.id))
     }
 }

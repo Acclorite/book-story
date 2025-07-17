@@ -8,34 +8,28 @@ package ua.acclorite.book_story.ui.settings.library.display.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.library.model.LibraryLayout
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.ui.common.components.settings.SliderWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
 fun LibraryGridSizeOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
-    ExpandingTransition(visible = state.value.libraryLayout == LibraryLayout.GRID) {
+    ExpandingTransition(visible = settings.libraryLayout.value == LibraryLayout.GRID) {
         SliderWithTitle(
-            value = state.value.libraryGridSize
+            value = settings.libraryGridSize.value
                     to " ${stringResource(R.string.grid_size_per_row)}",
             valuePlaceholder = stringResource(id = R.string.grid_size_auto),
-            showPlaceholder = state.value.libraryAutoGridSize,
+            showPlaceholder = settings.libraryAutoGridSize.value,
             fromValue = 0,
             toValue = 10,
             title = stringResource(id = R.string.grid_size_option),
             onValueChange = {
-                mainModel.onEvent(MainEvent.OnChangeLibraryAutoGridSize(it == 0))
-                mainModel.onEvent(
-                    MainEvent.OnChangeLibraryGridSize(it)
-                )
+                settings.libraryAutoGridSize.update(it == 0)
+                settings.libraryGridSize.update(it)
             }
         )
     }

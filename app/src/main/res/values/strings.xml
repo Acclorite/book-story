@@ -256,7 +256,7 @@
     <string name="show_book_count_option">Show book count</string>
     <string name="show_category_tabs_option">Show category tabs</string>
     <string name="always_show_default_tab_option">Always show default tab</string>
-    <string name="per_category_sort_option">Per-category sorting</string>
+    <string name="per_category_sort_option">Per-category sort</string>
 
     <!-- Color presets -->
     <string name="red_color">Red</string>

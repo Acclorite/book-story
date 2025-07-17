@@ -8,28 +8,20 @@ package ua.acclorite.book_story.ui.settings.appearance.colors.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.ui.common.components.settings.SwitchWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 
 @Composable
 fun FastColorPresetChangeOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
     SwitchWithTitle(
-        selected = state.value.fastColorPresetChange,
+        selected = settings.fastColorPresetChange.value,
         title = stringResource(id = R.string.fast_color_preset_change_option),
         description = stringResource(id = R.string.fast_color_preset_change_option_desc),
         onClick = {
-            mainModel.onEvent(
-                MainEvent.OnChangeFastColorPresetChange(
-                    !state.value.fastColorPresetChange
-                )
-            )
+            settings.fastColorPresetChange.update(!settings.fastColorPresetChange.lastValue)
         }
     )
 }

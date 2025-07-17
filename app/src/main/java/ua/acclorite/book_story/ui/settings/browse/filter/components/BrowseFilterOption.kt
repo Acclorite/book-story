@@ -23,26 +23,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.core.data.ExtensionsData
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
+import ua.acclorite.book_story.core.helpers.toggle
 import ua.acclorite.book_story.ui.common.components.common.StyledText
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 
 fun LazyListScope.BrowseFilterOption() {
     items(ExtensionsData.fileExtensions, key = { it }) {
-        val mainModel = hiltViewModel<MainModel>()
-        val state = mainModel.state.collectAsStateWithLifecycle()
+        val settings = LocalSettings.current
 
         BrowseFilterOptionItem(
             item = it,
-            isSelected = state.value.browseIncludedFilterItems.any { item ->
-                item == it
-            }
+            isSelected = settings.browseIncludedFilterItems.value.any { item -> item == it }
         ) {
-            mainModel.onEvent(
-                MainEvent.OnChangeBrowseIncludedFilterItem(it)
+            settings.browseIncludedFilterItems.update(
+                settings.browseIncludedFilterItems.lastValue.toggle(it)
             )
         }
     }

@@ -10,7 +10,6 @@ import androidx.compose.foundation.background
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import ua.acclorite.book_story.presentation.main.MainEvent
 import ua.acclorite.book_story.presentation.navigator.StackEvent
 import ua.acclorite.book_story.presentation.start.StartScreen
 import ua.acclorite.book_story.ui.common.model.ButtonItem
@@ -20,7 +19,7 @@ fun StartContent(
     currentPage: Int,
     stackEvent: StackEvent,
     languages: List<ButtonItem>,
-    changeLanguage: (MainEvent.OnChangeLanguage) -> Unit,
+    updateLanguage: (String) -> Unit,
     navigateForward: () -> Unit,
     navigateBack: () -> Unit,
     navigateToBrowse: () -> Unit,
@@ -40,7 +39,7 @@ fun StartContent(
                     currentPage = currentPage,
                     stackEvent = stackEvent,
                     languages = languages,
-                    changeLanguage = changeLanguage,
+                    updateLanguage = updateLanguage,
                     navigateForward = navigateForward
                 )
             }

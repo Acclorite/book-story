@@ -4,24 +4,22 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.presentation.main.model
+package ua.acclorite.book_story.ui.theme.model
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 
-@Immutable
 enum class DarkTheme {
     FOLLOW_SYSTEM,
     OFF,
-    ON
-}
+    ON;
 
-@Composable
-fun DarkTheme.isDark(): Boolean {
-    return when (this) {
-        DarkTheme.FOLLOW_SYSTEM -> isSystemInDarkTheme()
-        DarkTheme.ON -> true
-        DarkTheme.OFF -> false
+    @Composable
+    fun isDark(): Boolean {
+        return when (this) {
+            FOLLOW_SYSTEM -> isSystemInDarkTheme()
+            ON -> true
+            OFF -> false
+        }
     }
 }

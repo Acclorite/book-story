@@ -9,19 +9,15 @@ package ua.acclorite.book_story.ui.settings.reader.text.components
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.presentation.reader.model.ReaderTextAlignment
 import ua.acclorite.book_story.ui.common.components.settings.SegmentedButtonWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.common.model.ButtonItem
 
 @Composable
 fun TextAlignmentOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
     SegmentedButtonWithTitle(
         title = stringResource(id = R.string.text_alignment_option),
@@ -35,15 +31,11 @@ fun TextAlignmentOption() {
                     ReaderTextAlignment.END -> stringResource(id = R.string.alignment_end)
                 },
                 textStyle = MaterialTheme.typography.labelLarge,
-                selected = it == state.value.textAlignment
+                selected = it == settings.textAlignment.value
             )
         },
         onClick = {
-            mainModel.onEvent(
-                MainEvent.OnChangeTextAlignment(
-                    it.id
-                )
-            )
+            settings.textAlignment.update(ReaderTextAlignment.valueOf(it.id))
         }
     )
 }

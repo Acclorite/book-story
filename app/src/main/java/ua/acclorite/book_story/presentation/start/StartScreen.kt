@@ -14,17 +14,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.text.TextStyle
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.core.data.CoreData
 import ua.acclorite.book_story.presentation.browse.BrowseScreen
 import ua.acclorite.book_story.presentation.help.HelpScreen
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.presentation.navigator.Screen
 import ua.acclorite.book_story.presentation.navigator.StackEvent
+import ua.acclorite.book_story.presentation.settings.SettingsEvent
+import ua.acclorite.book_story.presentation.settings.SettingsModel
 import ua.acclorite.book_story.ui.common.helpers.LocalActivity
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.common.model.ButtonItem
 import ua.acclorite.book_story.ui.navigator.LocalNavigator
 import ua.acclorite.book_story.ui.start.StartContent
@@ -51,22 +51,20 @@ object StartScreen : Screen, Parcelable {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
-        val mainModel = hiltViewModel<MainModel>()
-
-        val mainState = mainModel.state.collectAsStateWithLifecycle()
-
+        val settingsModel = hiltViewModel<SettingsModel>()
+        val settings = LocalSettings.current
         val activity = LocalActivity.current
 
         val currentPage = remember { mutableIntStateOf(0) }
         val stackEvent = remember { mutableStateOf(StackEvent.Default) }
 
-        val languages = remember(mainState.value.language) {
+        val languages = remember(settings.language.value) {
             CoreData.languages.sortedBy { it.second }.map {
                 ButtonItem(
                     id = it.first,
                     title = it.second,
                     textStyle = TextStyle(),
-                    selected = it.first == mainState.value.language
+                    selected = it.first == settings.language.lastValue
                 )
             }.sortedBy { it.title }
         }
@@ -75,7 +73,7 @@ object StartScreen : Screen, Parcelable {
             currentPage = currentPage.intValue,
             stackEvent = stackEvent.value,
             languages = languages,
-            changeLanguage = mainModel::onEvent,
+            updateLanguage = { settingsModel.onEvent(SettingsEvent.OnUpdateLanguage(it)) },
             navigateForward = {
                 if (currentPage.intValue + 1 == 4) {
                     return@StartContent
@@ -98,7 +96,7 @@ object StartScreen : Screen, Parcelable {
                     saveInBackStack = false
                 )
                 BrowseScreen.refreshListChannel.trySend(Unit)
-                mainModel.onEvent(MainEvent.OnChangeShowStartScreen(false))
+                settings.showStartScreen.update(false)
             },
             navigateToHelp = {
                 navigator.push(

@@ -8,28 +8,20 @@ package ua.acclorite.book_story.ui.settings.reader.misc.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.ui.common.components.settings.SwitchWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 
 @Composable
 fun FullscreenOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
     SwitchWithTitle(
-        selected = state.value.fullscreen,
+        selected = settings.fullscreen.value,
         title = stringResource(id = R.string.fullscreen_option),
         description = stringResource(id = R.string.fullscreen_option_desc),
         onClick = {
-            mainModel.onEvent(
-                MainEvent.OnChangeFullscreen(
-                    !state.value.fullscreen
-                )
-            )
+            settings.fullscreen.update(!settings.fullscreen.lastValue)
         }
     )
 }

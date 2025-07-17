@@ -8,27 +8,19 @@ package ua.acclorite.book_story.ui.settings.library.tabs.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.ui.common.components.settings.SwitchWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 
 @Composable
 fun LibraryAlwaysShowDefaultTabOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
     SwitchWithTitle(
-        selected = state.value.libraryAlwaysShowDefaultTab,
+        selected = settings.libraryShowDefaultTab.value,
         title = stringResource(id = R.string.always_show_default_tab_option),
         onClick = {
-            mainModel.onEvent(
-                MainEvent.OnChangeLibraryAlwaysShowDefaultTab(
-                    !state.value.libraryAlwaysShowDefaultTab
-                )
-            )
+            settings.libraryShowDefaultTab.update(!settings.libraryShowDefaultTab.lastValue)
         }
     )
 }

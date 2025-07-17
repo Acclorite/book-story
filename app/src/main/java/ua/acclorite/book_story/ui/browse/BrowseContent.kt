@@ -18,7 +18,6 @@ import ua.acclorite.book_story.presentation.browse.BrowseEvent
 import ua.acclorite.book_story.presentation.browse.model.BrowseLayout
 import ua.acclorite.book_story.presentation.browse.model.SelectableFile
 import ua.acclorite.book_story.presentation.library.model.SelectableNullableBook
-import ua.acclorite.book_story.presentation.main.MainEvent
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -60,7 +59,7 @@ fun BrowseContent(
     dismissAddDialog: (BrowseEvent.OnDismissAddDialog) -> Unit,
     actionAddDialog: (BrowseEvent.OnActionAddDialog) -> Unit,
     selectAddDialog: (BrowseEvent.OnSelectAddDialog) -> Unit,
-    changePinnedPaths: (MainEvent.OnChangeBrowsePinnedPaths) -> Unit,
+    updatePinnedPaths: (String) -> Unit,
     navigateToLibrary: () -> Unit,
     navigateToBrowseSettings: () -> Unit,
 ) {
@@ -109,7 +108,7 @@ fun BrowseContent(
         selectFile = selectFile,
         showFilterBottomSheet = showFilterBottomSheet,
         showAddDialog = showAddDialog,
-        changePinnedPaths = changePinnedPaths,
+        updatePinnedPaths = updatePinnedPaths,
         navigateToBrowseSettings = navigateToBrowseSettings
     )
 

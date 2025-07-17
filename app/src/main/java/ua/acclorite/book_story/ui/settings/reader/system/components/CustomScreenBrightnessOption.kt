@@ -8,27 +8,19 @@ package ua.acclorite.book_story.ui.settings.reader.system.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.ui.common.components.settings.SwitchWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 
 @Composable
 fun CustomScreenBrightnessOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
     SwitchWithTitle(
-        selected = state.value.customScreenBrightness,
+        selected = settings.customScreenBrightness.value,
         title = stringResource(id = R.string.custom_screen_brightness_option),
         onClick = {
-            mainModel.onEvent(
-                MainEvent.OnChangeCustomScreenBrightness(
-                    !state.value.customScreenBrightness
-                )
-            )
+            settings.customScreenBrightness.update(!settings.customScreenBrightness.lastValue)
         }
     )
 }

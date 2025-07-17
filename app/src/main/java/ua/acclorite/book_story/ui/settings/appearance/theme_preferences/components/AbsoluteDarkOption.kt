@@ -9,36 +9,26 @@ package ua.acclorite.book_story.ui.settings.appearance.theme_preferences.compone
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
-import ua.acclorite.book_story.presentation.main.model.isDark
-import ua.acclorite.book_story.presentation.main.model.isPureDark
 import ua.acclorite.book_story.ui.common.components.settings.SwitchWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
 fun AbsoluteDarkOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
     val context = LocalContext.current
 
     ExpandingTransition(
-        visible = state.value.pureDark.isPureDark(context)
-                && state.value.darkTheme.isDark()
+        visible = settings.pureDark.value.isPureDark(context)
+                && settings.darkTheme.value.isDark()
     ) {
         SwitchWithTitle(
-            selected = state.value.absoluteDark,
+            selected = settings.absoluteDark.value,
             title = stringResource(id = R.string.absolute_dark_option),
             description = stringResource(id = R.string.absolute_dark_option_desc),
             onClick = {
-                mainModel.onEvent(
-                    MainEvent.OnChangeAbsoluteDark(
-                        !state.value.absoluteDark
-                    )
-                )
+                settings.absoluteDark.update(!settings.absoluteDark.lastValue)
             }
         )
     }

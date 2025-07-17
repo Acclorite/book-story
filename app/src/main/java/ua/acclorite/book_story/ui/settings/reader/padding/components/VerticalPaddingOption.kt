@@ -8,27 +8,21 @@ package ua.acclorite.book_story.ui.settings.reader.padding.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.ui.common.components.settings.SliderWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 
 @Composable
 fun VerticalPaddingOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
     SliderWithTitle(
-        value = state.value.verticalPadding to "pt",
+        value = settings.verticalPadding.value to "pt",
         fromValue = 0,
         toValue = 24,
         title = stringResource(id = R.string.vertical_padding_option),
         onValueChange = {
-            mainModel.onEvent(
-                MainEvent.OnChangeVerticalPadding(it)
-            )
+            settings.verticalPadding.update(it)
         }
     )
 }

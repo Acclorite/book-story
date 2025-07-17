@@ -7,8 +7,8 @@
 package ua.acclorite.book_story.data.parser
 
 import android.util.Log
+import ua.acclorite.book_story.data.model.common.BookWithCover
 import ua.acclorite.book_story.data.model.file.CachedFile
-import ua.acclorite.book_story.data.model.library.BookWithCover
 import ua.acclorite.book_story.data.parser.epub.EpubFileParser
 import ua.acclorite.book_story.data.parser.fb2.Fb2FileParser
 import ua.acclorite.book_story.data.parser.html.HtmlFileParser

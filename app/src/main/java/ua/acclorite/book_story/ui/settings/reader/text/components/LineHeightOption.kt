@@ -8,27 +8,21 @@ package ua.acclorite.book_story.ui.settings.reader.text.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.ui.common.components.settings.SliderWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 
 @Composable
 fun LineHeightOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
     SliderWithTitle(
-        value = state.value.lineHeight to "pt",
+        value = settings.lineHeight.value to "pt",
         fromValue = 1,
         toValue = 24,
         title = stringResource(id = R.string.line_height_option),
         onValueChange = {
-            mainModel.onEvent(
-                MainEvent.OnChangeLineHeight(it)
-            )
+            settings.lineHeight.update(it)
         }
     )
 }

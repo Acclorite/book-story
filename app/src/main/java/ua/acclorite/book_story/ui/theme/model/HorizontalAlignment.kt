@@ -4,12 +4,10 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.presentation.main.model
+package ua.acclorite.book_story.ui.theme.model
 
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 
-@Immutable
 enum class HorizontalAlignment(val alignment: Alignment) {
     START(Alignment.Companion.CenterStart),
     CENTER(Alignment.Companion.Center),

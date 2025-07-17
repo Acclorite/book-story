@@ -14,7 +14,6 @@ import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.focus.FocusRequester
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,12 +23,13 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
+import ua.acclorite.book_story.core.helpers.toggle
 import ua.acclorite.book_story.presentation.browse.model.BrowseLayout
 import ua.acclorite.book_story.presentation.library.LibraryScreen
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.presentation.navigator.Screen
 import ua.acclorite.book_story.presentation.settings.BrowseSettingsScreen
 import ua.acclorite.book_story.ui.browse.BrowseContent
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.navigator.LocalNavigator
 
 @Parcelize
@@ -64,10 +64,9 @@ object BrowseScreen : Screen, Parcelable {
     override fun Content() {
         val navigator = LocalNavigator.current
         val screenModel = hiltViewModel<BrowseModel>()
-        val mainModel = hiltViewModel<MainModel>()
+        val settings = LocalSettings.current
 
         val state = screenModel.state.collectAsStateWithLifecycle()
-        val mainState = mainModel.state.collectAsStateWithLifecycle()
 
         val listState = rememberLazyListState(initialListIndex, initialListOffset)
         val gridState = rememberLazyGridState(initialGridIndex, initialGridOffset)
@@ -85,15 +84,18 @@ object BrowseScreen : Screen, Parcelable {
             }
         )
 
-        val files = remember {
-            derivedStateOf {
-                screenModel.filterList(
-                    files = state.value.files,
-                    sortOrderDescending = mainState.value.browseSortOrderDescending,
-                    includedFilterItems = mainState.value.browseIncludedFilterItems,
-                    sortOrder = mainState.value.browseSortOrder
-                )
-            }
+        val files = remember(
+            state.value.files,
+            settings.browseIncludedFilterItems.value,
+            settings.browseSortOrderDescending.value,
+            settings.browseSortOrder.value
+        ) {
+            screenModel.filterList(
+                files = state.value.files,
+                sortOrderDescending = settings.browseSortOrderDescending.lastValue,
+                includedFilterItems = settings.browseIncludedFilterItems.lastValue,
+                sortOrder = settings.browseSortOrder.lastValue
+            )
         }
 
         LaunchedEffect(Unit) {
@@ -112,7 +114,7 @@ object BrowseScreen : Screen, Parcelable {
                 initialGridIndex = 0
                 initialGridOffset = 0
 
-                when (mainState.value.browseLayout) {
+                when (settings.browseLayout.lastValue) {
                     BrowseLayout.LIST -> {
                         initialListIndex = listState.firstVisibleItemIndex
                         initialListOffset = listState.firstVisibleItemScrollOffset
@@ -127,7 +129,7 @@ object BrowseScreen : Screen, Parcelable {
         }
 
         BrowseContent(
-            files = files.value,
+            files = files,
             selectedBooksAddDialog = state.value.selectedBooksAddDialog,
             refreshState = refreshState,
             loadingAddDialog = state.value.loadingAddDialog,
@@ -135,11 +137,11 @@ object BrowseScreen : Screen, Parcelable {
             bottomSheet = state.value.bottomSheet,
             listState = listState,
             gridState = gridState,
-            layout = mainState.value.browseLayout,
-            gridSize = mainState.value.browseGridSize,
-            autoGridSize = mainState.value.browseAutoGridSize,
-            includedFilterItems = mainState.value.browseIncludedFilterItems,
-            pinnedPaths = mainState.value.browsePinnedPaths,
+            layout = settings.browseLayout.value,
+            gridSize = settings.browseGridSize.value,
+            autoGridSize = settings.browseAutoGridSize.value,
+            includedFilterItems = settings.browseIncludedFilterItems.value,
+            pinnedPaths = settings.browsePinnedPaths.value,
             canScrollBackList = listState.canScrollBackward,
             canScrollBackGrid = gridState.canScrollBackward,
             hasSelectedItems = state.value.hasSelectedItems,
@@ -147,7 +149,7 @@ object BrowseScreen : Screen, Parcelable {
             isRefreshing = state.value.isRefreshing,
             isLoading = state.value.isLoading,
             dialogHidden = state.value.dialog == null,
-            filesEmpty = files.value.isEmpty(),
+            filesEmpty = files.isEmpty(),
             showSearch = state.value.showSearch,
             searchQuery = state.value.searchQuery,
             focusRequester = focusRequester,
@@ -164,7 +166,11 @@ object BrowseScreen : Screen, Parcelable {
             dismissAddDialog = screenModel::onEvent,
             selectAddDialog = screenModel::onEvent,
             actionAddDialog = screenModel::onEvent,
-            changePinnedPaths = mainModel::onEvent,
+            updatePinnedPaths = {
+                settings.browsePinnedPaths.update(
+                    settings.browsePinnedPaths.lastValue.toggle(it)
+                )
+            },
             navigateToLibrary = {
                 navigator.push(LibraryScreen, saveInBackStack = false)
             },

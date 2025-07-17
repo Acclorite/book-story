@@ -8,22 +8,22 @@ package ua.acclorite.book_story.ui.theme.color
 
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ua.acclorite.book_story.presentation.main.MainModel
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 
 @Composable
 fun blackTheme(initialTheme: ColorScheme): ColorScheme {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
-    val surfaceDarker = 3f
-    val surfaceContainerDarker = if (state.value.absoluteDark) 3f else 1.95f
+    val surfaceDarker = remember { 3f }
+    val surfaceContainerDarker = remember(settings.absoluteDark.value) {
+        if (settings.absoluteDark.lastValue) 3f else 1.95f
+    }
 
     return initialTheme.copy(
         surface = initialTheme.surface.run {
-            if (state.value.absoluteDark) {
+            if (settings.absoluteDark.value) {
                 return@run Color.Black
             }
 

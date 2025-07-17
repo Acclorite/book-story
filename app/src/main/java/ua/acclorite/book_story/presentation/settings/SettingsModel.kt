@@ -36,12 +36,14 @@ import ua.acclorite.book_story.domain.use_case.color_preset.SelectColorPresetUse
 import ua.acclorite.book_story.domain.use_case.color_preset.UpdateColorPresetUseCase
 import ua.acclorite.book_story.domain.use_case.permission.GrantPersistableUriPermissionUseCase
 import ua.acclorite.book_story.domain.use_case.permission.ReleasePersistableUriPermissionUseCase
+import ua.acclorite.book_story.domain.use_case.settings.UpdateLanguageUseCase
 import ua.acclorite.book_story.ui.common.helpers.showToast
 import javax.inject.Inject
 import kotlin.random.Random
 
 @HiltViewModel
 class SettingsModel @Inject constructor(
+    private val updateLanguageUseCase: UpdateLanguageUseCase,
     private val getColorPresetsUseCase: GetColorPresetsUseCase,
     private val updateColorPresetUseCase: UpdateColorPresetUseCase,
     private val selectColorPresetUseCase: SelectColorPresetUseCase,
@@ -112,6 +114,8 @@ class SettingsModel @Inject constructor(
 
     fun onEvent(event: SettingsEvent) {
         when (event) {
+            is SettingsEvent.OnUpdateLanguage -> updateLanguageUseCase(event.language)
+
             is SettingsEvent.OnGrantPersistableUriPermission -> {
                 viewModelScope.launch {
                     grantPersistableUriPermissionUseCase(

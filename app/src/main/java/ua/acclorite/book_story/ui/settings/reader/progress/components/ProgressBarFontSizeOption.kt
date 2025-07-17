@@ -8,29 +8,23 @@ package ua.acclorite.book_story.ui.settings.reader.progress.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.presentation.main.MainEvent
-import ua.acclorite.book_story.presentation.main.MainModel
 import ua.acclorite.book_story.ui.common.components.settings.SliderWithTitle
+import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
 
 @Composable
 fun ProgressBarFontSizeOption() {
-    val mainModel = hiltViewModel<MainModel>()
-    val state = mainModel.state.collectAsStateWithLifecycle()
+    val settings = LocalSettings.current
 
-    ExpandingTransition(visible = state.value.progressBar) {
+    ExpandingTransition(visible = settings.progressBar.value) {
         SliderWithTitle(
-            value = state.value.progressBarFontSize to "pt",
+            value = settings.progressBarFontSize.value to "pt",
             fromValue = 4,
             toValue = 16,
             title = stringResource(id = R.string.progress_bar_font_size_option),
             onValueChange = {
-                mainModel.onEvent(
-                    MainEvent.OnChangeProgressBarFontSize(it)
-                )
+                settings.progressBarFontSize.update(it)
             }
         )
     }
