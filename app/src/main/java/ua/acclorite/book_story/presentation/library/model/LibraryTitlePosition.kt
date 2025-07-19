@@ -6,9 +6,7 @@
 
 package ua.acclorite.book_story.presentation.library.model
 
-import androidx.compose.runtime.Immutable
 
-@Immutable
 enum class LibraryTitlePosition {
     OFF, BELOW, INSIDE
 }

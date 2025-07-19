@@ -6,9 +6,7 @@
 
 package ua.acclorite.book_story.presentation.reader.model
 
-import androidx.compose.runtime.Immutable
 
-@Immutable
 enum class ReaderColorEffects {
     OFF,
     GRAYSCALE,

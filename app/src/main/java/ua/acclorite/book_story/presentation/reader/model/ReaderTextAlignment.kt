@@ -6,10 +6,8 @@
 
 package ua.acclorite.book_story.presentation.reader.model
 
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.text.style.TextAlign
 
-@Immutable
 enum class ReaderTextAlignment(val textAlignment: TextAlign) {
     START(TextAlign.Start),
     JUSTIFY(TextAlign.Justify),

@@ -28,12 +28,12 @@ fun StartContentTransition(
         targetState = targetValue,
         transitionSpec = {
             when (stackEvent) {
-                StackEvent.Default -> {
+                StackEvent.DEFAULT -> {
                     Transitions.SlidingTransitionIn
                         .togetherWith(Transitions.SlidingTransitionOut)
                 }
 
-                StackEvent.Pop -> {
+                StackEvent.POP -> {
                     Transitions.BackSlidingTransitionIn
                         .togetherWith(Transitions.BackSlidingTransitionOut)
                 }

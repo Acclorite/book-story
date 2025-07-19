@@ -41,7 +41,7 @@ class Navigator @AssistedInject constructor(
         initialValue = initialScreen
     )
 
-    val lastEvent = savedStateHandle.getStateFlow("stack_event", StackEvent.Default)
+    val lastEvent = savedStateHandle.getStateFlow("stack_event", StackEvent.DEFAULT)
     private fun changeStackEvent(stackEvent: StackEvent) {
         savedStateHandle["stack_event"] = stackEvent
     }
@@ -56,8 +56,8 @@ class Navigator @AssistedInject constructor(
         if (!saveInBackStack) items.removeLast()
 
         changeStackEvent(
-            if (popping) StackEvent.Pop
-            else StackEvent.Default
+            if (popping) StackEvent.POP
+            else StackEvent.DEFAULT
         )
 
         if (lastItem.value::class == targetScreen::class) items.removeLast()
@@ -67,8 +67,8 @@ class Navigator @AssistedInject constructor(
     fun pop(popping: Boolean = true) {
         if (items.value.count() > 1) {
             changeStackEvent(
-                if (popping) StackEvent.Pop
-                else StackEvent.Default
+                if (popping) StackEvent.POP
+                else StackEvent.DEFAULT
             )
             items.removeLast()
         }

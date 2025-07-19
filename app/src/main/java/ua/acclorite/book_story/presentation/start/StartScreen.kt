@@ -56,7 +56,7 @@ object StartScreen : Screen, Parcelable {
         val activity = LocalActivity.current
 
         val currentPage = remember { mutableIntStateOf(0) }
-        val stackEvent = remember { mutableStateOf(StackEvent.Default) }
+        val stackEvent = remember { mutableStateOf(StackEvent.DEFAULT) }
 
         val languages = remember(settings.language.value) {
             CoreData.languages.sortedBy { it.second }.map {
@@ -79,14 +79,14 @@ object StartScreen : Screen, Parcelable {
                     return@StartContent
                 }
 
-                stackEvent.value = StackEvent.Default
+                stackEvent.value = StackEvent.DEFAULT
                 currentPage.intValue += 1
             },
             navigateBack = {
                 if ((currentPage.intValue - 1) < 0) {
                     activity.finish()
                 } else {
-                    stackEvent.value = StackEvent.Pop
+                    stackEvent.value = StackEvent.POP
                     currentPage.intValue -= 1
                 }
             },

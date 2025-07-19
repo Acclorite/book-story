@@ -6,9 +6,7 @@
 
 package ua.acclorite.book_story.ui.common.model
 
-import androidx.compose.runtime.Immutable
 
-@Immutable
 enum class Direction {
     START, NEUTRAL, END
 }

@@ -7,11 +7,9 @@
 package ua.acclorite.book_story.presentation.navigator
 
 import android.os.Parcelable
-import androidx.compose.runtime.Immutable
 import kotlinx.parcelize.Parcelize
 
-@Immutable
 @Parcelize
 enum class StackEvent : Parcelable {
-    Default, Pop
+    DEFAULT, POP
 }

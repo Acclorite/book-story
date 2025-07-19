@@ -6,9 +6,7 @@
 
 package ua.acclorite.book_story.presentation.browse.model
 
-import androidx.compose.runtime.Immutable
 
-@Immutable
 enum class BrowseLayout {
     LIST, GRID
 }

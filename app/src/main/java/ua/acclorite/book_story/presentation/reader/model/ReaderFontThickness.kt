@@ -6,10 +6,8 @@
 
 package ua.acclorite.book_story.presentation.reader.model
 
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.text.font.FontWeight
 
-@Immutable
 enum class ReaderFontThickness(val thickness: FontWeight) {
     THIN(FontWeight.Thin),
     EXTRA_LIGHT(FontWeight.ExtraLight),
