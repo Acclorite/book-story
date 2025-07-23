@@ -33,20 +33,6 @@ import ua.acclorite.book_story.ui.common.components.common.StyledText
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategoryTitle
 import kotlin.math.roundToInt
 
-/**
- * Slider with title.
- *
- * @param modifier Modifier.
- * @param value Value to be displayed, in pair with [String] which is the type of value(e.g. "pt")
- * @param valuePlaceholder Placeholder of the value(e.g. "Default", instead of the "1pt")
- * @param showPlaceholder Whether placeholder should be shown.
- * @param fromValue From where user can pick value.
- * @param toValue To where user can pick value.
- * @param title Title of this slider.
- * @param horizontalPadding Horizontal item padding.
- * @param verticalPadding Vertical item padding.
- * @param onValueChange Callback when value changes.
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SliderWithTitle(
@@ -127,19 +113,6 @@ fun SliderWithTitle(
     }
 }
 
-/**
- * Slider with title.
- *
- * @param modifier Modifier.
- * @param value Value to be displayed, in pair with [String] which is the type of value(e.g. "pt")
- * @param valuePlaceholder Placeholder of the value(e.g. "Default", instead of the "1pt")
- * @param showPlaceholder Whether placeholder should be shown.
- * @param toValue To where user can pick value.
- * @param title Title of this slider.
- * @param horizontalPadding Horizontal item padding.
- * @param verticalPadding Vertical item padding.
- * @param onValueChange Callback when value changes.
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SliderWithTitle(

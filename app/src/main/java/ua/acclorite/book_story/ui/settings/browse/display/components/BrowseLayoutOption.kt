@@ -6,14 +6,13 @@
 
 package ua.acclorite.book_story.ui.settings.browse.display.components
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.browse.model.BrowseLayout
 import ua.acclorite.book_story.ui.common.components.settings.SegmentedButtonWithTitle
 import ua.acclorite.book_story.ui.common.helpers.LocalSettings
-import ua.acclorite.book_story.ui.common.model.ButtonItem
+import ua.acclorite.book_story.ui.common.model.ListItem
 
 @Composable
 fun BrowseLayoutOption() {
@@ -21,18 +20,15 @@ fun BrowseLayoutOption() {
 
     SegmentedButtonWithTitle(
         title = stringResource(id = R.string.layout_option),
-        buttons = BrowseLayout.entries.map {
-            ButtonItem(
-                it.toString(),
-                when (it) {
-                    BrowseLayout.LIST -> stringResource(id = R.string.layout_list)
-                    BrowseLayout.GRID -> stringResource(id = R.string.layout_grid)
-                },
-                MaterialTheme.typography.labelLarge,
-                it == settings.browseLayout.value
+        buttons = BrowseLayout.entries.map { item ->
+            ListItem(
+                item = item,
+                title = stringResource(id = item.title),
+                selected = item == settings.browseLayout.value
             )
+        },
+        onClick = { item ->
+            settings.browseLayout.update(item)
         }
-    ) {
-        settings.browseLayout.update(BrowseLayout.valueOf(it.id))
-    }
+    )
 }

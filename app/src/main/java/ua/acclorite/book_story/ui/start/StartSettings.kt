@@ -9,13 +9,13 @@ package ua.acclorite.book_story.ui.start
 import androidx.compose.runtime.Composable
 import ua.acclorite.book_story.presentation.navigator.StackEvent
 import ua.acclorite.book_story.presentation.start.StartScreen
-import ua.acclorite.book_story.ui.common.model.ButtonItem
+import ua.acclorite.book_story.ui.common.model.ListItem
 
 @Composable
 fun StartSettings(
     currentPage: Int,
     stackEvent: StackEvent,
-    languages: List<ButtonItem>,
+    languages: List<ListItem<String>>,
     updateLanguage: (String) -> Unit,
     navigateForward: () -> Unit
 ) {

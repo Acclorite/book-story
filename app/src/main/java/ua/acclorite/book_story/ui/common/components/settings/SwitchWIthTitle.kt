@@ -25,16 +25,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.ui.common.components.common.StyledText
 
-/**
- * Checkbox with title.
- *
- * @param selected Whether [Switch] has checked state.
- * @param title Title.
- * @param description Optional description.
- * @param horizontalPadding Horizontal padding.
- * @param verticalPadding Vertical padding.
- * @param onClick Triggers when user clicks anywhere on this composable.
- */
 @Composable
 fun SwitchWithTitle(
     modifier: Modifier = Modifier,

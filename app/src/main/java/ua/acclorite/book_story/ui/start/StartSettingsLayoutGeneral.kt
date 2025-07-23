@@ -18,11 +18,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.common.components.dialog.SelectableDialogItem
-import ua.acclorite.book_story.ui.common.model.ButtonItem
+import ua.acclorite.book_story.ui.common.model.ListItem
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategoryTitle
 
 fun LazyListScope.StartSettingsLayoutGeneral(
-    languages: List<ButtonItem>,
+    languages: List<ListItem<String>>,
     updateLanguage: (String) -> Unit,
 ) {
     item {
@@ -34,13 +34,13 @@ fun LazyListScope.StartSettingsLayoutGeneral(
         Spacer(modifier = Modifier.height(12.dp))
     }
 
-    items(languages, key = { it.id }) {
+    items(languages, key = { it.item }) {
         SelectableDialogItem(
             selected = it.selected,
             title = it.title,
             horizontalPadding = 18.dp
         ) {
-            updateLanguage(it.id)
+            updateLanguage(it.item)
         }
     }
 

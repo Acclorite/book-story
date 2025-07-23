@@ -6,7 +6,6 @@
 
 package ua.acclorite.book_story.ui.settings.appearance.theme_preferences.components
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -16,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.common.components.settings.SegmentedButtonWithTitle
 import ua.acclorite.book_story.ui.common.helpers.LocalSettings
-import ua.acclorite.book_story.ui.common.model.ButtonItem
+import ua.acclorite.book_story.ui.common.model.ListItem
 import ua.acclorite.book_story.ui.theme.BookStoryTheme
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
 import ua.acclorite.book_story.ui.theme.model.ThemeContrast
@@ -42,21 +41,17 @@ fun ThemeContrastOption() {
             SegmentedButtonWithTitle(
                 title = stringResource(id = R.string.theme_contrast_option),
                 enabled = settings.theme.value.hasThemeContrast,
-                buttons = ThemeContrast.entries.map {
-                    ButtonItem(
-                        id = it.toString(),
-                        title = when (it) {
-                            ThemeContrast.STANDARD -> stringResource(id = R.string.theme_contrast_standard)
-                            ThemeContrast.MEDIUM -> stringResource(id = R.string.theme_contrast_medium)
-                            ThemeContrast.HIGH -> stringResource(id = R.string.theme_contrast_high)
-                        },
-                        textStyle = MaterialTheme.typography.labelLarge,
-                        selected = it == settings.themeContrast.value
+                buttons = ThemeContrast.entries.map { item ->
+                    ListItem(
+                        item = item,
+                        title = stringResource(id = item.title),
+                        selected = item == settings.themeContrast.value
                     )
+                },
+                onClick = { item ->
+                    settings.themeContrast.update(item)
                 }
-            ) {
-                settings.themeContrast.update(ThemeContrast.valueOf(it.id))
-            }
+            )
         }
     }
 }

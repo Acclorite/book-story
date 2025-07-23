@@ -8,12 +8,14 @@ package ua.acclorite.book_story.ui.theme.model
 
 import android.content.Context
 import android.os.PowerManager
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
+import ua.acclorite.book_story.R
 
-enum class PureDark {
-    OFF,
-    ON,
-    SAVER;
+enum class PureDark(@StringRes val title: Int) {
+    OFF(R.string.pure_dark_off),
+    ON(R.string.pure_dark_on),
+    SAVER(R.string.pure_dark_power_saver);
 
     @Composable
     fun isPureDark(context: Context): Boolean {

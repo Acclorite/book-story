@@ -19,20 +19,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.ui.common.components.common.StyledText
-import ua.acclorite.book_story.ui.common.model.ButtonItem
+import ua.acclorite.book_story.ui.common.model.ListItem
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategoryTitle
 
-/**
- * Chips with title. Use list of [ButtonItem]s to display chips.
- */
 @Composable
-fun ChipsWithTitle(
+fun <T> ChipsWithTitle(
     modifier: Modifier = Modifier,
     title: String,
-    chips: List<ButtonItem>,
+    chips: List<ListItem<T>>,
     horizontalPadding: Dp = 18.dp,
     verticalPadding: Dp = 8.dp,
-    onClick: (ButtonItem) -> Unit
+    onClick: (T) -> Unit
 ) {
     Column(
         modifier
@@ -53,14 +50,14 @@ fun ChipsWithTitle(
                         label = {
                             StyledText(
                                 text = item.title,
-                                style = item.textStyle,
+                                style = item.textStyle(),
                                 maxLines = 1
                             )
                         },
-                        onClick = { onClick(item) },
+                        onClick = { onClick(item.item) },
                     )
                 }
-            },
+            }
         )
     }
 }

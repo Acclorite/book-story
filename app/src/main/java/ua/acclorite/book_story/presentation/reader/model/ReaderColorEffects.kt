@@ -6,10 +6,12 @@
 
 package ua.acclorite.book_story.presentation.reader.model
 
+import androidx.annotation.StringRes
+import ua.acclorite.book_story.R
 
-enum class ReaderColorEffects {
-    OFF,
-    GRAYSCALE,
-    FONT,
-    BACKGROUND
+enum class ReaderColorEffects(@StringRes val title: Int) {
+    OFF(R.string.color_effects_off),
+    GRAYSCALE(R.string.color_effects_grayscale),
+    FONT(R.string.color_effects_font),
+    BACKGROUND(R.string.color_effects_background)
 }

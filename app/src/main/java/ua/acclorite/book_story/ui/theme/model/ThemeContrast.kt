@@ -6,9 +6,12 @@
 
 package ua.acclorite.book_story.ui.theme.model
 
+import androidx.annotation.StringRes
+import ua.acclorite.book_story.R
 
-enum class ThemeContrast {
-    STANDARD,
-    MEDIUM,
-    HIGH
+
+enum class ThemeContrast(@StringRes val title: Int) {
+    STANDARD(R.string.theme_contrast_standard),
+    MEDIUM(R.string.theme_contrast_medium),
+    HIGH(R.string.theme_contrast_high)
 }

@@ -6,7 +6,11 @@
 
 package ua.acclorite.book_story.presentation.browse.model
 
+import androidx.annotation.StringRes
+import ua.acclorite.book_story.R
 
-enum class BrowseLayout {
-    LIST, GRID
+
+enum class BrowseLayout(@StringRes val title: Int) {
+    LIST(R.string.layout_list),
+    GRID(R.string.layout_grid)
 }

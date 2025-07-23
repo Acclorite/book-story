@@ -6,9 +6,11 @@
 
 package ua.acclorite.book_story.presentation.reader.model
 
+import androidx.annotation.StringRes
+import ua.acclorite.book_story.R
 
-enum class ReaderHorizontalGesture {
-    OFF,
-    ON,
-    INVERSE
+enum class ReaderHorizontalGesture(@StringRes val title: Int) {
+    OFF(R.string.horizontal_gesture_off),
+    ON(R.string.horizontal_gesture_on),
+    INVERSE(R.string.horizontal_gesture_inverse)
 }

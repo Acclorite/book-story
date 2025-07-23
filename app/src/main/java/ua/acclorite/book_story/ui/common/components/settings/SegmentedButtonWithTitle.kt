@@ -44,31 +44,18 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.common.components.common.AnimatedVisibility
 import ua.acclorite.book_story.ui.common.components.common.StyledText
-import ua.acclorite.book_story.ui.common.model.ButtonItem
+import ua.acclorite.book_story.ui.common.model.ListItem
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategoryTitle
 
-/**
- * Segmented Button with Title.
- * Uses custom implementation(material3 one has many flaws).
- * Contains [buttons].
- *
- * @param modifier Modifier.
- * @param title Title of the buttons.
- * @param buttons [ButtonItem]s.
- * @param enabled Whether button is enabled.
- * @param horizontalPadding Horizontal item padding.
- * @param verticalPadding Vertical item padding.
- * @param onClick OnClick callback.
- */
 @Composable
-fun SegmentedButtonWithTitle(
+fun <T> SegmentedButtonWithTitle(
     modifier: Modifier = Modifier,
     title: String,
-    buttons: List<ButtonItem>,
+    buttons: List<ListItem<T>>,
     enabled: Boolean = true,
     horizontalPadding: Dp = 18.dp,
     verticalPadding: Dp = 8.dp,
-    onClick: (ButtonItem) -> Unit
+    onClick: (T) -> Unit
 ) {
     Column(
         modifier
@@ -91,9 +78,9 @@ fun SegmentedButtonWithTitle(
                         )
                         .padding(0.5.dp)
                 ) {
-                    buttons.forEachIndexed { index, buttonItem ->
+                    buttons.forEachIndexed { index, item ->
                         SegmentedButton(
-                            button = buttonItem,
+                            button = item,
                             enabled = enabled,
                             shape = when (index) {
                                 buttons.lastIndex -> RoundedCornerShape(
@@ -108,7 +95,7 @@ fun SegmentedButtonWithTitle(
 
                                 else -> RoundedCornerShape(0)
                             },
-                            onClick = { onClick(buttonItem) }
+                            onClick = { onClick(item.item) }
                         )
                     }
                 }
@@ -117,19 +104,9 @@ fun SegmentedButtonWithTitle(
     }
 }
 
-/**
- * Custom Segmented button.
- * Adjusts width based on component name.
- *
- * @param button [ButtonItem].
- * @param enabled Whether can be clicked.
- * @param shape Shape of the button. For proper implementation should have 100% corners on first and last buttons(start and end).
- * @param colors [SegmentedButtonColors].
- * @param onClick OnClick callback.
- */
 @Composable
-private fun SegmentedButton(
-    button: ButtonItem,
+private fun <T> SegmentedButton(
+    button: ListItem<T>,
     enabled: Boolean,
     shape: RoundedCornerShape,
     colors: SegmentedButtonColors = SegmentedButtonDefaults.colors(),
@@ -181,7 +158,7 @@ private fun SegmentedButton(
 
         StyledText(
             text = button.title,
-            style = button.textStyle.copy(
+            style = button.textStyle().copy(
                 color = if (button.selected) colors.activeContentColor
                 else colors.inactiveContentColor
             )

@@ -6,7 +6,6 @@
 
 package ua.acclorite.book_story.ui.settings.general.components
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -16,7 +15,7 @@ import ua.acclorite.book_story.presentation.settings.SettingsEvent
 import ua.acclorite.book_story.presentation.settings.SettingsModel
 import ua.acclorite.book_story.ui.common.components.settings.ChipsWithTitle
 import ua.acclorite.book_story.ui.common.helpers.LocalSettings
-import ua.acclorite.book_story.ui.common.model.ButtonItem
+import ua.acclorite.book_story.ui.common.model.ListItem
 
 @Composable
 fun AppLanguageOption() {
@@ -25,15 +24,15 @@ fun AppLanguageOption() {
 
     ChipsWithTitle(
         title = stringResource(id = R.string.language_option),
-        chips = CoreData.languages.sortedBy { it.second }.map {
-            ButtonItem(
-                it.first,
-                it.second,
-                MaterialTheme.typography.labelLarge,
-                it.first == settings.language.value
+        chips = CoreData.languages.sortedBy { it.second }.map { item ->
+            ListItem(
+                item = item.first,
+                title = item.second,
+                selected = item.first == settings.language.value
             )
+        },
+        onClick = { item ->
+            settingsModel.onEvent(SettingsEvent.OnUpdateLanguage(item))
         }
-    ) {
-        settingsModel.onEvent(SettingsEvent.OnUpdateLanguage(it.id))
-    }
+    )
 }

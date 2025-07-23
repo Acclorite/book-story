@@ -12,7 +12,7 @@ import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.common.components.settings.ChipsWithTitle
 import ua.acclorite.book_story.ui.common.helpers.LocalSettings
-import ua.acclorite.book_story.ui.common.model.ButtonItem
+import ua.acclorite.book_story.ui.common.model.ListItem
 import ua.acclorite.book_story.ui.reader.data.ReaderData
 
 @Composable
@@ -21,21 +21,20 @@ fun FontFamilyOption() {
 
     ChipsWithTitle(
         title = stringResource(id = R.string.font_family_option),
-        chips = ReaderData.fonts.map {
-            ButtonItem(
-                id = it.id,
-                title = it.fontName.asString(),
-                textStyle = MaterialTheme.typography.labelLarge.copy(
-                    fontFamily = it.font
-                ),
-                selected = it == settings.fontFamily.value
+        chips = ReaderData.fonts.map { item ->
+            ListItem(
+                item = item,
+                title = item.fontName.asString(),
+                textStyle = {
+                    MaterialTheme.typography.labelLarge.copy(
+                        fontFamily = item.font
+                    )
+                },
+                selected = item == settings.fontFamily.value
             )
         },
-        onClick = {
-            settings.fontFamily.update(
-                ReaderData.fonts.find { font -> font.id == it.id }
-                    ?: ReaderData.fonts[0]
-            )
+        onClick = { item ->
+            settings.fontFamily.update(item)
         }
     )
 }

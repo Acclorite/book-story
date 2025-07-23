@@ -6,7 +6,10 @@
 
 package ua.acclorite.book_story.presentation.library.model
 
+import androidx.annotation.StringRes
+import ua.acclorite.book_story.R
 
-enum class LibraryLayout {
-    GRID, LIST
+enum class LibraryLayout(@StringRes val title: Int) {
+    GRID(R.string.layout_grid),
+    LIST(R.string.layout_list)
 }

@@ -6,8 +6,11 @@
 
 package ua.acclorite.book_story.presentation.reader.model
 
+import androidx.annotation.StringRes
+import ua.acclorite.book_story.R
 
-enum class ReaderProgressCount {
-    PERCENTAGE,
-    QUANTITY
+
+enum class ReaderProgressCount(@StringRes val title: Int) {
+    PERCENTAGE(R.string.progress_count_percentage),
+    QUANTITY(R.string.progress_count_quantity)
 }

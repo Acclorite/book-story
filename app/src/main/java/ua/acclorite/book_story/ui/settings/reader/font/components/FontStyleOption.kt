@@ -13,7 +13,7 @@ import androidx.compose.ui.text.font.FontStyle
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.common.components.settings.SegmentedButtonWithTitle
 import ua.acclorite.book_story.ui.common.helpers.LocalSettings
-import ua.acclorite.book_story.ui.common.model.ButtonItem
+import ua.acclorite.book_story.ui.common.model.ListItem
 
 @Composable
 fun FontStyleOption() {
@@ -22,32 +22,31 @@ fun FontStyleOption() {
     SegmentedButtonWithTitle(
         title = stringResource(id = R.string.font_style_option),
         buttons = listOf(
-            ButtonItem(
-                id = "normal",
+            ListItem(
+                item = false,
                 title = stringResource(id = R.string.font_style_normal),
-                textStyle = MaterialTheme.typography.labelLarge.copy(
-                    fontFamily = settings.fontFamily.value.font,
-                    fontStyle = FontStyle.Normal
-                ),
+                textStyle = {
+                    MaterialTheme.typography.labelLarge.copy(
+                        fontFamily = settings.fontFamily.value.font,
+                        fontStyle = FontStyle.Normal
+                    )
+                },
                 selected = !settings.italic.value
             ),
-            ButtonItem(
-                id = "italic",
+            ListItem(
+                item = true,
                 title = stringResource(id = R.string.font_style_italic),
-                textStyle = MaterialTheme.typography.labelLarge.copy(
-                    fontFamily = settings.fontFamily.value.font,
-                    fontStyle = FontStyle.Italic
-                ),
+                textStyle = {
+                    MaterialTheme.typography.labelLarge.copy(
+                        fontFamily = settings.fontFamily.value.font,
+                        fontStyle = FontStyle.Italic
+                    )
+                },
                 selected = settings.italic.value
             )
         ),
-        onClick = {
-            settings.italic.update(
-                when (it.id) {
-                    "italic" -> true
-                    else -> false
-                }
-            )
+        onClick = { item ->
+            settings.italic.update(item)
         }
     )
 }

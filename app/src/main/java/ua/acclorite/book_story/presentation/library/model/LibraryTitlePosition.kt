@@ -6,7 +6,12 @@
 
 package ua.acclorite.book_story.presentation.library.model
 
+import androidx.annotation.StringRes
+import ua.acclorite.book_story.R
 
-enum class LibraryTitlePosition {
-    OFF, BELOW, INSIDE
+
+enum class LibraryTitlePosition(@StringRes val title: Int) {
+    OFF(R.string.library_title_position_off),
+    BELOW(R.string.library_title_position_below),
+    INSIDE(R.string.library_title_position_inside)
 }

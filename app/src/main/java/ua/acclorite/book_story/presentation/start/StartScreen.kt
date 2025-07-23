@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.text.TextStyle
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
@@ -25,7 +24,7 @@ import ua.acclorite.book_story.presentation.settings.SettingsEvent
 import ua.acclorite.book_story.presentation.settings.SettingsModel
 import ua.acclorite.book_story.ui.common.helpers.LocalActivity
 import ua.acclorite.book_story.ui.common.helpers.LocalSettings
-import ua.acclorite.book_story.ui.common.model.ButtonItem
+import ua.acclorite.book_story.ui.common.model.ListItem
 import ua.acclorite.book_story.ui.navigator.LocalNavigator
 import ua.acclorite.book_story.ui.start.StartContent
 
@@ -60,10 +59,9 @@ object StartScreen : Screen, Parcelable {
 
         val languages = remember(settings.language.value) {
             CoreData.languages.sortedBy { it.second }.map {
-                ButtonItem(
-                    id = it.first,
+                ListItem(
+                    item = it.first,
                     title = it.second,
-                    textStyle = TextStyle(),
                     selected = it.first == settings.language.lastValue
                 )
             }.sortedBy { it.title }
