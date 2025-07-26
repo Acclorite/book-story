@@ -7,6 +7,7 @@
 package ua.acclorite.book_story.ui.start
 
 import androidx.compose.runtime.Composable
+import ua.acclorite.book_story.core.model.Language
 import ua.acclorite.book_story.presentation.navigator.StackEvent
 import ua.acclorite.book_story.presentation.start.StartScreen
 import ua.acclorite.book_story.ui.common.model.ListItem
@@ -15,8 +16,8 @@ import ua.acclorite.book_story.ui.common.model.ListItem
 fun StartSettings(
     currentPage: Int,
     stackEvent: StackEvent,
-    languages: List<ListItem<String>>,
-    updateLanguage: (String) -> Unit,
+    languages: List<ListItem<Language>>,
+    updateLanguage: (Language) -> Unit,
     navigateForward: () -> Unit
 ) {
     StartSettingsScaffold(

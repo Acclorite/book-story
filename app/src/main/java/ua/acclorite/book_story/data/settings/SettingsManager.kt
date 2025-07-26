@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.core.data.CoreData
 import ua.acclorite.book_story.core.log.logI
+import ua.acclorite.book_story.core.model.Language
 import ua.acclorite.book_story.data.local.data_store.DataStore
 import ua.acclorite.book_story.data.settings.model.Setting
 import ua.acclorite.book_story.presentation.browse.model.BrowseLayout
@@ -62,15 +63,19 @@ class SettingsManager @Inject constructor(
 
     /* ------ Settings --------------------------- */
     /* ------ General ---------------------------- */
-    val language = setting<String, String>(
-        key = stringPreferencesKey("language"),
-        default = Locale.getDefault().language.take(2).let { locale ->
-            CoreData.languages.any { locale == it.first }.run {
-                if (this) locale
-                else "en"// Default language (English)
+    val language =
+        setting<Language, String>(
+            key = stringPreferencesKey("language"),
+            default = Locale.getDefault().language.take(2).let { defaultLocale ->
+                CoreData.languages.find { locale -> locale.languageCode.code == defaultLocale }
+                    ?: CoreData.defaultLanguage
+            },
+            serialize = { it.languageCode.code },
+            deserialize = { code ->
+                CoreData.languages.find { locale -> locale.languageCode.code == code }
+                    ?: CoreData.defaultLanguage
             }
-        }
-    )
+        )
     val theme = setting<Theme, String>(
         key = stringPreferencesKey("theme"), default = Theme.Companion.entries().first(),
         serialize = { it.name }, deserialize = { Theme.valueOf(it) }

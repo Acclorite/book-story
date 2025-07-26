@@ -58,13 +58,13 @@ object StartScreen : Screen, Parcelable {
         val stackEvent = remember { mutableStateOf(StackEvent.DEFAULT) }
 
         val languages = remember(settings.language.value) {
-            CoreData.languages.sortedBy { it.second }.map {
+            CoreData.languages.map { item ->
                 ListItem(
-                    item = it.first,
-                    title = it.second,
-                    selected = it.first == settings.language.lastValue
+                    item = item,
+                    title = item.displayName,
+                    selected = item == settings.language.lastValue
                 )
-            }.sortedBy { it.title }
+            }
         }
 
         StartContent(

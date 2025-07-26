@@ -6,28 +6,29 @@
 
 package ua.acclorite.book_story.core.data
 
-import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toPersistentList
+import ua.acclorite.book_story.core.model.Language
 
 object CoreData {
-    val languages = persistentListOf(
-        Pair("en", "English"),
-        Pair("uk", "Українська"),
-        Pair("de", "Deutsch"),
-        Pair("ar", "اَلْعَرَبِيَّةُ"),
-        Pair("es", "Español"),
-        Pair("tr", "Türkçe"),
-        Pair("fr", "Français"),
-        Pair("pl", "Polski"),
-        Pair("it", "Italiano"),
-        Pair("zh", "汉语"),
-        Pair("hi", "हिन्दी"),
-        // Currently as "pt" (which is Portuguese) instead of "pt-BR"
-        Pair("pt", "Português (Brasil)"),
-        Pair("ta", "தமிழ்"),
-        Pair("ml", "മലയാളം"),
-        Pair("cs", "Čeština"),
-        Pair("ro", "Română"),
-        Pair("be", "Беларуская"),
-        Pair("ja", "日本語")
-    )
+    val defaultLanguage = Language.fromCode(code = "en")
+    val languages = listOf(
+        Language.fromCode(code = "en"),
+        Language.fromCode(code = "uk"),
+        Language.fromCode(code = "de"),
+        Language.fromCode(code = "ar"),
+        Language.fromCode(code = "es"),
+        Language.fromCode(code = "tr"),
+        Language.fromCode(code = "fr"),
+        Language.fromCode(code = "pl"),
+        Language.fromCode(code = "it"),
+        Language.fromCode(code = "zh"),
+        Language.fromCode(code = "hi"),
+        Language.fromCode(code = "pt", displayName = "pt-BR"),
+        Language.fromCode(code = "ta"),
+        Language.fromCode(code = "ml"),
+        Language.fromCode(code = "cs"),
+        Language.fromCode(code = "ro"),
+        Language.fromCode(code = "be"),
+        Language.fromCode(code = "ja"),
+    ).sortedBy { it.displayName }.toPersistentList()
 }

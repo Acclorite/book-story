@@ -11,13 +11,14 @@ import android.net.Uri
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import ua.acclorite.book_story.core.ID
+import ua.acclorite.book_story.core.model.Language
 import ua.acclorite.book_story.domain.model.library.Category
 import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
 
 @Immutable
 sealed class SettingsEvent {
     data class OnUpdateLanguage(
-        val language: String
+        val language: Language
     ) : SettingsEvent()
 
     data class OnGrantPersistableUriPermission(

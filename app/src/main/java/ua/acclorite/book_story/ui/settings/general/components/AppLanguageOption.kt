@@ -24,11 +24,11 @@ fun AppLanguageOption() {
 
     ChipsWithTitle(
         title = stringResource(id = R.string.language_option),
-        chips = CoreData.languages.sortedBy { it.second }.map { item ->
+        chips = CoreData.languages.map { item ->
             ListItem(
-                item = item.first,
-                title = item.second,
-                selected = item.first == settings.language.value
+                item = item,
+                title = item.displayName,
+                selected = item == settings.language.value
             )
         },
         onClick = { item ->
