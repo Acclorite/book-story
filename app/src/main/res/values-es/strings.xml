@@ -333,12 +333,12 @@
     <string name="remove_category">¿Remover categoría?</string>
     <string name="remove_category_description">Esto removerá esta categoría de la Librería pero no eliminará ningún libro.</string>
     <string name="error_field_empty">Este espació no debe estar vacío.</string>
-    <string name="categories_empty">Sin categorías</string>
+    <string name="categories_empty">Sin categorías.</string>
     <string name="create_category">Crear categoría</string>
     <string name="default_tab">Predeterminado</string>
     <string name="library_settings">Librería</string>
     <string name="categories_settings">Categorías</string>
-    <string name="library_categories_option_note">Inicialmente, los libros se añaden a la categoría predeterminada, pero pueden pertenecer a varías categorías personalizadas. Remover una categoría no eliminará libros de la Librería. Mantén y mueve el ícono de la categoría para reorganizar las categorías</string>
+    <string name="library_categories_option_note">Inicialmente, los libros se añaden a la categoría predeterminada, pero pueden pertenecer a varías categorías personalizadas. Remover una categoría no eliminará libros de la Librería. Mantén y mueve el ícono de la categoría para reorganizar las categorías.</string>
     <string name="images_option">Imágenes</string>
     <string name="images_option_desc">Mostrar imágenes</string>
     <string name="images_captions_option">Descripciones</string>
@@ -352,4 +352,12 @@
     <string name="crash_title">¡Ups! La aplicación dejó de funcionar.</string>
     <string name="edit_content_desc">Editar</string>
     <string name="remove_content_desc">Remover</string>
+    <string name="tabs_settings">Pestañas</string>
+    <string name="images_color_effects_option">Efectos de color</string>
+    <string name="read_button_option">Mostrar botón de \"Leído\"</string>
+    <string name="show_book_count_option">Mostrar número de libros</string>
+    <string name="per_category_sort_option">Ordenar por categoría</string>
+    <string name="sort_order_last_read">Última lectura</string>
+    <string name="purple_gray_theme">Ceres</string>
+    <string name="yellow2_theme">Makemake</string>
 </resources>
