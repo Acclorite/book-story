@@ -380,7 +380,7 @@
     <string name="show_book_count_option">显示书籍数</string>
     <string name="show_category_tabs_option">显示分类标签页</string>
     <string name="always_show_default_tab_option">始终显示默认标签页</string>
-    <string name="per_category_sort_option">不同分类排序</string>
+    <string name="per_category_sort_option">每个分类不同排序依据</string>
     <string name="library_title_position_off">隐藏</string>
     <string name="library_title_position_below">下方</string>
     <string name="library_title_position_inside">内部</string>
