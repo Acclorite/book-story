@@ -20,8 +20,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.core.data.CoreData
+import ua.acclorite.book_story.core.language.Language
+import ua.acclorite.book_story.core.language.LanguageUtils
 import ua.acclorite.book_story.core.log.logI
-import ua.acclorite.book_story.core.model.Language
 import ua.acclorite.book_story.data.local.data_store.DataStore
 import ua.acclorite.book_story.data.settings.model.Setting
 import ua.acclorite.book_story.presentation.browse.model.BrowseLayout
@@ -63,19 +64,23 @@ class SettingsManager @Inject constructor(
 
     /* ------ Settings --------------------------- */
     /* ------ General ---------------------------- */
-    val language =
-        setting<Language, String>(
-            key = stringPreferencesKey("language"),
-            default = Locale.getDefault().language.take(2).let { defaultLocale ->
-                CoreData.languages.find { locale -> locale.languageCode.code == defaultLocale }
-                    ?: CoreData.defaultLanguage
-            },
-            serialize = { it.languageCode.code },
-            deserialize = { code ->
-                CoreData.languages.find { locale -> locale.languageCode.code == code }
-                    ?: CoreData.defaultLanguage
-            }
-        )
+    val language = setting<Language, String>(
+        key = stringPreferencesKey("language"),
+        default = LanguageUtils.findLanguage(
+            languages = CoreData.languages,
+            locale = Locale.getDefault(),
+            defaultLanguage = CoreData.defaultLanguage
+        ),
+        serialize = { it.locale.toLanguageTag() },
+        deserialize = { languageTag ->
+            val locale = Locale.forLanguageTag(languageTag)
+            LanguageUtils.findLanguage(
+                languages = CoreData.languages,
+                locale = locale,
+                defaultLanguage = CoreData.defaultLanguage
+            )
+        }
+    )
     val theme = setting<Theme, String>(
         key = stringPreferencesKey("theme"), default = Theme.Companion.entries().first(),
         serialize = { it.name }, deserialize = { Theme.valueOf(it) }

@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.core.model.Language
+import ua.acclorite.book_story.core.language.Language
 import ua.acclorite.book_story.ui.common.components.dialog.SelectableDialogItem
 import ua.acclorite.book_story.ui.common.model.ListItem
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategoryTitle
@@ -35,7 +35,7 @@ fun LazyListScope.StartSettingsLayoutGeneral(
         Spacer(modifier = Modifier.height(12.dp))
     }
 
-    items(languages, key = { it.item }) { item ->
+    items(languages) { item ->
         SelectableDialogItem(
             selected = item.selected,
             title = item.title,

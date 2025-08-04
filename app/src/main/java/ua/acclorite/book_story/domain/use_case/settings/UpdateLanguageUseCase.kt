@@ -8,7 +8,7 @@ package ua.acclorite.book_story.domain.use_case.settings
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
-import ua.acclorite.book_story.core.model.Language
+import ua.acclorite.book_story.core.language.Language
 import ua.acclorite.book_story.data.settings.SettingsManager
 import javax.inject.Inject
 
@@ -17,7 +17,7 @@ class UpdateLanguageUseCase @Inject constructor(
 ) {
 
     operator fun invoke(language: Language) {
-        val appLocale = LocaleListCompat.forLanguageTags(language.languageCode.code)
+        val appLocale = LocaleListCompat.forLanguageTags(language.locale.toLanguageTag())
         AppCompatDelegate.setApplicationLocales(appLocale)
         settings.language.update(language)
     }

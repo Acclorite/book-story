@@ -7,7 +7,7 @@
 package ua.acclorite.book_story.ui.start
 
 import androidx.compose.runtime.Composable
-import ua.acclorite.book_story.core.model.Language
+import ua.acclorite.book_story.core.language.Language
 import ua.acclorite.book_story.presentation.navigator.StackEvent
 import ua.acclorite.book_story.presentation.start.StartScreen
 import ua.acclorite.book_story.ui.common.model.ListItem

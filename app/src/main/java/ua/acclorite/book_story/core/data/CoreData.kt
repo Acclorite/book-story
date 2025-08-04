@@ -7,28 +7,28 @@
 package ua.acclorite.book_story.core.data
 
 import kotlinx.collections.immutable.toPersistentList
-import ua.acclorite.book_story.core.model.Language
+import ua.acclorite.book_story.core.language.Language
 
 object CoreData {
-    val defaultLanguage = Language.fromCode(code = "en")
+    val defaultLanguage = Language.fromLanguageTag(languageTag = "en") // English
     val languages = listOf(
-        Language.fromCode(code = "en"),
-        Language.fromCode(code = "uk"),
-        Language.fromCode(code = "de"),
-        Language.fromCode(code = "ar"),
-        Language.fromCode(code = "es"),
-        Language.fromCode(code = "tr"),
-        Language.fromCode(code = "fr"),
-        Language.fromCode(code = "pl"),
-        Language.fromCode(code = "it"),
-        Language.fromCode(code = "zh"),
-        Language.fromCode(code = "hi"),
-        Language.fromCode(code = "pt", displayName = "pt-BR"),
-        Language.fromCode(code = "ta"),
-        Language.fromCode(code = "ml"),
-        Language.fromCode(code = "cs"),
-        Language.fromCode(code = "ro"),
-        Language.fromCode(code = "be"),
-        Language.fromCode(code = "ja"),
+        Language.fromLanguageTag(languageTag = "en"), // English
+        Language.fromLanguageTag(languageTag = "uk"), // Ukrainian
+        Language.fromLanguageTag(languageTag = "de"), // German
+        Language.fromLanguageTag(languageTag = "ar"), // Arabic
+        Language.fromLanguageTag(languageTag = "es"), // Spanish
+        Language.fromLanguageTag(languageTag = "tr"), // Turkish
+        Language.fromLanguageTag(languageTag = "fr"), // French
+        Language.fromLanguageTag(languageTag = "pl"), // Polish
+        Language.fromLanguageTag(languageTag = "it"), // Italian
+        Language.fromLanguageTag(languageTag = "zh-CN"), // Chinese (China)
+        Language.fromLanguageTag(languageTag = "hi"), // Hindi
+        Language.fromLanguageTag(languageTag = "pt-BR"), // Portuguese (Brazil)
+        Language.fromLanguageTag(languageTag = "ta"), // Tamil
+        Language.fromLanguageTag(languageTag = "ml"), // Malayalam
+        Language.fromLanguageTag(languageTag = "cs"), // Czech
+        Language.fromLanguageTag(languageTag = "ro"), // Romanian
+        Language.fromLanguageTag(languageTag = "be"), // Belarusian
+        Language.fromLanguageTag(languageTag = "ja"), // Japanese
     ).sortedBy { it.displayName }.toPersistentList()
 }

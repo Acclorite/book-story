@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.update
 @Stable
 class Setting<T, P>(
     val key: Preferences.Key<P>,
-    default: T,
+    private val default: T,
     private val setSetting: (P) -> Unit,
     private val serialize: (T) -> P,
     private val deserialize: (P) -> T
@@ -33,7 +33,10 @@ class Setting<T, P>(
     }
 
     fun init(value: P?) {
-        if (value == null) return
+        if (value == null) {
+            setSetting(serialize(default))
+            return
+        }
         _value.update { deserialize(value) }
     }
 }
