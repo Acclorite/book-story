@@ -332,7 +332,7 @@
     <string name="report">Reportar</string>
     <string name="remove_category">¿Remover categoría?</string>
     <string name="remove_category_description">Esto removerá esta categoría de la Librería pero no eliminará ningún libro.</string>
-    <string name="error_field_empty">Este espació no debe estar vacío.</string>
+    <string name="error_field_empty">Este campo no debe estar vacío.</string>
     <string name="categories_empty">Sin categorías.</string>
     <string name="create_category">Crear categoría</string>
     <string name="default_tab">Predeterminado</string>
