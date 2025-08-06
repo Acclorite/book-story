@@ -324,7 +324,7 @@
     <string name="browse_scan_option_note">Estas carpetas se usan para escanear y obtener ficheros en \"Explorar\". Borrar una carpeta aquí no eliminará los ficheros reales ni libros de la Librería. Para revocar acceso, pulsa en el botón correspondiente.</string>
     <string name="display_settings">Visual</string>
     <string name="ok">Vale</string>
-    <string name="change_path">Cambiar ruta</string>
+    <string name="change_path">Cambiar la ruta del archivo</string>
     <string name="display_tab">Visual</string>
     <string name="add_folder">Añadir carpeta</string>
     <string name="set_up_scanning">Configurar escaneo</string>
