@@ -68,7 +68,7 @@
     <string name="add_books_description">Puede escoger qué libros desea añadir. Puede editar el título y la portada del libro más adelante. El proceso de carga puede durar varios minutos.</string>
     <string name="delete_book_description">Eliminará este libro de la base de datos. No eliminará este libro de su dispositivo.</string>
     <string name="error_no_translator">No se ha encontrado ninguna aplicación de traducción.</string>
-    <string name="error_could_not_get_text">El fichero está vacío, desaparecido o inaccesible. Por favor, revisa el fichero y los ajustes de escaneo, y prueba de nuevo.</string>
+    <string name="error_could_not_get_text">El archivo está vacío, desaparecido o es inaccesible. Verifica el archivo, la configuración o la ruta, y vuelve a intentarlo.</string>
     <string name="error_could_not_reset_cover">No se pudo reiniciar la portada.</string>
     <string name="browse_empty">Expanda la colección de libros de la biblioteca con sus descargas</string>
     <string name="library_empty">Lea sus libros favoritos y ordénelos en categorías</string>
@@ -254,7 +254,7 @@
     <string name="cutout_padding_option">Margen del recorte</string>
     <string name="padding_reader_settings">Márgenes</string>
     <string name="vertical_padding_option">Margen vertical</string>
-    <string name="cutout_padding_option_desc">Aplicar margen a la zona recortada</string>
+    <string name="cutout_padding_option_desc">Aplicar el margen al área recortada</string>
     <string name="checkpoint_forward_content_desc">Punto de control nuevo</string>
     <string name="hide_bars_on_fast_scroll_option">Ocultar barras en el desplazamiento rápido</string>
     <string name="checkpoint_back_content_desc">Volver al punto de control</string>
@@ -275,7 +275,7 @@
     <string name="contributors_option">Colaboradores</string>
     <string name="help_title_how_to_use_perception_expander">¿Qué es un potenciador de la percepción y cómo utilizarlo?</string>
     <string name="help_desc_how_to_use_perception_expander_1">El expansor de percepción puede ayudarte a leer más rápido. En primer lugar, actívelo en los ajustes del Lector (consulte: ¿Cómo personalizo el Lector?). Una vez activado, aparecerán dos líneas verticales a cada lado del Reader. Para optimizar aún más su velocidad de lectura, ajuste el relleno para crear menos espacio alrededor del centro. Para utilizarlo, concéntrate en el centro de la pantalla y deja que tu visión periférica capte el texto de los lados. Mientras lees, mantén la atención en el centro sin mirar directamente a los lados después de cada línea.</string>
-    <string name="perception_expander_padding_option">Sangrías en la línea de mejoran la percepción.</string>
+    <string name="perception_expander_padding_option">Sangrías en la línea de mejoran la percepción</string>
     <string name="perception_expander_thickness_option">Grosor de la línea</string>
     <string name="more_content_desc">Más</string>
     <string name="search_field_empty">Buscar…</string>
@@ -341,7 +341,7 @@
     <string name="library_categories_option_note">Inicialmente, los libros se añaden a la categoría predeterminada, pero pueden pertenecer a varías categorías personalizadas. Remover una categoría no eliminará libros de la Librería. Mantén y mueve el ícono de la categoría para reorganizar las categorías.</string>
     <string name="images_option">Imágenes</string>
     <string name="images_option_desc">Mostrar imágenes</string>
-    <string name="images_captions_option">Descripciones</string>
+    <string name="images_captions_option">Subtítulos</string>
     <string name="images_captions_option_desc">Mostrar descripciones bajo las imágenes</string>
     <string name="show_progress_option">Mostrar progreso</string>
     <string name="title_position_option">Posición del Título</string>
@@ -356,8 +356,28 @@
     <string name="images_color_effects_option">Efectos de color</string>
     <string name="read_button_option">Mostrar botón de \"Leído\"</string>
     <string name="show_book_count_option">Mostrar número de libros</string>
-    <string name="per_category_sort_option">Ordenar por categoría</string>
+    <string name="per_category_sort_option">Ordenación por categoría</string>
     <string name="sort_order_last_read">Última lectura</string>
     <string name="purple_gray_theme">Ceres</string>
     <string name="yellow2_theme">Makemake</string>
+    <string name="horizontal_gesture_scroll_option">Fracción de la barra de desplazamiento</string>
+    <string name="horizontal_gesture_alpha_anim_option">Visibilidad de animaciones</string>
+    <string name="horizontal_gesture_alpha_anim_option_desc">Activar animación de visibilidad al usar el gesto horizontal</string>
+    <string name="horizontal_gesture_pull_anim_option_desc">Activar animación de arrastrar al usar el gesto horizontal</string>
+    <string name="images_corners_roundness_option">Esquinas redondeadas</string>
+    <string name="progress_count_option">Conteo de progreso</string>
+    <string name="horizontal_gesture_inverse">Encendido (inverso)</string>
+    <string name="color_effects_off">Desactivado</string>
+    <string name="font_thickness_thin">Finura</string>
+    <string name="font_thickness_extra_light">Extra fino</string>
+    <string name="font_thickness_light">Fino</string>
+    <string name="font_thickness_normal">Normal</string>
+    <string name="font_thickness_medium">Medio</string>
+    <string name="support_development_option">Apoyar el desarrollo</string>
+    <string name="start_scan_preferences">Preferencias de escaneo</string>
+    <string name="crash_description">Por favor, reporta este mensaje de error de la manera más conveniente para ti.</string>
+    <string name="pin_content_desc">Fijar</string>
+    <string name="expand_content_desc">Expandir</string>
+    <string name="collapse_content_desc">Colapsar</string>
+    <string name="note_content_desc">Nota</string>
 </resources>
