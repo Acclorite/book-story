@@ -380,4 +380,14 @@
     <string name="expand_content_desc">Expandir</string>
     <string name="collapse_content_desc">Colapsar</string>
     <string name="note_content_desc">Nota</string>
+    <string name="library_settings_desc">Categorías, vista, pestañas</string>
+    <string name="horizontal_gesture_pull_anim_option">Animación de arrastre</string>
+    <string name="progress_bar_option_desc">Mostrar barra de progreso abajo</string>
+    <string name="show_category_tabs_option">Mostrar pestañas de categorías</string>
+    <string name="always_show_default_tab_option">Siempre mostrar pestaña predeterminada</string>
+    <string name="library_title_position_below">Abajo</string>
+    <string name="library_title_position_inside">Adentro</string>
+    <string name="green2_theme">Ío</string>
+    <string name="green_gray_theme">Encélado</string>
+    <string name="gray_theme">Jápeto</string>
 </resources>
