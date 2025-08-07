@@ -21,7 +21,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -36,11 +35,9 @@ fun AboutLayout(
     paddingValues: PaddingValues,
     listState: LazyListState,
     navigateToBrowserPage: (AboutEvent.OnNavigateToBrowserPage) -> Unit,
-    navigateToLicenses: () -> Unit,
-    navigateToCredits: () -> Unit
+    navigateToLicenses: (AboutEvent.OnNavigateToLicenses) -> Unit,
+    navigateToCredits: (AboutEvent.OnNavigateToCredits) -> Unit
 ) {
-    val context = LocalContext.current
-
     LazyColumnWithScrollbar(
         Modifier
             .fillMaxSize()
@@ -82,8 +79,7 @@ fun AboutLayout(
             ) {
                 navigateToBrowserPage(
                     AboutEvent.OnNavigateToBrowserPage(
-                        page = LinkData.RELEASES,
-                        context = context
+                        page = LinkData.RELEASES
                     )
                 )
             }
@@ -96,8 +92,7 @@ fun AboutLayout(
             ) {
                 navigateToBrowserPage(
                     AboutEvent.OnNavigateToBrowserPage(
-                        page = LinkData.ISSUES,
-                        context = context
+                        page = LinkData.ISSUES
                     )
                 )
             }
@@ -111,8 +106,7 @@ fun AboutLayout(
             ) {
                 navigateToBrowserPage(
                     AboutEvent.OnNavigateToBrowserPage(
-                        page = LinkData.CONTRIBUTORS,
-                        context = context
+                        page = LinkData.CONTRIBUTORS
                     )
                 )
             }
@@ -123,7 +117,7 @@ fun AboutLayout(
                 title = stringResource(id = R.string.licenses_option),
                 description = null
             ) {
-                navigateToLicenses()
+                navigateToLicenses(AboutEvent.OnNavigateToLicenses)
             }
         }
 
@@ -132,7 +126,7 @@ fun AboutLayout(
                 title = stringResource(id = R.string.credits_option),
                 description = null
             ) {
-                navigateToCredits()
+                navigateToCredits(AboutEvent.OnNavigateToCredits)
             }
         }
 
@@ -143,8 +137,7 @@ fun AboutLayout(
             ) {
                 navigateToBrowserPage(
                     AboutEvent.OnNavigateToBrowserPage(
-                        page = LinkData.TRANSLATION,
-                        context = context
+                        page = LinkData.TRANSLATION
                     )
                 )
             }
@@ -157,8 +150,7 @@ fun AboutLayout(
             ) {
                 navigateToBrowserPage(
                     AboutEvent.OnNavigateToBrowserPage(
-                        page = LinkData.SUPPORT,
-                        context = context
+                        page = LinkData.SUPPORT
                     )
                 )
             }

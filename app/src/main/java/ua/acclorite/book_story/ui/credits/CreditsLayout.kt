@@ -13,7 +13,6 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import ua.acclorite.book_story.presentation.about.AboutEvent
 import ua.acclorite.book_story.ui.common.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.ui.credits.data.CreditData
@@ -24,7 +23,6 @@ fun CreditsLayout(
     listState: LazyListState,
     navigateToBrowserPage: (AboutEvent.OnNavigateToBrowserPage) -> Unit
 ) {
-    val context = LocalContext.current
     LazyColumnWithScrollbar(
         Modifier
             .fillMaxSize()
@@ -39,8 +37,7 @@ fun CreditsLayout(
                 credit.website?.let { website ->
                     navigateToBrowserPage(
                         AboutEvent.OnNavigateToBrowserPage(
-                            page = website,
-                            context = context
+                            page = website
                         )
                     )
                 }

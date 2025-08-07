@@ -26,7 +26,7 @@ fun CreditsScaffold(
     scrollBehavior: TopAppBarScrollBehavior,
     listState: LazyListState,
     navigateToBrowserPage: (AboutEvent.OnNavigateToBrowserPage) -> Unit,
-    navigateBack: () -> Unit
+    navigateBack: (AboutEvent.OnNavigateBack) -> Unit
 ) {
     Scaffold(
         Modifier

@@ -14,7 +14,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import com.mikepenz.aboutlibraries.entity.Library
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.about.AboutEvent
@@ -28,19 +27,16 @@ fun LicenseInfoTopBar(
     library: Library,
     scrollBehavior: TopAppBarScrollBehavior,
     navigateToBrowserPage: (AboutEvent.OnNavigateToBrowserPage) -> Unit,
-    navigateBack: () -> Unit
+    navigateBack: (AboutEvent.OnNavigateBack) -> Unit
 ) {
-    val context = LocalContext.current
-
     LargeTopAppBar(
         title = {
             StyledText(
-                text = library.name,
-                maxLines = 1
+                text = library.name
             )
         },
         navigationIcon = {
-            NavigatorBackIconButton(navigateBack = navigateBack)
+            NavigatorBackIconButton(navigateBack = { navigateBack(AboutEvent.OnNavigateBack) })
         },
         actions = {
             if (library.website?.isNotBlank() == true) {
@@ -51,8 +47,7 @@ fun LicenseInfoTopBar(
                 ) {
                     navigateToBrowserPage(
                         AboutEvent.OnNavigateToBrowserPage(
-                            page = library.website!!,
-                            context = context
+                            page = library.website!!
                         )
                     )
                 }

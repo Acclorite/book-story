@@ -20,7 +20,7 @@ fun LicenseInfoContent(
     scrollBehavior: TopAppBarScrollBehavior,
     listState: LazyListState,
     navigateToBrowserPage: (AboutEvent.OnNavigateToBrowserPage) -> Unit,
-    navigateBack: () -> Unit
+    navigateBack: (AboutEvent.OnNavigateBack) -> Unit
 ) {
     LicenseInfoScaffold(
         library = library,

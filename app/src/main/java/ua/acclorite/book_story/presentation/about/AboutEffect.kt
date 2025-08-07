@@ -9,14 +9,14 @@ package ua.acclorite.book_story.presentation.about
 import androidx.compose.runtime.Immutable
 
 @Immutable
-sealed class AboutEvent {
+sealed class AboutEffect {
     data class OnNavigateToBrowserPage(
         val page: String
-    ) : AboutEvent()
+    ) : AboutEffect()
 
-    data object OnNavigateToLicenses : AboutEvent()
+    data object OnNavigateToLicenses : AboutEffect()
 
-    data object OnNavigateToCredits : AboutEvent()
+    data object OnNavigateToCredits : AboutEffect()
 
-    data object OnNavigateBack : AboutEvent()
+    data object OnNavigateBack : AboutEffect()
 }

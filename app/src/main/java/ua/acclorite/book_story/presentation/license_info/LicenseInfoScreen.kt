@@ -20,9 +20,9 @@ import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.about.AboutModel
 import ua.acclorite.book_story.presentation.navigator.Screen
+import ua.acclorite.book_story.ui.about.AboutEffects
 import ua.acclorite.book_story.ui.common.components.top_bar.collapsibleTopAppBarScrollBehavior
 import ua.acclorite.book_story.ui.license_info.LicenseInfoContent
-import ua.acclorite.book_story.ui.navigator.LocalNavigator
 
 @Parcelize
 data class LicenseInfoScreen(val uniqueId: String) : Screen, Parcelable {
@@ -30,7 +30,6 @@ data class LicenseInfoScreen(val uniqueId: String) : Screen, Parcelable {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
-        val navigator = LocalNavigator.current
         val screenModel = hiltViewModel<AboutModel>()
 
         val context = LocalContext.current
@@ -42,14 +41,14 @@ data class LicenseInfoScreen(val uniqueId: String) : Screen, Parcelable {
             }
         }
 
+        AboutEffects(screenModel.effects)
+
         LicenseInfoContent(
             library = library.value,
             scrollBehavior = scrollBehavior,
             listState = listState,
             navigateToBrowserPage = screenModel::onEvent,
-            navigateBack = {
-                navigator.pop()
-            }
+            navigateBack = screenModel::onEvent
         )
     }
 }

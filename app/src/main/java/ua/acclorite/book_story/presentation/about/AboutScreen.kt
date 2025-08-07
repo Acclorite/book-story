@@ -12,12 +12,10 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.presentation.credits.CreditsScreen
-import ua.acclorite.book_story.presentation.licenses.LicensesScreen
 import ua.acclorite.book_story.presentation.navigator.Screen
 import ua.acclorite.book_story.ui.about.AboutContent
+import ua.acclorite.book_story.ui.about.AboutEffects
 import ua.acclorite.book_story.ui.common.components.top_bar.collapsibleTopAppBarScrollBehavior
-import ua.acclorite.book_story.ui.navigator.LocalNavigator
 
 @Parcelize
 object AboutScreen : Screen, Parcelable {
@@ -25,24 +23,19 @@ object AboutScreen : Screen, Parcelable {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
-        val navigator = LocalNavigator.current
         val screenModel = hiltViewModel<AboutModel>()
 
         val (scrollBehavior, listState) = TopAppBarDefaults.collapsibleTopAppBarScrollBehavior()
+
+        AboutEffects(screenModel.effects)
 
         AboutContent(
             scrollBehavior = scrollBehavior,
             listState = listState,
             navigateToBrowserPage = screenModel::onEvent,
-            navigateToLicenses = {
-                navigator.push(LicensesScreen)
-            },
-            navigateToCredits = {
-                navigator.push(CreditsScreen)
-            },
-            navigateBack = {
-                navigator.pop()
-            }
+            navigateToLicenses = screenModel::onEvent,
+            navigateToCredits = screenModel::onEvent,
+            navigateBack = screenModel::onEvent
         )
     }
 }

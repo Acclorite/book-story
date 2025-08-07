@@ -18,9 +18,9 @@ fun AboutContent(
     scrollBehavior: TopAppBarScrollBehavior,
     listState: LazyListState,
     navigateToBrowserPage: (AboutEvent.OnNavigateToBrowserPage) -> Unit,
-    navigateToLicenses: () -> Unit,
-    navigateToCredits: () -> Unit,
-    navigateBack: () -> Unit
+    navigateToLicenses: (AboutEvent.OnNavigateToLicenses) -> Unit,
+    navigateToCredits: (AboutEvent.OnNavigateToCredits) -> Unit,
+    navigateBack: (AboutEvent.OnNavigateBack) -> Unit
 ) {
     AboutScaffold(
         scrollBehavior = scrollBehavior,

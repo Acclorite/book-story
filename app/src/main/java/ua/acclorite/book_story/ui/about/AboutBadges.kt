@@ -52,8 +52,7 @@ fun AboutBadges(
                             badge.url?.let {
                                 navigateToBrowserPage(
                                     AboutEvent.OnNavigateToBrowserPage(
-                                        page = it,
-                                        context = context
+                                        page = it
                                     )
                                 )
                             }
