@@ -6,14 +6,16 @@
 
 package ua.acclorite.book_story.presentation.history
 
-import androidx.compose.material3.SnackbarResult
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -21,26 +23,18 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.yield
-import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.history.History
-import ua.acclorite.book_story.domain.use_case.book.GetBookUseCase
 import ua.acclorite.book_story.domain.use_case.history.AddHistoryUseCase
 import ua.acclorite.book_story.domain.use_case.history.DeleteHistoryUseCase
 import ua.acclorite.book_story.domain.use_case.history.DeleteWholeHistoryUseCase
 import ua.acclorite.book_story.domain.use_case.history.GetHistoryUseCase
-import ua.acclorite.book_story.presentation.history.model.GroupedHistory
 import ua.acclorite.book_story.presentation.library.LibraryScreen
-import ua.acclorite.book_story.ui.common.helpers.showToast
-import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Date
-import java.util.Locale
 import javax.inject.Inject
+import kotlin.coroutines.coroutineContext
 
 @HiltViewModel
 class HistoryModel @Inject constructor(
-    private val getBookUseCase: GetBookUseCase,
     private val getHistoryUseCase: GetHistoryUseCase,
     private val addHistoryUseCase: AddHistoryUseCase,
     private val deleteHistoryUseCase: DeleteHistoryUseCase,
@@ -52,21 +46,21 @@ class HistoryModel @Inject constructor(
     private val _state = MutableStateFlow(HistoryState())
     val state = _state.asStateFlow()
 
+    private val _effects = MutableSharedFlow<HistoryEffect>()
+    val effects = _effects.asSharedFlow()
+
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            onEvent(
-                HistoryEvent.OnRefreshList(
-                    loading = true,
-                    hideSearch = true
-                )
+        onEvent(
+            HistoryEvent.OnRefreshList(
+                loading = true,
+                hideSearch = true
             )
-        }
+        )
 
         /* Observe channel - - - - - - - - - - - */
-        viewModelScope.launch(Dispatchers.IO) {
-            HistoryScreen.refreshListChannel.receiveAsFlow().collectLatest {
-                delay(it)
-                yield()
+        viewModelScope.launch {
+            HistoryScreen.refreshListChannel.receiveAsFlow().collectLatest { delay ->
+                delay(delay)
 
                 onEvent(
                     HistoryEvent.OnRefreshList(
@@ -76,18 +70,17 @@ class HistoryModel @Inject constructor(
                 )
             }
         }
-        viewModelScope.launch(Dispatchers.IO) {
-            HistoryScreen.insertHistoryChannel.receiveAsFlow().collectLatest {
+        viewModelScope.launch {
+            HistoryScreen.insertHistoryChannel.receiveAsFlow().collectLatest { bookId ->
                 addHistoryUseCase(
                     History(
-                        bookId = it,
+                        bookId = bookId,
                         book = null,
                         time = Date().time
                     )
                 )
 
                 delay(500)
-                yield()
 
                 onEvent(
                     HistoryEvent.OnRefreshList(
@@ -103,36 +96,43 @@ class HistoryModel @Inject constructor(
 
     private var refreshJob: Job? = null
     private var searchQueryChange: Job? = null
-    private var deleteHistoryEntry: Job? = null
 
     fun onEvent(event: HistoryEvent) {
-        when (event) {
-            is HistoryEvent.OnRefreshList -> {
-                refreshJob?.cancel()
-                refreshJob = viewModelScope.launch(Dispatchers.IO) {
-                    _state.update {
-                        it.copy(
-                            isRefreshing = true,
-                            isLoading = event.loading,
-                            showSearch = if (event.hideSearch) false else it.showSearch
-                        )
-                    }
+        viewModelScope.launch {
+            when (event) {
+                is HistoryEvent.OnRefreshList -> {
+                    refreshJob?.cancel()
+                    refreshJob = viewModelScope.launch(Dispatchers.Default) {
+                        _state.update {
+                            it.copy(
+                                isRefreshing = true,
+                                isLoading = event.loading,
+                                showSearch = if (event.hideSearch) false else it.showSearch
+                            )
+                        }
 
-                    yield()
-                    getHistoryFromDatabase()
-
-                    delay(500)
-                    _state.update {
-                        it.copy(
-                            isRefreshing = false,
-                            isLoading = false
+                        ensureActive()
+                        val history = getHistoryUseCase(
+                            if (_state.value.showSearch) _state.value.searchQuery
+                            else ""
                         )
+                        _state.update {
+                            it.copy(
+                                history = history,
+                                isLoading = false
+                            )
+                        }
+
+                        delay(500) // Delay for UI smoothness
+                        _state.update {
+                            it.copy(
+                                isRefreshing = false
+                            )
+                        }
                     }
                 }
-            }
 
-            is HistoryEvent.OnSearchVisibility -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                is HistoryEvent.OnSearchVisibility -> {
                     if (!event.show) {
                         onEvent(
                             HistoryEvent.OnRefreshList(
@@ -140,27 +140,20 @@ class HistoryModel @Inject constructor(
                                 hideSearch = true
                             )
                         )
-                    } else {
-                        _state.update {
-                            it.copy(
-                                searchQuery = "",
-                                hasFocused = false
-                            )
-                        }
                     }
 
                     _state.update {
                         it.copy(
-                            showSearch = event.show
+                            showSearch = event.show,
+                            searchQuery = if (event.show) "" else it.searchQuery,
+                            hasFocused = if (event.show) false else it.hasFocused
                         )
                     }
                 }
-            }
 
-            is HistoryEvent.OnRequestFocus -> {
-                viewModelScope.launch(Dispatchers.Main) {
+                is HistoryEvent.OnRequestFocus -> {
                     if (!_state.value.hasFocused) {
-                        event.focusRequester.requestFocus()
+                        _effects.emit(HistoryEffect.OnRequestFocus)
                         _state.update {
                             it.copy(
                                 hasFocused = true
@@ -168,26 +161,22 @@ class HistoryModel @Inject constructor(
                         }
                     }
                 }
-            }
 
-            is HistoryEvent.OnSearchQueryChange -> {
-                viewModelScope.launch {
+                is HistoryEvent.OnSearchQueryChange -> {
                     _state.update {
                         it.copy(
                             searchQuery = event.query
                         )
                     }
+
                     searchQueryChange?.cancel()
-                    searchQueryChange = launch(Dispatchers.IO) {
+                    searchQueryChange = viewModelScope.launch(Dispatchers.IO) {
                         delay(500)
-                        yield()
                         onEvent(HistoryEvent.OnSearch)
                     }
                 }
-            }
 
-            is HistoryEvent.OnSearch -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                is HistoryEvent.OnSearch -> {
                     onEvent(
                         HistoryEvent.OnRefreshList(
                             loading = false,
@@ -195,173 +184,94 @@ class HistoryModel @Inject constructor(
                         )
                     )
                 }
-            }
 
-            is HistoryEvent.OnDeleteHistoryEntry -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    deleteHistoryUseCase(event.history)
+                is HistoryEvent.OnDeleteHistoryEntry -> {
+                    withContext(Dispatchers.Default) {
+                        deleteHistoryUseCase(event.history)
 
-                    onEvent(
-                        HistoryEvent.OnRefreshList(
-                            loading = false,
-                            hideSearch = false
-                        )
-                    )
-                    LibraryScreen.refreshListChannel.trySend(0)
-
-                    deleteHistoryEntry?.cancel()
-                    event.snackbarState.currentSnackbarData?.dismiss()
-
-                    deleteHistoryEntry = launch(Dispatchers.IO) {
-                        repeat(10) {
-                            yield()
-                            delay(1000)
-                        }
-
-                        yield()
-                        event.snackbarState.currentSnackbarData?.dismiss()
-                    }
-                    val snackbarResult = event.snackbarState.showSnackbar(
-                        event.context.getString(R.string.history_element_deleted),
-                        event.context.getString(R.string.undo)
-                    )
-
-                    when (snackbarResult) {
-                        SnackbarResult.Dismissed -> Unit
-                        SnackbarResult.ActionPerformed -> {
-                            addHistoryUseCase(event.history)
-                            LibraryScreen.refreshListChannel.trySend(0)
-
-                            onEvent(
-                                HistoryEvent.OnRefreshList(
-                                    loading = false,
-                                    hideSearch = false
-                                )
+                        onEvent(
+                            HistoryEvent.OnRefreshList(
+                                loading = false,
+                                hideSearch = false
                             )
-                        }
+                        )
+                        LibraryScreen.refreshListChannel.trySend(0)
+
+                        _effects.emit(HistoryEffect.OnShowSnackbar(event.history))
                     }
                 }
-            }
 
-            is HistoryEvent.OnShowDeleteWholeHistoryDialog -> {
-                viewModelScope.launch {
+                is HistoryEvent.OnRestoreHistoryEntry -> {
+                    withContext(Dispatchers.Default) {
+                        addHistoryUseCase(event.history)
+
+                        onEvent(
+                            HistoryEvent.OnRefreshList(
+                                loading = false,
+                                hideSearch = false
+                            )
+                        )
+                        LibraryScreen.refreshListChannel.trySend(0)
+                    }
+                }
+
+                is HistoryEvent.OnShowDeleteWholeHistoryDialog -> {
                     _state.update {
                         it.copy(
                             dialog = HistoryScreen.DELETE_WHOLE_HISTORY_DIALOG
                         )
                     }
                 }
-            }
 
-            is HistoryEvent.OnActionDeleteWholeHistoryDialog -> {
-                viewModelScope.launch {
-                    _state.update {
-                        it.copy(
-                            dialog = null,
-                            isLoading = true
+                is HistoryEvent.OnActionDeleteWholeHistoryDialog -> {
+                    withContext(Dispatchers.Default) {
+                        _state.update {
+                            it.copy(
+                                dialog = null,
+                                isLoading = true
+                            )
+                        }
+
+                        deleteWholeHistoryUseCase()
+
+                        onEvent(
+                            HistoryEvent.OnRefreshList(
+                                loading = true,
+                                hideSearch = true
+                            )
                         )
-                    }
+                        LibraryScreen.refreshListChannel.trySend(0)
 
-                    deleteWholeHistoryUseCase()
-                    LibraryScreen.refreshListChannel.trySend(0)
-                    onEvent(
-                        HistoryEvent.OnRefreshList(
-                            loading = true,
-                            hideSearch = true
-                        )
-                    )
-
-                    withContext(Dispatchers.Main) {
-                        event.context
-                            .getString(R.string.history_deleted)
-                            .showToast(context = event.context)
+                        _effects.emit(HistoryEffect.OnWholeHistoryDeleted)
                     }
                 }
-            }
 
-            is HistoryEvent.OnDismissDialog -> {
-                viewModelScope.launch {
+                is HistoryEvent.OnDismissDialog -> {
                     _state.update {
                         it.copy(
                             dialog = null
                         )
                     }
                 }
-            }
-        }
-    }
 
-    private suspend fun getHistoryFromDatabase(
-        query: String = if (_state.value.showSearch) _state.value.searchQuery else ""
-    ) {
-        fun isSameDay(historyTime: Calendar, nowTime: Calendar): Boolean {
-            return historyTime.get(Calendar.YEAR) == nowTime.get(Calendar.YEAR) &&
-                    historyTime.get(Calendar.DAY_OF_YEAR) == nowTime.get(Calendar.DAY_OF_YEAR)
-        }
-
-        fun filterMaxElementsById(elements: List<History>): List<History> {
-            val groupedById = elements.groupBy { it.bookId }
-            val maxElementsById = groupedById.map { (_, values) ->
-                values.maxByOrNull { it.time }
-            }
-            return maxElementsById.filterNotNull()
-        }
-
-        val history = getHistoryUseCase().sortedByDescending {
-            it.time
-        }.run {
-            val books = map { it.bookId }.distinct().mapNotNull {
-                getBookUseCase(it)
-            }.toMutableList()
-
-            mapNotNull {
-                val book = books.find { book -> book.id == it.bookId } ?: return@mapNotNull null
-                if (!book.title.lowercase().trim().contains(query.lowercase().trim())) {
-                    return@mapNotNull null
+                is HistoryEvent.OnNavigateToLibrary -> {
+                    _effects.emit(HistoryEffect.OnNavigateToLibrary)
                 }
 
-                it.copy(book = book)
-            }
-        }.ifEmpty {
-            _state.update {
-                it.copy(
-                    history = emptyList(),
-                    isLoading = false
-                )
-            }
-            return
-        }.groupBy { item ->
-            val historyTime = Calendar.getInstance().apply {
-                timeInMillis = item.time
-            }
-            val nowTime = Calendar.getInstance()
+                is HistoryEvent.OnNavigateToBookInfo -> {
+                    _effects.emit(HistoryEffect.OnNavigateToBookInfo(event.bookId))
+                }
 
-            return@groupBy when {
-                isSameDay(historyTime, nowTime) -> "today"
-
-                isSameDay(
-                    historyTime,
-                    nowTime.apply { add(Calendar.DAY_OF_YEAR, -1) }
-                ) -> "yesterday"
-
-                else -> SimpleDateFormat(
-                    "dd.MM.yy",
-                    Locale.getDefault()
-                ).format(item.time)
+                is HistoryEvent.OnNavigateToReader -> {
+                    _effects.emit(HistoryEffect.OnNavigateToReader(event.bookId))
+                }
             }
-        }.map { (day, history) -> GroupedHistory(day, filterMaxElementsById(history)) }
-
-        _state.update {
-            it.copy(
-                history = history,
-                isLoading = false,
-            )
         }
     }
 
     private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
         mutex.withLock {
-            yield()
+            coroutineContext.ensureActive()
             this.value = function(this.value)
         }
     }

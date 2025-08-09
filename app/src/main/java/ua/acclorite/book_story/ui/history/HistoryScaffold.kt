@@ -43,8 +43,8 @@ fun HistoryScaffold(
     deleteHistoryEntry: (HistoryEvent.OnDeleteHistoryEntry) -> Unit,
     showDeleteWholeHistoryDialog: (HistoryEvent.OnShowDeleteWholeHistoryDialog) -> Unit,
     search: (HistoryEvent.OnSearch) -> Unit,
-    navigateToBookInfo: (Int) -> Unit,
-    navigateToReader: (Int) -> Unit
+    navigateToBookInfo: (HistoryEvent.OnNavigateToBookInfo) -> Unit,
+    navigateToReader: (HistoryEvent.OnNavigateToReader) -> Unit
 ) {
     Scaffold(
         Modifier
@@ -79,7 +79,6 @@ fun HistoryScaffold(
             HistoryLayout(
                 listState = listState,
                 history = history,
-                snackbarState = snackbarState,
                 isLoading = isLoading,
                 isRefreshing = isRefreshing,
                 deleteHistoryEntry = deleteHistoryEntry,

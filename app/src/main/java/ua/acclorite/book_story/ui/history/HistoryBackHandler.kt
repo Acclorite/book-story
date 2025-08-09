@@ -14,7 +14,7 @@ import ua.acclorite.book_story.presentation.history.HistoryEvent
 fun HistoryBackHandler(
     showSearch: Boolean,
     searchVisibility: (HistoryEvent.OnSearchVisibility) -> Unit,
-    navigateToLibrary: () -> Unit
+    navigateToLibrary: (HistoryEvent.OnNavigateToLibrary) -> Unit
 ) {
     BackHandler {
         if (showSearch) {
@@ -22,6 +22,6 @@ fun HistoryBackHandler(
             return@BackHandler
         }
 
-        navigateToLibrary()
+        navigateToLibrary(HistoryEvent.OnNavigateToLibrary)
     }
 }

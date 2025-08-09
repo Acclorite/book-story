@@ -9,7 +9,6 @@ package ua.acclorite.book_story.ui.history
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DeleteOutline
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.history.HistoryEvent
@@ -20,7 +19,6 @@ fun HistoryDeleteWholeHistoryDialog(
     actionDeleteWholeHistoryDialog: (HistoryEvent.OnActionDeleteWholeHistoryDialog) -> Unit,
     dismissDialog: (HistoryEvent.OnDismissDialog) -> Unit
 ) {
-    val context = LocalContext.current
     Dialog(
         title = stringResource(id = R.string.delete_history),
         icon = Icons.Outlined.DeleteOutline,
@@ -30,11 +28,7 @@ fun HistoryDeleteWholeHistoryDialog(
             dismissDialog(HistoryEvent.OnDismissDialog)
         },
         onAction = {
-            actionDeleteWholeHistoryDialog(
-                HistoryEvent.OnActionDeleteWholeHistoryDialog(
-                    context = context
-                )
-            )
+            actionDeleteWholeHistoryDialog(HistoryEvent.OnActionDeleteWholeHistoryDialog)
         },
         withContent = false
     )

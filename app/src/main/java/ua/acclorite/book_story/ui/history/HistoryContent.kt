@@ -39,9 +39,9 @@ fun HistoryContent(
     showDeleteWholeHistoryDialog: (HistoryEvent.OnShowDeleteWholeHistoryDialog) -> Unit,
     actionDeleteWholeHistoryDialog: (HistoryEvent.OnActionDeleteWholeHistoryDialog) -> Unit,
     dismissDialog: (HistoryEvent.OnDismissDialog) -> Unit,
-    navigateToLibrary: () -> Unit,
-    navigateToBookInfo: (Int) -> Unit,
-    navigateToReader: (Int) -> Unit
+    navigateToLibrary: (HistoryEvent.OnNavigateToLibrary) -> Unit,
+    navigateToBookInfo: (HistoryEvent.OnNavigateToBookInfo) -> Unit,
+    navigateToReader: (HistoryEvent.OnNavigateToReader) -> Unit
 ) {
     HistoryDialog(
         dialog = dialog,

@@ -27,7 +27,9 @@ object AboutScreen : Screen, Parcelable {
 
         val (scrollBehavior, listState) = TopAppBarDefaults.collapsibleTopAppBarScrollBehavior()
 
-        AboutEffects(screenModel.effects)
+        AboutEffects(
+            effects = screenModel.effects
+        )
 
         AboutContent(
             scrollBehavior = scrollBehavior,

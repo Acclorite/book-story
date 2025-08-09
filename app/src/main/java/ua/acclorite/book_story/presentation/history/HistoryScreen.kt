@@ -22,12 +22,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.channels.Channel
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.presentation.book_info.BookInfoScreen
-import ua.acclorite.book_story.presentation.library.LibraryScreen
 import ua.acclorite.book_story.presentation.navigator.Screen
-import ua.acclorite.book_story.presentation.reader.ReaderScreen
 import ua.acclorite.book_story.ui.history.HistoryContent
-import ua.acclorite.book_story.ui.navigator.LocalNavigator
+import ua.acclorite.book_story.ui.history.HistoryEffects
 
 @Parcelize
 object HistoryScreen : Screen, Parcelable {
@@ -49,7 +46,6 @@ object HistoryScreen : Screen, Parcelable {
 
     @Composable
     override fun Content() {
-        val navigator = LocalNavigator.current
         val screenModel = hiltViewModel<HistoryModel>()
 
         val state = screenModel.state.collectAsStateWithLifecycle()
@@ -79,6 +75,13 @@ object HistoryScreen : Screen, Parcelable {
             }
         )
 
+        HistoryEffects(
+            effects = screenModel.effects,
+            focusRequester = focusRequester,
+            snackbarState = snackbarState,
+            restoreHistoryEntry = screenModel::onEvent
+        )
+
         HistoryContent(
             refreshState = refreshState,
             snackbarState = snackbarState,
@@ -100,16 +103,9 @@ object HistoryScreen : Screen, Parcelable {
             showDeleteWholeHistoryDialog = screenModel::onEvent,
             actionDeleteWholeHistoryDialog = screenModel::onEvent,
             dismissDialog = screenModel::onEvent,
-            navigateToLibrary = {
-                navigator.push(LibraryScreen, saveInBackStack = false)
-            },
-            navigateToBookInfo = {
-                navigator.push(BookInfoScreen(bookId = it))
-            },
-            navigateToReader = {
-                insertHistoryChannel.trySend(it)
-                navigator.push(ReaderScreen(it))
-            }
+            navigateToLibrary = screenModel::onEvent,
+            navigateToBookInfo = screenModel::onEvent,
+            navigateToReader = screenModel::onEvent
         )
     }
 }

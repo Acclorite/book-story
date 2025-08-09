@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -21,7 +20,6 @@ import ua.acclorite.book_story.presentation.history.HistoryEvent
 import ua.acclorite.book_story.presentation.history.model.GroupedHistory
 import ua.acclorite.book_story.ui.common.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.ui.common.data.ScrollbarData
-import ua.acclorite.book_story.ui.common.helpers.LocalActivity
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategoryTitle
 import ua.acclorite.book_story.ui.theme.DefaultTransition
 
@@ -29,15 +27,12 @@ import ua.acclorite.book_story.ui.theme.DefaultTransition
 fun HistoryLayout(
     listState: LazyListState,
     history: List<GroupedHistory>,
-    snackbarState: SnackbarHostState,
     isLoading: Boolean,
     isRefreshing: Boolean,
     deleteHistoryEntry: (HistoryEvent.OnDeleteHistoryEntry) -> Unit,
-    navigateToBookInfo: (Int) -> Unit,
-    navigateToReader: (Int) -> Unit,
+    navigateToBookInfo: (HistoryEvent.OnNavigateToBookInfo) -> Unit,
+    navigateToReader: (HistoryEvent.OnNavigateToReader) -> Unit,
 ) {
-    val context = LocalActivity.current
-
     DefaultTransition(visible = !isLoading) {
         LazyColumnWithScrollbar(
             modifier = Modifier.fillMaxSize(),
@@ -75,17 +70,23 @@ fun HistoryLayout(
                         historyEntry = historyEntry,
                         isRefreshing = isRefreshing,
                         onBodyClick = {
-                            navigateToBookInfo(historyEntry.bookId)
+                            navigateToBookInfo(
+                                HistoryEvent.OnNavigateToBookInfo(
+                                    historyEntry.bookId
+                                )
+                            )
                         },
                         onTitleClick = {
-                            navigateToReader(historyEntry.bookId)
+                            navigateToReader(
+                                HistoryEvent.OnNavigateToReader(
+                                    historyEntry.bookId
+                                )
+                            )
                         },
                         onDeleteClick = {
                             deleteHistoryEntry(
                                 HistoryEvent.OnDeleteHistoryEntry(
-                                    history = historyEntry,
-                                    snackbarState = snackbarState,
-                                    context = context,
+                                    history = historyEntry
                                 )
                             )
                         }

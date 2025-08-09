@@ -6,10 +6,7 @@
 
 package ua.acclorite.book_story.presentation.history
 
-import android.content.Context
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.domain.model.history.History
 
 @Immutable
@@ -23,9 +20,7 @@ sealed class HistoryEvent {
         val show: Boolean
     ) : HistoryEvent()
 
-    data class OnRequestFocus(
-        val focusRequester: FocusRequester
-    ) : HistoryEvent()
+    data object OnRequestFocus : HistoryEvent()
 
     data class OnSearchQueryChange(
         val query: String
@@ -34,16 +29,26 @@ sealed class HistoryEvent {
     data object OnSearch : HistoryEvent()
 
     data class OnDeleteHistoryEntry(
-        val history: History,
-        val snackbarState: SnackbarHostState,
-        val context: Context
+        val history: History
+    ) : HistoryEvent()
+
+    data class OnRestoreHistoryEntry(
+        val history: History
     ) : HistoryEvent()
 
     data object OnShowDeleteWholeHistoryDialog : HistoryEvent()
 
-    data class OnActionDeleteWholeHistoryDialog(
-        val context: Context
-    ) : HistoryEvent()
+    data object OnActionDeleteWholeHistoryDialog : HistoryEvent()
 
     data object OnDismissDialog : HistoryEvent()
+
+    data object OnNavigateToLibrary : HistoryEvent()
+
+    data class OnNavigateToBookInfo(
+        val bookId: Int
+    ) : HistoryEvent()
+
+    data class OnNavigateToReader(
+        val bookId: Int
+    ) : HistoryEvent()
 }
