@@ -30,8 +30,8 @@ fun BookInfoScaffold(
     showDescriptionDialog: (BookInfoEvent.OnShowDescriptionDialog) -> Unit,
     showMoveDialog: (BookInfoEvent.OnShowMoveDialog) -> Unit,
     showDeleteDialog: (BookInfoEvent.OnShowDeleteDialog) -> Unit,
-    navigateToReader: () -> Unit,
-    navigateBack: () -> Unit
+    navigateToReader: (BookInfoEvent.OnNavigateToReader) -> Unit,
+    navigateBack: (BookInfoEvent.OnNavigateBack) -> Unit
 ) {
     Scaffold(
         Modifier

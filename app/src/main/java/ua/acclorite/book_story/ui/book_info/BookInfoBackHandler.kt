@@ -8,12 +8,13 @@ package ua.acclorite.book_story.ui.book_info
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
+import ua.acclorite.book_story.presentation.book_info.BookInfoEvent
 
 @Composable
 fun BookInfoBackHandler(
-    navigateBack: () -> Unit
+    navigateBack: (BookInfoEvent.OnNavigateBack) -> Unit
 ) {
     BackHandler {
-        navigateBack()
+        navigateBack(BookInfoEvent.OnNavigateBack)
     }
 }

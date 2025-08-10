@@ -25,7 +25,7 @@ fun AboutEffects(effects: SharedFlow<AboutEffect>) {
     val navigator = LocalNavigator.current
     val activity = LocalActivity.current
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(effects, activity, navigator) {
         effects.collect { effect ->
             when (effect) {
                 is AboutEffect.OnNavigateToBrowserPage -> {

@@ -25,15 +25,13 @@ fun BookInfoDialog(
     actionDeleteDialog: (BookInfoEvent.OnActionDeleteDialog) -> Unit,
     actionMoveDialog: (BookInfoEvent.OnActionMoveDialog) -> Unit,
     dismissDialog: (BookInfoEvent.OnDismissDialog) -> Unit,
-    navigateBack: () -> Unit,
-    navigateToLibrarySettings: () -> Unit
+    navigateToLibrarySettings: (BookInfoEvent.OnNavigateToLibrarySettings) -> Unit
 ) {
     when (dialog) {
         BookInfoScreen.DELETE_DIALOG -> {
             BookInfoDeleteDialog(
                 actionDeleteDialog = actionDeleteDialog,
-                dismissDialog = dismissDialog,
-                navigateBack = navigateBack
+                dismissDialog = dismissDialog
             )
         }
 

@@ -33,7 +33,7 @@ fun BookInfoLayout(
     showDescriptionDialog: (BookInfoEvent.OnShowDescriptionDialog) -> Unit,
     showMoveDialog: (BookInfoEvent.OnShowMoveDialog) -> Unit,
     showDeleteDialog: (BookInfoEvent.OnShowDeleteDialog) -> Unit,
-    navigateToReader: () -> Unit
+    navigateToReader: (BookInfoEvent.OnNavigateToReader) -> Unit
 ) {
     LazyColumnWithScrollbar(
         modifier = Modifier.fillMaxSize(),

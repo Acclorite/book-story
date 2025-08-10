@@ -17,12 +17,13 @@ import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.helpers.calculateProgress
 import ua.acclorite.book_story.domain.model.library.Book
+import ua.acclorite.book_story.presentation.book_info.BookInfoEvent
 import ua.acclorite.book_story.ui.common.components.common.StyledText
 
 @Composable
 fun BookInfoLayoutButton(
     book: Book,
-    navigateToReader: () -> Unit
+    navigateToReader: (BookInfoEvent.OnNavigateToReader) -> Unit
 ) {
     Button(
         modifier = Modifier
@@ -30,9 +31,7 @@ fun BookInfoLayoutButton(
             .padding(horizontal = 18.dp),
         shape = CircleShape,
         onClick = {
-            if (book.id != -1) {
-                navigateToReader()
-            }
+            navigateToReader(BookInfoEvent.OnNavigateToReader)
         }
     ) {
         StyledText(

@@ -14,7 +14,6 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
@@ -31,9 +30,8 @@ fun BookInfoMoveDialog(
     categories: List<Category>,
     actionMoveDialog: (BookInfoEvent.OnActionMoveDialog) -> Unit,
     dismissDialog: (BookInfoEvent.OnDismissDialog) -> Unit,
-    navigateToLibrarySettings: () -> Unit
+    navigateToLibrarySettings: (BookInfoEvent.OnNavigateToLibrarySettings) -> Unit
 ) {
-    val context = LocalContext.current
     val selectedCategories = remember {
         mutableStateListOf<Category>().apply {
             clear()
@@ -53,14 +51,13 @@ fun BookInfoMoveDialog(
         onAction = {
             actionMoveDialog(
                 BookInfoEvent.OnActionMoveDialog(
-                    selectedCategories = selectedCategories,
-                    context = context
+                    selectedCategories = selectedCategories
                 )
             )
         },
         secondaryAction = stringResource(id = R.string.edit),
         onSecondaryAction = {
-            navigateToLibrarySettings()
+            navigateToLibrarySettings(BookInfoEvent.OnNavigateToLibrarySettings)
             dismissDialog(BookInfoEvent.OnDismissDialog)
         },
         withContent = true,

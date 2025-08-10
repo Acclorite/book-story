@@ -7,7 +7,6 @@
 package ua.acclorite.book_story.ui.book_info
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.domain.model.library.Book
@@ -20,7 +19,6 @@ fun BookInfoAuthorDialog(
     actionAuthorDialog: (BookInfoEvent.OnActionAuthorDialog) -> Unit,
     dismissDialog: (BookInfoEvent.OnDismissDialog) -> Unit
 ) {
-    val context = LocalContext.current
     DialogWithTextField(
         initialValue = book.author.getAsString() ?: "",
         lengthLimit = 100,
@@ -31,8 +29,7 @@ fun BookInfoAuthorDialog(
             actionAuthorDialog(
                 BookInfoEvent.OnActionAuthorDialog(
                     author = if (it.isBlank()) UIText.StringResource(R.string.unknown_author)
-                    else UIText.StringValue(it.trim().replace("\n", "")),
-                    context = context
+                    else UIText.StringValue(it.trim().replace("\n", ""))
                 )
             )
         }

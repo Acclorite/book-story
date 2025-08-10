@@ -24,6 +24,8 @@ class UpdateCoverImageUseCase @Inject constructor(
         logI("Updating cover image of [$bookId].")
 
         bookRepository.getBook(bookId).mapCatching { book ->
+            if (book.coverImage == coverImage) return
+
             // Deleting old cover
             book.coverImage?.let { coverImageHandler.deleteCover(it) }?.onFailure {
                 logW("Could not delete old cover image with error: ${it.message}")

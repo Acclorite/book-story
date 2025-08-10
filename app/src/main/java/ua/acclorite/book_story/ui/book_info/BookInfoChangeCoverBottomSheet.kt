@@ -6,6 +6,7 @@
 
 package ua.acclorite.book_story.ui.book_info
 
+import android.graphics.BitmapFactory
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -43,10 +44,13 @@ fun BookInfoChangeCoverBottomSheet(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = { uri ->
             if (uri != null) {
+                val image = context.contentResolver?.openInputStream(uri)?.use {
+                    BitmapFactory.decodeStream(it)
+                } ?: return@rememberLauncherForActivityResult
+
                 changeCover(
                     BookInfoEvent.OnChangeCover(
-                        uri = uri,
-                        context = context
+                        image = image
                     )
                 )
             }
@@ -72,11 +76,7 @@ fun BookInfoChangeCoverBottomSheet(
                         text = stringResource(id = R.string.reset_cover),
                         description = stringResource(id = R.string.reset_cover_desc)
                     ) {
-                        resetCover(
-                            BookInfoEvent.OnResetCover(
-                                context = context
-                            )
-                        )
+                        resetCover(BookInfoEvent.OnResetCover)
                     }
                 }
             }
@@ -100,11 +100,7 @@ fun BookInfoChangeCoverBottomSheet(
                         text = stringResource(id = R.string.delete_cover),
                         description = stringResource(id = R.string.delete_cover_desc)
                     ) {
-                        deleteCover(
-                            BookInfoEvent.OnDeleteCover(
-                                context = context
-                            )
-                        )
+                        deleteCover(BookInfoEvent.OnDeleteCover)
                     }
                 }
             }

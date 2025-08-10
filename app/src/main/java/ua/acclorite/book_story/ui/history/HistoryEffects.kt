@@ -33,7 +33,7 @@ fun HistoryEffects(
     val navigator = LocalNavigator.current
     val context = LocalContext.current
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(effects, context, navigator, focusRequester, snackbarState) {
         effects.collect { effect ->
             when (effect) {
                 is HistoryEffect.OnRequestFocus -> {

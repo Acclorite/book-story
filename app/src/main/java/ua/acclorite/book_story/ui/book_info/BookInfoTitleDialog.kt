@@ -7,7 +7,6 @@
 package ua.acclorite.book_story.ui.book_info
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.presentation.book_info.BookInfoEvent
 import ua.acclorite.book_story.ui.common.components.dialog.DialogWithTextField
@@ -18,7 +17,6 @@ fun BookInfoTitleDialog(
     actionTitleDialog: (BookInfoEvent.OnActionTitleDialog) -> Unit,
     dismissDialog: (BookInfoEvent.OnDismissDialog) -> Unit
 ) {
-    val context = LocalContext.current
     DialogWithTextField(
         initialValue = book.title,
         lengthLimit = 100,
@@ -29,8 +27,7 @@ fun BookInfoTitleDialog(
             if (it.isBlank()) return@DialogWithTextField
             actionTitleDialog(
                 BookInfoEvent.OnActionTitleDialog(
-                    title = it.trim().replace("\n", ""),
-                    context = context
+                    title = it.trim().replace("\n", "")
                 )
             )
         }

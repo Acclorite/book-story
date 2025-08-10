@@ -6,31 +6,24 @@
 
 package ua.acclorite.book_story.presentation.book_info
 
-import android.content.Context
-import android.net.Uri
+import android.graphics.Bitmap
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.domain.model.library.Category
 
 @Immutable
 sealed class BookInfoEvent {
-
     data object OnShowDetailsBottomSheet : BookInfoEvent()
 
     data object OnShowChangeCoverBottomSheet : BookInfoEvent()
 
     data class OnChangeCover(
-        val uri: Uri,
-        val context: Context
+        val image: Bitmap
     ) : BookInfoEvent()
 
-    data class OnResetCover(
-        val context: Context
-    ) : BookInfoEvent()
+    data object OnResetCover : BookInfoEvent()
 
-    data class OnDeleteCover(
-        val context: Context
-    ) : BookInfoEvent()
+    data object OnDeleteCover : BookInfoEvent()
 
     data object OnCheckCoverReset : BookInfoEvent()
 
@@ -39,44 +32,42 @@ sealed class BookInfoEvent {
     data object OnShowTitleDialog : BookInfoEvent()
 
     data class OnActionTitleDialog(
-        val title: String,
-        val context: Context
+        val title: String
     ) : BookInfoEvent()
 
     data object OnShowAuthorDialog : BookInfoEvent()
 
     data class OnActionAuthorDialog(
-        val author: UIText,
-        val context: Context
+        val author: UIText
     ) : BookInfoEvent()
 
     data object OnShowDescriptionDialog : BookInfoEvent()
 
     data class OnActionDescriptionDialog(
-        val description: String?,
-        val context: Context
+        val description: String?
     ) : BookInfoEvent()
 
     data object OnShowPathDialog : BookInfoEvent()
 
     data class OnActionPathDialog(
-        val path: String,
-        val context: Context
+        val path: String
     ) : BookInfoEvent()
 
     data object OnShowDeleteDialog : BookInfoEvent()
 
-    data class OnActionDeleteDialog(
-        val context: Context,
-        val navigateBack: () -> Unit
-    ) : BookInfoEvent()
+    data object OnActionDeleteDialog : BookInfoEvent()
 
     data object OnShowMoveDialog : BookInfoEvent()
 
     data class OnActionMoveDialog(
-        val selectedCategories: List<Category>,
-        val context: Context
+        val selectedCategories: List<Category>
     ) : BookInfoEvent()
 
     data object OnDismissDialog : BookInfoEvent()
+
+    data object OnNavigateBack : BookInfoEvent()
+
+    data object OnNavigateToLibrarySettings : BookInfoEvent()
+
+    data object OnNavigateToReader : BookInfoEvent()
 }

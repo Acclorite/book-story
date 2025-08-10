@@ -30,7 +30,7 @@ fun BookInfoTopBar(
     book: Book,
     listState: LazyListState,
     showDetailsBottomSheet: (BookInfoEvent.OnShowDetailsBottomSheet) -> Unit,
-    navigateBack: () -> Unit
+    navigateBack: (BookInfoEvent.OnNavigateBack) -> Unit
 ) {
     val firstVisibleItemIndex = remember {
         derivedStateOf {
@@ -49,7 +49,7 @@ fun BookInfoTopBar(
                 contentID = 0,
                 contentNavigationIcon = {
                     NavigatorBackIconButton {
-                        navigateBack()
+                        navigateBack(BookInfoEvent.OnNavigateBack)
                     }
                 },
                 contentTitle = {

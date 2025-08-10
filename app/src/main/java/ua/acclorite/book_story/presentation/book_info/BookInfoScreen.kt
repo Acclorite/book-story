@@ -19,13 +19,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.getOrElse
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.presentation.history.HistoryScreen
 import ua.acclorite.book_story.presentation.navigator.Screen
-import ua.acclorite.book_story.presentation.reader.ReaderScreen
-import ua.acclorite.book_story.presentation.settings.LibrarySettingsScreen
 import ua.acclorite.book_story.presentation.settings.SettingsModel
 import ua.acclorite.book_story.ui.book_info.BookInfoContent
-import ua.acclorite.book_story.ui.navigator.LocalNavigator
+import ua.acclorite.book_story.ui.book_info.BookInfoEffects
 
 @Parcelize
 data class BookInfoScreen(val bookId: Int) : Screen, Parcelable {
@@ -46,7 +43,6 @@ data class BookInfoScreen(val bookId: Int) : Screen, Parcelable {
 
     @Composable
     override fun Content() {
-        val navigator = LocalNavigator.current
         val screenModel = hiltViewModel<BookInfoModel>()
         val settingsModel = hiltViewModel<SettingsModel>()
 
@@ -57,18 +53,20 @@ data class BookInfoScreen(val bookId: Int) : Screen, Parcelable {
         LaunchedEffect(Unit) {
             screenModel.init(
                 bookId = bookId,
-                changePath = changePathChannel.tryReceive().getOrElse { false },
-                navigateBack = {
-                    navigator.pop()
-                }
+                changePath = changePathChannel.tryReceive().getOrElse { false }
             )
         }
 
         DisposableEffect(Unit) {
             onDispose {
-                screenModel.resetScreen()
+                screenModel.clearAsync()
             }
         }
+
+        BookInfoEffects(
+            effects = screenModel.effects,
+            book = state.value.book
+        )
 
         Box(Modifier.fillMaxSize())
 
@@ -101,18 +99,9 @@ data class BookInfoScreen(val bookId: Int) : Screen, Parcelable {
                 actionMoveDialog = screenModel::onEvent,
                 showDeleteDialog = screenModel::onEvent,
                 actionDeleteDialog = screenModel::onEvent,
-                navigateToReader = {
-                    if (state.value.book.id != -1) {
-                        HistoryScreen.insertHistoryChannel.trySend(state.value.book.id)
-                        navigator.push(ReaderScreen(state.value.book.id))
-                    }
-                },
-                navigateToLibrarySettings = {
-                    navigator.push(LibrarySettingsScreen)
-                },
-                navigateBack = {
-                    navigator.pop()
-                }
+                navigateToReader = screenModel::onEvent,
+                navigateToLibrarySettings = screenModel::onEvent,
+                navigateBack = screenModel::onEvent
             )
         }
     }

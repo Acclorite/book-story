@@ -44,9 +44,9 @@ fun BookInfoContent(
     checkCoverReset: (BookInfoEvent.OnCheckCoverReset) -> Unit,
     dismissDialog: (BookInfoEvent.OnDismissDialog) -> Unit,
     dismissBottomSheet: (BookInfoEvent.OnDismissBottomSheet) -> Unit,
-    navigateToReader: () -> Unit,
-    navigateToLibrarySettings: () -> Unit,
-    navigateBack: () -> Unit
+    navigateToReader: (BookInfoEvent.OnNavigateToReader) -> Unit,
+    navigateToLibrarySettings: (BookInfoEvent.OnNavigateToLibrarySettings) -> Unit,
+    navigateBack: (BookInfoEvent.OnNavigateBack) -> Unit
 ) {
     BookInfoDialog(
         dialog = dialog,
@@ -59,7 +59,6 @@ fun BookInfoContent(
         actionDeleteDialog = actionDeleteDialog,
         actionMoveDialog = actionMoveDialog,
         dismissDialog = dismissDialog,
-        navigateBack = navigateBack,
         navigateToLibrarySettings = navigateToLibrarySettings
     )
 
