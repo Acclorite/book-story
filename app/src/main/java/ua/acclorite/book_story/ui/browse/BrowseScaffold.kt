@@ -53,11 +53,10 @@ fun BrowseScaffold(
     requestFocus: (BrowseEvent.OnRequestFocus) -> Unit,
     clearSelectedFiles: (BrowseEvent.OnClearSelectedFiles) -> Unit,
     selectFiles: (BrowseEvent.OnSelectFiles) -> Unit,
-    selectFile: (BrowseEvent.OnSelectFile) -> Unit,
     showFilterBottomSheet: (BrowseEvent.OnShowFilterBottomSheet) -> Unit,
     showAddDialog: (BrowseEvent.OnShowAddDialog) -> Unit,
-    updatePinnedPaths: (String) -> Unit,
-    navigateToBrowseSettings: () -> Unit,
+    updatePinnedPaths: (BrowseEvent.OnUpdatePinnedPaths) -> Unit,
+    navigateToBrowseSettings: (BrowseEvent.OnNavigateToBrowseSettings) -> Unit
 ) {
     Scaffold(
         modifier = Modifier
@@ -106,7 +105,11 @@ fun BrowseScaffold(
                             header = header,
                             pinned = pinned,
                             pin = {
-                                updatePinnedPaths(header)
+                                updatePinnedPaths(
+                                    BrowseEvent.OnUpdatePinnedPaths(
+                                        path = header
+                                    )
+                                )
                             }
                         )
                     },
@@ -118,16 +121,14 @@ fun BrowseScaffold(
                             onLongClick = {
                                 selectFiles(
                                     BrowseEvent.OnSelectFiles(
-                                        includedFileFormats = includedFilterItems,
                                         files = groupFiles
                                     )
                                 )
                             },
                             onClick = {
-                                selectFile(
-                                    BrowseEvent.OnSelectFile(
-                                        includedFileFormats = includedFilterItems,
-                                        file = file
+                                selectFiles(
+                                    BrowseEvent.OnSelectFiles(
+                                        files = listOf(file)
                                     )
                                 )
                             }

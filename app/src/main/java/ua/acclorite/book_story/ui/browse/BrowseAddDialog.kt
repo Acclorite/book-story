@@ -34,8 +34,7 @@ fun BrowseAddDialog(
     selectedBooksAddDialog: List<SelectableNullableBook>,
     dismissAddDialog: (BrowseEvent.OnDismissAddDialog) -> Unit,
     actionAddDialog: (BrowseEvent.OnActionAddDialog) -> Unit,
-    selectAddDialog: (BrowseEvent.OnSelectAddDialog) -> Unit,
-    navigateToLibrary: () -> Unit
+    selectAddDialog: (BrowseEvent.OnSelectAddDialog) -> Unit
 ) {
     val context = LocalContext.current
     Dialog(
@@ -45,12 +44,7 @@ fun BrowseAddDialog(
         actionEnabled = !loadingAddDialog && selectedBooksAddDialog.any { it.data is NullableBook.NotNull },
         onDismiss = { dismissAddDialog(BrowseEvent.OnDismissAddDialog) },
         onAction = {
-            actionAddDialog(
-                BrowseEvent.OnActionAddDialog(
-                    context = context,
-                    navigateToLibrary = navigateToLibrary
-                )
-            )
+            actionAddDialog(BrowseEvent.OnActionAddDialog)
         },
         withContent = true,
         items = {

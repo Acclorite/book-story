@@ -23,14 +23,11 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.core.helpers.toggle
 import ua.acclorite.book_story.presentation.browse.model.BrowseLayout
-import ua.acclorite.book_story.presentation.library.LibraryScreen
 import ua.acclorite.book_story.presentation.navigator.Screen
-import ua.acclorite.book_story.presentation.settings.BrowseSettingsScreen
 import ua.acclorite.book_story.ui.browse.BrowseContent
+import ua.acclorite.book_story.ui.browse.BrowseEffects
 import ua.acclorite.book_story.ui.common.helpers.LocalSettings
-import ua.acclorite.book_story.ui.navigator.LocalNavigator
 
 @Parcelize
 object BrowseScreen : Screen, Parcelable {
@@ -62,7 +59,6 @@ object BrowseScreen : Screen, Parcelable {
     @OptIn(ExperimentalMaterialApi::class)
     @Composable
     override fun Content() {
-        val navigator = LocalNavigator.current
         val screenModel = hiltViewModel<BrowseModel>()
         val settings = LocalSettings.current
 
@@ -84,17 +80,16 @@ object BrowseScreen : Screen, Parcelable {
             }
         )
 
-        val files = remember(
-            state.value.files,
+        LaunchedEffect(
             settings.browseIncludedFilterItems.value,
             settings.browseSortOrderDescending.value,
             settings.browseSortOrder.value
         ) {
-            screenModel.filterList(
-                files = state.value.files,
-                sortOrderDescending = settings.browseSortOrderDescending.lastValue,
-                includedFilterItems = settings.browseIncludedFilterItems.lastValue,
-                sortOrder = settings.browseSortOrder.lastValue
+            screenModel.onEvent(
+                BrowseEvent.OnRefreshList(
+                    loading = false,
+                    hideSearch = false
+                )
             )
         }
 
@@ -128,8 +123,13 @@ object BrowseScreen : Screen, Parcelable {
             }
         }
 
+        BrowseEffects(
+            effects = screenModel.effects,
+            focusRequester = focusRequester
+        )
+
         BrowseContent(
-            files = files,
+            files = state.value.files,
             selectedBooksAddDialog = state.value.selectedBooksAddDialog,
             refreshState = refreshState,
             loadingAddDialog = state.value.loadingAddDialog,
@@ -149,7 +149,7 @@ object BrowseScreen : Screen, Parcelable {
             isRefreshing = state.value.isRefreshing,
             isLoading = state.value.isLoading,
             dialogHidden = state.value.dialog == null,
-            filesEmpty = files.isEmpty(),
+            filesEmpty = state.value.files.isEmpty(),
             showSearch = state.value.showSearch,
             searchQuery = state.value.searchQuery,
             focusRequester = focusRequester,
@@ -159,24 +159,15 @@ object BrowseScreen : Screen, Parcelable {
             requestFocus = screenModel::onEvent,
             clearSelectedFiles = screenModel::onEvent,
             selectFiles = screenModel::onEvent,
-            selectFile = screenModel::onEvent,
             showFilterBottomSheet = screenModel::onEvent,
             dismissBottomSheet = screenModel::onEvent,
             showAddDialog = screenModel::onEvent,
             dismissAddDialog = screenModel::onEvent,
             selectAddDialog = screenModel::onEvent,
             actionAddDialog = screenModel::onEvent,
-            updatePinnedPaths = {
-                settings.browsePinnedPaths.update(
-                    settings.browsePinnedPaths.lastValue.toggle(it)
-                )
-            },
-            navigateToLibrary = {
-                navigator.push(LibraryScreen, saveInBackStack = false)
-            },
-            navigateToBrowseSettings = {
-                navigator.push(BrowseSettingsScreen)
-            },
+            updatePinnedPaths = screenModel::onEvent,
+            navigateToLibrary = screenModel::onEvent,
+            navigateToBrowseSettings = screenModel::onEvent
         )
     }
 }

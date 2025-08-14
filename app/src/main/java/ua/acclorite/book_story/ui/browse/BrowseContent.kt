@@ -52,16 +52,15 @@ fun BrowseContent(
     requestFocus: (BrowseEvent.OnRequestFocus) -> Unit,
     clearSelectedFiles: (BrowseEvent.OnClearSelectedFiles) -> Unit,
     selectFiles: (BrowseEvent.OnSelectFiles) -> Unit,
-    selectFile: (BrowseEvent.OnSelectFile) -> Unit,
     dismissBottomSheet: (BrowseEvent.OnDismissBottomSheet) -> Unit,
     showFilterBottomSheet: (BrowseEvent.OnShowFilterBottomSheet) -> Unit,
     showAddDialog: (BrowseEvent.OnShowAddDialog) -> Unit,
     dismissAddDialog: (BrowseEvent.OnDismissAddDialog) -> Unit,
     actionAddDialog: (BrowseEvent.OnActionAddDialog) -> Unit,
     selectAddDialog: (BrowseEvent.OnSelectAddDialog) -> Unit,
-    updatePinnedPaths: (String) -> Unit,
-    navigateToLibrary: () -> Unit,
-    navigateToBrowseSettings: () -> Unit,
+    updatePinnedPaths: (BrowseEvent.OnUpdatePinnedPaths) -> Unit,
+    navigateToLibrary: (BrowseEvent.OnNavigateToLibrary) -> Unit,
+    navigateToBrowseSettings: (BrowseEvent.OnNavigateToBrowseSettings) -> Unit
 ) {
     BrowseDialog(
         dialog = dialog,
@@ -69,8 +68,7 @@ fun BrowseContent(
         actionAddDialog = actionAddDialog,
         dismissAddDialog = dismissAddDialog,
         selectedBooksAddDialog = selectedBooksAddDialog,
-        selectAddDialog = selectAddDialog,
-        navigateToLibrary = navigateToLibrary
+        selectAddDialog = selectAddDialog
     )
 
     BrowseBottomSheet(
@@ -105,7 +103,6 @@ fun BrowseContent(
         selectFiles = selectFiles,
         isLoading = isLoading,
         filesEmpty = filesEmpty,
-        selectFile = selectFile,
         showFilterBottomSheet = showFilterBottomSheet,
         showAddDialog = showAddDialog,
         updatePinnedPaths = updatePinnedPaths,

@@ -16,7 +16,7 @@ fun BrowseBackHandler(
     showSearch: Boolean,
     searchVisibility: (BrowseEvent.OnSearchVisibility) -> Unit,
     clearSelectedFiles: (BrowseEvent.OnClearSelectedFiles) -> Unit,
-    navigateToLibrary: () -> Unit
+    navigateToLibrary: (BrowseEvent.OnNavigateToLibrary) -> Unit
 ) {
     BackHandler {
         if (hasSelectedItems) {
@@ -29,6 +29,6 @@ fun BrowseBackHandler(
             return@BackHandler
         }
 
-        navigateToLibrary()
+        navigateToLibrary(BrowseEvent.OnNavigateToLibrary)
     }
 }

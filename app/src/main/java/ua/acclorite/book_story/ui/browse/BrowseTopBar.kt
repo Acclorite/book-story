@@ -128,7 +128,7 @@ fun BrowseTopBar(
                         modifier = Modifier
                             .focusRequester(focusRequester)
                             .onGloballyPositioned {
-                                requestFocus(BrowseEvent.OnRequestFocus(focusRequester))
+                                requestFocus(BrowseEvent.OnRequestFocus)
                             },
                         initialQuery = searchQuery,
                         onQueryChange = {
@@ -172,7 +172,6 @@ fun BrowseTopBar(
                     ) {
                         selectFiles(
                             BrowseEvent.OnSelectFiles(
-                                includedFileFormats = includedFilterItems,
                                 files = files
                             )
                         )

@@ -6,9 +6,7 @@
 
 package ua.acclorite.book_story.presentation.browse
 
-import android.content.Context
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.presentation.browse.model.SelectableFile
 import ua.acclorite.book_story.presentation.library.model.SelectableNullableBook
 
@@ -23,9 +21,7 @@ sealed class BrowseEvent {
         val show: Boolean
     ) : BrowseEvent()
 
-    data class OnRequestFocus(
-        val focusRequester: FocusRequester
-    ) : BrowseEvent()
+    data object OnRequestFocus : BrowseEvent()
 
     data class OnSearchQueryChange(
         val query: String
@@ -36,13 +32,7 @@ sealed class BrowseEvent {
     data object OnClearSelectedFiles : BrowseEvent()
 
     data class OnSelectFiles(
-        val includedFileFormats: List<String>,
         val files: List<SelectableFile>
-    ) : BrowseEvent()
-
-    data class OnSelectFile(
-        val includedFileFormats: List<String>,
-        val file: SelectableFile
     ) : BrowseEvent()
 
     data object OnShowFilterBottomSheet : BrowseEvent()
@@ -57,10 +47,15 @@ sealed class BrowseEvent {
         val book: SelectableNullableBook
     ) : BrowseEvent()
 
-    data class OnActionAddDialog(
-        val context: Context,
-        val navigateToLibrary: () -> Unit
-    ) : BrowseEvent()
+    data object OnActionAddDialog : BrowseEvent()
 
     data object OnDismissDialog : BrowseEvent()
+
+    data class OnUpdatePinnedPaths(
+        val path: String
+    ) : BrowseEvent()
+
+    data object OnNavigateToLibrary : BrowseEvent()
+
+    data object OnNavigateToBrowseSettings : BrowseEvent()
 }

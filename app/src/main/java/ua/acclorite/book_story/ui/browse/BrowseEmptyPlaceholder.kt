@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.browse.BrowseEvent
 import ua.acclorite.book_story.ui.common.components.common.AnimatedVisibility
 import ua.acclorite.book_story.ui.common.components.placeholder.EmptyPlaceholder
 import ua.acclorite.book_story.ui.theme.Transitions
@@ -23,7 +24,7 @@ fun BoxScope.BrowseEmptyPlaceholder(
     dialogHidden: Boolean,
     isLoading: Boolean,
     isRefreshing: Boolean,
-    navigateToBrowseSettings: () -> Unit
+    navigateToBrowseSettings: (BrowseEvent.OnNavigateToBrowseSettings) -> Unit
 ) {
     AnimatedVisibility(
         visible = !isLoading
@@ -39,7 +40,7 @@ fun BoxScope.BrowseEmptyPlaceholder(
             icon = painterResource(id = R.drawable.empty_browse),
             actionTitle = stringResource(id = R.string.set_up_scanning),
             action = {
-                navigateToBrowseSettings()
+                navigateToBrowseSettings(BrowseEvent.OnNavigateToBrowseSettings)
             }
         )
     }
