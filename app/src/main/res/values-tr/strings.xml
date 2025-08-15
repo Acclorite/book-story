@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
-
-<resources>
+  --><resources>
     <!-- Basic Strings -->
     <string name="default_string">Varsayılan</string>
     <!-- Screens -->
@@ -111,9 +108,9 @@
     <string name="appearance_settings">Görünüm</string>
     <string name="appearance_settings_desc">Tema, renkler</string>
     <string name="reader_settings">Okuyucu</string>
-    <string name="reader_settings_desc">Yazı tipi, metin, çevirmen</string>
+    <string name="reader_settings_desc">Yazı tipi, metin</string>
     <string name="browse_settings">Gözat</string>
-    <string name="browse_settings_desc">Genel, filtre, sıralama</string>
+    <string name="browse_settings_desc">Tara, görüntüle</string>
     <!-- Settings subcategories -->
     <string name="font_reader_settings">Yazı tipi</string>
     <string name="text_reader_settings">Metin</string>
@@ -184,7 +181,7 @@
     <string name="highlighted_reading_option_desc">Her kelimenin başlangıcını vurgula</string>
     <string name="highlighted_reading_thickness_option">Vurgu kalınlığı</string>
     <string name="images_option">Görseller</string>
-    <string name="images_option_desc">Görselleri açıklamalarıyla birlikte göster</string>
+    <string name="images_option_desc">Resimleri görüntüle</string>
     <string name="images_corners_roundness_option">Köşe yuvarlaklığı</string>
     <string name="images_alignment_option">Hizalama</string>
     <string name="images_width_option">Boyut</string>
@@ -313,7 +310,7 @@
     <string name="credits_option">Katkıda bulunanlar</string>
     <string name="help_translate_option">Çeviriye yardım et</string>
     <string name="contributors_option">Katkıda bulunanlar</string>
-    <string name="slava_ukraini">Slava Ukraini!</string>
+    <string name="slava_ukraini">Yaşasın Ukrayna!</string>
     <!-- Credits -->
     <string name="credits_design">Tasarım</string>
     <string name="credits_icon">Simgeler</string>
@@ -509,7 +506,7 @@
     <string name="pin_content_desc">Sabitle</string>
     <string name="show_less_content_desc">Daha az göster</string>
     <string name="show_more_content_desc">Daha fazla göster</string>
-    <string name="edit_content_desc">Alanı düzenle</string>
+    <string name="edit_content_desc">Düzenle</string>
     <string name="set_up_scanning">Kurulum taranıyor</string>
     <string name="scan_browse_settings">Tara</string>
     <string name="browse_scan_option_note">Bu klasörler, göz atmada dosyaları taramak ve almak için kullanılır. Buradaki bir klasörü kaldırma, gerçek dosyaları veya kitapları kütüphaneden silmez. Erişimi iptal etmek için ilgili düğmeyi tıklayın.</string>
@@ -519,4 +516,43 @@
     <string name="add_folder">Klasör ekle</string>
     <string name="note_content_desc">Not</string>
     <string name="remove_content_desc">Kaldır</string>
+    <string name="error_no_file_manager_app">Klasör seçmek için uygun bir uygulama bulunamadı.</string>
+    <string name="report">Raporla</string>
+    <string name="display_settings">Görüntüle</string>
+    <string name="horizontal_gesture_alpha_anim_option">Görünürlük animasyonu</string>
+    <string name="horizontal_gesture_alpha_anim_option_desc">Yatay hareket kullanılırken görünürlük animasyonunu etkinleştir</string>
+    <string name="support_development_option">Geliştirmeyi destekle</string>
+    <string name="crash_title">Hata! Uygulama kapandı.</string>
+    <string name="crash_description">Lütfen bu hata mesajını size en kolay gelen yöntemle raporlayın.</string>
+    <string name="display_tab">Görüntüle</string>
+    <string name="horizontal_gesture_pull_anim_option">Kaydırma animasyonu</string>
+    <string name="horizontal_gesture_pull_anim_option_desc">Yatay hareket kullanırken kaydırma animasyonunu etkinleştir</string>
+    <string name="remove_category">Kategori kaldırılsın mı?</string>
+    <string name="remove_category_description">Bu işlem, bu kategoriyi Kitaplıktan kaldıracak ancak herhangi bir kitabı silmeyecektir.</string>
+    <string name="error_field_empty">Bu alan boş bırakılamaz.</string>
+    <string name="categories_empty">Kategori bulunamadı.</string>
+    <string name="create_category">Kategori oluştur</string>
+    <string name="default_tab">Varsayılan</string>
+    <string name="library_settings">Kütüphane</string>
+    <string name="library_settings_desc">Kategoriler, görüntüle, sekmeler</string>
+    <string name="tabs_settings">Sekmeler</string>
+    <string name="categories_settings">Kategoriler</string>
+    <string name="library_categories_option_note">Başlangıçta, kitaplar varsayılan kategoriye eklenir, ancak burada oluşturulan birden fazla özel kategoriye de ait olabilirler. Buradan bir kategoriyi kaldırmak, kitapların Kitaplıktan silinmesine neden olmaz. Kategorileri yeniden sıralamak için kategori simgesine basılı tutup sürükleyin.</string>
+    <string name="images_captions_option">Altyazılar</string>
+    <string name="images_captions_option_desc">Resimlerin altında altyazıları göster</string>
+    <string name="read_button_option">«Oku» butonunu göster</string>
+    <string name="show_progress_option">İlerlemeni göster</string>
+    <string name="title_position_option">Başlık konumu</string>
+    <string name="show_book_count_option">Kitap sayısını göster</string>
+    <string name="show_category_tabs_option">Kategori sekmelerini göster</string>
+    <string name="always_show_default_tab_option">Varsayılan sekmeyi her zaman göster</string>
+    <string name="per_category_sort_option">Kategoriye göre sıralama</string>
+    <string name="library_title_position_off">Gizli</string>
+    <string name="library_title_position_below">Aşağıda</string>
+    <string name="library_title_position_inside">İçinde</string>
+    <string name="library_categories_create_category_placeholder">Başlık</string>
+    <string name="sort_order_last_read">Son okunan</string>
+    <string name="sort_order_progress">İlerleme</string>
+    <string name="sort_order_author">Yazar</string>
+    <string name="gray_theme">Iapetus</string>
 </resources>
