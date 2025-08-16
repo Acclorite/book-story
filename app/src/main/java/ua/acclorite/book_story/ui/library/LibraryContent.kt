@@ -69,10 +69,10 @@ fun LibraryContent(
     dismissDialog: (LibraryEvent.OnDismissDialog) -> Unit,
     showFilterBottomSheet: (LibraryEvent.OnShowFilterBottomSheet) -> Unit,
     dismissBottomSheet: (LibraryEvent.OnDismissBottomSheet) -> Unit,
-    navigateToBrowse: () -> Unit,
-    navigateToBookInfo: (id: Int) -> Unit,
-    navigateToReader: (id: Int) -> Unit,
-    navigateToLibrarySettings: () -> Unit
+    navigateToBrowse: (LibraryEvent.OnNavigateToBrowse) -> Unit,
+    navigateToBookInfo: (LibraryEvent.OnNavigateToBookInfo) -> Unit,
+    navigateToReader: (LibraryEvent.OnNavigateToReader) -> Unit,
+    navigateToLibrarySettings: (LibraryEvent.OnNavigateToLibrarySettings) -> Unit
 ) {
     LibraryDialog(
         dialog = dialog,
@@ -146,6 +146,6 @@ fun LibraryContent(
         pagerState = pagerState,
         doublePressExit = doublePressExit,
         clearSelectedBooks = clearSelectedBooks,
-        searchVisibility = searchVisibility,
+        searchVisibility = searchVisibility
     )
 }

@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.presentation.library.LibraryEvent
 import ua.acclorite.book_story.ui.common.components.placeholder.EmptyPlaceholder
 import ua.acclorite.book_story.ui.theme.Transitions
 
@@ -24,7 +25,7 @@ fun BoxScope.LibraryEmptyPlaceholder(
     isLoading: Boolean,
     isRefreshing: Boolean,
     isBooksEmpty: Boolean,
-    navigateToBrowse: () -> Unit
+    navigateToBrowse: (LibraryEvent.OnNavigateToBrowse) -> Unit
 ) {
     AnimatedVisibility(
         visible = !isLoading
@@ -40,7 +41,7 @@ fun BoxScope.LibraryEmptyPlaceholder(
             modifier = Modifier.align(Alignment.Center),
             actionTitle = stringResource(id = R.string.add_book)
         ) {
-            navigateToBrowse()
+            navigateToBrowse(LibraryEvent.OnNavigateToBrowse)
         }
     }
 }

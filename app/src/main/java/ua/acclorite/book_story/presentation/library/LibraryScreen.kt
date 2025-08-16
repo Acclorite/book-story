@@ -23,16 +23,11 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-import ua.acclorite.book_story.presentation.book_info.BookInfoScreen
-import ua.acclorite.book_story.presentation.browse.BrowseScreen
-import ua.acclorite.book_story.presentation.history.HistoryScreen
 import ua.acclorite.book_story.presentation.navigator.Screen
-import ua.acclorite.book_story.presentation.reader.ReaderScreen
-import ua.acclorite.book_story.presentation.settings.LibrarySettingsScreen
 import ua.acclorite.book_story.presentation.settings.SettingsModel
 import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.library.LibraryContent
-import ua.acclorite.book_story.ui.navigator.LocalNavigator
+import ua.acclorite.book_story.ui.library.LibraryEffects
 
 @Parcelize
 object LibraryScreen : Screen, Parcelable {
@@ -58,7 +53,6 @@ object LibraryScreen : Screen, Parcelable {
     @OptIn(ExperimentalMaterialApi::class)
     @Composable
     override fun Content() {
-        val navigator = LocalNavigator.current
         val screenModel = hiltViewModel<LibraryModel>()
         val settingsModel = hiltViewModel<SettingsModel>()
         val settings = LocalSettings.current
@@ -105,6 +99,11 @@ object LibraryScreen : Screen, Parcelable {
             }
         }
 
+        LibraryEffects(
+            effects = screenModel.effects,
+            focusRequester = focusRequester
+        )
+
         LibraryContent(
             books = state.value.books,
             selectedItemsCount = state.value.selectedItemsCount,
@@ -150,19 +149,10 @@ object LibraryScreen : Screen, Parcelable {
             showFilterBottomSheet = screenModel::onEvent,
             dismissBottomSheet = screenModel::onEvent,
             dismissDialog = screenModel::onEvent,
-            navigateToBrowse = {
-                navigator.push(BrowseScreen)
-            },
-            navigateToReader = {
-                HistoryScreen.insertHistoryChannel.trySend(it)
-                navigator.push(ReaderScreen(it))
-            },
-            navigateToBookInfo = {
-                navigator.push(BookInfoScreen(bookId = it))
-            },
-            navigateToLibrarySettings = {
-                navigator.push(LibrarySettingsScreen)
-            }
+            navigateToBrowse = screenModel::onEvent,
+            navigateToReader = screenModel::onEvent,
+            navigateToBookInfo = screenModel::onEvent,
+            navigateToLibrarySettings = screenModel::onEvent
         )
     }
 }

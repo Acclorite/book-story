@@ -63,9 +63,9 @@ fun LibraryScaffold(
     showMoveDialog: (LibraryEvent.OnShowMoveDialog) -> Unit,
     showDeleteDialog: (LibraryEvent.OnShowDeleteDialog) -> Unit,
     showFilterBottomSheet: (LibraryEvent.OnShowFilterBottomSheet) -> Unit,
-    navigateToBrowse: () -> Unit,
-    navigateToBookInfo: (id: Int) -> Unit,
-    navigateToReader: (id: Int) -> Unit,
+    navigateToBrowse: (LibraryEvent.OnNavigateToBrowse) -> Unit,
+    navigateToBookInfo: (LibraryEvent.OnNavigateToBookInfo) -> Unit,
+    navigateToReader: (LibraryEvent.OnNavigateToReader) -> Unit,
 ) {
     Scaffold(
         Modifier

@@ -6,9 +6,7 @@
 
 package ua.acclorite.book_story.presentation.library
 
-import android.content.Context
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.domain.model.library.Category
 
 @Immutable
@@ -28,9 +26,7 @@ sealed class LibraryEvent {
 
     data object OnSearch : LibraryEvent()
 
-    data class OnRequestFocus(
-        val focusRequester: FocusRequester
-    ) : LibraryEvent()
+    data object OnRequestFocus : LibraryEvent()
 
     data object OnClearSelectedBooks : LibraryEvent()
 
@@ -42,19 +38,28 @@ sealed class LibraryEvent {
     data object OnShowMoveDialog : LibraryEvent()
 
     data class OnActionMoveDialog(
-        val selectedCategories: List<Category>,
-        val context: Context
+        val selectedCategories: List<Category>
     ) : LibraryEvent()
 
     data object OnShowDeleteDialog : LibraryEvent()
 
-    data class OnActionDeleteDialog(
-        val context: Context
-    ) : LibraryEvent()
+    data object OnActionDeleteDialog : LibraryEvent()
 
     data object OnDismissDialog : LibraryEvent()
 
     data object OnShowFilterBottomSheet : LibraryEvent()
 
     data object OnDismissBottomSheet : LibraryEvent()
+
+    data object OnNavigateToLibrarySettings : LibraryEvent()
+
+    data object OnNavigateToBrowse : LibraryEvent()
+
+    data class OnNavigateToBookInfo(
+        val id: Int
+    ) : LibraryEvent()
+
+    data class OnNavigateToReader(
+        val id: Int
+    ) : LibraryEvent()
 }

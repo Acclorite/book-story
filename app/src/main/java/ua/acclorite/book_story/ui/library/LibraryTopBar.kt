@@ -189,7 +189,7 @@ fun LibraryTopBar(
                         modifier = Modifier
                             .focusRequester(focusRequester)
                             .onGloballyPositioned {
-                                requestFocus(LibraryEvent.OnRequestFocus(focusRequester))
+                                requestFocus(LibraryEvent.OnRequestFocus)
                             },
                         initialQuery = searchQuery,
                         onQueryChange = {

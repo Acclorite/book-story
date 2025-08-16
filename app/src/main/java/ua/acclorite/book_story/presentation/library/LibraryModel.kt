@@ -12,7 +12,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -20,17 +23,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.yield
-import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.domain.use_case.book.DeleteBookUseCase
 import ua.acclorite.book_story.domain.use_case.book.SearchBooksUseCase
 import ua.acclorite.book_story.domain.use_case.book.UpdateBookUseCase
 import ua.acclorite.book_story.presentation.browse.BrowseScreen
 import ua.acclorite.book_story.presentation.history.HistoryScreen
 import ua.acclorite.book_story.presentation.library.model.SelectableBook
-import ua.acclorite.book_story.ui.common.helpers.showToast
 import javax.inject.Inject
+import kotlin.coroutines.coroutineContext
 
 @HiltViewModel
 class LibraryModel @Inject constructor(
@@ -44,22 +44,21 @@ class LibraryModel @Inject constructor(
     private val _state = MutableStateFlow(LibraryState())
     val state = _state.asStateFlow()
 
+    private val _effects = MutableSharedFlow<LibraryEffect>()
+    val effects = _effects.asSharedFlow()
+
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            onEvent(
-                LibraryEvent.OnRefreshList(
-                    loading = true,
-                    hideSearch = true
-                )
+        onEvent(
+            LibraryEvent.OnRefreshList(
+                loading = true,
+                hideSearch = true
             )
-        }
+        )
 
         /* Observe channel - - - - - - - - - - - */
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             LibraryScreen.refreshListChannel.receiveAsFlow().collectLatest {
                 delay(it)
-                yield()
-
                 onEvent(
                     LibraryEvent.OnRefreshList(
                         loading = false,
@@ -75,33 +74,42 @@ class LibraryModel @Inject constructor(
     private var searchQueryChange: Job? = null
 
     fun onEvent(event: LibraryEvent) {
-        when (event) {
-            is LibraryEvent.OnRefreshList -> {
-                refreshJob?.cancel()
-                refreshJob = viewModelScope.launch(Dispatchers.IO) {
-                    _state.update {
-                        it.copy(
-                            isRefreshing = true,
-                            isLoading = event.loading,
-                            showSearch = if (event.hideSearch) false else it.showSearch
-                        )
-                    }
+        viewModelScope.launch {
+            when (event) {
+                is LibraryEvent.OnRefreshList -> {
+                    refreshJob?.cancel()
+                    refreshJob = viewModelScope.launch(Dispatchers.Default) {
+                        _state.update {
+                            it.copy(
+                                isRefreshing = true,
+                                isLoading = event.loading,
+                                showSearch = if (event.hideSearch) false else it.showSearch
+                            )
+                        }
 
-                    yield()
-                    getBooksFromDatabase()
+                        ensureActive()
+                        val books = searchBooksUseCase(
+                            if (_state.value.showSearch) _state.value.searchQuery
+                            else ""
+                        ).map { book -> SelectableBook(book, false) }
+                        _state.update {
+                            it.copy(
+                                books = books,
+                                hasSelectedItems = false,
+                                isLoading = false
+                            )
+                        }
 
-                    delay(500)
-                    _state.update {
-                        it.copy(
-                            isRefreshing = false,
-                            isLoading = false
-                        )
+                        delay(500) // Delay for UI smoothness
+                        _state.update {
+                            it.copy(
+                                isRefreshing = false
+                            )
+                        }
                     }
                 }
-            }
 
-            is LibraryEvent.OnSearchVisibility -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                is LibraryEvent.OnSearchVisibility -> {
                     if (!event.show) {
                         onEvent(
                             LibraryEvent.OnRefreshList(
@@ -109,41 +117,31 @@ class LibraryModel @Inject constructor(
                                 hideSearch = true
                             )
                         )
-                    } else {
-                        _state.update {
-                            it.copy(
-                                searchQuery = "",
-                                hasFocused = false
-                            )
-                        }
                     }
 
                     _state.update {
                         it.copy(
-                            showSearch = event.show
+                            showSearch = event.show,
+                            searchQuery = if (event.show) "" else it.searchQuery,
+                            hasFocused = if (event.show) false else it.hasFocused
                         )
                     }
                 }
-            }
 
-            is LibraryEvent.OnSearchQueryChange -> {
-                viewModelScope.launch {
+                is LibraryEvent.OnSearchQueryChange -> {
                     _state.update {
                         it.copy(
                             searchQuery = event.query
                         )
                     }
                     searchQueryChange?.cancel()
-                    searchQueryChange = launch(Dispatchers.IO) {
+                    searchQueryChange = viewModelScope.launch(Dispatchers.IO) {
                         delay(500)
-                        yield()
                         onEvent(LibraryEvent.OnSearch)
                     }
                 }
-            }
 
-            is LibraryEvent.OnSearch -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                is LibraryEvent.OnSearch -> {
                     onEvent(
                         LibraryEvent.OnRefreshList(
                             loading = false,
@@ -151,12 +149,10 @@ class LibraryModel @Inject constructor(
                         )
                     )
                 }
-            }
 
-            is LibraryEvent.OnRequestFocus -> {
-                viewModelScope.launch(Dispatchers.Main) {
+                is LibraryEvent.OnRequestFocus -> {
                     if (!_state.value.hasFocused) {
-                        event.focusRequester.requestFocus()
+                        _effects.emit(LibraryEffect.OnRequestFocus)
                         _state.update {
                             it.copy(
                                 hasFocused = true
@@ -164,170 +160,152 @@ class LibraryModel @Inject constructor(
                         }
                     }
                 }
-            }
 
-            is LibraryEvent.OnClearSelectedBooks -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    _state.update {
-                        it.copy(
-                            books = it.books.map { book -> book.copy(selected = false) },
-                            hasSelectedItems = false
-                        )
+                is LibraryEvent.OnClearSelectedBooks -> {
+                    withContext(Dispatchers.Default) {
+                        _state.update {
+                            it.copy(
+                                books = it.books.map { book -> book.copy(selected = false) },
+                                hasSelectedItems = false
+                            )
+                        }
                     }
                 }
-            }
 
-            is LibraryEvent.OnSelectBook -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    val editedList = _state.value.books.map {
-                        if (it.data.id == event.id) it.copy(selected = event.select ?: !it.selected)
-                        else it
-                    }
+                is LibraryEvent.OnSelectBook -> {
+                    withContext(Dispatchers.Default) {
+                        val editedList = _state.value.books.map {
+                            if (it.data.id == event.id) it.copy(
+                                selected = event.select ?: !it.selected
+                            )
+                            else it
+                        }
 
-                    _state.update {
-                        it.copy(
-                            books = editedList,
-                            selectedItemsCount = editedList.filter { book -> book.selected }.size,
-                            hasSelectedItems = editedList.any { book -> book.selected }
-                        )
+                        _state.update {
+                            it.copy(
+                                books = editedList,
+                                selectedItemsCount = editedList.filter { book -> book.selected }.size,
+                                hasSelectedItems = editedList.any { book -> book.selected }
+                            )
+                        }
                     }
                 }
-            }
 
-            is LibraryEvent.OnShowMoveDialog -> {
-                viewModelScope.launch {
+                is LibraryEvent.OnShowMoveDialog -> {
                     _state.update {
                         it.copy(
                             dialog = LibraryScreen.MOVE_DIALOG
                         )
                     }
                 }
-            }
 
-            is LibraryEvent.OnActionMoveDialog -> {
-                viewModelScope.launch {
-                    _state.value.books.forEach { book ->
-                        if (!book.selected) return@forEach
-                        updateBookUseCase(
-                            book.data.copy(
-                                categories = event.selectedCategories.map { it.id }
-                            )
-                        )
-                    }
-
-                    _state.update {
-                        it.copy(
-                            books = it.books.map { book ->
-                                if (!book.selected) return@map book
-                                book.copy(
-                                    data = book.data.copy(
-                                        categories = event.selectedCategories.map { it.id }
-                                    ),
-                                    selected = false
+                is LibraryEvent.OnActionMoveDialog -> {
+                    withContext(Dispatchers.Default) {
+                        _state.value.books.forEach { book ->
+                            if (!book.selected) return@forEach
+                            updateBookUseCase(
+                                book.data.copy(
+                                    categories = event.selectedCategories.map { it.id }
                                 )
-                            },
-                            hasSelectedItems = false,
-                            dialog = null
-                        )
-                    }
+                            )
+                        }
 
-                    HistoryScreen.refreshListChannel.trySend(0)
+                        _state.update {
+                            it.copy(
+                                books = it.books.map { book ->
+                                    if (!book.selected) return@map book
+                                    book.copy(
+                                        data = book.data.copy(
+                                            categories = event.selectedCategories.map { it.id }
+                                        ),
+                                        selected = false
+                                    )
+                                },
+                                hasSelectedItems = false,
+                                dialog = null
+                            )
+                        }
 
-                    withContext(Dispatchers.Main) {
-                        event.context
-                            .getString(R.string.books_moved)
-                            .showToast(context = event.context)
+                        HistoryScreen.refreshListChannel.trySend(0)
+                        _effects.emit(LibraryEffect.OnBooksMoved)
                     }
                 }
-            }
 
-            is LibraryEvent.OnShowDeleteDialog -> {
-                viewModelScope.launch {
+                is LibraryEvent.OnShowDeleteDialog -> {
                     _state.update {
                         it.copy(
                             dialog = LibraryScreen.DELETE_DIALOG
                         )
                     }
                 }
-            }
 
-            is LibraryEvent.OnActionDeleteDialog -> {
-                viewModelScope.launch {
-                    _state.value.books.forEach {
-                        if (!it.selected) return@forEach
-                        deleteBookUseCase(it.data)
-                    }
+                is LibraryEvent.OnActionDeleteDialog -> {
+                    withContext(Dispatchers.Default) {
+                        _state.value.books.forEach {
+                            if (!it.selected) return@forEach
+                            deleteBookUseCase(it.data)
+                        }
 
-                    _state.update {
-                        it.copy(
-                            books = it.books.filter { book -> !book.selected },
-                            hasSelectedItems = false,
-                            dialog = null
-                        )
-                    }
+                        _state.update {
+                            it.copy(
+                                books = it.books.filter { book -> !book.selected },
+                                hasSelectedItems = false,
+                                dialog = null
+                            )
+                        }
 
-                    HistoryScreen.refreshListChannel.trySend(0)
-                    BrowseScreen.refreshListChannel.trySend(Unit)
-
-                    withContext(Dispatchers.Main) {
-                        event.context
-                            .getString(R.string.books_deleted)
-                            .showToast(context = event.context)
+                        HistoryScreen.refreshListChannel.trySend(0)
+                        BrowseScreen.refreshListChannel.trySend(Unit)
+                        _effects.emit(LibraryEffect.OnBooksDeleted)
                     }
                 }
-            }
 
-            is LibraryEvent.OnDismissDialog -> {
-                viewModelScope.launch {
+                is LibraryEvent.OnDismissDialog -> {
                     _state.update {
                         it.copy(
                             dialog = null
                         )
                     }
                 }
-            }
 
-            is LibraryEvent.OnShowFilterBottomSheet -> {
-                viewModelScope.launch {
+                is LibraryEvent.OnShowFilterBottomSheet -> {
                     _state.update {
                         it.copy(
                             bottomSheet = LibraryScreen.FILTER_BOTTOM_SHEET
                         )
                     }
                 }
-            }
 
-            is LibraryEvent.OnDismissBottomSheet -> {
-                viewModelScope.launch {
+                is LibraryEvent.OnDismissBottomSheet -> {
                     _state.update {
                         it.copy(
                             bottomSheet = null
                         )
                     }
                 }
+
+                is LibraryEvent.OnNavigateToLibrarySettings -> {
+                    _effects.emit(LibraryEffect.OnNavigateToLibrarySettings)
+                }
+
+                is LibraryEvent.OnNavigateToBrowse -> {
+                    _effects.emit(LibraryEffect.OnNavigateToBrowse)
+                }
+
+                is LibraryEvent.OnNavigateToBookInfo -> {
+                    _effects.emit(LibraryEffect.OnNavigateToBookInfo(event.id))
+                }
+
+                is LibraryEvent.OnNavigateToReader -> {
+                    _effects.emit(LibraryEffect.OnNavigateToReader(event.id))
+                }
             }
-        }
-    }
-
-    private suspend fun getBooksFromDatabase(
-        query: String = if (_state.value.showSearch) _state.value.searchQuery else ""
-    ) {
-        val books = searchBooksUseCase(query)
-            .sortedWith(compareByDescending<Book> { it.lastOpened }.thenBy { it.title })
-            .map { book -> SelectableBook(book, false) }
-
-        _state.update {
-            it.copy(
-                books = books,
-                hasSelectedItems = false,
-                isLoading = false
-            )
         }
     }
 
     private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
         mutex.withLock {
-            yield()
+            coroutineContext.ensureActive()
             this.value = function(this.value)
         }
     }

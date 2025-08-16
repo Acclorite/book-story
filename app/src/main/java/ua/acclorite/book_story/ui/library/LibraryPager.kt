@@ -44,9 +44,9 @@ fun LibraryPager(
     isLoading: Boolean,
     isRefreshing: Boolean,
     selectBook: (LibraryEvent.OnSelectBook) -> Unit,
-    navigateToBrowse: () -> Unit,
-    navigateToBookInfo: (id: Int) -> Unit,
-    navigateToReader: (id: Int) -> Unit,
+    navigateToBrowse: (LibraryEvent.OnNavigateToBrowse) -> Unit,
+    navigateToBookInfo: (LibraryEvent.OnNavigateToBookInfo) -> Unit,
+    navigateToReader: (LibraryEvent.OnNavigateToReader) -> Unit,
 ) {
     val categorizedBooks = remember(
         books,
@@ -172,8 +172,20 @@ fun LibraryPager(
                                 )
                             )
                         },
-                        navigateToBookInfo = { navigateToBookInfo(book.data.id) },
-                        navigateToReader = { navigateToReader(book.data.id) },
+                        navigateToBookInfo = {
+                            navigateToBookInfo(
+                                LibraryEvent.OnNavigateToBookInfo(
+                                    book.data.id
+                                )
+                            )
+                        },
+                        navigateToReader = {
+                            navigateToReader(
+                                LibraryEvent.OnNavigateToReader(
+                                    book.data.id
+                                )
+                            )
+                        }
                     )
                 }
             }

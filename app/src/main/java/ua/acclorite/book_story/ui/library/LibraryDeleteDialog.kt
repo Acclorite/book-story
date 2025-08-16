@@ -9,7 +9,6 @@ package ua.acclorite.book_story.ui.library
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DeleteOutline
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.library.LibraryEvent
@@ -21,8 +20,6 @@ fun LibraryDeleteDialog(
     actionDeleteDialog: (LibraryEvent.OnActionDeleteDialog) -> Unit,
     dismissDialog: (LibraryEvent.OnDismissDialog) -> Unit
 ) {
-    val context = LocalContext.current
-
     Dialog(
         title = stringResource(id = R.string.delete_books),
         icon = Icons.Outlined.DeleteOutline,
@@ -35,11 +32,7 @@ fun LibraryDeleteDialog(
             dismissDialog(LibraryEvent.OnDismissDialog)
         },
         onAction = {
-            actionDeleteDialog(
-                LibraryEvent.OnActionDeleteDialog(
-                    context = context
-                )
-            )
+            actionDeleteDialog(LibraryEvent.OnActionDeleteDialog)
         },
         withContent = false
     )

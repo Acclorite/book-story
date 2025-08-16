@@ -22,7 +22,7 @@ fun LibraryDialog(
     actionMoveDialog: (LibraryEvent.OnActionMoveDialog) -> Unit,
     actionDeleteDialog: (LibraryEvent.OnActionDeleteDialog) -> Unit,
     dismissDialog: (LibraryEvent.OnDismissDialog) -> Unit,
-    navigateToLibrarySettings: () -> Unit
+    navigateToLibrarySettings: (LibraryEvent.OnNavigateToLibrarySettings) -> Unit
 ) {
     when (dialog) {
         LibraryScreen.MOVE_DIALOG -> {
