@@ -6,7 +6,6 @@
 
 package ua.acclorite.book_story.presentation.reader
 
-import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.domain.model.reader.ReaderText.Chapter
 import ua.acclorite.book_story.presentation.reader.model.Checkpoint
@@ -14,22 +13,23 @@ import ua.acclorite.book_story.presentation.reader.model.Checkpoint
 @Immutable
 sealed class ReaderEvent {
 
-    data class OnLoadText(
-        val activity: ComponentActivity,
-        val fullscreenMode: Boolean
-    ) : ReaderEvent()
+    data object OnLoadText : ReaderEvent()
+
+    data object OnRestoreScroll : ReaderEvent()
 
     data class OnMenuVisibility(
         val show: Boolean,
-        val fullscreenMode: Boolean,
-        val saveCheckpoint: Boolean,
-        val activity: ComponentActivity
+        val saveCheckpoint: Boolean
     ) : ReaderEvent()
 
     data class OnChangeProgress(
         val progress: Float,
         val firstVisibleItemIndex: Int,
         val firstVisibleItemOffset: Int
+    ) : ReaderEvent()
+
+    data class OnUpdateChapter(
+        val index: Int
     ) : ReaderEvent()
 
     data class OnScrollToChapter(
@@ -45,29 +45,24 @@ sealed class ReaderEvent {
     ) : ReaderEvent()
 
     data class OnLeave(
-        val activity: ComponentActivity,
         val navigate: () -> Unit
     ) : ReaderEvent()
 
     data class OnOpenTranslator(
         val textToTranslate: String,
-        val translateWholeParagraph: Boolean,
-        val activity: ComponentActivity
+        val translateWholeParagraph: Boolean
     ) : ReaderEvent()
 
     data class OnOpenShareApp(
-        val textToShare: String,
-        val activity: ComponentActivity
+        val textToShare: String
     ) : ReaderEvent()
 
     data class OnOpenWebBrowser(
-        val textToSearch: String,
-        val activity: ComponentActivity
+        val textToSearch: String
     ) : ReaderEvent()
 
     data class OnOpenDictionary(
-        val textToDefine: String,
-        val activity: ComponentActivity
+        val textToDefine: String
     ) : ReaderEvent()
 
     data object OnShowSettingsBottomSheet : ReaderEvent()
@@ -77,4 +72,10 @@ sealed class ReaderEvent {
     data object OnShowChaptersDrawer : ReaderEvent()
 
     data object OnDismissDrawer : ReaderEvent()
+
+    data object OnNavigateBack : ReaderEvent()
+
+    data class OnNavigateToBookInfo(
+        val changePath: Boolean
+    ) : ReaderEvent()
 }

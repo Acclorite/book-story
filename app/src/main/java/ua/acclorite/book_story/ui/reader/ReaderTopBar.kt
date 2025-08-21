@@ -53,8 +53,8 @@ fun ReaderTopBar(
     selectNextPreset: (SettingsEvent.OnSelectNextPreset) -> Unit,
     showSettingsBottomSheet: (ReaderEvent.OnShowSettingsBottomSheet) -> Unit,
     showChaptersDrawer: (ReaderEvent.OnShowChaptersDrawer) -> Unit,
-    navigateToBookInfo: (changePath: Boolean) -> Unit,
-    navigateBack: () -> Unit
+    navigateToBookInfo: (ReaderEvent.OnNavigateToBookInfo) -> Unit,
+    navigateBack: (ReaderEvent.OnNavigateBack) -> Unit
 ) {
     val activity = LocalActivity.current
     val animatedChapterProgress = animateFloatAsState(
@@ -81,9 +81,8 @@ fun ReaderTopBar(
                 ) {
                     leave(
                         ReaderEvent.OnLeave(
-                            activity = activity,
                             navigate = {
-                                navigateBack()
+                                navigateBack(ReaderEvent.OnNavigateBack)
                             }
                         )
                     )
@@ -99,9 +98,12 @@ fun ReaderTopBar(
                             onClick = {
                                 leave(
                                     ReaderEvent.OnLeave(
-                                        activity = activity,
                                         navigate = {
-                                            navigateToBookInfo(false)
+                                            navigateToBookInfo(
+                                                ReaderEvent.OnNavigateToBookInfo(
+                                                    changePath = false
+                                                )
+                                            )
                                         }
                                     )
                                 )

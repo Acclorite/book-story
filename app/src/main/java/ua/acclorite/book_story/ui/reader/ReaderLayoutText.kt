@@ -6,7 +6,6 @@
 
 package ua.acclorite.book_story.ui.reader
 
-import androidx.activity.ComponentActivity
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,7 +24,6 @@ import ua.acclorite.book_story.ui.theme.model.HorizontalAlignment
 
 @Composable
 fun LazyItemScope.ReaderLayoutText(
-    activity: ComponentActivity,
     showMenu: Boolean,
     entry: ReaderText,
     imagesCornersRoundness: Dp,
@@ -44,7 +42,6 @@ fun LazyItemScope.ReaderLayoutText(
     letterSpacing: TextUnit,
     sidePadding: Dp,
     paragraphIndentation: TextUnit,
-    fullscreenMode: Boolean,
     doubleClickTranslation: Boolean,
     highlightedReading: Boolean,
     highlightedReadingThickness: FontWeight,
@@ -85,7 +82,6 @@ fun LazyItemScope.ReaderLayoutText(
         is ReaderText.Text -> {
             ReaderLayoutTextParagraph(
                 paragraph = entry,
-                activity = activity,
                 showMenu = showMenu,
                 fontFamily = fontFamily,
                 fontColor = fontColor,
@@ -98,7 +94,6 @@ fun LazyItemScope.ReaderLayoutText(
                 letterSpacing = letterSpacing,
                 sidePadding = sidePadding,
                 paragraphIndentation = paragraphIndentation,
-                fullscreenMode = fullscreenMode,
                 doubleClickTranslation = doubleClickTranslation,
                 highlightedReading = highlightedReading,
                 highlightedReadingThickness = highlightedReadingThickness,

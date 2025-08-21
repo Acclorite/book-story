@@ -400,6 +400,7 @@ class BookInfoModel @Inject constructor(
             job.cancel()
             job.join()
         }
+        eventStack.clear()
         _state.update { BookInfoState() }
     }
 

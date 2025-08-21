@@ -6,7 +6,6 @@
 
 package ua.acclorite.book_story.ui.reader
 
-import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,7 +33,6 @@ import ua.acclorite.book_story.ui.reader.model.FontWithName
 @Composable
 fun LazyItemScope.ReaderLayoutTextParagraph(
     paragraph: Text,
-    activity: ComponentActivity,
     showMenu: Boolean,
     fontFamily: FontWithName,
     fontColor: Color,
@@ -47,7 +45,6 @@ fun LazyItemScope.ReaderLayoutTextParagraph(
     letterSpacing: TextUnit,
     sidePadding: Dp,
     paragraphIndentation: TextUnit,
-    fullscreenMode: Boolean,
     doubleClickTranslation: Boolean,
     highlightedReading: Boolean,
     highlightedReadingThickness: FontWeight,
@@ -72,8 +69,7 @@ fun LazyItemScope.ReaderLayoutTextParagraph(
                             openTranslator(
                                 ReaderEvent.OnOpenTranslator(
                                     textToTranslate = paragraph.line.text,
-                                    translateWholeParagraph = true,
-                                    activity = activity
+                                    translateWholeParagraph = true
                                 )
                             )
                         },
@@ -81,9 +77,7 @@ fun LazyItemScope.ReaderLayoutTextParagraph(
                             menuVisibility(
                                 ReaderEvent.OnMenuVisibility(
                                     show = !showMenu,
-                                    fullscreenMode = fullscreenMode,
-                                    saveCheckpoint = true,
-                                    activity = activity
+                                    saveCheckpoint = true
                                 )
                             )
                         }

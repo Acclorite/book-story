@@ -45,7 +45,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.core.helpers.calculateProgress
-import ua.acclorite.book_story.presentation.book_info.BookInfoScreen
 import ua.acclorite.book_story.presentation.navigator.Screen
 import ua.acclorite.book_story.presentation.reader.model.ReaderColorEffects
 import ua.acclorite.book_story.presentation.reader.model.ReaderProgressCount
@@ -54,8 +53,8 @@ import ua.acclorite.book_story.presentation.settings.SettingsModel
 import ua.acclorite.book_story.ui.common.helpers.LocalActivity
 import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.common.helpers.setBrightness
-import ua.acclorite.book_story.ui.navigator.LocalNavigator
 import ua.acclorite.book_story.ui.reader.ReaderContent
+import ua.acclorite.book_story.ui.reader.ReaderEffects
 import kotlin.math.roundToInt
 
 @Parcelize
@@ -69,7 +68,6 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
     @OptIn(ExperimentalLayoutApi::class)
     @Composable
     override fun Content() {
-        val navigator = LocalNavigator.current
         val screenModel = hiltViewModel<ReaderModel>()
         val settingsModel = hiltViewModel<SettingsModel>()
         val settings = LocalSettings.current
@@ -102,9 +100,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
                             screenModel.onEvent(
                                 ReaderEvent.OnMenuVisibility(
                                     show = false,
-                                    fullscreenMode = settings.fullscreen.lastValue,
-                                    saveCheckpoint = false,
-                                    activity = activity
+                                    saveCheckpoint = false
                                 )
                             )
                         }
@@ -328,22 +324,13 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
         }
 
         LaunchedEffect(Unit) {
-            screenModel.init(
-                bookId = bookId,
-                fullscreenMode = settings.fullscreen.lastValue,
-                activity = activity,
-                navigateBack = {
-                    navigator.pop()
-                }
-            )
+            screenModel.init(bookId = bookId)
         }
         LaunchedEffect(settings.fullscreen.value) {
             screenModel.onEvent(
                 ReaderEvent.OnMenuVisibility(
                     show = state.value.showMenu,
-                    fullscreenMode = settings.fullscreen.lastValue,
-                    saveCheckpoint = false,
-                    activity = activity
+                    saveCheckpoint = false
                 )
             )
         }
@@ -382,13 +369,20 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
 
         DisposableEffect(Unit) {
             onDispose {
-                screenModel.resetScreen()
+                screenModel.clearAsync()
                 WindowCompat.getInsetsController(
                     activity.window,
                     activity.window.decorView
                 ).show(WindowInsetsCompat.Type.systemBars())
             }
         }
+
+        ReaderEffects(
+            effects = screenModel.effects,
+            book = state.value.book,
+            listState = listState,
+            fullscreen = settings.fullscreen.value
+        )
 
         ReaderContent(
             book = state.value.book,
@@ -444,7 +438,6 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             letterSpacing = letterSpacing,
             paragraphIndentation = paragraphIndentation,
             doubleClickTranslation = settings.doubleClickTranslation.value,
-            fullscreenMode = settings.fullscreen.value,
             selectPreviousPreset = settingsModel::onEvent,
             selectNextPreset = settingsModel::onEvent,
             leave = screenModel::onEvent,
@@ -461,19 +454,8 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             dismissBottomSheet = screenModel::onEvent,
             showChaptersDrawer = screenModel::onEvent,
             dismissDrawer = screenModel::onEvent,
-            navigateBack = {
-                navigator.pop()
-            },
-            navigateToBookInfo = { changePath ->
-                if (changePath) BookInfoScreen.changePathChannel.trySend(true)
-                navigator.push(
-                    BookInfoScreen(
-                        bookId = bookId,
-                    ),
-                    popping = true,
-                    saveInBackStack = false
-                )
-            }
+            navigateBack = screenModel::onEvent,
+            navigateToBookInfo = screenModel::onEvent
         )
     }
 }

@@ -92,7 +92,6 @@ fun ReaderScaffold(
     letterSpacing: TextUnit,
     paragraphIndentation: TextUnit,
     doubleClickTranslation: Boolean,
-    fullscreenMode: Boolean,
     selectPreviousPreset: (SettingsEvent.OnSelectPreviousPreset) -> Unit,
     selectNextPreset: (SettingsEvent.OnSelectNextPreset) -> Unit,
     menuVisibility: (ReaderEvent.OnMenuVisibility) -> Unit,
@@ -106,8 +105,8 @@ fun ReaderScaffold(
     openDictionary: (ReaderEvent.OnOpenDictionary) -> Unit,
     showSettingsBottomSheet: (ReaderEvent.OnShowSettingsBottomSheet) -> Unit,
     showChaptersDrawer: (ReaderEvent.OnShowChaptersDrawer) -> Unit,
-    navigateToBookInfo: (changePath: Boolean) -> Unit,
-    navigateBack: () -> Unit
+    navigateToBookInfo: (ReaderEvent.OnNavigateToBookInfo) -> Unit,
+    navigateBack: (ReaderEvent.OnNavigateBack) -> Unit
 ) {
     Scaffold(
         Modifier
@@ -197,7 +196,6 @@ fun ReaderScaffold(
             letterSpacing = letterSpacing,
             paragraphIndentation = paragraphIndentation,
             doubleClickTranslation = doubleClickTranslation,
-            fullscreenMode = fullscreenMode,
             isLoading = isLoading,
             showMenu = showMenu,
             menuVisibility = menuVisibility,

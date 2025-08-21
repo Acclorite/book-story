@@ -87,7 +87,6 @@ fun ReaderLayout(
     letterSpacing: TextUnit,
     paragraphIndentation: TextUnit,
     doubleClickTranslation: Boolean,
-    fullscreenMode: Boolean,
     isLoading: Boolean,
     showMenu: Boolean,
     menuVisibility: (ReaderEvent.OnMenuVisibility) -> Unit,
@@ -107,16 +106,14 @@ fun ReaderLayout(
         onShareRequested = { textToShare ->
             openShareApp(
                 ReaderEvent.OnOpenShareApp(
-                    textToShare = textToShare,
-                    activity = activity
+                    textToShare = textToShare
                 )
             )
         },
         onWebSearchRequested = { textToSearch ->
             openWebBrowser(
                 ReaderEvent.OnOpenWebBrowser(
-                    textToSearch = textToSearch,
-                    activity = activity
+                    textToSearch = textToSearch
                 )
             )
         },
@@ -124,16 +121,14 @@ fun ReaderLayout(
             openTranslator(
                 ReaderEvent.OnOpenTranslator(
                     textToTranslate = textToTranslate,
-                    translateWholeParagraph = false,
-                    activity = activity
+                    translateWholeParagraph = false
                 )
             )
         },
         onDictionaryRequested = { textToDefine ->
             openDictionary(
                 ReaderEvent.OnOpenDictionary(
-                    textToDefine,
-                    activity = activity
+                    textToDefine = textToDefine
                 )
             )
         }
@@ -149,9 +144,7 @@ fun ReaderLayout(
                                 menuVisibility(
                                     ReaderEvent.OnMenuVisibility(
                                         show = !showMenu,
-                                        fullscreenMode = fullscreenMode,
-                                        saveCheckpoint = true,
-                                        activity = activity
+                                        saveCheckpoint = true
                                     )
                                 )
                             }
@@ -199,7 +192,6 @@ fun ReaderLayout(
                                 spacing = paragraphHeight
                             ) {
                                 ReaderLayoutText(
-                                    activity = activity,
                                     showMenu = showMenu,
                                     entry = entry,
                                     imagesCornersRoundness = imagesCornersRoundness,
@@ -218,7 +210,6 @@ fun ReaderLayout(
                                     letterSpacing = letterSpacing,
                                     sidePadding = sidePadding,
                                     paragraphIndentation = paragraphIndentation,
-                                    fullscreenMode = fullscreenMode,
                                     doubleClickTranslation = doubleClickTranslation,
                                     highlightedReading = highlightedReading,
                                     highlightedReadingThickness = highlightedReadingThickness,

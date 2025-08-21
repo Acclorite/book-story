@@ -24,7 +24,6 @@ import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.ui.common.components.placeholder.ErrorPlaceholder
 import ua.acclorite.book_story.ui.common.components.top_bar.TopAppBar
 import ua.acclorite.book_story.ui.common.components.top_bar.TopAppBarData
-import ua.acclorite.book_story.ui.common.helpers.LocalActivity
 import ua.acclorite.book_story.ui.navigator.NavigatorBackIconButton
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,10 +32,9 @@ import ua.acclorite.book_story.ui.navigator.NavigatorBackIconButton
 fun ReaderErrorPlaceholder(
     errorMessage: UIText,
     leave: (ReaderEvent.OnLeave) -> Unit,
-    navigateToBookInfo: (changePath: Boolean) -> Unit,
-    navigateBack: () -> Unit
+    navigateToBookInfo: (ReaderEvent.OnNavigateToBookInfo) -> Unit,
+    navigateBack: (ReaderEvent.OnNavigateBack) -> Unit
 ) {
-    val activity = LocalActivity.current
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.surface,
@@ -52,7 +50,7 @@ fun ReaderErrorPlaceholder(
                         contentID = 0,
                         contentNavigationIcon = {
                             NavigatorBackIconButton {
-                                navigateBack()
+                                navigateBack(ReaderEvent.OnNavigateBack)
                             }
                         },
                         contentTitle = {},
@@ -73,9 +71,12 @@ fun ReaderErrorPlaceholder(
                 action = {
                     leave(
                         ReaderEvent.OnLeave(
-                            activity = activity,
                             navigate = {
-                                navigateToBookInfo(true)
+                                navigateToBookInfo(
+                                    ReaderEvent.OnNavigateToBookInfo(
+                                        changePath = true
+                                    )
+                                )
                             }
                         )
                     )

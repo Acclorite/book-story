@@ -6,59 +6,51 @@
 
 package ua.acclorite.book_story.presentation.reader
 
-import android.app.SearchManager
-import android.content.Intent
-import android.util.Log
-import androidx.activity.ComponentActivity
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.snapshotFlow
-import androidx.core.net.toUri
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.yield
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.helpers.coerceAndPreventNaN
 import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.domain.model.reader.ReaderText.Chapter
 import ua.acclorite.book_story.domain.use_case.book.GetBookUseCase
+import ua.acclorite.book_story.domain.use_case.book.GetChapterProgressUseCase
 import ua.acclorite.book_story.domain.use_case.book.GetTextUseCase
 import ua.acclorite.book_story.domain.use_case.book.UpdateBookUseCase
 import ua.acclorite.book_story.domain.use_case.history.GetHistoryForBookUseCase
 import ua.acclorite.book_story.presentation.history.HistoryScreen
 import ua.acclorite.book_story.presentation.library.LibraryScreen
 import ua.acclorite.book_story.presentation.reader.model.Checkpoint
-import ua.acclorite.book_story.ui.common.helpers.launchActivity
-import ua.acclorite.book_story.ui.common.helpers.setBrightness
-import ua.acclorite.book_story.ui.common.helpers.showToast
 import javax.inject.Inject
+import kotlin.coroutines.coroutineContext
 import kotlin.math.roundToInt
-
-private const val READER = "READER, MODEL"
 
 @HiltViewModel
 class ReaderModel @Inject constructor(
     private val updateBookUseCase: UpdateBookUseCase,
     private val getTextUseCase: GetTextUseCase,
     private val getBookUseCase: GetBookUseCase,
-    private val getHistoryForBookUseCase: GetHistoryForBookUseCase
+    private val getHistoryForBookUseCase: GetHistoryForBookUseCase,
+    private val getChapterProgressUseCase: GetChapterProgressUseCase
 ) : ViewModel() {
 
     private val mutex = Mutex()
@@ -66,38 +58,36 @@ class ReaderModel @Inject constructor(
     private val _state = MutableStateFlow(ReaderState())
     val state = _state.asStateFlow()
 
-    private var eventJob = SupervisorJob()
-    private var resetJob: Job? = null
+    private val _effects = MutableSharedFlow<ReaderEffect>()
+    val effects = _effects.asSharedFlow()
 
     private var scrollJob: Job? = null
+    private val eventStack = mutableListOf<Job>()
 
     fun onEvent(event: ReaderEvent) {
-        viewModelScope.launch(eventJob + Dispatchers.Main) {
+        viewModelScope.launch {
             when (event) {
                 is ReaderEvent.OnLoadText -> {
-                    launch(Dispatchers.IO) {
+                    withContext(Dispatchers.Default) {
                         val text = getTextUseCase(_state.value.book.id)
-                        yield()
+                        ensureActive()
 
                         if (text.isEmpty()) {
                             _state.update {
                                 it.copy(
                                     isLoading = false,
-                                    errorMessage = UIText.StringResource(R.string.error_could_not_get_text)
+                                    errorMessage = UIText.StringResource(
+                                        resId = R.string.error_could_not_get_text
+                                    )
                                 )
                             }
-                            systemBarsVisibility(show = true, activity = event.activity)
-                            return@launch
+                            _effects.emit(ReaderEffect.OnSystemBarsVisibility(show = true))
+                            return@withContext
                         }
 
-                        systemBarsVisibility(
-                            show = !event.fullscreenMode,
-                            activity = event.activity
-                        )
+                        _effects.emit(ReaderEffect.OnSystemBarsVisibility(show = null))
 
                         val lastOpened = getHistoryForBookUseCase(_state.value.book.id)?.time
-                        yield()
-
                         _state.update {
                             it.copy(
                                 showMenu = false,
@@ -107,54 +97,54 @@ class ReaderModel @Inject constructor(
                                 text = text
                             )
                         }
-
-                        yield()
+                        ensureActive()
 
                         updateBookUseCase(_state.value.book)
 
                         LibraryScreen.refreshListChannel.trySend(0)
                         HistoryScreen.refreshListChannel.trySend(0)
 
-                        launch {
-                            snapshotFlow {
-                                _state.value.listState.layoutInfo.totalItemsCount
-                            }.collectLatest { itemsCount ->
-                                if (itemsCount < _state.value.text.size) return@collectLatest
+                        onEvent(ReaderEvent.OnRestoreScroll)
+                    }
+                }
 
-                                _state.value.book.apply {
-                                    _state.value.listState.requestScrollToItem(
-                                        scrollIndex,
-                                        scrollOffset
-                                    )
-                                    updateChapter(index = scrollIndex)
-                                }
+                is ReaderEvent.OnRestoreScroll -> {
+                    snapshotFlow { _state.value.listState.layoutInfo.totalItemsCount }.first { it > 0 }
 
-                                _state.update {
-                                    it.copy(
-                                        isLoading = false,
-                                        errorMessage = null
-                                    )
-                                }
+                    _effects.emit(
+                        ReaderEffect.OnScroll(
+                            scrollIndex = _state.value.book.scrollIndex,
+                            scrollOffset = _state.value.book.scrollOffset
+                        )
+                    )
 
-                                return@collectLatest
-                            }
-                        }
+                    _state.update {
+                        val (currentChapter, currentChapterProgress) = getChapterProgressUseCase(
+                            it.book.scrollIndex,
+                            it.text
+                        )
+                        it.copy(
+                            currentChapter = currentChapter,
+                            currentChapterProgress = currentChapterProgress,
+                            isLoading = false,
+                            errorMessage = null
+                        )
                     }
                 }
 
                 is ReaderEvent.OnMenuVisibility -> {
-                    launch(Dispatchers.Default) {
-                        if (_state.value.lockMenu) return@launch
+                    withContext(Dispatchers.Default) {
+                        if (_state.value.lockMenu) return@withContext
 
-                        yield()
-
-                        systemBarsVisibility(
-                            show = event.show || !event.fullscreenMode,
-                            activity = event.activity
+                        _effects.emit(
+                            ReaderEffect.OnSystemBarsVisibility(
+                                show = if (event.show) true
+                                else null
+                            )
                         )
 
-                        val checkpoints = _state.value.checkpoints.toMutableList()
                         if (event.saveCheckpoint && event.show) {
+                            val checkpoints = _state.value.checkpoints.toMutableList()
                             checkpoints.removeIf {
                                 it.index == _state.value.listState.firstVisibleItemIndex
                             }
@@ -164,19 +154,20 @@ class ReaderModel @Inject constructor(
                                     _state.value.listState.firstVisibleItemScrollOffset
                                 )
                             )
+
+                            _state.update {
+                                it.copy(checkpoints = checkpoints)
+                            }
                         }
 
                         _state.update {
-                            it.copy(
-                                showMenu = event.show,
-                                checkpoints = checkpoints
-                            )
+                            it.copy(showMenu = event.show)
                         }
                     }
                 }
 
                 is ReaderEvent.OnChangeProgress -> {
-                    launch(Dispatchers.Default) {
+                    withContext(Dispatchers.Default) {
                         _state.update {
                             it.copy(
                                 book = it.book.copy(
@@ -194,44 +185,64 @@ class ReaderModel @Inject constructor(
                     }
                 }
 
-                is ReaderEvent.OnScrollToChapter -> {
-                    launch(Dispatchers.Default) {
-                        _state.value.apply {
-                            val chapterIndex = text.indexOf(event.chapter).takeIf { it != -1 }
-                            if (chapterIndex == null) {
-                                return@launch
-                            }
+                is ReaderEvent.OnUpdateChapter -> {
+                    _state.update {
+                        val (currentChapter, currentChapterProgress) = getChapterProgressUseCase(
+                            event.index,
+                            _state.value.text
+                        )
+                        it.copy(
+                            currentChapter = currentChapter,
+                            currentChapterProgress = currentChapterProgress
+                        )
+                    }
+                }
 
-                            listState.requestScrollToItem(chapterIndex)
-                            updateChapter(index = chapterIndex)
-                            onEvent(
-                                ReaderEvent.OnChangeProgress(
-                                    progress = calculateProgress(chapterIndex),
-                                    firstVisibleItemIndex = chapterIndex,
-                                    firstVisibleItemOffset = 0
-                                )
+                is ReaderEvent.OnScrollToChapter -> {
+                    withContext(Dispatchers.Default) {
+                        val chapterIndex = _state.value.text
+                            .indexOf(event.chapter)
+                            .takeIf { it != -1 }
+                        if (chapterIndex == null) return@withContext
+
+                        _effects.emit(
+                            ReaderEffect.OnScroll(
+                                scrollIndex = chapterIndex,
+                                scrollOffset = 0
                             )
-                        }
+                        )
+
+                        onEvent(ReaderEvent.OnUpdateChapter(chapterIndex))
+                        onEvent(
+                            ReaderEvent.OnChangeProgress(
+                                progress = calculateProgress(chapterIndex),
+                                firstVisibleItemIndex = chapterIndex,
+                                firstVisibleItemOffset = 0
+                            )
+                        )
                     }
                 }
 
                 is ReaderEvent.OnScroll -> {
                     scrollJob?.cancel()
-                    scrollJob = launch(Dispatchers.Main) {
+                    scrollJob = viewModelScope.launch(Dispatchers.IO) {
                         delay(300)
 
                         val scrollTo = (_state.value.text.lastIndex * event.progress).roundToInt()
-                        updateChapter(scrollTo)
-                        try {
-                            _state.value.listState.requestScrollToItem(scrollTo)
-                        } catch (_: Exception) {
 
-                        }
+                        _effects.emit(
+                            ReaderEffect.OnScroll(
+                                scrollIndex = scrollTo,
+                                scrollOffset = 0
+                            )
+                        )
+
+                        onEvent(ReaderEvent.OnUpdateChapter(scrollTo))
                     }
                 }
 
                 is ReaderEvent.OnRestoreCheckpoint -> {
-                    launch(Dispatchers.Default) {
+                    withContext(Dispatchers.Default) {
                         _state.update {
                             val checkpoints = it.checkpoints.toMutableList()
                             if (checkpoints.size > 1) checkpoints.remove(event.checkpoint)
@@ -241,16 +252,14 @@ class ReaderModel @Inject constructor(
                             )
                         }
 
-                        try {
-                            _state.value.listState.requestScrollToItem(
-                                event.checkpoint.index,
-                                event.checkpoint.offset
+                        _effects.emit(
+                            ReaderEffect.OnScroll(
+                                scrollIndex = event.checkpoint.index,
+                                scrollOffset = event.checkpoint.offset
                             )
-                        } catch (_: Exception) {
+                        )
 
-                        }
-
-                        updateChapter(event.checkpoint.index)
+                        onEvent(ReaderEvent.OnUpdateChapter(event.checkpoint.index))
                         onEvent(
                             ReaderEvent.OnChangeProgress(
                                 progress = calculateProgress(event.checkpoint.index),
@@ -262,186 +271,74 @@ class ReaderModel @Inject constructor(
                 }
 
                 is ReaderEvent.OnLeave -> {
-                    launch(Dispatchers.Main) {
+                    _state.update {
+                        it.copy(
+                            lockMenu = true
+                        )
+                    }
+
+                    if (
+                        !_state.value.isLoading &&
+                        _state.value.listState.layoutInfo.totalItemsCount > 0 &&
+                        _state.value.text.isNotEmpty() &&
+                        _state.value.errorMessage != null
+                    ) {
                         _state.update {
                             it.copy(
-                                lockMenu = true
+                                book = it.book.copy(
+                                    progress = calculateProgress(),
+                                    scrollIndex = _state.value.listState.firstVisibleItemIndex,
+                                    scrollOffset = _state.value.listState.firstVisibleItemScrollOffset
+                                )
                             )
                         }
 
-                        _state.value.listState.apply {
-                            if (
-                                _state.value.isLoading ||
-                                layoutInfo.totalItemsCount < 1 ||
-                                _state.value.text.isEmpty() ||
-                                _state.value.errorMessage != null
-                            ) return@apply
+                        updateBookUseCase(_state.value.book)
 
-                            _state.update {
-                                it.copy(
-                                    book = it.book.copy(
-                                        progress = calculateProgress(),
-                                        scrollIndex = firstVisibleItemIndex,
-                                        scrollOffset = firstVisibleItemScrollOffset
-                                    )
-                                )
-                            }
-
-                            updateBookUseCase(_state.value.book)
-
-                            LibraryScreen.refreshListChannel.trySend(0)
-                            HistoryScreen.refreshListChannel.trySend(0)
-                        }
-
-                        WindowCompat.getInsetsController(
-                            event.activity.window,
-                            event.activity.window.decorView
-                        ).show(WindowInsetsCompat.Type.systemBars())
-                        event.activity.setBrightness(brightness = null)
-
-                        event.navigate()
+                        LibraryScreen.refreshListChannel.trySend(0)
+                        HistoryScreen.refreshListChannel.trySend(0)
                     }
+
+                    _effects.emit(
+                        ReaderEffect.OnSystemBarsVisibility(
+                            show = true
+                        )
+                    )
+                    _effects.emit(ReaderEffect.OnResetBrightness)
+                    event.navigate()
                 }
 
                 is ReaderEvent.OnOpenTranslator -> {
-                    launch(Dispatchers.Default) {
-                        val translatorIntent = Intent()
-                        val browserIntent = Intent()
-
-                        translatorIntent.type = "text/plain"
-                        translatorIntent.action = Intent.ACTION_PROCESS_TEXT
-                        browserIntent.action = Intent.ACTION_WEB_SEARCH
-
-                        translatorIntent.putExtra(
-                            Intent.EXTRA_PROCESS_TEXT,
-                            event.textToTranslate
+                    _effects.emit(
+                        ReaderEffect.OnOpenTranslator(
+                            textToTranslate = event.textToTranslate,
+                            translateWholeParagraph = event.translateWholeParagraph
                         )
-                        translatorIntent.putExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, true)
-                        browserIntent.putExtra(
-                            SearchManager.QUERY,
-                            "translate: ${event.textToTranslate.trim()}"
-                        )
-
-                        yield()
-
-                        translatorIntent.launchActivity(
-                            activity = event.activity,
-                            createChooser = !event.translateWholeParagraph,
-                            success = {
-                                return@launch
-                            }
-                        )
-                        browserIntent.launchActivity(
-                            activity = event.activity,
-                            success = {
-                                return@launch
-                            }
-                        )
-
-                        withContext(Dispatchers.Main) {
-                            event.activity.getString(R.string.error_no_translator)
-                                .showToast(context = event.activity, longToast = false)
-                        }
-                    }
+                    )
                 }
 
                 is ReaderEvent.OnOpenShareApp -> {
-                    launch(Dispatchers.Default) {
-                        val shareIntent = Intent()
-
-                        shareIntent.action = Intent.ACTION_SEND
-                        shareIntent.type = "text/plain"
-                        shareIntent.putExtra(
-                            Intent.EXTRA_SUBJECT,
-                            event.activity.getString(R.string.app_name)
+                    _effects.emit(
+                        ReaderEffect.OnOpenShareApp(
+                            textToShare = event.textToShare
                         )
-                        shareIntent.putExtra(
-                            Intent.EXTRA_TEXT,
-                            event.textToShare.trim()
-                        )
-
-                        yield()
-
-                        shareIntent.launchActivity(
-                            activity = event.activity,
-                            createChooser = true,
-                            success = {
-                                return@launch
-                            }
-                        )
-
-                        withContext(Dispatchers.Main) {
-                            event.activity.getString(R.string.error_no_share_app)
-                                .showToast(context = event.activity, longToast = false)
-                        }
-                    }
+                    )
                 }
 
                 is ReaderEvent.OnOpenWebBrowser -> {
-                    launch(Dispatchers.Default) {
-                        val browserIntent = Intent()
-
-                        browserIntent.action = Intent.ACTION_WEB_SEARCH
-                        browserIntent.putExtra(
-                            SearchManager.QUERY,
-                            event.textToSearch
+                    _effects.emit(
+                        ReaderEffect.OnOpenWebBrowser(
+                            textToSearch = event.textToSearch
                         )
-
-                        yield()
-
-                        browserIntent.launchActivity(
-                            activity = event.activity,
-                            success = {
-                                return@launch
-                            }
-                        )
-
-                        withContext(Dispatchers.Main) {
-                            event.activity.getString(R.string.error_no_browser)
-                                .showToast(context = event.activity, longToast = false)
-                        }
-                    }
+                    )
                 }
 
                 is ReaderEvent.OnOpenDictionary -> {
-                    launch(Dispatchers.Default) {
-                        val dictionaryIntent = Intent()
-                        val browserIntent = Intent()
-
-                        dictionaryIntent.type = "text/plain"
-                        dictionaryIntent.action = Intent.ACTION_PROCESS_TEXT
-                        dictionaryIntent.putExtra(
-                            Intent.EXTRA_PROCESS_TEXT,
-                            event.textToDefine.trim()
+                    _effects.emit(
+                        ReaderEffect.OnOpenDictionary(
+                            textToDefine = event.textToDefine
                         )
-                        dictionaryIntent.putExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, true)
-
-                        browserIntent.action = Intent.ACTION_VIEW
-                        val text = event.textToDefine.trim().replace(" ", "+")
-                        browserIntent.data = "https://www.onelook.com/?w=$text".toUri()
-
-                        yield()
-
-                        dictionaryIntent.launchActivity(
-                            activity = event.activity,
-                            createChooser = true,
-                            success = {
-                                return@launch
-                            }
-                        )
-
-                        browserIntent.launchActivity(
-                            activity = event.activity,
-                            success = {
-                                return@launch
-                            }
-                        )
-
-                        withContext(Dispatchers.Main) {
-                            event.activity.getString(R.string.error_no_dictionary)
-                                .showToast(context = event.activity, longToast = false)
-                        }
-                    }
+                    )
                 }
 
                 is ReaderEvent.OnShowSettingsBottomSheet -> {
@@ -477,41 +374,55 @@ class ReaderModel @Inject constructor(
                         )
                     }
                 }
+
+                is ReaderEvent.OnNavigateBack -> {
+                    _effects.emit(ReaderEffect.OnNavigateBack)
+                }
+
+                is ReaderEvent.OnNavigateToBookInfo -> {
+                    _effects.emit(ReaderEffect.OnNavigateToBookInfo(event.changePath))
+                }
             }
-        }
+        }.also { eventStack.add(it) }
     }
 
-    fun init(
-        bookId: Int,
-        fullscreenMode: Boolean,
-        activity: ComponentActivity,
-        navigateBack: () -> Unit
-    ) {
-        viewModelScope.launch(Dispatchers.IO) {
+    fun init(bookId: Int) {
+        viewModelScope.launch(Dispatchers.Default) {
             val book = getBookUseCase(bookId)
 
             if (book == null) {
-                navigateBack()
+                _effects.emit(ReaderEffect.OnNavigateBack)
                 return@launch
             }
 
-            eventJob.cancel()
-            resetJob?.cancel()
-            eventJob.join()
-            resetJob?.join()
-            eventJob = SupervisorJob()
+            clear()
 
             _state.update {
-                ReaderState(book = book)
+                ReaderState(
+                    book = book
+                )
             }
 
-            onEvent(
-                ReaderEvent.OnLoadText(
-                    activity = activity,
-                    fullscreenMode = fullscreenMode
-                )
-            )
+            onEvent(ReaderEvent.OnLoadText)
         }
+    }
+
+    fun clearAsync() {
+        viewModelScope.launch {
+            eventStack.forEach { job ->
+                job.cancel()
+            }
+            _state.update { ReaderState() }
+        }
+    }
+
+    suspend fun clear() {
+        eventStack.forEach { job ->
+            job.cancel()
+            job.join()
+        }
+        eventStack.clear()
+        _state.update { ReaderState() }
     }
 
     @OptIn(FlowPreview::class)
@@ -527,12 +438,11 @@ class ReaderModel @Inject constructor(
             ) return@collectLatest
 
             val progress = calculateProgress(index)
-            val (currentChapter, currentChapterProgress) = calculateCurrentChapter(index)
-
-            Log.i(
-                READER,
-                "Changed progress|currentChapter: $progress; ${currentChapter?.title}"
+            val (currentChapter, currentChapterProgress) = getChapterProgressUseCase(
+                index = index,
+                text = _state.value.text
             )
+
             _state.update {
                 it.copy(
                     book = it.book.copy(
@@ -553,126 +463,42 @@ class ReaderModel @Inject constructor(
     }
 
     fun findChapterIndexAndLength(index: Int): Pair<Int, Int> {
-        return findCurrentChapter(index)?.let { chapter ->
-            _state.value.text.run {
-                val startIndex = indexOf(chapter).coerceIn(0, lastIndex)
-                val endIndex = (indexOfFirst {
-                    it is Chapter && indexOf(it) > startIndex
-                }.takeIf { it != -1 }) ?: (lastIndex + 1)
+        val (chapter, _) = getChapterProgressUseCase(index = index, text = _state.value.text)
+        return chapter?.let { chapter ->
+            val startIndex = _state.value.text
+                .indexOf(chapter)
+                .coerceIn(0, _state.value.text.lastIndex)
+            val endIndex = (_state.value.text.indexOfFirst {
+                it is Chapter && _state.value.text.indexOf(it) > startIndex
+            }.takeIf { it != -1 }) ?: (_state.value.text.lastIndex + 1)
 
-                val currentIndexInChapter = (index - startIndex).coerceAtLeast(1)
-                val chapterLength = endIndex - (startIndex + 1)
-                currentIndexInChapter to chapterLength
-            }
+            val currentIndexInChapter = (index - startIndex).coerceAtLeast(1)
+            val chapterLength = endIndex - (startIndex + 1)
+            currentIndexInChapter to chapterLength
         } ?: (-1 to -1)
     }
 
-    private fun updateChapter(index: Int) {
-        viewModelScope.launch {
-            val (currentChapter, currentChapterProgress) = calculateCurrentChapter(index)
-            _state.update {
-                Log.i(
-                    READER,
-                    "Changed currentChapter|currentChapterProgress:" +
-                            " ${currentChapter?.title}($currentChapterProgress)"
-                )
-                it.copy(
-                    currentChapter = currentChapter,
-                    currentChapterProgress = currentChapterProgress
-                )
-            }
-        }
-    }
-
-    private fun calculateCurrentChapter(index: Int): Pair<Chapter?, Float> {
-        val currentChapter = findCurrentChapter(index)
-        val currentChapterProgress = currentChapter?.let { chapter ->
-            _state.value.text.run {
-                val startIndex = indexOf(chapter).coerceIn(0, lastIndex)
-                val endIndex = (indexOfFirst {
-                    it is Chapter && indexOf(it) > startIndex
-                }.takeIf { it != -1 }) ?: (lastIndex + 1)
-
-                val currentIndexInChapter = (index - startIndex).coerceAtLeast(1)
-                val chapterLength = endIndex - (startIndex + 1)
-                (currentIndexInChapter / chapterLength.toFloat())
-            }
-        }.coerceAndPreventNaN()
-
-        return currentChapter to currentChapterProgress
-    }
-
-    private fun findCurrentChapter(index: Int): Chapter? {
-        return try {
-            for (textIndex in index downTo 0) {
-                val readerText = _state.value.text.getOrNull(textIndex) ?: break
-                if (readerText is Chapter) {
-                    return readerText
-                }
-            }
-            null
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        }
-    }
-
     private fun calculateProgress(firstVisibleItemIndex: Int? = null): Float {
-        return _state.value.run {
-            if (
-                isLoading ||
-                listState.layoutInfo.totalItemsCount == 0 ||
-                text.isEmpty() ||
-                errorMessage != null
-            ) {
-                return book.progress
-            }
+        if (
+            _state.value.isLoading ||
+            _state.value.listState.layoutInfo.totalItemsCount == 0 ||
+            _state.value.text.isEmpty() ||
+            _state.value.errorMessage != null
+        ) return _state.value.book.progress
 
-            if ((firstVisibleItemIndex ?: listState.firstVisibleItemIndex) == 0) {
-                return 0f
-            }
+        if ((firstVisibleItemIndex ?: _state.value.listState.firstVisibleItemIndex) == 0) return 0f
 
-            val lastVisibleItemIndex = listState.layoutInfo.visibleItemsInfo.last().index
-            if (lastVisibleItemIndex >= text.lastIndex) {
-                return 1f
-            }
+        val lastVisibleItemIndex = _state.value.listState.layoutInfo.visibleItemsInfo.last().index
+        if (lastVisibleItemIndex >= _state.value.text.lastIndex) return 1f
 
-            return@run (firstVisibleItemIndex ?: listState.firstVisibleItemIndex)
-                .div(text.lastIndex.toFloat())
-                .coerceAndPreventNaN()
-        }
-    }
-
-    private suspend fun systemBarsVisibility(
-        show: Boolean,
-        activity: ComponentActivity
-    ) {
-        withContext(Dispatchers.Main) {
-            WindowCompat.getInsetsController(
-                activity.window,
-                activity.window.decorView
-            ).apply {
-                systemBarsBehavior =
-                    WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-                if (show) show(WindowInsetsCompat.Type.systemBars())
-                else hide(WindowInsetsCompat.Type.systemBars())
-            }
-        }
-    }
-
-    fun resetScreen() {
-        resetJob = viewModelScope.launch(Dispatchers.Main) {
-            eventJob.cancel()
-            eventJob = SupervisorJob()
-
-            yield()
-            _state.update { ReaderState() }
-        }
+        return (firstVisibleItemIndex ?: _state.value.listState.firstVisibleItemIndex)
+            .div(_state.value.text.lastIndex.toFloat())
+            .coerceAndPreventNaN()
     }
 
     private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
         mutex.withLock {
-            yield()
+            coroutineContext.ensureActive()
             this.value = function(this.value)
         }
     }

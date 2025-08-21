@@ -28,7 +28,6 @@ import kotlinx.coroutines.launch
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.ui.common.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.ui.common.components.modal_bottom_sheet.ModalBottomSheet
-import ua.acclorite.book_story.ui.common.helpers.LocalActivity
 import ua.acclorite.book_story.ui.settings.appearance.colors.ColorsSubcategory
 import ua.acclorite.book_story.ui.settings.reader.chapters.ChaptersSubcategory
 import ua.acclorite.book_story.ui.settings.reader.font.FontSubcategory
@@ -47,11 +46,9 @@ private var initialPage = 0
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReaderSettingsBottomSheet(
-    fullscreenMode: Boolean,
     menuVisibility: (ReaderEvent.OnMenuVisibility) -> Unit,
     dismissBottomSheet: (ReaderEvent.OnDismissBottomSheet) -> Unit
 ) {
-    val activity = LocalActivity.current
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(initialPage) { 3 }
     DisposableEffect(Unit) { onDispose { initialPage = pagerState.currentPage } }
@@ -70,9 +67,7 @@ fun ReaderSettingsBottomSheet(
         menuVisibility(
             ReaderEvent.OnMenuVisibility(
                 show = pagerState.currentPage != 2,
-                fullscreenMode = fullscreenMode,
-                saveCheckpoint = false,
-                activity = activity
+                saveCheckpoint = false
             )
         )
     }

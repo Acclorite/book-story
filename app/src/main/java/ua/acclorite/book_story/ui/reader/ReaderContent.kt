@@ -88,7 +88,6 @@ fun ReaderContent(
     letterSpacing: TextUnit,
     paragraphIndentation: TextUnit,
     doubleClickTranslation: Boolean,
-    fullscreenMode: Boolean,
     selectPreviousPreset: (SettingsEvent.OnSelectPreviousPreset) -> Unit,
     selectNextPreset: (SettingsEvent.OnSelectNextPreset) -> Unit,
     menuVisibility: (ReaderEvent.OnMenuVisibility) -> Unit,
@@ -105,12 +104,11 @@ fun ReaderContent(
     dismissBottomSheet: (ReaderEvent.OnDismissBottomSheet) -> Unit,
     showChaptersDrawer: (ReaderEvent.OnShowChaptersDrawer) -> Unit,
     dismissDrawer: (ReaderEvent.OnDismissDrawer) -> Unit,
-    navigateToBookInfo: (changePath: Boolean) -> Unit,
-    navigateBack: () -> Unit
+    navigateToBookInfo: (ReaderEvent.OnNavigateToBookInfo) -> Unit,
+    navigateBack: (ReaderEvent.OnNavigateBack) -> Unit
 ) {
     ReaderBottomSheet(
         bottomSheet = bottomSheet,
-        fullscreenMode = fullscreenMode,
         menuVisibility = menuVisibility,
         dismissBottomSheet = dismissBottomSheet
     )
@@ -167,7 +165,6 @@ fun ReaderContent(
             letterSpacing = letterSpacing,
             paragraphIndentation = paragraphIndentation,
             doubleClickTranslation = doubleClickTranslation,
-            fullscreenMode = fullscreenMode,
             selectPreviousPreset = selectPreviousPreset,
             selectNextPreset = selectNextPreset,
             menuVisibility = menuVisibility,
