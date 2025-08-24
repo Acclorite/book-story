@@ -28,11 +28,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
-import ua.acclorite.book_story.core.ID
 import ua.acclorite.book_story.ui.common.components.common.AnimatedVisibility
 
 data class TopAppBarData(
-    val contentID: ID,
+    val contentID: Int,
     val contentNavigationIcon: @Composable () -> Unit,
     val contentTitle: @Composable () -> Unit,
     val contentActions: @Composable RowScope.() -> Unit
@@ -46,7 +45,7 @@ data class TopAppBarData(
  * @param scrolledContainerColor Scrolled container color of the TopBar.
  * @param scrollBehavior [TopAppBarScrollBehavior].
  * @param isTopBarScrolled Whether isScrolled state should be forced or not.
- * @param shownTopBar [ID] of the top bar to show.
+ * @param shownTopBar ID of the top bar to show.
  * @param topBars Pass a list of all [TopAppBarData] to show.
  * @param customContent Custom content below [TopAppBar].
  */
@@ -59,7 +58,7 @@ fun TopAppBar(
     scrollBehavior: TopAppBarScrollBehavior?,
     isTopBarScrolled: Boolean?,
 
-    shownTopBar: ID,
+    shownTopBar: Int,
     topBars: List<TopAppBarData>,
     customContent: @Composable ColumnScope.() -> Unit = {}
 ) {

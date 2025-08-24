@@ -40,6 +40,7 @@ import ua.acclorite.book_story.ui.common.helpers.ProvideSettings
 import ua.acclorite.book_story.ui.main.MainActivityKeyboardManager
 import ua.acclorite.book_story.ui.navigator.Navigator
 import ua.acclorite.book_story.ui.navigator.NavigatorTabs
+import ua.acclorite.book_story.ui.settings.SettingsEffects
 import ua.acclorite.book_story.ui.theme.BookStoryTheme
 import ua.acclorite.book_story.ui.theme.Transitions
 import java.lang.reflect.Field
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen().setKeepOnScreenCondition {
-            !settings.initialized.value || !settingsModel.isReady.value
+            !settings.initialized.value || !settingsModel.initialized.value
         }
 
         super.onCreate(savedInstanceState)
@@ -79,6 +80,10 @@ class MainActivity : AppCompatActivity() {
             val libraryModel = hiltViewModel<LibraryModel>()
             val historyModel = hiltViewModel<HistoryModel>()
             val browseModel = hiltViewModel<BrowseModel>()
+
+            SettingsEffects(
+                effects = settingsModel.effects
+            )
 
             ProvideSettings(settings) {
                 val tabs = persistentListOf(

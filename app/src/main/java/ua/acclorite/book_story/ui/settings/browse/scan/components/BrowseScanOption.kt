@@ -73,7 +73,7 @@ fun BrowseScanOption() {
         if (uri == null) return@rememberLauncherForActivityResult
         settingsModel.onEvent(
             SettingsEvent.OnGrantPersistableUriPermission(
-                uri = uri
+                uri = uri.toString()
             )
         )
 
@@ -95,7 +95,7 @@ fun BrowseScanOption() {
                 releasePersistableUriPermission = {
                     settingsModel.onEvent(
                         SettingsEvent.OnReleasePersistableUriPermission(
-                            uri = permission.uri
+                            uri = permission.uri.toString()
                         )
                     )
 

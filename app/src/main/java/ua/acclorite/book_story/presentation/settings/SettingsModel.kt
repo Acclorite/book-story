@@ -6,20 +6,20 @@
 
 package ua.acclorite.book_story.presentation.settings
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.yield
-import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.library.CategorySort
 import ua.acclorite.book_story.domain.model.reader.ColorPreset
 import ua.acclorite.book_story.domain.use_case.category.AddCategoryUseCase
@@ -37,8 +37,8 @@ import ua.acclorite.book_story.domain.use_case.color_preset.UpdateColorPresetUse
 import ua.acclorite.book_story.domain.use_case.permission.GrantPersistableUriPermissionUseCase
 import ua.acclorite.book_story.domain.use_case.permission.ReleasePersistableUriPermissionUseCase
 import ua.acclorite.book_story.domain.use_case.settings.UpdateLanguageUseCase
-import ua.acclorite.book_story.ui.common.helpers.showToast
 import javax.inject.Inject
+import kotlin.coroutines.coroutineContext
 import kotlin.random.Random
 
 @HiltViewModel
@@ -65,75 +65,64 @@ class SettingsModel @Inject constructor(
     private val _state = MutableStateFlow(SettingsState())
     val state = _state.asStateFlow()
 
-    private val _isReady = MutableStateFlow(false)
-    val isReady = _isReady.asStateFlow()
+    private val _effects = MutableSharedFlow<SettingsEffect>()
+    val effects = _effects.asSharedFlow()
 
-    private var selectColorPresetJob: Job? = null
-    private var addColorPresetJob: Job? = null
-    private var deleteColorPresetJob: Job? = null
-    private var updateColorColorPresetJob: Job? = null
-    private var updateTitleColorPresetJob: Job? = null
-    private var shuffleColorPresetJob: Job? = null
+    private val _initialized = MutableStateFlow(false)
+    val initialized = _initialized.asStateFlow()
+
+    private var colorPresetJob: Job? = null
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             var colorPresets = getColorPresetsUseCase()
 
             if (colorPresets.isEmpty()) {
                 updateColorPresetUseCase(ColorPreset.default)
-                getColorPresetsUseCase().first().select()
+                getColorPresetsUseCase().first().selectColorPreset()
                 colorPresets = getColorPresetsUseCase()
             }
 
-            val scrollIndex = colorPresets.indexOfFirst {
-                it.isSelected
-            }
+            val scrollIndex = colorPresets.indexOfFirst { it.isSelected }
             if (scrollIndex != -1) {
-                launch(Dispatchers.Main) {
-                    try {
-                        _state.value.colorPresetListState.requestScrollToItem(index = scrollIndex)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                }
+                _effects.emit(
+                    SettingsEffect.OnScroll(
+                        listState = _state.value.colorPresetListState,
+                        index = scrollIndex,
+                        offset = 0
+                    )
+                )
             }
 
             _state.update {
                 it.copy(
-                    selectedColorPreset = colorPresets.selected(),
+                    selectedColorPreset = colorPresets.getSelectedColorPreset(),
                     colorPresets = colorPresets,
-                    categories = getCategoriesUseCase(), // Getting categories
+                    categories = getCategoriesUseCase(),
                     categoriesSort = getCategorySortingUseCase()
                 )
             }
 
-            Log.i("SETTINGS", "SettingsModel is ready.")
-            _isReady.update { true }
+            _initialized.update { true }
         }
     }
 
     fun onEvent(event: SettingsEvent) {
-        when (event) {
-            is SettingsEvent.OnUpdateLanguage -> updateLanguageUseCase(event.language)
-
-            is SettingsEvent.OnGrantPersistableUriPermission -> {
-                viewModelScope.launch {
-                    grantPersistableUriPermissionUseCase(
-                        event.uri.toString()
-                    )
+        viewModelScope.launch {
+            when (event) {
+                is SettingsEvent.OnUpdateLanguage -> {
+                    updateLanguageUseCase(event.language)
                 }
-            }
 
-            is SettingsEvent.OnReleasePersistableUriPermission -> {
-                viewModelScope.launch {
-                    releasePersistableUriPermissionUseCase(
-                        event.uri.toString()
-                    )
+                is SettingsEvent.OnGrantPersistableUriPermission -> {
+                    grantPersistableUriPermissionUseCase(event.uri)
                 }
-            }
 
-            is SettingsEvent.OnCreateCategory -> {
-                viewModelScope.launch {
+                is SettingsEvent.OnReleasePersistableUriPermission -> {
+                    releasePersistableUriPermissionUseCase(event.uri)
+                }
+
+                is SettingsEvent.OnCreateCategory -> {
                     addCategoryUseCase(event.title)
                     _state.update {
                         it.copy(
@@ -141,10 +130,8 @@ class SettingsModel @Inject constructor(
                         )
                     }
                 }
-            }
 
-            is SettingsEvent.OnUpdateCategoryTitle -> {
-                viewModelScope.launch {
+                is SettingsEvent.OnUpdateCategoryTitle -> {
                     updateCategoryUseCase(
                         categoryId = event.id,
                         newTitle = event.title
@@ -155,10 +142,8 @@ class SettingsModel @Inject constructor(
                         )
                     }
                 }
-            }
 
-            is SettingsEvent.OnUpdateCategoryOrder -> {
-                viewModelScope.launch {
+                is SettingsEvent.OnUpdateCategoryOrder -> {
                     updateCategoriesOrderUseCase(
                         categories = event.categories
                     )
@@ -168,10 +153,8 @@ class SettingsModel @Inject constructor(
                         )
                     }
                 }
-            }
 
-            is SettingsEvent.OnRemoveCategory -> {
-                viewModelScope.launch {
+                is SettingsEvent.OnRemoveCategory -> {
                     deleteCategoryUseCase(
                         category = event.category
                     )
@@ -181,10 +164,8 @@ class SettingsModel @Inject constructor(
                         )
                     }
                 }
-            }
 
-            is SettingsEvent.OnUpdateCategorySort -> {
-                viewModelScope.launch {
+                is SettingsEvent.OnUpdateCategorySort -> {
                     updateCategorySortingUseCase(
                         categorySort = CategorySort(
                             categoryId = event.categoryId,
@@ -198,359 +179,268 @@ class SettingsModel @Inject constructor(
                         )
                     }
                 }
-            }
 
-            is SettingsEvent.OnSelectColorPreset -> {
-                viewModelScope.launch {
-                    cancelColorPresetJobs()
-                    selectColorPresetJob = launch {
-                        val colorPreset = _state.value.colorPresets.getColorPresetById(event.id)
-                            ?: return@launch
+                is SettingsEvent.OnSelectColorPreset -> {
+                    withContext(Dispatchers.IO) {
+                        colorPresetJob?.join()
+                        colorPresetJob = viewModelScope.launch(Dispatchers.Default) {
+                            val colorPreset = _state.value.colorPresets.getColorPresetById(event.id)
+                                ?: return@launch
 
-                        yield()
+                            ensureActive()
 
-                        colorPreset.select(animate = true)
-                        val colorPresets = _state.value.colorPresets.map {
-                            it.copy(isSelected = colorPreset.id == it.id)
-                        }
-                        _state.update {
-                            it.copy(
-                                selectedColorPreset = colorPresets.selected(),
-                                colorPresets = colorPresets
-                            )
+                            colorPreset.selectColorPreset(animate = true)
+                            val colorPresets = _state.value.colorPresets.map {
+                                it.copy(isSelected = colorPreset.id == it.id)
+                            }
+                            _state.update {
+                                it.copy(
+                                    selectedColorPreset = colorPresets.getSelectedColorPreset(),
+                                    colorPresets = colorPresets
+                                )
+                            }
                         }
                     }
                 }
-            }
 
-            is SettingsEvent.OnSelectPreviousPreset -> {
-                viewModelScope.launch {
-                    cancelColorPresetJobs()
-                    selectColorPresetJob = launch {
-                        val colorPresets = _state.value.colorPresets
-                        val selectedPreset = _state.value.selectedColorPreset
+                is SettingsEvent.OnSwitchColorPreset -> {
+                    withContext(Dispatchers.IO) {
+                        colorPresetJob?.join()
+                        colorPresetJob = viewModelScope.launch(Dispatchers.Default) {
+                            val colorPresets = _state.value.colorPresets
+                            if (colorPresets.size == 1) return@launch
 
-                        if (colorPresets.size == 1) {
-                            return@launch
-                        }
+                            val selectedPreset = _state.value.selectedColorPreset
+                            val selectedPresetIndex = colorPresets.indexOf(selectedPreset)
+                            if (selectedPresetIndex == -1) return@launch
 
-                        val selectedPresetIndex = colorPresets.indexOf(selectedPreset)
-                        if (selectedPresetIndex == -1) {
-                            return@launch
-                        }
+                            val newColorPresetIndex = if (event.previous) {
+                                when (selectedPresetIndex) {
+                                    0 -> colorPresets.lastIndex
+                                    else -> selectedPresetIndex - 1
+                                }
+                            } else {
+                                when (selectedPresetIndex) {
+                                    colorPresets.lastIndex -> 0
+                                    else -> selectedPresetIndex + 1
+                                }
+                            }
+                            val newColorPreset = colorPresets.getOrNull(newColorPresetIndex)
+                                ?: return@launch
 
-                        val previousColorPresetIndex = when (selectedPresetIndex) {
-                            0 -> {
-                                colorPresets.lastIndex
+                            ensureActive()
+
+                            newColorPreset.selectColorPreset()
+                            val updatedColorPresets = _state.value.colorPresets.map {
+                                it.copy(isSelected = newColorPreset.id == it.id)
+                            }
+                            _state.update {
+                                it.copy(
+                                    selectedColorPreset = updatedColorPresets.getSelectedColorPreset(),
+                                    colorPresets = updatedColorPresets
+                                )
                             }
 
-                            else -> {
-                                selectedPresetIndex - 1
-                            }
+                            _effects.emit(SettingsEffect.OnSwitchedColorPreset(newColorPreset))
                         }
-                        val previousColorPreset = colorPresets.getOrNull(previousColorPresetIndex)
-                            ?: return@launch
+                    }
+                }
 
-                        yield()
+                is SettingsEvent.OnDeleteColorPreset -> {
+                    withContext(Dispatchers.IO) {
+                        colorPresetJob?.join()
+                        colorPresetJob = viewModelScope.launch(Dispatchers.Default) {
+                            if (_state.value.colorPresets.size == 1) return@launch
+                            val colorPreset = _state.value.colorPresets.getColorPresetById(event.id)
+                                ?: return@launch
 
-                        previousColorPreset.select()
-                        val updatedColorPresets = _state.value.colorPresets.map {
-                            it.copy(isSelected = previousColorPreset.id == it.id)
-                        }
-                        _state.update {
-                            it.copy(
-                                selectedColorPreset = updatedColorPresets.selected(),
-                                colorPresets = updatedColorPresets
-                            )
-                        }
+                            val position = _state.value.colorPresets.indexOf(colorPreset)
+                            if (position == -1) return@launch
 
-                        withContext(Dispatchers.Main) {
-                            event.context.getString(
-                                R.string.color_preset_selected_query,
-                                if (previousColorPreset.name.isNullOrBlank()) {
-                                    event.context.getString(
-                                        R.string.color_preset_query,
-                                        previousColorPreset.id.toString()
-                                    )
+                            val nextPosition =
+                                if (position == _state.value.colorPresets.lastIndex) {
+                                    position - 1
                                 } else {
-                                    previousColorPreset.name
-                                }.trim()
-                            ).showToast(event.context, longToast = false)
+                                    position
+                                }
+
+                            ensureActive()
+
+                            deleteColorPresetUseCase(colorPreset)
+                            val nextColorPreset = getColorPresetsUseCase().getOrNull(nextPosition)
+                                ?: return@launch
+
+                            nextColorPreset.selectColorPreset()
+                            val colorPresets = getColorPresetsUseCase()
+
+                            _state.update {
+                                it.copy(
+                                    selectedColorPreset = colorPresets.getSelectedColorPreset(),
+                                    colorPresets = colorPresets
+                                )
+                            }
+
+                            _effects.emit(
+                                SettingsEffect.OnScroll(
+                                    listState = _state.value.colorPresetListState,
+                                    index = nextPosition,
+                                    offset = 0
+                                )
+                            )
                         }
                     }
                 }
-            }
 
-            is SettingsEvent.OnSelectNextPreset -> {
-                viewModelScope.launch {
-                    cancelColorPresetJobs()
-                    selectColorPresetJob = launch {
-                        val colorPresets = _state.value.colorPresets
-                        val selectedPreset = _state.value.selectedColorPreset
+                is SettingsEvent.OnUpdateColorPresetTitle -> {
+                    withContext(Dispatchers.IO) {
+                        colorPresetJob?.join()
+                        colorPresetJob = viewModelScope.launch(Dispatchers.Default) {
+                            val colorPreset = _state.value.colorPresets.getColorPresetById(event.id)
+                                ?: return@launch
+                            val updatedColorPreset = colorPreset.copy(name = event.title)
 
-                        if (colorPresets.size == 1) {
-                            return@launch
-                        }
+                            ensureActive()
 
-                        val selectedPresetIndex = colorPresets.indexOf(selectedPreset)
-                        if (selectedPresetIndex == -1) {
-                            return@launch
-                        }
-
-                        val nextColorPresetIndex = when (selectedPresetIndex) {
-                            colorPresets.lastIndex -> {
-                                0
-                            }
-
-                            else -> {
-                                selectedPresetIndex + 1
-                            }
-                        }
-                        val nextColorPreset = colorPresets.getOrNull(nextColorPresetIndex)
-                            ?: return@launch
-
-                        yield()
-
-                        nextColorPreset.select()
-                        val updatedColorPresets = _state.value.colorPresets.map {
-                            it.copy(isSelected = nextColorPreset.id == it.id)
-                        }
-                        _state.update {
-                            it.copy(
-                                selectedColorPreset = updatedColorPresets.selected(),
-                                colorPresets = updatedColorPresets
-                            )
-                        }
-
-                        withContext(Dispatchers.Main) {
-                            event.context.getString(
-                                R.string.color_preset_selected_query,
-                                if (nextColorPreset.name.isNullOrBlank()) {
-                                    event.context.getString(
-                                        R.string.color_preset_query,
-                                        nextColorPreset.id.toString()
+                            updateColorPresetUseCase(updatedColorPreset)
+                            _state.update {
+                                it.copy(
+                                    selectedColorPreset = updatedColorPreset,
+                                    colorPresets = it.colorPresets.updateColorPreset(
+                                        updatedColorPreset
                                     )
-                                } else {
-                                    nextColorPreset.name
-                                }.trim()
-                            ).showToast(event.context, longToast = false)
+                                )
+                            }
                         }
                     }
                 }
-            }
 
-            is SettingsEvent.OnDeleteColorPreset -> {
-                viewModelScope.launch {
-                    cancelColorPresetJobs()
-                    deleteColorPresetJob = launch {
-                        if (_state.value.colorPresets.size == 1) return@launch
-                        val colorPreset = _state.value.colorPresets.getColorPresetById(event.id)
-                            ?: return@launch
-
-                        yield()
-
-                        val position = _state.value.colorPresets.indexOf(colorPreset)
-                        if (position == -1) {
-                            return@launch
-                        }
-
-                        val nextPosition = if (position == _state.value.colorPresets.lastIndex) {
-                            position - 1
-                        } else {
-                            position
-                        }
-
-                        yield()
-
-                        deleteColorPresetUseCase(colorPreset)
-                        val nextColorPreset = getColorPresetsUseCase().getOrNull(nextPosition)
-                            ?: return@launch
-
-                        nextColorPreset.select()
-                        val colorPresets = getColorPresetsUseCase()
-
-                        _state.update {
-                            it.copy(
-                                selectedColorPreset = colorPresets.selected(),
-                                colorPresets = colorPresets
-                            )
-                        }
-
-                        onEvent(
-                            SettingsEvent.OnScrollToColorPreset(
-                                index = nextPosition
-                            )
-                        )
-                    }
-                }
-            }
-
-            is SettingsEvent.OnUpdateColorPresetTitle -> {
-                viewModelScope.launch {
-                    cancelColorPresetJobs()
-                    updateTitleColorPresetJob = launch {
-                        val colorPreset = _state.value.colorPresets.getColorPresetById(event.id)
-                            ?: return@launch
-
-                        yield()
-
-                        val updatedColorPreset = colorPreset.copy(
-                            name = event.title
-                        )
-
-                        yield()
-
-                        updateColorPresetUseCase(updatedColorPreset)
-                        _state.update {
-                            it.copy(
-                                selectedColorPreset = updatedColorPreset,
-                                colorPresets = it.colorPresets.updateColorPreset(
-                                    updatedColorPreset
+                is SettingsEvent.OnShuffleColorPreset -> {
+                    withContext(Dispatchers.IO) {
+                        colorPresetJob?.join()
+                        colorPresetJob = viewModelScope.launch(Dispatchers.Default) {
+                            val colorPreset = _state.value.colorPresets.getColorPresetById(event.id)
+                                ?: return@launch
+                            val shuffledColorPreset = colorPreset.copy(
+                                backgroundColor = colorPreset.backgroundColor.copy(
+                                    red = Random.nextFloat(),
+                                    green = Random.nextFloat(),
+                                    blue = Random.nextFloat()
+                                ),
+                                fontColor = colorPreset.fontColor.copy(
+                                    red = Random.nextFloat(),
+                                    green = Random.nextFloat(),
+                                    blue = Random.nextFloat()
                                 )
                             )
-                        }
-                    }
-                }
-            }
 
-            is SettingsEvent.OnShuffleColorPreset -> {
-                viewModelScope.launch {
-                    cancelColorPresetJobs()
-                    shuffleColorPresetJob = launch {
-                        val colorPreset = _state.value.colorPresets.getColorPresetById(event.id)
-                            ?: return@launch
+                            ensureActive()
 
-                        yield()
-
-                        val shuffledColorPreset = colorPreset.copy(
-                            backgroundColor = colorPreset.backgroundColor.copy(
-                                red = Random.nextFloat(),
-                                green = Random.nextFloat(),
-                                blue = Random.nextFloat()
-                            ),
-                            fontColor = colorPreset.fontColor.copy(
-                                red = Random.nextFloat(),
-                                green = Random.nextFloat(),
-                                blue = Random.nextFloat()
-                            )
-                        )
-
-                        yield()
-
-                        updateColorPresetUseCase(shuffledColorPreset)
-                        _state.update {
-                            it.copy(
-                                selectedColorPreset = shuffledColorPreset,
-                                colorPresets = it.colorPresets.updateColorPreset(
-                                    shuffledColorPreset
+                            updateColorPresetUseCase(shuffledColorPreset)
+                            _state.update {
+                                it.copy(
+                                    selectedColorPreset = shuffledColorPreset,
+                                    colorPresets = it.colorPresets.updateColorPreset(
+                                        shuffledColorPreset
+                                    )
                                 )
-                            )
+                            }
                         }
                     }
                 }
-            }
 
-            is SettingsEvent.OnAddColorPreset -> {
-                viewModelScope.launch {
-                    cancelColorPresetJobs()
-                    addColorPresetJob = launch {
-                        yield()
-
-                        val newColorPreset = ColorPreset.default.copy(
-                            backgroundColor = event.backgroundColor,
-                            fontColor = event.fontColor
-                        )
-                        updateColorPresetUseCase(newColorPreset)
-
-                        getColorPresetsUseCase().last().select()
-                        val colorPresets = getColorPresetsUseCase()
-
-                        _state.update {
-                            it.copy(
-                                selectedColorPreset = colorPresets.selected(),
-                                colorPresets = colorPresets
+                is SettingsEvent.OnAddColorPreset -> {
+                    withContext(Dispatchers.IO) {
+                        colorPresetJob?.join()
+                        colorPresetJob = viewModelScope.launch(Dispatchers.Default) {
+                            val newColorPreset = ColorPreset.default.copy(
+                                backgroundColor = event.backgroundColor,
+                                fontColor = event.fontColor
                             )
-                        }
 
-                        onEvent(SettingsEvent.OnScrollToColorPreset(colorPresets.lastIndex))
-                    }
-                }
-            }
+                            ensureActive()
 
-            is SettingsEvent.OnUpdateColorPresetColor -> {
-                viewModelScope.launch {
-                    cancelColorPresetJobs()
-                    updateColorColorPresetJob = launch {
-                        val colorPreset = _state.value.colorPresets.getColorPresetById(event.id)
-                            ?: return@launch
+                            updateColorPresetUseCase(newColorPreset)
+                            getColorPresetsUseCase().last().selectColorPreset()
+                            val colorPresets = getColorPresetsUseCase()
 
-                        yield()
-
-                        val updatedColorPreset = colorPreset.copy(
-                            backgroundColor = event.backgroundColor
-                                ?: colorPreset.backgroundColor,
-                            fontColor = event.fontColor
-                                ?: colorPreset.fontColor
-                        )
-
-                        yield()
-
-                        updateColorPresetUseCase(updatedColorPreset)
-                        _state.update {
-                            it.copy(
-                                selectedColorPreset = updatedColorPreset,
-                                colorPresets = it.colorPresets.updateColorPreset(
-                                    updatedColorPreset
+                            _state.update {
+                                it.copy(
+                                    selectedColorPreset = colorPresets.getSelectedColorPreset(),
+                                    colorPresets = colorPresets
                                 )
-                            )
-                        }
-                    }
-                }
-            }
-
-            is SettingsEvent.OnReorderColorPresets -> {
-                viewModelScope.launch {
-                    cancelColorPresetJobs()
-                    launch {
-                        val reorderedColorPresets = _state.value.colorPresets
-                            .toMutableList()
-                            .apply {
-                                add(event.to, removeAt(event.from))
                             }
 
-                        _state.update {
-                            it.copy(
-                                colorPresets = reorderedColorPresets
+                            _effects.emit(
+                                SettingsEffect.OnScroll(
+                                    listState = _state.value.colorPresetListState,
+                                    index = colorPresets.lastIndex,
+                                    offset = 0
+                                )
                             )
                         }
                     }
                 }
-            }
 
-            is SettingsEvent.OnConfirmReorderColorPresets -> {
-                viewModelScope.launch {
-                    cancelColorPresetJobs()
-                    launch {
-                        reorderColorPresetsUseCase(_state.value.colorPresets)
+                is SettingsEvent.OnUpdateColorPresetColor -> {
+                    withContext(Dispatchers.IO) {
+                        colorPresetJob?.join()
+                        colorPresetJob = viewModelScope.launch(Dispatchers.Default) {
+                            val colorPreset = _state.value.colorPresets.getColorPresetById(event.id)
+                                ?: return@launch
+                            val updatedColorPreset = colorPreset.copy(
+                                backgroundColor = event.backgroundColor
+                                    ?: colorPreset.backgroundColor,
+                                fontColor = event.fontColor
+                                    ?: colorPreset.fontColor
+                            )
+
+                            ensureActive()
+
+                            updateColorPresetUseCase(updatedColorPreset)
+                            _state.update {
+                                it.copy(
+                                    selectedColorPreset = updatedColorPreset,
+                                    colorPresets = it.colorPresets.updateColorPreset(
+                                        updatedColorPreset
+                                    )
+                                )
+                            }
+                        }
                     }
                 }
-            }
 
-            is SettingsEvent.OnScrollToColorPreset -> {
-                viewModelScope.launch {
-                    try {
-                        _state.value.colorPresetListState.requestScrollToItem(
-                            index = event.index
-                        )
-                    } catch (e: Exception) {
-                        e.printStackTrace()
+                is SettingsEvent.OnReorderColorPresets -> {
+                    withContext(Dispatchers.IO) {
+                        colorPresetJob?.join()
+                        withContext(Dispatchers.Default) {
+                            val reorderedColorPresets = _state.value.colorPresets
+                                .toMutableList()
+                                .also { colorPresets ->
+                                    colorPresets.add(event.to, colorPresets.removeAt(event.from))
+                                }
+
+                            _state.update {
+                                it.copy(
+                                    colorPresets = reorderedColorPresets
+                                )
+                            }
+                        }
+                    }
+                }
+
+                is SettingsEvent.OnConfirmReorderColorPresets -> {
+                    withContext(Dispatchers.IO) {
+                        colorPresetJob?.join()
+                        withContext(Dispatchers.Default) {
+                            reorderColorPresetsUseCase(_state.value.colorPresets)
+                        }
                     }
                 }
             }
         }
     }
 
-    private suspend fun ColorPreset.select(animate: Boolean = false) {
+    private suspend fun ColorPreset.selectColorPreset(animate: Boolean = false) {
         selectColorPresetUseCase(this)
         _state.update {
             it.copy(
@@ -560,53 +450,28 @@ class SettingsModel @Inject constructor(
     }
 
     private fun List<ColorPreset>.getColorPresetById(id: Int): ColorPreset? {
-        return firstOrNull {
+        return find {
             it.id == id
         }
     }
 
-    private fun List<ColorPreset>?.selected(): ColorPreset {
-        val presets = this ?: _state.value.colorPresets
-
-        if (presets.size == 1) {
-            return presets.first()
-        }
-
-        val selectedPreset = presets.firstOrNull { it.isSelected }
-
-        if (selectedPreset == null) {
-            return ColorPreset.default
-        }
-
-        return selectedPreset
+    private fun List<ColorPreset>.getSelectedColorPreset(): ColorPreset {
+        if (size == 1) return first()
+        find { it.isSelected }?.also { return it }
+        return ColorPreset.default
     }
 
     private fun List<ColorPreset>.updateColorPreset(colorPreset: ColorPreset): List<ColorPreset> {
-        if (size == 1) {
-            return listOf(colorPreset)
+        if (size == 1) return listOf(colorPreset)
+        return map {
+            if (it.isSelected) colorPreset
+            else it
         }
-
-        return this.map {
-            if (it.isSelected) {
-                colorPreset
-            } else {
-                it
-            }
-        }
-    }
-
-    private fun cancelColorPresetJobs() {
-        selectColorPresetJob?.cancel()
-        addColorPresetJob?.cancel()
-        updateTitleColorPresetJob?.cancel()
-        shuffleColorPresetJob?.cancel()
-        updateColorColorPresetJob?.cancel()
-        deleteColorPresetJob?.cancel()
     }
 
     private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
         mutex.withLock {
-            yield()
+            coroutineContext.ensureActive()
             this.value = function(this.value)
         }
     }

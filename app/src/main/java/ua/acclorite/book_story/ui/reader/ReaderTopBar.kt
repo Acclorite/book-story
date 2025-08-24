@@ -49,8 +49,7 @@ fun ReaderTopBar(
     isLoading: Boolean,
     lockMenu: Boolean,
     leave: (ReaderEvent.OnLeave) -> Unit,
-    selectPreviousPreset: (SettingsEvent.OnSelectPreviousPreset) -> Unit,
-    selectNextPreset: (SettingsEvent.OnSelectNextPreset) -> Unit,
+    switchColorPreset: (SettingsEvent.OnSwitchColorPreset) -> Unit,
     showSettingsBottomSheet: (ReaderEvent.OnShowSettingsBottomSheet) -> Unit,
     showChaptersDrawer: (ReaderEvent.OnShowChaptersDrawer) -> Unit,
     navigateToBookInfo: (ReaderEvent.OnNavigateToBookInfo) -> Unit,
@@ -68,8 +67,7 @@ fun ReaderTopBar(
             .readerColorPresetChange(
                 colorPresetChangeEnabled = fastColorPresetChange,
                 isLoading = isLoading,
-                selectPreviousPreset = selectPreviousPreset,
-                selectNextPreset = selectNextPreset
+                switchColorPreset = switchColorPreset
             )
     ) {
         TopAppBar(

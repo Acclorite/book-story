@@ -6,11 +6,8 @@
 
 package ua.acclorite.book_story.presentation.settings
 
-import android.content.Context
-import android.net.Uri
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
-import ua.acclorite.book_story.core.ID
 import ua.acclorite.book_story.core.language.Language
 import ua.acclorite.book_story.domain.model.library.Category
 import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
@@ -22,11 +19,11 @@ sealed class SettingsEvent {
     ) : SettingsEvent()
 
     data class OnGrantPersistableUriPermission(
-        val uri: Uri
+        val uri: String
     ) : SettingsEvent()
 
     data class OnReleasePersistableUriPermission(
-        val uri: Uri
+        val uri: String
     ) : SettingsEvent()
 
     data class OnCreateCategory(
@@ -53,28 +50,24 @@ sealed class SettingsEvent {
     ) : SettingsEvent()
 
     data class OnSelectColorPreset(
-        val id: ID
+        val id: Int,
     ) : SettingsEvent()
 
-    data class OnSelectPreviousPreset(
-        val context: Context
-    ) : SettingsEvent()
-
-    data class OnSelectNextPreset(
-        val context: Context
+    data class OnSwitchColorPreset(
+        val previous: Boolean
     ) : SettingsEvent()
 
     data class OnDeleteColorPreset(
-        val id: ID
+        val id: Int
     ) : SettingsEvent()
 
     data class OnUpdateColorPresetTitle(
-        val id: ID,
+        val id: Int,
         val title: String
     ) : SettingsEvent()
 
     data class OnShuffleColorPreset(
-        val id: ID
+        val id: Int
     ) : SettingsEvent()
 
     data class OnAddColorPreset(
@@ -82,20 +75,16 @@ sealed class SettingsEvent {
         val fontColor: Color
     ) : SettingsEvent()
 
+    data class OnUpdateColorPresetColor(
+        val id: Int,
+        val backgroundColor: Color?,
+        val fontColor: Color?
+    ) : SettingsEvent()
+
     data class OnReorderColorPresets(
         val from: Int,
         val to: Int
     ) : SettingsEvent()
 
-    data class OnUpdateColorPresetColor(
-        val id: ID,
-        val backgroundColor: Color?,
-        val fontColor: Color?
-    ) : SettingsEvent()
-
     data object OnConfirmReorderColorPresets : SettingsEvent()
-
-    data class OnScrollToColorPreset(
-        val index: Int
-    ) : SettingsEvent()
 }

@@ -12,17 +12,14 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalContext
 import ua.acclorite.book_story.presentation.settings.SettingsEvent
 
 @Composable
 fun Modifier.readerColorPresetChange(
     colorPresetChangeEnabled: Boolean,
     isLoading: Boolean,
-    selectPreviousPreset: (SettingsEvent.OnSelectPreviousPreset) -> Unit,
-    selectNextPreset: (SettingsEvent.OnSelectNextPreset) -> Unit
+    switchColorPreset: (SettingsEvent.OnSwitchColorPreset) -> Unit
 ): Modifier {
-    val context = LocalContext.current
     val offset = remember { mutableFloatStateOf(0f) }
     return this.then(
         if (colorPresetChangeEnabled && !isLoading) {
@@ -33,17 +30,17 @@ fun Modifier.readerColorPresetChange(
                     onDragEnd = {
                         when {
                             offset.floatValue > 200 -> {
-                                selectPreviousPreset(
-                                    SettingsEvent.OnSelectPreviousPreset(
-                                        context = context
+                                switchColorPreset(
+                                    SettingsEvent.OnSwitchColorPreset(
+                                        previous = true
                                     )
                                 )
                             }
 
                             offset.floatValue < -200 -> {
-                                selectNextPreset(
-                                    SettingsEvent.OnSelectNextPreset(
-                                        context = context
+                                switchColorPreset(
+                                    SettingsEvent.OnSwitchColorPreset(
+                                        previous = false
                                     )
                                 )
                             }
