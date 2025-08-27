@@ -28,7 +28,7 @@ fun SettingsEffects(effects: SharedFlow<SettingsEffect>) {
                 is SettingsEffect.OnSwitchedColorPreset -> {
                     context.getString(
                         R.string.color_preset_selected_query,
-                        if (effect.newColorPreset.name.isNullOrBlank()) {
+                        if (effect.newColorPreset.name.isBlank()) {
                             context.getString(
                                 R.string.color_preset_query,
                                 effect.newColorPreset.id.toString()

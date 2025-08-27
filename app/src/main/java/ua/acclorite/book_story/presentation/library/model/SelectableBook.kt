@@ -7,11 +7,10 @@
 package ua.acclorite.book_story.presentation.library.model
 
 import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.core.Selected
 import ua.acclorite.book_story.domain.model.library.Book
 
 @Immutable
 data class SelectableBook(
     val data: Book,
-    val selected: Selected
+    val selected: Boolean
 )

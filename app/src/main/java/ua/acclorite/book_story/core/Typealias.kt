@@ -9,7 +9,6 @@ package ua.acclorite.book_story.core
 import android.graphics.Bitmap
 
 typealias CoverImage = Bitmap
-typealias Selected = Boolean
 typealias BottomSheet = String
 typealias Dialog = String
 typealias Drawer = String

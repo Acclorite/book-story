@@ -6,8 +6,10 @@
 
 package ua.acclorite.book_story.data.repository
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.core.data.ExtensionsData
-import ua.acclorite.book_story.data.local.room.BookDao
+import ua.acclorite.book_story.data.local.room.BookDatabase
 import ua.acclorite.book_story.data.mapper.file.FileMapper
 import ua.acclorite.book_story.data.model.common.BookWithCover
 import ua.acclorite.book_story.data.model.file.CachedFile
@@ -18,28 +20,26 @@ import ua.acclorite.book_story.domain.service.FileProvider
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * File System repository.
- * Manages all File System related work.
- */
 @Singleton
 class FileSystemRepositoryImpl @Inject constructor(
-    private val database: BookDao,
+    private val database: BookDatabase,
     private val fileMapper: FileMapper,
     private val fileParser: FileParser,
     private val fileProvider: FileProvider
 ) : FileSystemRepository {
 
     override suspend fun searchFiles(query: String): Result<List<File>> {
-        return fileProvider.getStorageFiles().mapCatching { storages ->
-            val existingFiles = database.searchBooks("").map { it.filePath }
+        return withContext(Dispatchers.IO) {
+            fileProvider.getStorageFiles().mapCatching { storages ->
+                val existingFiles = database.bookDao.searchBooks("").map { it.filePath }
 
-            storages.map { storage ->
-                storage.getFilesFromStorage(
-                    query = query,
-                    existingFiles = existingFiles
-                )
-            }.flatten()
+                storages.map { storage ->
+                    storage.getFilesFromStorage(
+                        query = query,
+                        existingFiles = existingFiles
+                    )
+                }.flatten()
+            }
         }
     }
 
@@ -74,7 +74,9 @@ class FileSystemRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getBookFromFile(file: File): Result<BookWithCover> = runCatching {
-        fileParser.parse(fileMapper.toCachedFile(file))
-            ?: throw Exception("Could not parse ${file.name}.")
+        withContext(Dispatchers.IO) {
+            fileParser.parse(fileMapper.toCachedFile(file))
+                ?: throw Exception("Could not parse ${file.name}.")
+        }
     }
 }

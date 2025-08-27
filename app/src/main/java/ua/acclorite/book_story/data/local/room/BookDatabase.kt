@@ -30,7 +30,7 @@ import java.io.File
         CategoryEntity::class,
         CategorySortEntity::class
     ],
-    version = 13,
+    version = 14,
     autoMigrations = [
         AutoMigration(1, 2),
         AutoMigration(2, 3),
@@ -44,11 +44,13 @@ import java.io.File
         AutoMigration(10, 11),
         AutoMigration(11, 12),
         AutoMigration(12, 13),
+        AutoMigration(13, 14),
     ],
     exportSchema = true
 )
 abstract class BookDatabase : RoomDatabase() {
-    abstract val dao: BookDao
+    abstract val bookDao: BookDao
+    abstract val colorPresetDao: ColorPresetDao
 }
 
 @Suppress("ClassName")
@@ -124,4 +126,36 @@ object DatabaseHelper {
 
     @DeleteColumn("BookEntity", "category")
     class MIGRATION_9_10 : AutoMigrationSpec
+
+    val MIGRATION_13_14 = object : Migration(13, 14) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL(
+                """
+                    CREATE TABLE IF NOT EXISTS ColorPresetEntity (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        name TEXT NOT NULL,
+                        backgroundColor INTEGER NOT NULL,
+                        fontColor INTEGER NOT NULL,
+                        isSelected INTEGER NOT NULL,
+                        `order` INTEGER NOT NULL
+                    )
+                """
+            )
+            database.execSQL(
+                """
+                    INSERT INTO ColorPresetEntity_new (id, name, backgroundColor, fontColor, isSelected, `order`)
+                    SELECT 
+                        id,
+                        COALESCE(name, ''),
+                        backgroundColor,
+                        fontColor,
+                        isSelected,
+                        `order`
+                    FROM ColorPresetEntity
+                """
+            )
+            database.execSQL("DROP TABLE ColorPresetEntity")
+            database.execSQL("ALTER TABLE ColorPresetEntity_new RENAME TO ColorPresetEntity")
+        }
+    }
 }

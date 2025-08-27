@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.core.Selected
 
 /**
  * Modal Drawer Selectable Item.
@@ -38,7 +37,7 @@ import ua.acclorite.book_story.core.Selected
 @Composable
 fun ModalDrawerSelectableItem(
     modifier: Modifier = Modifier,
-    selected: Selected,
+    selected: Boolean,
     enabled: Boolean = true,
     onClick: () -> Unit,
     content: @Composable RowScope.() -> Unit

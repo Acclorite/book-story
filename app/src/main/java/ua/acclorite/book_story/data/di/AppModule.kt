@@ -19,7 +19,6 @@ import org.commonmark.node.HtmlBlock
 import org.commonmark.node.IndentedCodeBlock
 import org.commonmark.node.ThematicBreak
 import org.commonmark.parser.Parser
-import ua.acclorite.book_story.data.local.room.BookDao
 import ua.acclorite.book_story.data.local.room.BookDatabase
 import ua.acclorite.book_story.data.local.room.DatabaseHelper
 import javax.inject.Singleton
@@ -49,7 +48,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideBookDao(app: Application): BookDao {
+    fun provideBookDatabase(app: Application): BookDatabase {
         // Additional Migrations
         DatabaseHelper.MIGRATION_7_8.removeBooksDir(app)
 
@@ -57,14 +56,11 @@ object AppModule {
             app,
             BookDatabase::class.java,
             "book_db"
-        )
-            .addMigrations(
-                DatabaseHelper.MIGRATION_2_3, // creates LanguageHistoryEntity table(if does not exist)
-                DatabaseHelper.MIGRATION_4_5, // creates ColorPresetEntity table(if does not exist)
-                DatabaseHelper.MIGRATION_5_6, // creates FavoriteDirectoryEntity table(if does not exist)
-            )
-            .allowMainThreadQueries()
-            .build()
-            .dao
+        ).addMigrations(
+            DatabaseHelper.MIGRATION_2_3, // creates LanguageHistoryEntity table(if does not exist)
+            DatabaseHelper.MIGRATION_4_5, // creates ColorPresetEntity table(if does not exist)
+            DatabaseHelper.MIGRATION_5_6, // creates FavoriteDirectoryEntity table(if does not exist)
+            DatabaseHelper.MIGRATION_13_14, // remove nullability from ColorPresetEntity
+        ).allowMainThreadQueries().build()
     }
 }

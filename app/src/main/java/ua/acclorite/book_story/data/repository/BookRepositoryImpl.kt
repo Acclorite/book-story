@@ -6,8 +6,10 @@
 
 package ua.acclorite.book_story.data.repository
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.core.CoverImage
-import ua.acclorite.book_story.data.local.room.BookDao
+import ua.acclorite.book_story.data.local.room.BookDatabase
 import ua.acclorite.book_story.data.mapper.book.BookMapper
 import ua.acclorite.book_story.data.mapper.file.FileMapper
 import ua.acclorite.book_story.data.parser.FileParser
@@ -22,7 +24,7 @@ import javax.inject.Singleton
 
 @Singleton
 class BookRepositoryImpl @Inject constructor(
-    private val database: BookDao,
+    private val database: BookDatabase,
     private val bookMapper: BookMapper,
     private val fileMapper: FileMapper,
     private val fileParser: FileParser,
@@ -31,46 +33,62 @@ class BookRepositoryImpl @Inject constructor(
 ) : BookRepository {
 
     override suspend fun searchBooks(query: String): Result<List<Book>> = runCatching {
-        database.searchBooks(query).map { bookMapper.toBook(it) }
+        withContext(Dispatchers.IO) {
+            database.bookDao.searchBooks(query).map { bookMapper.toBook(it) }
+        }
     }
 
     override suspend fun getBook(bookId: Int): Result<Book> = runCatching {
-        database.findBookById(bookId).let {
-            if (it == null) throw NoSuchElementException("Couldn't get book [$bookId].")
-            else bookMapper.toBook(it)
+        withContext(Dispatchers.IO) {
+            database.bookDao.findBookById(bookId).let {
+                if (it == null) throw NoSuchElementException("Couldn't get book [$bookId].")
+                else bookMapper.toBook(it)
+            }
         }
     }
 
     override suspend fun getText(bookId: Int): Result<List<ReaderText>> {
-        return getBook(bookId)
-            .mapCatching { fileProvider.getFileFromBook(it).getOrThrow() }
-            .mapCatching { textParser.parse(it) }
+        return withContext(Dispatchers.IO) {
+            getBook(bookId)
+                .mapCatching { fileProvider.getFileFromBook(it).getOrThrow() }
+                .mapCatching { textParser.parse(it) }
+        }
     }
 
     override suspend fun getFileFromBook(bookId: Int): Result<File> {
-        return getBook(bookId)
-            .mapCatching { fileProvider.getFileFromBook(it).getOrThrow() }
-            .mapCatching { fileMapper.toFile(it) }
+        return withContext(Dispatchers.IO) {
+            getBook(bookId)
+                .mapCatching { fileProvider.getFileFromBook(it).getOrThrow() }
+                .mapCatching { fileMapper.toFile(it) }
+        }
     }
 
     override suspend fun addBook(book: Book): Result<Unit> = runCatching {
-        database.insertBook(bookMapper.toBookEntity(book))
+        withContext(Dispatchers.IO) {
+            database.bookDao.insertBook(bookMapper.toBookEntity(book))
+        }
     }
 
     override suspend fun updateBook(book: Book): Result<Unit> = runCatching {
-        database.updateBook(bookMapper.toBookEntity(book)).also {
-            if (it == 0) throw Exception("Could not update book in database.")
+        withContext(Dispatchers.IO) {
+            database.bookDao.updateBook(bookMapper.toBookEntity(book)).also {
+                if (it == 0) throw Exception("Could not update book in database.")
+            }
         }
     }
 
     override suspend fun deleteBook(book: Book): Result<Unit> = runCatching {
-        database.deleteBook(bookMapper.toBookEntity(book)).also {
-            if (it == 0) throw Exception("Could not delete book in database.")
+        withContext(Dispatchers.IO) {
+            database.bookDao.deleteBook(bookMapper.toBookEntity(book)).also {
+                if (it == 0) throw Exception("Could not delete book in database.")
+            }
         }
     }
 
     override suspend fun getDefaultCover(book: Book): Result<CoverImage?> = runCatching {
-        return fileProvider.getFileFromBook(book)
-            .mapCatching { fileParser.parse(it)?.coverImage }
+        return withContext(Dispatchers.IO) {
+            fileProvider.getFileFromBook(book)
+                .mapCatching { fileParser.parse(it)?.coverImage }
+        }
     }
 }

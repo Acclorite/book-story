@@ -63,7 +63,6 @@ import sh.calvin.reorderable.ReorderableCollectionItemScope
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.core.Selected
 import ua.acclorite.book_story.domain.model.reader.ColorPreset
 import ua.acclorite.book_story.presentation.settings.SettingsEvent
 import ua.acclorite.book_story.presentation.settings.SettingsModel
@@ -233,7 +232,7 @@ fun ColorPresetOption(backgroundColor: Color) {
 @Composable
 private fun ReorderableCollectionItemScope.ColorPresetOptionRowItem(
     colorPreset: ColorPreset,
-    isSelected: Selected,
+    isSelected: Boolean,
     canDrag: Boolean,
     enableAnimation: Boolean,
     onDragStopped: () -> Unit,
@@ -241,14 +240,14 @@ private fun ReorderableCollectionItemScope.ColorPresetOptionRowItem(
 ) {
     val context = LocalContext.current
     val title = remember(colorPreset) {
-        if ((colorPreset.name ?: "").isBlank()) {
+        if (colorPreset.name.isBlank()) {
             return@remember context.getString(
                 R.string.color_preset_query,
                 colorPreset.id.toString()
             )
         }
 
-        colorPreset.name!!
+        colorPreset.name
     }
 
     val borderColor = remember(isSelected, colorPreset.fontColor) {
@@ -344,7 +343,7 @@ private fun ColorPresetOptionConfigurationItem(
     onAdd: () -> Unit
 ) {
     val title = remember(selectedColorPreset.id) {
-        mutableStateOf(selectedColorPreset.name ?: "")
+        mutableStateOf(selectedColorPreset.name)
     }
 
     LaunchedEffect(title) {
