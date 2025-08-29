@@ -17,14 +17,14 @@ class AddHistoryUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(history: History) {
-        logI("Inserting history for [${history.bookId}].")
+        logI("Inserting history for [${history.book.id}].")
 
         historyRepository.addHistory(history = history).fold(
             onSuccess = {
-                logI("Successfully inserted history for [${history.bookId}].")
+                logI("Successfully inserted history for [${history.book.id}].")
             },
             onFailure = {
-                logE("Could not insert history for [${history.bookId}] with error: ${it.message}")
+                logE("Could not insert history for [${history.book.id}] with error: ${it.message}")
             }
         )
     }

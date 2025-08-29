@@ -16,7 +16,6 @@ import androidx.room.Upsert
 import ua.acclorite.book_story.data.local.dto.BookEntity
 import ua.acclorite.book_story.data.local.dto.CategoryEntity
 import ua.acclorite.book_story.data.local.dto.CategorySortEntity
-import ua.acclorite.book_story.data.local.dto.HistoryEntity
 
 @Dao
 interface BookDao {
@@ -43,29 +42,6 @@ interface BookDao {
 
     @Update
     suspend fun updateBook(book: BookEntity): Int
-    /* - - - - - - - - - - - - - - - - - - - - - - */
-
-
-    /* ------ HistoryEntity --------------------- */
-    @Query("SELECT * FROM historyentity")
-    suspend fun getHistory(): List<HistoryEntity>
-
-    @Query("SELECT * FROM historyentity WHERE bookId = :bookId ORDER BY time DESC LIMIT 1")
-    fun getHistoryForBook(bookId: Int): HistoryEntity?
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertHistory(
-        history: HistoryEntity
-    )
-
-    @Query("DELETE FROM historyentity")
-    suspend fun deleteWholeHistory(): Int
-
-    @Query("DELETE FROM historyentity WHERE bookId = :bookId")
-    suspend fun deleteHistoryForBook(bookId: Int): Int
-
-    @Delete
-    suspend fun deleteHistory(history: HistoryEntity): Int
     /* - - - - - - - - - - - - - - - - - - - - - - */
 
 

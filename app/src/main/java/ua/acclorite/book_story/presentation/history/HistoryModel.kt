@@ -24,6 +24,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.domain.model.history.History
+import ua.acclorite.book_story.domain.use_case.book.GetBookUseCase
 import ua.acclorite.book_story.domain.use_case.history.AddHistoryUseCase
 import ua.acclorite.book_story.domain.use_case.history.DeleteHistoryUseCase
 import ua.acclorite.book_story.domain.use_case.history.DeleteWholeHistoryUseCase
@@ -38,7 +39,8 @@ class HistoryModel @Inject constructor(
     private val getHistoryUseCase: GetHistoryUseCase,
     private val addHistoryUseCase: AddHistoryUseCase,
     private val deleteHistoryUseCase: DeleteHistoryUseCase,
-    private val deleteWholeHistoryUseCase: DeleteWholeHistoryUseCase
+    private val deleteWholeHistoryUseCase: DeleteWholeHistoryUseCase,
+    private val getBookUseCase: GetBookUseCase
 ) : ViewModel() {
 
     private val mutex = Mutex()
@@ -72,13 +74,15 @@ class HistoryModel @Inject constructor(
         }
         viewModelScope.launch {
             HistoryScreen.insertHistoryChannel.receiveAsFlow().collectLatest { bookId ->
-                addHistoryUseCase(
-                    History(
-                        bookId = bookId,
-                        book = null,
-                        time = Date().time
+                getBookUseCase(bookId)?.let { book ->
+                    addHistoryUseCase(
+                        History(
+                            id = 0,
+                            book = book,
+                            time = Date().time
+                        )
                     )
-                )
+                }
 
                 delay(500)
 

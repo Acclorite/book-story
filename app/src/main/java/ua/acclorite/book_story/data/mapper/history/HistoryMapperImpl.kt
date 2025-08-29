@@ -7,24 +7,27 @@
 package ua.acclorite.book_story.data.mapper.history
 
 import ua.acclorite.book_story.data.local.dto.HistoryEntity
+import ua.acclorite.book_story.data.local.dto.HistoryWithBook
+import ua.acclorite.book_story.data.mapper.book.BookMapper
 import ua.acclorite.book_story.domain.model.history.History
 import javax.inject.Inject
 
-class HistoryMapperImpl @Inject constructor() : HistoryMapper {
+class HistoryMapperImpl @Inject constructor(
+    private val bookMapper: BookMapper
+) : HistoryMapper {
     override suspend fun toHistoryEntity(history: History): HistoryEntity {
         return HistoryEntity(
             id = history.id,
-            bookId = history.bookId,
+            bookId = history.book.id,
             time = history.time
         )
     }
 
-    override suspend fun toHistory(historyEntity: HistoryEntity): History {
+    override suspend fun toHistory(historyWithBook: HistoryWithBook): History {
         return History(
-            historyEntity.id,
-            bookId = historyEntity.bookId,
-            book = null,
-            time = historyEntity.time
+            id = historyWithBook.history.id,
+            book = bookMapper.toBook(historyWithBook.book),
+            time = historyWithBook.history.time
         )
     }
 }

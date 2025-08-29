@@ -9,7 +9,6 @@ package ua.acclorite.book_story.domain.use_case.history
 import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.core.log.logI
 import ua.acclorite.book_story.domain.model.history.History
-import ua.acclorite.book_story.domain.repository.BookRepository
 import ua.acclorite.book_story.domain.repository.HistoryRepository
 import ua.acclorite.book_story.presentation.history.model.GroupedHistory
 import java.time.Instant
@@ -19,7 +18,6 @@ import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class GetHistoryUseCase @Inject constructor(
-    private val bookRepository: BookRepository,
     private val historyRepository: HistoryRepository
 ) {
 
@@ -40,27 +38,19 @@ class GetHistoryUseCase @Inject constructor(
         }
 
         fun filterMaxElementsById(elements: List<History>): List<History> {
-            val groupedById = elements.groupBy { it.bookId }
+            val groupedById = elements.groupBy { it.book.id }
             val maxElementsById = groupedById.map { (_, values) ->
                 values.maxByOrNull { it.time }
             }
             return maxElementsById.filterNotNull()
         }
 
+        val query = query.lowercase().trim()
         return runCatching {
-            historyRepository.getHistory().getOrThrow().sortedByDescending { it.time }
-                .mapNotNull { history ->
-                    val book = bookRepository.getBook(history.bookId).getOrNull()
-                    if (
-                        book == null
-                        || !book.title.lowercase().trim().contains(query.lowercase().trim())
-                    ) return@mapNotNull null
-
-                    history.copy(book = book)
-                }
-                .groupBy { history ->
-                    getDayLabel(history.time)
-                }
+            historyRepository.getHistory().getOrThrow()
+                .filter { history -> history.book.title.lowercase().trim().contains(query) }
+                .sortedByDescending { history -> history.time }
+                .groupBy { history -> getDayLabel(history.time) }
                 .map { (day, history) -> GroupedHistory(day, filterMaxElementsById(history)) }
         }.fold(
             onSuccess = {

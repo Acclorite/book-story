@@ -23,7 +23,7 @@ class HistoryRepositoryImpl @Inject constructor(
 
     override suspend fun getHistoryForBook(bookId: Int): Result<History> = runCatching {
         withContext(Dispatchers.IO) {
-            database.bookDao.getHistoryForBook(bookId).let {
+            database.historyDao.getHistoryForBook(bookId).let {
                 if (it == null) throw NoSuchElementException("Could not get history from [$bookId].")
                 else historyMapper.toHistory(it)
             }
@@ -32,19 +32,19 @@ class HistoryRepositoryImpl @Inject constructor(
 
     override suspend fun addHistory(history: History): Result<Unit> = runCatching {
         withContext(Dispatchers.IO) {
-            database.bookDao.insertHistory(historyMapper.toHistoryEntity(history))
+            database.historyDao.insertHistory(historyMapper.toHistoryEntity(history))
         }
     }
 
     override suspend fun getHistory(): Result<List<History>> = runCatching {
         withContext(Dispatchers.IO) {
-            database.bookDao.getHistory().map { historyMapper.toHistory(it) }
+            database.historyDao.getHistoryWithBook().map { historyMapper.toHistory(it) }
         }
     }
 
     override suspend fun deleteWholeHistory(): Result<Unit> = runCatching {
         withContext(Dispatchers.IO) {
-            database.bookDao.deleteWholeHistory().also {
+            database.historyDao.deleteWholeHistory().also {
                 if (it == 0) throw Exception("Could not delete whole history in database.")
             }
         }
@@ -52,7 +52,7 @@ class HistoryRepositoryImpl @Inject constructor(
 
     override suspend fun deleteHistoryForBook(bookId: Int): Result<Unit> = runCatching {
         withContext(Dispatchers.IO) {
-            database.bookDao.deleteHistoryForBook(bookId = bookId).also {
+            database.historyDao.deleteHistoryForBook(bookId = bookId).also {
                 if (it == 0) throw Exception("Could not delete history for book [$bookId] in database.")
             }
         }
@@ -60,7 +60,7 @@ class HistoryRepositoryImpl @Inject constructor(
 
     override suspend fun deleteHistory(history: History): Result<Unit> = runCatching {
         withContext(Dispatchers.IO) {
-            database.bookDao.deleteHistory(historyMapper.toHistoryEntity(history)).also {
+            database.historyDao.deleteHistory(historyMapper.toHistoryEntity(history)).also {
                 if (it == 0) throw Exception("Could not delete history in database.")
             }
         }

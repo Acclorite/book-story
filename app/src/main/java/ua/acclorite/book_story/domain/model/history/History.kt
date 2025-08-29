@@ -11,8 +11,7 @@ import ua.acclorite.book_story.domain.model.library.Book
 
 @Immutable
 data class History(
-    val id: Int = 0,
-    val bookId: Int,
-    val book: Book?,
+    val id: Int,
+    val book: Book,
     val time: Long
 )

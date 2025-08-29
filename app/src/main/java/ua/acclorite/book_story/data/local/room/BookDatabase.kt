@@ -50,6 +50,7 @@ import java.io.File
 )
 abstract class BookDatabase : RoomDatabase() {
     abstract val bookDao: BookDao
+    abstract val historyDao: HistoryDao
     abstract val colorPresetDao: ColorPresetDao
 }
 

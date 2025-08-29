@@ -79,7 +79,7 @@ fun LazyItemScope.HistoryItem(
                         RoundedCornerShape(10.dp)
                     )
             ) {
-                if (historyEntry.book?.coverImage != null) {
+                if (historyEntry.book.coverImage != null) {
                     AsyncCoverImage(
                         uri = historyEntry.book.coverImage,
                         modifier = Modifier
@@ -108,7 +108,7 @@ fun LazyItemScope.HistoryItem(
                 modifier = Modifier.fillMaxHeight()
             ) {
                 StyledText(
-                    text = historyEntry.book?.title ?: return,
+                    text = historyEntry.book.title,
                     modifier = Modifier
                         .fillMaxWidth()
                         .noRippleClickable(

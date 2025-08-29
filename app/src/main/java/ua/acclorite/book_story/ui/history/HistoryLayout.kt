@@ -72,14 +72,14 @@ fun HistoryLayout(
                         onBodyClick = {
                             navigateToBookInfo(
                                 HistoryEvent.OnNavigateToBookInfo(
-                                    historyEntry.bookId
+                                    historyEntry.book.id
                                 )
                             )
                         },
                         onTitleClick = {
                             navigateToReader(
                                 HistoryEvent.OnNavigateToReader(
-                                    historyEntry.bookId
+                                    historyEntry.book.id
                                 )
                             )
                         },
