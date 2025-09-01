@@ -17,7 +17,7 @@ import ua.acclorite.book_story.data.converter.CategoryConverter
 data class BookEntity(
     @PrimaryKey(true) val id: Int = 0,
     val title: String,
-    val author: String?,
+    val author: String,
     val description: String?,
     val filePath: String,
     val scrollIndex: Int,

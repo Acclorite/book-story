@@ -61,6 +61,7 @@ object AppModule {
             DatabaseHelper.MIGRATION_4_5, // creates ColorPresetEntity table(if does not exist)
             DatabaseHelper.MIGRATION_5_6, // creates FavoriteDirectoryEntity table(if does not exist)
             DatabaseHelper.MIGRATION_13_14, // remove nullability from ColorPresetEntity
+            DatabaseHelper.MIGRATION_14_15, // remove author nullability from BookEntity
         ).allowMainThreadQueries().build()
     }
 }

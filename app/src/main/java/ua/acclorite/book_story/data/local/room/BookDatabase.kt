@@ -30,7 +30,7 @@ import java.io.File
         CategoryEntity::class,
         CategorySortEntity::class
     ],
-    version = 14,
+    version = 15,
     autoMigrations = [
         AutoMigration(1, 2),
         AutoMigration(2, 3),
@@ -45,6 +45,7 @@ import java.io.File
         AutoMigration(11, 12),
         AutoMigration(12, 13),
         AutoMigration(13, 14),
+        AutoMigration(14, 15),
     ],
     exportSchema = true
 )
@@ -157,6 +158,36 @@ object DatabaseHelper {
             )
             database.execSQL("DROP TABLE ColorPresetEntity")
             database.execSQL("ALTER TABLE ColorPresetEntity_new RENAME TO ColorPresetEntity")
+        }
+    }
+
+    val MIGRATION_14_15 = object : Migration(14, 15) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL(
+                """
+                    CREATE TABLE BookEntity_new (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        title TEXT NOT NULL,
+                        author TEXT NOT NULL,
+                        description TEXT,
+                        filePath TEXT NOT NULL,
+                        scrollIndex INTEGER NOT NULL,
+                        scrollOffset INTEGER NOT NULL,
+                        progress REAL NOT NULL,
+                        image TEXT,
+                        categories TEXT NOT NULL DEFAULT '[]'
+                    )
+                """
+            )
+            database.execSQL(
+                """
+                    INSERT INTO BookEntity_new (id, title, author, description, filePath, scrollIndex, scrollOffset, progress, image, categories)
+                    SELECT id, title, COALESCE(author, ''), description, filePath, scrollIndex, scrollOffset, progress, image, categories
+                    FROM BookEntity
+                """
+            )
+            database.execSQL("DROP TABLE BookEntity")
+            database.execSQL("ALTER TABLE BookEntity_new RENAME TO BookEntity")
         }
     }
 }

@@ -22,7 +22,7 @@ class BookMapperImpl @Inject constructor() : BookMapper {
             scrollIndex = book.scrollIndex,
             scrollOffset = book.scrollOffset,
             progress = book.progress,
-            author = book.author.getAsString(),
+            author = book.author.getAsString() ?: "",
             description = book.description,
             image = book.coverImage?.toString(),
             categories = book.categories
@@ -33,9 +33,10 @@ class BookMapperImpl @Inject constructor() : BookMapper {
         return Book(
             id = bookEntity.id,
             title = bookEntity.title,
-            author = bookEntity.author?.let { UIText.StringValue(it) } ?: UIText.StringResource(
-                R.string.unknown_author
-            ),
+            author = bookEntity.author.let { author ->
+                if (author.isNotBlank()) UIText.StringValue(author)
+                else UIText.StringResource(R.string.unknown_author)
+            },
             description = bookEntity.description,
             scrollIndex = bookEntity.scrollIndex,
             scrollOffset = bookEntity.scrollOffset,
