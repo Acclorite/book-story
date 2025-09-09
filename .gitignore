@@ -1,16 +1,67 @@
+# Android
+*.apk
+*.ap_
+*.dex
+bin/
+gen/
+.gradle/
+local.properties
+proguard/
+*.log
+.navigation/
+captures/
+*.jks
+*.keystore
+*.p12
+*.cer
+
+# IntelliJ IDEA
+.idea/
 *.iml
-.gradle
-/local.properties
+*.ipr
+*.iws
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
-.kotlin/
+
+# Eclipse
+.classpath
+.project
+
+# OS
 .DS_Store
-/build
-/captures
+Thumbs.db
+
+# Gradle
+.gradle/
+build/
+
+# Kotlin
+.kotlin/
+
+# Temporary files
+*.tmp
+*.swp
+*.bak
+
+# Release
+app/release/
+
+# Schemas (if not needed)
+app/schemas/
+
+# Test data (if sensitive)
+testdata/
+
+# Fastlane (if contains sensitive info)
+fastlane/metadata/android/en-US/images/
+fastlane/metadata/android/uk/
+
+# Other
+*.cache
+*.lock
 .externalNativeBuild
 .cxx
-local.properties

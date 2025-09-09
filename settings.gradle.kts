@@ -16,6 +16,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Book's Story"
+rootProject.name = "codex"
 include(":app")
  

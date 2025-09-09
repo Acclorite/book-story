@@ -1,4 +1,5 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 
 plugins {
     id("com.android.application")
@@ -12,15 +13,15 @@ plugins {
 }
 
 android {
-    namespace = "ua.acclorite.book_story"
+    namespace = "ua.blindmint.codex"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "ua.acclorite.book_story"
+        applicationId = "ua.blindmint.codex"
         minSdk = 26
         targetSdk = 35
-        versionCode = 13
-        versionName = "1.7.1"
+        versionCode = 2
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -50,6 +51,14 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+
+    applicationVariants.configureEach {
+        val versionName = this.versionName
+        outputs.configureEach {
+            (this as? BaseVariantOutputImpl)?.outputFileName = "codex-${versionName}.apk"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

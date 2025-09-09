@@ -1,13 +1,13 @@
 <!--
-  ~ Book's Story — free and open-source Material You eBook reader.
-  ~ Copyright (C) 2024-2025 Acclorite
-  ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
+   ~ Codex — free and open-source Material You eBook reader.
+   ~ Copyright (C) 2024-2025 BlindMint
+   ~ SPDY-License-Identifier: GPL-3.0-only
+   -->
 
 <resources>
     <!-- Basic Strings -->
     <string name="app_version" translatable="false">1.7.1</string>
-    <string name="app_name" translatable="false">Book\'s Story</string>
+    <string name="app_name" translatable="false">Codex</string>
     <string name="default_string">Default</string>
 
     <!-- Screens -->
@@ -103,6 +103,7 @@
     <string name="next">Next</string>
     <string name="yes_go_to_help">Yes, go to Help</string>
     <string name="no">No</string>
+    <string name="enter">Open the Codex</string>
     <string name="done">Done</string>
     <string name="web_search">Web search</string>
     <string name="share">Share</string>
@@ -180,6 +181,15 @@
     <string name="app_theme_option">App theme</string>
     <string name="double_press_exit_option">Double back press to exit</string>
     <string name="double_press_exit_option_desc">Press back twice to exit the app</string>
+    <string name="sync_progress_title">Sync Progress</string>
+    <string name="synced_books">Synced</string>
+    <string name="syncing_books">Syncing</string>
+    <string name="sync_error_books">Errors</string>
+    <string name="progress_history_cleared_bulk">Progress history cleared for selected books</string>
+    <string name="sync_success">Progress synced successfully</string>
+    <string name="sync_error">Failed to sync progress</string>
+    <string name="clear_progress_history">Clear progress history</string>
+    <string name="progress_history_cleared">Progress history cleared</string>
 
     <!-- Reader -->
     <string name="font_family_option">Font family</string>
@@ -324,6 +334,7 @@
     <!-- Progress Count properties -->
     <string name="progress_count_percentage">Percentage</string>
     <string name="progress_count_quantity">Quantity</string>
+    <string name="progress_count_page">Page</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Mercury</string>
@@ -549,19 +560,18 @@
 
 
     <!-- Start -->
-    <string name="start_welcome">Welcome to Book\'s Story!</string>
+    <string name="start_welcome">Open the Codex!</string>
     <string name="start_welcome_desc">
-        To a world where words charm,
-        teach and lead on incredible adventures!
-        Let\'s set some things up!
+        In the grim darkness of the far future,
+        knowledge is power and wisdom is forged in battle.
+        Let the Codex guide your journey
     </string>
     <string name="start_language_preferences">Language preferences</string>
     <string name="start_theme_preferences">Theme preferences</string>
     <string name="start_scan_preferences">Scan preferences</string>
-    <string name="start_done">Everything is done!</string>
+    <string name="start_done">Codex configured</string>
     <string name="start_done_desc">
-        Setup completed.
-        Would you like to go to the Help screen?
+        Setup complete.
     </string>
 
     <!-- History -->
@@ -590,6 +600,7 @@
     <string name="delete_whole_history_content_desc">Delete whole history</string>
     <string name="move_books_content_desc">Move selected books</string>
     <string name="delete_books_content_desc">Delete selected books</string>
+    <string name="clear_progress_history_content_desc">Clear progress history for selected books</string>
     <string name="revert_content_desc">Revert</string>
     <string name="selected_content_desc">Selected</string>
     <string name="app_icon_content_desc">App icon</string>

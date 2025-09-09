@@ -1,8 +1,8 @@
 <!--
-  ~ Book's Story — free and open-source Material You eBook reader.
-  ~ Copyright (C) 2024-2025 Acclorite
+  ~ Codex — free and open-source Material You eBook reader.
+  ~ Copyright (C) 2024-2025 BlindMint
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
+-->
 
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
     <background android:drawable="@color/app_icon_background" />

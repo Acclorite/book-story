@@ -1,9 +1,9 @@
 <!--
-  ~ Book's Story — free and open-source Material You eBook reader.
-  ~ Copyright (C) 2024-2025 Acclorite
+  ~ Codex — free and open-source Material You eBook reader.
+  ~ Copyright (C) 2024-2025 BlindMint
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
+-->
 
 <resources>
-    <color name="app_icon_background">#FFFFFF</color>
+    <color name="app_icon_background">#00000000</color>
 </resources>
