@@ -16,8 +16,6 @@ import ua.acclorite.book_story.data.mapper.book.BookMapper
 import ua.acclorite.book_story.data.mapper.book.BookMapperImpl
 import ua.acclorite.book_story.data.mapper.category.CategoryMapper
 import ua.acclorite.book_story.data.mapper.category.CategoryMapperImpl
-import ua.acclorite.book_story.data.mapper.category_sort.CategorySortMapper
-import ua.acclorite.book_story.data.mapper.category_sort.CategorySortSortMapperImpl
 import ua.acclorite.book_story.data.mapper.color_preset.ColorPresetMapper
 import ua.acclorite.book_story.data.mapper.color_preset.ColorPresetMapperImpl
 import ua.acclorite.book_story.data.mapper.file.FileMapper
@@ -110,12 +108,6 @@ abstract class RepositoryModule {
     abstract fun bindCategoryMapper(
         categoryMapperImpl: CategoryMapperImpl
     ): CategoryMapper
-
-    @Binds
-    @Singleton
-    abstract fun bindCategorySortMapper(
-        categorySortSortMapperImpl: CategorySortSortMapperImpl
-    ): CategorySortMapper
 
     @Binds
     @Singleton

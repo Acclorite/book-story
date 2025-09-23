@@ -40,7 +40,7 @@ fun LibraryMoveDialog(
     val selectedCategories = remember {
         mutableStateListOf<Category>().apply {
             clear()
-            categories.forEach { category ->
+            categories.filterNot { it.id == -1 }.forEach { category ->
                 if (selectedBooks.value.all { it.data.categories.any { it == category.id } }) {
                     add(category)
                 }
@@ -69,7 +69,7 @@ fun LibraryMoveDialog(
         },
         withContent = true,
         items = {
-            items(categories) { category ->
+            items(categories.filterNot { it.id == -1 }) { category ->
                 val selected = remember(
                     category,
                     selectedCategories

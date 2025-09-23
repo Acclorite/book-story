@@ -17,7 +17,6 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import ua.acclorite.book_story.data.local.dto.BookEntity
 import ua.acclorite.book_story.data.local.dto.CategoryEntity
-import ua.acclorite.book_story.data.local.dto.CategorySortEntity
 import ua.acclorite.book_story.data.local.dto.ColorPresetEntity
 import ua.acclorite.book_story.data.local.dto.HistoryEntity
 import java.io.File
@@ -27,25 +26,25 @@ import java.io.File
         BookEntity::class,
         HistoryEntity::class,
         ColorPresetEntity::class,
-        CategoryEntity::class,
-        CategorySortEntity::class
+        CategoryEntity::class
     ],
-    version = 15,
+    version = 16,
     autoMigrations = [
         AutoMigration(1, 2),
         AutoMigration(2, 3),
-        AutoMigration(3, 4, spec = DatabaseHelper.MIGRATION_3_4::class),
+        AutoMigration(3, 4, spec = DatabaseHelper.AUTO_MIGRATION_3_4::class),
         AutoMigration(4, 5),
         AutoMigration(5, 6),
         AutoMigration(6, 7),
-        AutoMigration(7, 8, spec = DatabaseHelper.MIGRATION_7_8::class),
-        AutoMigration(8, 9, spec = DatabaseHelper.MIGRATION_8_9::class),
-        AutoMigration(9, 10, spec = DatabaseHelper.MIGRATION_9_10::class),
+        AutoMigration(7, 8, spec = DatabaseHelper.AUTO_MIGRATION_7_8::class),
+        AutoMigration(8, 9, spec = DatabaseHelper.AUTO_MIGRATION_8_9::class),
+        AutoMigration(9, 10, spec = DatabaseHelper.AUTO_MIGRATION_9_10::class),
         AutoMigration(10, 11),
         AutoMigration(11, 12),
         AutoMigration(12, 13),
         AutoMigration(13, 14),
         AutoMigration(14, 15),
+        AutoMigration(15, 16, spec = DatabaseHelper.AUTO_MIGRATION_15_16::class),
     ],
     exportSchema = true
 )
@@ -53,12 +52,13 @@ abstract class BookDatabase : RoomDatabase() {
     abstract val bookDao: BookDao
     abstract val historyDao: HistoryDao
     abstract val colorPresetDao: ColorPresetDao
+    abstract val categoryDao: CategoryDao
 }
 
 @Suppress("ClassName")
 object DatabaseHelper {
 
-    val MIGRATION_2_3 = object : Migration(2, 3) {
+    val MANUAL_MIGRATION_2_3 = object : Migration(2, 3) {
         override fun migrate(db: SupportSQLiteDatabase) {
             db.execSQL(
                 "CREATE TABLE IF NOT EXISTS `LanguageHistoryEntity` (" +
@@ -76,9 +76,9 @@ object DatabaseHelper {
     @DeleteColumn("BookEntity", "doubleClickTranslation")
     @DeleteColumn("BookEntity", "translateWhenOpen")
     @DeleteTable("LanguageHistoryEntity")
-    class MIGRATION_3_4 : AutoMigrationSpec
+    class AUTO_MIGRATION_3_4 : AutoMigrationSpec
 
-    val MIGRATION_4_5 = object : Migration(4, 5) {
+    val MANUAL_MIGRATION_4_5 = object : Migration(4, 5) {
         override fun migrate(db: SupportSQLiteDatabase) {
             db.execSQL(
                 "CREATE TABLE IF NOT EXISTS `ColorPresetEntity` (" +
@@ -93,7 +93,7 @@ object DatabaseHelper {
         }
     }
 
-    val MIGRATION_5_6 = object : Migration(5, 6) {
+    val MANUAL_MIGRATION_5_6 = object : Migration(5, 6) {
         override fun migrate(db: SupportSQLiteDatabase) {
             db.execSQL(
                 "CREATE TABLE IF NOT EXISTS `FavoriteDirectoryEntity` (" +
@@ -106,7 +106,7 @@ object DatabaseHelper {
 
     @DeleteColumn("BookEntity", "textPath")
     @DeleteColumn("BookEntity", "chapters")
-    class MIGRATION_7_8 : AutoMigrationSpec {
+    class AUTO_MIGRATION_7_8 : AutoMigrationSpec {
         companion object {
             /**
              * Along with textPath deletion,
@@ -124,12 +124,12 @@ object DatabaseHelper {
     }
 
     @DeleteTable("FavoriteDirectoryEntity")
-    class MIGRATION_8_9 : AutoMigrationSpec
+    class AUTO_MIGRATION_8_9 : AutoMigrationSpec
 
     @DeleteColumn("BookEntity", "category")
-    class MIGRATION_9_10 : AutoMigrationSpec
+    class AUTO_MIGRATION_9_10 : AutoMigrationSpec
 
-    val MIGRATION_13_14 = object : Migration(13, 14) {
+    val MANUAL_MIGRATION_13_14 = object : Migration(13, 14) {
         override fun migrate(database: SupportSQLiteDatabase) {
             database.execSQL(
                 """
@@ -161,7 +161,7 @@ object DatabaseHelper {
         }
     }
 
-    val MIGRATION_14_15 = object : Migration(14, 15) {
+    val MANUAL_MIGRATION_14_15 = object : Migration(14, 15) {
         override fun migrate(database: SupportSQLiteDatabase) {
             database.execSQL(
                 """
@@ -188,6 +188,48 @@ object DatabaseHelper {
             )
             database.execSQL("DROP TABLE BookEntity")
             database.execSQL("ALTER TABLE BookEntity_new RENAME TO BookEntity")
+        }
+    }
+
+    @DeleteTable("CategorySortEntity")
+    class AUTO_MIGRATION_15_16 : AutoMigrationSpec
+
+    val MANUAL_MIGRATION_15_16 = object : Migration(15, 16) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL(
+                """
+                    CREATE TABLE IF NOT EXISTS CategoryEntity_new (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        title TEXT NOT NULL,
+                        `order` INTEGER NOT NULL,
+                        sortOrder TEXT NOT NULL DEFAULT 'LAST_READ',
+                        sortOrderDescending INTEGER NOT NULL DEFAULT 1
+                    )
+                """
+            )
+            database.execSQL(
+                """
+                    INSERT INTO CategoryEntity_new (id, title, `order`, sortOrder, sortOrderDescending)
+                    SELECT 
+                        c.id,
+                        c.title,
+                        c.`order`,
+                        COALESCE(cs.sortOrder, 'LAST_READ'),
+                        COALESCE(cs.sortOrderDescending, 1)
+                    FROM CategoryEntity c
+                    LEFT JOIN CategorySortEntity cs
+                        ON c.id = cs.categoryId
+                """
+            )
+            database.execSQL(
+                """
+                    INSERT INTO CategoryEntity_new (id, title, `order`, sortOrder, sortOrderDescending)
+                    VALUES (-1, '', -1, 'LAST_READ', 1)
+                """
+            )
+            database.execSQL("DROP TABLE CategoryEntity")
+            database.execSQL("DROP TABLE CategorySortEntity")
+            database.execSQL("ALTER TABLE CategoryEntity_new RENAME TO CategoryEntity")
         }
     }
 }

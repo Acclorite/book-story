@@ -85,7 +85,7 @@ fun LibraryTopBar(
         defaultCategory
     ) {
         derivedStateOf {
-            categories.map { category ->
+            categories.filterNot { it.id == -1 }.map { category ->
                 category to books.count { it.data.categories.any { it == category.id } }
             }.toMutableList().apply {
                 if (showDefaultCategory) {

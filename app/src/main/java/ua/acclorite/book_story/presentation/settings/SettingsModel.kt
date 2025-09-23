@@ -20,14 +20,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import ua.acclorite.book_story.domain.model.library.CategorySort
 import ua.acclorite.book_story.domain.model.reader.ColorPreset
 import ua.acclorite.book_story.domain.use_case.category.AddCategoryUseCase
 import ua.acclorite.book_story.domain.use_case.category.DeleteCategoryUseCase
 import ua.acclorite.book_story.domain.use_case.category.GetCategoriesUseCase
-import ua.acclorite.book_story.domain.use_case.category.GetCategorySortingUseCase
 import ua.acclorite.book_story.domain.use_case.category.UpdateCategoriesOrderUseCase
-import ua.acclorite.book_story.domain.use_case.category.UpdateCategorySortingUseCase
 import ua.acclorite.book_story.domain.use_case.category.UpdateCategoryUseCase
 import ua.acclorite.book_story.domain.use_case.color_preset.DeleteColorPresetUseCase
 import ua.acclorite.book_story.domain.use_case.color_preset.GetColorPresetsUseCase
@@ -55,9 +52,7 @@ class SettingsModel @Inject constructor(
     private val getCategoriesUseCase: GetCategoriesUseCase,
     private val updateCategoryUseCase: UpdateCategoryUseCase,
     private val updateCategoriesOrderUseCase: UpdateCategoriesOrderUseCase,
-    private val deleteCategoryUseCase: DeleteCategoryUseCase,
-    private val updateCategorySortingUseCase: UpdateCategorySortingUseCase,
-    private val getCategorySortingUseCase: GetCategorySortingUseCase
+    private val deleteCategoryUseCase: DeleteCategoryUseCase
 ) : ViewModel() {
 
     private val mutex = Mutex()
@@ -98,8 +93,7 @@ class SettingsModel @Inject constructor(
                 it.copy(
                     selectedColorPreset = colorPresets.getSelectedColorPreset(),
                     colorPresets = colorPresets,
-                    categories = getCategoriesUseCase(),
-                    categoriesSort = getCategorySortingUseCase()
+                    categories = getCategoriesUseCase()
                 )
             }
 
@@ -131,10 +125,9 @@ class SettingsModel @Inject constructor(
                     }
                 }
 
-                is SettingsEvent.OnUpdateCategoryTitle -> {
+                is SettingsEvent.OnUpdateCategory -> {
                     updateCategoryUseCase(
-                        categoryId = event.id,
-                        newTitle = event.title
+                        category = event.category
                     )
                     _state.update {
                         it.copy(
@@ -161,21 +154,6 @@ class SettingsModel @Inject constructor(
                     _state.update {
                         it.copy(
                             categories = getCategoriesUseCase()
-                        )
-                    }
-                }
-
-                is SettingsEvent.OnUpdateCategorySort -> {
-                    updateCategorySortingUseCase(
-                        categorySort = CategorySort(
-                            categoryId = event.categoryId,
-                            sortOrder = event.sortOrder,
-                            sortOrderDescending = event.sortOrderDescending
-                        )
-                    )
-                    _state.update {
-                        it.copy(
-                            categoriesSort = getCategorySortingUseCase()
                         )
                     }
                 }

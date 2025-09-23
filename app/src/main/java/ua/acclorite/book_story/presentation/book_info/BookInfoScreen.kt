@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -50,6 +51,10 @@ data class BookInfoScreen(val bookId: Int) : Screen, Parcelable {
         val state = screenModel.state.collectAsStateWithLifecycle()
         val listState = rememberLazyListState()
 
+        val categories = remember(settingsState.value.categories) {
+            settingsState.value.categories.filterNot { it.id == -1 }
+        }
+
         LaunchedEffect(Unit) {
             screenModel.init(
                 bookId = bookId,
@@ -74,7 +79,7 @@ data class BookInfoScreen(val bookId: Int) : Screen, Parcelable {
             BookInfoContent(
                 book = state.value.book,
                 file = state.value.file,
-                categories = settingsState.value.categories,
+                categories = categories,
                 bottomSheet = state.value.bottomSheet,
                 dialog = state.value.dialog,
                 listState = listState,

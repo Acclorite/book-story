@@ -50,18 +50,19 @@ object AppModule {
     @Singleton
     fun provideBookDatabase(app: Application): BookDatabase {
         // Additional Migrations
-        DatabaseHelper.MIGRATION_7_8.removeBooksDir(app)
+        DatabaseHelper.AUTO_MIGRATION_7_8.removeBooksDir(app)
 
         return Room.databaseBuilder(
             app,
             BookDatabase::class.java,
             "book_db"
         ).addMigrations(
-            DatabaseHelper.MIGRATION_2_3, // creates LanguageHistoryEntity table(if does not exist)
-            DatabaseHelper.MIGRATION_4_5, // creates ColorPresetEntity table(if does not exist)
-            DatabaseHelper.MIGRATION_5_6, // creates FavoriteDirectoryEntity table(if does not exist)
-            DatabaseHelper.MIGRATION_13_14, // remove nullability from ColorPresetEntity
-            DatabaseHelper.MIGRATION_14_15, // remove author nullability from BookEntity
+            DatabaseHelper.MANUAL_MIGRATION_2_3, // creates LanguageHistoryEntity table(if does not exist)
+            DatabaseHelper.MANUAL_MIGRATION_4_5, // creates ColorPresetEntity table(if does not exist)
+            DatabaseHelper.MANUAL_MIGRATION_5_6, // creates FavoriteDirectoryEntity table(if does not exist)
+            DatabaseHelper.MANUAL_MIGRATION_13_14, // remove nullability from ColorPresetEntity
+            DatabaseHelper.MANUAL_MIGRATION_14_15, // remove author nullability from BookEntity
+            DatabaseHelper.MANUAL_MIGRATION_15_16, // merge CategoryEntity and CategorySortEntity
         ).allowMainThreadQueries().build()
     }
 }

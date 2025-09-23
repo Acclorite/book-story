@@ -6,13 +6,16 @@
 
 package ua.acclorite.book_story.data.local.dto
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
 
 @Entity
 data class CategoryEntity(
-    @PrimaryKey(true)
-    val id: Int = 0,
+    @PrimaryKey(true) val id: Int = 0,
     val title: String,
-    val order: Int
+    val order: Int,
+    @ColumnInfo(defaultValue = "LAST_READ") val sortOrder: LibrarySortOrder,
+    @ColumnInfo(defaultValue = "1") val sortOrderDescending: Boolean
 )

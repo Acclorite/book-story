@@ -15,15 +15,15 @@ class UpdateCategoryUseCase @Inject constructor(
     private val categoryRepository: CategoryRepository
 ) {
 
-    suspend operator fun invoke(categoryId: Int, newTitle: String) {
-        logI("Updating category [$categoryId].")
+    suspend operator fun invoke(category: Category) {
+        logI("Updating category [${category.id}].")
 
-        categoryRepository.updateCategory(Category(id = categoryId, title = newTitle)).fold(
+        categoryRepository.updateCategory(category).fold(
             onSuccess = {
-                logI("Successfully updated [$categoryId].")
+                logI("Successfully updated [${category.id}].")
             },
             onFailure = {
-                logI("Could not update [$categoryId] with error: ${it.message}")
+                logI("Could not update [${category.id}] with error: ${it.message}")
             }
         )
     }

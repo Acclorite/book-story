@@ -7,7 +7,6 @@
 package ua.acclorite.book_story.domain.repository
 
 import ua.acclorite.book_story.domain.model.library.Category
-import ua.acclorite.book_story.domain.model.library.CategorySort
 
 interface CategoryRepository {
     suspend fun addCategory(
@@ -27,10 +26,4 @@ interface CategoryRepository {
     suspend fun deleteCategory(
         category: Category
     ): Result<Unit>
-
-    suspend fun updateCategorySorting(
-        categorySort: CategorySort
-    ): Result<Unit>
-
-    suspend fun getCategorySorting(): Result<List<CategorySort>>
 }

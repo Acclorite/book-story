@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import ua.acclorite.book_story.domain.model.library.Category
-import ua.acclorite.book_story.domain.model.library.CategorySort
 import ua.acclorite.book_story.presentation.library.LibraryEvent
 import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
 import ua.acclorite.book_story.presentation.settings.SettingsEvent
@@ -42,11 +41,10 @@ fun LibraryFilterBottomSheet(
     categoriesPagerState: PagerState,
     sortOrder: LibrarySortOrder,
     sortOrderDescending: Boolean,
-    categoriesSort: List<CategorySort>,
     perCategorySort: Boolean,
     changeSortOrder: (LibrarySortOrder) -> Unit,
     changeSortOrderDescending: (Boolean) -> Unit,
-    updateCategorySort: (SettingsEvent.OnUpdateCategorySort) -> Unit,
+    updateCategory: (SettingsEvent.OnUpdateCategory) -> Unit,
     dismissBottomSheet: (LibraryEvent.OnDismissBottomSheet) -> Unit
 ) {
     val currentCategory = remember(
@@ -55,22 +53,9 @@ fun LibraryFilterBottomSheet(
         categoriesPagerState.currentPage
     ) {
         derivedStateOf {
-            categories.toMutableList().apply {
-                if (showDefaultCategory) {
-                    add(0, Category(id = -1, title = ""))
-                }
+            categories.filterNot {
+                if (!showDefaultCategory) it.id == -1 else false
             }[categoriesPagerState.currentPage]
-        }
-    }
-
-    val currentCategorySort = remember(currentCategory, categoriesSort) {
-        derivedStateOf {
-            categoriesSort.firstOrNull { it.categoryId == currentCategory.value.id }
-                ?: CategorySort(
-                    categoryId = currentCategory.value.id,
-                    sortOrder = LibrarySortOrder.LAST_READ,
-                    sortOrderDescending = true
-                )
         }
     }
 
@@ -106,19 +91,18 @@ fun LibraryFilterBottomSheet(
                         contentPadding = PaddingValues(top = 18.dp)
                     ) {
                         LibrarySortOption(
-                            sortOrder = if (perCategorySort) {
-                                currentCategorySort.value.sortOrder
-                            } else sortOrder,
-                            sortOrderDescending = if (perCategorySort) {
-                                currentCategorySort.value.sortOrderDescending
-                            } else sortOrderDescending,
+                            sortOrder = if (perCategorySort) currentCategory.value.sortOrder
+                            else sortOrder,
+                            sortOrderDescending = if (perCategorySort) currentCategory.value.sortOrderDescending
+                            else sortOrderDescending,
                             onChange = { sortOrder, sortOrderDescending ->
                                 if (perCategorySort) {
-                                    updateCategorySort(
-                                        SettingsEvent.OnUpdateCategorySort(
-                                            categoryId = currentCategorySort.value.categoryId,
-                                            sortOrder = sortOrder,
-                                            sortOrderDescending = sortOrderDescending
+                                    updateCategory(
+                                        SettingsEvent.OnUpdateCategory(
+                                            currentCategory.value.copy(
+                                                sortOrder = sortOrder,
+                                                sortOrderDescending = sortOrderDescending
+                                            )
                                         )
                                     )
                                 } else {

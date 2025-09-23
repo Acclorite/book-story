@@ -68,6 +68,9 @@ fun LibraryCategoriesOption() {
     val settingsModel = hiltViewModel<SettingsModel>()
     val state = settingsModel.state.collectAsStateWithLifecycle()
 
+    val categories = remember(state.value.categories) {
+        state.value.categories.filterNot { it.id == -1 }
+    }
     val dialog = remember {
         mutableStateOf<String?>(null)
     }
@@ -94,12 +97,15 @@ fun LibraryCategoriesOption() {
                 initialValue = selectedCategory.value?.title ?: "",
                 onDismiss = { dialog.value = null },
                 onAction = { title ->
-                    settingsModel.onEvent(
-                        SettingsEvent.OnUpdateCategoryTitle(
-                            id = selectedCategory.value?.id ?: -1,
-                            title = title
+                    selectedCategory.value?.let { selectedCategory ->
+                        settingsModel.onEvent(
+                            SettingsEvent.OnUpdateCategory(
+                                category = selectedCategory.copy(
+                                    title = title
+                                )
+                            )
                         )
-                    )
+                    }
                 }
             )
         }
@@ -108,10 +114,10 @@ fun LibraryCategoriesOption() {
             LibraryCategoriesRemoveDialog(
                 onDismiss = { dialog.value = null },
                 onAction = {
-                    if (selectedCategory.value != null) {
+                    selectedCategory.value?.let { selectedCategory ->
                         LibraryScreen.scrollToPageCompositionChannel.trySend(0)
                         settingsModel.onEvent(
-                            SettingsEvent.OnRemoveCategory(selectedCategory.value!!)
+                            SettingsEvent.OnRemoveCategory(selectedCategory)
                         )
                     }
                     dialog.value = null
@@ -124,12 +130,12 @@ fun LibraryCategoriesOption() {
         modifier = Modifier
             .fillMaxWidth()
             .animateContentSize(),
-        list = state.value.categories,
+        list = categories,
         onSettle = { from, to ->
             LibraryScreen.scrollToPageCompositionChannel.trySend(0)
             settingsModel.onEvent(
                 SettingsEvent.OnUpdateCategoryOrder(
-                    state.value.categories.toMutableList().apply {
+                    categories.toMutableList().apply {
                         add(to, removeAt(from))
                     }
                 )

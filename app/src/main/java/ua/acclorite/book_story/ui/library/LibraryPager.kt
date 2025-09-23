@@ -16,7 +16,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import ua.acclorite.book_story.core.helpers.compareByWithOrder
 import ua.acclorite.book_story.domain.model.library.Category
-import ua.acclorite.book_story.domain.model.library.CategorySort
 import ua.acclorite.book_story.presentation.library.LibraryEvent
 import ua.acclorite.book_story.presentation.library.model.LibraryLayout
 import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
@@ -31,7 +30,6 @@ fun LibraryPager(
     categories: List<Category>,
     showDefaultCategory: Boolean,
     perCategorySort: Boolean,
-    categoriesSort: List<CategorySort>,
     sortOrder: LibrarySortOrder,
     sortOrderDescending: Boolean,
     layout: LibraryLayout,
@@ -51,7 +49,6 @@ fun LibraryPager(
     val categorizedBooks = remember(
         books,
         categories,
-        categoriesSort,
         perCategorySort,
         sortOrder,
         sortOrderDescending,
@@ -76,61 +73,35 @@ fun LibraryPager(
         derivedStateOf {
             val categorizedBooks = mutableListOf<List<SelectableBook>>()
 
-            if (showDefaultCategory) {
-                val categoryIds = categories.map { it.id }.toSet()
-                categorizedBooks.add(
-                    books.filter { book ->
-                        book.data.categories.none { category -> category in categoryIds }
-                    }.let {
-                        if (perCategorySort) {
-                            val categorySort = categoriesSort.firstOrNull {
-                                it.categoryId == -1
-                            } ?: CategorySort(
-                                categoryId = -1,
-                                sortOrder = LibrarySortOrder.LAST_READ,
-                                sortOrderDescending = true
-                            )
-
-                            return@let it.sortBooks(
-                                categorySort.sortOrder,
-                                categorySort.sortOrderDescending
-                            )
-                        }
-
-                        return@let it
-                    }
-                )
-            }
-
-            categories.sortedBy { it.order }.forEach { category ->
-                categorizedBooks.add(
-                    books
-                        .filter { it.data.categories.any { category.id == it } }
-                        .let {
+            val categoryIds = categories.map { it.id }.toSet()
+            categories
+                .filterNot { if (!showDefaultCategory) it.id == -1 else false }
+                .sortedBy { it.order }
+                .forEach { category ->
+                    categorizedBooks.add(
+                        books.filter { book ->
+                            if (category.id == -1) {
+                                book.data.categories.none { it in categoryIds }
+                            } else {
+                                book.data.categories.any { it == category.id }
+                            }
+                        }.let { books ->
                             if (perCategorySort) {
-                                val categorySort = categoriesSort.firstOrNull {
-                                    it.categoryId == category.id
-                                } ?: CategorySort(
-                                    categoryId = category.id,
-                                    sortOrder = LibrarySortOrder.LAST_READ,
-                                    sortOrderDescending = true
-                                )
-
-                                return@let it.sortBooks(
-                                    categorySort.sortOrder,
-                                    categorySort.sortOrderDescending
+                                return@let books.sortBooks(
+                                    category.sortOrder,
+                                    category.sortOrderDescending
                                 )
                             }
 
-                            return@let it
+                            return@let books
                         }
-                )
-            }
+                    )
+                }
 
             return@derivedStateOf categorizedBooks.let {
                 if (!perCategorySort) {
-                    return@let it.map {
-                        it.sortBooks(
+                    return@let it.map { books ->
+                        books.sortBooks(
                             sortOrder,
                             sortOrderDescending
                         )

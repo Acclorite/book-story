@@ -14,7 +14,6 @@ import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.core.BottomSheet
 import ua.acclorite.book_story.core.Dialog
 import ua.acclorite.book_story.domain.model.library.Category
-import ua.acclorite.book_story.domain.model.library.CategorySort
 import ua.acclorite.book_story.presentation.library.LibraryEvent
 import ua.acclorite.book_story.presentation.library.model.LibraryLayout
 import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
@@ -44,7 +43,6 @@ fun LibraryContent(
     categories: List<Category>,
     showDefaultCategory: Boolean,
     perCategorySort: Boolean,
-    categoriesSort: List<CategorySort>,
     sortOrder: LibrarySortOrder,
     sortOrderDescending: Boolean,
     layout: LibraryLayout,
@@ -53,7 +51,7 @@ fun LibraryContent(
     refreshState: PullRefreshState,
     dialog: Dialog?,
     bottomSheet: BottomSheet?,
-    updateCategorySort: (SettingsEvent.OnUpdateCategorySort) -> Unit,
+    updateCategory: (SettingsEvent.OnUpdateCategory) -> Unit,
     changeSortOrder: (LibrarySortOrder) -> Unit,
     changeSortOrderDescending: (Boolean) -> Unit,
     selectBook: (LibraryEvent.OnSelectBook) -> Unit,
@@ -90,13 +88,12 @@ fun LibraryContent(
         categories = categories,
         showDefaultCategory = showDefaultCategory,
         pagerState = pagerState,
-        categoriesSort = categoriesSort,
         sortOrder = sortOrder,
         sortOrderDescending = sortOrderDescending,
         perCategorySort = perCategorySort,
         changeSortOrder = changeSortOrder,
         changeSortOrderDescending = changeSortOrderDescending,
-        updateCategorySort = updateCategorySort,
+        updateCategory = updateCategory,
         dismissBottomSheet = dismissBottomSheet
     )
 
@@ -122,7 +119,6 @@ fun LibraryContent(
         categories = categories,
         showDefaultCategory = showDefaultCategory,
         perCategorySort = perCategorySort,
-        categoriesSort = categoriesSort,
         sortOrder = sortOrder,
         sortOrderDescending = sortOrderDescending,
         searchVisibility = searchVisibility,

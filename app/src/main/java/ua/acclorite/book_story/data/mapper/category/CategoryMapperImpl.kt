@@ -15,7 +15,9 @@ class CategoryMapperImpl @Inject constructor() : CategoryMapper {
         return CategoryEntity(
             id = category.id,
             title = category.title,
-            order = category.order
+            order = category.order,
+            sortOrder = category.sortOrder,
+            sortOrderDescending = category.sortOrderDescending
         )
     }
 
@@ -23,7 +25,9 @@ class CategoryMapperImpl @Inject constructor() : CategoryMapper {
         return Category(
             id = categoryEntity.id,
             title = categoryEntity.title,
-            order = categoryEntity.order
+            order = categoryEntity.order,
+            sortOrder = categoryEntity.sortOrder,
+            sortOrderDescending = categoryEntity.sortOrderDescending
         )
     }
 }

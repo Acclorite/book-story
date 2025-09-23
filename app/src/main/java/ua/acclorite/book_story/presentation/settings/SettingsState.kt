@@ -9,7 +9,6 @@ package ua.acclorite.book_story.presentation.settings
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.domain.model.library.Category
-import ua.acclorite.book_story.domain.model.library.CategorySort
 import ua.acclorite.book_story.domain.model.reader.ColorPreset
 
 @Immutable
@@ -19,6 +18,5 @@ data class SettingsState(
     val animateColorPreset: Boolean = false,
     val colorPresetListState: LazyListState = LazyListState(),
 
-    val categories: List<Category> = emptyList(),
-    val categoriesSort: List<CategorySort> = emptyList(),
+    val categories: List<Category> = emptyList()
 )

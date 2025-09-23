@@ -10,7 +10,6 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import ua.acclorite.book_story.core.language.Language
 import ua.acclorite.book_story.domain.model.library.Category
-import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
 
 @Immutable
 sealed class SettingsEvent {
@@ -30,9 +29,8 @@ sealed class SettingsEvent {
         val title: String
     ) : SettingsEvent()
 
-    data class OnUpdateCategoryTitle(
-        val id: Int,
-        val title: String
+    data class OnUpdateCategory(
+        val category: Category
     ) : SettingsEvent()
 
     data class OnUpdateCategoryOrder(
@@ -41,12 +39,6 @@ sealed class SettingsEvent {
 
     data class OnRemoveCategory(
         val category: Category
-    ) : SettingsEvent()
-
-    data class OnUpdateCategorySort(
-        val categoryId: Int,
-        val sortOrder: LibrarySortOrder,
-        val sortOrderDescending: Boolean
     ) : SettingsEvent()
 
     data class OnSelectColorPreset(

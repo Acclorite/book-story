@@ -89,7 +89,7 @@ object LibraryScreen : Screen, Parcelable {
         val pagerState = rememberPagerState(
             initialPage = initialPage
         ) {
-            settingsState.value.categories.count().plus(if (showDefaultCategory.value) 1 else 0)
+            settingsState.value.categories.count().minus(if (!showDefaultCategory.value) 1 else 0)
         }
         DisposableEffect(Unit) { onDispose { initialPage = pagerState.currentPage } }
 
@@ -126,14 +126,13 @@ object LibraryScreen : Screen, Parcelable {
             autoGridSize = settings.libraryAutoGridSize.value,
             categories = settingsState.value.categories,
             showDefaultCategory = showDefaultCategory.value,
-            categoriesSort = settingsState.value.categoriesSort,
             sortOrder = settings.librarySortOrder.value,
             sortOrderDescending = settings.librarySortOrderDescending.value,
             perCategorySort = settings.libraryPerCategorySort.value,
             refreshState = refreshState,
             dialog = state.value.dialog,
             bottomSheet = state.value.bottomSheet,
-            updateCategorySort = settingsModel::onEvent,
+            updateCategory = settingsModel::onEvent,
             changeSortOrder = { settings.librarySortOrder.update(it) },
             changeSortOrderDescending = { settings.librarySortOrderDescending.update(it) },
             selectBook = screenModel::onEvent,

@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import ua.acclorite.book_story.domain.model.library.Category
-import ua.acclorite.book_story.domain.model.library.CategorySort
 import ua.acclorite.book_story.presentation.library.LibraryEvent
 import ua.acclorite.book_story.presentation.library.model.LibraryLayout
 import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
@@ -51,7 +50,6 @@ fun LibraryScaffold(
     categories: List<Category>,
     showDefaultCategory: Boolean,
     perCategorySort: Boolean,
-    categoriesSort: List<CategorySort>,
     sortOrder: LibrarySortOrder,
     sortOrderDescending: Boolean,
     searchVisibility: (LibraryEvent.OnSearchVisibility) -> Unit,
@@ -110,7 +108,6 @@ fun LibraryScaffold(
                 categories = categories,
                 showDefaultCategory = showDefaultCategory,
                 perCategorySort = perCategorySort,
-                categoriesSort = categoriesSort,
                 sortOrder = sortOrder,
                 sortOrderDescending = sortOrderDescending,
                 layout = layout,
