@@ -133,7 +133,7 @@ object DatabaseHelper {
         override fun migrate(database: SupportSQLiteDatabase) {
             database.execSQL(
                 """
-                    CREATE TABLE IF NOT EXISTS ColorPresetEntity (
+                    CREATE TABLE IF NOT EXISTS ColorPresetEntity_new (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         name TEXT NOT NULL,
                         backgroundColor INTEGER NOT NULL,
