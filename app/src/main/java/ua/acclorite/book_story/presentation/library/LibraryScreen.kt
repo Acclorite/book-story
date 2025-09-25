@@ -66,10 +66,12 @@ object LibraryScreen : Screen, Parcelable {
             settings.libraryShowDefaultTab.value
         ) {
             derivedStateOf {
-                val categoryIds = settingsState.value.categories.map { it.id }.toSet()
+                val categories = settingsState.value.categories.filterNot { it.id == -1 }
+                val categoryIds = categories.map { it.id }.toSet()
                 state.value.books.any { book ->
                     book.data.categories.none { category -> category in categoryIds }
-                } || settingsState.value.categories.isEmpty() || settings.libraryShowDefaultTab.lastValue
+                } || categories.isEmpty() || settings.libraryShowDefaultTab.lastValue
+
             }
         }
 
