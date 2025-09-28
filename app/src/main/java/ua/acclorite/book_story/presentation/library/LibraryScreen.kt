@@ -71,7 +71,6 @@ object LibraryScreen : Screen, Parcelable {
                 state.value.books.any { book ->
                     book.data.categories.none { category -> category in categoryIds }
                 } || categories.isEmpty() || settings.libraryShowDefaultTab.lastValue
-
             }
         }
 
@@ -142,6 +141,7 @@ object LibraryScreen : Screen, Parcelable {
             requestFocus = screenModel::onEvent,
             searchQueryChange = screenModel::onEvent,
             search = screenModel::onEvent,
+            selectBooks = screenModel::onEvent,
             clearSelectedBooks = screenModel::onEvent,
             showMoveDialog = screenModel::onEvent,
             actionMoveDialog = screenModel::onEvent,

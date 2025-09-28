@@ -191,6 +191,25 @@ class LibraryModel @Inject constructor(
                     }
                 }
 
+                is LibraryEvent.OnSelectBooks -> {
+                    withContext(Dispatchers.Default) {
+                        val editedList = _state.value.books.map { book ->
+                            if (event.books.any { book.data.id == it.data.id }) book.copy(
+                                selected = if (event.books.size > 1) true else !book.selected
+                            )
+                            else book
+                        }
+
+                        _state.update {
+                            it.copy(
+                                books = editedList,
+                                selectedItemsCount = editedList.filter { book -> book.selected }.size,
+                                hasSelectedItems = editedList.any { book -> book.selected }
+                            )
+                        }
+                    }
+                }
+
                 is LibraryEvent.OnShowMoveDialog -> {
                     _state.update {
                         it.copy(

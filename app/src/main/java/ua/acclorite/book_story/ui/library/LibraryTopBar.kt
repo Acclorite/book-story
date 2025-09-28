@@ -23,6 +23,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.SelectAll
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.MoveUp
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -72,13 +73,14 @@ fun LibraryTopBar(
     requestFocus: (LibraryEvent.OnRequestFocus) -> Unit,
     searchQueryChange: (LibraryEvent.OnSearchQueryChange) -> Unit,
     search: (LibraryEvent.OnSearch) -> Unit,
+    selectBooks: (LibraryEvent.OnSelectBooks) -> Unit,
     clearSelectedBooks: (LibraryEvent.OnClearSelectedBooks) -> Unit,
     showMoveDialog: (LibraryEvent.OnShowMoveDialog) -> Unit,
     showDeleteDialog: (LibraryEvent.OnShowDeleteDialog) -> Unit,
     showFilterBottomSheet: (LibraryEvent.OnShowFilterBottomSheet) -> Unit
 ) {
     val defaultCategory = stringResource(id = R.string.default_tab)
-    val categoriesWithBookCount = remember(
+    val categoriesWithBooks = remember(
         books,
         categories,
         showDefaultCategory,
@@ -86,7 +88,7 @@ fun LibraryTopBar(
     ) {
         derivedStateOf {
             categories.filterNot { it.id == -1 }.map { category ->
-                category to books.count { it.data.categories.any { it == category.id } }
+                category to books.filter { it.data.categories.any { it == category.id } }
             }.toMutableList().apply {
                 if (showDefaultCategory) {
                     val categoryIds = categories.map { it.id }.toSet()
@@ -95,7 +97,7 @@ fun LibraryTopBar(
                         Category(
                             id = -1,
                             title = defaultCategory
-                        ) to books.count { book ->
+                        ) to books.filter { book ->
                             book.data.categories.none { category -> category in categoryIds }
                         }
                     )
@@ -103,9 +105,9 @@ fun LibraryTopBar(
             }.toList()
         }
     }
-    val currentCategory = remember(pagerState.currentPage, categoriesWithBookCount) {
+    val currentCategory = remember(pagerState.currentPage, categoriesWithBooks) {
         derivedStateOf {
-            categoriesWithBookCount.value[pagerState.currentPage]
+            categoriesWithBooks.value[pagerState.currentPage]
         }
     }
 
@@ -227,6 +229,17 @@ fun LibraryTopBar(
                 },
                 contentActions = {
                     IconButton(
+                        icon = Icons.Default.SelectAll,
+                        contentDescription = R.string.select_all_books_content_desc,
+                        disableOnClick = false,
+                    ) {
+                        selectBooks(
+                            LibraryEvent.OnSelectBooks(
+                                books = currentCategory.value.second
+                            )
+                        )
+                    }
+                    IconButton(
                         icon = Icons.Outlined.MoveUp,
                         contentDescription = R.string.move_books_content_desc,
                         enabled = !isLoading && !isRefreshing,
@@ -252,7 +265,7 @@ fun LibraryTopBar(
                 exit = shrinkVertically()
             ) {
                 LibraryTabs(
-                    categoriesWithBookCount = categoriesWithBookCount.value,
+                    categoriesWithBooks = categoriesWithBooks.value,
                     pagerState = pagerState,
                     itemCountBackgroundColor = animatedItemCountBackgroundColor.value,
                     showBookCount = showBookCount

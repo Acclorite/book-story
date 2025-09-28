@@ -475,6 +475,7 @@
     <string name="clear_selected_items_content_desc">Очистити обрані предмети</string>
     <string name="add_files_content_desc">Додати файли</string>
     <string name="select_all_files_content_desc">Вибрати всі файли</string>
+    <string name="select_all_books_content_desc">Вибрати всі книги</string>
     <string name="exit_search_content_desc">Вийти з пошуку</string>
     <string name="delete_whole_history_content_desc">Видалити всю історію</string>
     <string name="move_books_content_desc">Перемістити обрані книги</string>
