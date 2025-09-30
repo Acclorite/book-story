@@ -390,4 +390,5 @@
     <string name="sort_order_progress">التقدم</string>
     <string name="sort_order_author">المؤلف</string>
     <string name="gray_theme">يافث</string>
+    <string name="select_all_books_content_desc">حدّد كل الكتب</string>
 </resources>
