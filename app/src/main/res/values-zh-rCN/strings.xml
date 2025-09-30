@@ -390,4 +390,5 @@
     <string name="sort_order_author">作者</string>
     <string name="gray_theme">Iapetus</string>
     <string name="green2_theme">Io</string>
+    <string name="select_all_books_content_desc">选中所有书籍</string>
 </resources>
