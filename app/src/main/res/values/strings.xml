@@ -171,6 +171,9 @@
         Removing a category here will not delete books from the Library.
         Hold and move the category icon to rearrange the categories.
     </string>
+    <string name="library_per_category_sort_option_note">
+        Sorting can be changed in the Library.
+    </string>
 
     <!-- Settings options -->
     <!-- General -->

@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategory
 import ua.acclorite.book_story.ui.settings.library.sort.components.LibraryPerCategorySortOption
+import ua.acclorite.book_story.ui.settings.library.sort.components.LibraryPerCategorySortOptionNote
 
 fun LazyListScope.LibrarySortSubcategory(
     titleColor: @Composable () -> Color = { MaterialTheme.colorScheme.primary },
@@ -31,6 +32,10 @@ fun LazyListScope.LibrarySortSubcategory(
     ) {
         item {
             LibraryPerCategorySortOption()
+        }
+
+        item {
+            LibraryPerCategorySortOptionNote()
         }
     }
 }
