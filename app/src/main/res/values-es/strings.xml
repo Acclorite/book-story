@@ -390,4 +390,5 @@
     <string name="green2_theme">Ío</string>
     <string name="green_gray_theme">Encélado</string>
     <string name="gray_theme">Jápeto</string>
+    <string name="select_all_books_content_desc">Seleccionar todos los libros</string>
 </resources>
