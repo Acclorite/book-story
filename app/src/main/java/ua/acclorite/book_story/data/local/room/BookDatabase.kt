@@ -221,12 +221,6 @@ object DatabaseHelper {
                         ON c.id = cs.categoryId
                 """
             )
-            database.execSQL(
-                """
-                    INSERT INTO CategoryEntity_new (id, title, `order`, sortOrder, sortOrderDescending)
-                    VALUES (-1, '', -1, 'LAST_READ', 1)
-                """
-            )
             database.execSQL("DROP TABLE CategoryEntity")
             database.execSQL("DROP TABLE CategorySortEntity")
             database.execSQL("ALTER TABLE CategoryEntity_new RENAME TO CategoryEntity")

@@ -141,7 +141,7 @@ fun LibraryTopBar(
                             Spacer(modifier = Modifier.width(6.dp))
                             StyledText(
                                 text = if (showCategoryTabs) bookCount.toString()
-                                else currentCategory.value.second.toString(),
+                                else currentCategory.value.second.size.toString(),
                                 modifier = Modifier
                                     .background(
                                         MaterialTheme.colorScheme.surfaceContainer,

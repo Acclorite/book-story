@@ -49,9 +49,6 @@ object AppModule {
     @Provides
     @Singleton
     fun provideBookDatabase(app: Application): BookDatabase {
-        // Additional Migrations
-        DatabaseHelper.AUTO_MIGRATION_7_8.removeBooksDir(app)
-
         return Room.databaseBuilder(
             app,
             BookDatabase::class.java,
@@ -63,6 +60,10 @@ object AppModule {
             DatabaseHelper.MANUAL_MIGRATION_13_14, // remove nullability from ColorPresetEntity
             DatabaseHelper.MANUAL_MIGRATION_14_15, // remove author nullability from BookEntity
             DatabaseHelper.MANUAL_MIGRATION_15_16, // merge CategoryEntity and CategorySortEntity
-        ).allowMainThreadQueries().build()
+        ).allowMainThreadQueries().build().also { database ->
+            // Additional Migrations
+            DatabaseHelper.AUTO_MIGRATION_7_8.removeBooksDir(app)
+            database.categoryDao.ensureDefaultCategory()
+        }
     }
 }
