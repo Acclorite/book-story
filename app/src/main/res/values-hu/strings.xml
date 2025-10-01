@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="appearance_settings">Kinézet</string>
+    <string name="appearance_settings_desc">Témák, színek</string>
+    <string name="reader_settings">Olvasó</string>
+    <string name="browse_settings">Keresés</string>
+    <string name="library_settings">Könyvtár</string>
+    <string name="text_reader_settings">Szöveg</string>
+    <string name="translator_reader_settings">Fordító</string>
+    <string name="misc_reader_settings">Stb</string>
+    <string name="system_reader_settings">Rendszer</string>
+    <string name="images_reader_settings">Képek</string>
+    <string name="colors_appearance_settings">Színek</string>
+    <string name="default_string">Alap</string>
+    <string name="library_screen">Képernyők</string>
+    <string name="history_screen">Előzmények</string>
+    <string name="browse_screen">Keresés</string>
+    <string name="settings_screen">Beállítások</string>
+    <string name="about_screen">Appról</string>
+    <string name="help_screen">Segítség</string>
+    <string name="add_books">Könyv hozzáadása?</string>
+    <string name="delete_books">Könyvek törlése?</string>
+    <string name="delete_book">Könyv törlése?</string>
+    <string name="delete_history">Előzmények törlése?</string>
+    <string name="remove_category">Kategória törlése?</string>
+    <string name="add_books_description">Kiválaszthatod, mely könyveket szeretnéd hozzáadni. A könyv címét és borítóképét később is szerkesztheted. A betöltési folyamat akár több percig is eltarthat.</string>
+    <string name="delete_books_description">Ez törli az összes kiválasztott könyveket (%1$s) az adatbázisból. A kiválasztott könyveket a készülékedről nem törli.</string>
+    <string name="delete_book_description">Ez törli az összes kiválasztott könyvet az adatbázisból. A kiválasztott könyvet a készülékedről nem törli.</string>
+    <string name="delete_history_description">Ez törli az egész előzményt az adatbázisból. Az előzmények teljes törlése után a könyvek sorrendje alaphelyzetbe áll.</string>
+    <string name="remove_category_description">Ez eltávolítja ezt a kategóriát a könyvtárból, de a könyveket nem törli.</string>
+    <string name="error_no_description">Nincs leírás.</string>
+    <string name="error_something_went_wrong">Hiba történt.</string>
+    <string name="error_no_translator">Nem található fordító alkalmazás.</string>
+    <string name="error_no_dictionary">Nem található szótár alkalmazás.</string>
+    <string name="error_no_browser">Nem található böngésző alkalmazás.</string>
+    <string name="error_no_share_app">Nem található megosztó alkalmazás.</string>
+    <string name="error_no_file_manager_app">Nem található alkalmazás a mappa kiválasztásához.</string>
+    <string name="error_could_not_get_text">A fájl üres, hiányzik, vagy nem elérhető. Ellenőrizd a fájlt, a beolvasási beállításokat, vagy módosítsd az elérési utat, majd próbáld újra.</string>
+</resources>

@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
-
-<resources>
+  --><resources>
     <string name="about_screen">ആപ്പിനെക്കുറിച്ച്</string>
     <string name="help_screen">സഹായം</string>
     <string name="settings_screen">ക്രമീകരണങ്ങൾ</string>
     <string name="error_no_description">വിവരണം ലഭ്യമല്ല</string>
     <string name="library_screen">ലൈബ്രറി</string>
     <string name="history_screen">ചരിത്രം</string>
+    <string name="add_books">പുസ്തകങ്ങൾ ചേർക്കണോ?</string>
+    <string name="delete_books">പുസ്തകങ്ങൾ ഒഴിവാക്കണമോ?</string>
+    <string name="delete_book">പുസ്തകം ഒഴിവാക്കണമോ?</string>
+    <string name="delete_history">വായന ചരിത്രം ഒഴിവാക്കണമോ?</string>
+    <string name="remove_category">വിഭാഗം നീക്കം ചെയ്യണോ?</string>
+    <string name="add_books_description">ഏതൊക്കെ പുസ്തകങ്ങളാണ് ചേർക്കേണ്ടതെന്ന് നിങ്ങൾക്ക് തിരഞ്ഞെടുക്കാം. പുസ്തകത്തിന്റെ ശീർഷകവും കവർ ചിത്രവും പിന്നീട് എഡിറ്റ് ചെയ്യാം. ലോഡിംഗ് പ്രക്രിയയ്ക്ക് നിരവധി മിനിറ്റ് വരെ എടുത്തേക്കാം.</string>
+    <string name="delete_books_description">ഇത് ഡാറ്റാബേസിൽ നിന്ന് തിരഞ്ഞെടുത്ത എല്ലാ പുസ്തകങ്ങളെയും (%1$s) ഇല്ലാതാക്കും. നിങ്ങളുടെ ഉപകരണത്തിൽ നിന്ന് തിരഞ്ഞെടുത്ത പുസ്തകങ്ങളെ ഇത് ഇല്ലാതാക്കില്ല.</string>
 </resources>

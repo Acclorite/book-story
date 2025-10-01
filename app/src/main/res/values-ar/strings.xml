@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
-
-<resources>
+  --><resources>
     <string name="history_screen">التاريخ</string>
     <string name="add_books_description">يمكنك اختيار أي الكُتب تريد إضافتها. يمكنك تعديل العنوان و صورة غلاف الكتاب لاحقا. عملية التحميل يمكن أن تستغرق حتى بضع دقائق.</string>
     <string name="library_screen">المكتبة</string>
@@ -36,7 +33,7 @@
     <string name="reset_cover">إعادة ضبط صورة الغلاف</string>
     <string name="appearance_settings">المظهر</string>
     <string name="reader_settings">قارئ</string>
-    <string name="reader_settings_desc">الخط، النص، المترجم</string>
+    <string name="reader_settings_desc">الخط، النص</string>
     <string name="translator_reader_settings">مترجم</string>
     <string name="theme_appearance_settings">تفضيلات السمة</string>
     <string name="language_option">لغة التطبيق</string>
@@ -365,4 +362,33 @@
     <string name="crash_title">عفواً! لقد تعطل التطبيق.</string>
     <string name="crash_description">يُرجى الإبلاغ عن رسالة التعطل هذه بالطريقة الأكثر ملاءمة لك.</string>
     <string name="report">بلّغ</string>
+    <string name="remove_category">إزالة الفئة؟</string>
+    <string name="remove_category_description">سيؤدي هذا إلى إزالة هذه الفئة من المكتبة ولكنه لن يحذف أي كتب.</string>
+    <string name="error_field_empty">يجب ألا يكون هذا الحقل فارغًا.</string>
+    <string name="categories_empty">لا توجد فئات.</string>
+    <string name="create_category">أنشئ فئة</string>
+    <string name="default_tab">الافتراضي</string>
+    <string name="library_settings">مكتبة</string>
+    <string name="library_settings_desc">الفئات، العرض، علامات التبويب</string>
+    <string name="tabs_settings">علامات التبويب</string>
+    <string name="categories_settings">الفئات</string>
+    <string name="library_categories_option_note">في البداية، تُضاف الكتب إلى الفئة الافتراضية، ولكن يمكن أن تنتمي إلى عدة فئات مخصّصة أُنشئت هنا. إزالة فئة من هنا لن يحذف الكتب من المكتبة. اضغط مع الاستمرار وحرك أيقونة الفئة لإعادة ترتيب الفئات.</string>
+    <string name="images_captions_option">التسميات التوضيحية</string>
+    <string name="images_captions_option_desc">اعرض التسميات التوضيحية أسفل الصور</string>
+    <string name="read_button_option">أظهر زر «قراءة»</string>
+    <string name="show_progress_option">أظهر التقدم</string>
+    <string name="title_position_option">المسمى الوظيفي</string>
+    <string name="show_book_count_option">أظهر عدد الكتب</string>
+    <string name="show_category_tabs_option">أظهر علامات تبويب الفئات</string>
+    <string name="always_show_default_tab_option">أظهر علامة التبويب الافتراضية دائمًا</string>
+    <string name="per_category_sort_option">الفرز حسب الفئة</string>
+    <string name="library_title_position_off">مخفي</string>
+    <string name="library_title_position_below">أسفل</string>
+    <string name="library_title_position_inside">الداخل</string>
+    <string name="library_categories_create_category_placeholder">العنوان</string>
+    <string name="sort_order_last_read">آخر قراءة</string>
+    <string name="sort_order_progress">التقدم</string>
+    <string name="sort_order_author">المؤلف</string>
+    <string name="gray_theme">يافث</string>
+    <string name="select_all_books_content_desc">حدّد كل الكتب</string>
 </resources>

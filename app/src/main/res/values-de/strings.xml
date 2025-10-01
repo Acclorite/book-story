@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
-
-<resources>
+  --><resources>
     <string name="library_screen">Bibliothek</string>
     <string name="history_screen">Verlauf</string>
     <string name="browse_screen">Durchsuchen</string>
@@ -111,7 +108,7 @@
     <string name="help_title_how_to_customize_reader">Wie passe ich den Reader an?</string>
     <string name="help_desc_how_to_customize_reader_1">Beginnen Sie mit dem Lesen des Buches (siehe: Wie lese ich ein Buch?), und bringen Sie dann die oberen und unteren Balken zum Vorschein, indem Sie irgendwo auf den Bildschirm klicken. Klicken Sie dann auf das Zahnradsymbol in der oberen rechten Ecke. Dadurch werden alle Reader-Einstellungen angezeigt. Der zweite Weg ist, zu den</string>
     <string name="start_done">Alles ist erledigt!</string>
-    <string name="start_done_desc">Sie haben die Grundeinstellungen der App erfolgreich abgeschlossen. Möchten Sie anhand des Hilfebildschirms erfahren, wie Sie die App verwenden?</string>
+    <string name="start_done_desc">Die Einrichtung ist abgeschlossen. Möchten Sie zum Hilfebildschirm wechseln?</string>
     <string name="today">Heute</string>
     <string name="yesterday">Gestern</string>
     <string name="continue_reading_content_desc">Weiterlesen</string>
@@ -151,7 +148,7 @@
     <string name="appearance_settings">Aussehen</string>
     <string name="app_theme_option">App-Design</string>
     <string name="font_style_option">Schriftstil</string>
-    <string name="reader_settings_desc">Schriftart, Text, Übersetzer</string>
+    <string name="reader_settings_desc">Schriftart, Text</string>
     <string name="font_reader_settings">Schriftart</string>
     <string name="text_reader_settings">Text</string>
     <string name="font_family_option">Schriftfamilie</string>
@@ -213,7 +210,7 @@
     <string name="filter_tab">Filter</string>
     <string name="sort_tab">Sortieren</string>
     <string name="browse_settings">Durchsuchen</string>
-    <string name="browse_settings_desc">Allgemein, Filter, Sortieren</string>
+    <string name="browse_settings_desc">Scannen, anzeigen</string>
     <string name="filter_browse_settings">Filter</string>
     <string name="sort_settings">Sortieren</string>
     <string name="layout_option">Anzeigemodus</string>
@@ -292,7 +289,7 @@
     <string name="progress_reader_settings">Fortschritt</string>
     <string name="chapter_title_alignment_option">Ausrichtung der Kapiteltitel</string>
     <string name="images_option">Bilder</string>
-    <string name="images_option_desc">Bilder mit Bildunterschriften anzeigen</string>
+    <string name="images_option_desc">Bilder anzeigen</string>
     <string name="images_corners_roundness_option">Eckenrundungen</string>
     <string name="images_width_option">Größe</string>
     <string name="images_color_effects_option">Farbeffekte</string>
@@ -341,7 +338,7 @@
     <string name="font_thickness_option">Schriftstärke</string>
     <string name="start_reading">Start</string>
     <string name="show_more_content_desc">Mehr zeigen</string>
-    <string name="edit_content_desc">Feld bearbeiten</string>
+    <string name="edit_content_desc">Bearbeiten</string>
     <string name="ok">OK</string>
     <string name="font_thickness_medium">Medium</string>
     <string name="show_less_content_desc">Weniger zeigen</string>
@@ -365,4 +362,32 @@
     <string name="support_development_option">Development unterstützen</string>
     <string name="horizontal_gesture_pull_anim_option_desc">Zieh-Animation bei Verwendung der horizontalen Geste aktivieren</string>
     <string name="horizontal_gesture_alpha_anim_option">Sichtbarkeitsanimation</string>
+    <string name="remove_category">Kategorie entfernen?</string>
+    <string name="remove_category_description">Dadurch wird diese Kategorie aus der Bibliothek entfernt, es werden jedoch keine Bücher gelöscht.</string>
+    <string name="error_field_empty">Dieses Feld darf nicht leer bleiben.</string>
+    <string name="categories_empty">Keine Kategorien.</string>
+    <string name="create_category">Kategorie erstellen</string>
+    <string name="default_tab">Standard</string>
+    <string name="library_settings">Bibliothek</string>
+    <string name="library_settings_desc">Kategorien, Anzeige, Registerkarten</string>
+    <string name="tabs_settings">Registerkarten</string>
+    <string name="categories_settings">Kategorien</string>
+    <string name="library_categories_option_note">Bücher werden zunächst der Standardkategorie zugeordnet, können aber auch mehreren hier erstellten benutzerdefinierten Kategorien angehören. Das Entfernen einer Kategorie hier führt nicht dazu, dass Bücher aus der Bibliothek gelöscht werden. Halten Sie das Kategoriesymbol gedrückt und verschieben Sie es, um die Kategorien neu anzuordnen.</string>
+    <string name="images_captions_option">Bildunterschriften</string>
+    <string name="images_captions_option_desc">Beschriftungen unter Bildern anzeigen</string>
+    <string name="read_button_option">Schaltfläche „Lesen“ anzeigen</string>
+    <string name="show_progress_option">Fortschritt anzeigen</string>
+    <string name="title_position_option">Titelposition</string>
+    <string name="show_book_count_option">Buchanzahl anzeigen</string>
+    <string name="show_category_tabs_option">Kategorie-Registerkarten anzeigen</string>
+    <string name="always_show_default_tab_option">Standardregisterkarte immer anzeigen</string>
+    <string name="per_category_sort_option">Sortierung nach Kategorien</string>
+    <string name="library_title_position_off">Versteckt</string>
+    <string name="library_title_position_below">Unten</string>
+    <string name="library_title_position_inside">Innen</string>
+    <string name="library_categories_create_category_placeholder">Titel</string>
+    <string name="sort_order_last_read">Zuletzt gelesen</string>
+    <string name="sort_order_progress">Fortschritt</string>
+    <string name="sort_order_author">Autor</string>
+    <string name="gray_theme">Iapetus</string>
 </resources>
