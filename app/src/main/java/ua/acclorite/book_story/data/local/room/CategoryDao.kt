@@ -16,6 +16,9 @@ import ua.acclorite.book_story.data.local.dto.CategoryEntity
 
 @Dao
 interface CategoryDao {
+    @Query("INSERT OR IGNORE INTO CategoryEntity (id, title, `order`, sortOrder, sortOrderDescending) VALUES (-1, '', -1, 'LAST_READ', 1)")
+    fun ensureDefaultCategory()
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCategory(
         category: CategoryEntity
