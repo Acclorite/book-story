@@ -221,6 +221,22 @@ object DatabaseHelper {
                         ON c.id = cs.categoryId
                 """
             )
+            database.execSQL(
+                """
+                    INSERT INTO CategoryEntity_new (id, title, `order`, sortOrder, sortOrderDescending)
+                    SELECT 
+                        -1,
+                        '',
+                        -1,
+                        COALESCE(cs.sortOrder, 'LAST_READ'),
+                        COALESCE(cs.sortOrderDescending, 1)
+                    FROM CategorySortEntity cs
+                    WHERE cs.categoryId = -1
+                      AND NOT EXISTS (
+                        SELECT 1 FROM CategoryEntity WHERE id = -1
+                      )
+                """
+            )
             database.execSQL("DROP TABLE CategoryEntity")
             database.execSQL("DROP TABLE CategorySortEntity")
             database.execSQL("ALTER TABLE CategoryEntity_new RENAME TO CategoryEntity")
