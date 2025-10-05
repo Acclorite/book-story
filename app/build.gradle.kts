@@ -1,5 +1,3 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -13,25 +11,22 @@ plugins {
 
 android {
     namespace = "ua.acclorite.book_story"
-    compileSdk = 35
+    compileSdk = 36
 
+    // Default configuration
     defaultConfig {
         applicationId = "ua.acclorite.book_story"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 13
         versionName = "1.7.1"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
     }
 
-    room {
-        schemaDirectory("$projectDir/schemas")
-    }
-
+    // Build types configuration
     buildTypes {
         getByName("debug") {
             applicationIdSuffix = ".debug"
@@ -50,6 +45,8 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+
+    // Kotlin configuration
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -57,6 +54,15 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
+    // Room configuration
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
+    }
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
+
     buildFeatures {
         buildConfig = true
         compose = true
@@ -73,17 +79,16 @@ android {
     }
 }
 
+// About Libraries configuration
 aboutLibraries {
     registerAndroidTasks = false
     prettyPrint = true
-    gitHubApiToken = gradleLocalProperties(rootDir, providers)["github-key"] as? String
 
     filterVariants = arrayOf("debug", "release", "release-debug")
     excludeFields = arrayOf("generated", "funding", "description")
 }
 
 dependencies {
-
     // Core
     implementation("androidx.core:core-ktx:1.16.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.1")
@@ -109,9 +114,9 @@ dependencies {
     implementation("com.google.accompanist:accompanist-swiperefresh:0.36.0")
 
     // Dagger - Hilt
-    implementation("com.google.dagger:hilt-android:2.55")
-    ksp("com.google.dagger:hilt-android-compiler:2.55")
-    implementation("com.google.dagger:hilt-compiler:2.55")
+    implementation("com.google.dagger:hilt-android:2.57.2")
+    ksp("com.google.dagger:hilt-android-compiler:2.57.2")
+    implementation("com.google.dagger:hilt-compiler:2.57.2")
     ksp("androidx.hilt:hilt-compiler:1.2.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
@@ -129,13 +134,13 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
 
     // SAF
-    implementation("com.anggrayudi:storage:2.0.0")
+    implementation("com.anggrayudi:storage:2.2.0")
 
     // PDF parser
     implementation("com.tom-roush:pdfbox-android:2.0.27.0")
 
     // EPUB parser
-    implementation("org.jsoup:jsoup:1.18.3")
+    implementation("org.jsoup:jsoup:1.21.2")
 
     // Language Switcher
     implementation("androidx.appcompat:appcompat:1.7.1")
@@ -155,8 +160,8 @@ dependencies {
     implementation("com.github.nanihadesuka:LazyColumnScrollbar:2.2.0")
 
     // Markdown
-    implementation("org.commonmark:commonmark:0.24.0")
+    implementation("org.commonmark:commonmark:0.26.0")
 
     // Json
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
 }
