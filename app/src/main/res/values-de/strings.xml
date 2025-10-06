@@ -390,4 +390,6 @@
     <string name="sort_order_progress">Fortschritt</string>
     <string name="sort_order_author">Autor</string>
     <string name="gray_theme">Iapetus</string>
+    <string name="library_per_category_sort_option_note">Die Sortierung kann in der Bibliothek geändert werden.</string>
+    <string name="select_all_books_content_desc">Alle Bücher auswählen</string>
 </resources>
