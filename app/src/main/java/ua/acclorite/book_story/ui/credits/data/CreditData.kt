@@ -74,14 +74,6 @@ object CreditData {
             website = "https://opendyslexic.org"
         ),
         Credit(
-            name = "GitLab Badge",
-            source = "Censorship Website",
-            credits = listOf(
-                UIText.StringResource(R.string.credits_icon)
-            ),
-            website = "https://censorship.no/en/index.html"
-        ),
-        Credit(
             name = "GitHub Badge",
             source = "GitHub",
             credits = listOf(
