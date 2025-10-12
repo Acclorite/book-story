@@ -50,7 +50,9 @@ fun CheckboxDialogItem(
 
         StyledText(
             text = title,
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.bodyLarge.copy(
+                color = MaterialTheme.colorScheme.onSurface
+            ),
             maxLines = 1
         )
     }
