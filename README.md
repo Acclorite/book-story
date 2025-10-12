@@ -58,7 +58,7 @@ open-source, offering you a personalized, ad-free journey through your favorite 
 - Storage Access Framework
 - 7 supported file formats(.pdf, .txt, .epub, .fb2, .html, .htm, .md)
 - Material You design with unique themes and color presets
-- Organized Library with categories and chapters in Reader
+- Organized Library with custom categories and chapters in the Reader
 - Highly customizable
 
 ---
