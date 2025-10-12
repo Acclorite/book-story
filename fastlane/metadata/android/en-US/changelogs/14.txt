@@ -1,0 +1,8 @@
+* New languages: Hungarian and Korean
+* Library update (custom categories, new customization options, sorting)
+* Option to disable captions under images
+* Multiple checkpoints in Reader
+* New gray "Iapetus" theme
+* Fixed issue with opening books
+* Code refactor
+* Various bug fixes and small improvements
