@@ -16,11 +16,6 @@ sealed class ReaderEffect {
 
     data object OnResetBrightness : ReaderEffect()
 
-    data class OnScroll(
-        val scrollIndex: Int,
-        val scrollOffset: Int
-    ) : ReaderEffect()
-
     data class OnOpenTranslator(
         val textToTranslate: String,
         val translateWholeParagraph: Boolean

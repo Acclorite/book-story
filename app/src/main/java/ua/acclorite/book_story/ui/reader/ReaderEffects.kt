@@ -8,7 +8,6 @@ package ua.acclorite.book_story.ui.reader
 
 import android.app.SearchManager
 import android.content.Intent
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.core.net.toUri
@@ -30,13 +29,12 @@ import ua.acclorite.book_story.ui.navigator.LocalNavigator
 fun ReaderEffects(
     effects: SharedFlow<ReaderEffect>,
     book: Book,
-    listState: LazyListState,
     fullscreen: Boolean
 ) {
     val navigator = LocalNavigator.current
     val activity = LocalActivity.current
 
-    LaunchedEffect(effects, book, listState, fullscreen) {
+    LaunchedEffect(effects, book, fullscreen) {
         effects.collect { effect ->
             when (effect) {
                 is ReaderEffect.OnSystemBarsVisibility -> {
@@ -53,13 +51,6 @@ fun ReaderEffects(
 
                 is ReaderEffect.OnResetBrightness -> {
                     activity.setBrightness(brightness = null)
-                }
-
-                is ReaderEffect.OnScroll -> {
-                    listState.requestScrollToItem(
-                        effect.scrollIndex,
-                        effect.scrollOffset
-                    )
                 }
 
                 is ReaderEffect.OnOpenTranslator -> {

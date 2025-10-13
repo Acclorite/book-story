@@ -6,18 +6,11 @@
 
 package ua.acclorite.book_story.presentation.settings
 
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.domain.model.reader.ColorPreset
 
 @Immutable
 sealed class SettingsEffect {
-    data class OnScroll(
-        val listState: LazyListState,
-        val index: Int,
-        val offset: Int
-    ) : SettingsEffect()
-
     data class OnSwitchedColorPreset(
         val newColorPreset: ColorPreset
     ) : SettingsEffect()

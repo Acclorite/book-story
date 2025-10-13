@@ -111,11 +111,9 @@ class ReaderModel @Inject constructor(
                 is ReaderEvent.OnRestoreScroll -> {
                     snapshotFlow { _state.value.listState.layoutInfo.totalItemsCount }.first { it > 0 }
 
-                    _effects.emit(
-                        ReaderEffect.OnScroll(
-                            scrollIndex = _state.value.book.scrollIndex,
-                            scrollOffset = _state.value.book.scrollOffset
-                        )
+                    _state.value.listState.requestScrollToItem(
+                        index = _state.value.book.scrollIndex,
+                        scrollOffset = _state.value.book.scrollOffset
                     )
 
                     _state.update {
@@ -205,11 +203,9 @@ class ReaderModel @Inject constructor(
                             .takeIf { it != -1 }
                         if (chapterIndex == null) return@withContext
 
-                        _effects.emit(
-                            ReaderEffect.OnScroll(
-                                scrollIndex = chapterIndex,
-                                scrollOffset = 0
-                            )
+                        _state.value.listState.requestScrollToItem(
+                            index = chapterIndex,
+                            scrollOffset = 0
                         )
 
                         onEvent(ReaderEvent.OnUpdateChapter(chapterIndex))
@@ -230,11 +226,9 @@ class ReaderModel @Inject constructor(
 
                         val scrollTo = (_state.value.text.lastIndex * event.progress).roundToInt()
 
-                        _effects.emit(
-                            ReaderEffect.OnScroll(
-                                scrollIndex = scrollTo,
-                                scrollOffset = 0
-                            )
+                        _state.value.listState.requestScrollToItem(
+                            index = scrollTo,
+                            scrollOffset = 0
                         )
 
                         onEvent(ReaderEvent.OnUpdateChapter(scrollTo))
@@ -252,11 +246,9 @@ class ReaderModel @Inject constructor(
                             )
                         }
 
-                        _effects.emit(
-                            ReaderEffect.OnScroll(
-                                scrollIndex = event.checkpoint.index,
-                                scrollOffset = event.checkpoint.offset
-                            )
+                        _state.value.listState.requestScrollToItem(
+                            index = event.checkpoint.index,
+                            scrollOffset = event.checkpoint.offset
                         )
 
                         onEvent(ReaderEvent.OnUpdateChapter(event.checkpoint.index))

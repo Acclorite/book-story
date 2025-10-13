@@ -80,12 +80,9 @@ class SettingsModel @Inject constructor(
 
             val scrollIndex = colorPresets.indexOfFirst { it.isSelected }
             if (scrollIndex != -1) {
-                _effects.emit(
-                    SettingsEffect.OnScroll(
-                        listState = _state.value.colorPresetListState,
-                        index = scrollIndex,
-                        offset = 0
-                    )
+                _state.value.colorPresetListState.requestScrollToItem(
+                    index = scrollIndex,
+                    scrollOffset = 0
                 )
             }
 
@@ -258,12 +255,9 @@ class SettingsModel @Inject constructor(
                                 )
                             }
 
-                            _effects.emit(
-                                SettingsEffect.OnScroll(
-                                    listState = _state.value.colorPresetListState,
-                                    index = nextPosition,
-                                    offset = 0
-                                )
+                            _state.value.colorPresetListState.requestScrollToItem(
+                                index = nextPosition,
+                                scrollOffset = 0
                             )
                         }
                     }
@@ -348,12 +342,9 @@ class SettingsModel @Inject constructor(
                                 )
                             }
 
-                            _effects.emit(
-                                SettingsEffect.OnScroll(
-                                    listState = _state.value.colorPresetListState,
-                                    index = colorPresets.lastIndex,
-                                    offset = 0
-                                )
+                            _state.value.colorPresetListState.requestScrollToItem(
+                                index = colorPresets.lastIndex,
+                                scrollOffset = 0
                             )
                         }
                     }

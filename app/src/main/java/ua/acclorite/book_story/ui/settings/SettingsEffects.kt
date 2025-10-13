@@ -21,20 +21,14 @@ fun SettingsEffects(effects: SharedFlow<SettingsEffect>) {
     LaunchedEffect(effects) {
         effects.collect { effect ->
             when (effect) {
-                is SettingsEffect.OnScroll -> {
-                    effect.listState.requestScrollToItem(effect.index, effect.offset)
-                }
-
                 is SettingsEffect.OnSwitchedColorPreset -> {
                     context.getString(
                         R.string.color_preset_selected_query,
-                        if (effect.newColorPreset.name.isBlank()) {
+                        effect.newColorPreset.name.ifBlank {
                             context.getString(
                                 R.string.color_preset_query,
                                 effect.newColorPreset.id.toString()
                             )
-                        } else {
-                            effect.newColorPreset.name
                         }.trim()
                     ).showToast(context, longToast = false)
                 }

@@ -380,7 +380,6 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
         ReaderEffects(
             effects = screenModel.effects,
             book = state.value.book,
-            listState = listState,
             fullscreen = settings.fullscreen.value
         )
 
