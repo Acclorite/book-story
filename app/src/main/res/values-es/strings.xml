@@ -391,4 +391,5 @@
     <string name="green_gray_theme">Encélado</string>
     <string name="gray_theme">Jápeto</string>
     <string name="select_all_books_content_desc">Seleccionar todos los libros</string>
+    <string name="library_per_category_sort_option_note">El método de clasificación se puede cambiar en la libreria.</string>
 </resources>

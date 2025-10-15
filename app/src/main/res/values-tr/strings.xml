@@ -546,7 +546,7 @@
     <string name="show_book_count_option">Kitap sayısını göster</string>
     <string name="show_category_tabs_option">Kategori sekmelerini göster</string>
     <string name="always_show_default_tab_option">Varsayılan sekmeyi her zaman göster</string>
-    <string name="per_category_sort_option">Kategoriye göre sıralama</string>
+    <string name="per_category_sort_option">Kategoriye göre sırala</string>
     <string name="library_title_position_off">Gizli</string>
     <string name="library_title_position_below">Aşağıda</string>
     <string name="library_title_position_inside">İçinde</string>
@@ -555,4 +555,6 @@
     <string name="sort_order_progress">İlerleme</string>
     <string name="sort_order_author">Yazar</string>
     <string name="gray_theme">Iapetus</string>
+    <string name="library_per_category_sort_option_note">Sıralama, kütüphane içinde değiştirilebilir.</string>
+    <string name="select_all_books_content_desc">Tüm kitapları seç</string>
 </resources>
