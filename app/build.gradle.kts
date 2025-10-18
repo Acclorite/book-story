@@ -90,24 +90,24 @@ aboutLibraries {
 
 dependencies {
     // Core
-    implementation("androidx.core:core-ktx:1.16.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.1")
-    implementation("androidx.activity:activity-compose:1.10.1")
+    implementation("androidx.core:core-ktx:1.17.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.4")
+    implementation("androidx.activity:activity-compose:1.11.0")
 
     // Compose BOM libraries
     // Compose BOM was eliminated - it is recognized as Closed Source in AboutLibraries..
     // although it is not.
-    implementation("androidx.compose.foundation:foundation:1.8.3")
-    implementation("androidx.compose.animation:animation:1.8.3")
-    implementation("androidx.compose.animation:animation-android:1.8.3")
-    implementation("androidx.compose.foundation:foundation-layout:1.8.3")
-    implementation("androidx.compose.ui:ui:1.8.3")
-    implementation("androidx.compose.ui:ui-graphics:1.8.3")
-    implementation("androidx.compose.ui:ui-android:1.8.3")
-    implementation("androidx.compose.material3:material3:1.4.0-alpha17")
-    implementation("androidx.compose.material3:material3-window-size-class:1.3.2")
+    implementation("androidx.compose.foundation:foundation:1.9.3")
+    implementation("androidx.compose.animation:animation:1.9.3")
+    implementation("androidx.compose.animation:animation-android:1.9.3")
+    implementation("androidx.compose.foundation:foundation-layout:1.9.3")
+    implementation("androidx.compose.ui:ui:1.9.3")
+    implementation("androidx.compose.ui:ui-graphics:1.9.3")
+    implementation("androidx.compose.ui:ui-android:1.9.3")
+    implementation("androidx.compose.material3:material3:1.5.0-alpha06")
+    implementation("androidx.compose.material3:material3-window-size-class:1.4.0")
     implementation("androidx.compose.material:material-icons-extended:1.7.8")
-    implementation("androidx.compose.material:material:1.8.3")
+    implementation("androidx.compose.material:material:1.9.3")
 
     // All dependencies
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.1")
