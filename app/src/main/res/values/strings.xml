@@ -186,6 +186,8 @@
     <string name="app_theme_option">App theme</string>
     <string name="double_press_exit_option">Double back press to exit</string>
     <string name="double_press_exit_option_desc">Press back twice to exit the app</string>
+    <string name="show_navigation_labels_option">Show navigation labels</string>
+    <string name="show_navigation_labels_option_desc">Show navigation bar labels under icons</string>
 
     <!-- Reader -->
     <string name="font_family_option">Font family</string>

@@ -151,8 +151,18 @@ class MainActivity : AppCompatActivity() {
                                             Transitions.FadeTransitionIn
                                                 .togetherWith(Transitions.FadeTransitionOut)
                                         },
-                                        navigationBar = { NavigationBar(tabs = tabs) },
-                                        navigationRail = { NavigationRail(tabs = tabs) }
+                                        navigationBar = {
+                                            NavigationBar(
+                                                tabs = tabs,
+                                                showLabels = settings.showNavigationLabels.value
+                                            )
+                                        },
+                                        navigationRail = {
+                                            NavigationRail(
+                                                tabs = tabs,
+                                                showLabels = settings.showNavigationLabels.value
+                                            )
+                                        }
                                     ) { tab ->
                                         tab.Content()
                                     }

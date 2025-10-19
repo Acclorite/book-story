@@ -106,6 +106,9 @@ class SettingsManager @Inject constructor(
     val doublePressExit = setting<Boolean, Boolean>(
         key = booleanPreferencesKey("double_press_exit"), default = false
     )
+    val showNavigationLabels = setting<Boolean, Boolean>(
+        key = booleanPreferencesKey("show_navigation_labels"), default = true
+    )
 
     /* ------ Reader ----------------------------- */
     val fontFamily = setting<FontWithName, String>(

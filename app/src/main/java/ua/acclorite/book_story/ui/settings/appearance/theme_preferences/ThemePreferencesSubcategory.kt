@@ -18,6 +18,7 @@ import ua.acclorite.book_story.ui.settings.appearance.theme_preferences.componen
 import ua.acclorite.book_story.ui.settings.appearance.theme_preferences.components.AppThemeOption
 import ua.acclorite.book_story.ui.settings.appearance.theme_preferences.components.DarkThemeOption
 import ua.acclorite.book_story.ui.settings.appearance.theme_preferences.components.PureDarkOption
+import ua.acclorite.book_story.ui.settings.appearance.theme_preferences.components.ShowNavigationLabelsOption
 import ua.acclorite.book_story.ui.settings.appearance.theme_preferences.components.ThemeContrastOption
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategory
 
@@ -51,6 +52,10 @@ fun LazyListScope.ThemePreferencesSubcategory(
 
         item {
             AbsoluteDarkOption()
+        }
+
+        item {
+            ShowNavigationLabelsOption()
         }
     }
 }

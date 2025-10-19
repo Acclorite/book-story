@@ -164,6 +164,8 @@
     <string name="app_theme_option">Тема застосунка</string>
     <string name="double_press_exit_option">Подвійне натискання для виходу</string>
     <string name="double_press_exit_option_desc">Натисніть назад двічі, щоб вийти з застосунку</string>
+    <string name="show_navigation_labels_option">Показувати заголовки навігації</string>
+    <string name="show_navigation_labels_option_desc">Показувати заголовки навігаційної панелі під іконками</string>
 
     <!-- Reader -->
     <string name="font_family_option">Сімейство шрифтів</string>

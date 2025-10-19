@@ -16,7 +16,7 @@ import ua.acclorite.book_story.presentation.navigator.NavigatorItem
 import ua.acclorite.book_story.ui.navigator.LocalNavigator
 
 @Composable
-fun NavigationBar(tabs: List<NavigatorItem>) {
+fun NavigationBar(tabs: List<NavigatorItem>, showLabels: Boolean) {
     val navigator = LocalNavigator.current
     val lastItem = navigator.lastItem.collectAsStateWithLifecycle()
 
@@ -31,7 +31,8 @@ fun NavigationBar(tabs: List<NavigatorItem>) {
         tabs.forEach { tab ->
             NavigationBarItem(
                 item = tab,
-                isSelected = currentTab.value::class == tab.screen::class
+                isSelected = currentTab.value::class == tab.screen::class,
+                showLabel = showLabels
             ) {
                 navigator.push(tab.screen)
             }

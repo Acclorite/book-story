@@ -26,20 +26,23 @@ fun RowScope.NavigationBarItem(
     modifier: Modifier = Modifier,
     item: NavigatorItem,
     isSelected: Boolean,
+    showLabel: Boolean,
     onClick: () -> Unit
 ) {
     NavigationBarItem(
-        label = {
-            Tooltip(
-                text = stringResource(id = item.tooltip),
-                padding = 64.dp
-            ) {
-                StyledText(
-                    text = stringResource(id = item.title),
-                    maxLines = 1
-                )
+        label = if (showLabel) {
+            {
+                Tooltip(
+                    text = stringResource(id = item.tooltip),
+                    padding = 64.dp
+                ) {
+                    StyledText(
+                        text = stringResource(id = item.title),
+                        maxLines = 1
+                    )
+                }
             }
-        },
+        } else null,
         selected = isSelected,
         onClick = { onClick() },
         icon = {
