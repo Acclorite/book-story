@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.receiveAsFlow
 import ua.acclorite.book_story.presentation.navigator.Screen
@@ -57,7 +58,7 @@ fun NavigatorTabs(
             if (!tabletUI) navigationBar()
         },
         containerColor = MaterialTheme.colorScheme.surface
-    ) {
+    ) { paddingValues ->
         Row(
             modifier = Modifier
                 .fillMaxSize()
@@ -69,9 +70,10 @@ fun NavigatorTabs(
                     .weight(1f)
                     .fillMaxSize()
                     .padding(
-                        end = it.calculateEndPadding(layoutDirection),
-                        bottom = it.calculateBottomPadding(),
-                        start = it.calculateStartPadding(layoutDirection)
+                        end = paddingValues.calculateEndPadding(layoutDirection),
+                        bottom = paddingValues.calculateBottomPadding(),
+                        start = if (!tabletUI) paddingValues.calculateStartPadding(layoutDirection)
+                        else 0.dp
                     )
             ) {
                 AnimatedContent(
