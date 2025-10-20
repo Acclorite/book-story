@@ -249,4 +249,24 @@
     <string name="library_categories_option_note">Knihy jsou nejprve přidány do výchozí kategorie, ale mohou patřit do několika vlastních kategorií vytvořených zde. Odstranění kategorie zde neznamená smazání knih z Knihovny. Podržte ikonu kategorie a přesuňte ji, abyste kategorie přeskupili.</string>
     <string name="library_per_category_sort_option_note">Třídění lze změnit v Knihovně.</string>
     <string name="double_press_exit_option_desc">Stiskněte dvakrát tlačítko zpět pro opuštění aplikace</string>
+    <string name="font_thickness_option">Tloušťka písma</string>
+    <string name="font_style_option">Styl písma</string>
+    <string name="font_family_option">Rodina písma</string>
+    <string name="line_height_option">Výška řádku</string>
+    <string name="paragraph_indentation_option">Odsazení odstavců</string>
+    <string name="color_preset_option">Přednastavená barva</string>
+    <string name="side_padding_option">Boční okraje</string>
+    <string name="vertical_padding_option">Vertikální okraje</string>
+    <string name="double_click_translation_option_desc">Dvojitým kliknutím na odstavec jej přeložíte</string>
+    <string name="fast_color_preset_change_option">Rychlá změna přednastavených barev</string>
+    <string name="fast_color_preset_change_option_desc">Přejetím horní lišty doleva nebo doprava změníte přednastavenou barvu</string>
+    <string name="text_alignment_option">Zarovnání textu</string>
+    <string name="chapter_title_alignment_option">Zarovnání názvu kapitoly</string>
+    <string name="letter_spacing_option">Rozestup písmen</string>
+    <string name="cutout_padding_option">Okraj výřezu</string>
+    <string name="cutout_padding_option_desc">Použít okraj na vyříznutou oblast</string>
+    <string name="fullscreen_option_desc">Skrýt systémové lišty a okraje</string>
+    <string name="hide_bars_on_fast_scroll_option">Skrýt lišty při rychlém posouvání</string>
+    <string name="perception_expander_option">Rozšiřovač vnímání</string>
+    <string name="perception_expander_option_desc">Zvyšte svou rychlost čtení tím, že se soustředíte na střed</string>
 </resources>
