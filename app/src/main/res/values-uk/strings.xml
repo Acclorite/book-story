@@ -1,13 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
-
-<resources>
+  --><resources>
     <!-- Basic Strings -->
     <string name="default_string">За замовчуванням</string>
-
     <!-- Screens -->
     <string name="library_screen">Бібліотека</string>
     <string name="history_screen">Історія</string>
@@ -15,14 +13,12 @@
     <string name="settings_screen">Налаштування</string>
     <string name="about_screen">Про застосунок</string>
     <string name="help_screen">Довідка</string>
-
     <!-- Dialog Labels -->
     <string name="add_books">Додати книги?</string>
     <string name="delete_books">Видалити книги?</string>
     <string name="delete_book">Видалити книгу?</string>
     <string name="delete_history">Видалити історію читання?</string>
     <string name="remove_category">Видалити категорію?</string>
-
     <!-- Dialog Descriptions -->
     <string name="add_books_description">Ви можете вибрати книги, які хочете додати. Ви зможете відредагувати Назву та Обкладинку книги пізніше. Процес завантаження може зайняти декілька хвилин.</string>
     <string name="delete_books_description">Це видалить всі обрані книги(%1$s) з бази даних. Це не видалить обрані книги з вашого пристрою.</string>
@@ -31,7 +27,6 @@
     <string name="remove_category_description">
         Це видалить цю категорію з Бібліотеки, але не видалить книги.
     </string>
-
     <!-- Errors -->
     <string name="error_no_description">Немає опису.</string>
     <string name="error_something_went_wrong">Який жах! Щось пішло не так.</string>
@@ -40,27 +35,21 @@
     <string name="error_no_browser">Жодного браузера не знайдено.</string>
     <string name="error_no_share_app">Не знайдено застосунок, щоб поділитися.</string>
     <string name="error_no_file_manager_app">Не знайдено застосунку для вибору теки.</string>
-    <string name="error_could_not_get_text">
-        Файл порожній, відсутній або недоступний.
-        Перевірте файл, налаштування сканування або змініть шлях і спробуйте ще раз.
-    </string>
+    <string name="error_could_not_get_text">Файл порожній, відсутній або недоступний. Перевірте файл, налаштування сканування або змініть шлях і спробуйте ще раз.</string>
     <string name="error_could_not_reset_cover">Не вдалося скинути обкладинку.</string>
     <string name="error_closed_source">Закритий код</string>
     <string name="error_no_file">Файла не існує або він недоступний</string>
     <string name="error_field_empty">Це поле не повинно бути пустим.</string>
-
     <!-- Is Empty messages -->
     <string name="search_field_empty">Пошук…</string>
     <string name="browse_empty">Розширюйте книжковий арсенал бібліотеки своїми завантаженнями</string>
     <string name="library_empty">Читайте ваші улюблені книги та сортуйте їх між категоріями</string>
     <string name="history_empty">Нехай ваша остання прочитана книга відкриє перед вами сторінки нової великої історії вашого читацького шляху</string>
     <string name="categories_empty">Немає категорій.</string>
-
     <!-- Query strings -->
     <string name="selected_items_count_query">%1$s обрано</string>
     <string name="color_preset_query">Пресет %1$s</string>
     <string name="color_preset_selected_query">Вибрано «%1$s»</string>
-
     <!-- Action Texts -->
     <string name="cancel">Відмінити</string>
     <string name="add_book">Додати книгу</string>
@@ -84,7 +73,6 @@
     <string name="edit">Редагувати</string>
     <string name="create_category">Створити категорію</string>
     <string name="set_up_scanning">Налаштувати сканування</string>
-
     <!-- Book -->
     <string name="unknown_author">Невідомий</string>
     <string name="reset_cover">Скинути обкладинку</string>
@@ -94,7 +82,6 @@
     <string name="delete_cover">Видалити обкладинку</string>
     <string name="delete_cover_desc">Видаліть нинішню обкладинку книги</string>
     <string name="author">Автор</string>
-
     <!-- Tabs -->
     <string name="default_tab">Типово</string>
     <string name="general_tab">Головні</string>
@@ -103,7 +90,6 @@
     <string name="filter_tab">Фільтр</string>
     <string name="sort_tab">Сортувати</string>
     <string name="reader_tab">Читач</string>
-
     <!-- Settings categories -->
     <string name="general_settings">Головні</string>
     <string name="general_settings_desc">Мова застосунка</string>
@@ -115,7 +101,6 @@
     <string name="browse_settings_desc">Сканування, вигляд</string>
     <string name="library_settings">Бібліотека</string>
     <string name="library_settings_desc">Категорії, вигляд</string>
-
     <!-- Settings subcategories -->
     <string name="font_reader_settings">Шрифт</string>
     <string name="text_reader_settings">Текст</string>
@@ -136,13 +121,8 @@
     <string name="categories_settings">Категорії</string>
     <string name="filter_browse_settings">Фільтр</string>
     <string name="sort_settings">Сотрувати</string>
-
     <!-- Settings notes -->
-    <string name="browse_scan_option_note">
-        Ці теки використовуються для сканування та отримання файлів у Огляді.
-        Видалення теки тут не видалить фактичні файли чи книги з Бібліотеки.
-        Щоб відкликати доступ, натисніть відповідну кнопку.
-    </string>
+    <string name="browse_scan_option_note">Ці теки використовуються для сканування та отримання файлів у Огляді. Видалення теки тут не видалить фактичні файли чи книги з Бібліотеки. Щоб відкликати доступ, натисніть відповідну кнопку.</string>
     <string name="library_categories_option_note">
         Спочатку книги додаються до категорії за замовчуванням,
         але можуть належати до кількох користувацьких категорій створених тут.
@@ -152,7 +132,6 @@
     <string name="library_per_category_sort_option_note">
         Сортування може бути змінено в Бібліотеці.
     </string>
-
     <!-- Settings options -->
     <!-- General -->
     <string name="language_option">Мова застосунка</string>
@@ -166,7 +145,6 @@
     <string name="double_press_exit_option_desc">Натисніть назад двічі, щоб вийти з застосунку</string>
     <string name="show_navigation_labels_option">Показувати заголовки навігації</string>
     <string name="show_navigation_labels_option_desc">Показувати заголовки навігаційної панелі під іконками</string>
-
     <!-- Reader -->
     <string name="font_family_option">Сімейство шрифтів</string>
     <string name="font_thickness_option">Товщина шрифта</string>
@@ -204,13 +182,9 @@
     <string name="horizontal_gesture_scroll_option">Частка прокрутки</string>
     <string name="horizontal_gesture_sensitivity_option">Чутливість</string>
     <string name="horizontal_gesture_alpha_anim_option">Анімація видимості</string>
-    <string name="horizontal_gesture_alpha_anim_option_desc">
-        Увімкнути анімацію видимості під час використання горизонтального жесту
-    </string>
+    <string name="horizontal_gesture_alpha_anim_option_desc">Увімкнути анімацію видимості під час використання горизонтального жесту</string>
     <string name="horizontal_gesture_pull_anim_option">Анімація тягнення</string>
-    <string name="horizontal_gesture_pull_anim_option_desc">
-        Увімкнути анімацію тягнення під час використання горизонтального жесту
-    </string>
+    <string name="horizontal_gesture_pull_anim_option_desc">Увімкнути анімацію тягнення під час використання горизонтального жесту</string>
     <string name="bottom_bar_padding_option">Відступ нижньої панелі</string>
     <string name="highlighted_reading_option">Підсвічування слів</string>
     <string name="highlighted_reading_option_desc">Підсвічувати початок кожного слова</string>
@@ -229,7 +203,6 @@
     <string name="progress_bar_alignment_option">Розташування</string>
     <string name="progress_bar_font_size_option">Розмір шрифта</string>
     <string name="progress_count_option">Підрахунок прогресу</string>
-
     <!-- Library -->
     <string name="read_button_option">Показувати кнопку «Читати»</string>
     <string name="show_progress_option">Показувати прогрес</string>
@@ -238,45 +211,36 @@
     <string name="show_category_tabs_option">Показувати вкладки категорій</string>
     <string name="always_show_default_tab_option">Завжди показувати типову вкладку</string>
     <string name="per_category_sort_option">Сортування за категоріями</string>
-
     <!-- Color presets -->
     <string name="red_color">Червоний</string>
     <string name="green_color">Зелений</string>
     <string name="blue_color">Синій</string>
     <string name="color_preset_placeholder">Назвіть пресет…</string>
-
     <!-- Dark Theme properties -->
     <string name="dark_theme_off">Вимкнена</string>
     <string name="dark_theme_on">Ввімкнена</string>
     <string name="dark_theme_follow_system">Системна</string>
-
     <!-- Pure Dark properties -->
     <string name="pure_dark_off">Вимкнена</string>
     <string name="pure_dark_on">Ввімкнена</string>
     <string name="pure_dark_power_saver">Економія</string>
-
     <!-- Theme Contrast properties -->
     <string name="theme_contrast_standard">Типова</string>
     <string name="theme_contrast_medium">Середня</string>
     <string name="theme_contrast_high">Висока</string>
-
     <!-- Font Style properties -->
     <string name="font_style_italic">Похилий</string>
     <string name="font_style_normal">Нормальний</string>
-
     <!-- Library Title Position properties -->
     <string name="library_title_position_off">Схований</string>
     <string name="library_title_position_below">Знизу</string>
     <string name="library_title_position_inside">Всередині</string>
-
     <!-- Library Categories properties -->
     <string name="library_categories_create_category_placeholder">Заголовок</string>
-
     <!-- Layout properties -->
     <string name="layout_option">Режим відображення</string>
     <string name="layout_list">Список</string>
     <string name="layout_grid">Сітка</string>
-
     <!-- Sort Order properties -->
     <string name="sort_order_name">За алфавітом</string>
     <string name="sort_order_file_format">Формат файла</string>
@@ -285,50 +249,41 @@
     <string name="sort_order_last_read">Останнє читання</string>
     <string name="sort_order_progress">Прогрес</string>
     <string name="sort_order_author">Автор</string>
-
     <!-- Grid Size properties -->
     <string name="grid_size_option">Кількість комірок</string>
     <string name="grid_size_auto">Авто</string>
     <string name="grid_size_per_row">кожен рядок</string>
-
     <!-- Alignment properties -->
     <string name="alignment_start">Старт</string>
     <string name="alignment_justify">Рівномірно</string>
     <string name="alignment_center">Центр</string>
     <string name="alignment_end">Кінець</string>
-
     <!-- Screen Orientation properties -->
     <string name="screen_orientation_free">Вільно</string>
     <string name="screen_orientation_portrait">Портрет</string>
     <string name="screen_orientation_landscape">Альбом</string>
     <string name="screen_orientation_locked_portrait">Заблокований портрет</string>
     <string name="screen_orientation_locked_landscape">Заблокований альбом</string>
-
     <!-- Horizontal Gesture properties -->
     <string name="horizontal_gesture_off">Вимкнений</string>
     <string name="horizontal_gesture_on">Ввімкнений</string>
     <string name="horizontal_gesture_inverse">Ввімкнений (Інвертований)</string>
-
     <!-- Highlighted Reading properties -->
     <string name="highlighted_reading_level">рівень</string>
-
     <!-- Color Effects properties -->
     <string name="color_effects_off">Вимкнені</string>
     <string name="color_effects_grayscale">Відтінки сірого</string>
     <string name="color_effects_font">Колір шрифта</string>
     <string name="color_effects_background">Колір фона</string>
-
     <!-- Font Thickness properties -->
     <string name="font_thickness_thin">Тонка</string>
     <string name="font_thickness_extra_light">Дуже мала</string>
     <string name="font_thickness_light">Мала</string>
     <string name="font_thickness_normal">Звичайна</string>
     <string name="font_thickness_medium">Середня</string>
-
     <!-- Progress Count properties -->
     <string name="progress_count_percentage">Відсотки</string>
     <string name="progress_count_quantity">Кількість</string>
-
     <!-- Themes -->
     <string name="dynamic_theme">Меркурій</string>
     <string name="blue_theme">Нептун</string>
@@ -347,7 +302,6 @@
     <string name="yellow2_theme">Макемаке</string>
     <string name="aqua_theme">Уран</string>
     <string name="gray_theme">Япет</string>
-
     <!-- Toast messages -->
     <string name="press_again_toast">Натисніть ще раз, щоб вийти</string>
     <string name="books_added">Всі обрані книги були успішно додані.</string>
@@ -364,10 +318,8 @@
     <string name="author_changed">Автор був успішно змінений.</string>
     <string name="description_changed">Опис був успішно змінений.</string>
     <string name="path_changed">Шлях до файлу був успішно змінений.</string>
-
     <!-- Snackbar messages -->
     <string name="history_element_deleted">Елемент історії був успішно видалений.</string>
-
     <!-- BookInfo -->
     <string name="start_reading">Почати</string>
     <string name="continue_reading_query">Продовжити з %1$s</string>
@@ -376,11 +328,9 @@
     <string name="file_last_opened">Останнє відкриття</string>
     <string name="file_size">Розмір</string>
     <string name="unknown">Невідомо</string>
-
     <!-- Reader -->
     <string name="no_chapters">Немає розділів</string>
     <string name="chapters">Розділи</string>
-
     <!-- About -->
     <!-- Options -->
     <string name="app_version_option">Версія застосунка</string>
@@ -393,7 +343,6 @@
     <string name="slava_ukraini">Слава Україні!</string>
     <!-- Badges -->
     <string name="tryzub_badge">Тризуб</string>
-
     <!-- Credits -->
     <string name="credits_design">Дизайн</string>
     <string name="credits_icon">Іконки</string>
@@ -402,7 +351,6 @@
     <string name="credits_translation">Переклад</string>
     <string name="credits_contribution">Внесок</string>
     <string name="credits_ideas">Ідеї</string>
-
     <!-- Help -->
     <string name="help_title_how_to_add_books">Як мені додати книги в Бібліотеку?</string>
     <string name="help_desc_how_to_add_books_1">Перейдіть в</string>
@@ -443,7 +391,6 @@
     <string name="help_desc_how_to_use_color_presets_1">Перейдіть в налаштування Зовнішнього Вигляду(див: Як мені налаштувати Читач?). Ви можете вибрати який пресет кольорів використовувати в налаштуванні «Пресет Кольорів». Натисніть на бажаний пресет кольорів, щоб вибрати його, це також змінить ваші кольори в Читачі. Якщо ви хочете змінити порядок пресета кольорів, виберіть його та затисніть кнопку-іконку «Тримач», після цього перемістіть його до бажаного місця. Ви можете швидко змінювати пресети кольорів увімкнувши відповідне налаштування в підкатегорії «Кольори» налаштувань Зовнішнього Вигляду, та потім провівши верхню панель вліво або вправо в Читачі, щоб швидко змінити пресет кольорів.</string>
     <string name="help_title_how_to_use_perception_expander">Що таке та як використовувати розширення сприйняття?</string>
     <string name="help_desc_how_to_use_perception_expander_1">Розширювач сприйняття може допомогти вам швидше читати. Спочатку ввімкніть його в налаштуваннях Читача(див: Як мені налаштувати Читач?). Після ввімкнення дві вертикальні лінії з’являться з обох боків Читача. Щоб ще більше оптимізувати швидкість читання, відрегулюйте поля, щоб залишити менше місця навколо центру. Щоб скористатися нею, сфокусуйтеся на центрі екрана, дозволяючи периферійному зору вловити текст з боків. Під час читання зосередьтеся на центрі, не дивлячись безпосередньо на сторони після кожного рядка.</string>
-
     <!-- Start -->
     <string name="start_welcome">Вітаємо в %1$s!</string>
     <string name="start_welcome_desc">У світ, де слова чарують, вчать та ведуть у неймовірні пригоди! Давайте дещо налаштуємо!</string>
@@ -451,19 +398,13 @@
     <string name="start_theme_preferences">Налаштування теми</string>
     <string name="start_scan_preferences">Налаштування сканування</string>
     <string name="start_done">Все готово!</string>
-    <string name="start_done_desc">
-        Налаштування завершено.
-        Бажаєте перейти до екрана Довідки?
-    </string>
-
+    <string name="start_done_desc">Налаштування завершено. Бажаєте перейти до екрана Довідки?</string>
     <!-- History -->
     <string name="today">Сьогодні</string>
     <string name="yesterday">Вчора</string>
-
     <!-- Crash -->
     <string name="crash_title">Ой! Застосунок крашнувся.</string>
     <string name="crash_description">Будь ласка, повідомте про цей збій у найзручніший для вас спосіб.</string>
-
     <!-- Content description -->
     <string name="continue_reading_content_desc">Продовжити читання</string>
     <string name="go_back_content_desc">Назад</string>
@@ -510,4 +451,9 @@
     <string name="collapse_content_desc">Згорнути</string>
     <string name="remove_content_desc">Прибрати</string>
     <string name="note_content_desc">Примітка</string>
+    <string name="github_badge" translatable="false"></string>
+    <string name="codeberg_badge" translatable="false"></string>
+    <string name="gitlab_badge" translatable="false"></string>
+    <string name="reddit_badge" translatable="false"></string>
+    <string name="app_name" translatable="false"></string>
 </resources>
