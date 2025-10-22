@@ -324,4 +324,34 @@
     <string name="general_tab" translatable="false"></string>
     <string name="done" translatable="false"></string>
     <string name="help_desc_how_to_customize_app_2" translatable="false"></string>
+    <string name="delete_history" translatable="false"></string>
+    <string name="add_books_description" translatable="false"></string>
+    <string name="history_screen" translatable="false"></string>
+    <string name="add_books" translatable="false"></string>
+    <string name="error_no_browser" translatable="false"></string>
+    <string name="browse_empty" translatable="false"></string>
+    <string name="delete_books_description" translatable="false"></string>
+    <string name="error_no_file_manager_app" translatable="false"></string>
+    <string name="help_screen" translatable="false"></string>
+    <string name="error_no_share_app" translatable="false"></string>
+    <string name="error_no_translator" translatable="false"></string>
+    <string name="search_field_empty" translatable="false"></string>
+    <string name="error_could_not_get_text" translatable="false"></string>
+    <string name="history_empty" translatable="false"></string>
+    <string name="default_string" translatable="false"></string>
+    <string name="delete_book_description" translatable="false"></string>
+    <string name="error_something_went_wrong" translatable="false"></string>
+    <string name="about_screen" translatable="false"></string>
+    <string name="error_closed_source" translatable="false"></string>
+    <string name="delete_book" translatable="false"></string>
+    <string name="browse_screen" translatable="false"></string>
+    <string name="delete_history_description" translatable="false"></string>
+    <string name="settings_screen" translatable="false"></string>
+    <string name="error_could_not_reset_cover" translatable="false"></string>
+    <string name="library_empty" translatable="false"></string>
+    <string name="delete_books" translatable="false"></string>
+    <string name="library_screen" translatable="false"></string>
+    <string name="error_no_dictionary" translatable="false"></string>
+    <string name="error_no_description" translatable="false"></string>
+    <string name="error_no_file" translatable="false"></string>
 </resources>
