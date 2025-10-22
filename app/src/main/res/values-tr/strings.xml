@@ -140,9 +140,7 @@
     <string name="keep_screen_on_option">Ekranı açık tut</string>
     <string name="hide_bars_on_fast_scroll_option">Hızlı kaydırmada çubukları gizle</string>
     <string name="perception_expander_option">Algı genişletici</string>
-    <string name="perception_expander_option_desc">
-        Merkeze odaklanarak okuma hızınızı artırın
-    </string>
+    <string name="perception_expander_option_desc">Merkeze odaklanarak okuma hızınızı artırın</string>
     <string name="perception_expander_padding_option">Satır yan boşluğu</string>
     <string name="perception_expander_thickness_option">Satır kalınlığı</string>
     <string name="screen_orientation_option">Ekran yönü</string>
@@ -333,19 +331,8 @@
     <string name="help_title_how_to_create_color_presets">Renk ön ayarlarını nasıl oluşturur ve düzenlerim?</string>
     <string name="help_desc_how_to_create_color_presets_1">Görünüm ayarlarına gidin (bkz: Okuyucuyu nasıl özelleştirebilirim?). «Renk Ön Ayarı» ayarı altındaki «Renkler» alt kategorisinde tüm renk ön ayarlarını düzenleyebilirsiniz. Yeni bir renk ön ayarı oluşturmak için «Ekle» simge butonuna tıklayın. Renk ön ayarını düzenlemenin birkaç yolu vardır: Metin alanına tıklayarak renk ön ayarının adını değiştirebilir, kaydırıcıları hareket ettirerek renkleri değiştirebilir, «Karıştır» simge butonuna tıklayarak tüm renkleri rastgele seçebilirsiniz. Bir renk ön ayarını silmek istiyorsanız, «Sil» simge butonuna tıklayın.</string>
     <string name="help_title_how_to_use_color_presets">Renk ön ayarlarını nasıl kullanabilirim?</string>
-    <string name="help_desc_how_to_use_color_presets_1">
-        Görünüm ayarlarına gidin (bkz: Okuyucuyu nasıl özelleştirebilirim?).
-        «Renk Ön Ayarı» ayarından hangi renk ön ayarını kullanmak istediğinizi seçebilirsiniz.
-        Kullanmak istediğiniz renk ön ayarına tıklayın, bu işlem ayrıca Okuyucu\'daki renklerinizi de değiştirecektir.
-        Bir renk ön ayarını yeniden sıralamak isterseniz, seçin ve «Tutma» simge butonuna basılı tutarak
-        istediğiniz konuma sürükleyin.
-        Renk ön ayarlarını hızlı bir şekilde değiştirmek için,
-        Görünüm ayarlarının «Renkler» alt kategorisindeki ilgili ayarı etkinleştirin
-        ve ardından Okuyucu\'da üst çubuğu sola veya sağa kaydırarak hızlı bir şekilde renk ön ayarını değiştirin.
-    </string>
-    <string name="help_title_how_to_use_perception_expander">
-        Algı genişletici nedir ve nasıl kullanılır?
-    </string>
+    <string name="help_desc_how_to_use_color_presets_1">Görünüm ayarlarına gidin (bkz: Okuyucuyu nasıl özelleştirebilirim?). «Renk Ön Ayarı» ayarından hangi renk ön ayarını kullanmak istediğinizi seçebilirsiniz. Kullanmak istediğiniz renk ön ayarına tıklayın, bu işlem ayrıca Okuyucu\'daki renklerinizi de değiştirecektir. Bir renk ön ayarını yeniden sıralamak isterseniz, seçin ve «Tutma» simge butonuna basılı tutarak istediğiniz konuma sürükleyin. Renk ön ayarlarını hızlı bir şekilde değiştirmek için, Görünüm ayarlarının «Renkler» alt kategorisindeki ilgili ayarı etkinleştirin ve ardından Okuyucu\'da üst çubuğu sola veya sağa kaydırarak hızlı bir şekilde renk ön ayarını değiştirin.</string>
+    <string name="help_title_how_to_use_perception_expander">Algı genişletici nedir ve nasıl kullanılır?</string>
     <string name="help_desc_how_to_use_perception_expander_1">Algı genişletici, daha hızlı okumanıza yardımcı olabilir. Öncelikle, Okuyucu ayarlarında etkinleştirin (bkz: Okuyucuyu nasıl özelleştirebilirim?). Etkinleştirildiğinde, Okuyucu\'nun her iki yanında iki dikey çizgi görünecektir. Okuma hızınızı daha da optimize etmek için, kenar boşluklarını ayarlayarak merkezi alanı daraltabilirsiniz. Kullanımı için ekranın ortasına odaklanarak, yan taraflardaki metni çevresel görüşünüzle algılamaya çalışın. Okurken, her satırdan sonra doğrudan kenarlara bakmadan odak noktanızı ekranın merkezinde tutun.</string>
     <!-- Start -->
     <string name="start_welcome">%1$s\'e hoş geldiniz!</string>
