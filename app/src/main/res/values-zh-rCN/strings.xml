@@ -392,9 +392,4 @@
     <string name="green2_theme">Io</string>
     <string name="select_all_books_content_desc">选中所有书籍</string>
     <string name="library_per_category_sort_option_note">可以在书库中更改排序。</string>
-    <string name="github_badge" translatable="false"></string>
-    <string name="codeberg_badge" translatable="false"></string>
-    <string name="gitlab_badge" translatable="false"></string>
-    <string name="reddit_badge" translatable="false"></string>
-    <string name="app_name" translatable="false"></string>
 </resources>

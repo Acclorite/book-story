@@ -360,11 +360,4 @@
     <string name="crash_description">Segnala questo messaggio di arresto anomalo nel modo più comodo per te.</string>
     <string name="horizontal_gesture_alpha_anim_option_desc">Abilita visibilità dell\'animazione quando si utilizza il gesto orizzontale</string>
     <string name="horizontal_gesture_pull_anim_option_desc">Abilita l\'animazione di trazione quando si utilizza il gesto orizzontale</string>
-    <string name="github_badge" translatable="false"></string>
-    <string name="display_settings" translatable="false"></string>
-    <string name="display_tab" translatable="false"></string>
-    <string name="codeberg_badge" translatable="false"></string>
-    <string name="gitlab_badge" translatable="false"></string>
-    <string name="reddit_badge" translatable="false"></string>
-    <string name="app_name" translatable="false"></string>
 </resources>

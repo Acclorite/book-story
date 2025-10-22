@@ -390,9 +390,4 @@
     <string name="sort_order_progress">Progresso</string>
     <string name="sort_order_author">Autor</string>
     <string name="gray_theme">Jápeto</string>
-    <string name="github_badge" translatable="false"></string>
-    <string name="codeberg_badge" translatable="false"></string>
-    <string name="gitlab_badge" translatable="false"></string>
-    <string name="reddit_badge" translatable="false"></string>
-    <string name="app_name" translatable="false"></string>
 </resources>

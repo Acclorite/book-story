@@ -332,17 +332,4 @@
     <string name="perception_expander_padding_option">Margines linii bocznej</string>
     <string name="horizontal_gesture_option">Gest poziomy</string>
     <string name="horizontal_gesture_scroll_option">Frakcja przewijania</string>
-    <string name="green_gray_theme" translatable="false"></string>
-    <string name="github_badge" translatable="false"></string>
-    <string name="pink2_theme" translatable="false"></string>
-    <string name="purple_gray_theme" translatable="false"></string>
-    <string name="yellow2_theme" translatable="false"></string>
-    <string name="codeberg_badge" translatable="false"></string>
-    <string name="tryzub_badge" translatable="false"></string>
-    <string name="pin_content_desc" translatable="false"></string>
-    <string name="gitlab_badge" translatable="false"></string>
-    <string name="reddit_badge" translatable="false"></string>
-    <string name="red_gray_theme" translatable="false"></string>
-    <string name="app_name" translatable="false"></string>
-    <string name="start_reading" translatable="false"></string>
 </resources>
