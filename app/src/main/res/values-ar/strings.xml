@@ -392,4 +392,6 @@
     <string name="gray_theme">يافث</string>
     <string name="select_all_books_content_desc">حدّد كل الكتب</string>
     <string name="library_per_category_sort_option_note">يمكن تغيير الترتيب في المكتبة.</string>
+    <string name="show_navigation_labels_option">أظهر تسميات التنقل</string>
+    <string name="show_navigation_labels_option_desc">أظهر تسميات شريط التنقل أسفل الأيقونات</string>
 </resources>
