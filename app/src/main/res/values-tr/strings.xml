@@ -557,4 +557,6 @@
     <string name="gray_theme">Iapetus</string>
     <string name="library_per_category_sort_option_note">Sıralama, kütüphane içinde değiştirilebilir.</string>
     <string name="select_all_books_content_desc">Tüm kitapları seç</string>
+    <string name="show_navigation_labels_option">Gezinme etiketlerini göster</string>
+    <string name="show_navigation_labels_option_desc">Simgelerin altında gezinme çubuğu etiketlerini göster</string>
 </resources>
