@@ -235,6 +235,8 @@
     <string name="horizontal_gesture_pull_anim_option_desc">
         Enable pull animation when using horizontal gesture
     </string>
+    <string name="horizontal_gesture_disable_scrolling_option">Disable scrolling</string>
+    <string name="horizontal_gesture_disable_scrolling_option_desc">Completely disable reader scrolling</string>
     <string name="bottom_bar_padding_option">Bottom bar margin</string>
     <string name="highlighted_reading_option">Highlight words</string>
     <string name="highlighted_reading_option_desc">Highlight the beginning of each word</string>

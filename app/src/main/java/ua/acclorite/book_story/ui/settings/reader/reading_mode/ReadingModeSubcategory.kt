@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategory
 import ua.acclorite.book_story.ui.settings.reader.reading_mode.components.HorizontalGestureAlphaAnimOption
+import ua.acclorite.book_story.ui.settings.reader.reading_mode.components.HorizontalGestureDisableScrollingOption
 import ua.acclorite.book_story.ui.settings.reader.reading_mode.components.HorizontalGestureOption
 import ua.acclorite.book_story.ui.settings.reader.reading_mode.components.HorizontalGesturePullAnimOption
 import ua.acclorite.book_story.ui.settings.reader.reading_mode.components.HorizontalGestureScrollOption
@@ -51,6 +52,10 @@ fun LazyListScope.ReadingModeSubcategory(
 
         item {
             HorizontalGestureAlphaAnimOption()
+        }
+
+        item {
+            HorizontalGestureDisableScrollingOption()
         }
     }
 }

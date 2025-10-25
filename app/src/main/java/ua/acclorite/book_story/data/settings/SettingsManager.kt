@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
+@file:Suppress("RemoveExplicitTypeArguments")
+
 package ua.acclorite.book_story.data.settings
 
 import androidx.datastore.preferences.core.Preferences
@@ -82,7 +84,7 @@ class SettingsManager @Inject constructor(
         }
     )
     val theme = setting<Theme, String>(
-        key = stringPreferencesKey("theme"), default = Theme.Companion.entries().first(),
+        key = stringPreferencesKey("theme"), default = Theme.entries().first(),
         serialize = { it.name }, deserialize = { Theme.valueOf(it) }
     )
     val darkTheme = setting<DarkTheme, String>(
@@ -204,6 +206,9 @@ class SettingsManager @Inject constructor(
     )
     val horizontalGesturePullAnim = setting<Boolean, Boolean>(
         key = booleanPreferencesKey("horizontal_gesture_pull_anim"), default = true
+    )
+    val horizontalGestureDisableScrolling = setting<Boolean, Boolean>(
+        key = booleanPreferencesKey("horizontal_gesture_disable_scrolling"), default = false
     )
     val bottomBarPadding = setting<Int, Int>(
         key = intPreferencesKey("bottom_bar_padding"), default = 0

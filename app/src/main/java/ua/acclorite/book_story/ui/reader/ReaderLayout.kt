@@ -59,6 +59,7 @@ fun ReaderLayout(
     horizontalGestureSensitivity: Dp,
     horizontalGestureAlphaAnim: Boolean,
     horizontalGesturePullAnim: Boolean,
+    horizontalGestureDisableScrolling: Boolean,
     highlightedReading: Boolean,
     highlightedReadingThickness: FontWeight,
     progress: String,
@@ -168,6 +169,7 @@ fun ReaderLayout(
                 enableScrollbar = false,
                 parentModifier = Modifier.weight(1f),
                 modifier = Modifier.fillMaxSize(),
+                userScrollEnabled = !horizontalGestureDisableScrolling,
                 contentPadding = PaddingValues(
                     top = (WindowInsets.displayCutout.asPaddingValues()
                         .calculateTopPadding() + paragraphHeight)
