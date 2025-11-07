@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.data.parser
+package ua.acclorite.book_story.data.parser.document
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.LinkAnnotation
@@ -30,7 +30,7 @@ class MarkdownParser @Inject constructor(
     private val commonmarkParser: Parser
 ) {
     /**
-     * Parses markdown text to [androidx.compose.ui.text.AnnotatedString].
+     * Parses markdown text to [AnnotatedString].
      *
      * @return Parsed annotated string.
      */

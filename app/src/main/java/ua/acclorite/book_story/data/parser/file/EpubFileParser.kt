@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.data.parser.epub
+package ua.acclorite.book_story.data.parser.file
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -16,7 +16,6 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.data.model.common.BookWithCover
 import ua.acclorite.book_story.data.model.file.CachedFile
-import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.domain.model.library.Book
 import java.io.File
 import java.net.URLDecoder

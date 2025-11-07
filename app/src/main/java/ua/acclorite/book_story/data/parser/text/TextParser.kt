@@ -4,11 +4,11 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.data.parser
+package ua.acclorite.book_story.data.parser.text
 
-import ua.acclorite.book_story.data.model.common.BookWithCover
 import ua.acclorite.book_story.data.model.file.CachedFile
+import ua.acclorite.book_story.domain.model.reader.ReaderText
 
-interface FileParser {
-    suspend fun parse(cachedFile: CachedFile): BookWithCover?
+interface TextParser {
+    suspend fun parse(cachedFile: CachedFile): List<ReaderText>
 }

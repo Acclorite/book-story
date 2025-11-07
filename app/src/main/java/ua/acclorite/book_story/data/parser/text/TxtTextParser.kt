@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.data.parser.txt
+package ua.acclorite.book_story.data.parser.text
 
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
@@ -12,8 +12,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.core.helpers.clearAllMarkdown
 import ua.acclorite.book_story.data.model.file.CachedFile
-import ua.acclorite.book_story.data.parser.MarkdownParser
-import ua.acclorite.book_story.data.parser.TextParser
+import ua.acclorite.book_story.data.parser.document.MarkdownParser
 import ua.acclorite.book_story.domain.model.reader.ReaderText
 import javax.inject.Inject
 

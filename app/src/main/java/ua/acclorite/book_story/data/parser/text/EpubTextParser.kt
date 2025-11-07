@@ -6,7 +6,7 @@
 
 @file:OptIn(ExperimentalCoroutinesApi::class)
 
-package ua.acclorite.book_story.data.parser.epub
+package ua.acclorite.book_story.data.parser.text
 
 import android.util.Log
 import androidx.core.net.toUri
@@ -22,8 +22,7 @@ import ua.acclorite.book_story.core.data.ExtensionsData
 import ua.acclorite.book_story.core.helpers.addAll
 import ua.acclorite.book_story.core.helpers.containsVisibleText
 import ua.acclorite.book_story.data.model.file.CachedFile
-import ua.acclorite.book_story.data.parser.DocumentParser
-import ua.acclorite.book_story.data.parser.TextParser
+import ua.acclorite.book_story.data.parser.document.DocumentParser
 import ua.acclorite.book_story.domain.model.reader.ReaderText
 import java.io.File
 import java.net.URLDecoder

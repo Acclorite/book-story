@@ -22,10 +22,10 @@ import ua.acclorite.book_story.data.mapper.file.FileMapper
 import ua.acclorite.book_story.data.mapper.file.FileMapperImpl
 import ua.acclorite.book_story.data.mapper.history.HistoryMapper
 import ua.acclorite.book_story.data.mapper.history.HistoryMapperImpl
-import ua.acclorite.book_story.data.parser.FileParser
-import ua.acclorite.book_story.data.parser.FileParserImpl
-import ua.acclorite.book_story.data.parser.TextParser
-import ua.acclorite.book_story.data.parser.TextParserImpl
+import ua.acclorite.book_story.data.parser.file.FileParser
+import ua.acclorite.book_story.data.parser.file.FileParserImpl
+import ua.acclorite.book_story.data.parser.text.TextParser
+import ua.acclorite.book_story.data.parser.text.TextParserImpl
 import ua.acclorite.book_story.data.repository.BookRepositoryImpl
 import ua.acclorite.book_story.data.repository.CategoryRepositoryImpl
 import ua.acclorite.book_story.data.repository.ColorPresetRepositoryImpl

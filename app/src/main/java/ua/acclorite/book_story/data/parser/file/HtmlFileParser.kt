@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.data.parser.html
+package ua.acclorite.book_story.data.parser.file
 
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
@@ -12,7 +12,6 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.data.model.common.BookWithCover
 import ua.acclorite.book_story.data.model.file.CachedFile
-import ua.acclorite.book_story.data.parser.FileParser
 import ua.acclorite.book_story.domain.model.library.Book
 import javax.inject.Inject
 

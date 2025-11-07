@@ -4,15 +4,14 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.data.parser.xml
+package ua.acclorite.book_story.data.parser.text
 
 import android.util.Log
 import kotlinx.coroutines.yield
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
 import ua.acclorite.book_story.data.model.file.CachedFile
-import ua.acclorite.book_story.data.parser.DocumentParser
-import ua.acclorite.book_story.data.parser.TextParser
+import ua.acclorite.book_story.data.parser.document.DocumentParser
 import ua.acclorite.book_story.domain.model.reader.ReaderText
 import javax.inject.Inject
 
