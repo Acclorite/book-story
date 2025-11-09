@@ -10,23 +10,31 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.common.components.common.StyledText
 import ua.acclorite.book_story.ui.common.model.Position
 
 @Composable
 fun NavigatorBottomSheetItem(
     title: String,
+    icon: ImageVector,
+    contentDescription: String?,
     primary: Boolean,
     position: Position,
     onClick: () -> Unit
@@ -72,14 +80,24 @@ fun NavigatorBottomSheetItem(
                 onClick()
             }
             .padding(horizontal = 18.dp, vertical = 18.dp),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.CenterStart,
     ) {
-        StyledText(
-            text = title,
-            style = MaterialTheme.typography.labelLarge.copy(
-                color = if (primary) MaterialTheme.colorScheme.onPrimaryContainer
-                else MaterialTheme.colorScheme.onSurface
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                imageVector = icon,
+                contentDescription = contentDescription,
+                modifier = Modifier
+                    .size(24.dp),
+                tint = MaterialTheme.colorScheme.secondary,
             )
-        )
+            StyledText(
+                text = title,
+                style = MaterialTheme.typography.labelLarge.copy(
+                    color = if (primary) MaterialTheme.colorScheme.onPrimaryContainer
+                    else MaterialTheme.colorScheme.onSurface
+                ),
+                modifier = Modifier.padding(PaddingValues(start = 9.dp))
+            )
+        }
     }
 }

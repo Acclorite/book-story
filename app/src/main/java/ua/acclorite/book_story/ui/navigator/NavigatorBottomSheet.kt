@@ -10,6 +10,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Help
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -37,6 +41,8 @@ fun NavigatorBottomSheet() {
             item {
                 NavigatorBottomSheetItem(
                     title = stringResource(id = R.string.about_screen),
+                    icon = Icons.Default.Info,
+                    contentDescription = stringResource(id = R.string.about_screen),
                     primary = false,
                     position = Position.TOP
                 ) {
@@ -48,6 +54,8 @@ fun NavigatorBottomSheet() {
             item {
                 NavigatorBottomSheetItem(
                     title = stringResource(id = R.string.help_screen),
+                    icon = Icons.AutoMirrored.Filled.Help,
+                    contentDescription =  stringResource(id = R.string.help_screen),
                     primary = false,
                     position = Position.BOTTOM
                 ) {
@@ -63,6 +71,8 @@ fun NavigatorBottomSheet() {
             item {
                 NavigatorBottomSheetItem(
                     title = stringResource(id = R.string.settings_screen),
+                    icon = Icons.Default.Settings,
+                    contentDescription = stringResource(id = R.string.settings_screen),
                     primary = true,
                     position = Position.SOLO
                 ) {
