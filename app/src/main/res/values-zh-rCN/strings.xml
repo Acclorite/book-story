@@ -394,4 +394,6 @@
     <string name="library_per_category_sort_option_note">可以在书库中更改排序。</string>
     <string name="show_navigation_labels_option">显示导航标签</string>
     <string name="show_navigation_labels_option_desc">在图标下方显示导航栏</string>
+    <string name="horizontal_gesture_disable_scrolling_option">禁用滚动</string>
+    <string name="horizontal_gesture_disable_scrolling_option_desc">完全禁用阅读器滚动</string>
 </resources>
