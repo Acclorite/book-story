@@ -6,28 +6,22 @@
 
 package ua.acclorite.book_story.data.parser.file
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.ui.UIText
-import ua.acclorite.book_story.data.model.common.BookWithCover
 import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.domain.model.library.Book
-import java.io.File
-import java.net.URLDecoder
-import java.nio.charset.StandardCharsets
 import java.util.zip.ZipFile
 import javax.inject.Inject
 
 class EpubFileParser @Inject constructor() : FileParser {
 
-    override suspend fun parse(cachedFile: CachedFile): BookWithCover? {
+    override suspend fun parse(cachedFile: CachedFile): Book? {
         return try {
-            var book: BookWithCover? = null
+            var book: Book? = null
 
             val rawFile = cachedFile.rawFile
             if (rawFile == null || !rawFile.exists() || !rawFile.canRead()) return null
@@ -66,42 +60,17 @@ class EpubFileParser @Inject constructor() : FileParser {
                         }
                     }
 
-                    val coverImage = document
-                        .select("metadata > meta[name=cover]")
-                        .attr("content")
-                        .let { coverId ->
-                            if (coverId.isNotBlank()) {
-                                document
-                                    .select("manifest > item[id=$coverId]")
-                                    .attr("href")
-                                    .also { src ->
-                                        if (src.isBlank()) return@also
-                                        return@let src
-                                    }
-                            }
-
-                            document
-                                .select("manifest > item[media-type*=image]")
-                                .firstOrNull()
-                                ?.attr("href")
-                                ?.also { src -> if (src.isBlank()) return@let null }
-                        }
-                        ?.let { src -> URLDecoder.decode(src, StandardCharsets.UTF_8.name()) }
-
-                    book = BookWithCover(
-                        book = Book(
-                            title = title,
-                            author = author,
-                            description = description,
-                            scrollIndex = 0,
-                            scrollOffset = 0,
-                            progress = 0f,
-                            filePath = cachedFile.path,
-                            lastOpened = null,
-                            categories = emptyList(),
-                            coverImage = null
-                        ),
-                        coverImage = extractCoverImageBitmap(rawFile, coverImage)
+                    book = Book(
+                        title = title,
+                        author = author,
+                        description = description,
+                        scrollIndex = 0,
+                        scrollOffset = 0,
+                        progress = 0f,
+                        filePath = cachedFile.path,
+                        lastOpened = null,
+                        categories = emptyList(),
+                        coverImage = null
                     )
                 }
             }
@@ -110,22 +79,5 @@ class EpubFileParser @Inject constructor() : FileParser {
             e.printStackTrace()
             null
         }
-    }
-
-    private fun extractCoverImageBitmap(file: File, coverImagePath: String?): Bitmap? {
-        if (coverImagePath.isNullOrBlank()) {
-            return null
-        }
-
-        ZipFile(file).use { zip ->
-            zip.entries().asSequence().forEach { entry ->
-                if (entry.name.endsWith(coverImagePath)) {
-                    val imageBytes = zip.getInputStream(entry).readBytes()
-                    return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-                }
-            }
-        }
-
-        return null
     }
 }

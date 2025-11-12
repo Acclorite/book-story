@@ -24,73 +24,77 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.data.model.common.NullableBook
-import ua.acclorite.book_story.presentation.library.model.SelectableNullableBook
+import ua.acclorite.book_story.presentation.browse.model.NullableBook
+import ua.acclorite.book_story.presentation.browse.model.SelectableNullableBook
 import ua.acclorite.book_story.ui.common.components.common.CircularCheckbox
 import ua.acclorite.book_story.ui.common.components.common.StyledText
 
 @Composable
-fun BrowseAddDialogItem(result: SelectableNullableBook, onClick: (Boolean) -> Unit) {
-    if (result.data is NullableBook.NotNull) {
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .clickable {
-                    onClick(true)
-                }
-                .padding(vertical = 12.dp, horizontal = 24.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(
-                Modifier.weight(1f)
+fun BrowseAddDialogItem(result: SelectableNullableBook, onClick: () -> Unit) {
+    when (result.data) {
+        is NullableBook.NotNull -> {
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        onClick()
+                    }
+                    .padding(vertical = 12.dp, horizontal = 24.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                StyledText(
-                    text = result.data.bookWithCover!!.book.title,
-                    style = MaterialTheme.typography.bodyLarge.copy(
-                        color = MaterialTheme.colorScheme.onSurface
-                    ),
-                    maxLines = 1
-                )
-                StyledText(
-                    text = result.data.bookWithCover.book.author.asString(),
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    ),
-                    maxLines = 1
-                )
-            }
-            Row {
-                Spacer(modifier = Modifier.width(24.dp))
-                CircularCheckbox(
-                    selected = result.selected,
-                    containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
-                )
+                Column(
+                    Modifier.weight(1f)
+                ) {
+                    StyledText(
+                        text = result.data.book.title,
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            color = MaterialTheme.colorScheme.onSurface
+                        ),
+                        maxLines = 1
+                    )
+                    StyledText(
+                        text = result.data.book.author.asString(),
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        ),
+                        maxLines = 1
+                    )
+                }
+                Row {
+                    Spacer(modifier = Modifier.width(24.dp))
+                    CircularCheckbox(
+                        selected = result.selected,
+                        containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
+                    )
+                }
             }
         }
-    } else {
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .clickable {
-                    onClick(false)
-                }
-                .padding(vertical = 12.dp, horizontal = 24.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = Icons.Default.Error,
-                contentDescription = stringResource(id = R.string.error_content_desc),
-                modifier = Modifier.size(26.dp),
-                tint = MaterialTheme.colorScheme.error
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            StyledText(
-                text = result.data.fileName!!,
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    color = MaterialTheme.colorScheme.error
-                ),
-                maxLines = 2
-            )
+
+        is NullableBook.Null -> {
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        onClick()
+                    }
+                    .padding(vertical = 12.dp, horizontal = 24.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Error,
+                    contentDescription = stringResource(id = R.string.error_content_desc),
+                    modifier = Modifier.size(26.dp),
+                    tint = MaterialTheme.colorScheme.error
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                StyledText(
+                    text = result.data.fileName,
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        color = MaterialTheme.colorScheme.error
+                    ),
+                    maxLines = 2
+                )
+            }
         }
     }
 }

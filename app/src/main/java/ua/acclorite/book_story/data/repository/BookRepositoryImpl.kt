@@ -12,7 +12,7 @@ import ua.acclorite.book_story.core.CoverImage
 import ua.acclorite.book_story.data.local.room.BookDatabase
 import ua.acclorite.book_story.data.mapper.book.BookMapper
 import ua.acclorite.book_story.data.mapper.file.FileMapper
-import ua.acclorite.book_story.data.parser.file.FileParser
+import ua.acclorite.book_story.data.parser.cover.CoverParser
 import ua.acclorite.book_story.data.parser.text.TextParser
 import ua.acclorite.book_story.domain.model.file.File
 import ua.acclorite.book_story.domain.model.library.Book
@@ -27,7 +27,7 @@ class BookRepositoryImpl @Inject constructor(
     private val database: BookDatabase,
     private val bookMapper: BookMapper,
     private val fileMapper: FileMapper,
-    private val fileParser: FileParser,
+    private val coverParser: CoverParser,
     private val textParser: TextParser,
     private val fileProvider: FileProvider
 ) : BookRepository {
@@ -87,8 +87,9 @@ class BookRepositoryImpl @Inject constructor(
 
     override suspend fun getDefaultCover(book: Book): Result<CoverImage?> = runCatching {
         return withContext(Dispatchers.IO) {
-            fileProvider.getFileFromBook(book)
-                .mapCatching { fileParser.parse(it)?.coverImage }
+            fileProvider.getFileFromBook(book).mapCatching {
+                coverParser.parse(it)
+            }
         }
     }
 }

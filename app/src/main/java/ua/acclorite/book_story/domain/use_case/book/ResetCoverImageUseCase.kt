@@ -25,9 +25,7 @@ class ResetCoverImageUseCase @Inject constructor(
         bookRepository.getBook(bookId).mapCatching { book ->
             // Getting default cover image
             val defaultCoverImage = bookRepository.getDefaultCover(book).getOrThrow()
-            if (defaultCoverImage == null) {
-                throw NoSuchElementException("Could not find default cover image")
-            }
+                ?: throw NoSuchElementException("Could not find default cover image")
 
             // Deleting old cover
             book.coverImage?.let { coverImageHandler.deleteCover(it) }?.onFailure {

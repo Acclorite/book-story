@@ -17,7 +17,7 @@ import ua.acclorite.book_story.core.Dialog
 import ua.acclorite.book_story.presentation.browse.BrowseEvent
 import ua.acclorite.book_story.presentation.browse.model.BrowseLayout
 import ua.acclorite.book_story.presentation.browse.model.SelectableFile
-import ua.acclorite.book_story.presentation.library.model.SelectableNullableBook
+import ua.acclorite.book_story.presentation.browse.model.SelectableNullableBook
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

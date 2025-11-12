@@ -24,14 +24,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import ua.acclorite.book_story.data.model.common.NullableBook
+import ua.acclorite.book_story.R
+import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.domain.model.file.File
 import ua.acclorite.book_story.domain.use_case.book.AddBookUseCase
 import ua.acclorite.book_story.domain.use_case.file_system.GetBookFromFileUseCase
 import ua.acclorite.book_story.domain.use_case.file_system.GetFilesUseCase
+import ua.acclorite.book_story.presentation.browse.model.NullableBook
 import ua.acclorite.book_story.presentation.browse.model.SelectableFile
+import ua.acclorite.book_story.presentation.browse.model.SelectableNullableBook
 import ua.acclorite.book_story.presentation.library.LibraryScreen
-import ua.acclorite.book_story.presentation.library.model.SelectableNullableBook
 import javax.inject.Inject
 import kotlin.coroutines.coroutineContext
 
@@ -248,17 +250,29 @@ class BrowseModel @Inject constructor(
                         val books = _state.value.files.mapNotNull { file ->
                             ensureActive()
                             if (!file.selected) return@mapNotNull null
-                            SelectableNullableBook(
-                                data = getBookFromFileUseCase(
-                                    File(
-                                        name = file.name,
-                                        uri = file.uri.toString(),
-                                        path = file.path,
-                                        size = file.size,
-                                        lastModified = file.lastModified,
-                                        isDirectory = file.isDirectory
+
+                            val nullableBook = getBookFromFileUseCase(
+                                File(
+                                    name = file.name,
+                                    uri = file.uri.toString(),
+                                    path = file.path,
+                                    size = file.size,
+                                    lastModified = file.lastModified,
+                                    isDirectory = file.isDirectory
+                                )
+                            ).let {
+                                if (it != null) {
+                                    NullableBook.NotNull(it.first, it.second)
+                                } else {
+                                    NullableBook.Null(
+                                        fileName = file.name,
+                                        UIText.StringResource(resId = R.string.error_something_went_wrong)
                                     )
-                                ),
+                                }
+                            }
+
+                            SelectableNullableBook(
+                                data = nullableBook,
                                 selected = true
                             )
                         }
@@ -294,12 +308,12 @@ class BrowseModel @Inject constructor(
                 is BrowseEvent.OnActionAddDialog -> {
                     withContext(Dispatchers.Default) {
                         _state.value.selectedBooksAddDialog.mapNotNull {
-                            if (it.data is NullableBook.NotNull && it.selected) return@mapNotNull it.data.bookWithCover
+                            if (it.data is NullableBook.NotNull && it.selected) return@mapNotNull it.data
                             return@mapNotNull null
-                        }.ifEmpty { return@withContext }.forEach { bookWithCover ->
+                        }.ifEmpty { return@withContext }.forEach { nullableBook ->
                             addBookUseCase(
-                                bookWithCover.book,
-                                bookWithCover.coverImage
+                                nullableBook.book,
+                                nullableBook.coverImage
                             )
                         }
 

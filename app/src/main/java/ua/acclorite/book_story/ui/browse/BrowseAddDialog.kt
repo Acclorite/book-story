@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddChart
 import androidx.compose.runtime.Composable
@@ -20,13 +20,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.data.model.common.NullableBook
 import ua.acclorite.book_story.presentation.browse.BrowseEvent
-import ua.acclorite.book_story.presentation.library.model.SelectableNullableBook
+import ua.acclorite.book_story.presentation.browse.model.NullableBook
+import ua.acclorite.book_story.presentation.browse.model.SelectableNullableBook
 import ua.acclorite.book_story.ui.common.components.dialog.Dialog
 import ua.acclorite.book_story.ui.common.components.progress_indicator.CircularProgressIndicator
 import ua.acclorite.book_story.ui.common.helpers.showToast
-import java.util.UUID
 
 @Composable
 fun BrowseAddDialog(
@@ -63,22 +62,25 @@ fun BrowseAddDialog(
                     }
                 }
             } else {
-                items(
+                itemsIndexed(
                     selectedBooksAddDialog,
-                    key = { it.data.fileName ?: UUID.randomUUID() }
-                ) { book ->
+                    key = { index, _ -> index }
+                ) { _, book ->
                     BrowseAddDialogItem(
                         result = book
                     ) {
-                        if (it) {
-                            selectAddDialog(
-                                BrowseEvent.OnSelectAddDialog(
-                                    book = book
+                        when (book.data) {
+                            is NullableBook.NotNull -> {
+                                selectAddDialog(
+                                    BrowseEvent.OnSelectAddDialog(
+                                        book = book
+                                    )
                                 )
-                            )
-                        } else {
-                            book.data.message?.asString(context)
-                                ?.showToast(context = context)
+                            }
+
+                            is NullableBook.Null -> {
+                                book.data.message?.asString(context)?.showToast(context = context)
+                            }
                         }
                     }
                 }

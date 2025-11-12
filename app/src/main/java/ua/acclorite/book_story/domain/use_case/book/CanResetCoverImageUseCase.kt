@@ -26,9 +26,7 @@ class CanResetCoverImageUseCase @Inject constructor(
         bookRepository.getBook(bookId).mapCatching { book ->
             // Getting default cover image
             val defaultCoverImage = bookRepository.getDefaultCover(book).getOrThrow()
-            if (defaultCoverImage == null) {
-                return@mapCatching false
-            }
+                ?: return@mapCatching false
 
             // Return true if current cover is null (and default is not)
             if (book.coverImage == null) {
