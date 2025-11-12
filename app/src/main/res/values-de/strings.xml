@@ -392,4 +392,8 @@
     <string name="gray_theme">Iapetus</string>
     <string name="library_per_category_sort_option_note">Die Sortierung kann in der Bibliothek geändert werden.</string>
     <string name="select_all_books_content_desc">Alle Bücher auswählen</string>
+    <string name="show_navigation_labels_option">Navigationsbezeichnungen anzeigen</string>
+    <string name="show_navigation_labels_option_desc">Navigationsleistenbeschriftungen unter den Symbolen anzeigen</string>
+    <string name="horizontal_gesture_disable_scrolling_option">Scrollen deaktivieren</string>
+    <string name="horizontal_gesture_disable_scrolling_option_desc">Scrollen im Reader vollständig deaktivieren</string>
 </resources>
