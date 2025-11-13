@@ -8,13 +8,15 @@ package ua.acclorite.book_story.data.repository
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ua.acclorite.book_story.core.CoverImage
 import ua.acclorite.book_story.core.data.ExtensionsData
 import ua.acclorite.book_story.data.local.room.BookDatabase
 import ua.acclorite.book_story.data.mapper.file.FileMapper
-import ua.acclorite.book_story.data.model.common.BookWithCover
 import ua.acclorite.book_story.data.model.file.CachedFile
-import ua.acclorite.book_story.data.parser.FileParser
+import ua.acclorite.book_story.data.parser.cover.CoverParser
+import ua.acclorite.book_story.data.parser.file.FileParser
 import ua.acclorite.book_story.domain.model.file.File
+import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.domain.repository.FileSystemRepository
 import ua.acclorite.book_story.domain.service.FileProvider
 import javax.inject.Inject
@@ -25,6 +27,7 @@ class FileSystemRepositoryImpl @Inject constructor(
     private val database: BookDatabase,
     private val fileMapper: FileMapper,
     private val fileParser: FileParser,
+    private val coverParser: CoverParser,
     private val fileProvider: FileProvider
 ) : FileSystemRepository {
 
@@ -73,10 +76,17 @@ class FileSystemRepositoryImpl @Inject constructor(
         return files
     }
 
-    override suspend fun getBookFromFile(file: File): Result<BookWithCover> = runCatching {
-        withContext(Dispatchers.IO) {
-            fileParser.parse(fileMapper.toCachedFile(file))
-                ?: throw Exception("Could not parse ${file.name}.")
+    override suspend fun getBookFromFile(file: File): Result<Pair<Book, CoverImage?>> =
+        runCatching {
+            withContext(Dispatchers.IO) {
+                val cachedFile = fileMapper.toCachedFile(file)
+
+                val book = fileParser.parse(
+                    cachedFile = cachedFile
+                ) ?: throw Exception("Could not parse ${file.name}.")
+                val coverImage = coverParser.parse(cachedFile = cachedFile)
+
+                return@withContext book to coverImage
+            }
         }
-    }
 }

@@ -10,7 +10,7 @@ import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.core.BottomSheet
 import ua.acclorite.book_story.core.Dialog
 import ua.acclorite.book_story.presentation.browse.model.SelectableFile
-import ua.acclorite.book_story.presentation.library.model.SelectableNullableBook
+import ua.acclorite.book_story.presentation.browse.model.SelectableNullableBook
 
 @Immutable
 data class BrowseState(

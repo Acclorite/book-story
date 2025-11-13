@@ -4,16 +4,11 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.data.parser
+package ua.acclorite.book_story.data.parser.file
 
 import android.util.Log
-import ua.acclorite.book_story.data.model.common.BookWithCover
 import ua.acclorite.book_story.data.model.file.CachedFile
-import ua.acclorite.book_story.data.parser.epub.EpubFileParser
-import ua.acclorite.book_story.data.parser.fb2.Fb2FileParser
-import ua.acclorite.book_story.data.parser.html.HtmlFileParser
-import ua.acclorite.book_story.data.parser.pdf.PdfFileParser
-import ua.acclorite.book_story.data.parser.txt.TxtFileParser
+import ua.acclorite.book_story.domain.model.library.Book
 import javax.inject.Inject
 
 private const val FILE_PARSER = "File Parser"
@@ -26,7 +21,7 @@ class FileParserImpl @Inject constructor(
     private val htmlFileParser: HtmlFileParser,
 ) : FileParser {
 
-    override suspend fun parse(cachedFile: CachedFile): BookWithCover? {
+    override suspend fun parse(cachedFile: CachedFile): Book? {
         if (!cachedFile.canAccess()) {
             Log.e(FILE_PARSER, "File does not exist or no read access is granted.")
             return null

@@ -4,10 +4,9 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.presentation.library.model
+package ua.acclorite.book_story.presentation.browse.model
 
 import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.data.model.common.NullableBook
 
 @Immutable
 data class SelectableNullableBook(

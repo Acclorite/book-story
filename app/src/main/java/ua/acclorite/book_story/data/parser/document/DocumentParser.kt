@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package ua.acclorite.book_story.data.parser
+package ua.acclorite.book_story.data.parser.document
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

@@ -24,8 +24,8 @@ class AddBookUseCase @Inject constructor(
     suspend operator fun invoke(book: Book, coverImage: CoverImage?) {
         logI("Inserting [${book.title}].")
 
-        val coverImageUri = coverImage?.let {
-            coverImageHandler.saveCover(it).fold(
+        val coverImageUri = coverImage?.let { coverImage ->
+            coverImageHandler.saveCover(coverImage).fold(
                 onSuccess = {
                     logI("Successfully saved cover image of [${book.title}].")
                     it.toUri()
