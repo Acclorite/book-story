@@ -19,6 +19,7 @@ import ua.acclorite.book_story.presentation.book_info.BookInfoEvent
 fun BookInfoContent(
     book: Book,
     file: File?,
+    loadingFile: Boolean,
     categories: List<Category>,
     bottomSheet: BottomSheet?,
     dialog: Dialog?,
@@ -66,6 +67,7 @@ fun BookInfoContent(
         bottomSheet = bottomSheet,
         book = book,
         file = file,
+        loadingFile = loadingFile,
         showPathDialog = showPathDialog,
         canResetCover = canResetCover,
         changeCover = changeCover,

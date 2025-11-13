@@ -79,6 +79,7 @@ data class BookInfoScreen(val bookId: Int) : Screen, Parcelable {
             BookInfoContent(
                 book = state.value.book,
                 file = state.value.file,
+                loadingFile = state.value.loadingFile,
                 categories = categories,
                 bottomSheet = state.value.bottomSheet,
                 dialog = state.value.dialog,

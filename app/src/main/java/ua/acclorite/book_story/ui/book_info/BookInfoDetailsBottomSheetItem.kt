@@ -8,6 +8,7 @@ package ua.acclorite.book_story.ui.book_info
 
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.EditNote
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.Composable
@@ -25,6 +27,7 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.common.components.common.IconButton
 import ua.acclorite.book_story.ui.common.components.common.StyledText
 import ua.acclorite.book_story.ui.theme.ExpandingTransition
+import ua.acclorite.book_story.ui.theme.FadeTransitionPreservingSpace
 
 @Composable
 fun BookInfoDetailsBottomSheetItem(
@@ -33,6 +36,7 @@ fun BookInfoDetailsBottomSheetItem(
     editable: Boolean,
     showError: Boolean = false,
     errorMessage: String? = null,
+    loading: Boolean = false,
     onEdit: () -> Unit = {}
 ) {
     Column(
@@ -55,18 +59,23 @@ fun BookInfoDetailsBottomSheetItem(
                 isError = showError,
                 label = {
                     StyledText(label)
-                }
+                },
             )
 
-            if (editable) {
-                IconButton(
-                    icon = Icons.Default.EditNote,
-                    contentDescription = R.string.edit_content_desc,
-                    disableOnClick = false,
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(24.dp)
-                ) {
-                    onEdit()
+            Box(contentAlignment = Alignment.Center) {
+                FadeTransitionPreservingSpace(visible = loading) {
+                    CircularProgressIndicator(modifier = Modifier.size(24.dp), strokeWidth = 3.2.dp)
+                }
+                FadeTransitionPreservingSpace(visible = !loading && editable) {
+                    IconButton(
+                        icon = Icons.Default.EditNote,
+                        contentDescription = R.string.edit_content_desc,
+                        disableOnClick = false,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(24.dp)
+                    ) {
+                        onEdit()
+                    }
                 }
             }
         }

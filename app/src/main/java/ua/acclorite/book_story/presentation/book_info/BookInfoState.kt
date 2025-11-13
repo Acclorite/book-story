@@ -15,7 +15,9 @@ import ua.acclorite.book_story.domain.model.library.Book
 @Immutable
 data class BookInfoState(
     val book: Book = Book.default,
+
     val file: File? = null,
+    val loadingFile: Boolean = true,
 
     val canResetCover: Boolean = false,
 

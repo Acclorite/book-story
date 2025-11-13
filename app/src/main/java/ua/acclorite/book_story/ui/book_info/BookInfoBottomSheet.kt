@@ -18,6 +18,7 @@ fun BookInfoBottomSheet(
     bottomSheet: BottomSheet?,
     book: Book,
     file: File?,
+    loadingFile: Boolean,
     canResetCover: Boolean,
     showPathDialog: (BookInfoEvent.OnShowPathDialog) -> Unit,
     changeCover: (BookInfoEvent.OnChangeCover) -> Unit,
@@ -43,6 +44,7 @@ fun BookInfoBottomSheet(
             BookInfoDetailsBottomSheet(
                 book = book,
                 file = file,
+                loadingFile = loadingFile,
                 showPathDialog = showPathDialog,
                 dismissBottomSheet = dismissBottomSheet
             )
