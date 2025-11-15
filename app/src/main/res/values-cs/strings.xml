@@ -384,4 +384,16 @@
     <string name="shuffle_color_preset_content_desc">Míchání barev</string>
     <string name="drag_content_desc">Přetáhnout</string>
     <string name="filter_content_desc">Filtr</string>
+    <string name="checkpoint_back_content_desc">Zpět na kontrolní bod</string>
+    <string name="checkpoint_forward_content_desc">Kontrolní bod vpřed</string>
+    <string name="chapters_content_desc">Kapitoly</string>
+    <string name="more_content_desc">Více</string>
+    <string name="pin_content_desc">Připnout</string>
+    <string name="show_less_content_desc">Zobrazit méně</string>
+    <string name="show_more_content_desc">Zobrazit více</string>
+    <string name="edit_content_desc">Upravit</string>
+    <string name="expand_content_desc">Rozbalit</string>
+    <string name="collapse_content_desc">Sbalit</string>
+    <string name="remove_content_desc">Odstranit</string>
+    <string name="note_content_desc">Poznámka</string>
 </resources>
