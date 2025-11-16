@@ -156,7 +156,7 @@ class PdfTextParser @Inject constructor(
             logI(TAG, "Successfully finished PDF parsing.")
             readerText
         } catch (e: Exception) {
-            logE(TAG, e.message ?: "")
+            logE(TAG, "Could not parse text with message: ${e.message}.")
             emptyList()
         }
     }

@@ -7,10 +7,13 @@
 package ua.acclorite.book_story.data.parser.file
 
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.domain.model.library.Book
 import javax.inject.Inject
+
+private const val TAG = "TxtFileParser"
 
 class TxtFileParser @Inject constructor() : FileParser {
 
@@ -31,7 +34,7 @@ class TxtFileParser @Inject constructor() : FileParser {
                 coverImage = null
             )
         } catch (e: Exception) {
-            e.printStackTrace()
+            logE(TAG, "Could not parse file with message: ${e.message}.")
             null
         }
     }

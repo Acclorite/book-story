@@ -44,7 +44,7 @@ class XmlTextParser @Inject constructor(
             logI(TAG, "Successfully finished XML parsing.")
             readerText
         } catch (e: Exception) {
-            logE(TAG, e.message ?: "")
+            logE(TAG, "Could not parse text with message: ${e.message}.")
             emptyList()
         }
     }

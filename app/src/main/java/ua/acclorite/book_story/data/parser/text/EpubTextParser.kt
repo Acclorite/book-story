@@ -96,7 +96,7 @@ class EpubTextParser @Inject constructor(
             logI(TAG, "Successfully finished EPUB parsing.")
             readerText
         } catch (e: Exception) {
-            e.printStackTrace()
+            logE(TAG, "Could not parse text with message: ${e.message}.")
             emptyList()
         }
     }

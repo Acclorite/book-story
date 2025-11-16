@@ -11,11 +11,14 @@ import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.domain.model.library.Book
 import java.util.zip.ZipFile
 import javax.inject.Inject
+
+private const val TAG = "EpubFileParser"
 
 class EpubFileParser @Inject constructor() : FileParser {
 
@@ -76,7 +79,7 @@ class EpubFileParser @Inject constructor() : FileParser {
             }
             book
         } catch (e: Exception) {
-            e.printStackTrace()
+            logE(TAG, "Could not parse file with message: ${e.message}.")
             null
         }
     }

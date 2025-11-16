@@ -10,10 +10,13 @@ import android.app.Application
 import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.domain.model.library.Book
 import javax.inject.Inject
+
+private const val TAG = "PdfFileParser"
 
 class PdfFileParser @Inject constructor(
     private val application: Application
@@ -47,7 +50,7 @@ class PdfFileParser @Inject constructor(
                 coverImage = null
             )
         } catch (e: Exception) {
-            e.printStackTrace()
+            logE(TAG, "Could not parse file with message: ${e.message}.")
             null
         }
     }

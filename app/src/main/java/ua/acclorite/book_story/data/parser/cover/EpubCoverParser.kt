@@ -77,8 +77,8 @@ class EpubCoverParser @Inject constructor() : CoverParser {
                 }
             }
             coverImage
-        } catch (_: Exception) {
-            logE(TAG, "Could not parse cover image.")
+        } catch (e: Exception) {
+            logE(TAG, "Could not parse cover image with message: ${e.message}.")
             null
         }
     }

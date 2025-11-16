@@ -73,7 +73,7 @@ class TxtTextParser @Inject constructor(
             logI(TAG, "Successfully finished TXT parsing.")
             readerText
         } catch (e: Exception) {
-            logE(TAG, e.message ?: "")
+            logE(TAG, "Could not parse text with message: ${e.message}.")
             emptyList()
         }
     }
