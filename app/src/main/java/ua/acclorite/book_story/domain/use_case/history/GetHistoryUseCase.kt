@@ -17,12 +17,14 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
+private const val TAG = "GetHistory"
+
 class GetHistoryUseCase @Inject constructor(
     private val historyRepository: HistoryRepository
 ) {
 
     suspend operator fun invoke(query: String): List<GroupedHistory> {
-        logI("Getting all history.")
+        logI(TAG, "Getting all history.")
 
         fun getDayLabel(timeMillis: Long): String {
             val historyDate = Instant.ofEpochMilli(timeMillis)
@@ -54,11 +56,11 @@ class GetHistoryUseCase @Inject constructor(
                 .map { (day, history) -> GroupedHistory(day, filterMaxElementsById(history)) }
         }.fold(
             onSuccess = {
-                logI("Successfully got ${it.size} grouped history entries.")
+                logI(TAG, "Successfully got ${it.size} grouped history entries.")
                 it
             },
             onFailure = {
-                logE("Could not get grouped history entries with error: ${it.message}")
+                logE(TAG, "Could not get grouped history entries with error: ${it.message}")
                 emptyList()
             }
         )

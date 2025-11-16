@@ -14,20 +14,22 @@ import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.domain.repository.FileSystemRepository
 import javax.inject.Inject
 
+private const val TAG = "GetBookFromFile"
+
 class GetBookFromFileUseCase @Inject constructor(
     private val fileSystemRepository: FileSystemRepository
 ) {
 
     suspend operator fun invoke(file: File): Pair<Book, CoverImage?>? {
-        logI("Getting book from [${file.name}] file.")
+        logI(TAG, "Getting book from [${file.name}] file.")
 
         return fileSystemRepository.getBookFromFile(file).fold(
             onSuccess = {
-                logI("Successfully got [${it.first.title}] book from file.")
+                logI(TAG, "Successfully got [${it.first.title}] book from file.")
                 it
             },
             onFailure = {
-                logE("Could not get book from file with error: ${it.message}")
+                logE(TAG, "Could not get book from file with error: ${it.message}")
                 null
             }
         )

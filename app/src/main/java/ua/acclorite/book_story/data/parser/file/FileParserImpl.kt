@@ -6,12 +6,12 @@
 
 package ua.acclorite.book_story.data.parser.file
 
-import android.util.Log
+import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.domain.model.library.Book
 import javax.inject.Inject
 
-private const val FILE_PARSER = "File Parser"
+private const val TAG = "FileParser"
 
 class FileParserImpl @Inject constructor(
     private val txtFileParser: TxtFileParser,
@@ -23,7 +23,7 @@ class FileParserImpl @Inject constructor(
 
     override suspend fun parse(cachedFile: CachedFile): Book? {
         if (!cachedFile.canAccess()) {
-            Log.e(FILE_PARSER, "File does not exist or no read access is granted.")
+            logE(TAG, "File does not exist or no read access is granted.")
             return null
         }
 
@@ -58,7 +58,7 @@ class FileParserImpl @Inject constructor(
             }
 
             else -> {
-                Log.e(FILE_PARSER, "Wrong file format, could not find supported extension.")
+                logE(TAG, "Wrong file format, could not find supported extension.")
                 null
             }
         }

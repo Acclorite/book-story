@@ -11,19 +11,21 @@ import ua.acclorite.book_story.core.log.logI
 import ua.acclorite.book_story.domain.repository.HistoryRepository
 import javax.inject.Inject
 
+private const val TAG = "DeleteWholeHistory"
+
 class DeleteWholeHistoryUseCase @Inject constructor(
     private val historyRepository: HistoryRepository
 ) {
 
     suspend operator fun invoke() {
-        logI("Deleting whole history.")
+        logI(TAG, "Deleting whole history.")
 
         return historyRepository.deleteWholeHistory().fold(
             onSuccess = {
-                logI("Successfully deleted whole history.")
+                logI(TAG, "Successfully deleted whole history.")
             },
             onFailure = {
-                logE("Could not delete whole history with error: ${it.message}")
+                logE(TAG, "Could not delete whole history with error: ${it.message}")
             }
         )
     }

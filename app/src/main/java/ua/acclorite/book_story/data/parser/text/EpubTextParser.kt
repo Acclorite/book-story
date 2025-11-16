@@ -8,7 +8,6 @@
 
 package ua.acclorite.book_story.data.parser.text
 
-import android.util.Log
 import androidx.core.net.toUri
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -21,6 +20,9 @@ import org.jsoup.parser.Parser
 import ua.acclorite.book_story.core.data.ExtensionsData
 import ua.acclorite.book_story.core.helpers.addAll
 import ua.acclorite.book_story.core.helpers.containsVisibleText
+import ua.acclorite.book_story.core.log.logE
+import ua.acclorite.book_story.core.log.logI
+import ua.acclorite.book_story.core.log.logW
 import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.data.parser.document.DocumentParser
 import ua.acclorite.book_story.domain.model.reader.ReaderText
@@ -32,7 +34,7 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import javax.inject.Inject
 
-private const val EPUB_TAG = "EPUB Parser"
+private const val TAG = "EpubTextParser"
 private typealias Source = String
 
 private val dispatcher = Dispatchers.IO.limitedParallelism(3)
@@ -42,7 +44,7 @@ class EpubTextParser @Inject constructor(
 ) : TextParser {
 
     override suspend fun parse(cachedFile: CachedFile): List<ReaderText> {
-        Log.i(EPUB_TAG, "Started EPUB parsing: ${cachedFile.name}.")
+        logI(TAG, "Started EPUB parsing: ${cachedFile.name}.")
 
         return try {
             yield()
@@ -68,10 +70,10 @@ class EpubTextParser @Inject constructor(
                     }
                     val chapterTitleEntries = zip.getChapterTitleMapFromToc(tocEntry)
 
-                    Log.i(EPUB_TAG, "TOC Entry: ${tocEntry?.name ?: "no toc.ncx"}")
-                    Log.i(EPUB_TAG, "OPF Entry: ${opfEntry?.name ?: "no .opf entry"}")
-                    Log.i(EPUB_TAG, "Chapter entries, size: ${chapterEntries.size}")
-                    Log.i(EPUB_TAG, "Title entries, size: ${chapterTitleEntries?.size}")
+                    logI(TAG, "TOC Entry: ${tocEntry?.name ?: "no toc.ncx"}")
+                    logI(TAG, "OPF Entry: ${opfEntry?.name ?: "no .opf entry"}")
+                    logI(TAG, "Chapter entries, size: ${chapterEntries.size}")
+                    logI(TAG, "Title entries, size: ${chapterTitleEntries?.size}")
 
                     readerText = zip.parseEpub(
                         chapterEntries = chapterEntries,
@@ -87,11 +89,11 @@ class EpubTextParser @Inject constructor(
                 readerText.filterIsInstance<ReaderText.Text>().isEmpty() ||
                 readerText.filterIsInstance<ReaderText.Chapter>().isEmpty()
             ) {
-                Log.e(EPUB_TAG, "Could not extract text from EPUB.")
+                logE(TAG, "Could not extract text from EPUB.")
                 return emptyList()
             }
 
-            Log.i(EPUB_TAG, "Successfully finished EPUB parsing.")
+            logI(TAG, "Successfully finished EPUB parsing.")
             readerText
         } catch (e: Exception) {
             e.printStackTrace()
@@ -204,7 +206,7 @@ class EpubTextParser @Inject constructor(
             readerText.filterIsInstance<ReaderText.Text>().isEmpty() ||
             readerText.filterIsInstance<ReaderText.Chapter>().isEmpty()
         ) {
-            Log.w(EPUB_TAG, "Could not extract text from [${entry.name}].")
+            logW(TAG, "Could not extract text from [${entry.name}].")
             return
         }
 
@@ -324,12 +326,12 @@ class EpubTextParser @Inject constructor(
             }.also { entries ->
                 if (entries.isEmpty()) return@let
 
-                Log.i(EPUB_TAG, "Successfully parsed OPF to get entries from spine.")
+                logI(TAG, "Successfully parsed OPF to get entries from spine.")
                 return entries
             }
         }
 
-        Log.w(EPUB_TAG, "Could not parse OPF, manual filtering.")
+        logW(TAG, "Could not parse OPF, manual filtering.")
         return entries().toList().filter { entry ->
             listOf(".html", ".htm", ".xhtml").any {
                 entry.name.endsWith(it, ignoreCase = true)

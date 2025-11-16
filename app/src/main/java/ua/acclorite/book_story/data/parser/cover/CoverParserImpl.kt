@@ -11,6 +11,8 @@ import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.data.model.file.CachedFile
 import javax.inject.Inject
 
+private const val TAG = "CoverParser"
+
 class CoverParserImpl @Inject constructor(
     private val epubCoverParser: EpubCoverParser,
     private val txtCoverParser: TxtCoverParser,
@@ -21,7 +23,7 @@ class CoverParserImpl @Inject constructor(
 
     override suspend fun parse(cachedFile: CachedFile): CoverImage? {
         if (!cachedFile.canAccess()) {
-            logE("File does not exist or no read access is granted.")
+            logE(TAG, "File does not exist or no read access is granted.")
             return null
         }
 
@@ -56,7 +58,7 @@ class CoverParserImpl @Inject constructor(
             }
 
             else -> {
-                logE("Wrong file format, could not find supported extension.")
+                logE(TAG, "Wrong file format, could not find supported extension.")
                 null
             }
         }

@@ -15,13 +15,15 @@ import ua.acclorite.book_story.domain.repository.FileSystemRepository
 import ua.acclorite.book_story.presentation.browse.model.BrowseSortOrder
 import javax.inject.Inject
 
+private const val TAG = "GetFiles"
+
 class GetFilesUseCase @Inject constructor(
     private val fileSystemRepository: FileSystemRepository,
     private val settings: SettingsManager
 ) {
 
     suspend operator fun invoke(query: String = ""): List<File> {
-        logI("Searching for files with query: \"$query\".")
+        logI(TAG, "Searching for files with query: \"$query\".")
 
         fun List<File>.filterFiles(): List<File> {
             return if (settings.browseIncludedFilterItems.lastValue.isEmpty()) this
@@ -60,11 +62,11 @@ class GetFilesUseCase @Inject constructor(
                 .sortFiles()
         }.fold(
             onSuccess = {
-                logI("Successfully found [${it.size}] files.")
+                logI(TAG, "Successfully found [${it.size}] files.")
                 it
             },
             onFailure = {
-                logE("Could not find files with error: ${it.message}")
+                logE(TAG, "Could not find files with error: ${it.message}")
                 emptyList()
             }
         )

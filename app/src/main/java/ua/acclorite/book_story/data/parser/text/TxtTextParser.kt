@@ -6,24 +6,25 @@
 
 package ua.acclorite.book_story.data.parser.text
 
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.core.helpers.clearAllMarkdown
+import ua.acclorite.book_story.core.log.logE
+import ua.acclorite.book_story.core.log.logI
 import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.data.parser.document.MarkdownParser
 import ua.acclorite.book_story.domain.model.reader.ReaderText
 import javax.inject.Inject
 
-private const val TXT_TAG = "TXT Parser"
+private const val TAG = "TxtTextParser"
 
 class TxtTextParser @Inject constructor(
     private val markdownParser: MarkdownParser
 ) : TextParser {
 
     override suspend fun parse(cachedFile: CachedFile): List<ReaderText> {
-        Log.i(TXT_TAG, "Started TXT parsing: ${cachedFile.name}.")
+        logI(TAG, "Started TXT parsing: ${cachedFile.name}.")
 
         return try {
             val readerText = mutableListOf<ReaderText>()
@@ -65,14 +66,14 @@ class TxtTextParser @Inject constructor(
                 readerText.filterIsInstance<ReaderText.Text>().isEmpty() ||
                 readerText.filterIsInstance<ReaderText.Chapter>().isEmpty()
             ) {
-                Log.e(TXT_TAG, "Could not extract text from TXT.")
+                logE(TAG, "Could not extract text from TXT.")
                 return emptyList()
             }
 
-            Log.i(TXT_TAG, "Successfully finished TXT parsing.")
+            logI(TAG, "Successfully finished TXT parsing.")
             readerText
         } catch (e: Exception) {
-            e.printStackTrace()
+            logE(TAG, e.message ?: "")
             emptyList()
         }
     }

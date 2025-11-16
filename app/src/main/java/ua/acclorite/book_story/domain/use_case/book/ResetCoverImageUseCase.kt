@@ -14,13 +14,15 @@ import ua.acclorite.book_story.domain.repository.BookRepository
 import ua.acclorite.book_story.domain.service.CoverImageHandler
 import javax.inject.Inject
 
+private const val TAG = "ResetCoverImage"
+
 class ResetCoverImageUseCase @Inject constructor(
     private val bookRepository: BookRepository,
     private val coverImageHandler: CoverImageHandler
 ) {
 
     suspend operator fun invoke(bookId: Int): Boolean {
-        logI("Resetting cover image of [$bookId].")
+        logI(TAG, "Resetting cover image of [$bookId].")
 
         bookRepository.getBook(bookId).mapCatching { book ->
             // Getting default cover image
@@ -29,7 +31,7 @@ class ResetCoverImageUseCase @Inject constructor(
 
             // Deleting old cover
             book.coverImage?.let { coverImageHandler.deleteCover(it) }?.onFailure {
-                logW("Could not delete old cover image with error: ${it.message}")
+                logW(TAG, "Could not delete old cover image with error: ${it.message}")
             }
 
             // Resetting cover
@@ -42,11 +44,11 @@ class ResetCoverImageUseCase @Inject constructor(
             bookRepository.updateBook(newBook).getOrThrow()
         }.fold(
             onSuccess = {
-                logI("Successfully reset cover image of [$bookId].")
+                logI(TAG, "Successfully reset cover image of [$bookId].")
                 return true
             },
             onFailure = {
-                logE("Could not reset cover image of [$bookId] with error: ${it.message}")
+                logE(TAG, "Could not reset cover image of [$bookId] with error: ${it.message}")
                 return false
             }
         )

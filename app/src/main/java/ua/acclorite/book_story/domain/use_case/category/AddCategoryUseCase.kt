@@ -12,19 +12,21 @@ import ua.acclorite.book_story.domain.model.library.Category
 import ua.acclorite.book_story.domain.repository.CategoryRepository
 import javax.inject.Inject
 
+private const val TAG = "AddCategory"
+
 class AddCategoryUseCase @Inject constructor(
     private val categoryRepository: CategoryRepository
 ) {
 
     suspend operator fun invoke(title: String) {
-        logI("Inserting [${title}] category.")
+        logI(TAG, "Inserting [${title}] category.")
 
         categoryRepository.addCategory(Category(title = title)).fold(
             onSuccess = {
-                logI("Successfully inserted [${title}] category.")
+                logI(TAG, "Successfully inserted [${title}] category.")
             },
             onFailure = {
-                logE("Could not insert [${title}] category with error: ${it.message}")
+                logE(TAG, "Could not insert [${title}] category with error: ${it.message}")
             }
         )
     }

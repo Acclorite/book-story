@@ -11,19 +11,21 @@ import ua.acclorite.book_story.domain.model.library.Category
 import ua.acclorite.book_story.domain.repository.CategoryRepository
 import javax.inject.Inject
 
+private const val TAG = "DeleteCategory"
+
 class DeleteCategoryUseCase @Inject constructor(
     private val categoryRepository: CategoryRepository
 ) {
 
     suspend operator fun invoke(category: Category) {
-        logI("Deleting category [${category.id}].")
+        logI(TAG, "Deleting category [${category.id}].")
 
         categoryRepository.deleteCategory(category).fold(
             onSuccess = {
-                logI("Successfully deleted category [${category.id}].")
+                logI(TAG, "Successfully deleted category [${category.id}].")
             },
             onFailure = {
-                logI("Could not delete category [${category.id}] with error: ${it.message}")
+                logI(TAG, "Could not delete category [${category.id}] with error: ${it.message}")
             }
         )
     }

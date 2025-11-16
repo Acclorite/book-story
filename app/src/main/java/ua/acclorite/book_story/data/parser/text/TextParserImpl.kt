@@ -6,14 +6,14 @@
 
 package ua.acclorite.book_story.data.parser.text
 
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.domain.model.reader.ReaderText
 import javax.inject.Inject
 
-private const val TEXT_PARSER = "Text Parser"
+private const val TAG = "TextParser"
 
 class TextParserImpl @Inject constructor(
     // Markdown parser (Markdown)
@@ -28,7 +28,7 @@ class TextParserImpl @Inject constructor(
 
     override suspend fun parse(cachedFile: CachedFile): List<ReaderText> {
         if (!cachedFile.canAccess()) {
-            Log.e(TEXT_PARSER, "File does not exist or no read access is granted.")
+            logE(TAG, "File does not exist or no read access is granted.")
             return emptyList()
         }
 
@@ -64,7 +64,7 @@ class TextParserImpl @Inject constructor(
                 }
 
                 else -> {
-                    Log.e(TEXT_PARSER, "Wrong file format, could not find supported extension.")
+                    logE(TAG, "Wrong file format, could not find supported extension.")
                     emptyList()
                 }
             }

@@ -13,17 +13,19 @@ import ua.acclorite.book_story.domain.repository.BookRepository
 import ua.acclorite.book_story.domain.repository.HistoryRepository
 import javax.inject.Inject
 
+private const val TAG = "SearchBooks"
+
 class SearchBooksUseCase @Inject constructor(
     private val bookRepository: BookRepository,
     private val historyRepository: HistoryRepository
 ) {
 
     suspend operator fun invoke(query: String): List<Book> {
-        logI("Searching for books with query: \"$query\".")
+        logI(TAG, "Searching for books with query: \"$query\".")
 
         return bookRepository.searchBooks(query).fold(
             onSuccess = { books ->
-                logI("Successfully found [${books.size}] books.")
+                logI(TAG, "Successfully found [${books.size}] books.")
                 books.map { book ->
                     val history = historyRepository.getHistoryForBook(book.id).getOrNull()
 
@@ -33,7 +35,7 @@ class SearchBooksUseCase @Inject constructor(
                 }
             },
             onFailure = {
-                logE("Could not find books with error: ${it.message}")
+                logE(TAG, "Could not find books with error: ${it.message}")
                 emptyList()
             }
         )

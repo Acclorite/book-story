@@ -50,6 +50,8 @@ import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 import javax.inject.Singleton
 
+private const val TAG = "SettingsManager"
+
 @Suppress("UNCHECKED_CAST")
 @Singleton
 class SettingsManager @Inject constructor(
@@ -346,7 +348,7 @@ class SettingsManager @Inject constructor(
             default = default,
             setSetting = {
                 scope.launch {
-                    logI("Updating setting: [${key.name}].")
+                    logI(TAG, "Updating setting: [${key.name}].")
                     dataStore.putData(key, it)
                 }
             },
@@ -355,7 +357,7 @@ class SettingsManager @Inject constructor(
         ).also { setting ->
             scope.launch {
                 setting.init(dataStore.getNullableData<P>(key))
-                logI("Successfully initialized setting: [${key.name}].")
+                logI(TAG, "Successfully initialized setting: [${key.name}].")
                 initializeSetting()
             }
         }
@@ -363,7 +365,7 @@ class SettingsManager @Inject constructor(
 
     private fun initializeSetting() {
         if (initializedSettingsCount.incrementAndGet() == settingsCount.get()) {
-            logI("Successfully initialized all $settingsCount settings.")
+            logI(TAG, "Successfully initialized all $settingsCount settings.")
             _initialized.update { true }
         }
     }

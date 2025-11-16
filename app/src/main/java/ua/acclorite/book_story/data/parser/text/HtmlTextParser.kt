@@ -6,23 +6,24 @@
 
 package ua.acclorite.book_story.data.parser.text
 
-import android.util.Log
 import kotlinx.coroutines.yield
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
+import ua.acclorite.book_story.core.log.logE
+import ua.acclorite.book_story.core.log.logI
 import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.data.parser.document.DocumentParser
 import ua.acclorite.book_story.domain.model.reader.ReaderText
 import javax.inject.Inject
 
-private const val HTML_TAG = "HTML Parser"
+private const val TAG = "HtmlTextParser"
 
 class HtmlTextParser @Inject constructor(
     private val documentParser: DocumentParser
 ) : TextParser {
 
     override suspend fun parse(cachedFile: CachedFile): List<ReaderText> {
-        Log.i(HTML_TAG, "Started HTML parsing: ${cachedFile.name}.")
+        logI(TAG, "Started HTML parsing: ${cachedFile.name}.")
 
         return try {
             val readerText = cachedFile.openInputStream()?.use { stream ->
@@ -36,14 +37,14 @@ class HtmlTextParser @Inject constructor(
                 readerText.filterIsInstance<ReaderText.Text>().isEmpty() ||
                 readerText.filterIsInstance<ReaderText.Chapter>().isEmpty()
             ) {
-                Log.e(HTML_TAG, "Could not extract text from HTML.")
+                logE(TAG, "Could not extract text from HTML.")
                 return emptyList()
             }
 
-            Log.i(HTML_TAG, "Successfully finished HTML parsing.")
+            logI(TAG, "Successfully finished HTML parsing.")
             readerText
         } catch (e: Exception) {
-            e.printStackTrace()
+            logE(TAG, e.message ?: "")
             emptyList()
         }
     }

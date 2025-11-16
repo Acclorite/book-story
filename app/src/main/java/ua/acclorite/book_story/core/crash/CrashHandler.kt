@@ -13,6 +13,8 @@ import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.presentation.crash.CrashActivity
 import kotlin.system.exitProcess
 
+private const val TAG = "CrashHandler"
+
 class CrashHandler(
     private val context: Context
 ) : Thread.UncaughtExceptionHandler {
@@ -20,7 +22,7 @@ class CrashHandler(
     override fun uncaughtException(thread: Thread, throwable: Throwable) {
         val crashLog = throwable.stackTraceToString()
 
-        logE(crashLog)
+        logE(TAG, crashLog)
         if (!CrashUtils.saveCrashLog(context, crashLog)) return
 
         val intent = Intent(context, CrashActivity::class.java).apply {

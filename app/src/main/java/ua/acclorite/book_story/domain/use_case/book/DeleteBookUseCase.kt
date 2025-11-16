@@ -15,6 +15,8 @@ import ua.acclorite.book_story.domain.repository.HistoryRepository
 import ua.acclorite.book_story.domain.service.CoverImageHandler
 import javax.inject.Inject
 
+private const val TAG = "DeleteBook"
+
 class DeleteBookUseCase @Inject constructor(
     private val bookRepository: BookRepository,
     private val historyRepository: HistoryRepository,
@@ -22,25 +24,25 @@ class DeleteBookUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(book: Book) {
-        logI("Deleting [${book.title}].")
+        logI(TAG, "Deleting [${book.title}].")
 
         // Deleting cover image
         book.coverImage?.let { coverImageHandler.deleteCover(it) }?.onFailure {
-            logW("Could not delete cover image with error: ${it.message}")
+            logW(TAG, "Could not delete cover image with error: ${it.message}")
         }
 
         // Deleting history
         historyRepository.deleteHistoryForBook(bookId = book.id).onFailure {
-            logW("Could not delete history for [${book.title}] with error: ${it.message}")
+            logW(TAG, "Could not delete history for [${book.title}] with error: ${it.message}")
         }
 
         // Deleting book
         bookRepository.deleteBook(book).fold(
             onSuccess = {
-                logI("Successfully deleted [${book.title}].")
+                logI(TAG, "Successfully deleted [${book.title}].")
             },
             onFailure = {
-                logE("Could not delete [${book.title}] with error: ${it.message}")
+                logE(TAG, "Could not delete [${book.title}] with error: ${it.message}")
             }
         )
     }

@@ -7,18 +7,19 @@
 package ua.acclorite.book_story.data.parser.text
 
 import android.app.Application
-import android.util.Log
 import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.text.PDFTextStripper
 import kotlinx.coroutines.yield
 import ua.acclorite.book_story.core.helpers.clearAllMarkdown
+import ua.acclorite.book_story.core.log.logE
+import ua.acclorite.book_story.core.log.logI
 import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.data.parser.document.MarkdownParser
 import ua.acclorite.book_story.domain.model.reader.ReaderText
 import javax.inject.Inject
 
-private const val PDF_TAG = "PDF Parser"
+private const val TAG = "PdfTextParser"
 
 class PdfTextParser @Inject constructor(
     private val markdownParser: MarkdownParser,
@@ -26,7 +27,7 @@ class PdfTextParser @Inject constructor(
 ) : TextParser {
 
     override suspend fun parse(cachedFile: CachedFile): List<ReaderText> {
-        Log.i(PDF_TAG, "Started PDF parsing: ${cachedFile.name}.")
+        logI(TAG, "Started PDF parsing: ${cachedFile.name}.")
 
         return try {
             yield()
@@ -148,14 +149,14 @@ class PdfTextParser @Inject constructor(
                 readerText.filterIsInstance<ReaderText.Text>().isEmpty() ||
                 readerText.filterIsInstance<ReaderText.Chapter>().isEmpty()
             ) {
-                Log.e(PDF_TAG, "Could not extract text from PDF.")
+                logE(TAG, "Could not extract text from PDF.")
                 return emptyList()
             }
 
-            Log.i(PDF_TAG, "Successfully finished PDF parsing.")
+            logI(TAG, "Successfully finished PDF parsing.")
             readerText
         } catch (e: Exception) {
-            e.printStackTrace()
+            logE(TAG, e.message ?: "")
             emptyList()
         }
     }

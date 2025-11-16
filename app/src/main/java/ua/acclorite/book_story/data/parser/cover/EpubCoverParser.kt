@@ -19,6 +19,8 @@ import java.nio.charset.StandardCharsets
 import java.util.zip.ZipFile
 import javax.inject.Inject
 
+private const val TAG = "EpubCoverParser"
+
 class EpubCoverParser @Inject constructor() : CoverParser {
 
     override suspend fun parse(cachedFile: CachedFile): CoverImage? {
@@ -76,7 +78,7 @@ class EpubCoverParser @Inject constructor() : CoverParser {
             }
             coverImage
         } catch (_: Exception) {
-            logE("Could not parse cover image.")
+            logE(TAG, "Could not parse cover image.")
             null
         }
     }

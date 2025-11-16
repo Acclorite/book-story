@@ -13,6 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import ua.acclorite.book_story.core.log.logD
 
+private const val TAG = "ThemeLogger"
+
 /**
  * This function logs all the colors of the colorScheme.
  * You can use it to extract colors from Material You theme and add it to the app.
@@ -32,6 +34,7 @@ fun ColorScheme.logTheme(darkTheme: Boolean): ColorScheme {
     }
 
     logD(
+        TAG,
         "Theme $suffix:\n" +
                 "------------------------\n" +
                 primary.convertToVal("primary") +

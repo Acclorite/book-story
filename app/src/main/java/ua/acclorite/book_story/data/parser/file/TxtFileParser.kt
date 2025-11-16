@@ -17,11 +17,10 @@ class TxtFileParser @Inject constructor() : FileParser {
     override suspend fun parse(cachedFile: CachedFile): Book? {
         return try {
             val title = cachedFile.name.substringBeforeLast(".").trim()
-            val author = UIText.StringResource(R.string.unknown_author)
 
             Book(
                 title = title,
-                author = author,
+                author = UIText.StringResource(R.string.unknown_author),
                 description = null,
                 scrollIndex = 0,
                 scrollOffset = 0,

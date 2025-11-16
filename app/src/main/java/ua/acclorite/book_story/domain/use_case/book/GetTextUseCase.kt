@@ -12,12 +12,14 @@ import ua.acclorite.book_story.domain.model.reader.ReaderText
 import ua.acclorite.book_story.domain.repository.BookRepository
 import javax.inject.Inject
 
+private const val TAG = "GetText"
+
 class GetTextUseCase @Inject constructor(
     private val bookRepository: BookRepository
 ) {
 
     suspend operator fun invoke(bookId: Int): List<ReaderText> {
-        logI("Getting text from: [$bookId].")
+        logI(TAG, "Getting text from: [$bookId].")
         if (bookId == -1) return emptyList()
 
         bookRepository.getText(bookId).mapCatching { readerText ->
@@ -31,11 +33,11 @@ class GetTextUseCase @Inject constructor(
             readerText
         }.fold(
             onSuccess = {
-                logI("Successfully loaded text from [$bookId] with markdown.")
+                logI(TAG, "Successfully loaded text from [$bookId] with markdown.")
                 return it
             },
             onFailure = {
-                logE("Could not load text with exception: ${it.message}")
+                logE(TAG, "Could not load text with exception: ${it.message}")
                 return emptyList()
             }
         )

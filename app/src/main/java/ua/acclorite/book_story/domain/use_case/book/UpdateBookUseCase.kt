@@ -12,19 +12,21 @@ import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.domain.repository.BookRepository
 import javax.inject.Inject
 
+private const val TAG = "UpdateBook"
+
 class UpdateBookUseCase @Inject constructor(
     private val bookRepository: BookRepository
 ) {
 
     suspend operator fun invoke(book: Book) {
-        logI("Updating [${book.title}].")
+        logI(TAG, "Updating [${book.title}].")
 
         bookRepository.updateBook(book).fold(
             onSuccess = {
-                logI("Successfully updated [${book.title}].")
+                logI(TAG, "Successfully updated [${book.title}].")
             },
             onFailure = {
-                logE("Could not update [${book.title}] with error: ${it.message}")
+                logE(TAG, "Could not update [${book.title}] with error: ${it.message}")
             }
         )
     }

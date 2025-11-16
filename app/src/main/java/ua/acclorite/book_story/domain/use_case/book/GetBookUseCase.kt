@@ -13,25 +13,27 @@ import ua.acclorite.book_story.domain.repository.BookRepository
 import ua.acclorite.book_story.domain.repository.HistoryRepository
 import javax.inject.Inject
 
+private const val TAG = "GetBook"
+
 class GetBookUseCase @Inject constructor(
     private val bookRepository: BookRepository,
     private val historyRepository: HistoryRepository
 ) {
 
     suspend operator fun invoke(bookId: Int): Book? {
-        logI("Getting book: [$bookId].")
+        logI(TAG, "Getting book: [$bookId].")
 
         bookRepository.getBook(bookId).fold(
             onSuccess = { book ->
                 val history = historyRepository.getHistoryForBook(book.id).getOrNull()
 
-                logI("Successfully got book: [$bookId].")
+                logI(TAG, "Successfully got book: [$bookId].")
                 return book.copy(
                     lastOpened = history?.time
                 )
             },
             onFailure = {
-                logE("Could not get book [$bookId] with error: ${it.message}")
+                logE(TAG, "Could not get book [$bookId] with error: ${it.message}")
                 return null
             }
         )

@@ -12,20 +12,22 @@ import ua.acclorite.book_story.domain.model.reader.ColorPreset
 import ua.acclorite.book_story.domain.repository.ColorPresetRepository
 import javax.inject.Inject
 
+private const val TAG = "GetColorPresets"
+
 class GetColorPresetsUseCase @Inject constructor(
     private val colorPresetRepository: ColorPresetRepository
 ) {
 
     suspend operator fun invoke(): List<ColorPreset> {
-        logI("Getting color presets.")
+        logI(TAG, "Getting color presets.")
 
         return colorPresetRepository.getColorPresets().fold(
             onSuccess = {
-                logI("Successfully got [${it.size}] color presets.")
+                logI(TAG, "Successfully got [${it.size}] color presets.")
                 it
             },
             onFailure = {
-                logE("Could not get color presets with error: ${it.message}")
+                logE(TAG, "Could not get color presets with error: ${it.message}")
                 emptyList()
             }
         )

@@ -12,20 +12,22 @@ import ua.acclorite.book_story.domain.model.library.Category
 import ua.acclorite.book_story.domain.repository.CategoryRepository
 import javax.inject.Inject
 
+private const val TAG = "GetCategories"
+
 class GetCategoriesUseCase @Inject constructor(
     private val categoryRepository: CategoryRepository
 ) {
 
     suspend operator fun invoke(): List<Category> {
-        logI("Getting all categories.")
+        logI(TAG, "Getting all categories.")
 
         return categoryRepository.getCategories().fold(
             onSuccess = {
-                logI("Successfully got [${it.size}] categories.")
+                logI(TAG, "Successfully got [${it.size}] categories.")
                 it
             },
             onFailure = {
-                logE("Could not get categories with error: ${it.message}")
+                logE(TAG, "Could not get categories with error: ${it.message}")
                 emptyList()
             }
         )
