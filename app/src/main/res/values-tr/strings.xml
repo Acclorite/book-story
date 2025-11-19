@@ -71,7 +71,7 @@
     <string name="color_preset_selected_query">Seçilen «%1$s»</string>
     <!-- Action Texts -->
     <string name="cancel">İptal</string>
-    <string name="add_book">Kitap ekle</string>
+    <string name="add_book">Bir kitap ekle</string>
     <string name="move">Taşı</string>
     <string name="delete">Sil</string>
     <string name="never">Asla</string>
@@ -315,7 +315,7 @@
     <string name="credits_design">Tasarım</string>
     <string name="credits_icon">Simgeler</string>
     <string name="credits_updates">Yeni güncellemeleri yönetme</string>
-    <string name="credits_fonts">Yazı tipleri</string>
+    <string name="credits_fonts">Yazı türü</string>
     <string name="credits_translation">Çeviri</string>
     <string name="credits_contribution">Katkı</string>
     <string name="credits_ideas">Fikirler</string>
