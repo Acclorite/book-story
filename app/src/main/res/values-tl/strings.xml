@@ -1,3 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="library_screen">Aklatan</string>
+    <string name="history_screen">Talaan</string>
+    <string name="delete_books">Burahin ang mga Libro?</string>
+    <string name="delete_book">Burahin ang Libro?</string>
+    <string name="about_screen">Tungkol sa App</string>
+    <string name="delete_history">Burahin ang Talaan ng mga binasa?</string>
+    <string name="add_books">Magdagdag ng mga Libro?</string>
+    <string name="remove_category">Alisin ang Kategorya?</string>
+    <string name="error_no_description">Walang Deskripsyon.</string>
+    <string name="add_books_description">Pwede ka mamili kung anong mga libro ang gusto mong idagdag. Pwede mong baguhin ang Pamagat at ang Imahe ng pabalat mamaya. Maaaring umabot ng ilang minuto ang proseso.</string>
+    <string name="error_no_browser">Walang nahanap na browser app.</string>
+    <string name="categories_empty">Walang kategorya.</string>
 </resources>
