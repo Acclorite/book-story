@@ -1,8 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2025 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
-
-<resources>
-    </resources>
+  --><resources>
+    <string name="library_screen">Sahnalar</string>
+    <string name="history_screen">Taryh</string>
+    <string name="browse_screen">Yzarla</string>
+    <string name="settings_screen">Sazlamalar</string>
+    <string name="about_screen">Programa Hakynda</string>
+    <string name="help_screen">Kömek</string>
+    <string name="add_books">Kitap Goşmaly-my?</string>
+    <string name="delete_books">Kitaplar Öçürülsin-mi?</string>
+    <string name="delete_book">Kitap Öçürülsin-mi?</string>
+    <string name="delete_history">Okan taryhyňyz Öçürülsin-mi?</string>
+    <string name="remove_category">Kategorýa aýrylsyn-mi?</string>
+    <string name="add_books_description">Haýsy kitap okamak islaniňizy saýlap bilersiňiz. Soňundan kitabyň adyny we daşyndaky suraty üýtedip bilersiňiz. Bu bir-näçe minut alar.</string>
+    <string name="delete_books_description">Bu (%1$s)saýlanan ähli kitaplar maglumat ýerinden öçürer. Siziň enjamyňyzdan öçürulmez.</string>
+    <string name="delete_book_description">Bu saýlanan ähli kitaplar maglumat ýerinden öçürer. Siziň enjamyňyzdan öçürulmez.</string>
+</resources>
