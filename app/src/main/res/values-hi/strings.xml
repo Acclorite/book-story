@@ -9,7 +9,6 @@
     <string name="settings_screen">सेटिंग्स</string>
     <string name="about_screen">ऐप के बारे में जानकारी</string>
     <string name="default_string">डिफ़ॉल्ट</string>
-    <string name="help_screen">सहायता</string>
     <string name="add_books">किताबें शामिल करें ?</string>
     <string name="delete_book">किताब हटाएं?</string>
     <string name="error_something_went_wrong">कुछ गड़बड़ हुआ है ।</string>
@@ -28,8 +27,6 @@
     <string name="translate">अनुवाद करें</string>
     <string name="dictionary">शब्दकोष</string>
     <string name="next">अगला</string>
-    <string name="yes_go_to_help">हां, सहायता पर जाएं</string>
-    <string name="no">नहीं</string>
     <string name="done">समाप्त</string>
     <string name="web_search">वेब खोज</string>
     <string name="share">शेयर करें</string>
@@ -185,21 +182,13 @@
     <string name="credits_option">क्रेडिट</string>
     <string name="credits_design">डिज़ाइन</string>
     <string name="credits_ideas">विचारों</string>
-    <string name="help_title_how_to_customize_app">मैं ऐप को कैसे अनुकूलित करूं?</string>
-    <string name="help_desc_how_to_customize_app_1">के पास जाओ</string>
     <string name="licenses_option">ओपन सोर्स लाइसेंस</string>
     <string name="credits_icon">माउस</string>
     <string name="credits_fonts">फ़ॉन्ट्स</string>
     <string name="credits_translation">अनुवाद</string>
     <string name="credits_contribution">योगदान</string>
-    <string name="help_title_how_to_add_books">मैं लाइब्रेरी में किताबें कैसे जोड़ूँ?</string>
-    <string name="help_desc_how_to_add_books_1">के पास जाओ</string>
-    <string name="help_desc_how_to_add_books_2">ब्राउज़</string>
-    <string name="help_desc_how_to_add_books_4">पुस्तकालय</string>
     <string name="history_element_deleted">इतिहास तत्व सफलतापूर्वक हटा दिया गया।</string>
     <string name="unknown">अज्ञात</string>
     <string name="report_bug_option">एक बग रिपोर्ट करो</string>
     <string name="credits_updates">नए अपडेट का प्रबंधन</string>
-    <string name="help_desc_how_to_add_books_3">यदि आपको डाउनलोड की गई पुस्तकें दिखाई नहीं देती हैं तो सूची को नीचे खींचकर ताज़ा करने का प्रयास करें। सुनिश्चित करें कि आपकी पुस्तकों में फ़ाइल स्वरूप समर्थित है। फिर पुस्तक को चुनने के लिए उस पर क्लिक करें या उसका स्थान दिखाने के लिए उसे दबाए रखें। अपनी इच्छित सभी पुस्तकों का चयन करने के बाद, ऊपरी दाएं कोने में चेकमार्क आइकन पर क्लिक करें, सभी पुस्तकों के लोड होने की प्रतीक्षा करें और \"जोड़ें\" पर क्लिक करें। अब आपको वे सभी पुस्तकें दिखनी चाहिए जिन्हें आपने इसमें जोड़ा है</string>
-    <string name="help_desc_how_to_customize_app_2">सेटिंग्स</string>
 </resources>

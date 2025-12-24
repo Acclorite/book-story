@@ -21,6 +21,7 @@ fun SettingsContent(
     navigateToReaderSettings: () -> Unit,
     navigateToLibrarySettings: () -> Unit,
     navigateToBrowseSettings: () -> Unit,
+    navigateToStart: () -> Unit,
     navigateBack: () -> Unit
 ) {
     SettingsScaffold(
@@ -31,6 +32,7 @@ fun SettingsContent(
         navigateToReaderSettings = navigateToReaderSettings,
         navigateToLibrarySettings = navigateToLibrarySettings,
         navigateToBrowseSettings = navigateToBrowseSettings,
+        navigateToStart = navigateToStart,
         navigateBack = navigateBack
     )
 }

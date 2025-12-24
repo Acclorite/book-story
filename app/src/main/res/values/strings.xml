@@ -15,7 +15,6 @@
     <string name="browse_screen">Browse</string>
     <string name="settings_screen">Settings</string>
     <string name="about_screen">About app</string>
-    <string name="help_screen">Help</string>
 
     <!-- Dialog Labels -->
     <string name="add_books">Add books?</string>
@@ -95,8 +94,6 @@
     <string name="translate">Translate</string>
     <string name="dictionary">Dictionary</string>
     <string name="next">Next</string>
-    <string name="yes_go_to_help">Yes, go to Help</string>
-    <string name="no">No</string>
     <string name="done">Done</string>
     <string name="web_search">Web search</string>
     <string name="share">Share</string>
@@ -433,152 +430,6 @@
     <string name="credits_contribution">Contribution</string>
     <string name="credits_ideas">Ideas</string>
 
-    <!-- Help -->
-    <string name="help_title_how_to_add_books">How do I add books to the Library?</string>
-    <string name="help_desc_how_to_add_books_1">Go to the</string>
-    <string name="help_desc_how_to_add_books_2">Browse</string>
-    <string name="help_desc_how_to_add_books_3">
-        If you don\'t see downloaded books try to refresh list by pulling it down.
-        Make sure your books has supported file format.
-        Then click the book to select it or hold to show it\'s location.
-        After you selected all books you want, click the checkmark icon in the upper right corner,
-        wait for all books to load and click «Add».
-        Now you should see all books you have added in the
-    </string>
-    <string name="help_desc_how_to_add_books_4">Library</string>
-
-    <string name="help_title_how_to_customize_app">How do I customize the app?</string>
-    <string name="help_desc_how_to_customize_app_1">Go to the</string>
-    <string name="help_desc_how_to_customize_app_2">Settings</string>
-    <string name="help_desc_how_to_customize_app_3">
-        You can do this from the Library, History and Browse screens
-        by clicking three dots in the upper right corner
-        and selecting «Settings» from the drop-down menu.
-        Then you will see all available settings for this app.
-        Feel free to experiment with those!
-    </string>
-
-    <string name="help_title_how_to_move_or_delete_books">How do I move or delete books?</string>
-    <string name="help_desc_how_to_move_or_delete_books_1">Go to the</string>
-    <string name="help_desc_how_to_move_or_delete_books_2">Library</string>
-    <string name="help_desc_how_to_move_or_delete_books_3">
-        Hold down the first book\'s cover image until it is selected,
-        now you can simply click all cover images of books you want to select.
-        You can also select books in multiple categories.
-        After you have chosen all desired books, you can click the arrow icon to move
-        and trash bin icon to delete books.
-    </string>
-
-    <string name="help_title_how_to_edit_book">How do I edit a book?</string>
-    <string name="help_desc_how_to_edit_book_1">Go to the</string>
-    <string name="help_desc_how_to_edit_book_2">Library</string>
-    <string name="help_desc_how_to_edit_book_3">
-        and click the book\'s cover image to see book\'s details.
-        Now you can hold down the book\'s title, author or description to edit it
-        or cover image to change, reset or delete cover image.
-    </string>
-
-    <string name="help_title_how_to_read_book">How do I read a book?</string>
-    <string name="help_desc_how_to_read_book_1">Go to the</string>
-    <string name="help_desc_how_to_read_book_2">Library</string>
-    <string name="help_desc_how_to_read_book_3">
-        To start reading the book click the button in the bottom right corner of the book you want to read.
-        Also you can start reading the book by clicking it\'s cover image
-        to see book\'s details and then click the button in the bottom right corner.
-        The progress will be saved and restored automatically.
-        You can bring top and bottom bars by clicking anywhere on the screen.
-        By clicking the title of the book you will be transferred to the book\'s details.
-        By clicking the gear icon you will see Reader settings.
-        You can use bottom bar\'s slider to change progress.
-    </string>
-
-    <string name="help_title_how_to_customize_reader">How do I customize the Reader?</string>
-    <string name="help_desc_how_to_customize_reader_1">
-        Start reading the book(see: How do I read a book?),
-        after that bring top and bottom bars by clicking anywhere on the screen.
-        Then click the gear icon in the upper right corner.
-        This will show all Reader settings.
-        Second way is to go to the
-    </string>
-    <string name="help_desc_how_to_customize_reader_2">
-        Settings
-    </string>
-    <string name="help_desc_how_to_customize_reader_3">
-        and select Reader category to customize General settings,
-        or Appearance category to customize Colors settings.
-    </string>
-
-    <string name="help_title_how_to_manage_history">How do I manage history?</string>
-    <string name="help_desc_how_to_manage_history_1">Go to the</string>
-    <string name="help_desc_how_to_manage_history_2">History</string>
-    <string name="help_desc_how_to_manage_history_3">
-        By clicking the delete button to the right of the history element, it will be deleted.
-        History affects books order in Library,
-        by deleting history element it will also reorder a book.
-        Last opened book is always the first in Library and History.
-    </string>
-
-    <string name="help_title_how_to_use_tooltip">How do I use tooltips?</string>
-    <string name="help_desc_how_to_use_tooltip_1">
-        Most icon-buttons have tooltips, they can help you if you don\'t know what an icon-button does.
-        To show tooltip you can hold on an icon-button.
-    </string>
-
-    <string name="help_title_how_to_use_double_click_translation">
-        How do I use double click translation?
-    </string>
-    <string name="help_desc_how_to_use_double_click_translation_1">
-        Firstly, go to the Reader settings(see: How do I customize the Reader?),
-        then turn on corresponding setting. After that,
-        start reading the book(see: How do I read a book?).
-        Now if you double click on desired paragraph,
-        external translator will be opened with paragraph\'s text.
-    </string>
-
-    <string name="help_title_how_to_create_color_presets">
-        How do I create and modify color presets?
-    </string>
-    <string name="help_desc_how_to_create_color_presets_1">
-        Go to the Appearance settings(see: How do I customize the Reader?).
-        You can modify all color preset\'s settings in the box under «Color Preset» in «Colors» subcategory.
-        To create a new color preset, click the «Add» icon-button.
-        There are multiple ways to modify a color preset:
-        by clicking the text field you can change the name of the color preset,
-        by moving sliders you can change colors of the color preset,
-        by clicking the «Shuffle» icon-button you can shuffle all colors.
-        If you want to delete color preset, click the «Delete» icon-button.
-    </string>
-
-    <string name="help_title_how_to_use_color_presets">
-        How do I use color presets?
-    </string>
-    <string name="help_desc_how_to_use_color_presets_1">
-        Go to the Appearance settings(see: How do I customize the Reader?).
-        You can choose which color preset to use in «Color Preset» setting.
-        Click the desired color preset to select it, this will also change your colors in Reader.
-        If you want to reorder color preset, select it and hold «Handle» icon-button,
-        then move it to the desired position.
-        You can fast change color presets by enabling corresponding setting
-        in Appearance setting\'s «Colors» subcategory, then swiping top bar left or right in Reader,
-        to fast change color preset.
-    </string>
-
-    <string name="help_title_how_to_use_perception_expander">
-        What is and how do I use perception expander?
-    </string>
-    <string name="help_desc_how_to_use_perception_expander_1">
-        Perception expander may help you read faster.
-        First, enable it in the Reader settings(see: How do I customize the Reader?).
-        Once enabled, two vertical lines will appear on either side of the Reader.
-        To optimize your reading speed further,
-        adjust the margin to create less space around the center.
-        To use it, focus on the center of the screen while
-        allowing your peripheral vision to pick up the text on the sides.
-        As you read, maintain your focus on the center without directly
-        looking at the sides after each line.
-    </string>
-
-
     <!-- Start -->
     <!-- Welcome message. %1$s is the application name. -->
     <string name="start_welcome">Welcome to %1$s!</string>
@@ -591,10 +442,7 @@
     <string name="start_theme_preferences">Theme preferences</string>
     <string name="start_scan_preferences">Scan preferences</string>
     <string name="start_done">Everything is done!</string>
-    <string name="start_done_desc">
-        Setup completed.
-        Would you like to go to the Help screen?
-    </string>
+    <string name="start_done_desc">Setup completed.</string>
 
     <!-- History -->
     <string name="today">Today</string>

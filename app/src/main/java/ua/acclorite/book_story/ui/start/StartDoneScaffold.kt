@@ -15,15 +15,13 @@ import androidx.compose.ui.Modifier
 @Composable
 fun StartDoneScaffold(
     navigateToBrowse: () -> Unit,
-    navigateToHelp: () -> Unit
 ) {
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
         bottomBar = {
             StartDoneBottomBar(
-                navigateToBrowse = navigateToBrowse,
-                navigateToHelp = navigateToHelp
+                navigateToBrowse = navigateToBrowse
             )
         },
         containerColor = MaterialTheme.colorScheme.surface

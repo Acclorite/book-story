@@ -29,6 +29,7 @@ fun SettingsScaffold(
     navigateToReaderSettings: () -> Unit,
     navigateToLibrarySettings: () -> Unit,
     navigateToBrowseSettings: () -> Unit,
+    navigateToStart: () -> Unit,
     navigateBack: () -> Unit
 ) {
     Scaffold(
@@ -40,6 +41,7 @@ fun SettingsScaffold(
         topBar = {
             SettingsTopBar(
                 scrollBehavior = scrollBehavior,
+                navigateToStart = navigateToStart,
                 navigateBack = navigateBack
             )
         }

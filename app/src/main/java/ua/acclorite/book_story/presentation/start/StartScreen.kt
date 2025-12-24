@@ -17,7 +17,6 @@ import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.core.data.CoreData
 import ua.acclorite.book_story.presentation.browse.BrowseScreen
-import ua.acclorite.book_story.presentation.help.HelpScreen
 import ua.acclorite.book_story.presentation.navigator.Screen
 import ua.acclorite.book_story.presentation.navigator.StackEvent
 import ua.acclorite.book_story.presentation.settings.SettingsEvent
@@ -95,12 +94,6 @@ object StartScreen : Screen, Parcelable {
                 )
                 BrowseScreen.refreshListChannel.trySend(Unit)
                 settings.showStartScreen.update(false)
-            },
-            navigateToHelp = {
-                navigator.push(
-                    HelpScreen(fromStart = true),
-                    saveInBackStack = false
-                )
             }
         )
     }

@@ -25,7 +25,6 @@
     <string name="library_empty">Čtěte vaše oblíbené knihy a třiďte je do kategorií</string>
     <string name="language_option">Jazyk aplikace</string>
     <string name="pink_theme">Saturn</string>
-    <string name="yes_go_to_help">Ano, přejít na pomoc</string>
     <string name="done">Hotovo</string>
     <string name="pure_dark_on">Zapnutý</string>
     <string name="credits_contribution">Spolupracovníci</string>
@@ -53,7 +52,6 @@
     <string name="books_added">Všechny vybrané knihy byly úspěšně přidány.</string>
     <string name="book_moved">Tato kniha byla úspěšně přesunuta.</string>
     <string name="app_version_option">Verze aplikace</string>
-    <string name="help_desc_how_to_add_books_4">Knihovna</string>
     <string name="help_translate_option">Pomozte překládat</string>
     <string name="filter_tab">Filtr</string>
     <string name="reader_tab">Čtečka</string>
@@ -73,7 +71,6 @@
     <string name="font_style_italic">Kurzíva</string>
     <string name="browse_screen">Procházet</string>
     <string name="error_no_share_app">Žádná aplikace pro sdílení nebyla nalezena.</string>
-    <string name="help_desc_how_to_add_books_2">Procházet</string>
     <string name="grid_size_option">Velikost mřížky</string>
     <string name="delete_books">Smazat knihy?</string>
     <string name="font_style_normal">Normální</string>
@@ -81,7 +78,6 @@
     <string name="reset_cover_desc">Resetovat obálku knihy na výchozí</string>
     <string name="books_deleted">Všechny vybrané videa byly úspěšně smazány.</string>
     <string name="sort_order_last_modified">Naposledy změněno</string>
-    <string name="help_desc_how_to_add_books_1">Přejít na</string>
     <string name="delete_history_description">Smaže to celou historii z databáze. Po smazaní z historie bude pořadí knih resetováno.</string>
     <string name="library_screen">Knihovna</string>
     <string name="grid_size_auto">Automaticky</string>
@@ -89,7 +85,6 @@
     <string name="general_settings_desc">Jazyk aplikace</string>
     <string name="lavender_theme">Eris</string>
     <string name="author">Autor</string>
-    <string name="help_screen">Pomoc</string>
     <string name="error_no_dictionary">Žádná aplikace pro slovník nebyla nalezena.</string>
     <string name="selected_items_count_query">%1$s vybráno</string>
     <string name="licenses_option">Open source licence</string>
@@ -132,7 +127,6 @@
     <string name="copy">Kopírovat</string>
     <string name="translate">Přeložit</string>
     <string name="next">Další</string>
-    <string name="no">Ne</string>
     <string name="web_search">Hledat na webu</string>
     <string name="share">Sdílet</string>
     <string name="unknown_author">Neznámý</string>
@@ -157,7 +151,6 @@
     <string name="reading_speed_reader_settings">Rychlost čtení</string>
     <string name="system_reader_settings">Systém</string>
     <string name="reset_cover">Resetovat obálku</string>
-    <string name="help_desc_how_to_customize_app_1">Přejít na</string>
     <string name="dark_theme_on">Zapnutý</string>
     <string name="pure_dark_power_saver">Spořič</string>
     <string name="theme_contrast_medium">Střední</string>
@@ -173,12 +166,9 @@
     <string name="credits_design">Design</string>
     <string name="credits_translation">Překlad</string>
     <string name="screen_brightness_option">Jas obrazovky</string>
-    <string name="help_title_how_to_add_books">Jak přidám knihy do Knihovny?</string>
     <string name="cover_image_deleted">Obálka byla úspěšně smazána.</string>
-    <string name="help_desc_how_to_add_books_3">Pokud nevidíte stažené knihy, zkuste obnovit stránku. Zkontrolujte, jestli mají vaše knihy podporované formáty souborů. Potom klepněte na knihu pro vybrání nebo ji podržte pro zjištění její lokace. Potom co vyberete všechny knihy které chcete, klepněte na ikonu zaškrtnutí v pravém horním rohu, počkejte než se všechny knihy načtou a klepněte na «Přidat». Teď by jste měli vidět všechny knihy přidané v</string>
     <string name="custom_screen_brightness_option">Vlastní jas obrazovky</string>
     <string name="horizontal_gesture_sensitivity_option">Citlivost</string>
-    <string name="help_desc_how_to_customize_app_2">Nastavení</string>
     <string name="start_language_preferences">Preference jazyka</string>
     <string name="start_theme_preferences">Preference témat</string>
     <string name="history_content_desc">Historie čtení</string>
@@ -188,14 +178,12 @@
     <string name="browse_content_desc">Přidat knihy</string>
     <string name="move_books_content_desc">Přesunout vybrané knihy</string>
     <string name="start_welcome">Vítejte v %1$s!</string>
-    <string name="help_title_how_to_move_or_delete_books">Jak přesunu nebo smažu knihy?</string>
     <string name="add_files_content_desc">Přidat soubory</string>
     <string name="error_closed_source">Uzavřený zdroj</string>
     <string name="selected_content_desc">Vybrané</string>
     <string name="cover_image_not_found_content_desc">Obálka nebyla nalezena</string>
     <string name="search_content_desc">Hledat</string>
     <string name="open_in_web_content_desc">Otevřít na webu</string>
-    <string name="help_desc_how_to_move_or_delete_books_1">Přejít na</string>
     <string name="start_done_desc">Nastavení dokončeno. Chcete přejít na obrazovku nápovědy?</string>
     <string name="yesterday">Včera</string>
     <string name="go_back_content_desc">Jít zpět</string>
@@ -204,7 +192,6 @@
     <string name="open_reader_settings_content_desc">Nastavení čtečky</string>
     <string name="delete_whole_history_content_desc">Smazat celou historii</string>
     <string name="color_preset_placeholder">Pojmenujete nastavení…</string>
-    <string name="help_desc_how_to_move_or_delete_books_2">Knihovna</string>
     <string name="start_welcome_desc">Ve světe, kde slova okouzlují, učí a vedou k neuvěřitelným dobrodružstvím! Pojďme nastavit pár věcí!</string>
     <string name="yellow2_theme">Makemake</string>
     <string name="start_done">A je to!</string>

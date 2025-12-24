@@ -24,7 +24,6 @@ fun StartContent(
     navigateForward: () -> Unit,
     navigateBack: () -> Unit,
     navigateToBrowse: () -> Unit,
-    navigateToHelp: () -> Unit
 ) {
     StartContentTransition(
         modifier = Modifier.background(MaterialTheme.colorScheme.surface),
@@ -48,7 +47,6 @@ fun StartContent(
             StartScreen.DONE -> {
                 StartDone(
                     navigateToBrowse = navigateToBrowse,
-                    navigateToHelp = navigateToHelp
                 )
             }
         }

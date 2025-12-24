@@ -6,6 +6,8 @@
 
 package ua.acclorite.book_story.ui.settings
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.RestartAlt
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
@@ -14,6 +16,7 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.ui.common.components.common.IconButton
 import ua.acclorite.book_story.ui.common.components.common.StyledText
 import ua.acclorite.book_story.ui.navigator.NavigatorBackIconButton
 
@@ -21,6 +24,7 @@ import ua.acclorite.book_story.ui.navigator.NavigatorBackIconButton
 @Composable
 fun SettingsTopBar(
     scrollBehavior: TopAppBarScrollBehavior,
+    navigateToStart: () -> Unit,
     navigateBack: () -> Unit
 ) {
     LargeTopAppBar(
@@ -31,6 +35,15 @@ fun SettingsTopBar(
             NavigatorBackIconButton(
                 navigateBack = navigateBack
             )
+        },
+        actions = {
+            IconButton(
+                icon = Icons.Outlined.RestartAlt,
+                contentDescription = R.string.reset_start_content_desc,
+                disableOnClick = false
+            ) {
+                navigateToStart()
+            }
         },
         scrollBehavior = scrollBehavior,
         colors = TopAppBarDefaults.topAppBarColors(

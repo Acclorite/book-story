@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.channels.Channel
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.presentation.about.AboutScreen
-import ua.acclorite.book_story.presentation.help.HelpScreen
 import ua.acclorite.book_story.presentation.settings.SettingsScreen
 import ua.acclorite.book_story.ui.common.components.modal_bottom_sheet.ModalBottomSheet
 import ua.acclorite.book_story.ui.common.model.Position
@@ -41,17 +40,6 @@ fun NavigatorBottomSheet() {
                     position = Position.TOP
                 ) {
                     navigator.push(AboutScreen)
-                    navigatorBottomSheetChannel.trySend(false)
-                }
-            }
-
-            item {
-                NavigatorBottomSheetItem(
-                    title = stringResource(id = R.string.help_screen),
-                    primary = false,
-                    position = Position.BOTTOM
-                ) {
-                    navigator.push(HelpScreen(fromStart = false))
                     navigatorBottomSheetChannel.trySend(false)
                 }
             }
