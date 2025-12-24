@@ -6,7 +6,6 @@
     <string name="browse_screen">Εύρεση</string>
     <string name="settings_screen">Ρυθμήσεις</string>
     <string name="about_screen">Για την εφαρμογή</string>
-    <string name="help_screen">Βοήθεια</string>
     <string name="add_books">Πρόσθεσε τα βιβλία;</string>
     <string name="delete_books">Διέγραψε τα βιβλία;</string>
     <string name="delete_book">Διέγραψε το βιβλίο;</string>

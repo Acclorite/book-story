@@ -10,7 +10,6 @@
     <string name="browse_screen">Duyệt</string>
     <string name="settings_screen">Cài đặt</string>
     <string name="about_screen">Giới thiệu về ứng dụng</string>
-    <string name="help_screen">Giúp đỡ</string>
     <string name="add_books">Thêm sách?</string>
     <string name="delete_books">Xoá sách?</string>
     <string name="delete_book">Xoá sách?</string>
@@ -52,6 +51,4 @@
     <string name="translate">Dịch</string>
     <string name="dictionary">Từ điển</string>
     <string name="next">Tiếp</string>
-    <string name="yes_go_to_help">Có, hãy đến Trợ giúp</string>
-    <string name="no">Không</string>
 </resources>
