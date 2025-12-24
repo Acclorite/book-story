@@ -203,7 +203,7 @@
     <string name="cover_image_content_desc">封面图片</string>
     <string name="start_done">设置完成！</string>
     <string name="error_content_desc">错误</string>
-    <string name="start_done_desc">你已经成功完成了应用基本设置。要参阅帮助以获取更多使用技巧吗？</string>
+    <string name="start_done_desc">你已经成功完成了应用基本设置。</string>
     <string name="cover_image_not_found_content_desc">未找到封面图片</string>
     <string name="start_language_preferences">语言偏好</string>
     <string name="start_theme_preferences">应用主题</string>
