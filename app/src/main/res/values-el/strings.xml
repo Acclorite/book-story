@@ -1,3 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="default_string">Προεπιλογή</string>
+    <string name="library_screen">Βιβλιοθήκη</string>
+    <string name="history_screen">Ιστορικό</string>
+    <string name="browse_screen">Εύρεση</string>
+    <string name="settings_screen">Ρυθμήσεις</string>
+    <string name="about_screen">Για την εφαρμογή</string>
+    <string name="help_screen">Βοήθεια</string>
+    <string name="add_books">Πρόσθεσε τα βιβλία;</string>
+    <string name="delete_books">Διέγραψε τα βιβλία;</string>
+    <string name="delete_book">Διέγραψε το βιβλίο;</string>
+    <string name="delete_history">Διέγραψε το ιστορικό;</string>
+    <string name="remove_category">Διέγραψε την κατηγορία;</string>
+    <string name="add_books_description">Μπορείς να διαλέξεις τα βιβλία που θες να πρσθέσεις. Μπορείς να αλλάξεις τον Τίτλο και την εικόνα του Εξωφύλλου μετά. Η διαδικασία μπορεί να πάρει ακόμα και λίγα λεπτά.</string>
+    <string name="delete_books_description">Θα διαγράψει όλα τα επιλεγμένα βιβλία(%1$s) από την βάση δεδομένων. Δεν θα διαγράψει τα επιλεγμένα βιβλία από την συσκευή σας.</string>
+    <string name="delete_book_description">"Θα διαγράψει όλα τα επιλεγμένα βιβλία από την βάση δεδομένων.  Δεν θα διαγράψει τα βιβλία από την συσκευή σας."</string>
+    <string name="delete_history_description">Θα διαγράψει όλο το ιστορικό από την βάση δεδομένων. Αφού διαγράψει το ιστορικό, η σειρά των βιβλίων θα επαναφερθεί.</string>
+    <string name="remove_category_description">Αυτό θα διαγράψει την κατηγορία απο την Βιβλιοθήκη αλλα δεν θα διαγράψει κανένα βιβλίο.</string>
+    <string name="error_no_description">Καμία περιγραφή.</string>
+    <string name="error_something_went_wrong">Κάτι πήγε λάθος.</string>
+    <string name="error_no_translator">Δεν βρέθηκε εφαρμογή μετάφρασης.</string>
+    <string name="error_no_dictionary">Δεν βρέθηκε εφαρμογή λεξικού.</string>
+    <string name="error_no_browser">Δεν βρέθηκε εφαρμογή περιήγησης.</string>
+    <string name="error_no_share_app">Δεν βρέθηκε εφαρμογή μοιρασμού.</string>
+    <string name="error_no_file_manager_app">Δεν βρέθηκε εφαρμογή επιλογής φακέλου.</string>
+    <string name="error_could_not_get_text">Το αρχείο είναι άδιο, λείπει ή μη προσβάσιμο. Επαληθεύστε το αρχείο, τις ρυθμήσεις εύρεσης ή αλλάξτε το μονοπάτι και δοκιμάστε ξανά.</string>
 </resources>
