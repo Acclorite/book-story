@@ -199,7 +199,7 @@
     <string name="credits_translation">Traduction</string>
     <string name="credits_contribution">Contribution</string>
     <string name="open_reader_settings_content_desc">Paramètres du lecteur</string>
-    <string name="start_done_desc">Vous avez réussi à effectuer les réglages de base de l\'application. Souhaitez-vous lire l\'écran d\'aide ?</string>
+    <string name="start_done_desc">Vous avez réussi à effectuer les réglages de base de l\'application. Souhaitez-vous lire l\'écran d\'aide ?</string>
     <string name="sort_order_content_desc">Ordre de tri</string>
     <string name="history_content_desc">Historique de lecture</string>
     <string name="today">Aujourd\'hui</string>
