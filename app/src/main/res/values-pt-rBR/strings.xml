@@ -246,7 +246,7 @@
     <string name="images_color_effects_option">Efeitos de cor</string>
     <string name="progress_bar_option">Barra de progresso</string>
     <string name="books_added">Todos os livros selecionados foram adicionados com sucesso.</string>
-    <string name="start_done_desc">Configuração completa. Gostaria de ir à tela de Ajuda?</string>
+    <string name="start_done_desc">Configuração completa.</string>
     <string name="history_deleted">Histórico foi apagado com sucesso.</string>
     <string name="press_again_toast">Voltar para sair</string>
     <string name="books_moved">Todos os livros selecionados foram movidos com sucesso.</string>
