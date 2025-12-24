@@ -348,4 +348,8 @@
     <string name="sort_order_progress">Progresso</string>
     <string name="sort_order_author">Autor</string>
     <string name="gray_theme">Jápeto</string>
+    <string name="library_per_category_sort_option_note">Ordenação pode ser alterada na Biblioteca.</string>
+    <string name="show_navigation_labels_option">Mostrar rótulos de navegação</string>
+    <string name="show_navigation_labels_option_desc">Mostrar rótulos embaixo dos ícones na barra de navegação</string>
+    <string name="select_all_books_content_desc">Selecionar todos os livros</string>
 </resources>

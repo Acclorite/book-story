@@ -70,7 +70,7 @@
     <string name="color_preset_selected_query">Seçilen «%1$s»</string>
     <!-- Action Texts -->
     <string name="cancel">İptal</string>
-    <string name="add_book">Kitap ekle</string>
+    <string name="add_book">Bir kitap ekle</string>
     <string name="move">Taşı</string>
     <string name="delete">Sil</string>
     <string name="never">Asla</string>
@@ -312,7 +312,7 @@
     <string name="credits_design">Tasarım</string>
     <string name="credits_icon">Simgeler</string>
     <string name="credits_updates">Yeni güncellemeleri yönetme</string>
-    <string name="credits_fonts">Yazı tipleri</string>
+    <string name="credits_fonts">Yazı türü</string>
     <string name="credits_translation">Çeviri</string>
     <string name="credits_contribution">Katkı</string>
     <string name="credits_ideas">Fikirler</string>
@@ -422,4 +422,8 @@
     <string name="gray_theme">Iapetus</string>
     <string name="library_per_category_sort_option_note">Sıralama, kütüphane içinde değiştirilebilir.</string>
     <string name="select_all_books_content_desc">Tüm kitapları seç</string>
+    <string name="show_navigation_labels_option">Gezinme etiketlerini göster</string>
+    <string name="show_navigation_labels_option_desc">Simgelerin altında gezinme çubuğu etiketlerini göster</string>
+    <string name="horizontal_gesture_disable_scrolling_option">Kaydırmayı devre dışı bırak</string>
+    <string name="horizontal_gesture_disable_scrolling_option_desc">Okuyucu kaydırmayı tamamen devre dışı bırakın</string>
 </resources>
