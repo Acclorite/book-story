@@ -218,6 +218,15 @@
     </string>
     <string name="perception_expander_padding_option">Line side margin</string>
     <string name="perception_expander_thickness_option">Line thickness</string>
+    <string name="horizontal_limiter_option">Horizontal limiter</string>
+    <string name="horizontal_limiter_option_desc">
+        Show horizontal ruler and dim unfocused part of the screen
+    </string>
+    <string name="horizontal_limiter_height_option">Height</string>
+    <string name="horizontal_limiter_vertical_offset_option">Vertical offset</string>
+    <string name="horizontal_limiter_ruler_option">Horizontal ruler</string>
+    <string name="horizontal_limiter_ruler_thickness_option">Ruler thickness</string>
+    <string name="horizontal_limiter_dimming_option">Dimming</string>
     <string name="screen_orientation_option">Screen orientation</string>
     <string name="custom_screen_brightness_option">Custom brightness</string>
     <string name="screen_brightness_option">Brightness</string>

@@ -17,6 +17,12 @@ import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategory
 import ua.acclorite.book_story.ui.settings.reader.reading_speed.components.HighlightedReadingOption
 import ua.acclorite.book_story.ui.settings.reader.reading_speed.components.HighlightedReadingThicknessOption
+import ua.acclorite.book_story.ui.settings.reader.reading_speed.components.HorizontalLimiterDimmingOption
+import ua.acclorite.book_story.ui.settings.reader.reading_speed.components.HorizontalLimiterHeightOption
+import ua.acclorite.book_story.ui.settings.reader.reading_speed.components.HorizontalLimiterOption
+import ua.acclorite.book_story.ui.settings.reader.reading_speed.components.HorizontalLimiterRulerOption
+import ua.acclorite.book_story.ui.settings.reader.reading_speed.components.HorizontalLimiterRulerThicknessOption
+import ua.acclorite.book_story.ui.settings.reader.reading_speed.components.HorizontalLimiterVerticalOffsetOption
 import ua.acclorite.book_story.ui.settings.reader.reading_speed.components.PerceptionExpanderOption
 import ua.acclorite.book_story.ui.settings.reader.reading_speed.components.PerceptionExpanderPaddingOption
 import ua.acclorite.book_story.ui.settings.reader.reading_speed.components.PerceptionExpanderThicknessOption
@@ -51,6 +57,30 @@ fun LazyListScope.ReadingSpeedSubcategory(
 
         item {
             PerceptionExpanderThicknessOption()
+        }
+
+        item {
+            HorizontalLimiterOption()
+        }
+
+        item {
+            HorizontalLimiterHeightOption()
+        }
+
+        item {
+            HorizontalLimiterVerticalOffsetOption()
+        }
+
+        item {
+            HorizontalLimiterRulerOption()
+        }
+
+        item {
+            HorizontalLimiterRulerThicknessOption()
+        }
+
+        item {
+            HorizontalLimiterDimmingOption()
         }
     }
 }

@@ -194,6 +194,15 @@
     <string name="perception_expander_option_desc">Збільшіть швидкість вашого читання фокусуючись на середині</string>
     <string name="perception_expander_padding_option">Бокові відступи лінії</string>
     <string name="perception_expander_thickness_option">Товщина лінії</string>
+    <string name="horizontal_limiter_option">Горизонтальний обмежувач</string>
+    <string name="horizontal_limiter_option_desc">
+        Показати горизонтальну лінійку та затемнити несфокусовану частину екрана
+    </string>
+    <string name="horizontal_limiter_height_option">Висота</string>
+    <string name="horizontal_limiter_vertical_offset_option">Вертикальне зміщення</string>
+    <string name="horizontal_limiter_ruler_option">Горизонтальна лінійка</string>
+    <string name="horizontal_limiter_ruler_thickness_option">Товщина лінійки</string>
+    <string name="horizontal_limiter_dimming_option">Затемнення</string>
     <string name="screen_orientation_option">Орієнтація екрана</string>
     <string name="custom_screen_brightness_option">Користувацька яскравість</string>
     <string name="screen_brightness_option">Яскравість</string>

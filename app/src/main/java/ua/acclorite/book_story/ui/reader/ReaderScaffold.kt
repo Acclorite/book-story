@@ -51,6 +51,12 @@ fun ReaderScaffold(
     perceptionExpander: Boolean,
     perceptionExpanderPadding: Dp,
     perceptionExpanderThickness: Dp,
+    horizontalLimiter: Boolean,
+    horizontalLimiterHeight: Dp,
+    horizontalLimiterVerticalOffset: Float,
+    horizontalLimiterRulerThickness: Dp,
+    horizontalLimiterRuler: Boolean,
+    horizontalLimiterDimming: Float,
     currentChapterProgress: Float,
     isLoading: Boolean,
     checkpoints: List<Checkpoint>,
@@ -210,6 +216,17 @@ fun ReaderScaffold(
             perceptionExpanderPadding = perceptionExpanderPadding,
             perceptionExpanderThickness = perceptionExpanderThickness,
             perceptionExpanderColor = fontColor
+        )
+
+        ReaderHorizontalLimiter(
+            horizontalLimiter = horizontalLimiter,
+            horizontalLimiterHeight = horizontalLimiterHeight,
+            horizontalLimiterVerticalOffset = horizontalLimiterVerticalOffset,
+            horizontalLimiterRulerThickness = horizontalLimiterRulerThickness,
+            horizontalLimiterRuler = horizontalLimiterRuler,
+            horizontalLimiterDimming = horizontalLimiterDimming,
+            horizontalLimiterDimmingColor = backgroundColor,
+            horizontalLimiterRulerColor = fontColor
         )
 
         if (isLoading) {

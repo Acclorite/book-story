@@ -180,6 +180,26 @@ class SettingsManager @Inject constructor(
     val perceptionExpanderThickness = setting<Int, Int>(
         key = intPreferencesKey("perception_expander_thickness"), default = 4
     )
+    val horizontalLimiter = setting<Boolean, Boolean>(
+        key = booleanPreferencesKey("horizontal_limiter"), default = false
+    )
+    val horizontalLimiterHeight = setting<Int, Int>(
+        key = intPreferencesKey("horizontal_limiter_height"), default = 6
+    )
+    val horizontalLimiterVerticalOffset = setting<Float, Double>(
+        key = doublePreferencesKey("horizontal_limiter_vertical_offset"), default = 0.5f,
+        serialize = { it.toDouble() }, deserialize = { it.toFloat() }
+    )
+    val horizontalLimiterRuler = setting<Boolean, Boolean>(
+        key = booleanPreferencesKey("horizontal_limiter_ruler"), default = true
+    )
+    val horizontalLimiterRulerThickness = setting<Int, Int>(
+        key = intPreferencesKey("horizontal_limiter_ruler_thickness"), default = 4
+    )
+    val horizontalLimiterDimming = setting<Float, Double>(
+        key = doublePreferencesKey("horizontal_limiter_dimming"), default = 0.0f,
+        serialize = { it.toDouble() }, deserialize = { it.toFloat() }
+    )
     val screenOrientation = setting<ReaderScreenOrientation, String>(
         key = stringPreferencesKey("screen_orientation"), default = ReaderScreenOrientation.DEFAULT,
         serialize = { it.name }, deserialize = { ReaderScreenOrientation.valueOf(it) }
