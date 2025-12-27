@@ -174,25 +174,16 @@ class CachedFile(
      */
     private fun storeInCache(): File? {
         if (isDirectory) return null
-
-        val cacheDir = context.cacheDir
-        val fileName = path.replace("_", "-").replace("/", "_").take(80) + "_${path.length}"
-        val cacheFile = File(cacheDir, fileName)
-        val tempFile = File(cacheDir, "$fileName.tmp")
+        val cacheFile = File(context.cacheDir, UUID.randomUUID().toString())
 
         try {
             context.contentResolver.openInputStream(uri)?.use { input ->
-                BufferedOutputStream(FileOutputStream(tempFile)).use { output ->
+                BufferedOutputStream(FileOutputStream(cacheFile)).use { output ->
                     input.copyTo(output)
                 }
             } ?: throw IllegalStateException("Failed to open InputStream.")
-
-            if (!tempFile.renameTo(cacheFile)) {
-                throw IllegalStateException("Failed to rename .tmp file.")
-            }
         } catch (e: Exception) {
             e.printStackTrace()
-            tempFile.delete()
             return null
         }
 
