@@ -255,7 +255,7 @@
     <string name="show_more_content_desc">اعرض المزيد</string>
     <string name="delete_whole_history_content_desc">احذف التاريخ بأكمله</string>
     <string name="perception_expander_padding_option">هامش جانب الخط</string>
-    <string name="start_done_desc">لقد نجحت بإنجاز الإعدادات الأساسية للتطبيق. هل ترغب في معرفة كيفية استخدام التطبيق من خلال قراءة شاشة المساعدة؟</string>
+    <string name="start_done_desc">اكتمل الإعداد.</string>
     <string name="delete_history_element_content_desc">احذف عنصر التاريخ</string>
     <string name="cover_image_content_desc">غلاف الصورة</string>
     <string name="start_theme_preferences">تفضيلات السمة</string>
