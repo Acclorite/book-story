@@ -355,4 +355,10 @@
     <string name="show_navigation_labels_option_desc">在图标下方显示导航栏</string>
     <string name="horizontal_gesture_disable_scrolling_option">禁用滚动</string>
     <string name="horizontal_gesture_disable_scrolling_option_desc">完全禁用阅读器滚动</string>
+    <string name="horizontal_limiter_option_desc">显示水平标尺并使屏幕未聚焦部分变暗</string>
+    <string name="horizontal_limiter_height_option">高度</string>
+    <string name="horizontal_limiter_vertical_offset_option">垂直偏移</string>
+    <string name="horizontal_limiter_ruler_option">水平标尺</string>
+    <string name="horizontal_limiter_ruler_thickness_option">尺子厚度</string>
+    <string name="horizontal_limiter_dimming_option">变暗</string>
 </resources>
