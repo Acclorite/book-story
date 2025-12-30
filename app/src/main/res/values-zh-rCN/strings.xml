@@ -361,4 +361,5 @@
     <string name="horizontal_limiter_ruler_option">水平标尺</string>
     <string name="horizontal_limiter_ruler_thickness_option">尺子厚度</string>
     <string name="horizontal_limiter_dimming_option">变暗</string>
+    <string name="horizontal_limiter_option">水平限制器</string>
 </resources>
