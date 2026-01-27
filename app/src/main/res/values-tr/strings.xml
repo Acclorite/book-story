@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2026 Acclorite
@@ -326,7 +325,7 @@
     <string name="start_language_preferences">Dil tercihleri</string>
     <string name="start_theme_preferences">Tema tercihleri</string>
     <string name="start_done">Her şey tamam!</string>
-    <string name="start_done_desc">Uygulamanın temel ayarlarını başarıyla tamamladınız. Yardım ekranını okuyarak uygulamayı nasıl kullanacağınızı öğrenmek ister misiniz?</string>
+    <string name="start_done_desc">Kurulum tamamlandı.</string>
     <!-- History -->
     <string name="today">Bugün</string>
     <string name="yesterday">Dün</string>
@@ -426,4 +425,5 @@
     <string name="show_navigation_labels_option_desc">Simgelerin altında gezinme çubuğu etiketlerini göster</string>
     <string name="horizontal_gesture_disable_scrolling_option">Kaydırmayı devre dışı bırak</string>
     <string name="horizontal_gesture_disable_scrolling_option_desc">Okuyucu kaydırmayı tamamen devre dışı bırakın</string>
+    <string name="horizontal_limiter_height_option">Yükseklik</string>
 </resources>
