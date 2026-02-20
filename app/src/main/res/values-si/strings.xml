@@ -1,8 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2026 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
-
-<resources>
+  --><resources>
+    <string name="default_string">පෙරනිමිය</string>
+    <string name="library_screen">පුස්තකාලය</string>
+    <string name="history_screen">ඉතිහාසය</string>
+    <string name="browse_screen">පිරික්සන්න</string>
+    <string name="settings_screen">සැකසුම්</string>
+    <string name="about_screen">යෙදුම ගැන</string>
+    <string name="add_books">පොත් එකතු කරන්නද?</string>
+    <string name="delete_books">පොත් මකන්නද?</string>
+    <string name="delete_book">පොත මකන්නද?</string>
+    <string name="delete_history">කියවීමේ ඉතිහාසය මකන්නද?</string>
+    <string name="remove_category">ප්‍රවර්ගය ඉවත් කරන්නද?</string>
+    <string name="add_books_description">ඔබට එකතු කිරීමට අවශ්‍ය පොත් තෝරා ගත හැකිය. ඔබට පසුව පොතේ මාතෘකාව සහ කවරයේ රූපය සංස්කරණය කළ හැකිය. පූරණය කිරීමේ ක්‍රියාවලිය මිනිත්තු කිහිපයක් දක්වා ගත විය හැකිය.</string>
+    <string name="delete_books_description">එය දත්ත සමුදායෙන් තෝරාගත් සියලුම පොත් (%1$s) මකා දමයි. එය ඔබගේ උපාංගයෙන් තෝරාගත් පොත් මකා නොදමනු ඇත.</string>
+    <string name="delete_book_description">එය මෙම පොත දත්ත සමුදායෙන් මකනු ඇත. එය ඔබගේ උපාංගයෙන් මෙම පොත මකා නොදමනු ඇත.</string>
+    <string name="delete_history_description">එය මුළු ඉතිහාසයම දත්ත සමුදායෙන් මකා දමනු ඇත. මුළු ඉතිහාසයම මකා දැමීමෙන් පසු, පොත්වල අනුපිළිවෙල නැවත සකසනු ලැබේ.</string>
+    <string name="remove_category_description">මෙය පුස්තකාලයෙන් මෙම ප්‍රවර්ගය ඉවත් කරනු ඇත, නමුත් කිසිදු පොතක් මකා නොදමනු ඇත.</string>
+    <string name="error_no_description">විස්තරයක් නැත.</string>
+    <string name="error_something_went_wrong">මොකක්හරි වැරැද්දක් වෙලා.</string>
+    <string name="error_no_translator">පරිවර්තක යෙදුමක් හමු නොවීය.</string>
+    <string name="error_no_dictionary">ශබ්ද කෝෂ යෙදුමක් හමු නොවීය.</string>
+    <string name="error_no_browser">බ්‍රවුසර යෙදුමක් හමු නොවීය.</string>
+    <string name="error_no_share_app">බෙදා ගැනීමට යෙදුමක් හමු නොවීය.</string>
+    <string name="error_no_file_manager_app">ෆෝල්ඩරය තේරීමට යෙදුමක් හමු නොවීය.</string>
 </resources>
