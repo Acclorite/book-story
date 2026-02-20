@@ -1,3 +1,14 @@
+> [!Caution]
+>
+> Starting in September 2026, Android will require all apps to be registered by verified developers
+> in order to be installed on certified Android devices.
+> It means that **Book's Story will no longer be available** for installation on any certified
+> Android device.
+>
+> https://keepandroidopen.org/
+
+---
+
 <!------------ Header ------------>
 
 <div align="center">
@@ -67,7 +78,9 @@ open-source, offering you a personalized, ad-free journey through your favorite 
 
 ## 🚚 Downloads
 
-- _The app supports only Android versions from **Android 8.0** and above_
+> [!Important]
+>
+> The app supports only Android versions from **Android 8.0** and above.
 
 <div>
 
@@ -98,10 +111,15 @@ open-source, offering you a personalized, ad-free journey through your favorite 
 
 ## 📜 Translation
 
+> [!Important]
+>
+> You can help translating the app
+> on [Hosted Weblate](https://hosted.weblate.org/engage/book-story/).
+>
+> I am thankful to everyone who helps make this app more accessible to others by translating it!
+
 [<img src="https://hosted.weblate.org/widget/book-story/book-story-translation/horizontal-auto.svg" alt="Translation progress">](https://hosted.weblate.org/engage/book-story/)
 <br/>
-
-_Help translate the app on [Hosted Weblate](https://hosted.weblate.org/engage/book-story/)._
 
 ---
 
@@ -109,7 +127,7 @@ _Help translate the app on [Hosted Weblate](https://hosted.weblate.org/engage/bo
 
 ## 🤝 How to contribute
 
-- **The most important thing is that I do not want anyone else's code.** This project is maintained
+- **I do not accept code contributions.** This project is maintained
   solely by me, and I intend to keep it that way. Pull/merge requests will likely be closed, as they
   don’t align with the project's vision.
 - **Submit your suggestions on Issues.** Feel free to share your thoughts!
@@ -130,6 +148,10 @@ _Help translate the app on [Hosted Weblate](https://hosted.weblate.org/engage/bo
 
 ## 🤗 Credits
 
+> [!Note]
+>
+> Also listed in About > Credits.
+
 - [Tachiyomi (Mihon)](https://github.com/mihonapp/mihon) (GitHub)
 - [Kitsune](https://github.com/Drumber/Kitsune) (GitHub)
 - [Voyager](https://voyager.adriel.cafe/) (Voyager Website)
@@ -138,7 +160,6 @@ _Help translate the app on [Hosted Weblate](https://hosted.weblate.org/engage/bo
 - [Weblate Translators](https://hosted.weblate.org/projects/book-story) (Hosted Weblate)
 - [GitHub Badge](https://github.com/Kunzisoft/Github-badge) (GitHub)
 - [Codeberg Badge](https://codeberg.org/Codeberg/GetItOnCodeberg) (Codeberg)
-- Also listed in About > Credits.
 
 ---
 
@@ -148,7 +169,7 @@ _Help translate the app on [Hosted Weblate](https://hosted.weblate.org/engage/bo
   <pre>
 
 Book's Story — free and open-source Material You eBook reader.
-Copyright (C) 2024-2026 Acclorite
+Copyright © 2024-2026 Acclorite
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
