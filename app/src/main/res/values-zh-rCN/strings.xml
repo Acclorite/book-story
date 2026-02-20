@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2026 Acclorite
@@ -218,7 +217,7 @@
     <string name="horizontal_gesture_sensitivity_option">灵敏度</string>
     <string name="bottom_bar_padding_option">底部边距</string>
     <string name="horizontal_gesture_inverse">开启（反转）</string>
-    <string name="app_icon_content_desc">APP图标</string>
+    <string name="app_icon_content_desc">APP 图标</string>
     <string name="exit_search_content_desc">退出搜索</string>
     <string name="move_books_content_desc">移动所选书籍</string>
     <string name="go_back_content_desc">返回</string>
