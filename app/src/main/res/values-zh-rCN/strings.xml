@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2026 Acclorite
@@ -190,7 +189,7 @@
     <string name="credits_translation">翻译</string>
     <string name="file_size">大小</string>
     <string name="licenses_option">开源许可证</string>
-    <string name="pure_dark_power_saver">屏保</string>
+    <string name="pure_dark_power_saver">省电模式</string>
     <string name="custom_screen_brightness_option">自定义亮度</string>
     <string name="screen_brightness_option">亮度</string>
     <string name="search_field_empty">搜索…</string>
@@ -203,7 +202,7 @@
     <string name="cover_image_content_desc">封面图片</string>
     <string name="start_done">设置完成！</string>
     <string name="error_content_desc">错误</string>
-    <string name="start_done_desc">你已经成功完成了应用基本设置。要参阅帮助以获取更多使用技巧吗？</string>
+    <string name="start_done_desc">你已经成功完成了应用基本设置。</string>
     <string name="cover_image_not_found_content_desc">未找到封面图片</string>
     <string name="start_language_preferences">语言偏好</string>
     <string name="start_theme_preferences">应用主题</string>
@@ -218,7 +217,7 @@
     <string name="horizontal_gesture_sensitivity_option">灵敏度</string>
     <string name="bottom_bar_padding_option">底部边距</string>
     <string name="horizontal_gesture_inverse">开启（反转）</string>
-    <string name="app_icon_content_desc">APP图标</string>
+    <string name="app_icon_content_desc">APP 图标</string>
     <string name="exit_search_content_desc">退出搜索</string>
     <string name="move_books_content_desc">移动所选书籍</string>
     <string name="go_back_content_desc">返回</string>
@@ -355,4 +354,11 @@
     <string name="show_navigation_labels_option_desc">在图标下方显示导航栏</string>
     <string name="horizontal_gesture_disable_scrolling_option">禁用滚动</string>
     <string name="horizontal_gesture_disable_scrolling_option_desc">完全禁用阅读器滚动</string>
+    <string name="horizontal_limiter_option_desc">显示水平标尺并使屏幕未聚焦部分变暗</string>
+    <string name="horizontal_limiter_height_option">高度</string>
+    <string name="horizontal_limiter_vertical_offset_option">垂直偏移</string>
+    <string name="horizontal_limiter_ruler_option">水平标尺</string>
+    <string name="horizontal_limiter_ruler_thickness_option">尺子厚度</string>
+    <string name="horizontal_limiter_dimming_option">变暗</string>
+    <string name="horizontal_limiter_option">水平限制器</string>
 </resources>
