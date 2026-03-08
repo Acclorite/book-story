@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2026 Acclorite
@@ -10,4 +9,48 @@
     <string name="history_screen">기록</string>
     <string name="browse_screen">검색</string>
     <string name="settings_screen">설정</string>
+    <string name="library_categories_option_note">처음에는 책은 기본 범주에 추가되지만, 여기에 생성 된 몇 가지 사용자 정의 범주에 속할 수 있습니다. 여기에 범주를 제거하는 것은 도서관에서 책을 삭제하지 않습니다. 범주 아이콘을 리어 레인지로 이동합니다.</string>
+    <string name="browse_scan_option_note">이 폴더는 찾아보기에서 파일을 검색하고 검색하는 데 사용됩니다. 여기서 폴더를 제거하는 것은 라이브러리에서 실제 파일이나 책을 삭제하지 않습니다. 액세스를 취소하려면 해당 버튼을 클릭하십시오.</string>
+    <string name="add_books_description">추가 할 책을 선택할 수 있습니다. 나중에 책의 제목과 커버 이미지를 편집 할 수 있습니다. 선적 과정은 몇몇 분까지 가지고 갈 수 있습니다.</string>
+    <string name="delete_history_description">그것은 데이터베이스에서 전체 역사를 삭제합니다. 전체 역사를 삭제 한 후, 책의 주문은 재설정됩니다.</string>
+    <string name="delete_books_description">데이터베이스에서 선택된 모든 도서를 삭제합니다. 기기에서 선택한 책을 삭제하지 않습니다.</string>
+    <string name="error_could_not_get_text">파일은 빈, 누락, 또는 액세스 할 수 있습니다. 파일을 확인, 설정 검사 또는 경로 변경, 다음 다시 시도.</string>
+    <string name="history_empty">당신의 마지막 책을 읽고 당신의 독서 여행의 새로운 위대한 이야기의 페이지를 엽니 다</string>
+    <string name="delete_book_description">그것은 데이터베이스에서이 책을 삭제합니다. 그것은 당신의 장치에서이 책을 삭제하지 않습니다.</string>
+    <string name="start_welcome_desc">단어의 매력, 가르치고 놀라운 모험에 이끌 수있는 세계! 몇 가지 일을 설정하자!</string>
+    <string name="remove_category_description">이렇게하면이 카테고리를 라이브러리에서 제거하지만 책을 삭제하지 않습니다.</string>
+    <string name="crash_description">가장 많이 편리한 방법 으로이 충돌 메시지를보고하십시오.</string>
+    <string name="fast_color_preset_change_option_desc">왼쪽 또는 좌우로 스 와이프 뒤집기 색상 사전 설정</string>
+    <string name="horizontal_limiter_option_desc">가로 눈금자를 표시하고 화면의 압축되지 않은 부분을 표시하십시오</string>
+    <string name="library_empty">가장 좋아하는 책을 읽고 범주들 사이를 읽으십시오</string>
+    <string name="reset_cover_desc">기본 커버 재설정</string>
+    <string name="browse_empty">스캔 도서 검색</string>
+    <string name="perception_expander_option_desc">중독에 초점을 맞추고, 중심에 초점을 맞추십시오</string>
+    <string name="delete_cover_desc">전체 점수의 현재 커버 이미지 삭제</string>
+    <string name="absolute_dark_option_desc">배경 색상을 완전히 검은 색으로 변경하십시오</string>
+    <string name="double_press_exit_option_desc">뒤로 두 번 누르면 응용 프로그램을 종료하십시오</string>
+    <string name="double_click_translation_option_desc">번역을 투명하게 줄이고 단축</string>
+    <string name="horizontal_gesture_alpha_anim_option_desc">휴가가 가속성을위한 애널리 티브 가시성을 사용 가능하게 사용</string>
+    <string name="horizontal_gesture_pull_anim_option_desc">가로 제스처를 사용하여 끌어 오기 애니메이션 윙 사용</string>
+    <string name="library_per_category_sort_option_note">정렬은 라이브러리에 넣을 수 있습니다.</string>
+    <string name="error_no_file">파일이 없거나 액세스 할 수 없음</string>
+    <string name="change_cover_desc">사진에서 새 표지를 선택하십시오</string>
+    <string name="cutout_padding_option_desc">컷 아웃 지역에 여백을 적용하십시오</string>
+    <string name="highlighted_reading_option_desc">각 단어의 시작을 강조 표시하십시오</string>
+    <string name="progress_bar_option_desc">바닥에 진행률 표시 줄 표시</string>
+    <string name="books_added">모든 선택된 책은 성공적으로 추가되었습니다.</string>
+    <string name="books_moved">선택한 모든 책이 성공적으로 움직이었다.</string>
+    <string name="books_deleted">선택한 모든 책이 성공적으로 삭제되었습니다.</string>
+    <string name="error_no_file_manager_app">폴더를 선택할 수있는 앱이 없습니다.</string>
+    <string name="error_field_empty">이 필드 필드는 비어 있지 않습니다.</string>
+    <string name="show_navigation_labels_option_desc">탐색 모음 표시 레이블 쇼핑</string>
+    <string name="error_no_share_app">공유 할 앱이 없습니다.</string>
+    <string name="error_could_not_reset_cover">커버 이미지를 재설정 할 수 없습니다.</string>
+    <string name="double_press_exit_option">출구로 두 배 뒤 압박</string>
+    <string name="fullscreen_option_desc">히드 바 및 마진</string>
+    <string name="hide_bars_on_fast_scroll_option">빠른 스크롤에 히드 막대</string>
+    <string name="press_again_toast">출구로 다시 눌러</string>
+    <string name="cover_image_changed">커버 이미지는 성공적으로 형성되었습니다.</string>
+    <string name="cover_image_deleted">커버 이미지를 성공적으로 삭제했습니다.</string>
+    <string name="book_deleted">이 책은 성공적으로 삭제됩니다.</string>
 </resources>
