@@ -144,7 +144,7 @@
     <string name="cover_image_not_found_content_desc">Portada no encontrada</string>
     <string name="error_content_desc">Error</string>
     <string name="search_content_desc">Buscar</string>
-    <string name="clear_selected_items_content_desc">Vaciar selección</string>
+    <string name="clear_selected_items_content_desc">Vaciar elementos seleccionados</string>
     <string name="add_files_content_desc">Añadir archivos</string>
     <string name="exit_search_content_desc">Salir de búsqueda</string>
     <string name="delete_whole_history_content_desc">Borrar todo el historial</string>
