@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2026 Acclorite
@@ -353,4 +352,13 @@
     <string name="show_navigation_labels_option">Mostrar rótulos de navegação</string>
     <string name="show_navigation_labels_option_desc">Mostrar rótulos embaixo dos ícones na barra de navegação</string>
     <string name="select_all_books_content_desc">Selecionar todos os livros</string>
+    <string name="horizontal_limiter_option">Limitador horizontal</string>
+    <string name="horizontal_limiter_option_desc">Exibir régua horizontal e escurecer a parte desfocada da tela</string>
+    <string name="horizontal_limiter_height_option">Altura</string>
+    <string name="horizontal_limiter_vertical_offset_option">Deslocamento vertical</string>
+    <string name="horizontal_limiter_ruler_option">Régua horizontal</string>
+    <string name="horizontal_limiter_ruler_thickness_option">Espessura da régua</string>
+    <string name="horizontal_limiter_dimming_option">Escurecimento</string>
+    <string name="horizontal_gesture_disable_scrolling_option">Desativar rolagem</string>
+    <string name="horizontal_gesture_disable_scrolling_option_desc">Desativar completamente a rolagem do leitor</string>
 </resources>
