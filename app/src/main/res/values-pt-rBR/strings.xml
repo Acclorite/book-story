@@ -17,8 +17,8 @@
     <string name="theme_contrast_high">Alto</string>
     <string name="font_style_italic">Itálico</string>
     <string name="layout_list">Lista</string>
-    <string name="history_screen">Histórico</string>
-    <string name="browse_screen">Explorar</string>
+    <string name="history_screen">História</string>
+    <string name="browse_screen">Navegar</string>
     <string name="fullscreen_option">Tela cheia</string>
     <string name="done">Feito</string>
     <string name="dark_theme_off">Desabilitado</string>
