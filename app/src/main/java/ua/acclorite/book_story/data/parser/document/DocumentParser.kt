@@ -129,9 +129,28 @@ class DocumentParser @Inject constructor(
                 ).trim()
 
                 val imageRegex = Regex("""\[\[(.*?)\|(.*?)]]""")
+                val chapterRegex = Regex("""\[\[\[chapter\|([01])\|(.*)]]]""")
 
                 if (line.containsVisibleText()) {
                     when {
+                        // Chapter marker (from FB2 <title>), checked before
+                        // imageRegex as the latter also matches this line
+                        chapterRegex.matches(line) -> {
+                            if (!includeChapter) return@forEach
+
+                            val match = chapterRegex.matchEntire(line) ?: return@forEach
+                            val title = match.groupValues[2].clearAllMarkdown().trim()
+                            if (!title.containsVisibleText()) return@forEach
+
+                            readerText.add(
+                                ReaderText.Chapter(
+                                    title = title,
+                                    nested = match.groupValues[1] == "1"
+                                )
+                            )
+                            chapterAdded = true
+                        }
+
                         imageRegex.matches(line) -> {
                             val trimmedLine = line.removeSurrounding("[[", "]]")
                             val src = trimmedLine.substringBefore("|")
