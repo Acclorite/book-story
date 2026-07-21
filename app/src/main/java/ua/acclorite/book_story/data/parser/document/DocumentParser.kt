@@ -27,6 +27,13 @@ import javax.inject.Inject
 /** Marker standing in for FB2 <empty-line/>, resolved to a blank line. */
 const val EMPTY_LINE_MARKER = "[[[emptyline]]]"
 
+/**
+ * Private-use sentinel wrapping FB2 <strikethrough> content. [MarkdownParser]
+ * turns the enclosed text into a real strike-through span, which — unlike a
+ * combining overlay — is font independent.
+ */
+const val STRIKETHROUGH_MARK = "\uE011"
+
 class DocumentParser @Inject constructor(
     private val markdownParser: MarkdownParser
 ) {
@@ -107,6 +114,11 @@ class DocumentParser @Inject constructor(
                     paragraph.childNode(paragraph.childNodeSize() - 1)
                         .before(TextNode("_"))
                 }
+
+                // FB2 inline: <code> as a monospace backtick code span
+                select("code").prepend("`").append("`")
+                // <strikethrough> wrapped in a sentinel, styled by MarkdownParser
+                select("strikethrough").prepend(STRIKETHROUGH_MARK).append(STRIKETHROUGH_MARK)
                 select("a").forEach { element ->
                     var link = element.attr("href")
                     if (!link.startsWith("http") || element.wholeText().isBlank()) return@forEach

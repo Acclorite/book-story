@@ -11,11 +11,13 @@ import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
+import org.commonmark.node.Code
 import org.commonmark.node.Emphasis
 import org.commonmark.node.Heading
 import org.commonmark.node.Link
@@ -66,6 +68,12 @@ class MarkdownParser @Inject constructor(
                 }
             }
 
+            is Code -> {
+                withStyle(SpanStyle(fontFamily = FontFamily.Monospace)) {
+                    append(node.literal)
+                }
+            }
+
             is Link -> {
                 withLink(
                     LinkAnnotation.Url(
@@ -79,12 +87,36 @@ class MarkdownParser @Inject constructor(
             }
 
             is Text -> {
-                append(node.literal.clearMarkdown())
+                appendStrikethrough(node.literal.clearMarkdown())
                 parseChildren(node)
             }
 
             else -> {
                 parseChildren(node)
+            }
+        }
+    }
+
+    /**
+     * Appends [text], turning any run wrapped in [STRIKETHROUGH_MARK] into a
+     * strike-through span. Each mark toggles the state, so the closing style
+     * composes with whatever emphasis the surrounding nodes already applied.
+     */
+    private fun AnnotatedString.Builder.appendStrikethrough(text: String) {
+        if (!text.contains(STRIKETHROUGH_MARK)) {
+            append(text)
+            return
+        }
+        var struck = false
+        text.split(STRIKETHROUGH_MARK).forEachIndexed { index, segment ->
+            if (index > 0) struck = !struck
+            if (segment.isEmpty()) return@forEachIndexed
+            if (struck) {
+                withStyle(SpanStyle(textDecoration = TextDecoration.LineThrough)) {
+                    append(segment)
+                }
+            } else {
+                append(segment)
             }
         }
     }
