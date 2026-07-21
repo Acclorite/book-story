@@ -34,6 +34,20 @@ const val EMPTY_LINE_MARKER = "[[[emptyline]]]"
  */
 const val STRIKETHROUGH_MARK = "\uE011"
 
+private val SUBSCRIPTS = mapOf(
+    '0' to '₀', '1' to '₁', '2' to '₂', '3' to '₃', '4' to '₄', '5' to '₅',
+    '6' to '₆', '7' to '₇', '8' to '₈', '9' to '₉',
+    '+' to '₊', '-' to '₋', '=' to '₌', '(' to '₍', ')' to '₎'
+)
+private val SUPERSCRIPTS = mapOf(
+    '0' to '⁰', '1' to '¹', '2' to '²', '3' to '³', '4' to '⁴', '5' to '⁵',
+    '6' to '⁶', '7' to '⁷', '8' to '⁸', '9' to '⁹',
+    '+' to '⁺', '-' to '⁻', '=' to '⁼', '(' to '⁽', ')' to '⁾'
+)
+
+private fun String.mapChars(mapping: Map<Char, Char>): String =
+    map { mapping[it] ?: it }.joinToString("")
+
 class DocumentParser @Inject constructor(
     private val markdownParser: MarkdownParser
 ) {
@@ -119,6 +133,14 @@ class DocumentParser @Inject constructor(
                 select("code").prepend("`").append("`")
                 // <strikethrough> wrapped in a sentinel, styled by MarkdownParser
                 select("strikethrough").prepend(STRIKETHROUGH_MARK).append(STRIKETHROUGH_MARK)
+                // <sub>/<sup> mapped to Unicode sub/superscript characters.
+                // Covers digits and signs, which is what FB2 uses them for.
+                select("sub").forEach { element ->
+                    element.text(element.text().mapChars(SUBSCRIPTS))
+                }
+                select("sup").forEach { element ->
+                    element.text(element.text().mapChars(SUPERSCRIPTS))
+                }
                 select("a").forEach { element ->
                     var link = element.attr("href")
                     if (!link.startsWith("http") || element.wholeText().isBlank()) return@forEach
