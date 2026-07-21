@@ -14,6 +14,7 @@ import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.core.log.logI
 import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.data.parser.document.DocumentParser
+import ua.acclorite.book_story.data.parser.document.EMPTY_LINE_MARKER
 import ua.acclorite.book_story.domain.model.reader.ReaderText
 import javax.inject.Inject
 
@@ -48,6 +49,13 @@ class XmlTextParser @Inject constructor(
                     title.replaceWith(
                         TextNode("\n[[[chapter|${if (nested) 1 else 0}|$text]]]\n")
                     )
+                }
+
+                // FB2 <empty-line/> is a blank paragraph. It carries no text, so
+                // it is turned into a marker that survives text extraction and is
+                // resolved back to a blank line by [DocumentParser].
+                document.select("empty-line").forEach { emptyLine ->
+                    emptyLine.replaceWith(TextNode("\n$EMPTY_LINE_MARKER\n"))
                 }
 
                 documentParser.parseDocument(document)

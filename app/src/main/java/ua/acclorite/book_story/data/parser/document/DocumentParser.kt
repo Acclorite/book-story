@@ -9,6 +9,7 @@ package ua.acclorite.book_story.data.parser.document
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.text.AnnotatedString
 import kotlinx.coroutines.yield
 import org.jsoup.nodes.Document
 import ua.acclorite.book_story.core.helpers.clearAllMarkdown
@@ -21,6 +22,9 @@ import java.nio.charset.StandardCharsets
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import javax.inject.Inject
+
+/** Marker standing in for FB2 <empty-line/>, resolved to a blank line. */
+const val EMPTY_LINE_MARKER = "[[[emptyline]]]"
 
 class DocumentParser @Inject constructor(
     private val markdownParser: MarkdownParser
@@ -133,6 +137,13 @@ class DocumentParser @Inject constructor(
 
                 if (line.containsVisibleText()) {
                     when {
+                        // Empty line marker (from FB2 <empty-line/>). A blank line
+                        // cannot survive the containsVisibleText() gate on its own,
+                        // so it is carried as a marker and rendered as a blank line.
+                        line.trim() == EMPTY_LINE_MARKER -> {
+                            readerText.add(ReaderText.Text(AnnotatedString(" ")))
+                        }
+
                         // Chapter marker (from FB2 <title>), checked before
                         // imageRegex as the latter also matches this line
                         chapterRegex.matches(line) -> {
