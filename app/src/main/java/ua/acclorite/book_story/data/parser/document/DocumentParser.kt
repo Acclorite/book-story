@@ -121,6 +121,9 @@ class DocumentParser @Inject constructor(
                 yield()
 
                 val formattedLine = line.replace(
+                    // Tabs are not rendered and would glue the surrounding words together
+                    "\t", " "
+                ).replace(
                     Regex("""\*\*\*\s*(.*?)\s*\*\*\*"""), "_**$1**_"
                 ).replace(
                     Regex("""\*\*\s*(.*?)\s*\*\*"""), "**$1**"
@@ -129,6 +132,8 @@ class DocumentParser @Inject constructor(
                 ).trim()
 
                 val imageRegex = Regex("""\[\[(.*?)\|(.*?)]]""")
+                // Section separator: "---", "***", "___", also spaced out ("* * *")
+                val separatorRegex = Regex("""^([-*_])(\s*\1){2,}$""")
 
                 if (line.containsVisibleText()) {
                     when {
@@ -161,7 +166,9 @@ class DocumentParser @Inject constructor(
                             )
                         }
 
-                        line == "---" || line == "***" -> readerText.add(ReaderText.Separator)
+                        separatorRegex.matches(formattedLine) -> {
+                            readerText.add(ReaderText.Separator)
+                        }
 
                         else -> {
                             if (
