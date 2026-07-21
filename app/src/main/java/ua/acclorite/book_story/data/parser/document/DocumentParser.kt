@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.text.AnnotatedString
 import kotlinx.coroutines.yield
 import org.jsoup.nodes.Document
+import org.jsoup.nodes.TextNode
 import ua.acclorite.book_story.core.helpers.clearAllMarkdown
 import ua.acclorite.book_story.core.helpers.clearMarkdown
 import ua.acclorite.book_story.core.helpers.containsVisibleText
@@ -61,8 +62,14 @@ class DocumentParser @Inject constructor(
                     element.html(element.html().replace(Regex("\\n+"), ""))
                 }
 
-                // Remove <head>'s title
-                select("title").remove()
+                // Section/body titles are already turned into chapter markers
+                // upstream; the titles left here belong to FB2 <poem>/<epigraph>/
+                // <cite>. Flatten them into a bold line instead of dropping them.
+                select("title").forEach { title ->
+                    val text = title.wholeText().replace(Regex("\\s+"), " ").trim()
+                    if (text.isBlank()) title.remove()
+                    else title.replaceWith(TextNode("\n**$text**\n"))
+                }
 
                 // Markdown
                 select("hr").append("\n---\n")
@@ -72,6 +79,34 @@ class DocumentParser @Inject constructor(
                 select("h3").append("**").prepend("**")
                 select("strong").append("**").prepend("**")
                 select("em").append("_").prepend("_")
+
+                // FB2 inline: <emphasis> is the italic tag (FB2 has no <em>)
+                select("emphasis").append("_").prepend("_")
+
+                // FB2 block-level tags carry no line break of their own, so in
+                // files without pretty-printing they glue to surrounding text.
+                select("subtitle").prepend("\n_**").append("**_\n") // bold + italic
+                select("poem").prepend("\n").append("\n")
+                select("epigraph").prepend("\n").append("\n")
+                // Blank line between stanzas, but not after the last one
+                select("stanza").forEach { stanza ->
+                    if (stanza.nextElementSibling()?.tagName() == "stanza") {
+                        stanza.append("\n$EMPTY_LINE_MARKER\n")
+                    } else {
+                        stanza.append("\n")
+                    }
+                }
+                select("v").append("\n") // verse line
+                select("text-author").prepend("\n_").append("_\n")
+
+                // FB2 <epigraph>/<cite> are conventionally set in italic. The "\n"
+                // that the loop above appended to each <p> is its last child, so the
+                // closing underscore is inserted just before it, not after.
+                select("epigraph > p, cite > p").forEach { paragraph ->
+                    paragraph.prepend("_")
+                    paragraph.childNode(paragraph.childNodeSize() - 1)
+                        .before(TextNode("_"))
+                }
                 select("a").forEach { element ->
                     var link = element.attr("href")
                     if (!link.startsWith("http") || element.wholeText().isBlank()) return@forEach
