@@ -121,6 +121,9 @@ class DocumentParser @Inject constructor(
                 yield()
 
                 val formattedLine = line.replace(
+                    // Tabs are not rendered and would glue the surrounding words together
+                    "\t", " "
+                ).replace(
                     Regex("""\*\*\*\s*(.*?)\s*\*\*\*"""), "_**$1**_"
                 ).replace(
                     Regex("""\*\*\s*(.*?)\s*\*\*"""), "**$1**"
