@@ -8,11 +8,13 @@ package ua.acclorite.book_story.data.parser.text
 
 import kotlinx.coroutines.yield
 import org.jsoup.Jsoup
+import org.jsoup.nodes.TextNode
 import org.jsoup.parser.Parser
 import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.core.log.logI
 import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.data.parser.document.DocumentParser
+import ua.acclorite.book_story.data.parser.document.EMPTY_LINE_MARKER
 import ua.acclorite.book_story.domain.model.reader.ReaderText
 import javax.inject.Inject
 
@@ -27,7 +29,36 @@ class XmlTextParser @Inject constructor(
 
         return try {
             val readerText = cachedFile.openInputStream()?.use { stream ->
-                documentParser.parseDocument(Jsoup.parse(stream, null, "", Parser.xmlParser()))
+                val document = Jsoup.parse(stream, null, "", Parser.xmlParser())
+
+                // FB2 keeps chapter headings in <title> of <body>/<section>.
+                // Convert them to chapter markers before [DocumentParser]
+                // removes all <title> elements.
+                document.selectFirst("body")?.select("title")?.forEach { title ->
+                    val parentTag = title.parent()?.tagName()
+                    if (parentTag != "body" && parentTag != "section") return@forEach
+
+                    val text = title.wholeText()
+                        .replace(Regex("\\s+"), " ")
+                        .trim()
+                    if (text.isBlank()) return@forEach
+
+                    val nested = title.parents().count { parent ->
+                        parent.tagName() == "section"
+                    } > 1
+                    title.replaceWith(
+                        TextNode("\n[[[chapter|${if (nested) 1 else 0}|$text]]]\n")
+                    )
+                }
+
+                // FB2 <empty-line/> is a blank paragraph. It carries no text, so
+                // it is turned into a marker that survives text extraction and is
+                // resolved back to a blank line by [DocumentParser].
+                document.select("empty-line").forEach { emptyLine ->
+                    emptyLine.replaceWith(TextNode("\n$EMPTY_LINE_MARKER\n"))
+                }
+
+                documentParser.parseDocument(document)
             }
 
             yield()

@@ -9,8 +9,10 @@ package ua.acclorite.book_story.data.parser.document
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.text.AnnotatedString
 import kotlinx.coroutines.yield
 import org.jsoup.nodes.Document
+import org.jsoup.nodes.TextNode
 import ua.acclorite.book_story.core.helpers.clearAllMarkdown
 import ua.acclorite.book_story.core.helpers.clearMarkdown
 import ua.acclorite.book_story.core.helpers.containsVisibleText
@@ -21,6 +23,30 @@ import java.nio.charset.StandardCharsets
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import javax.inject.Inject
+
+/** Marker standing in for FB2 <empty-line/>, resolved to a blank line. */
+const val EMPTY_LINE_MARKER = "[[[emptyline]]]"
+
+/**
+ * Private-use sentinel wrapping FB2 <strikethrough> content. [MarkdownParser]
+ * turns the enclosed text into a real strike-through span, which — unlike a
+ * combining overlay — is font independent.
+ */
+const val STRIKETHROUGH_MARK = "\uE011"
+
+private val SUBSCRIPTS = mapOf(
+    '0' to '₀', '1' to '₁', '2' to '₂', '3' to '₃', '4' to '₄', '5' to '₅',
+    '6' to '₆', '7' to '₇', '8' to '₈', '9' to '₉',
+    '+' to '₊', '-' to '₋', '=' to '₌', '(' to '₍', ')' to '₎'
+)
+private val SUPERSCRIPTS = mapOf(
+    '0' to '⁰', '1' to '¹', '2' to '²', '3' to '³', '4' to '⁴', '5' to '⁵',
+    '6' to '⁶', '7' to '⁷', '8' to '⁸', '9' to '⁹',
+    '+' to '⁺', '-' to '⁻', '=' to '⁼', '(' to '⁽', ')' to '⁾'
+)
+
+private fun String.mapChars(mapping: Map<Char, Char>): String =
+    map { mapping[it] ?: it }.joinToString("")
 
 class DocumentParser @Inject constructor(
     private val markdownParser: MarkdownParser
@@ -57,8 +83,14 @@ class DocumentParser @Inject constructor(
                     element.html(element.html().replace(Regex("\\n+"), ""))
                 }
 
-                // Remove <head>'s title
-                select("title").remove()
+                // Section/body titles are already turned into chapter markers
+                // upstream; the titles left here belong to FB2 <poem>/<epigraph>/
+                // <cite>. Flatten them into a bold line instead of dropping them.
+                select("title").forEach { title ->
+                    val text = title.wholeText().replace(Regex("\\s+"), " ").trim()
+                    if (text.isBlank()) title.remove()
+                    else title.replaceWith(TextNode("\n**$text**\n"))
+                }
 
                 // Markdown
                 select("hr").append("\n---\n")
@@ -68,6 +100,47 @@ class DocumentParser @Inject constructor(
                 select("h3").append("**").prepend("**")
                 select("strong").append("**").prepend("**")
                 select("em").append("_").prepend("_")
+
+                // FB2 inline: <emphasis> is the italic tag (FB2 has no <em>)
+                select("emphasis").append("_").prepend("_")
+
+                // FB2 block-level tags carry no line break of their own, so in
+                // files without pretty-printing they glue to surrounding text.
+                select("subtitle").prepend("\n_**").append("**_\n") // bold + italic
+                select("poem").prepend("\n").append("\n")
+                select("epigraph").prepend("\n").append("\n")
+                // Blank line between stanzas, but not after the last one
+                select("stanza").forEach { stanza ->
+                    if (stanza.nextElementSibling()?.tagName() == "stanza") {
+                        stanza.append("\n$EMPTY_LINE_MARKER\n")
+                    } else {
+                        stanza.append("\n")
+                    }
+                }
+                select("v").append("\n") // verse line
+                select("text-author").prepend("\n_").append("_\n")
+
+                // FB2 <epigraph>/<cite> are conventionally set in italic. The "\n"
+                // that the loop above appended to each <p> is its last child, so the
+                // closing underscore is inserted just before it, not after.
+                select("epigraph > p, cite > p").forEach { paragraph ->
+                    paragraph.prepend("_")
+                    paragraph.childNode(paragraph.childNodeSize() - 1)
+                        .before(TextNode("_"))
+                }
+
+                // FB2 inline: <code> as a monospace backtick code span
+                select("code").prepend("`").append("`")
+                // <strikethrough> wrapped in a sentinel, styled by MarkdownParser
+                select("strikethrough").prepend(STRIKETHROUGH_MARK).append(STRIKETHROUGH_MARK)
+                // <sub>/<sup> mapped to Unicode sub/superscript characters.
+                // Covers digits and signs, which is what FB2 uses them for.
+                select("sub").forEach { element ->
+                    element.text(element.text().mapChars(SUBSCRIPTS))
+                }
+                select("sup").forEach { element ->
+                    element.text(element.text().mapChars(SUPERSCRIPTS))
+                }
                 select("a").forEach { element ->
                     var link = element.attr("href")
                     if (!link.startsWith("http") || element.wholeText().isBlank()) return@forEach
@@ -129,9 +202,35 @@ class DocumentParser @Inject constructor(
                 ).trim()
 
                 val imageRegex = Regex("""\[\[(.*?)\|(.*?)]]""")
+                val chapterRegex = Regex("""\[\[\[chapter\|([01])\|(.*)]]]""")
 
                 if (line.containsVisibleText()) {
                     when {
+                        // Empty line marker (from FB2 <empty-line/>). A blank line
+                        // cannot survive the containsVisibleText() gate on its own,
+                        // so it is carried as a marker and rendered as a blank line.
+                        line.trim() == EMPTY_LINE_MARKER -> {
+                            readerText.add(ReaderText.Text(AnnotatedString(" ")))
+                        }
+
+                        // Chapter marker (from FB2 <title>), checked before
+                        // imageRegex as the latter also matches this line
+                        chapterRegex.matches(line) -> {
+                            if (!includeChapter) return@forEach
+
+                            val match = chapterRegex.matchEntire(line) ?: return@forEach
+                            val title = match.groupValues[2].clearAllMarkdown().trim()
+                            if (!title.containsVisibleText()) return@forEach
+
+                            readerText.add(
+                                ReaderText.Chapter(
+                                    title = title,
+                                    nested = match.groupValues[1] == "1"
+                                )
+                            )
+                            chapterAdded = true
+                        }
+
                         imageRegex.matches(line) -> {
                             val trimmedLine = line.removeSurrounding("[[", "]]")
                             val src = trimmedLine.substringBefore("|")
