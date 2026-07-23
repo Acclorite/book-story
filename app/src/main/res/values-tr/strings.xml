@@ -430,4 +430,6 @@
     <string name="horizontal_limiter_option_desc">Yatay cetveli göster ve ekranın odaklanmamış kısmını karart</string>
     <string name="horizontal_limiter_ruler_option">Yatay cetvel</string>
     <string name="horizontal_limiter_ruler_thickness_option">Cetvel kalınlığı</string>
+    <string name="horizontal_limiter_vertical_offset_option">Dikey sapma</string>
+    <string name="horizontal_limiter_dimming_option">Karartma</string>
 </resources>
