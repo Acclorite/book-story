@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2026 Acclorite
@@ -91,7 +90,7 @@
     <string name="app_version_option">App-Version</string>
     <string name="report_bug_option">Fehler melden</string>
     <string name="start_done">Alles ist erledigt!</string>
-    <string name="start_done_desc">Die Einrichtung ist abgeschlossen. Möchten Sie zum Hilfebildschirm wechseln?</string>
+    <string name="start_done_desc">Die Einrichtung ist abgeschlossen.</string>
     <string name="today">Heute</string>
     <string name="yesterday">Gestern</string>
     <string name="continue_reading_content_desc">Weiterlesen</string>
@@ -355,4 +354,11 @@
     <string name="show_navigation_labels_option_desc">Navigationsleistenbeschriftungen unter den Symbolen anzeigen</string>
     <string name="horizontal_gesture_disable_scrolling_option">Scrollen deaktivieren</string>
     <string name="horizontal_gesture_disable_scrolling_option_desc">Scrollen im Reader vollständig deaktivieren</string>
+    <string name="horizontal_limiter_option">Horizontal begrenzen</string>
+    <string name="horizontal_limiter_option_desc">Horizontales Lineal anzeigen und den nicht fokussierten Teil des Bildschirms abdunkeln</string>
+    <string name="horizontal_limiter_height_option">Höhe</string>
+    <string name="horizontal_limiter_vertical_offset_option">Vertikaler Versatz</string>
+    <string name="horizontal_limiter_ruler_option">Horizontales Lineal</string>
+    <string name="horizontal_limiter_ruler_thickness_option">Dicke des Lineals</string>
+    <string name="horizontal_limiter_dimming_option">Dimmen</string>
 </resources>

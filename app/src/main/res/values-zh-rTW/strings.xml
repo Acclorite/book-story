@@ -1,8 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2026 Acclorite
   ~ SPDX-License-Identifier: GPL-3.0-only
-  -->
-
-<resources>
+  --><resources>
+    <string name="library_screen">藏書</string>
+    <string name="history_screen">歷史</string>
+    <string name="browse_screen">瀏覽</string>
+    <string name="settings_screen">設置</string>
+    <string name="default_string">預設</string>
+    <string name="about_screen">關於應用程式</string>
+    <string name="add_books">加入書籍嗎？</string>
+    <string name="delete_books">刪除書籍嗎？</string>
+    <string name="delete_book">刪除書籍嗎？</string>
+    <string name="remove_category">刪除類別嗎？</string>
 </resources>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2026 Acclorite
@@ -125,7 +124,7 @@
     <string name="appearance_settings_desc">Motyw, kolory</string>
     <string name="reader_settings_desc">Czcionka, tekst</string>
     <string name="browse_settings">Przeglądaj</string>
-    <string name="browse_settings_desc">Ogólne, filtr, sortowanie</string>
+    <string name="browse_settings_desc">Skanuj, wyświetlaj</string>
     <string name="translator_reader_settings">Tłumacz</string>
     <string name="dark_theme_follow_system">System</string>
     <string name="change_cover_desc">Wybierz nową okładkę ze swoich zdjęć</string>
@@ -181,7 +180,7 @@
     <string name="open_in_web_content_desc">Otwórz w sieci</string>
     <string name="drag_content_desc">Przeciągnij</string>
     <string name="start_theme_preferences">Ustawienia wyglądu</string>
-    <string name="start_done_desc">Pomyślnie wykonałeś podstawowe ustawienie aplikacji. Czy chcesz dowiedzieć się, jak korzystać z aplikacji, czytając Pomoc?</string>
+    <string name="start_done_desc">Konfiguracja zakończona.</string>
     <string name="file_icon_content_desc">Plik</string>
     <string name="select_all_files_content_desc">Wybierz wszystkie pliki</string>
     <string name="theme_appearance_settings">Preferencje motywu</string>
@@ -239,7 +238,7 @@
     <string name="images_width_option">Rozmiar</string>
     <string name="images_color_effects_option">Efekty kolorów</string>
     <string name="progress_bar_option">Pasek postępu</string>
-    <string name="screen_orientation_free">Darmowy</string>
+    <string name="screen_orientation_free">Swobodny</string>
     <string name="cutout_padding_option">Margines wycięcia</string>
     <string name="double_press_exit_option">Aby wyjść, dwukrotnie naciśnij wstecz</string>
     <string name="progress_bar_option_desc">Wyświetla pasek postępu na dole</string>
@@ -320,4 +319,38 @@
     <string name="crash_title">Ups! Aplikacja się zawiesiła.</string>
     <string name="crash_description">Proszę zgłosić ten komunikat o awarii w najwygodniejszy dla siebie sposób.</string>
     <string name="select_all_books_content_desc">Wybierz wszystkie książki</string>
+    <string name="error_no_file_manager_app">Nie znaleziono aplikacji umożliwiającej wybór folderu.</string>
+    <string name="error_field_empty">To pole nie może być puste.</string>
+    <string name="display_tab">Wyświetlanie</string>
+    <string name="show_navigation_labels_option_desc">Wyświetl etykiety paska nawigacyjnego pod ikonami</string>
+    <string name="horizontal_gesture_pull_anim_option">Animacja przeciągnięcia</string>
+    <string name="horizontal_gesture_pull_anim_option_desc">Włącz animację przeciągania przy użyciu gestu poziomego</string>
+    <string name="show_book_count_option">Pokaż liczbę książek</string>
+    <string name="show_category_tabs_option">Pokaż zakładki kategorii</string>
+    <string name="pin_content_desc">Przypnij</string>
+    <string name="remove_content_desc">Usuń</string>
+    <string name="always_show_default_tab_option">Zawsze pokazuj domyślną kartę</string>
+    <string name="scan_browse_settings">Skanuj</string>
+    <string name="display_settings">Pokaż</string>
+    <string name="horizontal_limiter_option">Ogranicznik poziomy</string>
+    <string name="horizontal_limiter_option_desc">Wyświetl poziomą linijkę i przyciemnij część ekranu, na której nie jest aktywny kursor</string>
+    <string name="horizontal_limiter_height_option">Wysokość</string>
+    <string name="horizontal_limiter_vertical_offset_option">Przesunięcie pionowe</string>
+    <string name="horizontal_limiter_ruler_option">Linijka pozioma</string>
+    <string name="horizontal_limiter_ruler_thickness_option">Grubość linijki</string>
+    <string name="horizontal_limiter_dimming_option">Ściemnianie</string>
+    <string name="horizontal_gesture_alpha_anim_option">Animacja widoczności</string>
+    <string name="horizontal_gesture_alpha_anim_option_desc">Włącz animację wyświetlania przy użyciu gestu poziomego</string>
+    <string name="per_category_sort_option">Sortowanie według kategorii</string>
+    <string name="library_title_position_inside">W środku</string>
+    <string name="library_categories_create_category_placeholder">Tytuł</string>
+    <string name="sort_order_last_read">Ostatnio czytane</string>
+    <string name="color_effects_off">Wyłącz</string>
+    <string name="start_scan_preferences">Ustawienia skanowania</string>
+    <string name="note_content_desc">Opis</string>
+    <string name="set_up_scanning">Ustawienia skanowania</string>
+    <string name="horizontal_gesture_disable_scrolling_option_desc">Uniemożliwiaj przewijanie podczas czytania</string>
+    <string name="green2_theme">księżyc Jowisza</string>
+    <string name="start_reading">Uruchom</string>
+    <string name="support_development_option">Wesprzyj rozwój aplikacji</string>
 </resources>

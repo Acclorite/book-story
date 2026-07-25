@@ -255,7 +255,7 @@
     <string name="show_more_content_desc">اعرض المزيد</string>
     <string name="delete_whole_history_content_desc">احذف التاريخ بأكمله</string>
     <string name="perception_expander_padding_option">هامش جانب الخط</string>
-    <string name="start_done_desc">لقد نجحت بإنجاز الإعدادات الأساسية للتطبيق. هل ترغب في معرفة كيفية استخدام التطبيق من خلال قراءة شاشة المساعدة؟</string>
+    <string name="start_done_desc">اكتمل الإعداد.</string>
     <string name="delete_history_element_content_desc">احذف عنصر التاريخ</string>
     <string name="cover_image_content_desc">غلاف الصورة</string>
     <string name="start_theme_preferences">تفضيلات السمة</string>
@@ -355,4 +355,11 @@
     <string name="show_navigation_labels_option_desc">أظهر تسميات شريط التنقل أسفل الأيقونات</string>
     <string name="horizontal_gesture_disable_scrolling_option">عطّل التمرير</string>
     <string name="horizontal_gesture_disable_scrolling_option_desc">تعطيل تمرير القارئ بالكامل</string>
+    <string name="horizontal_limiter_option">محدد أفقي</string>
+    <string name="horizontal_limiter_option_desc">أظهر المسطرة الأفقية وتعتيم الجزء غير المركّز من الشاشة</string>
+    <string name="horizontal_limiter_height_option">الارتفاع</string>
+    <string name="horizontal_limiter_vertical_offset_option">الإزاحة الرأسية</string>
+    <string name="horizontal_limiter_ruler_option">مسطرة أفقية</string>
+    <string name="horizontal_limiter_ruler_thickness_option">سُمك المسطرة</string>
+    <string name="horizontal_limiter_dimming_option">تعتيم</string>
 </resources>
