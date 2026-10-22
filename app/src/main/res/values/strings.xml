@@ -62,6 +62,17 @@
     <string name="error_no_file">File does not exist or inaccessible</string>
     <string name="error_field_empty">This field should not be empty.</string>
 
+    <string name="error_empty_file">File appears to be empty. Please verify its content.</string>
+    <string name="error_could_not_validate">Could not validate book content. Please try again and verify the file. (%1$s)</string>
+    <string name="error_could_not_parse_file">Could not parse file. (%1$s)</string>
+    <string name="error_could_not_save_file">Could not save file. (%1$s)</string>
+    <string name="error_could_not_get_chapters">Could not get a list of chapters. (%1$s)</string>
+    <string name="error_wrong_file_format">Wrong file format. Make sure file format matches supported file formats.</string>
+    <string name="error_could_not_access_file">
+        Could not access file.
+        Please verify that it exists and all required permissions are granted.
+    </string>
+
     <!-- Is Empty messages -->
     <string name="search_field_empty">
         Search…
@@ -98,7 +109,7 @@
     <string name="web_search">Web search</string>
     <string name="share">Share</string>
     <string name="ok">OK</string>
-    <string name="change_path">Change path</string>
+    <string name="retry">Retry</string>
     <string name="add_folder">Add folder</string>
     <string name="edit">Edit</string>
     <string name="create_category">Create category</string>
@@ -410,8 +421,16 @@
     <string name="unknown">Unknown</string>
 
     <!-- Reader -->
-    <string name="no_chapters">No chapters</string>
+    <string name="no_chapters">No current chapter</string>
     <string name="chapters">Chapters</string>
+    <string name="processing_content">
+        Content of the book is processing.
+        It may take up to several minutes.
+    </string>
+    <string name="saving_content">
+        Processed content of the book is saving.
+        It should not take more than a minute.
+    </string>
 
     <!-- About -->
     <!-- Options -->

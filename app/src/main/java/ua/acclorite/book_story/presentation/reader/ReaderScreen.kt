@@ -18,13 +18,11 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.systemBarsIgnoringVisibility
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.BlendMode
@@ -34,8 +32,12 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineBreak
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
@@ -45,6 +47,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.parcelize.Parcelize
 import ua.acclorite.book_story.core.helpers.calculateProgress
+import ua.acclorite.book_story.domain.model.book.cleanTitle
 import ua.acclorite.book_story.presentation.navigator.Screen
 import ua.acclorite.book_story.presentation.reader.model.ReaderColorEffects
 import ua.acclorite.book_story.presentation.reader.model.ReaderProgressCount
@@ -55,7 +58,6 @@ import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.common.helpers.setBrightness
 import ua.acclorite.book_story.ui.reader.ReaderContent
 import ua.acclorite.book_story.ui.reader.ReaderEffects
-import kotlin.math.roundToInt
 
 @Parcelize
 data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
@@ -77,12 +79,6 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
 
         val activity = LocalActivity.current
         val density = LocalDensity.current
-        val listState = rememberSaveable(
-            state.value.listState,
-            saver = LazyListState.Saver
-        ) {
-            state.value.listState
-        }
         val nestedScrollConnection = remember {
             derivedStateOf {
                 object : NestedScrollConnection {
@@ -232,6 +228,141 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             (settings.progressBarFontSize.lastValue * 2).sp
         }
 
+        val paragraphTextStyle = remember(
+            settings.fontFamily.value,
+            settings.fontThickness.value,
+            settings.textAlignment.value,
+            paragraphIndentation,
+            fontStyle,
+            letterSpacing,
+            settings.fontSize.value,
+            lineHeight,
+            fontColor.value
+        ) {
+            TextStyle(
+                fontFamily = settings.fontFamily.lastValue.font,
+                fontWeight = settings.fontThickness.lastValue.thickness,
+                textAlign = settings.textAlignment.lastValue.textAlignment,
+                textIndent = TextIndent(firstLine = paragraphIndentation),
+                fontStyle = fontStyle,
+                letterSpacing = letterSpacing,
+                fontSize = settings.fontSize.lastValue.sp,
+                lineHeight = lineHeight,
+                color = fontColor.value,
+                lineBreak = LineBreak.Paragraph
+            )
+        }
+
+        /* TODO: Header* style option */
+        val header1TextStyle = remember(
+            settings.fontFamily.value,
+            letterSpacing,
+            fontColor.value
+        ) {
+            TextStyle(
+                fontFamily = settings.fontFamily.lastValue.font,
+                fontWeight = FontWeight.Black,
+                textAlign = TextAlign.Center,
+                textIndent = TextIndent(firstLine = 0.sp),
+                fontStyle = FontStyle.Normal,
+                letterSpacing = letterSpacing,
+                fontSize = 46.sp,
+//                lineHeight = lineHeight,
+                color = fontColor.value,
+                lineBreak = LineBreak.Paragraph
+            )
+        }
+        val header2TextStyle = remember(
+            settings.fontFamily.value,
+            letterSpacing,
+            fontColor.value
+        ) {
+            TextStyle(
+                fontFamily = settings.fontFamily.lastValue.font,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Start,
+                textIndent = TextIndent(firstLine = 0.sp),
+                fontStyle = FontStyle.Normal,
+                letterSpacing = letterSpacing,
+                fontSize = 38.sp,
+//                lineHeight = lineHeight,
+                color = fontColor.value,
+                lineBreak = LineBreak.Paragraph
+            )
+        }
+        val header3TextStyle = remember(
+            settings.fontFamily.value,
+            letterSpacing,
+            fontColor.value
+        ) {
+            TextStyle(
+                fontFamily = settings.fontFamily.lastValue.font,
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Start,
+                textIndent = TextIndent(firstLine = 0.sp),
+                fontStyle = FontStyle.Normal,
+                letterSpacing = letterSpacing,
+                fontSize = 30.sp,
+//                lineHeight = lineHeight,
+                color = fontColor.value,
+                lineBreak = LineBreak.Paragraph
+            )
+        }
+        val header4TextStyle = remember(
+            settings.fontFamily.value,
+            letterSpacing,
+            fontColor.value
+        ) {
+            TextStyle(
+                fontFamily = settings.fontFamily.lastValue.font,
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Start,
+                textIndent = TextIndent(firstLine = 0.sp),
+                fontStyle = FontStyle.Normal,
+                letterSpacing = letterSpacing,
+                fontSize = 26.sp,
+//                lineHeight = lineHeight,
+                color = fontColor.value,
+                lineBreak = LineBreak.Paragraph
+            )
+        }
+        val header5TextStyle = remember(
+            settings.fontFamily.value,
+            letterSpacing,
+            fontColor.value
+        ) {
+            TextStyle(
+                fontFamily = settings.fontFamily.lastValue.font,
+                fontWeight = FontWeight.Medium,
+                textAlign = TextAlign.Start,
+                textIndent = TextIndent(firstLine = 0.sp),
+                fontStyle = FontStyle.Normal,
+                letterSpacing = letterSpacing,
+                fontSize = 24.sp,
+//                lineHeight = lineHeight,
+                color = fontColor.value,
+                lineBreak = LineBreak.Paragraph
+            )
+        }
+        val header6TextStyle = remember(
+            settings.fontFamily.value,
+            letterSpacing,
+            fontColor.value
+        ) {
+            TextStyle(
+                fontFamily = settings.fontFamily.lastValue.font,
+                fontWeight = FontWeight.Medium,
+                textAlign = TextAlign.Start,
+                textIndent = TextIndent(firstLine = 0.sp),
+                fontStyle = FontStyle.Normal,
+                letterSpacing = letterSpacing,
+                fontSize = 20.sp,
+//                lineHeight = lineHeight,
+                color = fontColor.value,
+                lineBreak = LineBreak.Paragraph
+            )
+        }
+
         val layoutDirection = LocalLayoutDirection.current
         val cutoutInsets = WindowInsets.displayCutout
         val systemBarsInsets = WindowInsets.systemBarsIgnoringVisibility
@@ -291,41 +422,73 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             (settings.bottomBarPadding.lastValue * 4f).dp
         }
 
+        val currentChapter =
+            remember(state.value.book.progress.currentOffset, state.value.chapters) {
+                derivedStateOf {
+                    state.value.chapters.findLast {
+                        it.position.isCurrent(state.value.book.progress.currentOffset)
+                    }
+                }
+            }
+        val currentChapterString =
+            remember(state.value.book.progress.currentOffset, state.value.chapters) {
+                var str = ""
+                state.value.chapters.filter {
+                    it.position.isCurrent(state.value.book.progress.currentOffset)
+                }.also { currentChapters ->
+                    currentChapters.forEachIndexed { index, chapter ->
+                        str += chapter.cleanTitle
+                        if (index != currentChapters.lastIndex) str += " • "
+                    }
+                }
+                str.ifBlank { null }
+            }
+        val currentChapterProgress =
+            remember(state.value.book.progress.currentOffset, currentChapter.value) {
+                currentChapter.value?.position?.progress(state.value.book.progress.currentOffset)
+                    ?: 0.0f
+            }
+
+        val bookPercentage = state.value.book.progress.getPercentage()
         val bookProgress = remember(
+            bookPercentage,
             state.value.book.progress,
-            state.value.text,
             settings.progressCount.value
         ) {
             when (settings.progressCount.lastValue) {
                 ReaderProgressCount.PERCENTAGE -> {
-                    "${state.value.book.progress.calculateProgress(2)}%"
+                    "${bookPercentage.calculateProgress(2)}%"
                 }
 
                 ReaderProgressCount.QUANTITY -> {
-                    val index =
-                        (state.value.book.progress * state.value.text.lastIndex + 1).roundToInt()
-                    "$index / ${state.value.text.size}"
+                    val current =
+                        (state.value.book.progress.currentNodeId.id + 1).coerceAtMost(state.value.book.progress.totalNodes)
+                    "$current / ${state.value.book.progress.totalNodes}"
                 }
             }
         }
         val chapterProgress = remember(
-            state.value.text,
-            state.value.book.progress,
-            state.value.currentChapter,
-            state.value.currentChapterProgress,
+            currentChapter.value,
+            currentChapterProgress,
+            state.value.book.progress.currentOffset,
             settings.progressCount.value
         ) {
-            if (state.value.currentChapter == null) return@remember ""
+            val chapter = currentChapter.value ?: return@remember ""
             when (settings.progressCount.lastValue) {
                 ReaderProgressCount.PERCENTAGE -> {
-                    " (${state.value.currentChapterProgress.calculateProgress(2)}%)"
+                    " (${currentChapterProgress.calculateProgress(2)}%)"
                 }
 
                 ReaderProgressCount.QUANTITY -> {
-                    val (index, length) = screenModel.findChapterIndexAndLength(
-                        (state.value.book.progress * state.value.text.lastIndex).roundToInt()
-                    ).apply { if (first == -1 && second == -1) return@remember "" }
-                    " (${index} / ${length})"
+                    val currentIndexInChapter =
+                        (state.value.book.progress.currentOffset - chapter.position.chapterOffset).coerceAtLeast(
+                            0
+                        )
+                    val chapterLength =
+                        (chapter.position.endChapterOffset - chapter.position.chapterOffset).coerceAtLeast(
+                            1
+                        )
+                    " ($currentIndexInChapter / $chapterLength)"
                 }
             }
         }
@@ -343,9 +506,6 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
                     saveCheckpoint = false
                 )
             )
-        }
-        LaunchedEffect(listState) {
-            screenModel.updateProgress(listState)
         }
 
         DisposableEffect(settings.screenOrientation.value) {
@@ -394,12 +554,18 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
         )
 
         ReaderContent(
+            layoutState = state.value.layoutState,
+            nodes = state.value.nodes,
+            chapters = state.value.chapters,
             book = state.value.book,
-            text = state.value.text,
+            paginating = state.value.paginating,
+            scrollTarget = state.value.scrollTarget,
             bottomSheet = state.value.bottomSheet,
             drawer = state.value.drawer,
-            listState = listState,
-            currentChapter = state.value.currentChapter,
+            currentChapter = currentChapter.value,
+            currentChapterString = currentChapterString,
+            currentChapterProgress = currentChapterProgress,
+            chaptersEmpty = state.value.chapters.isEmpty(),
             nestedScrollConnection = nestedScrollConnection.value,
             fastColorPresetChange = settings.fastColorPresetChange.value,
             perceptionExpander = settings.perceptionExpander.value,
@@ -411,9 +577,6 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             horizontalLimiterRuler = settings.horizontalLimiterRuler.value,
             horizontalLimiterRulerThickness = horizontalLimiterRulerThickness,
             horizontalLimiterDimming = settings.horizontalLimiterDimming.value,
-            currentChapterProgress = state.value.currentChapterProgress,
-            isLoading = state.value.isLoading,
-            errorMessage = state.value.errorMessage,
             checkpoints = state.value.checkpoints,
             showMenu = state.value.showMenu,
             lockMenu = state.value.lockMenu,
@@ -432,6 +595,13 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             progressBarPadding = progressBarPadding,
             progressBarAlignment = settings.progressBarAlignment.value,
             progressBarFontSize = progressBarFontSize,
+            paragraphTextStyle = paragraphTextStyle,
+            header1TextStyle = header1TextStyle,
+            header2TextStyle = header2TextStyle,
+            header3TextStyle = header3TextStyle,
+            header4TextStyle = header4TextStyle,
+            header5TextStyle = header5TextStyle,
+            header6TextStyle = header6TextStyle,
             paragraphHeight = paragraphHeight,
             sidePadding = sidePadding,
             bottomBarPadding = bottomBarPadding,
@@ -443,23 +613,15 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             imagesAlignment = settings.imagesAlignment.value,
             imagesWidth = imagesWidth,
             imagesColorEffects = imagesColorEffects,
-            fontFamily = settings.fontFamily.value,
-            lineHeight = lineHeight,
-            fontThickness = settings.fontThickness.value,
-            fontStyle = fontStyle,
-            chapterTitleAlignment = settings.chapterTitleAlignment.value,
-            textAlignment = settings.textAlignment.value,
+            imagesOriginalSize = true, // TODO: Option
             horizontalAlignment = horizontalAlignment,
-            fontSize = settings.fontSize.value.sp,
-            letterSpacing = letterSpacing,
-            paragraphIndentation = paragraphIndentation,
             doubleClickTranslation = settings.doubleClickTranslation.value,
             switchColorPreset = settingsModel::onEvent,
             leave = screenModel::onEvent,
             restoreCheckpoint = screenModel::onEvent,
             scroll = screenModel::onEvent,
-            changeProgress = screenModel::onEvent,
             menuVisibility = screenModel::onEvent,
+            retry = screenModel::onEvent,
             openShareApp = screenModel::onEvent,
             openWebBrowser = screenModel::onEvent,
             openTranslator = screenModel::onEvent,
@@ -469,6 +631,10 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             dismissBottomSheet = screenModel::onEvent,
             showChaptersDrawer = screenModel::onEvent,
             dismissDrawer = screenModel::onEvent,
+            updateProgress = screenModel::onEvent,
+            paginateForward = screenModel::onEvent,
+            paginateBackward = screenModel::onEvent,
+            scrollConsumed = screenModel::onEvent,
             navigateBack = screenModel::onEvent,
             navigateToBookInfo = screenModel::onEvent
         )

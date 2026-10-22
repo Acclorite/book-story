@@ -6,8 +6,8 @@
 
 package ua.acclorite.book_story.data.parser.file
 
-import ua.acclorite.book_story.data.model.file.CachedFile
-import ua.acclorite.book_story.domain.model.library.Book
+import ua.acclorite.book_story.data.storage.file.CachedFile
+import ua.acclorite.book_story.domain.model.book.Book
 
 interface FileParser {
     suspend fun parse(cachedFile: CachedFile): Book?

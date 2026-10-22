@@ -42,6 +42,10 @@ fun String.containsVisibleText(): Boolean {
     return any { it.isVisibleCharacter() }
 }
 
+fun String.foundMatch(match: String): Boolean {
+    return indexOf(match) != -1
+}
+
 fun Char.isVisibleCharacter(): Boolean {
     return when (this.category) {
         CharCategory.UPPERCASE_LETTER,

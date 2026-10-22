@@ -10,38 +10,38 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ua.acclorite.book_story.core.CoverImage
 import ua.acclorite.book_story.core.data.ExtensionsData
-import ua.acclorite.book_story.data.local.room.BookDatabase
 import ua.acclorite.book_story.data.mapper.file.FileMapper
-import ua.acclorite.book_story.data.model.file.CachedFile
 import ua.acclorite.book_story.data.parser.cover.CoverParser
 import ua.acclorite.book_story.data.parser.file.FileParser
+import ua.acclorite.book_story.data.storage.file.CachedFile
+import ua.acclorite.book_story.data.storage.room.AppDatabase
+import ua.acclorite.book_story.domain.model.book.Book
 import ua.acclorite.book_story.domain.model.file.File
-import ua.acclorite.book_story.domain.model.library.Book
 import ua.acclorite.book_story.domain.repository.FileSystemRepository
-import ua.acclorite.book_story.domain.service.FileProvider
+import ua.acclorite.book_story.domain.service.FileHandler
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class FileSystemRepositoryImpl @Inject constructor(
-    private val database: BookDatabase,
+    private val appDatabase: AppDatabase,
     private val fileMapper: FileMapper,
     private val fileParser: FileParser,
     private val coverParser: CoverParser,
-    private val fileProvider: FileProvider
+    private val fileHandler: FileHandler
 ) : FileSystemRepository {
 
     override suspend fun searchFiles(query: String): Result<List<File>> {
         return withContext(Dispatchers.IO) {
-            fileProvider.getStorageFiles().mapCatching { storages ->
-                val existingFiles = database.bookDao.searchBooks("").map { it.filePath }
+            fileHandler.getStorageFiles().mapCatching { storages ->
+                val existingFiles = appDatabase.bookDao.searchBooks("").map { it.filePath }
 
-                storages.map { storage ->
+                storages.flatMap { storage ->
                     storage.getFilesFromStorage(
                         query = query,
                         existingFiles = existingFiles
                     )
-                }.flatten()
+                }
             }
         }
     }
@@ -83,7 +83,7 @@ class FileSystemRepositoryImpl @Inject constructor(
 
                 val book = fileParser.parse(
                     cachedFile = cachedFile
-                ) ?: throw Exception("Could not parse ${file.name}.")
+                ) ?: throw Exception("Could not parse ${file.name}")
                 val coverImage = coverParser.parse(cachedFile = cachedFile)
 
                 return@withContext book to coverImage

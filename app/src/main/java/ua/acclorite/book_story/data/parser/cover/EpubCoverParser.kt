@@ -13,7 +13,7 @@ import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
 import ua.acclorite.book_story.core.CoverImage
 import ua.acclorite.book_story.core.log.logE
-import ua.acclorite.book_story.data.model.file.CachedFile
+import ua.acclorite.book_story.data.storage.file.CachedFile
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
 import java.util.zip.ZipFile

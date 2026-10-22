@@ -9,7 +9,7 @@ package ua.acclorite.book_story.presentation.browse.model
 import androidx.compose.runtime.Immutable
 import ua.acclorite.book_story.core.CoverImage
 import ua.acclorite.book_story.core.ui.UIText
-import ua.acclorite.book_story.domain.model.library.Book
+import ua.acclorite.book_story.domain.model.book.Book
 
 @Immutable
 sealed class NullableBook {

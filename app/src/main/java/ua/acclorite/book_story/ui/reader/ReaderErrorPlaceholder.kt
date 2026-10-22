@@ -19,7 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.core.ui.UIText
+import ua.acclorite.book_story.domain.use_case.book.GetBookContentState.Companion.ErrorAction
+import ua.acclorite.book_story.presentation.reader.LayoutState
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.ui.common.components.placeholder.ErrorPlaceholder
 import ua.acclorite.book_story.ui.common.components.top_bar.TopAppBar
@@ -30,9 +31,8 @@ import ua.acclorite.book_story.ui.navigator.NavigatorBackIconButton
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ReaderErrorPlaceholder(
-    errorMessage: UIText,
-    leave: (ReaderEvent.OnLeave) -> Unit,
-    navigateToBookInfo: (ReaderEvent.OnNavigateToBookInfo) -> Unit,
+    layoutState: LayoutState.Error,
+    retry: (ReaderEvent.OnRetry) -> Unit,
     navigateBack: (ReaderEvent.OnNavigateBack) -> Unit
 ) {
     Scaffold(
@@ -65,21 +65,17 @@ fun ReaderErrorPlaceholder(
             contentAlignment = Alignment.Center
         ) {
             ErrorPlaceholder(
-                errorMessage = errorMessage.asString(),
+                errorMessage = layoutState.message.asString(),
                 icon = painterResource(id = R.drawable.error),
-                actionTitle = stringResource(id = R.string.change_path),
+                actionTitle = when (layoutState.action) {
+                    ErrorAction.RETRY -> stringResource(id = R.string.retry)
+                },
                 action = {
-                    leave(
-                        ReaderEvent.OnLeave(
-                            navigate = {
-                                navigateToBookInfo(
-                                    ReaderEvent.OnNavigateToBookInfo(
-                                        changePath = true
-                                    )
-                                )
-                            }
-                        )
-                    )
+                    when (layoutState.action) {
+                        ErrorAction.RETRY -> {
+                            retry(ReaderEvent.OnRetry)
+                        }
+                    }
                 }
             )
         }

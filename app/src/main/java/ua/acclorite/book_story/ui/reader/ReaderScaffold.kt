@@ -12,7 +12,6 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -22,30 +21,34 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import ua.acclorite.book_story.domain.model.library.Book
-import ua.acclorite.book_story.domain.model.reader.ReaderText
-import ua.acclorite.book_story.domain.model.reader.ReaderText.Chapter
+import ua.acclorite.book_story.domain.model.book.Book
+import ua.acclorite.book_story.domain.model.book.Chapter
+import ua.acclorite.book_story.domain.model.book.Node
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
+import ua.acclorite.book_story.presentation.reader.ScrollTarget
 import ua.acclorite.book_story.presentation.reader.model.Checkpoint
-import ua.acclorite.book_story.presentation.reader.model.ReaderFontThickness
 import ua.acclorite.book_story.presentation.reader.model.ReaderHorizontalGesture
-import ua.acclorite.book_story.presentation.reader.model.ReaderTextAlignment
+import ua.acclorite.book_story.presentation.reader.model.ReaderLayout
 import ua.acclorite.book_story.presentation.settings.SettingsEvent
 import ua.acclorite.book_story.ui.common.components.common.AnimatedVisibility
-import ua.acclorite.book_story.ui.reader.model.FontWithName
 import ua.acclorite.book_story.ui.theme.model.HorizontalAlignment
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ReaderScaffold(
+    layout: ReaderLayout,
+    nodes: List<Node>,
     book: Book,
-    text: List<ReaderText>,
-    listState: LazyListState,
+    paginating: Boolean,
+    scrollTarget: ScrollTarget?,
     currentChapter: Chapter?,
+    currentChapterString: String?,
+    currentChapterProgress: Float,
+    chaptersEmpty: Boolean,
     nestedScrollConnection: NestedScrollConnection,
     fastColorPresetChange: Boolean,
     perceptionExpander: Boolean,
@@ -57,8 +60,6 @@ fun ReaderScaffold(
     horizontalLimiterRulerThickness: Dp,
     horizontalLimiterRuler: Boolean,
     horizontalLimiterDimming: Float,
-    currentChapterProgress: Float,
-    isLoading: Boolean,
     checkpoints: List<Checkpoint>,
     showMenu: Boolean,
     lockMenu: Boolean,
@@ -77,6 +78,13 @@ fun ReaderScaffold(
     progressBarPadding: Dp,
     progressBarAlignment: HorizontalAlignment,
     progressBarFontSize: TextUnit,
+    paragraphTextStyle: TextStyle,
+    header1TextStyle: TextStyle,
+    header2TextStyle: TextStyle,
+    header3TextStyle: TextStyle,
+    header4TextStyle: TextStyle,
+    header5TextStyle: TextStyle,
+    header6TextStyle: TextStyle,
     paragraphHeight: Dp,
     sidePadding: Dp,
     bottomBarPadding: Dp,
@@ -88,29 +96,24 @@ fun ReaderScaffold(
     imagesAlignment: HorizontalAlignment,
     imagesWidth: Float,
     imagesColorEffects: ColorFilter?,
-    fontFamily: FontWithName,
-    lineHeight: TextUnit,
-    fontThickness: ReaderFontThickness,
-    fontStyle: FontStyle,
-    chapterTitleAlignment: ReaderTextAlignment,
-    textAlignment: ReaderTextAlignment,
+    imagesOriginalSize: Boolean,
     horizontalAlignment: Alignment.Horizontal,
-    fontSize: TextUnit,
-    letterSpacing: TextUnit,
-    paragraphIndentation: TextUnit,
     doubleClickTranslation: Boolean,
     switchColorPreset: (SettingsEvent.OnSwitchColorPreset) -> Unit,
     menuVisibility: (ReaderEvent.OnMenuVisibility) -> Unit,
     leave: (ReaderEvent.OnLeave) -> Unit,
     restoreCheckpoint: (ReaderEvent.OnRestoreCheckpoint) -> Unit,
     scroll: (ReaderEvent.OnScroll) -> Unit,
-    changeProgress: (ReaderEvent.OnChangeProgress) -> Unit,
     openShareApp: (ReaderEvent.OnOpenShareApp) -> Unit,
     openWebBrowser: (ReaderEvent.OnOpenWebBrowser) -> Unit,
     openTranslator: (ReaderEvent.OnOpenTranslator) -> Unit,
     openDictionary: (ReaderEvent.OnOpenDictionary) -> Unit,
     showSettingsBottomSheet: (ReaderEvent.OnShowSettingsBottomSheet) -> Unit,
     showChaptersDrawer: (ReaderEvent.OnShowChaptersDrawer) -> Unit,
+    updateProgress: (ReaderEvent.OnUpdateProgress) -> Unit,
+    paginateForward: (ReaderEvent.OnPaginateForward) -> Unit,
+    paginateBackward: (ReaderEvent.OnPaginateBackward) -> Unit,
+    scrollConsumed: (ReaderEvent.OnScrollConsumed) -> Unit,
     navigateToBookInfo: (ReaderEvent.OnNavigateToBookInfo) -> Unit,
     navigateBack: (ReaderEvent.OnNavigateBack) -> Unit
 ) {
@@ -128,9 +131,11 @@ fun ReaderScaffold(
                 ReaderTopBar(
                     book = book,
                     currentChapter = currentChapter,
-                    fastColorPresetChange = fastColorPresetChange,
+                    currentChapterString = currentChapterString,
                     currentChapterProgress = currentChapterProgress,
-                    isLoading = isLoading,
+                    chaptersEmpty = chaptersEmpty,
+                    fastColorPresetChange = fastColorPresetChange,
+                    menuShowing = showMenu,
                     lockMenu = lockMenu,
                     leave = leave,
                     switchColorPreset = switchColorPreset,
@@ -151,65 +156,81 @@ fun ReaderScaffold(
                 ReaderBottomBar(
                     book = book,
                     progress = progress,
-                    text = text,
-                    listState = listState,
                     lockMenu = lockMenu,
                     checkpoints = checkpoints,
                     bottomBarPadding = bottomBarPadding,
                     restoreCheckpoint = restoreCheckpoint,
-                    scroll = scroll,
-                    changeProgress = changeProgress
+                    scroll = scroll
                 )
             }
         }
     ) {
-        ReaderLayout(
-            text = text,
-            listState = listState,
-            contentPadding = contentPadding,
-            verticalPadding = verticalPadding,
-            horizontalGesture = horizontalGesture,
-            horizontalGestureScroll = horizontalGestureScroll,
-            horizontalGestureSensitivity = horizontalGestureSensitivity,
-            horizontalGestureAlphaAnim = horizontalGestureAlphaAnim,
-            horizontalGesturePullAnim = horizontalGesturePullAnim,
-            horizontalGestureDisableScrolling = horizontalGestureDisableScrolling,
-            highlightedReading = highlightedReading,
-            highlightedReadingThickness = highlightedReadingThickness,
-            progress = progress,
-            progressBar = progressBar,
-            progressBarPadding = progressBarPadding,
-            progressBarAlignment = progressBarAlignment,
-            progressBarFontSize = progressBarFontSize,
-            paragraphHeight = paragraphHeight,
-            sidePadding = sidePadding,
-            backgroundColor = backgroundColor,
-            fontColor = fontColor,
-            images = images,
-            imagesCaptions = imagesCaptions,
-            imagesCornersRoundness = imagesCornersRoundness,
-            imagesAlignment = imagesAlignment,
-            imagesWidth = imagesWidth,
-            imagesColorEffects = imagesColorEffects,
-            fontFamily = fontFamily,
-            lineHeight = lineHeight,
-            fontThickness = fontThickness,
-            fontStyle = fontStyle,
-            chapterTitleAlignment = chapterTitleAlignment,
-            textAlignment = textAlignment,
-            horizontalAlignment = horizontalAlignment,
-            fontSize = fontSize,
-            letterSpacing = letterSpacing,
-            paragraphIndentation = paragraphIndentation,
-            doubleClickTranslation = doubleClickTranslation,
-            isLoading = isLoading,
-            showMenu = showMenu,
-            menuVisibility = menuVisibility,
-            openShareApp = openShareApp,
-            openWebBrowser = openWebBrowser,
-            openTranslator = openTranslator,
-            openDictionary = openDictionary
-        )
+        when (layout) {
+            ReaderLayout.CONTINUOUS -> {
+                ReaderLayoutContinuous(
+                    book = book,
+                    nodes = nodes,
+                    paginating = paginating,
+                    scrollTarget = scrollTarget,
+                    contentPadding = contentPadding,
+                    verticalPadding = verticalPadding,
+                    horizontalGesture = horizontalGesture,
+                    horizontalGestureScroll = horizontalGestureScroll,
+                    horizontalGestureSensitivity = horizontalGestureSensitivity,
+                    horizontalGestureAlphaAnim = horizontalGestureAlphaAnim,
+                    horizontalGesturePullAnim = horizontalGesturePullAnim,
+                    horizontalGestureDisableScrolling = horizontalGestureDisableScrolling,
+                    highlightedReading = highlightedReading,
+                    highlightedReadingThickness = highlightedReadingThickness,
+                    progress = progress,
+                    progressBar = progressBar,
+                    progressBarPadding = progressBarPadding,
+                    progressBarAlignment = progressBarAlignment,
+                    progressBarFontSize = progressBarFontSize,
+                    paragraphTextStyle = paragraphTextStyle,
+                    header1TextStyle = header1TextStyle,
+                    header2TextStyle = header2TextStyle,
+                    header3TextStyle = header3TextStyle,
+                    header4TextStyle = header4TextStyle,
+                    header5TextStyle = header5TextStyle,
+                    header6TextStyle = header6TextStyle,
+                    paragraphHeight = paragraphHeight,
+                    sidePadding = sidePadding,
+                    backgroundColor = backgroundColor,
+                    fontColor = fontColor,
+                    images = images,
+                    imagesCaptions = imagesCaptions,
+                    imagesCornersRoundness = imagesCornersRoundness,
+                    imagesAlignment = imagesAlignment,
+                    imagesWidth = imagesWidth,
+                    imagesColorEffects = imagesColorEffects,
+                    imagesOriginalSize = imagesOriginalSize,
+                    horizontalAlignment = horizontalAlignment,
+                    doubleClickTranslation = doubleClickTranslation,
+                    showMenu = showMenu,
+                    menuVisibility = menuVisibility,
+                    openShareApp = openShareApp,
+                    openWebBrowser = openWebBrowser,
+                    openTranslator = openTranslator,
+                    openDictionary = openDictionary,
+                    updateProgress = updateProgress,
+                    paginateForward = paginateForward,
+                    paginateBackward = paginateBackward,
+                    scrollConsumed = scrollConsumed
+                )
+
+                ReaderHorizontalLimiter(
+                    horizontalLimiter = horizontalLimiter,
+                    horizontalLimiterHeight = horizontalLimiterHeight,
+                    horizontalLimiterVerticalOffset = horizontalLimiterVerticalOffset,
+                    horizontalLimiterRulerThickness = horizontalLimiterRulerThickness,
+                    horizontalLimiterRuler = horizontalLimiterRuler,
+                    horizontalLimiterDimming = horizontalLimiterDimming,
+                    horizontalLimiterDimmingColor = backgroundColor,
+                    horizontalLimiterRulerColor = fontColor
+                )
+            }
+        }
 
         ReaderPerceptionExpander(
             perceptionExpander = perceptionExpander,
@@ -217,20 +238,5 @@ fun ReaderScaffold(
             perceptionExpanderThickness = perceptionExpanderThickness,
             perceptionExpanderColor = fontColor
         )
-
-        ReaderHorizontalLimiter(
-            horizontalLimiter = horizontalLimiter,
-            horizontalLimiterHeight = horizontalLimiterHeight,
-            horizontalLimiterVerticalOffset = horizontalLimiterVerticalOffset,
-            horizontalLimiterRulerThickness = horizontalLimiterRulerThickness,
-            horizontalLimiterRuler = horizontalLimiterRuler,
-            horizontalLimiterDimming = horizontalLimiterDimming,
-            horizontalLimiterDimmingColor = backgroundColor,
-            horizontalLimiterRulerColor = fontColor
-        )
-
-        if (isLoading) {
-            ReaderLoadingPlaceholder()
-        }
     }
 }

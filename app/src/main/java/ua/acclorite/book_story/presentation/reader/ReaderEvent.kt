@@ -7,29 +7,33 @@
 package ua.acclorite.book_story.presentation.reader
 
 import androidx.compose.runtime.Immutable
-import ua.acclorite.book_story.domain.model.reader.ReaderText.Chapter
+import ua.acclorite.book_story.domain.model.book.Chapter
+import ua.acclorite.book_story.domain.model.book.NodeId
 import ua.acclorite.book_story.presentation.reader.model.Checkpoint
 
 @Immutable
 sealed class ReaderEvent {
 
-    data object OnLoadText : ReaderEvent()
+    data object OnLoadContent : ReaderEvent()
 
-    data object OnRestoreScroll : ReaderEvent()
+    data object OnRetry : ReaderEvent()
+
+    data class OnPaginateForward(
+        val lastNodeId: NodeId
+    ) : ReaderEvent()
+
+    data class OnPaginateBackward(
+        val firstNodeId: NodeId
+    ) : ReaderEvent()
+
+    data class OnUpdateProgress(
+        val currentNodeId: NodeId,
+        val currentNodeIntraOffset: Int
+    ) : ReaderEvent()
 
     data class OnMenuVisibility(
         val show: Boolean,
         val saveCheckpoint: Boolean
-    ) : ReaderEvent()
-
-    data class OnChangeProgress(
-        val progress: Float,
-        val firstVisibleItemIndex: Int,
-        val firstVisibleItemOffset: Int
-    ) : ReaderEvent()
-
-    data class OnUpdateChapter(
-        val index: Int
     ) : ReaderEvent()
 
     data class OnScrollToChapter(
@@ -43,6 +47,8 @@ sealed class ReaderEvent {
     data class OnRestoreCheckpoint(
         val checkpoint: Checkpoint
     ) : ReaderEvent()
+
+    data object OnScrollConsumed : ReaderEvent()
 
     data class OnLeave(
         val navigate: () -> Unit

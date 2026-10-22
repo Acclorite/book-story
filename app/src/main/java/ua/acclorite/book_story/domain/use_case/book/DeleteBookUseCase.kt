@@ -9,10 +9,10 @@ package ua.acclorite.book_story.domain.use_case.book
 import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.core.log.logI
 import ua.acclorite.book_story.core.log.logW
-import ua.acclorite.book_story.domain.model.library.Book
+import ua.acclorite.book_story.domain.model.book.Book
 import ua.acclorite.book_story.domain.repository.BookRepository
 import ua.acclorite.book_story.domain.repository.HistoryRepository
-import ua.acclorite.book_story.domain.service.CoverImageHandler
+import ua.acclorite.book_story.domain.service.ImageHandler
 import javax.inject.Inject
 
 private const val TAG = "DeleteBook"
@@ -20,14 +20,14 @@ private const val TAG = "DeleteBook"
 class DeleteBookUseCase @Inject constructor(
     private val bookRepository: BookRepository,
     private val historyRepository: HistoryRepository,
-    private val coverImageHandler: CoverImageHandler
+    private val imageHandler: ImageHandler
 ) {
 
     suspend operator fun invoke(book: Book) {
         logI(TAG, "Deleting [${book.title}].")
 
         // Deleting cover image
-        book.coverImage?.let { coverImageHandler.deleteCover(it) }?.onFailure {
+        book.coverImage?.let { imageHandler.deleteCover(it) }?.onFailure {
             logW(TAG, "Could not delete cover image with error: ${it.message}")
         }
 

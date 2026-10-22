@@ -11,7 +11,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.flow.SharedFlow
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.library.Book
+import ua.acclorite.book_story.domain.model.book.Book
 import ua.acclorite.book_story.presentation.book_info.BookInfoEffect
 import ua.acclorite.book_story.presentation.history.HistoryScreen
 import ua.acclorite.book_story.presentation.reader.ReaderScreen

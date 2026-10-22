@@ -1,3 +1,5 @@
+import com.google.protobuf.gradle.proto
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -7,6 +9,7 @@ plugins {
     id("kotlin-parcelize")
     id("com.mikepenz.aboutlibraries.plugin")
     id("androidx.room")
+    id("com.google.protobuf")
 }
 
 android {
@@ -55,6 +58,15 @@ android {
         jvmTarget = "17"
     }
 
+    // Source sets
+    sourceSets {
+        named("main") {
+            proto {
+                srcDir("src/main/java/ua/acclorite/book_story/data/proto")
+            }
+        }
+    }
+
     // Room configuration
     ksp {
         arg("room.schemaLocation", "$projectDir/schemas")
@@ -86,6 +98,25 @@ aboutLibraries {
 
     filterVariants = arrayOf("debug", "release", "release-debug")
     excludeFields = arrayOf("generated", "funding", "description")
+}
+
+// Protobuf configuration
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:4.33.2"
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                create("java") {
+                    option("lite")
+                }
+                create("kotlin") {
+                    option("lite")
+                }
+            }
+        }
+    }
 }
 
 dependencies {
@@ -164,4 +195,23 @@ dependencies {
 
     // Json
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
+
+    // Protobuf
+    implementation("com.google.protobuf:protobuf-javalite:4.33.2")
+    implementation("com.google.protobuf:protobuf-kotlin-lite:4.33.2")
+
+    // Unit testing
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("com.google.truth:truth:1.4.5")
+    testImplementation("com.google.truth.extensions:truth-proto-extension:1.4.5")
+    testImplementation("io.mockk:mockk:1.14.7")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:2.3.0")
+
+    // UI testing
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.10.0")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.10.0")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.10.0")
+    kspAndroidTest("com.google.dagger:hilt-android-compiler:2.57.2")
+    testImplementation(kotlin("test"))
 }

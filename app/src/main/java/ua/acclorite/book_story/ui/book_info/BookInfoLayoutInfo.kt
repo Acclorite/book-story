@@ -15,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ua.acclorite.book_story.domain.model.library.Book
+import ua.acclorite.book_story.domain.model.book.Book
 import ua.acclorite.book_story.presentation.book_info.BookInfoEvent
 
 @Composable

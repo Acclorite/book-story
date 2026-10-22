@@ -8,8 +8,8 @@ package ua.acclorite.book_story.data.repository
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ua.acclorite.book_story.data.local.room.BookDatabase
 import ua.acclorite.book_story.data.mapper.color_preset.ColorPresetMapper
+import ua.acclorite.book_story.data.storage.room.AppDatabase
 import ua.acclorite.book_story.domain.model.reader.ColorPreset
 import ua.acclorite.book_story.domain.repository.ColorPresetRepository
 import javax.inject.Inject
@@ -17,13 +17,13 @@ import javax.inject.Singleton
 
 @Singleton
 class ColorPresetRepositoryImpl @Inject constructor(
-    private val database: BookDatabase,
+    private val appDatabase: AppDatabase,
     private val colorPresetMapper: ColorPresetMapper
 ) : ColorPresetRepository {
 
     override suspend fun getColorPresets(): Result<List<ColorPreset>> = runCatching {
         withContext(Dispatchers.IO) {
-            database.colorPresetDao.getColorPresets().map {
+            appDatabase.colorPresetDao.getColorPresets().map {
                 colorPresetMapper.toColorPreset(it)
             }
         }
@@ -33,12 +33,12 @@ class ColorPresetRepositoryImpl @Inject constructor(
         colorPreset: ColorPreset
     ): Result<Unit> = runCatching {
         withContext(Dispatchers.IO) {
-            database.colorPresetDao.updateColorPreset(
+            appDatabase.colorPresetDao.updateColorPreset(
                 colorPresetMapper.toColorPresetEntity(
                     colorPreset = colorPreset,
                     order = if (colorPreset.id != -1) {
-                        database.colorPresetDao.getColorPresetOrder(colorPreset.id)
-                    } else database.colorPresetDao.getColorPresetsSize()
+                        appDatabase.colorPresetDao.getColorPresetOrder(colorPreset.id)
+                    } else appDatabase.colorPresetDao.getColorPresetsSize()
                 )
             )
         }
@@ -48,10 +48,10 @@ class ColorPresetRepositoryImpl @Inject constructor(
         colorPreset: ColorPreset
     ): Result<Unit> = runCatching {
         withContext(Dispatchers.IO) {
-            database.colorPresetDao.getColorPresets().map {
+            appDatabase.colorPresetDao.getColorPresets().map {
                 it.copy(isSelected = it.id == colorPreset.id)
             }.forEach {
-                database.colorPresetDao.updateColorPreset(it)
+                appDatabase.colorPresetDao.updateColorPreset(it)
             }
         }
     }
@@ -60,9 +60,9 @@ class ColorPresetRepositoryImpl @Inject constructor(
         colorPresets: List<ColorPreset>
     ): Result<Unit> = runCatching {
         withContext(Dispatchers.IO) {
-            database.colorPresetDao.deleteColorPresets()
+            appDatabase.colorPresetDao.deleteColorPresets()
             colorPresets.forEachIndexed { index, colorPreset ->
-                database.colorPresetDao.updateColorPreset(
+                appDatabase.colorPresetDao.updateColorPreset(
                     colorPresetMapper.toColorPresetEntity(colorPreset, order = index)
                 )
             }
@@ -73,7 +73,7 @@ class ColorPresetRepositoryImpl @Inject constructor(
         colorPreset: ColorPreset
     ): Result<Unit> = runCatching {
         withContext(Dispatchers.IO) {
-            database.colorPresetDao.deleteColorPreset(
+            appDatabase.colorPresetDao.deleteColorPreset(
                 colorPresetMapper.toColorPresetEntity(
                     colorPreset, -1
                 )

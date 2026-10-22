@@ -14,10 +14,10 @@ import androidx.compose.ui.unit.Dp
 
 @Composable
 fun SpacedItem(
-    index: Int,
+    space: Boolean,
     spacing: Dp,
     content: @Composable () -> Unit
 ) {
-    if (index > 0) Spacer(Modifier.height(spacing))
     content()
+    if (space) Spacer(Modifier.height(spacing))
 }

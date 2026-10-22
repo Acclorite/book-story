@@ -30,33 +30,11 @@ fun HighlightedText(
     overflow: TextOverflow = TextOverflow.Ellipsis
 ) {
     val highlightedText = remember(text, highlightThickness) {
-        buildAnnotatedString {
-            text.splitAnnotatedString().forEach { word ->
-                if (word.text.none { it.isLetter() }) {
-                    append(word)
-                    append(" ")
-                    return@forEach
-                }
-
-                val textWord = word.text.filterDigitsAtStartAndEnd()
-                val digitsAtStart = word.text.digitsAtStart()
-                val highlightArea = when (textWord.length) {
-                    3 -> 1
-                    else -> (textWord.length * 0.5f).roundToInt()
-                } + digitsAtStart
-
-                if (digitsAtStart > 0) {
-                    append(word.subSequence(0, digitsAtStart))
-                }
-
-                withStyle(style = SpanStyle(fontWeight = highlightThickness)) {
-                    append(word.subSequence(digitsAtStart, highlightArea))
-                }
-
-                append(word.subSequence(highlightArea, word.text.length))
-                append(" ")
-            }
-        }
+        getHighlightedText(
+            true,
+            text,
+            highlightThickness
+        )
     }
 
     BasicText(
@@ -67,6 +45,40 @@ fun HighlightedText(
         minLines = minLines,
         overflow = overflow
     )
+}
+
+fun getHighlightedText(
+    highlight: Boolean,
+    text: AnnotatedString,
+    highlightThickness: FontWeight
+): AnnotatedString {
+    return if (highlight) buildAnnotatedString {
+        text.splitAnnotatedString().forEach { word ->
+            if (word.text.none { it.isLetter() }) {
+                append(word)
+                append(" ")
+                return@forEach
+            }
+
+            val textWord = word.text.filterDigitsAtStartAndEnd()
+            val digitsAtStart = word.text.digitsAtStart()
+            val highlightArea = when (textWord.length) {
+                3 -> 1
+                else -> (textWord.length * 0.5f).roundToInt()
+            } + digitsAtStart
+
+            if (digitsAtStart > 0) {
+                append(word.subSequence(0, digitsAtStart))
+            }
+
+            withStyle(style = SpanStyle(fontWeight = highlightThickness)) {
+                append(word.subSequence(digitsAtStart, highlightArea))
+            }
+
+            append(word.subSequence(highlightArea, word.text.length))
+            append(" ")
+        }
+    } else text
 }
 
 private fun String.digitsAtStart(): Int {

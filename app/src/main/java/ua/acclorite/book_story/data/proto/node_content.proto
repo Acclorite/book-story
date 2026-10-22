@@ -1,0 +1,74 @@
+/*
+ * This .proto file directly maps to domain/Node.kt/NodeContent
+*/
+
+syntax = "proto3";
+
+option java_package = "ua.acclorite.book_story.proto";
+option java_outer_classname = "NodeContentOuter";
+option java_multiple_files = true;
+
+message NodeContentListProto {
+  repeated NodeContentProto nodes = 1;
+}
+
+message NodeContentProto {
+  oneof content {
+    HeaderProto header = 1;
+    ParagraphProto paragraph = 2;
+    ImageProto image = 3;
+    SeparatorProto separator = 4;
+  }
+}
+
+/* - - - Header - - - */
+message HeaderProto {
+  string title = 1;
+  HeaderLevelProto level = 2;
+}
+
+enum HeaderLevelProto {
+  HEADER_LEVEL_UNSPECIFIED = 0;
+  H1 = 1;
+  H2 = 2;
+  H3 = 3;
+  H4 = 4;
+  H5 = 5;
+  H6 = 6;
+}
+/* - - - - - - - - - */
+
+/* - - - Paragraph - - - */
+message ParagraphProto {
+  string text = 1;
+  repeated TextStyleRangeProto styles = 2;
+}
+
+message TextStyleRangeProto {
+  uint32 start = 1;
+  uint32 end = 2;
+  TextStyleProto style = 3;
+}
+
+message TextStyleProto {
+  oneof style {
+    bool bold = 1; // dummy value (always true)
+    bool italic = 2; // dummy value (always true)
+    string link = 3;
+  }
+}
+/* - - - - - - - - - - - */
+
+/* - - - Image - - - */
+message ImageProto {
+  string content = 1;
+  string caption = 2;
+  uint32 width = 3;
+  uint32 height = 4;
+  float aspect_ratio = 5;
+}
+/* - - - - - - - - - */
+
+/* - - - Separator - - - */
+message SeparatorProto {}
+/* - - - - - - - - - - - */

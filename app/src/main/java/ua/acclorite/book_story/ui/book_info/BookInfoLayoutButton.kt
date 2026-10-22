@@ -16,7 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.helpers.calculateProgress
-import ua.acclorite.book_story.domain.model.library.Book
+import ua.acclorite.book_story.domain.model.book.Book
 import ua.acclorite.book_story.presentation.book_info.BookInfoEvent
 import ua.acclorite.book_story.ui.common.components.common.StyledText
 
@@ -25,6 +25,7 @@ fun BookInfoLayoutButton(
     book: Book,
     navigateToReader: (BookInfoEvent.OnNavigateToReader) -> Unit
 ) {
+    val percentage = book.progress.getPercentage()
     Button(
         modifier = Modifier
             .fillMaxWidth()
@@ -35,10 +36,10 @@ fun BookInfoLayoutButton(
         }
     ) {
         StyledText(
-            text = if (book.progress == 0f) stringResource(id = R.string.start_reading)
+            text = if (percentage == 0f) stringResource(id = R.string.start_reading)
             else stringResource(
                 id = R.string.continue_reading_query,
-                "${book.progress.calculateProgress(1)}%"
+                "${percentage.calculateProgress(1)}%"
             )
         )
     }

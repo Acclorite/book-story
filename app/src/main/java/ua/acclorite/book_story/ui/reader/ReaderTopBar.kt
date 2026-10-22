@@ -29,8 +29,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.library.Book
-import ua.acclorite.book_story.domain.model.reader.ReaderText.Chapter
+import ua.acclorite.book_story.domain.model.book.Book
+import ua.acclorite.book_story.domain.model.book.Chapter
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.presentation.settings.SettingsEvent
 import ua.acclorite.book_story.ui.common.components.common.IconButton
@@ -44,9 +44,11 @@ import ua.acclorite.book_story.ui.theme.readerBarsColor
 fun ReaderTopBar(
     book: Book,
     currentChapter: Chapter?,
-    fastColorPresetChange: Boolean,
+    currentChapterString: String?,
     currentChapterProgress: Float,
-    isLoading: Boolean,
+    chaptersEmpty: Boolean,
+    fastColorPresetChange: Boolean,
+    menuShowing: Boolean,
     lockMenu: Boolean,
     leave: (ReaderEvent.OnLeave) -> Unit,
     switchColorPreset: (SettingsEvent.OnSwitchColorPreset) -> Unit,
@@ -66,7 +68,7 @@ fun ReaderTopBar(
             .background(MaterialTheme.colorScheme.readerBarsColor)
             .readerColorPresetChange(
                 colorPresetChangeEnabled = fastColorPresetChange,
-                isLoading = isLoading,
+                menuShowing = menuShowing,
                 switchColorPreset = switchColorPreset
             )
     ) {
@@ -117,7 +119,7 @@ fun ReaderTopBar(
             },
             subtitle = {
                 StyledText(
-                    text = currentChapter?.title
+                    text = currentChapterString
                         ?: activity.getString(R.string.no_chapters),
                     modifier = Modifier.basicMarquee(iterations = Int.MAX_VALUE),
                     style = MaterialTheme.typography.bodyLarge.copy(
@@ -127,7 +129,7 @@ fun ReaderTopBar(
                 )
             },
             actions = {
-                if (currentChapter != null) {
+                if (!chaptersEmpty) {
                     IconButton(
                         icon = Icons.Rounded.Menu,
                         contentDescription = R.string.chapters_content_desc,

@@ -6,7 +6,7 @@
 
 package ua.acclorite.book_story.data.mapper.category
 
-import ua.acclorite.book_story.data.local.dto.CategoryEntity
+import ua.acclorite.book_story.data.storage.room.entity.CategoryEntity
 import ua.acclorite.book_story.domain.model.library.Category
 import javax.inject.Inject
 

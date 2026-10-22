@@ -67,7 +67,7 @@ fun LibraryGridItem(
     val insideFontColor = Color.White.copy(0.85f)
 
     val progress = rememberSaveable(book.data.progress) {
-        "${book.data.progress.calculateProgress(1)}%"
+        "${book.data.progress.getPercentage().calculateProgress(1)}%"
     }
 
     Column(

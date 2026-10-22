@@ -15,8 +15,7 @@ object ExtensionsData {
         ".fb2",
         ".txt",
         ".html",
-        ".htm",
-        ".md"
+        ".htm"
     )
 
     val imageExtensions = persistentListOf(

@@ -12,8 +12,9 @@ import com.tom_roush.pdfbox.pdmodel.PDDocument
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.core.ui.UIText
-import ua.acclorite.book_story.data.model.file.CachedFile
-import ua.acclorite.book_story.domain.model.library.Book
+import ua.acclorite.book_story.data.storage.file.CachedFile
+import ua.acclorite.book_story.domain.model.book.Book
+import ua.acclorite.book_story.domain.model.book.BookProgress
 import javax.inject.Inject
 
 private const val TAG = "PdfFileParser"
@@ -27,7 +28,7 @@ class PdfFileParser @Inject constructor(
             PDFBoxResourceLoader.init(application)
             val document = PDDocument.load(cachedFile.openInputStream())
 
-            val title = document.documentInformation.title
+            val title = document.documentInformation.title?.takeIf { it.isNotBlank() }
                 ?: cachedFile.name.substringBeforeLast(".").trim()
             val author = document.documentInformation.author.run {
                 if (isNullOrBlank()) UIText.StringResource(R.string.unknown_author)
@@ -41,9 +42,7 @@ class PdfFileParser @Inject constructor(
                 title = title,
                 author = author,
                 description = description,
-                scrollIndex = 0,
-                scrollOffset = 0,
-                progress = 0f,
+                progress = BookProgress.default,
                 filePath = cachedFile.path,
                 lastOpened = null,
                 categories = emptyList(),

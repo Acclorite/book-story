@@ -23,12 +23,14 @@ import androidx.compose.ui.unit.dp
 fun CircularProgressIndicator(
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.primary,
+    trackColor: Color = MaterialTheme.colorScheme.secondaryContainer,
     strokeWidth: Dp = 4.dp,
     gapSize: Dp = 2.dp
 ) {
     CircularWavyProgressIndicator(
         modifier = modifier,
         color = color,
+        trackColor = trackColor,
         stroke = Stroke(
             width = with(LocalDensity.current) {
                 strokeWidth.toPx()

@@ -17,12 +17,12 @@ import ua.acclorite.book_story.presentation.settings.SettingsEvent
 @Composable
 fun Modifier.readerColorPresetChange(
     colorPresetChangeEnabled: Boolean,
-    isLoading: Boolean,
+    menuShowing: Boolean,
     switchColorPreset: (SettingsEvent.OnSwitchColorPreset) -> Unit
 ): Modifier {
     val offset = remember { mutableFloatStateOf(0f) }
     return this.then(
-        if (colorPresetChangeEnabled && !isLoading) {
+        if (colorPresetChangeEnabled && menuShowing) {
             Modifier.pointerInput(Unit) {
                 detectHorizontalDragGestures(
                     onDragStart = { offset.floatValue = 0f },

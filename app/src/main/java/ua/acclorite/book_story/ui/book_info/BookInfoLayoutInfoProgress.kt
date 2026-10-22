@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.core.helpers.calculateProgress
-import ua.acclorite.book_story.domain.model.library.Book
+import ua.acclorite.book_story.domain.model.book.Book
 import ua.acclorite.book_story.ui.common.components.common.StyledText
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -26,8 +26,11 @@ import ua.acclorite.book_story.ui.common.components.common.StyledText
 fun BookInfoLayoutInfoProgress(
     book: Book
 ) {
-    val progress = remember(book.progress) {
-        "${book.progress.calculateProgress(1)}%"
+    val percentage = remember(book.progress) {
+        book.progress.getPercentage()
+    }
+    val progressString = remember(percentage) {
+        "${percentage.calculateProgress(1)}%"
     }
 
     Row(
@@ -35,7 +38,7 @@ fun BookInfoLayoutInfoProgress(
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         LinearWavyProgressIndicator(
-            progress = { book.progress.coerceIn(0f, 1f) },
+            progress = { percentage.coerceIn(0f, 1f) },
             trackColor = MaterialTheme.colorScheme.secondaryContainer.copy(0.7f),
             modifier = Modifier.weight(1f),
             amplitude = { 0.5f },
@@ -43,7 +46,7 @@ fun BookInfoLayoutInfoProgress(
             waveSpeed = 15.dp
         )
         StyledText(
-            text = progress,
+            text = progressString,
             style = MaterialTheme.typography.bodyMedium.copy(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontWeight = FontWeight.Medium

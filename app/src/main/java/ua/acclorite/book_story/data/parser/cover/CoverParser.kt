@@ -7,7 +7,7 @@
 package ua.acclorite.book_story.data.parser.cover
 
 import ua.acclorite.book_story.core.CoverImage
-import ua.acclorite.book_story.data.model.file.CachedFile
+import ua.acclorite.book_story.data.storage.file.CachedFile
 
 interface CoverParser {
     suspend fun parse(cachedFile: CachedFile): CoverImage?

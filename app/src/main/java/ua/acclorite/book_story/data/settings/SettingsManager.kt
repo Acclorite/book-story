@@ -25,8 +25,8 @@ import ua.acclorite.book_story.core.data.CoreData
 import ua.acclorite.book_story.core.language.Language
 import ua.acclorite.book_story.core.language.LanguageUtils
 import ua.acclorite.book_story.core.log.logI
-import ua.acclorite.book_story.data.local.data_store.DataStore
 import ua.acclorite.book_story.data.settings.model.Setting
+import ua.acclorite.book_story.data.storage.data_store.DataStore
 import ua.acclorite.book_story.presentation.browse.model.BrowseLayout
 import ua.acclorite.book_story.presentation.browse.model.BrowseSortOrder
 import ua.acclorite.book_story.presentation.library.model.LibraryLayout
@@ -377,7 +377,6 @@ class SettingsManager @Inject constructor(
         ).also { setting ->
             scope.launch {
                 setting.init(dataStore.getNullableData<P>(key))
-                logI(TAG, "Successfully initialized setting: [${key.name}].")
                 initializeSetting()
             }
         }

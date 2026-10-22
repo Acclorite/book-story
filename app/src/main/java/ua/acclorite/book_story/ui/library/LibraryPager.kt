@@ -63,7 +63,7 @@ fun LibraryPager(
                     when (librarySortOrder) {
                         LibrarySortOrder.NAME -> book.data.title.trim()
                         LibrarySortOrder.LAST_READ -> book.data.lastOpened
-                        LibrarySortOrder.PROGRESS -> book.data.progress
+                        LibrarySortOrder.PROGRESS -> book.data.progress.getPercentage()
                         LibrarySortOrder.AUTHOR -> book.data.author.getAsString()
                     }
                 }

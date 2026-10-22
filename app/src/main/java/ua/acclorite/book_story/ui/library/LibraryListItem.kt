@@ -54,7 +54,7 @@ fun LibraryListItem(
     else MaterialTheme.colorScheme.onSurface
 
     val progress = rememberSaveable(book.data.progress) {
-        "${book.data.progress.calculateProgress(1)}%"
+        "${book.data.progress.getPercentage().calculateProgress(1)}%"
     }
 
     Row(

@@ -7,9 +7,11 @@
 package ua.acclorite.book_story.presentation.reader.model
 
 import androidx.compose.runtime.Immutable
+import ua.acclorite.book_story.domain.model.book.NodeId
 
 @Immutable
 data class Checkpoint(
-    val index: Int,
+    val nodeId: NodeId,
+    val nodeIntraOffset: Int,
     val offset: Int
 )

@@ -7,8 +7,8 @@
 package ua.acclorite.book_story.data.parser.file
 
 import ua.acclorite.book_story.core.log.logE
-import ua.acclorite.book_story.data.model.file.CachedFile
-import ua.acclorite.book_story.domain.model.library.Book
+import ua.acclorite.book_story.data.storage.file.CachedFile
+import ua.acclorite.book_story.domain.model.book.Book
 import javax.inject.Inject
 
 private const val TAG = "FileParser"
@@ -51,10 +51,6 @@ class FileParserImpl @Inject constructor(
 
             ".htm" -> {
                 htmlFileParser.parse(cachedFile)
-            }
-
-            ".md" -> {
-                txtFileParser.parse(cachedFile)
             }
 
             else -> {

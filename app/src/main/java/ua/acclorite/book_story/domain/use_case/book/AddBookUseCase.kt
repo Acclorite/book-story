@@ -11,23 +11,23 @@ import ua.acclorite.book_story.core.CoverImage
 import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.core.log.logI
 import ua.acclorite.book_story.core.log.logW
-import ua.acclorite.book_story.domain.model.library.Book
+import ua.acclorite.book_story.domain.model.book.Book
 import ua.acclorite.book_story.domain.repository.BookRepository
-import ua.acclorite.book_story.domain.service.CoverImageHandler
+import ua.acclorite.book_story.domain.service.ImageHandler
 import javax.inject.Inject
 
 private const val TAG = "AddBook"
 
 class AddBookUseCase @Inject constructor(
     private val bookRepository: BookRepository,
-    private val coverImageHandler: CoverImageHandler
+    private val imageHandler: ImageHandler
 ) {
 
     suspend operator fun invoke(book: Book, coverImage: CoverImage?) {
         logI(TAG, "Inserting [${book.title}].")
 
         val coverImageUri = coverImage?.let { coverImage ->
-            coverImageHandler.saveCover(coverImage).fold(
+            imageHandler.saveCover(coverImage).fold(
                 onSuccess = {
                     logI(TAG, "Successfully saved cover image of [${book.title}].")
                     it.toUri()

@@ -9,8 +9,9 @@ package ua.acclorite.book_story.data.parser.file
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.core.ui.UIText
-import ua.acclorite.book_story.data.model.file.CachedFile
-import ua.acclorite.book_story.domain.model.library.Book
+import ua.acclorite.book_story.data.storage.file.CachedFile
+import ua.acclorite.book_story.domain.model.book.Book
+import ua.acclorite.book_story.domain.model.book.BookProgress
 import javax.inject.Inject
 
 private const val TAG = "TxtFileParser"
@@ -25,9 +26,7 @@ class TxtFileParser @Inject constructor() : FileParser {
                 title = title,
                 author = UIText.StringResource(R.string.unknown_author),
                 description = null,
-                scrollIndex = 0,
-                scrollOffset = 0,
-                progress = 0f,
+                progress = BookProgress.default,
                 filePath = cachedFile.path,
                 lastOpened = null,
                 categories = emptyList(),

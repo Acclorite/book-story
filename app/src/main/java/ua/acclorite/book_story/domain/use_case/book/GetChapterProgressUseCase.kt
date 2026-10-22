@@ -6,39 +6,15 @@
 
 package ua.acclorite.book_story.domain.use_case.book
 
-import ua.acclorite.book_story.core.helpers.coerceAndPreventNaN
-import ua.acclorite.book_story.domain.model.reader.ReaderText
-import ua.acclorite.book_story.domain.model.reader.ReaderText.Chapter
+import ua.acclorite.book_story.domain.model.book.Chapter
 import javax.inject.Inject
 
 class GetChapterProgressUseCase @Inject constructor() {
 
-    operator fun invoke(index: Int, text: List<ReaderText>): Pair<Chapter?, Float> {
-        fun getCurrentChapter(index: Int): Chapter? {
-            for (textIndex in index downTo 0) {
-                val readerText = text.getOrNull(textIndex) ?: break
-                if (readerText is Chapter) {
-                    return readerText
-                }
-            }
-            return null
-        }
-
-        fun getCurrentChapterProgress(currentChapter: Chapter?): Float {
-            return currentChapter?.let { currentChapter ->
-                val startIndex = text.indexOf(currentChapter).coerceIn(0, text.lastIndex)
-                val endIndex = (text.indexOfFirst {
-                    it is Chapter && text.indexOf(it) > startIndex
-                }.takeIf { it != -1 }) ?: (text.lastIndex + 1)
-
-                val currentIndexInChapter = (index - startIndex).coerceAtLeast(1)
-                val chapterLength = endIndex - (startIndex + 1)
-                (currentIndexInChapter / chapterLength.toFloat())
-            }.coerceAndPreventNaN()
-        }
-
-        val currentChapter = getCurrentChapter(index)
-        val currentChapterProgress = getCurrentChapterProgress(currentChapter)
+    operator fun invoke(currentOffset: Int, chapters: List<Chapter>): Pair<Chapter?, Float> {
+        val currentChapter = chapters.find { it.position.isCurrent(currentOffset) }
+            ?: chapters.lastOrNull { it.position.chapterOffset <= currentOffset }
+        val currentChapterProgress = currentChapter?.position?.progress(currentOffset) ?: 0f
 
         return currentChapter to currentChapterProgress
     }

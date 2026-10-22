@@ -7,3 +7,10 @@ plugins {
     id("com.mikepenz.aboutlibraries.plugin") version "11.1.3" apply false
     id("androidx.room") version "2.6.1" apply false
 }
+
+buildscript {
+    dependencies {
+        // Protobuf
+        classpath("com.google.protobuf:protobuf-gradle-plugin:0.9.6")
+    }
+}

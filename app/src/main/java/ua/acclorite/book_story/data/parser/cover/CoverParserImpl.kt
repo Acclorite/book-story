@@ -8,7 +8,7 @@ package ua.acclorite.book_story.data.parser.cover
 
 import ua.acclorite.book_story.core.CoverImage
 import ua.acclorite.book_story.core.log.logE
-import ua.acclorite.book_story.data.model.file.CachedFile
+import ua.acclorite.book_story.data.storage.file.CachedFile
 import javax.inject.Inject
 
 private const val TAG = "CoverParser"
@@ -51,10 +51,6 @@ class CoverParserImpl @Inject constructor(
 
             ".htm" -> {
                 htmlCoverParser.parse(cachedFile)
-            }
-
-            ".md" -> {
-                txtCoverParser.parse(cachedFile)
             }
 
             else -> {

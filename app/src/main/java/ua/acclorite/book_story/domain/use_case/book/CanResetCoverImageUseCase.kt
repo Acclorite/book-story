@@ -11,7 +11,7 @@ import android.graphics.BitmapFactory
 import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.core.log.logI
 import ua.acclorite.book_story.domain.repository.BookRepository
-import ua.acclorite.book_story.domain.service.CoverImageHandler
+import ua.acclorite.book_story.domain.service.ImageHandler
 import javax.inject.Inject
 
 private const val TAG = "CanResetCover"
@@ -19,7 +19,7 @@ private const val TAG = "CanResetCover"
 class CanResetCoverImageUseCase @Inject constructor(
     private val application: Application,
     private val bookRepository: BookRepository,
-    private val coverImageHandler: CoverImageHandler
+    private val imageHandler: ImageHandler
 ) {
 
     suspend operator fun invoke(bookId: Int): Boolean {
@@ -37,7 +37,7 @@ class CanResetCoverImageUseCase @Inject constructor(
 
             // Getting compressed cover images
             val compressedDefaultCoverImage =
-                coverImageHandler.compressCover(defaultCoverImage).getOrThrow()
+                imageHandler.compressCover(defaultCoverImage).getOrThrow()
             val compressedCoverImage = application.contentResolver
                 .openInputStream(book.coverImage)
                 ?.use { BitmapFactory.decodeStream(it) }

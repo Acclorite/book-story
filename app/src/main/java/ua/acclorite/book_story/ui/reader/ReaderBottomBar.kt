@@ -6,7 +6,6 @@
 
 package ua.acclorite.book_story.ui.reader
 
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsDraggedAsState
@@ -22,7 +21,6 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -31,17 +29,19 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.library.Book
-import ua.acclorite.book_story.domain.model.reader.ReaderText
+import ua.acclorite.book_story.domain.model.book.Book
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.presentation.reader.model.Checkpoint
 import ua.acclorite.book_story.ui.common.components.common.IconButton
@@ -55,34 +55,29 @@ import ua.acclorite.book_story.ui.theme.readerBarsColor
 fun ReaderBottomBar(
     book: Book,
     progress: String,
-    text: List<ReaderText>,
-    listState: LazyListState,
     lockMenu: Boolean,
     checkpoints: List<Checkpoint>,
     bottomBarPadding: Dp,
     restoreCheckpoint: (ReaderEvent.OnRestoreCheckpoint) -> Unit,
-    scroll: (ReaderEvent.OnScroll) -> Unit,
-    changeProgress: (ReaderEvent.OnChangeProgress) -> Unit
+    scroll: (ReaderEvent.OnScroll) -> Unit
 ) {
-    val currentIndex by remember {
-        derivedStateOf {
-            listState.firstVisibleItemIndex
-        }
-    }
+    val currentOffset = book.progress.currentOffset
+    val totalLength = book.progress.totalLength
+
     val checkpointsProgress = rememberCheckpointsProgress(
         checkpoints = checkpoints,
-        text = text,
-        currentIndex = currentIndex
+        totalLength = totalLength,
+        currentOffset = currentOffset
     )
     val currentCheckpoint = rememberCurrentCheckpoint(
         checkpoints = checkpoints,
-        currentIndex = currentIndex
+        currentOffset = currentOffset
     )
     val checkpointDirection = rememberCheckpointDirection(
         currentCheckpoint = currentCheckpoint,
-        currentIndex = currentIndex
+        currentOffset = currentOffset
     )
-    val restoreCheckpoint = remember(currentCheckpoint) {
+    val onRestoreCheckpointClick = remember(currentCheckpoint) {
         {
             if (currentCheckpoint != null) {
                 restoreCheckpoint(
@@ -123,7 +118,7 @@ fun ReaderBottomBar(
                         color = MaterialTheme.colorScheme.secondary,
                         disableOnClick = false
                     ) {
-                        restoreCheckpoint()
+                        onRestoreCheckpointClick()
                     }
                 },
                 endArrow = {
@@ -134,16 +129,14 @@ fun ReaderBottomBar(
                         color = MaterialTheme.colorScheme.secondary,
                         disableOnClick = false
                     ) {
-                        restoreCheckpoint()
+                        onRestoreCheckpointClick()
                     }
                 },
                 slider = {
                     ReaderBottomBarSlider(
                         book = book,
                         lockMenu = lockMenu,
-                        listState = listState,
-                        scroll = scroll,
-                        changeProgress = changeProgress
+                        scroll = scroll
                     )
                 },
                 indicator = {
@@ -159,16 +152,16 @@ fun ReaderBottomBar(
 @Composable
 private fun rememberCheckpointsProgress(
     checkpoints: List<Checkpoint>,
-    text: List<ReaderText>,
-    currentIndex: Int
+    totalLength: Int,
+    currentOffset: Int
 ): List<Float> {
-    return remember(checkpoints, text, currentIndex) {
-        if (text.isEmpty()) return@remember emptyList()
+    return remember(checkpoints, totalLength, currentOffset) {
+        if (totalLength <= 0) return@remember emptyList()
 
         val progressScale = 0.987f
         checkpoints.mapNotNull { checkpoint ->
-            if (checkpoint.index == currentIndex) return@mapNotNull null
-            (checkpoint.index / text.lastIndex.toFloat()) * progressScale
+            if (checkpoint.offset == currentOffset) return@mapNotNull null
+            (checkpoint.offset / totalLength.toFloat()).coerceIn(0f, 1f) * progressScale
         }
     }
 }
@@ -176,15 +169,11 @@ private fun rememberCheckpointsProgress(
 @Composable
 private fun rememberCurrentCheckpoint(
     checkpoints: List<Checkpoint>,
-    currentIndex: Int
+    currentOffset: Int
 ): Checkpoint? {
-    return remember(checkpoints, currentIndex) {
+    return remember(checkpoints, currentOffset) {
         checkpoints.lastOrNull { checkpoint ->
-            when {
-                checkpoint.index > currentIndex -> true
-                checkpoint.index < currentIndex -> true
-                else -> false
-            }
+            checkpoint.offset != currentOffset
         }
     }
 }
@@ -192,13 +181,13 @@ private fun rememberCurrentCheckpoint(
 @Composable
 private fun rememberCheckpointDirection(
     currentCheckpoint: Checkpoint?,
-    currentIndex: Int
+    currentOffset: Int
 ): Direction {
-    return remember(currentCheckpoint, currentIndex) {
+    return remember(currentCheckpoint, currentOffset) {
         when {
             currentCheckpoint == null -> Direction.NEUTRAL
-            currentCheckpoint.index > currentIndex -> Direction.END
-            currentCheckpoint.index < currentIndex -> Direction.START
+            currentCheckpoint.offset > currentOffset -> Direction.END
+            currentCheckpoint.offset < currentOffset -> Direction.START
             else -> Direction.NEUTRAL
         }
     }
@@ -239,32 +228,37 @@ private fun RowScope.ReaderBottomBarCheckpoints(
 private fun ReaderBottomBarSlider(
     book: Book,
     lockMenu: Boolean,
-    listState: LazyListState,
-    scroll: (ReaderEvent.OnScroll) -> Unit,
-    changeProgress: (ReaderEvent.OnChangeProgress) -> Unit
+    scroll: (ReaderEvent.OnScroll) -> Unit
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    val isDragging = interactionSource.collectIsDraggedAsState()
-    val animatedProgress = animateFloatAsState(book.progress)
-    val progress = remember(isDragging.value, book.progress, animatedProgress.value) {
-        if (isDragging.value) book.progress
-        else animatedProgress.value
+    val isDragging by interactionSource.collectIsDraggedAsState()
+
+    val currentProgress = book.progress.getPercentage().coerceIn(0f, 1f)
+    var dragProgress by remember { mutableFloatStateOf(currentProgress) }
+    var isUserSeeking by remember { mutableStateOf(false) }
+
+    LaunchedEffect(currentProgress) {
+        if (!isDragging && !isUserSeeking) {
+            dragProgress = currentProgress
+        }
+    }
+
+    LaunchedEffect(isDragging) {
+        if (isDragging) {
+            isUserSeeking = true
+        }
     }
 
     Slider(
-        value = progress,
+        value = dragProgress,
         enabled = !lockMenu,
         onValueChange = {
-            if (listState.layoutInfo.totalItemsCount > 0) {
-                scroll(ReaderEvent.OnScroll(it))
-                changeProgress(
-                    ReaderEvent.OnChangeProgress(
-                        progress = it,
-                        firstVisibleItemIndex = listState.firstVisibleItemIndex,
-                        firstVisibleItemOffset = 0
-                    )
-                )
-            }
+            isUserSeeking = true
+            dragProgress = it
+        },
+        onValueChangeFinished = {
+            scroll(ReaderEvent.OnScroll(dragProgress))
+            isUserSeeking = false
         },
         interactionSource = interactionSource,
         colors = SliderDefaults.colors(

@@ -13,8 +13,9 @@ import org.jsoup.parser.Parser
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.core.ui.UIText
-import ua.acclorite.book_story.data.model.file.CachedFile
-import ua.acclorite.book_story.domain.model.library.Book
+import ua.acclorite.book_story.data.storage.file.CachedFile
+import ua.acclorite.book_story.domain.model.book.Book
+import ua.acclorite.book_story.domain.model.book.BookProgress
 import java.util.zip.ZipFile
 import javax.inject.Inject
 
@@ -67,10 +68,8 @@ class EpubFileParser @Inject constructor() : FileParser {
                         title = title,
                         author = author,
                         description = description,
-                        scrollIndex = 0,
-                        scrollOffset = 0,
-                        progress = 0f,
                         filePath = cachedFile.path,
+                        progress = BookProgress.default,
                         lastOpened = null,
                         categories = emptyList(),
                         coverImage = null

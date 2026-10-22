@@ -12,14 +12,14 @@ import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.core.log.logI
 import ua.acclorite.book_story.core.log.logW
 import ua.acclorite.book_story.domain.repository.BookRepository
-import ua.acclorite.book_story.domain.service.CoverImageHandler
+import ua.acclorite.book_story.domain.service.ImageHandler
 import javax.inject.Inject
 
 private const val TAG = "UpdateCoverImage"
 
 class UpdateCoverImageUseCase @Inject constructor(
     private val bookRepository: BookRepository,
-    private val coverImageHandler: CoverImageHandler
+    private val imageHandler: ImageHandler
 ) {
 
     suspend operator fun invoke(bookId: Int, coverImage: CoverImage?) {
@@ -29,13 +29,13 @@ class UpdateCoverImageUseCase @Inject constructor(
             if (book.coverImage == coverImage) return
 
             // Deleting old cover
-            book.coverImage?.let { coverImageHandler.deleteCover(it) }?.onFailure {
+            book.coverImage?.let { imageHandler.deleteCover(it) }?.onFailure {
                 logW(TAG, "Could not delete old cover image with error: ${it.message}")
             }
 
             // Saving new cover
             val newCoverImage = coverImage?.let {
-                coverImageHandler.saveCover(it).getOrThrow()
+                imageHandler.saveCover(it).getOrThrow()
             }
 
             book.copy(coverImage = newCoverImage?.toUri())

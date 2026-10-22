@@ -8,8 +8,8 @@ package ua.acclorite.book_story.data.mapper.file
 
 import android.app.Application
 import androidx.core.net.toUri
-import ua.acclorite.book_story.data.model.file.CachedFile
-import ua.acclorite.book_story.data.model.file.CachedFileCompat
+import ua.acclorite.book_story.data.storage.file.CachedFile
+import ua.acclorite.book_story.data.storage.file.CachedFileCompat
 import ua.acclorite.book_story.domain.model.file.File
 import javax.inject.Inject
 
@@ -17,6 +17,13 @@ class FileMapperImpl @Inject constructor(
     private val application: Application
 ) : FileMapper {
     override fun toCachedFile(file: File): CachedFile {
+        if (file.name.isBlank()
+            || file.path.isBlank()
+            || file.uri.isBlank()
+        ) {
+            throw IllegalStateException("Incorrect File instance")
+        }
+
         return CachedFileCompat.fromUri(
             context = application,
             uri = file.uri.toUri(),
@@ -31,6 +38,13 @@ class FileMapperImpl @Inject constructor(
     }
 
     override fun toFile(cachedFile: CachedFile): File {
+        if (cachedFile.name.isBlank()
+            || cachedFile.path.isBlank()
+            || cachedFile.uri.toString().isBlank()
+        ) {
+            throw IllegalStateException("Incorrect CachedFile instance")
+        }
+
         return File(
             name = cachedFile.name,
             uri = cachedFile.uri.toString(),

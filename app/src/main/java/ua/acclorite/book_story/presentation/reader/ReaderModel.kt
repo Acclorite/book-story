@@ -6,13 +6,10 @@
 
 package ua.acclorite.book_story.presentation.reader
 
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
@@ -20,21 +17,15 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import ua.acclorite.book_story.R
-import ua.acclorite.book_story.core.helpers.coerceAndPreventNaN
-import ua.acclorite.book_story.core.ui.UIText
-import ua.acclorite.book_story.domain.model.reader.ReaderText.Chapter
+import ua.acclorite.book_story.domain.model.book.NodeId
+import ua.acclorite.book_story.domain.use_case.book.GetBookContentNodeByOffsetUseCase
+import ua.acclorite.book_story.domain.use_case.book.GetBookContentState
+import ua.acclorite.book_story.domain.use_case.book.GetBookContentUseCase
 import ua.acclorite.book_story.domain.use_case.book.GetBookUseCase
-import ua.acclorite.book_story.domain.use_case.book.GetChapterProgressUseCase
-import ua.acclorite.book_story.domain.use_case.book.GetTextUseCase
 import ua.acclorite.book_story.domain.use_case.book.UpdateBookUseCase
 import ua.acclorite.book_story.domain.use_case.history.GetHistoryForBookUseCase
 import ua.acclorite.book_story.presentation.history.HistoryScreen
@@ -42,15 +33,14 @@ import ua.acclorite.book_story.presentation.library.LibraryScreen
 import ua.acclorite.book_story.presentation.reader.model.Checkpoint
 import javax.inject.Inject
 import kotlin.coroutines.coroutineContext
-import kotlin.math.roundToInt
 
 @HiltViewModel
 class ReaderModel @Inject constructor(
     private val updateBookUseCase: UpdateBookUseCase,
-    private val getTextUseCase: GetTextUseCase,
+    private val getBookContentUseCase: GetBookContentUseCase,
     private val getBookUseCase: GetBookUseCase,
     private val getHistoryForBookUseCase: GetHistoryForBookUseCase,
-    private val getChapterProgressUseCase: GetChapterProgressUseCase
+    private val getBookContentNodeByOffsetUseCase: GetBookContentNodeByOffsetUseCase
 ) : ViewModel() {
 
     private val mutex = Mutex()
@@ -61,73 +51,193 @@ class ReaderModel @Inject constructor(
     private val _effects = MutableSharedFlow<ReaderEffect>()
     val effects = _effects.asSharedFlow()
 
+    private val _paginationNodeId = MutableStateFlow(NodeId(0))
+
     private var scrollJob: Job? = null
     private val eventStack = mutableListOf<Job>()
 
     fun onEvent(event: ReaderEvent) {
         viewModelScope.launch {
             when (event) {
-                is ReaderEvent.OnLoadText -> {
-                    withContext(Dispatchers.Default) {
-                        val text = getTextUseCase(_state.value.book.id)
-                        ensureActive()
-
-                        if (text.isEmpty()) {
-                            _state.update {
-                                it.copy(
-                                    isLoading = false,
-                                    errorMessage = UIText.StringResource(
-                                        resId = R.string.error_could_not_get_text
-                                    )
-                                )
-                            }
-                            _effects.emit(ReaderEffect.OnSystemBarsVisibility(show = true))
-                            return@withContext
-                        }
-
-                        _effects.emit(ReaderEffect.OnSystemBarsVisibility(show = null))
-
-                        val lastOpened = getHistoryForBookUseCase(_state.value.book.id)?.time
+                is ReaderEvent.OnLoadContent -> {
+                    withContext(Dispatchers.IO) {
+                        val lastOpened = getHistoryForBookUseCase(
+                            _state.value.book.id
+                        )?.time
                         _state.update {
                             it.copy(
-                                showMenu = false,
                                 book = it.book.copy(
                                     lastOpened = lastOpened
-                                ),
-                                text = text
+                                )
                             )
                         }
-                        ensureActive()
-
                         updateBookUseCase(_state.value.book)
+                        _paginationNodeId.update { _state.value.book.progress.currentNodeId }
 
                         LibraryScreen.refreshListChannel.trySend(0)
                         HistoryScreen.refreshListChannel.trySend(0)
 
-                        onEvent(ReaderEvent.OnRestoreScroll)
+                        getBookContentUseCase(
+                            _state.value.book,
+                            _paginationNodeId
+                        ).collect { state ->
+                            when (state) {
+                                is GetBookContentState.Loading -> {
+                                    _state.update {
+                                        it.copy(
+                                            layoutState = LayoutState.Loading
+                                        )
+                                    }
+                                    delay(500)
+                                }
+
+                                is GetBookContentState.Parsing -> {
+                                    _state.update {
+                                        it.copy(
+                                            layoutState = LayoutState.Parsing(
+                                                progress = state.progress
+                                            )
+                                        )
+                                    }
+                                }
+
+                                is GetBookContentState.Saving -> {
+                                    _state.update {
+                                        it.copy(
+                                            layoutState = LayoutState.Saving
+                                        )
+                                    }
+                                }
+
+                                is GetBookContentState.Success -> {
+                                    _effects.emit(ReaderEffect.OnSystemBarsVisibility(show = null))
+
+                                    getBookUseCase(_state.value.book.id)?.let { book ->
+                                        _state.update {
+                                            it.copy(
+                                                book = book
+                                            )
+                                        }
+                                    }
+
+                                    LibraryScreen.refreshListChannel.trySend(0)
+                                    HistoryScreen.refreshListChannel.trySend(0)
+                                }
+
+                                is GetBookContentState.Nodes -> {
+                                    _state.update {
+                                        it.copy(
+                                            nodes = state.nodes,
+                                            layoutState = LayoutState.Showing,
+                                            paginating = false
+                                        )
+                                    }
+                                }
+
+                                is GetBookContentState.Chapters -> {
+                                    _state.update {
+                                        it.copy(
+                                            chapters = state.chapters
+                                        )
+                                    }
+                                }
+
+                                is GetBookContentState.Error -> {
+                                    _state.update {
+                                        it.copy(
+                                            layoutState = LayoutState.Error(
+                                                message = state.message,
+                                                action = state.action
+                                            )
+                                        )
+                                    }
+                                    _effects.emit(ReaderEffect.OnSystemBarsVisibility(show = true))
+                                    return@collect
+                                }
+                            }
+                        }
                     }
                 }
 
-                is ReaderEvent.OnRestoreScroll -> {
-                    snapshotFlow { _state.value.listState.layoutInfo.totalItemsCount }.first { it > 0 }
+                is ReaderEvent.OnRetry -> {
+                    if (_state.value.book.id == -1) return@launch
+                    init(_state.value.book.id)
+                }
 
-                    _state.value.listState.requestScrollToItem(
-                        index = _state.value.book.scrollIndex,
-                        scrollOffset = _state.value.book.scrollOffset
-                    )
-
-                    _state.update {
-                        val (currentChapter, currentChapterProgress) = getChapterProgressUseCase(
-                            it.book.scrollIndex,
-                            it.text
+                is ReaderEvent.OnPaginateForward -> {
+                    if (_state.value.paginating) return@launch
+                    _state.update { it.copy(paginating = true) }
+                    withContext(Dispatchers.IO) {
+                        val newNodes = getBookContentUseCase.getNodesAfter(
+                            book = _state.value.book,
+                            nodeId = event.lastNodeId,
+                            limit = 100
                         )
+                        if (newNodes.isNotEmpty()) {
+                            _state.update { currentState ->
+                                val combined = currentState.nodes + newNodes
+                                val finalNodes = if (combined.size > 500) {
+                                    combined.drop(100)
+                                } else {
+                                    combined
+                                }
+                                currentState.copy(
+                                    nodes = finalNodes,
+                                    paginating = false
+                                )
+                            }
+                        } else {
+                            _state.update { it.copy(paginating = false) }
+                        }
+                    }
+                }
+
+                is ReaderEvent.OnPaginateBackward -> {
+                    if (_state.value.paginating) return@launch
+                    _state.update { it.copy(paginating = true) }
+                    withContext(Dispatchers.IO) {
+                        val newNodes = getBookContentUseCase.getNodesBefore(
+                            book = _state.value.book,
+                            nodeId = event.firstNodeId,
+                            limit = 100
+                        )
+                        if (newNodes.isNotEmpty()) {
+                            _state.update { currentState ->
+                                val combined = newNodes + currentState.nodes
+                                val finalNodes = if (combined.size > 500) {
+                                    combined.dropLast(100)
+                                } else {
+                                    combined
+                                }
+                                currentState.copy(
+                                    nodes = finalNodes,
+                                    paginating = false
+                                )
+                            }
+                        } else {
+                            _state.update { it.copy(paginating = false) }
+                        }
+                    }
+                }
+
+                is ReaderEvent.OnUpdateProgress -> {
+                    val node =
+                        _state.value.nodes.find { it.id == event.currentNodeId } ?: return@launch
+                    _state.update {
                         it.copy(
-                            currentChapter = currentChapter,
-                            currentChapterProgress = currentChapterProgress,
-                            isLoading = false,
-                            errorMessage = null
+                            book = it.book.copy(
+                                progress = it.book.progress.copy(
+                                    currentNodeId = node.id,
+                                    currentNodeIntraOffset = event.currentNodeIntraOffset,
+                                    currentOffset = node.position.offset + event.currentNodeIntraOffset
+                                )
+                            )
                         )
                     }
+                    updateBookUseCase(_state.value.book)
+
+                    LibraryScreen.refreshListChannel.trySend(300)
+                    HistoryScreen.refreshListChannel.trySend(300)
                 }
 
                 is ReaderEvent.OnMenuVisibility -> {
@@ -142,14 +252,16 @@ class ReaderModel @Inject constructor(
                         )
 
                         if (event.saveCheckpoint && event.show) {
+                            val currentProgress = _state.value.book.progress
                             val checkpoints = _state.value.checkpoints.toMutableList()
                             checkpoints.removeIf {
-                                it.index == _state.value.listState.firstVisibleItemIndex
+                                it.offset == currentProgress.currentOffset
                             }
                             checkpoints.add(
                                 Checkpoint(
-                                    _state.value.listState.firstVisibleItemIndex,
-                                    _state.value.listState.firstVisibleItemScrollOffset
+                                    nodeId = currentProgress.currentNodeId,
+                                    nodeIntraOffset = currentProgress.currentNodeIntraOffset,
+                                    offset = currentProgress.currentOffset
                                 )
                             )
 
@@ -164,18 +276,28 @@ class ReaderModel @Inject constructor(
                     }
                 }
 
-                is ReaderEvent.OnChangeProgress -> {
+                is ReaderEvent.OnScrollToChapter -> {
                     withContext(Dispatchers.Default) {
+                        val chapter = event.chapter
+                        val targetOffset = chapter.position.chapterOffset
+                        val targetNodeId = NodeId(chapter.linkId.id)
+
                         _state.update {
                             it.copy(
+                                scrollTarget = ScrollTarget(
+                                    nodeId = targetNodeId,
+                                    nodeIntraOffset = 0
+                                ),
                                 book = it.book.copy(
-                                    progress = event.progress,
-                                    scrollIndex = event.firstVisibleItemIndex,
-                                    scrollOffset = event.firstVisibleItemOffset
+                                    progress = it.book.progress.copy(
+                                        currentNodeId = targetNodeId,
+                                        currentNodeIntraOffset = 0,
+                                        currentOffset = targetOffset
+                                    )
                                 )
                             )
                         }
-
+                        _paginationNodeId.update { targetNodeId }
                         updateBookUseCase(_state.value.book)
 
                         LibraryScreen.refreshListChannel.trySend(300)
@@ -183,55 +305,38 @@ class ReaderModel @Inject constructor(
                     }
                 }
 
-                is ReaderEvent.OnUpdateChapter -> {
-                    _state.update {
-                        val (currentChapter, currentChapterProgress) = getChapterProgressUseCase(
-                            event.index,
-                            _state.value.text
-                        )
-                        it.copy(
-                            currentChapter = currentChapter,
-                            currentChapterProgress = currentChapterProgress
-                        )
-                    }
-                }
-
-                is ReaderEvent.OnScrollToChapter -> {
-                    withContext(Dispatchers.Default) {
-                        val chapterIndex = _state.value.text
-                            .indexOf(event.chapter)
-                            .takeIf { it != -1 }
-                        if (chapterIndex == null) return@withContext
-
-                        _state.value.listState.requestScrollToItem(
-                            index = chapterIndex,
-                            scrollOffset = 0
-                        )
-
-                        onEvent(ReaderEvent.OnUpdateChapter(chapterIndex))
-                        onEvent(
-                            ReaderEvent.OnChangeProgress(
-                                progress = calculateProgress(chapterIndex),
-                                firstVisibleItemIndex = chapterIndex,
-                                firstVisibleItemOffset = 0
-                            )
-                        )
-                    }
-                }
-
                 is ReaderEvent.OnScroll -> {
                     scrollJob?.cancel()
-                    scrollJob = viewModelScope.launch(Dispatchers.IO) {
-                        delay(300)
+                    scrollJob = viewModelScope.launch(Dispatchers.Default) {
+                        val totalLength = _state.value.book.progress.totalLength
+                        if (totalLength <= 0) return@launch
+                        val targetOffset = (event.progress.coerceIn(0f, 1f) * totalLength).toInt()
+                        val node = _state.value.nodes.find {
+                            targetOffset in it.position.offset until it.position.endOffset
+                        } ?: getBookContentNodeByOffsetUseCase(_state.value.book, targetOffset)
+                        ?: _state.value.nodes.firstOrNull() ?: return@launch
 
-                        val scrollTo = (_state.value.text.lastIndex * event.progress).roundToInt()
+                        val intraOffset = (targetOffset - node.position.offset).coerceAtLeast(0)
+                        _state.update {
+                            it.copy(
+                                scrollTarget = ScrollTarget(
+                                    nodeId = node.id,
+                                    nodeIntraOffset = intraOffset
+                                ),
+                                book = it.book.copy(
+                                    progress = it.book.progress.copy(
+                                        currentNodeId = node.id,
+                                        currentNodeIntraOffset = intraOffset,
+                                        currentOffset = targetOffset
+                                    )
+                                )
+                            )
+                        }
+                        _paginationNodeId.update { node.id }
+                        updateBookUseCase(_state.value.book)
 
-                        _state.value.listState.requestScrollToItem(
-                            index = scrollTo,
-                            scrollOffset = 0
-                        )
-
-                        onEvent(ReaderEvent.OnUpdateChapter(scrollTo))
+                        LibraryScreen.refreshListChannel.trySend(300)
+                        HistoryScreen.refreshListChannel.trySend(300)
                     }
                 }
 
@@ -242,23 +347,31 @@ class ReaderModel @Inject constructor(
                             if (checkpoints.size > 1) checkpoints.remove(event.checkpoint)
 
                             it.copy(
-                                checkpoints = checkpoints
+                                checkpoints = checkpoints,
+                                scrollTarget = ScrollTarget(
+                                    nodeId = event.checkpoint.nodeId,
+                                    nodeIntraOffset = event.checkpoint.nodeIntraOffset
+                                ),
+                                book = it.book.copy(
+                                    progress = it.book.progress.copy(
+                                        currentNodeId = event.checkpoint.nodeId,
+                                        currentNodeIntraOffset = event.checkpoint.nodeIntraOffset,
+                                        currentOffset = event.checkpoint.offset
+                                    )
+                                )
                             )
                         }
+                        _paginationNodeId.update { event.checkpoint.nodeId }
+                        updateBookUseCase(_state.value.book)
 
-                        _state.value.listState.requestScrollToItem(
-                            index = event.checkpoint.index,
-                            scrollOffset = event.checkpoint.offset
-                        )
+                        LibraryScreen.refreshListChannel.trySend(300)
+                        HistoryScreen.refreshListChannel.trySend(300)
+                    }
+                }
 
-                        onEvent(ReaderEvent.OnUpdateChapter(event.checkpoint.index))
-                        onEvent(
-                            ReaderEvent.OnChangeProgress(
-                                progress = calculateProgress(event.checkpoint.index),
-                                firstVisibleItemIndex = event.checkpoint.index,
-                                firstVisibleItemOffset = event.checkpoint.offset,
-                            )
-                        )
+                is ReaderEvent.OnScrollConsumed -> {
+                    _state.update {
+                        it.copy(scrollTarget = null)
                     }
                 }
 
@@ -269,34 +382,13 @@ class ReaderModel @Inject constructor(
                         )
                     }
 
-                    if (
-                        !_state.value.isLoading &&
-                        _state.value.listState.layoutInfo.totalItemsCount > 0 &&
-                        _state.value.text.isNotEmpty() &&
-                        _state.value.errorMessage != null
-                    ) {
-                        _state.update {
-                            it.copy(
-                                book = it.book.copy(
-                                    progress = calculateProgress(),
-                                    scrollIndex = _state.value.listState.firstVisibleItemIndex,
-                                    scrollOffset = _state.value.listState.firstVisibleItemScrollOffset
-                                )
-                            )
-                        }
-
+                    if (_state.value.layoutState is LayoutState.Showing) {
                         updateBookUseCase(_state.value.book)
 
                         LibraryScreen.refreshListChannel.trySend(0)
                         HistoryScreen.refreshListChannel.trySend(0)
                     }
 
-                    _effects.emit(
-                        ReaderEffect.OnSystemBarsVisibility(
-                            show = true
-                        )
-                    )
-                    _effects.emit(ReaderEffect.OnResetBrightness)
                     event.navigate()
                 }
 
@@ -391,11 +483,15 @@ class ReaderModel @Inject constructor(
 
             _state.update {
                 ReaderState(
-                    book = book
+                    book = book,
+                    scrollTarget = ScrollTarget(
+                        nodeId = book.progress.currentNodeId,
+                        nodeIntraOffset = book.progress.currentNodeIntraOffset
+                    )
                 )
             }
 
-            onEvent(ReaderEvent.OnLoadText)
+            onEvent(ReaderEvent.OnLoadContent)
         }
     }
 
@@ -415,77 +511,6 @@ class ReaderModel @Inject constructor(
         }
         eventStack.clear()
         _state.update { ReaderState() }
-    }
-
-    @OptIn(FlowPreview::class)
-    suspend fun updateProgress(listState: LazyListState) {
-        snapshotFlow {
-            listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
-        }.distinctUntilChanged().debounce(300).collectLatest { (index, offset) ->
-            if (
-                _state.value.isLoading ||
-                listState.layoutInfo.totalItemsCount == 0 ||
-                _state.value.text.isEmpty() ||
-                _state.value.errorMessage != null
-            ) return@collectLatest
-
-            val progress = calculateProgress(index)
-            val (currentChapter, currentChapterProgress) = getChapterProgressUseCase(
-                index = index,
-                text = _state.value.text
-            )
-
-            _state.update {
-                it.copy(
-                    book = it.book.copy(
-                        progress = progress,
-                        scrollIndex = index,
-                        scrollOffset = offset
-                    ),
-                    currentChapter = currentChapter,
-                    currentChapterProgress = currentChapterProgress
-                )
-            }
-
-            updateBookUseCase(_state.value.book)
-
-            LibraryScreen.refreshListChannel.trySend(0)
-            HistoryScreen.refreshListChannel.trySend(0)
-        }
-    }
-
-    fun findChapterIndexAndLength(index: Int): Pair<Int, Int> {
-        val (chapter, _) = getChapterProgressUseCase(index = index, text = _state.value.text)
-        return chapter?.let { chapter ->
-            val startIndex = _state.value.text
-                .indexOf(chapter)
-                .coerceIn(0, _state.value.text.lastIndex)
-            val endIndex = (_state.value.text.indexOfFirst {
-                it is Chapter && _state.value.text.indexOf(it) > startIndex
-            }.takeIf { it != -1 }) ?: (_state.value.text.lastIndex + 1)
-
-            val currentIndexInChapter = (index - startIndex).coerceAtLeast(1)
-            val chapterLength = endIndex - (startIndex + 1)
-            currentIndexInChapter to chapterLength
-        } ?: (-1 to -1)
-    }
-
-    private fun calculateProgress(firstVisibleItemIndex: Int? = null): Float {
-        if (
-            _state.value.isLoading ||
-            _state.value.listState.layoutInfo.totalItemsCount == 0 ||
-            _state.value.text.isEmpty() ||
-            _state.value.errorMessage != null
-        ) return _state.value.book.progress
-
-        if ((firstVisibleItemIndex ?: _state.value.listState.firstVisibleItemIndex) == 0) return 0f
-
-        val lastVisibleItemIndex = _state.value.listState.layoutInfo.visibleItemsInfo.last().index
-        if (lastVisibleItemIndex >= _state.value.text.lastIndex) return 1f
-
-        return (firstVisibleItemIndex ?: _state.value.listState.firstVisibleItemIndex)
-            .div(_state.value.text.lastIndex.toFloat())
-            .coerceAndPreventNaN()
     }
 
     private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {

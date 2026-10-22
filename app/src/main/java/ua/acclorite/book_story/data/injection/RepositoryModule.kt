@@ -1,0 +1,169 @@
+/*
+ * Book's Story — free and open-source Material You eBook reader.
+ * Copyright (C) 2024-2026 Acclorite
+ * SPDX-License-Identifier: GPL-3.0-only
+ */
+
+package ua.acclorite.book_story.data.injection
+
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import ua.acclorite.book_story.data.mapper.book.BookMapper
+import ua.acclorite.book_story.data.mapper.book.BookMapperImpl
+import ua.acclorite.book_story.data.mapper.category.CategoryMapper
+import ua.acclorite.book_story.data.mapper.category.CategoryMapperImpl
+import ua.acclorite.book_story.data.mapper.chapter.ChapterMapper
+import ua.acclorite.book_story.data.mapper.chapter.ChapterMapperImpl
+import ua.acclorite.book_story.data.mapper.color_preset.ColorPresetMapper
+import ua.acclorite.book_story.data.mapper.color_preset.ColorPresetMapperImpl
+import ua.acclorite.book_story.data.mapper.file.FileMapper
+import ua.acclorite.book_story.data.mapper.file.FileMapperImpl
+import ua.acclorite.book_story.data.mapper.history.HistoryMapper
+import ua.acclorite.book_story.data.mapper.history.HistoryMapperImpl
+import ua.acclorite.book_story.data.mapper.metadata.MetadataMapper
+import ua.acclorite.book_story.data.mapper.metadata.MetadataMapperImpl
+import ua.acclorite.book_story.data.mapper.node.NodeMapper
+import ua.acclorite.book_story.data.mapper.node.NodeMapperImpl
+import ua.acclorite.book_story.data.mapper.node_content.NodeContentMapper
+import ua.acclorite.book_story.data.mapper.node_content.NodeContentMapperImpl
+import ua.acclorite.book_story.data.parser.content.ContentParser
+import ua.acclorite.book_story.data.parser.content.ContentParserImpl
+import ua.acclorite.book_story.data.parser.cover.CoverParser
+import ua.acclorite.book_story.data.parser.cover.CoverParserImpl
+import ua.acclorite.book_story.data.parser.file.FileParser
+import ua.acclorite.book_story.data.parser.file.FileParserImpl
+import ua.acclorite.book_story.data.repository.BookRepositoryImpl
+import ua.acclorite.book_story.data.repository.CategoryRepositoryImpl
+import ua.acclorite.book_story.data.repository.ColorPresetRepositoryImpl
+import ua.acclorite.book_story.data.repository.FileSystemRepositoryImpl
+import ua.acclorite.book_story.data.repository.HistoryRepositoryImpl
+import ua.acclorite.book_story.data.repository.PermissionRepositoryImpl
+import ua.acclorite.book_story.data.storage.data_store.DataStore
+import ua.acclorite.book_story.data.storage.data_store.DataStoreImpl
+import ua.acclorite.book_story.domain.repository.BookRepository
+import ua.acclorite.book_story.domain.repository.CategoryRepository
+import ua.acclorite.book_story.domain.repository.ColorPresetRepository
+import ua.acclorite.book_story.domain.repository.FileSystemRepository
+import ua.acclorite.book_story.domain.repository.HistoryRepository
+import ua.acclorite.book_story.domain.repository.PermissionRepository
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class RepositoryModule {
+
+    @Binds
+    abstract fun bindDataStore(
+        dataStoreImpl: DataStoreImpl
+    ): DataStore
+
+    @Binds
+    @Singleton
+    abstract fun bindBookRepository(
+        bookRepositoryImpl: BookRepositoryImpl
+    ): BookRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindHistoryRepository(
+        historyRepositoryImpl: HistoryRepositoryImpl
+    ): HistoryRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindColorPresetRepository(
+        colorPresetRepositoryImpl: ColorPresetRepositoryImpl
+    ): ColorPresetRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindFileSystemRepository(
+        fileSystemRepositoryImpl: FileSystemRepositoryImpl
+    ): FileSystemRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindPermissionRepository(
+        permissionRepositoryImpl: PermissionRepositoryImpl
+    ): PermissionRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindCategoryRepository(
+        categoryRepositoryImpl: CategoryRepositoryImpl
+    ): CategoryRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindBookMapper(
+        bookMapperImpl: BookMapperImpl
+    ): BookMapper
+
+    @Binds
+    @Singleton
+    abstract fun bindHistoryMapper(
+        historyMapperImpl: HistoryMapperImpl
+    ): HistoryMapper
+
+    @Binds
+    @Singleton
+    abstract fun bindColorPresetMapper(
+        colorPresetMapperImpl: ColorPresetMapperImpl
+    ): ColorPresetMapper
+
+    @Binds
+    @Singleton
+    abstract fun bindCategoryMapper(
+        categoryMapperImpl: CategoryMapperImpl
+    ): CategoryMapper
+
+    @Binds
+    @Singleton
+    abstract fun bindNodeMapper(
+        nodeMapperImpl: NodeMapperImpl
+    ): NodeMapper
+
+    @Binds
+    @Singleton
+    abstract fun bindNodeContentMapper(
+        nodeContentMapperImpl: NodeContentMapperImpl
+    ): NodeContentMapper
+
+    @Binds
+    @Singleton
+    abstract fun bindChapterMapper(
+        chapterMapperImpl: ChapterMapperImpl
+    ): ChapterMapper
+
+    @Binds
+    @Singleton
+    abstract fun bindFileMapper(
+        fileMapperImpl: FileMapperImpl
+    ): FileMapper
+
+    @Binds
+    @Singleton
+    abstract fun bindFileParser(
+        fileParserImpl: FileParserImpl
+    ): FileParser
+
+    @Binds
+    @Singleton
+    abstract fun bindMetadataMapper(
+        metadataMapperImpl: MetadataMapperImpl
+    ): MetadataMapper
+
+    @Binds
+    @Singleton
+    abstract fun bindCoverParser(
+        coverParserImpl: CoverParserImpl
+    ): CoverParser
+
+    @Binds
+    @Singleton
+    abstract fun bindContentParser(
+        contentParserImpl: ContentParserImpl
+    ): ContentParser
+}

@@ -6,16 +6,24 @@
 
 package ua.acclorite.book_story.data.mapper.history
 
-import ua.acclorite.book_story.data.local.dto.HistoryEntity
-import ua.acclorite.book_story.data.local.dto.HistoryWithBook
 import ua.acclorite.book_story.data.mapper.book.BookMapper
+import ua.acclorite.book_story.data.storage.room.entity.HistoryEntity
+import ua.acclorite.book_story.data.storage.room.entity.HistoryWithBook
 import ua.acclorite.book_story.domain.model.history.History
 import javax.inject.Inject
 
 class HistoryMapperImpl @Inject constructor(
     private val bookMapper: BookMapper
 ) : HistoryMapper {
-    override suspend fun toHistoryEntity(history: History): HistoryEntity {
+
+    override fun toHistoryEntity(history: History): HistoryEntity {
+        if (history.id <= -1
+            || history.time <= 0
+            || history.book.id <= -1
+        ) {
+            throw IllegalStateException("Incorrect History instance.")
+        }
+
         return HistoryEntity(
             id = history.id,
             bookId = history.book.id,
@@ -23,7 +31,15 @@ class HistoryMapperImpl @Inject constructor(
         )
     }
 
-    override suspend fun toHistory(historyWithBook: HistoryWithBook): History {
+    override fun toHistory(historyWithBook: HistoryWithBook): History {
+        if (historyWithBook.history.id <= -1
+            || historyWithBook.history.time <= 0
+            || historyWithBook.book.id <= -1
+            || historyWithBook.history.bookId != historyWithBook.book.id
+        ) {
+            throw IllegalStateException("Incorrect HistoryWithBook instance.")
+        }
+
         return History(
             id = historyWithBook.history.id,
             book = bookMapper.toBook(historyWithBook.book),

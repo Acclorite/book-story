@@ -19,7 +19,7 @@ object LanguageUtils {
             language.locale == locale
         }?.let { return it }
 
-        // Searching for localLe language match
+        // Searching for locale language match
         languages.find { language ->
             language.locale.language == locale.language
         }?.let { return it }

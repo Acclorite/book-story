@@ -16,7 +16,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import kotlinx.coroutines.flow.SharedFlow
 import ua.acclorite.book_story.R
-import ua.acclorite.book_story.domain.model.library.Book
+import ua.acclorite.book_story.domain.model.book.Book
 import ua.acclorite.book_story.presentation.book_info.BookInfoScreen
 import ua.acclorite.book_story.presentation.reader.ReaderEffect
 import ua.acclorite.book_story.ui.common.helpers.LocalActivity

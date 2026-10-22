@@ -8,8 +8,8 @@ package ua.acclorite.book_story.data.repository
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ua.acclorite.book_story.data.local.room.BookDatabase
 import ua.acclorite.book_story.data.mapper.category.CategoryMapper
+import ua.acclorite.book_story.data.storage.room.AppDatabase
 import ua.acclorite.book_story.domain.model.library.Category
 import ua.acclorite.book_story.domain.repository.CategoryRepository
 import javax.inject.Inject
@@ -17,16 +17,16 @@ import javax.inject.Singleton
 
 @Singleton
 class CategoryRepositoryImpl @Inject constructor(
-    private val database: BookDatabase,
+    private val appDatabase: AppDatabase,
     private val categoryMapper: CategoryMapper
 ) : CategoryRepository {
 
     override suspend fun addCategory(category: Category): Result<Unit> = runCatching {
         withContext(Dispatchers.IO) {
-            database.categoryDao.insertCategory(
+            appDatabase.categoryDao.insertCategory(
                 categoryMapper.toCategoryEntity(
                     category.copy(
-                        order = database.categoryDao.getCategoriesCount()
+                        order = appDatabase.categoryDao.getCategoriesCount()
                     )
                 )
             )
@@ -35,13 +35,13 @@ class CategoryRepositoryImpl @Inject constructor(
 
     override suspend fun getCategories(): Result<List<Category>> = runCatching {
         withContext(Dispatchers.IO) {
-            database.categoryDao.getCategories().map { categoryMapper.toCategory(it) }
+            appDatabase.categoryDao.getCategories().map { categoryMapper.toCategory(it) }
         }
     }
 
     override suspend fun updateCategory(category: Category): Result<Unit> = runCatching {
         withContext(Dispatchers.IO) {
-            database.categoryDao.updateCategory(
+            appDatabase.categoryDao.updateCategory(
                 category = categoryMapper.toCategoryEntity(
                     if (category.id != -1) category else category.copy(
                         title = "",
@@ -57,7 +57,7 @@ class CategoryRepositoryImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             categories.forEachIndexed { index, category ->
                 if (category.id == -1) return@forEachIndexed
-                database.categoryDao.updateCategory(
+                appDatabase.categoryDao.updateCategory(
                     categoryMapper.toCategoryEntity(
                         category.copy(order = index)
                     )
@@ -68,8 +68,8 @@ class CategoryRepositoryImpl @Inject constructor(
 
     override suspend fun deleteCategory(category: Category): Result<Unit> = runCatching {
         withContext(Dispatchers.IO) {
-            if (category.id == -1) throw IllegalArgumentException("Id should not be -1.")
-            database.categoryDao.deleteCategory(categoryMapper.toCategoryEntity(category))
+            if (category.id == -1) throw IllegalArgumentException("Id should not be -1")
+            appDatabase.categoryDao.deleteCategory(categoryMapper.toCategoryEntity(category))
             updateOrder(getCategories().getOrThrow())
         }
     }

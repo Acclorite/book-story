@@ -7,8 +7,8 @@
 package ua.acclorite.book_story.domain.repository
 
 import ua.acclorite.book_story.core.CoverImage
+import ua.acclorite.book_story.domain.model.book.Book
 import ua.acclorite.book_story.domain.model.file.File
-import ua.acclorite.book_story.domain.model.library.Book
 
 interface FileSystemRepository {
     suspend fun searchFiles(
