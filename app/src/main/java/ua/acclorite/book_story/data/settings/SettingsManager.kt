@@ -259,6 +259,9 @@ class SettingsManager @Inject constructor(
         key = stringPreferencesKey("images_alignment"), default = HorizontalAlignment.START,
         serialize = { it.name }, deserialize = { HorizontalAlignment.valueOf(it) }
     )
+    val imagesOriginalSize = setting<Boolean, Boolean>(
+        key = booleanPreferencesKey("images_original_size"), default = true
+    )
     val imagesWidth = setting<Float, Double>(
         key = doublePreferencesKey("images_width"), default = 0.8f,
         serialize = { it.toDouble() }, deserialize = { it.toFloat() }

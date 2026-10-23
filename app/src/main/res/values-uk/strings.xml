@@ -47,6 +47,16 @@
     <string name="error_closed_source">Закритий код</string>
     <string name="error_no_file">Файла не існує або він недоступний</string>
     <string name="error_field_empty">Це поле не повинно бути пустим.</string>
+    <string name="error_empty_file">Схоже що файл пустий. Будь ласка, перевірте його вміст.</string>
+    <string name="error_could_not_validate">Не вдалося звірити вміст книги. Будь ласка, спробуйте ще раз і перевірте файл. (%1$s)</string>
+    <string name="error_could_not_parse_file">Не вдалося зчитати файл. (%1$s)</string>
+    <string name="error_could_not_save_file">Не вдалося зберегти файл. (%1$s)</string>
+    <string name="error_could_not_get_chapters">Не вдалося отримати список розділів. (%1$s)</string>
+    <string name="error_wrong_file_format">Неправильний формат файлу. Переконайтеся, що формат файла сходиться з підтримуваними форматами.</string>
+    <string name="error_could_not_access_file">
+        Не вдалося отримати доступ до файла.
+        Будь ласка, перевірте що він існує і всі необхідні дозволи надані.
+    </string>
 
     <!-- Is Empty messages -->
     <string name="search_field_empty">Пошук…</string>
@@ -76,7 +86,7 @@
     <string name="web_search">Веб-пошук</string>
     <string name="share">Поділитися</string>
     <string name="ok">ОК</string>
-    <string name="change_path">Змінити шлях</string>
+    <string name="retry">Повторити</string>
     <string name="add_folder">Додати теку</string>
     <string name="edit">Редагувати</string>
     <string name="create_category">Створити категорію</string>
@@ -229,6 +239,8 @@
     <string name="images_captions_option_desc">Показувати написи під зображеннями</string>
     <string name="images_corners_roundness_option">Округлість кутків</string>
     <string name="images_alignment_option">Розташування</string>
+    <string name="images_original_size_option">Оригінальний розмір</string>
+    <string name="images_original_size_option_desc">Показувати зображення в їхньому оригінальному розмірі</string>
     <string name="images_width_option">Розмір</string>
     <string name="images_color_effects_option">Ефекти кольору</string>
     <string name="progress_bar_option">Панель прогресу</string>
@@ -388,6 +400,14 @@
     <!-- Reader -->
     <string name="no_chapters">Немає розділів</string>
     <string name="chapters">Розділи</string>
+    <string name="processing_content">
+        Вміст книги оброблюється.
+        Це може зайняти до декількох хвилин.
+    </string>
+    <string name="saving_content">
+        Оброблений вміст книги зберігається.
+        Це не повинно зайняти понад хвилину.
+    </string>
 
     <!-- About -->
     <!-- Options -->

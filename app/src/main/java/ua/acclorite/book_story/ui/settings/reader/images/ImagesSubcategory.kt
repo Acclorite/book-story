@@ -20,6 +20,7 @@ import ua.acclorite.book_story.ui.settings.reader.images.components.ImagesCaptio
 import ua.acclorite.book_story.ui.settings.reader.images.components.ImagesColorEffectsOption
 import ua.acclorite.book_story.ui.settings.reader.images.components.ImagesCornersRoundnessOption
 import ua.acclorite.book_story.ui.settings.reader.images.components.ImagesOption
+import ua.acclorite.book_story.ui.settings.reader.images.components.ImagesOriginalSizeOption
 import ua.acclorite.book_story.ui.settings.reader.images.components.ImagesWidthOption
 
 fun LazyListScope.ImagesSubcategory(
@@ -52,6 +53,10 @@ fun LazyListScope.ImagesSubcategory(
 
         item {
             ImagesAlignmentOption()
+        }
+
+        item {
+            ImagesOriginalSizeOption()
         }
 
         item {

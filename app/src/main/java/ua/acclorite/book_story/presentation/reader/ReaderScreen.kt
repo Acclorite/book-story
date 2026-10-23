@@ -613,7 +613,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             imagesAlignment = settings.imagesAlignment.value,
             imagesWidth = imagesWidth,
             imagesColorEffects = imagesColorEffects,
-            imagesOriginalSize = true, // TODO: Option
+            imagesOriginalSize = settings.imagesOriginalSize.value,
             horizontalAlignment = horizontalAlignment,
             doubleClickTranslation = settings.doubleClickTranslation.value,
             switchColorPreset = settingsModel::onEvent,

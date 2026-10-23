@@ -61,7 +61,6 @@
     <string name="error_closed_source">Closed source</string>
     <string name="error_no_file">File does not exist or inaccessible</string>
     <string name="error_field_empty">This field should not be empty.</string>
-
     <string name="error_empty_file">File appears to be empty. Please verify its content.</string>
     <string name="error_could_not_validate">Could not validate book content. Please try again and verify the file. (%1$s)</string>
     <string name="error_could_not_parse_file">Could not parse file. (%1$s)</string>
@@ -264,6 +263,8 @@
     <string name="images_captions_option_desc">Display captions under images</string>
     <string name="images_corners_roundness_option">Corners roundness</string>
     <string name="images_alignment_option">Alignment</string>
+    <string name="images_original_size_option">Original size</string>
+    <string name="images_original_size_option_desc">Display images at their original size</string>
     <string name="images_width_option">Size</string>
     <string name="images_color_effects_option">Color effects</string>
     <string name="progress_bar_option">Progress bar</string>

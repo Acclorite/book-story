@@ -17,7 +17,7 @@ import ua.acclorite.book_story.ui.theme.ExpandingTransition
 fun ImagesWidthOption() {
     val settings = LocalSettings.current
 
-    ExpandingTransition(visible = settings.images.value) {
+    ExpandingTransition(visible = settings.images.value && !settings.imagesOriginalSize.value) {
         SliderWithTitle(
             value = settings.imagesWidth.value to "%",
             toValue = 100,
