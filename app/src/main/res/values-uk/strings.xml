@@ -347,6 +347,7 @@
     <!-- Progress Count properties -->
     <string name="progress_count_percentage">Відсотки</string>
     <string name="progress_count_quantity">Кількість</string>
+    <string name="progress_count_characters">Символи</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Меркурій</string>

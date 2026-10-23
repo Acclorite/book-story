@@ -371,7 +371,8 @@
 
     <!-- Progress Count properties -->
     <string name="progress_count_percentage">Percentage</string>
-    <string name="progress_count_quantity">Quantity</string>
+    <string name="progress_count_quantity">Paragraphs</string>
+    <string name="progress_count_characters">Characters</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Mercury</string>

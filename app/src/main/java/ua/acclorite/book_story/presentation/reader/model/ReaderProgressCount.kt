@@ -12,5 +12,6 @@ import ua.acclorite.book_story.R
 
 enum class ReaderProgressCount(@StringRes val title: Int) {
     PERCENTAGE(R.string.progress_count_percentage),
-    QUANTITY(R.string.progress_count_quantity)
+    QUANTITY(R.string.progress_count_quantity),
+    CHARACTERS(R.string.progress_count_characters)
 }

@@ -367,12 +367,19 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
                         (state.value.book.progress.currentNodeId.id + 1).coerceAtMost(state.value.book.progress.totalNodes)
                     "$current / ${state.value.book.progress.totalNodes}"
                 }
+
+                ReaderProgressCount.CHARACTERS -> {
+                    val total = state.value.book.progress.totalLength.coerceAtLeast(0)
+                    val current = state.value.book.progress.currentOffset.coerceIn(0, total)
+                    "$current / $total"
+                }
             }
         }
         val chapterProgress = remember(
             currentChapter.value,
             currentChapterProgress,
-            state.value.book.progress.currentOffset,
+            state.value.book.progress,
+            state.value.chapters,
             settings.progressCount.value
         ) {
             val chapter = currentChapter.value ?: return@remember ""
@@ -382,6 +389,18 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
                 }
 
                 ReaderProgressCount.QUANTITY -> {
+                    val startNodeId = chapter.linkId.id
+                    val endNodeId = state.value.chapters.firstOrNull {
+                        it.position.chapterOffset == chapter.position.endChapterOffset &&
+                                it.linkId.id > startNodeId
+                    }?.linkId?.id ?: state.value.book.progress.totalNodes
+                    val total = (endNodeId - startNodeId).coerceAtLeast(0)
+                    val current = (state.value.book.progress.currentNodeId.id - startNodeId + 1)
+                        .coerceIn(0, total)
+                    " ($current / $total)"
+                }
+
+                ReaderProgressCount.CHARACTERS -> {
                     val currentIndexInChapter =
                         (state.value.book.progress.currentOffset - chapter.position.chapterOffset).coerceAtLeast(
                             0
