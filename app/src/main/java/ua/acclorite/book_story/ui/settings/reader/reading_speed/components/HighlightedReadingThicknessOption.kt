@@ -19,12 +19,14 @@ fun HighlightedReadingThicknessOption() {
 
     ExpandingTransition(visible = settings.highlightedReading.value) {
         SliderWithTitle(
-            value = settings.highlightedReadingThickness.value to " ${stringResource(R.string.highlighted_reading_level)}",
+            value = (settings.highlightedReadingThickness.value / 100) to "",
+            valuePlaceholder = "+${settings.highlightedReadingThickness.value}",
+            showPlaceholder = true,
             fromValue = 1,
-            toValue = 3,
+            toValue = 8,
             title = stringResource(id = R.string.highlighted_reading_thickness_option),
             onValueChange = {
-                settings.highlightedReadingThickness.update(it)
+                settings.highlightedReadingThickness.update(it * 100)
             }
         )
     }

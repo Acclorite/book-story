@@ -101,7 +101,7 @@ fun ReaderLayoutContinuous(
     horizontalGesturePullAnim: Boolean,
     horizontalGestureDisableScrolling: Boolean,
     highlightedReading: Boolean,
-    highlightedReadingThickness: FontWeight,
+    highlightedReadingThickness: Int,
     progress: String,
     progressBar: Boolean,
     progressBarPadding: Dp,
@@ -146,11 +146,18 @@ fun ReaderLayoutContinuous(
     val textMeasurer = rememberTextMeasurer()
 
     val isInitialLoading = remember { mutableStateOf(true) }
+    val headerFontWeights = listOf(
+        header1TextStyle, header2TextStyle, header3TextStyle,
+        header4TextStyle, header5TextStyle, header6TextStyle
+    ).map { it.fontWeight ?: FontWeight.Normal }
+    val paragraphFontWeight = paragraphTextStyle.fontWeight ?: FontWeight.Normal
     val readerNodes = remember(
         nodes,
         density,
         highlightedReading,
-        highlightedReadingThickness
+        highlightedReadingThickness,
+        paragraphFontWeight,
+        headerFontWeights
     ) {
         nodes.map { node ->
             when (val nodeContent = node.content) {
@@ -159,7 +166,8 @@ fun ReaderLayoutContinuous(
                     title = getHighlightedText(
                         highlight = highlightedReading,
                         text = buildAnnotatedString { append(nodeContent.title) },
-                        highlightThickness = highlightedReadingThickness
+                        highlightThickness = headerFontWeights[nodeContent.level.level - 1],
+                        fontWeightIncrease = highlightedReadingThickness
                     ),
                     level = nodeContent.level
                 )
@@ -196,7 +204,8 @@ fun ReaderLayoutContinuous(
                                 }
                             }
                         },
-                        highlightThickness = highlightedReadingThickness
+                        highlightThickness = paragraphFontWeight,
+                        fontWeightIncrease = highlightedReadingThickness
                     )
                 )
 

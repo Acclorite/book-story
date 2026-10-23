@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import ua.acclorite.book_story.domain.model.book.Book
@@ -72,7 +71,7 @@ fun ReaderScaffold(
     horizontalGesturePullAnim: Boolean,
     horizontalGestureDisableScrolling: Boolean,
     highlightedReading: Boolean,
-    highlightedReadingThickness: FontWeight,
+    highlightedReadingThickness: Int,
     progress: String,
     progressBar: Boolean,
     progressBarPadding: Dp,

@@ -175,13 +175,6 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
         val horizontalGestureSensitivity = remember(settings.horizontalGestureSensitivity.value) {
             (36f + settings.horizontalGestureSensitivity.lastValue * (4f - 36f)).dp
         }
-        val highlightedReadingThickness = remember(settings.highlightedReadingThickness.value) {
-            when (settings.highlightedReadingThickness.lastValue) {
-                2 -> FontWeight.SemiBold
-                3 -> FontWeight.Bold
-                else -> FontWeight.Medium
-            }
-        }
         val horizontalAlignment = remember(settings.textAlignment.value) {
             when (settings.textAlignment.lastValue) {
                 ReaderTextAlignment.START, ReaderTextAlignment.JUSTIFY -> Alignment.Start
@@ -241,7 +234,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
         ) {
             TextStyle(
                 fontFamily = settings.fontFamily.lastValue.font,
-                fontWeight = settings.fontThickness.lastValue.thickness,
+                fontWeight = FontWeight(settings.fontThickness.lastValue),
                 textAlign = settings.textAlignment.lastValue.textAlignment,
                 textIndent = TextIndent(firstLine = paragraphIndentation),
                 fontStyle = fontStyle,
@@ -498,7 +491,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             horizontalGesturePullAnim = settings.horizontalGesturePullAnim.value,
             horizontalGestureDisableScrolling = settings.horizontalGestureDisableScrolling.value,
             highlightedReading = settings.highlightedReading.value,
-            highlightedReadingThickness = highlightedReadingThickness,
+            highlightedReadingThickness = settings.highlightedReadingThickness.value,
             progress = progress,
             progressBar = settings.progressBar.value,
             progressBarPadding = progressBarPadding,

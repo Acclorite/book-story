@@ -13,7 +13,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import ua.acclorite.book_story.core.BottomSheet
@@ -67,7 +66,7 @@ fun ReaderContent(
     horizontalGesturePullAnim: Boolean,
     horizontalGestureDisableScrolling: Boolean,
     highlightedReading: Boolean,
-    highlightedReadingThickness: FontWeight,
+    highlightedReadingThickness: Int,
     progress: String,
     progressBar: Boolean,
     progressBarPadding: Dp,

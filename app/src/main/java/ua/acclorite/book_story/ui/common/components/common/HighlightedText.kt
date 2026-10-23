@@ -50,7 +50,8 @@ fun HighlightedText(
 fun getHighlightedText(
     highlight: Boolean,
     text: AnnotatedString,
-    highlightThickness: FontWeight
+    highlightThickness: FontWeight,
+    fontWeightIncrease: Int = 0
 ): AnnotatedString {
     return if (highlight) buildAnnotatedString {
         text.splitAnnotatedString().forEach { word ->
@@ -71,8 +72,34 @@ fun getHighlightedText(
                 append(word.subSequence(0, digitsAtStart))
             }
 
-            withStyle(style = SpanStyle(fontWeight = highlightThickness)) {
-                append(word.subSequence(digitsAtStart, highlightArea))
+            val highlightedPart = word.subSequence(digitsAtStart, highlightArea)
+            if (fontWeightIncrease > 0) {
+                val highlightStart = length
+                append(highlightedPart)
+
+                val weightRanges = highlightedPart.spanStyles.filter { it.item.fontWeight != null }
+                val boundaries = (listOf(0, highlightedPart.length) +
+                        weightRanges.flatMap { listOf(it.start, it.end) }).distinct().sorted()
+
+                boundaries.zipWithNext { start, end ->
+                    val baseWeight = weightRanges.lastOrNull {
+                        it.start <= start && it.end >= end
+                    }?.item?.fontWeight ?: highlightThickness
+
+                    addStyle(
+                        style = SpanStyle(
+                            fontWeight = FontWeight(
+                                (baseWeight.weight + fontWeightIncrease).coerceAtMost(900)
+                            )
+                        ),
+                        start = highlightStart + start,
+                        end = highlightStart + end
+                    )
+                }
+            } else {
+                withStyle(style = SpanStyle(fontWeight = highlightThickness)) {
+                    append(highlightedPart)
+                }
             }
 
             append(word.subSequence(highlightArea, word.text.length))

@@ -122,9 +122,10 @@ class SettingsManager @Inject constructor(
             ReaderData.fonts.find { it.id == id } ?: ReaderData.fonts[0]
         }
     )
-    val fontThickness = setting<ReaderFontThickness, String>(
-        key = stringPreferencesKey("font_thickness"), default = ReaderFontThickness.NORMAL,
-        serialize = { it.name }, deserialize = { ReaderFontThickness.valueOf(it) }
+    val fontThickness = setting<Int, String>(
+        key = stringPreferencesKey("font_thickness"), default = 400,
+        serialize = { it.toString() },
+        deserialize = { it.toIntOrNull() ?: ReaderFontThickness.valueOf(it).thickness.weight }
     )
     val italic = setting<Boolean, Boolean>(
         key = booleanPreferencesKey("font_style"), default = false
@@ -240,7 +241,8 @@ class SettingsManager @Inject constructor(
         key = booleanPreferencesKey("highlighted_reading"), default = false
     )
     val highlightedReadingThickness = setting<Int, Int>(
-        key = intPreferencesKey("highlighted_reading_thickness"), default = 2
+        key = intPreferencesKey("highlighted_reading_thickness"), default = 200,
+        deserialize = { if (it in 1..3) it * 100 else it }
     )
     val headers = listOf(
         Triple(46, 900, ReaderTextAlignment.CENTER),
