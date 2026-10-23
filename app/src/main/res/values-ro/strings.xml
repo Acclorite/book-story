@@ -7,7 +7,6 @@
   --><resources>
     <string name="default_string">Standard</string>
     <string name="red_theme">Marte</string>
-    <string name="chapters_reader_settings">Capitole</string>
     <string name="about_screen">Despre aplicație</string>
     <string name="never">Niciodată</string>
     <string name="dictionary">Dicționar</string>

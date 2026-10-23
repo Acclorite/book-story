@@ -118,7 +118,6 @@
     <string name="reading_speed_reader_settings">Okuma hızı</string>
     <string name="reading_mode_reader_settings">Okuma modu</string>
     <string name="system_reader_settings">Sistem</string>
-    <string name="chapters_reader_settings">Bölümler</string>
     <string name="images_reader_settings">Görseller</string>
     <string name="progress_reader_settings">İlerleme</string>
     <string name="theme_appearance_settings">Tema tercihleri</string>
@@ -154,7 +153,6 @@
     <string name="fast_color_preset_change_option">Hızlı renk değiştirme</string>
     <string name="fast_color_preset_change_option_desc">Üst çubuğu sola veya sağa kaydırarak renk ön ayarını değiştirin</string>
     <string name="text_alignment_option">Metin hizalama</string>
-    <string name="chapter_title_alignment_option">Bölüm başlığı hizalama</string>
     <string name="letter_spacing_option">Harf aralığı</string>
     <string name="cutout_padding_option">Çentik boşluğu</string>
     <string name="cutout_padding_option_desc">Çentik alanına boşluk uygula</string>

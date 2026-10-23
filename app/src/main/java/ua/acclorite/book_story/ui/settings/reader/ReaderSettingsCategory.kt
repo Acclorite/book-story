@@ -12,7 +12,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import ua.acclorite.book_story.ui.settings.reader.chapters.ChaptersSubcategory
+import ua.acclorite.book_story.ui.settings.reader.headers.HeadersSubcategory
 import ua.acclorite.book_story.ui.settings.reader.font.FontSubcategory
 import ua.acclorite.book_story.ui.settings.reader.images.ImagesSubcategory
 import ua.acclorite.book_story.ui.settings.reader.misc.MiscSubcategory
@@ -36,7 +36,7 @@ fun LazyListScope.ReaderSettingsCategory(
     ImagesSubcategory(
         titleColor = titleColor
     )
-    ChaptersSubcategory(
+    HeadersSubcategory(
         titleColor = titleColor
     )
     ReadingModeSubcategory(

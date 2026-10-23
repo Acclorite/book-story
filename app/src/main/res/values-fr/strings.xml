@@ -264,13 +264,11 @@
     <string name="horizontal_gesture_on">Activé</string>
     <string name="custom_screen_brightness_option">Luminosité personalisée</string>
     <string name="display_tab">Affichage</string>
-    <string name="chapters_reader_settings">Chapitres</string>
     <string name="images_reader_settings">Images</string>
     <string name="progress_reader_settings">Progression</string>
     <string name="scan_browse_settings">Scan</string>
     <string name="display_settings">Affichage</string>
     <string name="browse_scan_option_note">Ces dossiers sont utilisés pour scanner et récupérer des fichiers dans la Navigation. Supprimer un dossier ici ne supprimera pas de fichiers ou de livres dans votre Bibliothèque. Pour retirer le droit d\'accès, appuyez sur le bouton correspondant.</string>
-    <string name="chapter_title_alignment_option">Alignement du titre du chapitre</string>
     <string name="highlighted_reading_option_desc">Surligne le début de chaque mot</string>
     <string name="highlighted_reading_thickness_option">Épaisseur du surlignage</string>
     <string name="support_development_option">Supporter le développement</string>

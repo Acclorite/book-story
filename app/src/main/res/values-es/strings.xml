@@ -243,7 +243,6 @@
     <string name="custom_screen_brightness_option">Brillo personalizado</string>
     <string name="pink2_theme">Ganimedes</string>
     <string name="images_reader_settings">Imágenes</string>
-    <string name="chapters_reader_settings">Capítulos</string>
     <string name="highlighted_reading_level">nivel</string>
     <string name="images_alignment_option">Alineamiento</string>
     <string name="error_no_file">El archivo no existe o es inaccesible</string>
@@ -257,7 +256,6 @@
     <string name="progress_count_percentage">Porcentaje</string>
     <string name="progress_count_quantity">Cantidad</string>
     <string name="progress_reader_settings">Progreso</string>
-    <string name="chapter_title_alignment_option">Alineación del título del capítulo</string>
     <string name="images_width_option">Tamaño</string>
     <string name="progress_bar_option">Barra de progreso</string>
     <string name="progress_bar_padding_option">Margenes</string>

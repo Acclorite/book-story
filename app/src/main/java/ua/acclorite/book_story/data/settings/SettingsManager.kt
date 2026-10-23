@@ -25,6 +25,7 @@ import ua.acclorite.book_story.core.data.CoreData
 import ua.acclorite.book_story.core.language.Language
 import ua.acclorite.book_story.core.language.LanguageUtils
 import ua.acclorite.book_story.core.log.logI
+import ua.acclorite.book_story.data.settings.model.HeaderSettings
 import ua.acclorite.book_story.data.settings.model.Setting
 import ua.acclorite.book_story.data.storage.data_store.DataStore
 import ua.acclorite.book_story.presentation.browse.model.BrowseLayout
@@ -241,11 +242,28 @@ class SettingsManager @Inject constructor(
     val highlightedReadingThickness = setting<Int, Int>(
         key = intPreferencesKey("highlighted_reading_thickness"), default = 2
     )
-    val chapterTitleAlignment = setting<ReaderTextAlignment, String>(
-        key = stringPreferencesKey("chapter_title_alignment"),
-        default = ReaderTextAlignment.JUSTIFY,
-        serialize = { it.name }, deserialize = { ReaderTextAlignment.valueOf(it) }
-    )
+    val headers = listOf(
+        Triple(46, 900, ReaderTextAlignment.CENTER),
+        Triple(38, 700, ReaderTextAlignment.CENTER),
+        Triple(30, 600, ReaderTextAlignment.START),
+        Triple(26, 600, ReaderTextAlignment.START),
+        Triple(24, 500, ReaderTextAlignment.START),
+        Triple(20, 500, ReaderTextAlignment.START)
+    ).mapIndexed { index, (fontSize, fontWeight, textAlignment) ->
+        val key = "header_${index + 1}"
+        HeaderSettings(
+            fontSize = setting<Int, Int>(
+                key = intPreferencesKey("${key}_font_size"), default = fontSize
+            ),
+            fontWeight = setting<Int, Int>(
+                key = intPreferencesKey("${key}_font_weight"), default = fontWeight
+            ),
+            textAlignment = setting<ReaderTextAlignment, String>(
+                key = stringPreferencesKey("${key}_text_alignment"), default = textAlignment,
+                serialize = { it.name }, deserialize = { ReaderTextAlignment.valueOf(it) }
+            )
+        )
+    }
     val images = setting<Boolean, Boolean>(
         key = booleanPreferencesKey("images"), default = true
     )

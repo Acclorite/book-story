@@ -55,7 +55,6 @@
     <string name="misc_reader_settings">その他</string>
     <string name="reading_mode_reader_settings">読書モード</string>
     <string name="system_reader_settings">システム</string>
-    <string name="chapters_reader_settings">チャプター</string>
     <string name="images_reader_settings">画像</string>
     <string name="progress_reader_settings">進捗</string>
     <string name="theme_appearance_settings">テーマ設定</string>
@@ -151,7 +150,6 @@
     <string name="screen_orientation_option">画面の向き</string>
     <string name="font_size_option">フォントサイズ</string>
     <string name="double_click_translation_option_desc">段落をダブルクリックして翻訳する</string>
-    <string name="chapter_title_alignment_option">チャプタータイトルの配置</string>
     <string name="pink_theme">土星</string>
     <string name="horizontal_gesture_sensitivity_option">感度</string>
     <string name="fullscreen_option_desc">システムバーと余白を隠す</string>

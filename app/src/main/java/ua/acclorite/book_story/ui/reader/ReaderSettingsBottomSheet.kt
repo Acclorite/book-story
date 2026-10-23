@@ -29,7 +29,7 @@ import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.ui.common.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.ui.common.components.modal_bottom_sheet.ModalBottomSheet
 import ua.acclorite.book_story.ui.settings.appearance.colors.ColorsSubcategory
-import ua.acclorite.book_story.ui.settings.reader.chapters.ChaptersSubcategory
+import ua.acclorite.book_story.ui.settings.reader.headers.HeadersSubcategory
 import ua.acclorite.book_story.ui.settings.reader.font.FontSubcategory
 import ua.acclorite.book_story.ui.settings.reader.images.ImagesSubcategory
 import ua.acclorite.book_story.ui.settings.reader.misc.MiscSubcategory
@@ -127,8 +127,9 @@ fun ReaderSettingsBottomSheet(
                         ImagesSubcategory(
                             titleColor = { MaterialTheme.colorScheme.onSurface }
                         )
-                        ChaptersSubcategory(
-                            titleColor = { MaterialTheme.colorScheme.onSurface }
+                        HeadersSubcategory(
+                            titleColor = { MaterialTheme.colorScheme.onSurface },
+                            backgroundColor = { MaterialTheme.colorScheme.surfaceContainer }
                         )
                         ProgressSubcategory(
                             titleColor = { MaterialTheme.colorScheme.onSurface }

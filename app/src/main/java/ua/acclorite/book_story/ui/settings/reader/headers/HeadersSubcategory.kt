@@ -6,7 +6,7 @@
 
 @file:Suppress("FunctionName")
 
-package ua.acclorite.book_story.ui.settings.reader.chapters
+package ua.acclorite.book_story.ui.settings.reader.headers
 
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.MaterialTheme
@@ -15,11 +15,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategory
-import ua.acclorite.book_story.ui.settings.reader.chapters.components.ChapterTitleAlignmentOption
+import ua.acclorite.book_story.ui.settings.reader.headers.components.HeaderOptions
 
-fun LazyListScope.ChaptersSubcategory(
+fun LazyListScope.HeadersSubcategory(
     titleColor: @Composable () -> Color = { MaterialTheme.colorScheme.primary },
-    title: @Composable () -> String = { stringResource(id = R.string.chapters_reader_settings) },
+    title: @Composable () -> String = { stringResource(id = R.string.headers_reader_settings) },
+    backgroundColor: @Composable () -> Color = { MaterialTheme.colorScheme.surfaceContainerLow },
     showTitle: Boolean = true,
     showDivider: Boolean = true,
 ) {
@@ -30,7 +31,7 @@ fun LazyListScope.ChaptersSubcategory(
         showDivider = showDivider
     ) {
         item {
-            ChapterTitleAlignmentOption()
+            HeaderOptions(backgroundColor = backgroundColor.invoke())
         }
     }
 }

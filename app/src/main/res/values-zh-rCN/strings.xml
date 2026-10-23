@@ -252,11 +252,9 @@
     <string name="tryzub_badge">三叉戟</string>
     <string name="checkpoint_forward_content_desc">取消检查点撤回</string>
     <string name="highlighted_reading_level">程度</string>
-    <string name="chapter_title_alignment_option">章节标题对齐</string>
     <string name="highlighted_reading_option">高亮词语</string>
     <string name="highlighted_reading_option_desc">高亮标记每个词的开头</string>
     <string name="highlighted_reading_thickness_option">标注边框</string>
-    <string name="chapters_reader_settings">章节</string>
     <string name="images_reader_settings">图片</string>
     <string name="progress_reader_settings">进度</string>
     <string name="images_option">图片</string>

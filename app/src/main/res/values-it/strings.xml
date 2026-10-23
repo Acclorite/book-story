@@ -205,7 +205,6 @@
     <string name="perception_expander_option">Espansore della percezione</string>
     <string name="red_gray_theme">Callisto</string>
     <string name="horizontal_gesture_option">Gesto orizzontale</string>
-    <string name="chapter_title_alignment_option">Allineamento del titolo del capitolo</string>
     <string name="fullscreen_option_desc">Nascondi barre e margini di sistema</string>
     <string name="highlighted_reading_level">livello</string>
     <string name="cover_image_deleted">L\'immagine di copertina è stata eliminata con successo.</string>
@@ -250,7 +249,6 @@
     <string name="images_option_desc">Visualizza le immagini insieme alle relative didascalie</string>
     <string name="images_corners_roundness_option">Angoli arrotondati</string>
     <string name="checkpoint_forward_content_desc">Punto di controllo avanti</string>
-    <string name="chapters_reader_settings">Capitoli</string>
     <string name="progress_reader_settings">Progressi</string>
     <string name="images_width_option">Dimensione</string>
     <string name="images_color_effects_option">Effetti di colore</string>

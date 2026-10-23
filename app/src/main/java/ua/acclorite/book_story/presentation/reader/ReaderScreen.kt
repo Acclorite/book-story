@@ -253,114 +253,23 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             )
         }
 
-        /* TODO: Header* style option */
-        val header1TextStyle = remember(
-            settings.fontFamily.value,
-            letterSpacing,
-            fontColor.value
-        ) {
-            TextStyle(
-                fontFamily = settings.fontFamily.lastValue.font,
-                fontWeight = FontWeight.Black,
-                textAlign = TextAlign.Center,
-                textIndent = TextIndent(firstLine = 0.sp),
-                fontStyle = FontStyle.Normal,
-                letterSpacing = letterSpacing,
-                fontSize = 46.sp,
-//                lineHeight = lineHeight,
-                color = fontColor.value,
-                lineBreak = LineBreak.Paragraph
-            )
-        }
-        val header2TextStyle = remember(
-            settings.fontFamily.value,
-            letterSpacing,
-            fontColor.value
-        ) {
-            TextStyle(
-                fontFamily = settings.fontFamily.lastValue.font,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Start,
-                textIndent = TextIndent(firstLine = 0.sp),
-                fontStyle = FontStyle.Normal,
-                letterSpacing = letterSpacing,
-                fontSize = 38.sp,
-//                lineHeight = lineHeight,
-                color = fontColor.value,
-                lineBreak = LineBreak.Paragraph
-            )
-        }
-        val header3TextStyle = remember(
-            settings.fontFamily.value,
-            letterSpacing,
-            fontColor.value
-        ) {
-            TextStyle(
-                fontFamily = settings.fontFamily.lastValue.font,
-                fontWeight = FontWeight.SemiBold,
-                textAlign = TextAlign.Start,
-                textIndent = TextIndent(firstLine = 0.sp),
-                fontStyle = FontStyle.Normal,
-                letterSpacing = letterSpacing,
-                fontSize = 30.sp,
-//                lineHeight = lineHeight,
-                color = fontColor.value,
-                lineBreak = LineBreak.Paragraph
-            )
-        }
-        val header4TextStyle = remember(
-            settings.fontFamily.value,
-            letterSpacing,
-            fontColor.value
-        ) {
-            TextStyle(
-                fontFamily = settings.fontFamily.lastValue.font,
-                fontWeight = FontWeight.SemiBold,
-                textAlign = TextAlign.Start,
-                textIndent = TextIndent(firstLine = 0.sp),
-                fontStyle = FontStyle.Normal,
-                letterSpacing = letterSpacing,
-                fontSize = 26.sp,
-//                lineHeight = lineHeight,
-                color = fontColor.value,
-                lineBreak = LineBreak.Paragraph
-            )
-        }
-        val header5TextStyle = remember(
-            settings.fontFamily.value,
-            letterSpacing,
-            fontColor.value
-        ) {
-            TextStyle(
-                fontFamily = settings.fontFamily.lastValue.font,
-                fontWeight = FontWeight.Medium,
-                textAlign = TextAlign.Start,
-                textIndent = TextIndent(firstLine = 0.sp),
-                fontStyle = FontStyle.Normal,
-                letterSpacing = letterSpacing,
-                fontSize = 24.sp,
-//                lineHeight = lineHeight,
-                color = fontColor.value,
-                lineBreak = LineBreak.Paragraph
-            )
-        }
-        val header6TextStyle = remember(
-            settings.fontFamily.value,
-            letterSpacing,
-            fontColor.value
-        ) {
-            TextStyle(
-                fontFamily = settings.fontFamily.lastValue.font,
-                fontWeight = FontWeight.Medium,
-                textAlign = TextAlign.Start,
-                textIndent = TextIndent(firstLine = 0.sp),
-                fontStyle = FontStyle.Normal,
-                letterSpacing = letterSpacing,
-                fontSize = 20.sp,
-//                lineHeight = lineHeight,
-                color = fontColor.value,
-                lineBreak = LineBreak.Paragraph
-            )
+        val headerTextStyles = settings.headers.map { header ->
+            val fontSize = header.fontSize.value
+            val fontWeight = header.fontWeight.value
+            val textAlignment = header.textAlignment.value
+
+            remember(paragraphTextStyle, fontSize, fontWeight, textAlignment) {
+                paragraphTextStyle.copy(
+                    fontSize = fontSize.sp,
+                    lineHeight = (fontSize * 1.2f).sp,
+                    fontWeight = FontWeight(fontWeight),
+                    fontStyle = FontStyle.Normal,
+                    textAlign = textAlignment.textAlignment,
+                    textIndent = if (textAlignment.textAlignment == TextAlign.Center) {
+                        TextIndent.None
+                    } else paragraphTextStyle.textIndent
+                )
+            }
         }
 
         val layoutDirection = LocalLayoutDirection.current
@@ -596,12 +505,12 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             progressBarAlignment = settings.progressBarAlignment.value,
             progressBarFontSize = progressBarFontSize,
             paragraphTextStyle = paragraphTextStyle,
-            header1TextStyle = header1TextStyle,
-            header2TextStyle = header2TextStyle,
-            header3TextStyle = header3TextStyle,
-            header4TextStyle = header4TextStyle,
-            header5TextStyle = header5TextStyle,
-            header6TextStyle = header6TextStyle,
+            header1TextStyle = headerTextStyles[0],
+            header2TextStyle = headerTextStyles[1],
+            header3TextStyle = headerTextStyles[2],
+            header4TextStyle = headerTextStyles[3],
+            header5TextStyle = headerTextStyles[4],
+            header6TextStyle = headerTextStyles[5],
             paragraphHeight = paragraphHeight,
             sidePadding = sidePadding,
             bottomBarPadding = bottomBarPadding,

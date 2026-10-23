@@ -154,7 +154,7 @@
     <string name="reading_speed_reader_settings">Reading speed</string>
     <string name="reading_mode_reader_settings">Reading mode</string>
     <string name="system_reader_settings">System</string>
-    <string name="chapters_reader_settings">Chapters</string>
+    <string name="headers_reader_settings">Headers</string>
     <string name="images_reader_settings">Images</string>
     <string name="progress_reader_settings">Progress</string>
     <string name="theme_appearance_settings">Theme preferences</string>
@@ -214,7 +214,7 @@
     <string name="fast_color_preset_change_option">Fast color preset change</string>
     <string name="fast_color_preset_change_option_desc">Swipe top bar left or right to change color preset</string>
     <string name="text_alignment_option">Text alignment</string>
-    <string name="chapter_title_alignment_option">Chapter title alignment</string>
+    <string name="header_level_label" translatable="false">H%1$d</string>
     <string name="letter_spacing_option">Letter spacing</string>
     <string name="cutout_padding_option">Cutout margin</string>
     <string name="cutout_padding_option_desc">Apply margin to the cutout area</string>

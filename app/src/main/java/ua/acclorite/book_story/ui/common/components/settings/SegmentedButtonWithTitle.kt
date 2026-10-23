@@ -50,7 +50,7 @@ import ua.acclorite.book_story.ui.settings.components.SettingsSubcategoryTitle
 @Composable
 fun <T> SegmentedButtonWithTitle(
     modifier: Modifier = Modifier,
-    title: String,
+    title: String? = null,
     buttons: List<ListItem<T>>,
     enabled: Boolean = true,
     horizontalPadding: Dp = 18.dp,
@@ -62,9 +62,10 @@ fun <T> SegmentedButtonWithTitle(
             .fillMaxWidth()
             .padding(horizontal = horizontalPadding, vertical = verticalPadding)
     ) {
-        SettingsSubcategoryTitle(title = title, padding = 0.dp)
-
-        Spacer(modifier = Modifier.height(8.dp))
+        if (title != null) {
+            SettingsSubcategoryTitle(title = title, padding = 0.dp)
+            Spacer(modifier = Modifier.height(8.dp))
+        }
 
         LazyRow(Modifier.fillMaxWidth()) {
             item {

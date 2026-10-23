@@ -198,8 +198,6 @@
     <string name="screen_orientation_locked_landscape">الوضع الافقي المقفل</string>
     <string name="credits_option">الاعتمادات</string>
     <string name="images_reader_settings">الصور</string>
-    <string name="chapters_reader_settings">الفصول</string>
-    <string name="chapter_title_alignment_option">محاذاة عنوان الفصل</string>
     <string name="reading_mode_reader_settings">وضع القراءة</string>
     <string name="progress_reader_settings">التقدم</string>
     <string name="images_alignment_option">المحاذاة</string>

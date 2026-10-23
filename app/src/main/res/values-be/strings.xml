@@ -62,7 +62,6 @@
     <string name="letter_spacing_option">Міжлітарны інтэрвал</string>
     <string name="horizontal_gesture_sensitivity_option">Адчувальнасць</string>
     <string name="text_alignment_option">Выраўноўванне тэксту</string>
-    <string name="chapter_title_alignment_option">Выроаўноўванне назвы раздзела</string>
     <string name="cutout_padding_option">Поле для выразання</string>
     <string name="fullscreen_option">Поўны экран</string>
     <string name="fullscreen_option_desc">Схаваць сістэмныя панэлі і палі</string>

@@ -225,7 +225,6 @@
     <string name="library_settings_desc">Kategorie, zobrazení, karty</string>
     <string name="padding_reader_settings">Okraje</string>
     <string name="reading_mode_reader_settings">Režim čtení</string>
-    <string name="chapters_reader_settings">Kapitoly</string>
     <string name="images_reader_settings">Obrázky</string>
     <string name="progress_reader_settings">Progres</string>
     <string name="theme_appearance_settings">Preference motivů</string>
@@ -249,7 +248,6 @@
     <string name="fast_color_preset_change_option">Rychlá změna přednastavených barev</string>
     <string name="fast_color_preset_change_option_desc">Přejetím horní lišty doleva nebo doprava změníte přednastavenou barvu</string>
     <string name="text_alignment_option">Zarovnání textu</string>
-    <string name="chapter_title_alignment_option">Zarovnání názvu kapitoly</string>
     <string name="letter_spacing_option">Rozestup písmen</string>
     <string name="cutout_padding_option">Okraj výřezu</string>
     <string name="cutout_padding_option_desc">Použít okraj na vyříznutou oblast</string>

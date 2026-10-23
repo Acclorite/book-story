@@ -242,11 +242,9 @@
     <string name="custom_screen_brightness_option">Benutzerdefinierte Helligkeit</string>
     <string name="red_gray_theme">Kallisto</string>
     <string name="checkpoint_back_content_desc">Kontrollpunkt zurück</string>
-    <string name="chapters_reader_settings">Kapitel</string>
     <string name="images_reader_settings">Bilder</string>
     <string name="images_alignment_option">Ausrichtung</string>
     <string name="progress_reader_settings">Fortschritt</string>
-    <string name="chapter_title_alignment_option">Ausrichtung der Kapiteltitel</string>
     <string name="images_option">Bilder</string>
     <string name="images_option_desc">Bilder anzeigen</string>
     <string name="images_corners_roundness_option">Eckenrundungen</string>
