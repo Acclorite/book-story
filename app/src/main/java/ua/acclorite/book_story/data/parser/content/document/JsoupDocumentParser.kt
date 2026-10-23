@@ -478,8 +478,9 @@ class JsoupDocumentParser @Inject constructor() {
             val name = URLDecoder.decode(element.attr("id"), StandardCharsets.UTF_8.name())
             if (name.isBlank()) return@forEach
 
-            element.html(element.html().replace(Regex("\\n+"), ""))
-            val base64Data = element.text().trim()
+            val base64Data = element.text().filterNot { character ->
+                character == ' ' || character == '\t' || character == '\r' || character == '\n'
+            }
             val imageBytes = Base64.decode(base64Data)
 
             images.add(BinaryImage(name, imageBytes))

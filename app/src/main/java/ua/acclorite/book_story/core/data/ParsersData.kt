@@ -7,7 +7,7 @@
 package ua.acclorite.book_story.core.data
 
 object ParsersData {
-    private const val JSOUP_PARSER = 1
+    private const val JSOUP_PARSER = 2
     private const val EPUB_PARSER = 1
     private const val PDF_PARSER = 1
     private const val HTML_PARSER = 1
