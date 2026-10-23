@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -27,10 +28,15 @@ import ua.acclorite.book_story.ui.common.components.settings.SliderWithTitle
 import ua.acclorite.book_story.ui.common.helpers.LocalSettings
 import ua.acclorite.book_story.ui.common.model.ListItem
 
+private var initialSelectedHeader = 0
+
 @Composable
 fun HeaderOptions(backgroundColor: Color) {
     val settings = LocalSettings.current
-    val selectedHeader = rememberSaveable { mutableIntStateOf(0) }
+    val selectedHeader = rememberSaveable { mutableIntStateOf(initialSelectedHeader) }
+    DisposableEffect(Unit) {
+        onDispose { initialSelectedHeader = selectedHeader.intValue }
+    }
 
     Column(
         Modifier
