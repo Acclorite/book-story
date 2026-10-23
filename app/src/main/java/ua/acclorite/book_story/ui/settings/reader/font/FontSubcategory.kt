@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategory
+import ua.acclorite.book_story.ui.settings.reader.font.components.BoldFontThicknessOption
 import ua.acclorite.book_story.ui.settings.reader.font.components.FontFamilyOption
 import ua.acclorite.book_story.ui.settings.reader.font.components.FontSizeOption
 import ua.acclorite.book_story.ui.settings.reader.font.components.FontStyleOption
@@ -39,6 +40,10 @@ fun LazyListScope.FontSubcategory(
 
         item {
             FontThicknessOption()
+        }
+
+        item {
+            BoldFontThicknessOption()
         }
 
         item {

@@ -127,6 +127,9 @@ class SettingsManager @Inject constructor(
         serialize = { it.toString() },
         deserialize = { it.toIntOrNull() ?: ReaderFontThickness.valueOf(it).thickness.weight }
     )
+    val boldFontThickness = setting<Int, Int>(
+        key = intPreferencesKey("bold_font_thickness"), default = 300
+    )
     val italic = setting<Boolean, Boolean>(
         key = booleanPreferencesKey("font_style"), default = false
     )

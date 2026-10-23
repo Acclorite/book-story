@@ -108,6 +108,7 @@ fun ReaderLayoutContinuous(
     progressBarAlignment: HorizontalAlignment,
     progressBarFontSize: TextUnit,
     paragraphTextStyle: TextStyle,
+    boldFontThickness: Int,
     header1TextStyle: TextStyle,
     header2TextStyle: TextStyle,
     header3TextStyle: TextStyle,
@@ -151,12 +152,14 @@ fun ReaderLayoutContinuous(
         header4TextStyle, header5TextStyle, header6TextStyle
     ).map { it.fontWeight ?: FontWeight.Normal }
     val paragraphFontWeight = paragraphTextStyle.fontWeight ?: FontWeight.Normal
+    val boldFontWeight = FontWeight((paragraphFontWeight.weight + boldFontThickness).coerceAtMost(900))
     val readerNodes = remember(
         nodes,
         density,
         highlightedReading,
         highlightedReadingThickness,
         paragraphFontWeight,
+        boldFontWeight,
         headerFontWeights
     ) {
         nodes.map { node ->
@@ -182,7 +185,7 @@ fun ReaderLayoutContinuous(
                             nodeContent.styles.forEach { style ->
                                 when (style.style) {
                                     is NodeContent.TextStyle.Bold -> addStyle(
-                                        SpanStyle(fontWeight = FontWeight.Bold),
+                                        SpanStyle(fontWeight = boldFontWeight),
                                         style.start,
                                         style.end
                                     )
