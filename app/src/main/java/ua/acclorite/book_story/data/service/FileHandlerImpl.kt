@@ -80,7 +80,11 @@ class FileHandlerImpl @Inject constructor(
     }
 
     override fun getParserFromBook(book: Book): Result<String> = runCatching {
-        book.filePath.substringAfterLast(".")
+        when (val extension = book.filePath.substringAfterLast(".").lowercase().trim()) {
+            "fb2" -> "xml"
+            "htm" -> "html"
+            else -> extension
+        }
     }
 
     /**
