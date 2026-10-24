@@ -21,6 +21,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.VerticalPager
+import androidx.compose.foundation.pager.PagerScope
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
@@ -53,6 +55,7 @@ import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -66,6 +69,7 @@ import ua.acclorite.book_story.domain.model.book.NodeContent
 import ua.acclorite.book_story.domain.model.book.NodeId
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.presentation.reader.ScrollTarget
+import ua.acclorite.book_story.presentation.reader.model.ReaderPagedDirection
 import ua.acclorite.book_story.ui.common.components.common.SelectionContainer
 import ua.acclorite.book_story.ui.common.components.common.StyledText
 import ua.acclorite.book_story.ui.common.helpers.LocalActivity
@@ -84,7 +88,7 @@ import kotlin.math.ceil
 
 @Composable
 fun ReaderLayoutPaged(
-    loadNodesBefore: suspend (NodeId, Int) -> List<Node>,
+    direction: ReaderPagedDirection,
     book: Book,
     nodes: List<Node>,
     paginating: Boolean,
@@ -127,7 +131,8 @@ fun ReaderLayoutPaged(
     updateProgress: (ReaderEvent.OnUpdateProgress) -> Unit,
     paginateForward: (ReaderEvent.OnPaginateForward) -> Unit,
     paginateBackward: (ReaderEvent.OnPaginateBackward) -> Unit,
-    scrollConsumed: (ReaderEvent.OnScrollConsumed) -> Unit
+    scrollConsumed: (ReaderEvent.OnScrollConsumed) -> Unit,
+    loadNodesBefore: suspend (NodeId, Int) -> List<Node>
 ) {
     val activity = LocalActivity.current
     val density = LocalDensity.current
@@ -348,14 +353,7 @@ fun ReaderLayoutPaged(
                 }
 
                 if (pages.isNotEmpty()) {
-                    HorizontalPager(
-                        state = pagerState,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .graphicsLayer { alpha = contentAlpha },
-                        verticalAlignment = Alignment.Top,
-                        userScrollEnabled = windowReady && !reflowing && toolbarHidden && scrollTarget == null
-                    ) { index ->
+                    val pageContent: @Composable PagerScope.(Int) -> Unit = { index ->
                         val page = pages.getOrNull(index - leadingPages)
                         if (page == null) {
                             Box(Modifier.fillMaxSize())
@@ -376,6 +374,30 @@ fun ReaderLayoutPaged(
                                 )
                             }
                         }
+                    }
+                    val pagerModifier = Modifier
+                        .fillMaxSize()
+                        .graphicsLayer { alpha = contentAlpha }
+                    val scrollEnabled = windowReady && !reflowing && toolbarHidden && scrollTarget == null
+
+                    if (direction.vertical) {
+                        VerticalPager(
+                            state = pagerState,
+                            modifier = pagerModifier,
+                            reverseLayout = direction.reversed,
+                            horizontalAlignment = Alignment.Start,
+                            userScrollEnabled = scrollEnabled,
+                            pageContent = pageContent
+                        )
+                    } else {
+                        HorizontalPager(
+                            state = pagerState,
+                            modifier = pagerModifier,
+                            reverseLayout = direction.reversed xor (layoutDirection == LayoutDirection.Rtl),
+                            verticalAlignment = Alignment.Top,
+                            userScrollEnabled = scrollEnabled,
+                            pageContent = pageContent
+                        )
                     }
                 }
             }

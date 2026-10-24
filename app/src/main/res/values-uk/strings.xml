@@ -249,6 +249,7 @@
     <string name="progress_bar_alignment_option">Розташування</string>
     <string name="progress_bar_font_size_option">Розмір шрифта</string>
     <string name="progress_count_option">Підрахунок прогресу</string>
+    <string name="paged_direction_option">Напрямок сторінок</string>
 
     <!-- Library -->
     <string name="read_button_option">Показувати кнопку «Читати»</string>
@@ -351,6 +352,12 @@
     <string name="progress_count_percentage">Відсотки</string>
     <string name="progress_count_quantity">Кількість</string>
     <string name="progress_count_characters">Символи</string>
+
+    <!-- Paged Direction properties -->
+    <string name="paged_direction_left_to_right">Зліва направо</string>
+    <string name="paged_direction_right_to_left">Справа наліво</string>
+    <string name="paged_direction_top_to_bottom">Зверху вниз</string>
+    <string name="paged_direction_bottom_to_top">Знизу вверх</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Меркурій</string>

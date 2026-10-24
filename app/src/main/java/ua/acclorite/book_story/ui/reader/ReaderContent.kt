@@ -27,12 +27,14 @@ import ua.acclorite.book_story.presentation.reader.ScrollTarget
 import ua.acclorite.book_story.presentation.reader.model.Checkpoint
 import ua.acclorite.book_story.presentation.reader.model.ReaderHorizontalGesture
 import ua.acclorite.book_story.presentation.reader.model.ReaderLayout
+import ua.acclorite.book_story.presentation.reader.model.ReaderPagedDirection
 import ua.acclorite.book_story.presentation.settings.SettingsEvent
 import ua.acclorite.book_story.ui.theme.model.HorizontalAlignment
 
 @Composable
 fun ReaderContent(
     layout: ReaderLayout,
+    pagedDirection: ReaderPagedDirection,
     layoutState: LayoutState,
     nodes: List<Node>,
     chapters: List<Chapter>,
@@ -145,6 +147,7 @@ fun ReaderContent(
         is LayoutState.Showing -> {
             ReaderScaffold(
                 layout = layout,
+                pagedDirection = pagedDirection,
                 nodes = nodes,
                 book = book,
                 paginating = paginating,

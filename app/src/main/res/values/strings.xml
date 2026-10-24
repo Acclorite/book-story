@@ -274,6 +274,7 @@
     <string name="progress_bar_alignment_option">Alignment</string>
     <string name="progress_bar_font_size_option">Font size</string>
     <string name="progress_count_option">Progress count</string>
+    <string name="paged_direction_option">Paging direction</string>
 
     <!-- Library -->
     <string name="read_button_option">Show «Read» button</string>
@@ -376,6 +377,12 @@
     <string name="progress_count_percentage">Percentage</string>
     <string name="progress_count_quantity">Paragraphs</string>
     <string name="progress_count_characters">Characters</string>
+
+    <!-- Paged Direction properties -->
+    <string name="paged_direction_left_to_right">Left to right</string>
+    <string name="paged_direction_right_to_left">Right to left</string>
+    <string name="paged_direction_top_to_bottom">Top to bottom</string>
+    <string name="paged_direction_bottom_to_top">Bottom to top</string>
 
     <!-- Themes -->
     <string name="dynamic_theme">Mercury</string>

@@ -36,6 +36,7 @@ import ua.acclorite.book_story.presentation.library.model.LibraryTitlePosition
 import ua.acclorite.book_story.presentation.reader.model.ReaderColorEffects
 import ua.acclorite.book_story.presentation.reader.model.ReaderFontThickness
 import ua.acclorite.book_story.presentation.reader.model.ReaderLayout
+import ua.acclorite.book_story.presentation.reader.model.ReaderPagedDirection
 import ua.acclorite.book_story.presentation.reader.model.ReaderHorizontalGesture
 import ua.acclorite.book_story.presentation.reader.model.ReaderProgressCount
 import ua.acclorite.book_story.presentation.reader.model.ReaderScreenOrientation
@@ -120,6 +121,10 @@ class SettingsManager @Inject constructor(
     val readerLayout = setting<ReaderLayout, String>(
         key = stringPreferencesKey("reader_layout"), default = ReaderLayout.PAGED,
         serialize = { it.name }, deserialize = { ReaderLayout.valueOf(it) }
+    )
+    val pagedDirection = setting<ReaderPagedDirection, String>(
+        key = stringPreferencesKey("paged_direction"), default = ReaderPagedDirection.LEFT_TO_RIGHT,
+        serialize = { it.name }, deserialize = { ReaderPagedDirection.valueOf(it) }
     )
     val fontFamily = setting<FontWithName, String>(
         key = stringPreferencesKey("font"), default = ReaderData.fonts[0],

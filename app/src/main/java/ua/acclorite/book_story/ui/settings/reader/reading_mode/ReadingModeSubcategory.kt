@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategory
 import ua.acclorite.book_story.ui.settings.reader.reading_mode.components.ReaderLayoutOption
+import ua.acclorite.book_story.ui.settings.reader.reading_mode.components.PagedDirectionOption
 
 fun LazyListScope.ReadingModeSubcategory(
     titleColor: @Composable () -> Color = { MaterialTheme.colorScheme.primary },
@@ -31,6 +32,10 @@ fun LazyListScope.ReadingModeSubcategory(
     ) {
         item {
             ReaderLayoutOption()
+        }
+
+        item {
+            PagedDirectionOption()
         }
     }
 }
