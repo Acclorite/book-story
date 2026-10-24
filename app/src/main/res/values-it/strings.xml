@@ -204,13 +204,11 @@
     <string name="start_welcome_desc">Verso un mondo in cui le parole incantano, insegnano e conducono verso avventure incredibili! Prepariamo un po\' di cose!</string>
     <string name="perception_expander_option">Espansore della percezione</string>
     <string name="red_gray_theme">Callisto</string>
-    <string name="horizontal_gesture_option">Gesto orizzontale</string>
     <string name="fullscreen_option_desc">Nascondi barre e margini di sistema</string>
     <string name="highlighted_reading_level">livello</string>
     <string name="cover_image_deleted">L\'immagine di copertina è stata eliminata con successo.</string>
     <string name="unknown">Sconosciuto</string>
     <string name="more_content_desc">Altro</string>
-    <string name="horizontal_gesture_sensitivity_option">Sensibilità</string>
     <string name="selected_content_desc">Selezionato</string>
     <string name="reset_cover">Ripristina immagine di copertina</string>
     <string name="reset_cover_desc">Ripristina l\'immagine di copertina del libro al valore predefinito</string>
@@ -225,7 +223,6 @@
     <string name="perception_expander_option_desc">Aumenta la velocità di lettura concentrandoti sul centro</string>
     <string name="perception_expander_padding_option">Margine laterale della linea</string>
     <string name="perception_expander_thickness_option">Spessore della linea</string>
-    <string name="horizontal_gesture_scroll_option">Frazione di scorrimento</string>
     <string name="pink2_theme">Ganimede</string>
     <string name="cutout_padding_option">Margine di ritaglio</string>
     <string name="cutout_padding_option_desc">Applicare il margine all\'area ritagliata</string>
@@ -243,7 +240,6 @@
     <string name="images_reader_settings">Immagini</string>
     <string name="images_alignment_option">Allineamento</string>
     <string name="images_option">Immagini</string>
-    <string name="horizontal_gesture_inverse">Acceso (inverso)</string>
     <string name="screen_orientation_landscape">Orrizzontale</string>
     <string name="alignment_justify">Giustifica</string>
     <string name="images_option_desc">Visualizza le immagini insieme alle relative didascalie</string>
@@ -264,12 +260,10 @@
     <string name="absolute_dark_option">Nero assoluto</string>
     <string name="tryzub_badge">Tryzub</string>
     <string name="color_preset_placeholder">Assegna un nome a un predefinito…</string>
-    <string name="horizontal_gesture_off">Spento</string>
     <string name="screen_orientation_locked_landscape">Blocco orrizzontale</string>
     <string name="pure_dark_power_saver">Risparmio</string>
     <string name="screen_orientation_locked_portrait">Blocco verticale</string>
     <string name="checkpoint_back_content_desc">Punto di controllo indietro</string>
-    <string name="horizontal_gesture_on">Acceso</string>
     <string name="error_no_file">Il file non esiste o non è accessibile</string>
     <string name="progress_count_option">Conteggio dei progressi</string>
     <string name="title_changed">Il titolo è stato modificato con successo.</string>
@@ -309,12 +303,8 @@
     <string name="scan_browse_settings">Scansiona</string>
     <string name="set_up_scanning">Imposta la scansione</string>
     <string name="support_development_option">Sostieni lo sviluppo</string>
-    <string name="horizontal_gesture_alpha_anim_option">Visibilità animazione</string>
     <string name="error_no_file_manager_app">Nessuna app trovata per scegliere la cartella.</string>
     <string name="report">Rapporto</string>
-    <string name="horizontal_gesture_pull_anim_option">Spingi animazione</string>
     <string name="crash_title">Oops! L\'applicazione è andata in crash.</string>
     <string name="crash_description">Segnala questo messaggio di arresto anomalo nel modo più comodo per te.</string>
-    <string name="horizontal_gesture_alpha_anim_option_desc">Abilita visibilità dell\'animazione quando si utilizza il gesto orizzontale</string>
-    <string name="horizontal_gesture_pull_anim_option_desc">Abilita l\'animazione di trazione quando si utilizza il gesto orizzontale</string>
 </resources>

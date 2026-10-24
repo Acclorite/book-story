@@ -172,9 +172,6 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
         ) {
             (settings.horizontalLimiterRulerThickness.lastValue * 0.25f).dp
         }
-        val horizontalGestureSensitivity = remember(settings.horizontalGestureSensitivity.value) {
-            (36f + settings.horizontalGestureSensitivity.lastValue * (4f - 36f)).dp
-        }
         val horizontalAlignment = remember(settings.textAlignment.value) {
             when (settings.textAlignment.lastValue) {
                 ReaderTextAlignment.START, ReaderTextAlignment.JUSTIFY -> Alignment.Start
@@ -505,12 +502,6 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             lockMenu = state.value.lockMenu,
             contentPadding = contentPadding,
             verticalPadding = verticalPadding,
-            horizontalGesture = settings.horizontalGesture.value,
-            horizontalGestureScroll = settings.horizontalGestureScroll.value,
-            horizontalGestureSensitivity = horizontalGestureSensitivity,
-            horizontalGestureAlphaAnim = settings.horizontalGestureAlphaAnim.value,
-            horizontalGesturePullAnim = settings.horizontalGesturePullAnim.value,
-            horizontalGestureDisableScrolling = settings.horizontalGestureDisableScrolling.value,
             highlightedReading = settings.highlightedReading.value,
             highlightedReadingThickness = settings.highlightedReadingThickness.value,
             progress = progress,

@@ -210,7 +210,6 @@
     <string name="progress_bar_font_size_option">حجم الخط</string>
     <string name="bottom_bar_padding_option">هامش الشريط السفلي</string>
     <string name="clear_selected_items_content_desc">امسح العناصر المُحدّدة</string>
-    <string name="horizontal_gesture_sensitivity_option">الحساسية</string>
     <string name="perception_expander_thickness_option">سمك الخط</string>
     <string name="edit">تعديل</string>
     <string name="images_option">صور</string>
@@ -223,8 +222,6 @@
     <string name="color_effects_background">لون الخلفية</string>
     <string name="green2_theme">Io</string>
     <string name="green_gray_theme">إنسيلادوس</string>
-    <string name="horizontal_gesture_off">اطفاء</string>
-    <string name="horizontal_gesture_on">تشغيل</string>
     <string name="highlighted_reading_option">تظليل الكلمات</string>
     <string name="highlighted_reading_option_desc">تظليل بداية كل كلمة</string>
     <string name="highlighted_reading_thickness_option">سماكة التظليل</string>
@@ -282,7 +279,6 @@
     <string name="checkbox_content_desc">مربّع تأشير</string>
     <string name="checkpoint_back_content_desc">نقطة التحقق إلى الخلف</string>
     <string name="alignment_justify">ساوِ</string>
-    <string name="horizontal_gesture_inverse">مُفعّل (عكسي)</string>
     <string name="title_changed">نجح تغيير العنوان.</string>
     <string name="highlighted_reading_level">المستوى</string>
     <string name="filter_content_desc">تصفية</string>
@@ -293,8 +289,6 @@
     <string name="open_in_web_content_desc">افتح في الويب</string>
     <string name="checkpoint_forward_content_desc">نقطة التحقق إلى الأمام</string>
     <string name="chapters_content_desc">الفصول</string>
-    <string name="horizontal_gesture_option">إيماءة أفقية</string>
-    <string name="horizontal_gesture_scroll_option">كسر التمرير</string>
     <string name="font_thickness_extra_light">خفيف أكثر</string>
     <string name="font_thickness_light">خفيف</string>
     <string name="start_done">كل شيء قد تم!</string>
@@ -309,12 +303,8 @@
     <string name="browse_scan_option_note">يتم استخدام هذه المجلدات لمسح الملفات واستردادها في تصفح. إن إزالة المجلد هنا لن يحذف الملفات أو الكتب الفعلية من المكتبة. لإلغاء الوصول، انقر فوق الزر المقابل.</string>
     <string name="start_scan_preferences">تفضيلات المسح</string>
     <string name="display_settings">العرض</string>
-    <string name="horizontal_gesture_alpha_anim_option">الرسوم المتحركة الرؤية</string>
     <string name="display_tab">عرض</string>
-    <string name="horizontal_gesture_alpha_anim_option_desc">فعّل الرسوم المتحركة الرؤية عند استخدام إيماءة أفقية</string>
     <string name="support_development_option">ادعم التطوير</string>
-    <string name="horizontal_gesture_pull_anim_option">اسحب الرسوم المتحركة</string>
-    <string name="horizontal_gesture_pull_anim_option_desc">فعّل سحب الرسوم المتحركة عند استخدام إيماءة أفقية</string>
     <string name="error_no_file_manager_app">لم يتم العثور على التطبيق لاختيار المجلد.</string>
     <string name="crash_title">عفواً! لقد تعطل التطبيق.</string>
     <string name="crash_description">يُرجى الإبلاغ عن رسالة التعطل هذه بالطريقة الأكثر ملاءمة لك.</string>
@@ -351,6 +341,4 @@
     <string name="library_per_category_sort_option_note">يمكن تغيير الترتيب في المكتبة.</string>
     <string name="show_navigation_labels_option">أظهر تسميات التنقل</string>
     <string name="show_navigation_labels_option_desc">أظهر تسميات شريط التنقل أسفل الأيقونات</string>
-    <string name="horizontal_gesture_disable_scrolling_option">عطّل التمرير</string>
-    <string name="horizontal_gesture_disable_scrolling_option_desc">تعطيل تمرير القارئ بالكامل</string>
 </resources>

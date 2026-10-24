@@ -246,8 +246,6 @@
     <string name="color_effects_background">Couleur d\'arrière-plan</string>
     <string name="set_up_scanning">Configurer le scan</string>
     <string name="expand_content_desc">Agrandir</string>
-    <string name="horizontal_gesture_off">Désactivé</string>
-    <string name="horizontal_gesture_alpha_anim_option_desc">Activer l\'animation de visibilité quand un geste horizontal est effectué</string>
     <string name="highlighted_reading_level">niveau</string>
     <string name="highlighted_reading_option">Surligner les mots</string>
     <string name="progress_count_option">Indicateur de progression</string>
@@ -256,12 +254,10 @@
     <string name="images_width_option">Taille</string>
     <string name="images_color_effects_option">Effets de couleur</string>
     <string name="progress_bar_option">Barre de progression</string>
-    <string name="horizontal_gesture_sensitivity_option">Sensibilité</string>
     <string name="progress_bar_option_desc">Affiche la barre de progression en bas</string>
     <string name="progress_bar_font_size_option">Taille de police</string>
     <string name="color_effects_grayscale">Niveaux de gris</string>
     <string name="edit_content_desc">Éditer</string>
-    <string name="horizontal_gesture_on">Activé</string>
     <string name="custom_screen_brightness_option">Luminosité personalisée</string>
     <string name="display_tab">Affichage</string>
     <string name="images_reader_settings">Images</string>
@@ -274,8 +270,6 @@
     <string name="support_development_option">Supporter le développement</string>
     <string name="file_details">Détails du fichier</string>
     <string name="screen_brightness_option">Luminosité</string>
-    <string name="horizontal_gesture_option">Geste horizontal</string>
-    <string name="horizontal_gesture_scroll_option">Fraction de défilement</string>
     <string name="more_content_desc">Plus</string>
     <string name="color_effects_font">Couleur de police</string>
     <string name="green2_theme">Io</string>
@@ -283,7 +277,6 @@
     <string name="red_gray_theme">Callisto</string>
     <string name="purple_gray_theme">Ceres</string>
     <string name="error_no_file">Le fichier n\'existe pas ou est inaccessible</string>
-    <string name="horizontal_gesture_alpha_anim_option">Animation de visibilité</string>
     <string name="images_option">Images</string>
     <string name="images_option_desc">Affiche les images</string>
     <string name="progress_bar_padding_option">Marges</string>
@@ -302,7 +295,6 @@
     <string name="edit">Modifier</string>
     <string name="change_path">Changer le chemin</string>
     <string name="add_folder">Ajouter un dossier</string>
-    <string name="horizontal_gesture_inverse">Activé (Inversé)</string>
     <string name="color_effects_off">Désactivé</string>
     <string name="progress_count_percentage">Pourcentage</string>
     <string name="progress_count_quantity">Quantité</string>
@@ -322,8 +314,6 @@
     <string name="tabs_settings">Onglets</string>
     <string name="categories_settings">Catégories</string>
     <string name="library_categories_option_note">Initialement, les livres sont ajoutés à la catégorie par défaut, mais ils peuvent appartenir à plusieurs catégories personnalisées créées ici. La suppression d\'une catégorie ici ne supprimera pas les livres de la bibliothèque. Maintenez l\'icône de la catégorie et déplacez-la pour réorganiser les catégories.</string>
-    <string name="horizontal_gesture_pull_anim_option">Animation de traction</string>
-    <string name="horizontal_gesture_pull_anim_option_desc">Activer l\'animation de traction lors de l\'utilisation d\'un geste horizontal</string>
     <string name="images_captions_option">Légendes</string>
     <string name="images_captions_option_desc">Afficher les légendes sous les images</string>
     <string name="read_button_option">Montrer le bouton «Lire»</string>

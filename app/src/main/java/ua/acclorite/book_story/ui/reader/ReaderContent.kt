@@ -25,7 +25,6 @@ import ua.acclorite.book_story.presentation.reader.LayoutState
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.presentation.reader.ScrollTarget
 import ua.acclorite.book_story.presentation.reader.model.Checkpoint
-import ua.acclorite.book_story.presentation.reader.model.ReaderHorizontalGesture
 import ua.acclorite.book_story.presentation.reader.model.ReaderLayout
 import ua.acclorite.book_story.presentation.reader.model.ReaderPagedDirection
 import ua.acclorite.book_story.presentation.settings.SettingsEvent
@@ -63,12 +62,6 @@ fun ReaderContent(
     lockMenu: Boolean,
     contentPadding: PaddingValues,
     verticalPadding: Dp,
-    horizontalGesture: ReaderHorizontalGesture,
-    horizontalGestureScroll: Float,
-    horizontalGestureSensitivity: Dp,
-    horizontalGestureAlphaAnim: Boolean,
-    horizontalGesturePullAnim: Boolean,
-    horizontalGestureDisableScrolling: Boolean,
     highlightedReading: Boolean,
     highlightedReadingThickness: Int,
     progress: String,
@@ -172,12 +165,6 @@ fun ReaderContent(
                 lockMenu = lockMenu,
                 contentPadding = contentPadding,
                 verticalPadding = verticalPadding,
-                horizontalGesture = horizontalGesture,
-                horizontalGestureScroll = horizontalGestureScroll,
-                horizontalGestureSensitivity = horizontalGestureSensitivity,
-                horizontalGestureAlphaAnim = horizontalGestureAlphaAnim,
-                horizontalGesturePullAnim = horizontalGesturePullAnim,
-                horizontalGestureDisableScrolling = horizontalGestureDisableScrolling,
                 highlightedReading = highlightedReading,
                 highlightedReadingThickness = highlightedReadingThickness,
                 progress = progress,

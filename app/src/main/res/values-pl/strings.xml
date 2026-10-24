@@ -222,7 +222,6 @@
     <string name="screen_orientation_locked_portrait">Zablokowany portret</string>
     <string name="error_no_file">Plik nie istnieje</string>
     <string name="screen_orientation_locked_landscape">Zablokowany krajobraz</string>
-    <string name="horizontal_gesture_off">Wył.</string>
     <string name="credits_design">Projekt</string>
     <string name="edit">Edytuj</string>
     <string name="ok">OK</string>
@@ -233,7 +232,6 @@
     <string name="custom_screen_brightness_option">Niestandardowa jasność</string>
     <string name="screen_brightness_option">Jasność</string>
     <string name="images_option">Obrazy</string>
-    <string name="horizontal_gesture_sensitivity_option">Czułość</string>
     <string name="images_option_desc">Wyświetlaj obrazy</string>
     <string name="images_width_option">Rozmiar</string>
     <string name="images_color_effects_option">Efekty kolorów</string>
@@ -270,7 +268,6 @@
     <string name="collapse_content_desc">Zwiń</string>
     <string name="description_changed">Opis został poprawnie zmieniony.</string>
     <string name="progress_count_option">Licznik postępu</string>
-    <string name="horizontal_gesture_on">Włączone</string>
     <string name="perception_expander_option">Ekspander postrzegania</string>
     <string name="pure_dark_power_saver">Oszczędzanie</string>
     <string name="highlighted_reading_option">Wyróżnij słowa</string>
@@ -287,8 +284,6 @@
     <string name="font_thickness_normal">Normalne</string>
     <string name="font_thickness_medium">Średnie</string>
     <string name="perception_expander_padding_option">Margines linii bocznej</string>
-    <string name="horizontal_gesture_option">Gest poziomy</string>
-    <string name="horizontal_gesture_scroll_option">Frakcja przewijania</string>
     <string name="remove_category">Usunąć kategorię?</string>
     <string name="remove_category_description">Spowoduje to usunięcie tej kategorii z biblioteki, ale nie spowoduje usunięcia żadnych książek.</string>
     <string name="categories_empty">Brak kategorii.</string>
@@ -304,7 +299,6 @@
     <string name="library_categories_option_note">Początkowo książki są dodawane do kategorii domyślnej, ale mogą należeć do kilku kategorii niestandardowych utworzonych w tym miejscu. Usunięcie kategorii w tym miejscu nie spowoduje usunięcia książek z biblioteki. Przytrzymaj i przesuń ikonę kategorii, aby zmienić kolejność kategorii.</string>
     <string name="library_per_category_sort_option_note">Sortowanie można zmienić w bibliotece.</string>
     <string name="show_navigation_labels_option">Pokaż etykiety nawigacyjne</string>
-    <string name="horizontal_gesture_disable_scrolling_option">Wyłącz przewijanie</string>
     <string name="images_captions_option">Podpisy</string>
     <string name="images_captions_option_desc">Wyświetlaj podpisy pod obrazkami</string>
     <string name="read_button_option">Pokaż przycisk „Przeczytaj”</string>
@@ -314,7 +308,6 @@
     <string name="library_title_position_below">Poniżej</string>
     <string name="sort_order_progress">Postęp</string>
     <string name="sort_order_author">Autor</string>
-    <string name="horizontal_gesture_inverse">Włączone (odwrócone)</string>
     <string name="crash_title">Ups! Aplikacja się zawiesiła.</string>
     <string name="crash_description">Proszę zgłosić ten komunikat o awarii w najwygodniejszy dla siebie sposób.</string>
     <string name="select_all_books_content_desc">Wybierz wszystkie książki</string>

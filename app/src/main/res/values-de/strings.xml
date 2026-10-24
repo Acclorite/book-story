@@ -264,18 +264,12 @@
     <string name="green_gray_theme">Enceladus</string>
     <string name="purple_gray_theme">Ceres</string>
     <string name="yellow2_theme">Mach mit</string>
-    <string name="horizontal_gesture_inverse">Ein (Invers)</string>
     <string name="pin_content_desc">Stift</string>
     <string name="progress_bar_alignment_option">Ausrichtung</string>
-    <string name="horizontal_gesture_on">An</string>
-    <string name="horizontal_gesture_option">Horizontale Geste</string>
-    <string name="horizontal_gesture_scroll_option">Scroll-Bruch</string>
-    <string name="horizontal_gesture_sensitivity_option">Empfindlichkeit</string>
     <string name="bottom_bar_padding_option">Unterer Balkenrand</string>
     <string name="highlighted_reading_option">Wörter hervorheben</string>
     <string name="highlighted_reading_option_desc">Markieren Sie den Anfang jedes Wortes</string>
     <string name="highlighted_reading_thickness_option">Stärke der Markierungen</string>
-    <string name="horizontal_gesture_off">Aus</string>
     <string name="error_no_file">Die Datei existiert nicht oder ist unzugänglich</string>
     <string name="continue_reading_query">Weiterlesen bei %1$s</string>
     <string name="edit">Bearbeiten</string>
@@ -306,8 +300,6 @@
     <string name="add_folder">Ordner hinzufügen</string>
     <string name="set_up_scanning">Scannen einrichten</string>
     <string name="scan_browse_settings">Scannen</string>
-    <string name="horizontal_gesture_alpha_anim_option_desc">Aktivieren der Sichtbarkeitsanimation bei Verwendung der horizontalen Geste</string>
-    <string name="horizontal_gesture_pull_anim_option">Zieh-Animation</string>
     <string name="crash_title">Huch! Die App ist abgestürzt.</string>
     <string name="crash_description">Bitte melde diese Absturzmeldung auf die für dich am besten geeignete Weise.</string>
     <string name="remove_content_desc">Entfernen</string>
@@ -317,8 +309,6 @@
     <string name="display_settings">Anzeie</string>
     <string name="browse_scan_option_note">Diese Ordner werden zum Scannen und Abrufen von Dateien in der Suchfunktion verwendet. Wenn du einen Ordner entfernst werden die eigentlichen Dateien oder Bücher nicht aus der Bibliothek gelöscht. Um den Zugriff zu widerrufen, klicke auf die entsprechende Schaltfläche.</string>
     <string name="support_development_option">Development unterstützen</string>
-    <string name="horizontal_gesture_pull_anim_option_desc">Zieh-Animation bei Verwendung der horizontalen Geste aktivieren</string>
-    <string name="horizontal_gesture_alpha_anim_option">Sichtbarkeitsanimation</string>
     <string name="remove_category">Kategorie entfernen?</string>
     <string name="remove_category_description">Dadurch wird diese Kategorie aus der Bibliothek entfernt, es werden jedoch keine Bücher gelöscht.</string>
     <string name="error_field_empty">Dieses Feld darf nicht leer bleiben.</string>
@@ -351,6 +341,4 @@
     <string name="select_all_books_content_desc">Alle Bücher auswählen</string>
     <string name="show_navigation_labels_option">Navigationsbezeichnungen anzeigen</string>
     <string name="show_navigation_labels_option_desc">Navigationsleistenbeschriftungen unter den Symbolen anzeigen</string>
-    <string name="horizontal_gesture_disable_scrolling_option">Scrollen deaktivieren</string>
-    <string name="horizontal_gesture_disable_scrolling_option_desc">Scrollen im Reader vollständig deaktivieren</string>
 </resources>

@@ -216,19 +216,6 @@
     <string name="screen_orientation_option">Орієнтація екрана</string>
     <string name="custom_screen_brightness_option">Користувацька яскравість</string>
     <string name="screen_brightness_option">Яскравість</string>
-    <string name="horizontal_gesture_option">Горизонтальний жест</string>
-    <string name="horizontal_gesture_scroll_option">Частка прокрутки</string>
-    <string name="horizontal_gesture_sensitivity_option">Чутливість</string>
-    <string name="horizontal_gesture_alpha_anim_option">Анімація видимості</string>
-    <string name="horizontal_gesture_alpha_anim_option_desc">
-        Увімкнути анімацію видимості під час використання горизонтального жесту
-    </string>
-    <string name="horizontal_gesture_pull_anim_option">Анімація тягнення</string>
-    <string name="horizontal_gesture_pull_anim_option_desc">
-        Увімкнути анімацію тягнення під час використання горизонтального жесту
-    </string>
-    <string name="horizontal_gesture_disable_scrolling_option">Вимкнути гортання</string>
-    <string name="horizontal_gesture_disable_scrolling_option_desc">Повністю вимкнути гортання читача</string>
     <string name="bottom_bar_padding_option">Відступ нижньої панелі</string>
     <string name="highlighted_reading_option">Підсвічування слів</string>
     <string name="highlighted_reading_option_desc">Підсвічувати початок кожного слова</string>
@@ -326,11 +313,6 @@
     <string name="screen_orientation_landscape">Альбом</string>
     <string name="screen_orientation_locked_portrait">Заблокований портрет</string>
     <string name="screen_orientation_locked_landscape">Заблокований альбом</string>
-
-    <!-- Horizontal Gesture properties -->
-    <string name="horizontal_gesture_off">Вимкнений</string>
-    <string name="horizontal_gesture_on">Ввімкнений</string>
-    <string name="horizontal_gesture_inverse">Ввімкнений (Інвертований)</string>
 
     <!-- Highlighted Reading properties -->
     <string name="highlighted_reading_level">рівень</string>

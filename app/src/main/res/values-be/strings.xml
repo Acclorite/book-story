@@ -58,9 +58,7 @@
     <string name="perception_expander_option">Пашыральнік ўспрымання</string>
     <string name="cutout_padding_option_desc">Дадайце поле на вобласць выраза</string>
     <string name="perception_expander_thickness_option">Таўшчыня лініі</string>
-    <string name="horizontal_gesture_option">Гарызантальны жэст</string>
     <string name="letter_spacing_option">Міжлітарны інтэрвал</string>
-    <string name="horizontal_gesture_sensitivity_option">Адчувальнасць</string>
     <string name="text_alignment_option">Выраўноўванне тэксту</string>
     <string name="cutout_padding_option">Поле для выразання</string>
     <string name="fullscreen_option">Поўны экран</string>
@@ -72,7 +70,6 @@
     <string name="screen_orientation_option">Арыентацыя экрана</string>
     <string name="custom_screen_brightness_option">Карыстальніцкая яркасць</string>
     <string name="screen_brightness_option">Яркасць</string>
-    <string name="horizontal_gesture_scroll_option">Дроб пракруткі</string>
     <string name="bottom_bar_padding_option">Водступ ніжняй панэлі</string>
     <string name="highlighted_reading_option">Вылучанне слоў</string>
     <string name="highlighted_reading_option_desc">Вылучаць пачатак кожнага слова</string>

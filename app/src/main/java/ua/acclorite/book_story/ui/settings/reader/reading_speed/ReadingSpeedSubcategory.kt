@@ -16,12 +16,6 @@ import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.ui.common.components.settings.ContinuousLayoutOnlySetting
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategory
-import ua.acclorite.book_story.ui.settings.reader.reading_mode.components.HorizontalGestureAlphaAnimOption
-import ua.acclorite.book_story.ui.settings.reader.reading_mode.components.HorizontalGestureDisableScrollingOption
-import ua.acclorite.book_story.ui.settings.reader.reading_mode.components.HorizontalGestureOption
-import ua.acclorite.book_story.ui.settings.reader.reading_mode.components.HorizontalGesturePullAnimOption
-import ua.acclorite.book_story.ui.settings.reader.reading_mode.components.HorizontalGestureScrollOption
-import ua.acclorite.book_story.ui.settings.reader.reading_mode.components.HorizontalGestureSensitivityOption
 import ua.acclorite.book_story.ui.settings.reader.reading_speed.components.HighlightedReadingOption
 import ua.acclorite.book_story.ui.settings.reader.reading_speed.components.HighlightedReadingThicknessOption
 import ua.acclorite.book_story.ui.settings.reader.reading_speed.components.HorizontalLimiterDimmingOption
@@ -102,40 +96,5 @@ fun LazyListScope.ReadingSpeedSubcategory(
             }
         }
 
-        item {
-            ContinuousLayoutOnlySetting {
-                HorizontalGestureOption()
-            }
-        }
-
-        item {
-            ContinuousLayoutOnlySetting {
-                HorizontalGestureScrollOption()
-            }
-        }
-
-        item {
-            ContinuousLayoutOnlySetting {
-                HorizontalGestureSensitivityOption()
-            }
-        }
-
-        item {
-            ContinuousLayoutOnlySetting {
-                HorizontalGesturePullAnimOption()
-            }
-        }
-
-        item {
-            ContinuousLayoutOnlySetting {
-                HorizontalGestureAlphaAnimOption()
-            }
-        }
-
-        item {
-            ContinuousLayoutOnlySetting {
-                HorizontalGestureDisableScrollingOption()
-            }
-        }
     }
 }

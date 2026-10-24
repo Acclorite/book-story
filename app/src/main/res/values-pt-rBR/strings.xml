@@ -185,13 +185,9 @@
     <string name="screen_orientation_locked_landscape">Horizontal travado</string>
     <string name="custom_screen_brightness_option">Iluminação customizada</string>
     <string name="reading_mode_reader_settings">Modo de leitura</string>
-    <string name="horizontal_gesture_option">Gesto horizontal</string>
-    <string name="horizontal_gesture_on">Ativo</string>
     <string name="reset_cover">Restaurar a imagem da capa</string>
     <string name="report_bug_option">Reportar um erro</string>
     <string name="licenses_option">Licenças de código aberto</string>
-    <string name="horizontal_gesture_sensitivity_option">Sensibilidade</string>
-    <string name="horizontal_gesture_off">Desativar</string>
     <string name="error_no_browser">Nenhum aplicativo de navegador encontrado.</string>
     <string name="error_no_share_app">Nenhum aplicativo para compartilhar encontrado.</string>
     <string name="error_no_dictionary">Nenhum aplicativo de dicionário encontrado.</string>
@@ -216,7 +212,6 @@
     <string name="absolute_dark_option_desc">Mude a cor do fundo para preto total</string>
     <string name="fast_color_preset_change_option_desc">Deslize a barra superior para esquerda e oara direita para mudar o padrão de cores</string>
     <string name="hide_bars_on_fast_scroll_option">Esconder barras ao rolar</string>
-    <string name="horizontal_gesture_scroll_option">Fração de deslize</string>
     <string name="bottom_bar_padding_option">Margem da barra inferior</string>
     <string name="perception_expander_option">Expansor de percepção</string>
     <string name="perception_expander_padding_option">Margem lateral da linha</string>
@@ -272,7 +267,6 @@
     <string name="credits_updates">Gerenciamento dos novos updates</string>
     <string name="cover_reset">A imagem da capa foi redefininda com sucesso.</string>
     <string name="book_moved">Esse livro foi movido com sucesso.</string>
-    <string name="horizontal_gesture_inverse">Ligado (Inverso)</string>
     <string name="delete_whole_history_content_desc">Apagar o histórico inteiro</string>
     <string name="yellow2_theme">Makemake</string>
     <string name="pin_content_desc">Fixar</string>
@@ -310,15 +304,11 @@
     <string name="remove_content_desc">Remover</string>
     <string name="error_no_file_manager_app">Nenhum aplicativo para escolher a pasta foi encontrado.</string>
     <string name="report">Reportar</string>
-    <string name="horizontal_gesture_alpha_anim_option">Animação de transição suave</string>
-    <string name="horizontal_gesture_alpha_anim_option_desc">Habilitar transição suave ao usar gesto horizontal</string>
-    <string name="horizontal_gesture_pull_anim_option">Animação de puxar</string>
     <string name="crash_title">Ops! O aplicativo parou de funcionar.</string>
     <string name="display_tab">Exibição</string>
     <string name="display_settings">Exibição</string>
     <string name="support_development_option">Apoiar o desenvolvimento</string>
     <string name="crash_description">Por favor, reporte essa mensagem de erro da forma que lhe for mais conveniente.</string>
-    <string name="horizontal_gesture_pull_anim_option_desc">Habilitar animação de puxar ao usar gesto horizontal</string>
     <string name="remove_category">Remover categoria?</string>
     <string name="remove_category_description">Isso vai remover essa categoria da Biblioteca, mas não excluirá nenhum livro.</string>
     <string name="error_field_empty">Esse campo não deve estar vazio.</string>

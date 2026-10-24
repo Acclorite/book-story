@@ -124,14 +124,10 @@
     <string name="add_folder">Adăugați director</string>
     <string name="file_details">Detaliile fișierului</string>
     <string name="screen_orientation_option">Orientarea ecranului</string>
-    <string name="horizontal_gesture_on">Activat</string>
-    <string name="horizontal_gesture_off">Dezactivat</string>
     <string name="screen_orientation_portrait">Portret</string>
-    <string name="horizontal_gesture_option">Gesturi pe orizontală</string>
     <string name="screen_orientation_free">Liber</string>
     <string name="alignment_end">Aliniază la dreapta</string>
     <string name="alignment_start">Aliniează la stânga</string>
-    <string name="horizontal_gesture_inverse">Activat (invers)</string>
     <string name="continue_reading_query">Continuă de la %1$s</string>
     <string name="today">Astăzi</string>
     <string name="font_reader_settings">Font</string>

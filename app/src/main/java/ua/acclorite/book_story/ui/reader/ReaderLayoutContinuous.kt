@@ -60,7 +60,6 @@ import ua.acclorite.book_story.domain.model.book.Book
 import ua.acclorite.book_story.domain.model.book.Node
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.presentation.reader.ScrollTarget
-import ua.acclorite.book_story.presentation.reader.model.ReaderHorizontalGesture
 import ua.acclorite.book_story.ui.common.components.common.AnimatedVisibility
 import ua.acclorite.book_story.ui.common.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.ui.common.components.common.SelectionContainer
@@ -85,12 +84,6 @@ fun ReaderLayoutContinuous(
     scrollTarget: ScrollTarget?,
     contentPadding: PaddingValues,
     verticalPadding: Dp,
-    horizontalGesture: ReaderHorizontalGesture,
-    horizontalGestureScroll: Float,
-    horizontalGestureSensitivity: Dp,
-    horizontalGestureAlphaAnim: Boolean,
-    horizontalGesturePullAnim: Boolean,
-    horizontalGestureDisableScrolling: Boolean,
     highlightedReading: Boolean,
     highlightedReadingThickness: Int,
     progress: String,
@@ -347,15 +340,6 @@ fun ReaderLayoutContinuous(
                 )
                 .padding(contentPadding)
                 .padding(vertical = verticalPadding)
-                .readerHorizontalGesture(
-                    listState = listState,
-                    horizontalGesture = horizontalGesture,
-                    horizontalGestureScroll = horizontalGestureScroll,
-                    horizontalGestureSensitivity = horizontalGestureSensitivity,
-                    horizontalGestureAlphaAnim = horizontalGestureAlphaAnim,
-                    horizontalGesturePullAnim = horizontalGesturePullAnim,
-                    isLoading = isInitialLoading.value
-                )
         ) {
             LazyColumnWithScrollbar(
                 state = listState,
@@ -364,7 +348,7 @@ fun ReaderLayoutContinuous(
                     .weight(1f)
                     .graphicsLayer { alpha = contentAlpha },
                 modifier = Modifier.fillMaxSize(),
-                userScrollEnabled = !horizontalGestureDisableScrolling && !isInitialLoading.value,
+                userScrollEnabled = !isInitialLoading.value,
                 contentPadding = PaddingValues(
                     top = (WindowInsets.displayCutout.asPaddingValues()
                         .calculateTopPadding() + paragraphHeight)

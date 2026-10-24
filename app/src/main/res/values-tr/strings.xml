@@ -169,9 +169,6 @@
     <string name="screen_orientation_option">Ekran yönü</string>
     <string name="custom_screen_brightness_option">Özel parlaklık</string>
     <string name="screen_brightness_option">Parlaklık</string>
-    <string name="horizontal_gesture_option">Yatay hareket</string>
-    <string name="horizontal_gesture_scroll_option">Kaydırma oranı</string>
-    <string name="horizontal_gesture_sensitivity_option">Hassasiyet</string>
     <string name="bottom_bar_padding_option">Alt çubuk boşluğu</string>
     <string name="highlighted_reading_option">Kelimeleri vurgula</string>
     <string name="highlighted_reading_option_desc">Her kelimenin başlangıcını vurgula</string>
@@ -233,10 +230,6 @@
     <string name="screen_orientation_landscape">Yatay</string>
     <string name="screen_orientation_locked_portrait">Kilitli dikey</string>
     <string name="screen_orientation_locked_landscape">Kilitli yatay</string>
-    <!-- Horizontal Gesture properties -->
-    <string name="horizontal_gesture_off">Kapalı</string>
-    <string name="horizontal_gesture_on">Açık</string>
-    <string name="horizontal_gesture_inverse">Açık (Ters)</string>
     <!-- Highlighted Reading properties -->
     <string name="highlighted_reading_level">seviye</string>
     <!-- Color Effect properties -->
@@ -383,14 +376,10 @@
     <string name="error_no_file_manager_app">Klasör seçmek için uygun bir uygulama bulunamadı.</string>
     <string name="report">Raporla</string>
     <string name="display_settings">Görüntüle</string>
-    <string name="horizontal_gesture_alpha_anim_option">Görünürlük animasyonu</string>
-    <string name="horizontal_gesture_alpha_anim_option_desc">Yatay hareket kullanılırken görünürlük animasyonunu etkinleştir</string>
     <string name="support_development_option">Geliştirmeyi destekle</string>
     <string name="crash_title">Hata! Uygulama kapandı.</string>
     <string name="crash_description">Lütfen bu hata mesajını size en kolay gelen yöntemle raporlayın.</string>
     <string name="display_tab">Görüntüle</string>
-    <string name="horizontal_gesture_pull_anim_option">Kaydırma animasyonu</string>
-    <string name="horizontal_gesture_pull_anim_option_desc">Yatay hareket kullanırken kaydırma animasyonunu etkinleştir</string>
     <string name="remove_category">Kategori kaldırılsın mı?</string>
     <string name="remove_category_description">Bu işlem, bu kategoriyi Kitaplıktan kaldıracak ancak herhangi bir kitabı silmeyecektir.</string>
     <string name="error_field_empty">Bu alan boş bırakılamaz.</string>
@@ -423,6 +412,4 @@
     <string name="select_all_books_content_desc">Tüm kitapları seç</string>
     <string name="show_navigation_labels_option">Gezinme etiketlerini göster</string>
     <string name="show_navigation_labels_option_desc">Simgelerin altında gezinme çubuğu etiketlerini göster</string>
-    <string name="horizontal_gesture_disable_scrolling_option">Kaydırmayı devre dışı bırak</string>
-    <string name="horizontal_gesture_disable_scrolling_option_desc">Okuyucu kaydırmayı tamamen devre dışı bırakın</string>
 </resources>

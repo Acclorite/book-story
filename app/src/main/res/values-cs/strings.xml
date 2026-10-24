@@ -104,8 +104,6 @@
     <string name="screen_orientation_landscape">Na šířku</string>
     <string name="screen_orientation_locked_portrait">Pouze na výšku</string>
     <string name="screen_orientation_locked_landscape">Pouze na šířku</string>
-    <string name="horizontal_gesture_off">Vypnuté</string>
-    <string name="horizontal_gesture_on">Zapnuté</string>
     <string name="red_gray_theme">Callisto</string>
     <string name="no_chapters">Žádné kapitoly</string>
     <string name="report_bug_option">Nahlásit chybu</string>
@@ -169,7 +167,6 @@
     <string name="screen_brightness_option">Jas obrazovky</string>
     <string name="cover_image_deleted">Obálka byla úspěšně smazána.</string>
     <string name="custom_screen_brightness_option">Vlastní jas obrazovky</string>
-    <string name="horizontal_gesture_sensitivity_option">Citlivost</string>
     <string name="start_language_preferences">Preference jazyka</string>
     <string name="start_theme_preferences">Preference témat</string>
     <string name="history_content_desc">Historie čtení</string>
@@ -256,12 +253,6 @@
     <string name="perception_expander_option">Rozšiřovač vnímání</string>
     <string name="perception_expander_option_desc">Zvyšte svou rychlost čtení tím, že se soustředíte na střed</string>
     <string name="perception_expander_padding_option">Okraj na straně řádku</string>
-    <string name="horizontal_gesture_option">Horizontální gesto</string>
-    <string name="horizontal_gesture_scroll_option">Frakce posouvání</string>
-    <string name="horizontal_gesture_alpha_anim_option">Animace viditelnosti</string>
-    <string name="horizontal_gesture_alpha_anim_option_desc">Povolit animaci viditelnosti při použití horizontálního gesta</string>
-    <string name="horizontal_gesture_pull_anim_option">Animace tahu</string>
-    <string name="horizontal_gesture_pull_anim_option_desc">Povolit animaci tahu při použití horizontálního gesta</string>
     <string name="bottom_bar_padding_option">Okraj spodní lišty</string>
     <string name="highlighted_reading_option">Zvýraznění slov</string>
     <string name="highlighted_reading_option_desc">Zvýraznit začátek každého slova</string>
@@ -285,8 +276,6 @@
     <string name="title_position_option">Pozice názvu</string>
     <string name="show_navigation_labels_option">Zobrazit navigační popisky</string>
     <string name="show_navigation_labels_option_desc">Zobrazit popisky navigační lišty pod ikonami</string>
-    <string name="horizontal_gesture_disable_scrolling_option">Zakázat posouvání</string>
-    <string name="horizontal_gesture_disable_scrolling_option_desc">Zcela zakázat posouvání čtečky</string>
     <string name="show_book_count_option">Zobrazit počet knih</string>
     <string name="show_category_tabs_option">Zobrazit záložky kategorií</string>
     <string name="always_show_default_tab_option">Vždy zobrazit výchozí kartu</string>
@@ -299,7 +288,6 @@
     <string name="sort_order_last_read">Naposledy čteno</string>
     <string name="sort_order_progress">Pokrok</string>
     <string name="sort_order_author">Autor</string>
-    <string name="horizontal_gesture_inverse">Zapnuto (Inverzní)</string>
     <string name="highlighted_reading_level">úroveň</string>
     <string name="color_effects_off">Vypnuto</string>
     <string name="color_effects_grayscale">Šedá stupnice</string>

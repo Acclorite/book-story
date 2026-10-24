@@ -37,7 +37,6 @@ import ua.acclorite.book_story.presentation.reader.model.ReaderColorEffects
 import ua.acclorite.book_story.presentation.reader.model.ReaderFontThickness
 import ua.acclorite.book_story.presentation.reader.model.ReaderLayout
 import ua.acclorite.book_story.presentation.reader.model.ReaderPagedDirection
-import ua.acclorite.book_story.presentation.reader.model.ReaderHorizontalGesture
 import ua.acclorite.book_story.presentation.reader.model.ReaderProgressCount
 import ua.acclorite.book_story.presentation.reader.model.ReaderScreenOrientation
 import ua.acclorite.book_story.presentation.reader.model.ReaderTextAlignment
@@ -225,27 +224,6 @@ class SettingsManager @Inject constructor(
     val screenBrightness = setting<Float, Double>(
         key = doublePreferencesKey("screen_brightness"), default = 0.5f,
         serialize = { it.toDouble() }, deserialize = { it.toFloat() }
-    )
-    val horizontalGesture = setting<ReaderHorizontalGesture, String>(
-        key = stringPreferencesKey("horizontal_gesture"), default = ReaderHorizontalGesture.OFF,
-        serialize = { it.name }, deserialize = { ReaderHorizontalGesture.valueOf(it) }
-    )
-    val horizontalGestureScroll = setting<Float, Double>(
-        key = doublePreferencesKey("horizontal_gesture_scroll"), default = 0.7f,
-        serialize = { it.toDouble() }, deserialize = { it.toFloat() }
-    )
-    val horizontalGestureSensitivity = setting<Float, Double>(
-        key = doublePreferencesKey("horizontal_gesture_sensitivity"), default = 0.6f,
-        serialize = { it.toDouble() }, deserialize = { it.toFloat() }
-    )
-    val horizontalGestureAlphaAnim = setting<Boolean, Boolean>(
-        key = booleanPreferencesKey("horizontal_gesture_alpha_anim_bool"), default = true
-    )
-    val horizontalGesturePullAnim = setting<Boolean, Boolean>(
-        key = booleanPreferencesKey("horizontal_gesture_pull_anim"), default = true
-    )
-    val horizontalGestureDisableScrolling = setting<Boolean, Boolean>(
-        key = booleanPreferencesKey("horizontal_gesture_disable_scrolling"), default = false
     )
     val bottomBarPadding = setting<Int, Int>(
         key = intPreferencesKey("bottom_bar_padding"), default = 0

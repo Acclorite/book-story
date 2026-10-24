@@ -210,14 +210,8 @@
     <string name="sort_order_content_desc">排序规则</string>
     <string name="search_content_desc">搜索</string>
     <string name="clear_selected_items_content_desc">清除选中项目</string>
-    <string name="horizontal_gesture_on">开启</string>
-    <string name="horizontal_gesture_off">关闭</string>
-    <string name="horizontal_gesture_option">水平手势</string>
-    <string name="horizontal_gesture_scroll_option">滚动比例</string>
     <string name="start_welcome_desc">来一起通往一个言辞迷人、启发思考并带领我们踏上奇妙冒险的世界！现在让我们开始一些准备吧！</string>
-    <string name="horizontal_gesture_sensitivity_option">灵敏度</string>
     <string name="bottom_bar_padding_option">底部边距</string>
-    <string name="horizontal_gesture_inverse">开启（反转）</string>
     <string name="app_icon_content_desc">APP图标</string>
     <string name="exit_search_content_desc">退出搜索</string>
     <string name="move_books_content_desc">移动所选书籍</string>
@@ -302,15 +296,11 @@
     <string name="collapse_content_desc">折叠</string>
     <string name="scan_browse_settings">扫描</string>
     <string name="browse_scan_option_note">这些文件夹用于扫描和检索浏览器中的文件。在此处删除文件夹不会从库中删除实际文件或书籍。要撤销访问权限，请单击相应的按钮。</string>
-    <string name="horizontal_gesture_alpha_anim_option">视觉动画</string>
     <string name="start_scan_preferences">扫描首选项</string>
     <string name="display_tab">显示</string>
     <string name="display_settings">显示</string>
     <string name="remove_content_desc">移除</string>
     <string name="note_content_desc">笔记</string>
-    <string name="horizontal_gesture_alpha_anim_option_desc">使用水平手势时启用视觉动画</string>
-    <string name="horizontal_gesture_pull_anim_option">拉动动画</string>
-    <string name="horizontal_gesture_pull_anim_option_desc">使用水平手势时启用拉动动画</string>
     <string name="support_development_option">支持开发</string>
     <string name="add_folder">添加文件夹</string>
     <string name="set_up_scanning">设置扫描</string>
@@ -351,6 +341,4 @@
     <string name="library_per_category_sort_option_note">可以在书库中更改排序。</string>
     <string name="show_navigation_labels_option">显示导航标签</string>
     <string name="show_navigation_labels_option_desc">在图标下方显示导航栏</string>
-    <string name="horizontal_gesture_disable_scrolling_option">禁用滚动</string>
-    <string name="horizontal_gesture_disable_scrolling_option_desc">完全禁用阅读器滚动</string>
 </resources>

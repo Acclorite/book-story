@@ -121,8 +121,6 @@
     <string name="perception_expander_thickness_option">行の太さ</string>
     <string name="custom_screen_brightness_option">明るさを調整</string>
     <string name="highlighted_reading_option">単語のハイライト</string>
-    <string name="horizontal_gesture_option">水平ジェスチャー</string>
-    <string name="horizontal_gesture_scroll_option">スクロール率</string>
     <string name="bottom_bar_padding_option">ボトムバーの余白</string>
     <string name="images_option">画像</string>
     <string name="images_width_option">サイズ</string>
@@ -151,7 +149,6 @@
     <string name="font_size_option">フォントサイズ</string>
     <string name="double_click_translation_option_desc">段落をダブルクリックして翻訳する</string>
     <string name="pink_theme">土星</string>
-    <string name="horizontal_gesture_sensitivity_option">感度</string>
     <string name="fullscreen_option_desc">システムバーと余白を隠す</string>
     <string name="screen_brightness_option">明るさ</string>
     <string name="highlighted_reading_option_desc">各単語の先頭を強調表示する</string>
@@ -183,9 +180,6 @@
     <string name="screen_orientation_portrait">ポートレート</string>
     <string name="screen_orientation_landscape">ランドスケープ</string>
     <string name="screen_orientation_locked_portrait">固定ポートレート</string>
-    <string name="horizontal_gesture_off">オフ</string>
-    <string name="horizontal_gesture_on">オン</string>
-    <string name="horizontal_gesture_inverse">オン(反転)</string>
     <string name="font_thickness_normal">普通</string>
     <string name="font_thickness_medium">中</string>
     <string name="progress_count_percentage">パーセンテージ</string>
@@ -253,10 +247,6 @@
     <string name="start_theme_preferences">テーマの設定</string>
     <string name="start_done_desc">基本設定は完了です。ヘルプからアプリの使い方を学びませんか?</string>
     <string name="today">今日</string>
-    <string name="horizontal_gesture_pull_anim_option">プルアニメーション</string>
-    <string name="horizontal_gesture_alpha_anim_option">視覚アニメーション</string>
-    <string name="horizontal_gesture_alpha_anim_option_desc">水平ジェスチャーを使用するときに視覚アニメーションを有効にします</string>
-    <string name="horizontal_gesture_pull_anim_option_desc">水平ジェスチャーを使用した際、スワイプ方向に画面が押されるようなアニメーションが有効になります</string>
     <string name="alignment_justify">均等</string>
     <string name="highlighted_reading_level">レベル</string>
     <string name="green2_theme">イオ</string>
