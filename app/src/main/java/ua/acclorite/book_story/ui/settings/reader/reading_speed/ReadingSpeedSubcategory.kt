@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.ui.common.components.settings.ContinuousLayoutOnlySetting
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategory
 import ua.acclorite.book_story.ui.settings.reader.reading_speed.components.HighlightedReadingOption
 import ua.acclorite.book_story.ui.settings.reader.reading_speed.components.HighlightedReadingThicknessOption
@@ -60,27 +61,39 @@ fun LazyListScope.ReadingSpeedSubcategory(
         }
 
         item {
-            HorizontalLimiterOption()
+            ContinuousLayoutOnlySetting {
+                HorizontalLimiterOption()
+            }
         }
 
         item {
-            HorizontalLimiterHeightOption()
+            ContinuousLayoutOnlySetting {
+                HorizontalLimiterHeightOption()
+            }
         }
 
         item {
-            HorizontalLimiterVerticalOffsetOption()
+            ContinuousLayoutOnlySetting {
+                HorizontalLimiterVerticalOffsetOption()
+            }
         }
 
         item {
-            HorizontalLimiterRulerOption()
+            ContinuousLayoutOnlySetting {
+                HorizontalLimiterRulerOption()
+            }
         }
 
         item {
-            HorizontalLimiterRulerThicknessOption()
+            ContinuousLayoutOnlySetting {
+                HorizontalLimiterRulerThicknessOption()
+            }
         }
 
         item {
-            HorizontalLimiterDimmingOption()
+            ContinuousLayoutOnlySetting {
+                HorizontalLimiterDimmingOption()
+            }
         }
     }
 }

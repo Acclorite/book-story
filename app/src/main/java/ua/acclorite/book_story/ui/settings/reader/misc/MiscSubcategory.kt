@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ua.acclorite.book_story.R
+import ua.acclorite.book_story.ui.common.components.settings.ContinuousLayoutOnlySetting
 import ua.acclorite.book_story.ui.settings.components.SettingsSubcategory
 import ua.acclorite.book_story.ui.settings.reader.misc.components.FullscreenOption
 import ua.acclorite.book_story.ui.settings.reader.misc.components.HideBarsOnFastScrollOption
@@ -40,7 +41,9 @@ fun LazyListScope.MiscSubcategory(
         }
 
         item {
-            HideBarsOnFastScrollOption()
+            ContinuousLayoutOnlySetting {
+                HideBarsOnFastScrollOption()
+            }
         }
     }
 }

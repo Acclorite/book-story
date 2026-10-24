@@ -475,6 +475,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
         )
 
         ReaderContent(
+            layout = settings.readerLayout.value,
             layoutState = state.value.layoutState,
             nodes = state.value.nodes,
             chapters = state.value.chapters,
@@ -558,7 +559,8 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             paginateBackward = screenModel::onEvent,
             scrollConsumed = screenModel::onEvent,
             navigateBack = screenModel::onEvent,
-            navigateToBookInfo = screenModel::onEvent
+            navigateToBookInfo = screenModel::onEvent,
+            loadNodesBefore = screenModel::loadNodesBefore
         )
     }
 }

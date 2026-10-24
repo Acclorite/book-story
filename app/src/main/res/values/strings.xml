@@ -321,6 +321,8 @@
     <string name="layout_option">Display mode</string>
     <string name="layout_list">List</string>
     <string name="layout_grid">Grid</string>
+    <string name="layout_continuous">Continuous</string>
+    <string name="layout_paged">Paged</string>
 
     <!-- Sort Order properties -->
     <string name="sort_order_name">Alphabetically</string>
@@ -410,6 +412,7 @@
     <string name="author_changed">Author was successfully changed.</string>
     <string name="description_changed">Description was successfully changed.</string>
     <string name="path_changed">File path was successfully changed.</string>
+    <string name="continuous_layout_only_setting">This setting is available only in Continuous reader layout.</string>
 
     <!-- Snackbar messages -->
     <string name="history_element_deleted">History element was successfully deleted.</string>

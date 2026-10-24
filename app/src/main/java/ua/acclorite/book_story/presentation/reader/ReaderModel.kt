@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import ua.acclorite.book_story.domain.model.book.Node
 import ua.acclorite.book_story.domain.model.book.NodeId
 import ua.acclorite.book_story.domain.use_case.book.GetBookContentNodeByOffsetUseCase
 import ua.acclorite.book_story.domain.use_case.book.GetBookContentState
@@ -221,15 +222,16 @@ class ReaderModel @Inject constructor(
                 }
 
                 is ReaderEvent.OnUpdateProgress -> {
-                    val node =
-                        _state.value.nodes.find { it.id == event.currentNodeId } ?: return@launch
+                    val nodeOffset = event.currentNodeOffset
+                        ?: _state.value.nodes.find { it.id == event.currentNodeId }?.position?.offset
+                        ?: return@launch
                     _state.update {
                         it.copy(
                             book = it.book.copy(
                                 progress = it.book.progress.copy(
-                                    currentNodeId = node.id,
+                                    currentNodeId = event.currentNodeId,
                                     currentNodeIntraOffset = event.currentNodeIntraOffset,
-                                    currentOffset = node.position.offset + event.currentNodeIntraOffset
+                                    currentOffset = nodeOffset + event.currentNodeIntraOffset
                                 )
                             )
                         )
@@ -468,6 +470,12 @@ class ReaderModel @Inject constructor(
                 }
             }
         }.also { eventStack.add(it) }
+    }
+
+    suspend fun loadNodesBefore(nodeId: NodeId, limit: Int): List<Node> {
+        return withContext(Dispatchers.IO) {
+            getBookContentUseCase.getNodesBefore(_state.value.book, nodeId, limit)
+        }
     }
 
     fun init(bookId: Int) {

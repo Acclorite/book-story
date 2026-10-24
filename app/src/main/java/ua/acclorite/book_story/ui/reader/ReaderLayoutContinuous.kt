@@ -44,15 +44,8 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalWindowInfo
-import androidx.compose.ui.text.LinkAnnotation
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -65,7 +58,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.book.Book
 import ua.acclorite.book_story.domain.model.book.Node
-import ua.acclorite.book_story.domain.model.book.NodeContent
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.presentation.reader.ScrollTarget
 import ua.acclorite.book_story.presentation.reader.model.ReaderHorizontalGesture
@@ -73,7 +65,6 @@ import ua.acclorite.book_story.ui.common.components.common.AnimatedVisibility
 import ua.acclorite.book_story.ui.common.components.common.LazyColumnWithScrollbar
 import ua.acclorite.book_story.ui.common.components.common.SelectionContainer
 import ua.acclorite.book_story.ui.common.components.common.SpacedItem
-import ua.acclorite.book_story.ui.common.components.common.getHighlightedText
 import ua.acclorite.book_story.ui.common.components.progress_indicator.CircularProgressIndicator
 import ua.acclorite.book_story.ui.common.helpers.LocalActivity
 import ua.acclorite.book_story.ui.common.helpers.noRippleClickable
@@ -146,85 +137,26 @@ fun ReaderLayoutContinuous(
     val listState = rememberLazyListState()
     val textMeasurer = rememberTextMeasurer()
 
-    val isInitialLoading = remember { mutableStateOf(true) }
-    val headerFontWeights = listOf(
-        header1TextStyle, header2TextStyle, header3TextStyle,
-        header4TextStyle, header5TextStyle, header6TextStyle
-    ).map { it.fontWeight ?: FontWeight.Normal }
-    val paragraphFontWeight = paragraphTextStyle.fontWeight ?: FontWeight.Normal
-    val boldFontWeight = FontWeight((paragraphFontWeight.weight + boldFontThickness).coerceAtMost(900))
-    val readerNodes = remember(
-        nodes,
-        density,
-        highlightedReading,
-        highlightedReadingThickness,
-        paragraphFontWeight,
-        boldFontWeight,
-        headerFontWeights
-    ) {
-        nodes.map { node ->
-            when (val nodeContent = node.content) {
-                is NodeContent.Header -> ReaderNode.Header(
-                    originalNode = node,
-                    title = getHighlightedText(
-                        highlight = highlightedReading,
-                        text = buildAnnotatedString { append(nodeContent.title) },
-                        highlightThickness = headerFontWeights[nodeContent.level.level - 1],
-                        fontWeightIncrease = highlightedReadingThickness
-                    ),
-                    level = nodeContent.level
-                )
-
-                is NodeContent.Paragraph -> ReaderNode.Paragraph(
-                    originalNode = node,
-                    text = getHighlightedText(
-                        highlight = highlightedReading,
-                        text = buildAnnotatedString {
-                            append(nodeContent.text)
-
-                            nodeContent.styles.forEach { style ->
-                                when (style.style) {
-                                    is NodeContent.TextStyle.Bold -> addStyle(
-                                        SpanStyle(fontWeight = boldFontWeight),
-                                        style.start,
-                                        style.end
-                                    )
-
-                                    is NodeContent.TextStyle.Italic -> addStyle(
-                                        SpanStyle(fontStyle = FontStyle.Italic),
-                                        style.start,
-                                        style.end
-                                    )
-
-                                    is NodeContent.TextStyle.Link -> addLink(
-                                        LinkAnnotation.Url(
-                                            style.style.link,
-                                            TextLinkStyles(SpanStyle(textDecoration = TextDecoration.Underline))
-                                        ),
-                                        style.start,
-                                        style.end
-                                    )
-                                }
-                            }
-                        },
-                        highlightThickness = paragraphFontWeight,
-                        fontWeightIncrease = highlightedReadingThickness
-                    )
-                )
-
-                is NodeContent.Image -> ReaderNode.Image(
-                    originalNode = node,
-                    content = nodeContent.content,
-                    caption = nodeContent.caption,
-                    originalWidth = with(density) { nodeContent.width.toDp() },
-                    originalHeight = with(density) { nodeContent.height.toDp() },
-                    aspectRatio = nodeContent.aspectRatio
-                )
-
-                is NodeContent.Separator -> ReaderNode.Separator(originalNode = node)
-            }
-        }
+    val isInitialLoading = remember(book.uuid) { mutableStateOf(true) }
+    val initialScrollTarget = remember(book.uuid) {
+        ScrollTarget(
+            nodeId = book.progress.currentNodeId,
+            nodeIntraOffset = book.progress.currentNodeIntraOffset
+        )
     }
+    val readerNodes = rememberReaderNodes(
+        nodes = nodes,
+        paragraphTextStyle = paragraphTextStyle,
+        boldFontThickness = boldFontThickness,
+        header1TextStyle = header1TextStyle,
+        header2TextStyle = header2TextStyle,
+        header3TextStyle = header3TextStyle,
+        header4TextStyle = header4TextStyle,
+        header5TextStyle = header5TextStyle,
+        header6TextStyle = header6TextStyle,
+        highlightedReading = highlightedReading,
+        highlightedReadingThickness = highlightedReadingThickness
+    )
     val reachedFirst = remember(readerNodes) {
         if (readerNodes.isEmpty()) return@remember false
         readerNodes.first().node.id.id <= 0
@@ -256,6 +188,7 @@ fun ReaderLayoutContinuous(
     // Target scrolling (initial load & programmatic jumps)
     LaunchedEffect(
         scrollTarget,
+        paginating,
         readerNodes,
         textMeasurer,
         paragraphTextStyle,
@@ -267,35 +200,42 @@ fun ReaderLayoutContinuous(
         header6TextStyle,
         constraints
     ) {
-        val target = scrollTarget ?: return@LaunchedEffect
+        val target = scrollTarget
+            ?: initialScrollTarget.takeIf { isInitialLoading.value }
+            ?: return@LaunchedEffect
         if (readerNodes.isEmpty()) return@LaunchedEffect
 
         val index = readerNodes.indexOfFirst { it.node.id == target.nodeId }
-        if (index != -1) {
-            val readerNode = readerNodes[index]
-            val offset = readerNode.getNodeVerticalOffsetPx(
-                nodeIntraOffset = target.nodeIntraOffset,
-                textMeasurer = textMeasurer,
-                constraints = constraints,
-                paragraphTextStyle = paragraphTextStyle,
-                header1TextStyle = header1TextStyle,
-                header2TextStyle = header2TextStyle,
-                header3TextStyle = header3TextStyle,
-                header4TextStyle = header4TextStyle,
-                header5TextStyle = header5TextStyle,
-                header6TextStyle = header6TextStyle
-            )
-
-            try {
-                listState.scrollToItem(
-                    index = index,
-                    scrollOffset = offset
-                )
-            } finally {
-                isInitialLoading.value = false
-                scrollConsumed(ReaderEvent.OnScrollConsumed)
+        if (index == -1) {
+            if (scrollTarget == null && !paginating) {
+                if (target.nodeId.id < readerNodes.first().node.id.id) {
+                    paginateBackward(ReaderEvent.OnPaginateBackward(readerNodes.first().node.id))
+                } else if (target.nodeId.id > readerNodes.last().node.id.id) {
+                    paginateForward(ReaderEvent.OnPaginateForward(readerNodes.last().node.id))
+                }
             }
+            return@LaunchedEffect
         }
+        val readerNode = readerNodes[index]
+        val offset = readerNode.getNodeVerticalOffsetPx(
+            nodeIntraOffset = target.nodeIntraOffset,
+            textMeasurer = textMeasurer,
+            constraints = constraints,
+            paragraphTextStyle = paragraphTextStyle,
+            header1TextStyle = header1TextStyle,
+            header2TextStyle = header2TextStyle,
+            header3TextStyle = header3TextStyle,
+            header4TextStyle = header4TextStyle,
+            header5TextStyle = header5TextStyle,
+            header6TextStyle = header6TextStyle
+        )
+
+        listState.scrollToItem(
+            index = index,
+            scrollOffset = offset
+        )
+        isInitialLoading.value = false
+        if (scrollTarget != null) scrollConsumed(ReaderEvent.OnScrollConsumed)
     }
 
     val currentScrollTarget by rememberUpdatedState(scrollTarget)

@@ -35,6 +35,7 @@ import ua.acclorite.book_story.presentation.library.model.LibrarySortOrder
 import ua.acclorite.book_story.presentation.library.model.LibraryTitlePosition
 import ua.acclorite.book_story.presentation.reader.model.ReaderColorEffects
 import ua.acclorite.book_story.presentation.reader.model.ReaderFontThickness
+import ua.acclorite.book_story.presentation.reader.model.ReaderLayout
 import ua.acclorite.book_story.presentation.reader.model.ReaderHorizontalGesture
 import ua.acclorite.book_story.presentation.reader.model.ReaderProgressCount
 import ua.acclorite.book_story.presentation.reader.model.ReaderScreenOrientation
@@ -116,6 +117,10 @@ class SettingsManager @Inject constructor(
     )
 
     /* ------ Reader ----------------------------- */
+    val readerLayout = setting<ReaderLayout, String>(
+        key = stringPreferencesKey("reader_layout"), default = ReaderLayout.PAGED,
+        serialize = { it.name }, deserialize = { ReaderLayout.valueOf(it) }
+    )
     val fontFamily = setting<FontWithName, String>(
         key = stringPreferencesKey("font"), default = ReaderData.fonts[0],
         serialize = { it.id }, deserialize = { id ->
@@ -165,7 +170,7 @@ class SettingsManager @Inject constructor(
         key = intPreferencesKey("letter_spacing"), default = 0
     )
     val cutoutPadding = setting<Boolean, Boolean>(
-        key = booleanPreferencesKey("cutout_padding"), default = false
+        key = booleanPreferencesKey("cutout_padding"), default = true
     )
     val fullscreen = setting<Boolean, Boolean>(
         key = booleanPreferencesKey("fullscreen"), default = true

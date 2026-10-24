@@ -88,6 +88,21 @@ class HighlightedTextTest {
         assertEquals(FontWeight.Normal, result.weightAt(3, FontWeight.Normal))
     }
 
+    @Test
+    fun `Highlight preserves whitespace and character offsets for pagination`() {
+        val original = AnnotatedString("  reader\ttext\nnext  ")
+        val result = getHighlightedText(
+            highlight = true,
+            text = original,
+            highlightThickness = FontWeight.Normal,
+            fontWeightIncrease = 200
+        )
+
+        assertEquals(original.text, result.text)
+        assertEquals(original.length, result.length)
+        assertEquals(FontWeight.SemiBold, result.weightAt(2, FontWeight.Normal))
+    }
+
     private fun AnnotatedString.weightAt(index: Int, default: FontWeight): FontWeight {
         return spanStyles.lastOrNull {
             it.start <= index && index < it.end && it.item.fontWeight != null

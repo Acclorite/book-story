@@ -296,6 +296,8 @@
     <string name="layout_option">Режим відображення</string>
     <string name="layout_list">Список</string>
     <string name="layout_grid">Сітка</string>
+    <string name="layout_continuous">Нескінченний</string>
+    <string name="layout_paged">Сторінковий</string>
 
     <!-- Sort Order properties -->
     <string name="sort_order_name">За алфавітом</string>
@@ -385,6 +387,7 @@
     <string name="author_changed">Автор був успішно змінений.</string>
     <string name="description_changed">Опис був успішно змінений.</string>
     <string name="path_changed">Шлях до файлу був успішно змінений.</string>
+    <string name="continuous_layout_only_setting">Це налаштування доступне лише в Нескінченному режимі відображення.</string>
 
     <!-- Snackbar messages -->
     <string name="history_element_deleted">Елемент історії був успішно видалений.</string>

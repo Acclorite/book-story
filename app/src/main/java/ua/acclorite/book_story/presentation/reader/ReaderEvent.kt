@@ -28,7 +28,8 @@ sealed class ReaderEvent {
 
     data class OnUpdateProgress(
         val currentNodeId: NodeId,
-        val currentNodeIntraOffset: Int
+        val currentNodeIntraOffset: Int,
+        val currentNodeOffset: Int? = null
     ) : ReaderEvent()
 
     data class OnMenuVisibility(

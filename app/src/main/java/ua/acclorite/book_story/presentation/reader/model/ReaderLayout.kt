@@ -6,6 +6,10 @@
 
 package ua.acclorite.book_story.presentation.reader.model
 
-enum class ReaderLayout {
-    CONTINUOUS
+import androidx.annotation.StringRes
+import ua.acclorite.book_story.R
+
+enum class ReaderLayout(@StringRes val title: Int) {
+    CONTINUOUS(R.string.layout_continuous),
+    PAGED(R.string.layout_paged)
 }

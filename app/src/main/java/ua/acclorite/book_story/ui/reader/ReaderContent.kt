@@ -20,6 +20,7 @@ import ua.acclorite.book_story.core.Drawer
 import ua.acclorite.book_story.domain.model.book.Book
 import ua.acclorite.book_story.domain.model.book.Chapter
 import ua.acclorite.book_story.domain.model.book.Node
+import ua.acclorite.book_story.domain.model.book.NodeId
 import ua.acclorite.book_story.presentation.reader.LayoutState
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.presentation.reader.ScrollTarget
@@ -31,6 +32,7 @@ import ua.acclorite.book_story.ui.theme.model.HorizontalAlignment
 
 @Composable
 fun ReaderContent(
+    layout: ReaderLayout,
     layoutState: LayoutState,
     nodes: List<Node>,
     chapters: List<Chapter>,
@@ -114,7 +116,8 @@ fun ReaderContent(
     paginateBackward: (ReaderEvent.OnPaginateBackward) -> Unit,
     scrollConsumed: (ReaderEvent.OnScrollConsumed) -> Unit,
     navigateToBookInfo: (ReaderEvent.OnNavigateToBookInfo) -> Unit,
-    navigateBack: (ReaderEvent.OnNavigateBack) -> Unit
+    navigateBack: (ReaderEvent.OnNavigateBack) -> Unit,
+    loadNodesBefore: suspend (NodeId, Int) -> List<Node>
 ) {
     ReaderBottomSheet(
         bottomSheet = bottomSheet,
@@ -141,7 +144,7 @@ fun ReaderContent(
 
         is LayoutState.Showing -> {
             ReaderScaffold(
-                layout = ReaderLayout.CONTINUOUS, // TODO: Temporarily hardcoded
+                layout = layout,
                 nodes = nodes,
                 book = book,
                 paginating = paginating,
@@ -217,7 +220,8 @@ fun ReaderContent(
                 paginateBackward = paginateBackward,
                 scrollConsumed = scrollConsumed,
                 navigateBack = navigateBack,
-                navigateToBookInfo = navigateToBookInfo
+                navigateToBookInfo = navigateToBookInfo,
+                loadNodesBefore = loadNodesBefore
             )
         }
     }

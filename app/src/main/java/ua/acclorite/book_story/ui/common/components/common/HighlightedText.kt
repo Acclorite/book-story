@@ -54,10 +54,15 @@ fun getHighlightedText(
     fontWeightIncrease: Int = 0
 ): AnnotatedString {
     return if (highlight) buildAnnotatedString {
-        text.splitAnnotatedString().forEach { word ->
+        var previousEnd = 0
+        Regex("\\S+").findAll(text.text).forEach { match ->
+            val wordStart = match.range.first
+            val wordEnd = match.range.last + 1
+            append(text.subSequence(previousEnd, wordStart))
+            previousEnd = wordEnd
+            val word = text.subSequence(wordStart, wordEnd)
             if (word.text.none { it.isLetter() }) {
                 append(word)
-                append(" ")
                 return@forEach
             }
 
@@ -103,8 +108,8 @@ fun getHighlightedText(
             }
 
             append(word.subSequence(highlightArea, word.text.length))
-            append(" ")
         }
+        append(text.subSequence(previousEnd, text.length))
     } else text
 }
 
@@ -119,19 +124,4 @@ private fun String.digitsAtStart(): Int {
 
 private fun String.filterDigitsAtStartAndEnd(): String {
     return dropWhile { !it.isLetter() }.dropLastWhile { !it.isLetter() }
-}
-
-private fun AnnotatedString.splitAnnotatedString(): List<AnnotatedString> {
-    val result = mutableListOf<AnnotatedString>()
-
-    val wordRegex = Regex("\\S+")
-    wordRegex.findAll(this).forEach { matchResult ->
-        val wordStart = matchResult.range.first
-        val wordEnd = matchResult.range.last + 1
-
-        val word = subSequence(wordStart, wordEnd)
-        result.add(word)
-    }
-
-    return result
 }

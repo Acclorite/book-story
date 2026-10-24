@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.TextUnit
 import ua.acclorite.book_story.domain.model.book.Book
 import ua.acclorite.book_story.domain.model.book.Chapter
 import ua.acclorite.book_story.domain.model.book.Node
+import ua.acclorite.book_story.domain.model.book.NodeId
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.presentation.reader.ScrollTarget
 import ua.acclorite.book_story.presentation.reader.model.Checkpoint
@@ -115,12 +116,16 @@ fun ReaderScaffold(
     paginateBackward: (ReaderEvent.OnPaginateBackward) -> Unit,
     scrollConsumed: (ReaderEvent.OnScrollConsumed) -> Unit,
     navigateToBookInfo: (ReaderEvent.OnNavigateToBookInfo) -> Unit,
-    navigateBack: (ReaderEvent.OnNavigateBack) -> Unit
+    navigateBack: (ReaderEvent.OnNavigateBack) -> Unit,
+    loadNodesBefore: suspend (NodeId, Int) -> List<Node>
 ) {
     Scaffold(
         Modifier
             .fillMaxSize()
-            .nestedScroll(nestedScrollConnection),
+            .then(
+                if (layout == ReaderLayout.CONTINUOUS) Modifier.nestedScroll(nestedScrollConnection)
+                else Modifier
+            ),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             AnimatedVisibility(
@@ -229,6 +234,55 @@ fun ReaderScaffold(
                     horizontalLimiterDimming = horizontalLimiterDimming,
                     horizontalLimiterDimmingColor = backgroundColor,
                     horizontalLimiterRulerColor = fontColor
+                )
+            }
+
+            ReaderLayout.PAGED -> {
+                ReaderLayoutPaged(
+                    loadNodesBefore = loadNodesBefore,
+                    book = book,
+                    nodes = nodes,
+                    paginating = paginating,
+                    scrollTarget = scrollTarget,
+                    contentPadding = contentPadding,
+                    verticalPadding = verticalPadding,
+                    highlightedReading = highlightedReading,
+                    highlightedReadingThickness = highlightedReadingThickness,
+                    progress = progress,
+                    progressBar = progressBar,
+                    progressBarPadding = progressBarPadding,
+                    progressBarAlignment = progressBarAlignment,
+                    progressBarFontSize = progressBarFontSize,
+                    paragraphTextStyle = paragraphTextStyle,
+                    boldFontThickness = boldFontThickness,
+                    header1TextStyle = header1TextStyle,
+                    header2TextStyle = header2TextStyle,
+                    header3TextStyle = header3TextStyle,
+                    header4TextStyle = header4TextStyle,
+                    header5TextStyle = header5TextStyle,
+                    header6TextStyle = header6TextStyle,
+                    paragraphHeight = paragraphHeight,
+                    sidePadding = sidePadding,
+                    backgroundColor = backgroundColor,
+                    fontColor = fontColor,
+                    images = images,
+                    imagesCaptions = imagesCaptions,
+                    imagesCornersRoundness = imagesCornersRoundness,
+                    imagesAlignment = imagesAlignment,
+                    imagesWidth = imagesWidth,
+                    imagesColorEffects = imagesColorEffects,
+                    imagesOriginalSize = imagesOriginalSize,
+                    doubleClickTranslation = doubleClickTranslation,
+                    showMenu = showMenu,
+                    menuVisibility = menuVisibility,
+                    openShareApp = openShareApp,
+                    openWebBrowser = openWebBrowser,
+                    openTranslator = openTranslator,
+                    openDictionary = openDictionary,
+                    updateProgress = updateProgress,
+                    paginateForward = paginateForward,
+                    paginateBackward = paginateBackward,
+                    scrollConsumed = scrollConsumed
                 )
             }
         }
