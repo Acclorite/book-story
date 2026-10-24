@@ -134,14 +134,17 @@ fun ReaderLayoutPaged(
     val layoutDirection = LocalLayoutDirection.current
     val fontFamilyResolver = LocalFontFamilyResolver.current
     var pageNodes by remember(book.uuid) { mutableStateOf(emptyList<Node>()) }
-    var windowReady by remember(book.uuid) { mutableStateOf(false) }
+    var windowInput by remember(book.uuid) {
+        mutableStateOf<Pair<List<Node>, Boolean>?>(null)
+    }
+    val windowReady = windowInput?.first == nodes && windowInput?.second == images &&
+        pageNodes.isNotEmpty()
 
     LaunchedEffect(book.uuid, nodes, images) {
-        windowReady = false
         pageNodes = withContext(Dispatchers.IO) {
             loadReaderPageWindow(nodes, pageNodes, images, loadNodesBefore)
         }
-        windowReady = pageNodes.isNotEmpty()
+        windowInput = nodes to images
     }
 
     val readerNodes = rememberReaderNodes(
@@ -226,7 +229,7 @@ fun ReaderLayoutPaged(
                     label = "paged_reader_fade"
                 )
 
-                LaunchedEffect(config, readerNodes, nodes, windowReady, scrollTarget, fontFamilyResolver, layoutDirection) {
+                LaunchedEffect(config, readerNodes, nodes, windowReady, paginating, reachedLast, scrollTarget, fontFamilyResolver, layoutDirection) {
                     if (width <= 0 || height <= 0 || nodes.isEmpty()) return@LaunchedEffect
                     if (!windowReady || pageNodes.lastOrNull()?.id != nodes.lastOrNull()?.id) {
                         reflowing = true
@@ -239,14 +242,26 @@ fun ReaderLayoutPaged(
                         return@LaunchedEffect
                     }
                     reflowing = true
+                    previousInput = null
                     if (scrollTarget != null && pageNodes.none { it.id == scrollTarget.nodeId }) {
                         return@LaunchedEffect
                     }
-                    val target = scrollTarget?.let { ReaderPagePosition(it.nodeId, it.nodeIntraOffset) }
+                    val requestedTarget = scrollTarget?.let { ReaderPagePosition(it.nodeId, it.nodeIntraOffset) }
                         ?: ReaderPagePosition(
                             NodeId(anchorNodeId.coerceIn(pageNodes.first().id.id, pageNodes.last().id.id)),
                             anchorOffset
                         )
+                    val target = if (!images && readerNodes.any {
+                            it.node.id == requestedTarget.nodeId && it is ReaderNode.Image
+                        }
+                    ) {
+                        val nearby = readerNodes.firstOrNull {
+                            it.node.id.id > requestedTarget.nodeId.id && it !is ReaderNode.Image
+                        } ?: readerNodes.lastOrNull {
+                            it.node.id.id < requestedTarget.nodeId.id && it !is ReaderNode.Image
+                        }
+                        nearby?.let { ReaderPagePosition(it.node.id, 0) } ?: requestedTarget
+                    } else requestedTarget
                     val nextPages = withContext(Dispatchers.Default) {
                         val measurer = TextMeasurer(fontFamilyResolver, density, layoutDirection, cacheSize = 0)
                         paginateReaderPages(readerNodes, config) { text, style ->
@@ -273,17 +288,17 @@ fun ReaderLayoutPaged(
                         return@LaunchedEffect
                     }
                     pages = nextPages
-                    previousInput = readerNodes to config
                     if (nextPages.isNotEmpty()) {
                         val pageIndex = (findReaderPage(nextPages, target) + pendingTurn)
                             .coerceIn(nextPages.indices)
-                        pendingTurn = 0
                         withFrameNanos { }
                         pagerState.scrollToPage(pageIndex + leadingPages)
                         val position = nextPages[pageIndex].position
                         anchorNodeId = position.nodeId.id
                         anchorOffset = position.offset
                     }
+                    pendingTurn = 0
+                    previousInput = readerNodes to config
                     if (scrollTarget != null) scrollConsumed(ReaderEvent.OnScrollConsumed)
                     reflowing = false
                 }
