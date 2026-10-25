@@ -211,7 +211,6 @@
     <string name="color_preset_query">Předvolit %1$s</string>
     <string name="report">Nahlásit</string>
     <string name="ok">OK</string>
-    <string name="change_path">Změnit cestu</string>
     <string name="add_folder">Přidat složku</string>
     <string name="edit">Upravit</string>
     <string name="create_category">Vytvořit kategorii</string>

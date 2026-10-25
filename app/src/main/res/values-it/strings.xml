@@ -282,7 +282,6 @@
     <string name="purple_gray_theme">Ceres</string>
     <string name="progress_bar_option_desc">Visualizza la barra di avanzamento in basso</string>
     <string name="ok">OK</string>
-    <string name="change_path">Cambia percorso</string>
     <string name="path_changed">Il percorso del file è stato modificato correttamente.</string>
     <string name="file_details">Dettagli del file</string>
     <string name="show_less_content_desc">Mostra di meno</string>

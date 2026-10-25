@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Book's Story — free and open-source Material You eBook reader.
   ~ Copyright (C) 2024-2026 Acclorite
@@ -44,13 +43,13 @@
     <string name="reader_tab">रीडर</string>
     <string name="appearance_settings_desc">थीम, रंगों</string>
     <string name="reader_settings">रीडर</string>
-    <string name="reader_settings_desc">फ़ॉन्ट, पाठ, अनुवादक</string>
+    <string name="reader_settings_desc">फ़ॉन्ट, टेक्स्ट</string>
     <string name="browse_settings">ब्राउज़ करें</string>
-    <string name="browse_settings_desc">सामान्य, फ़िल्टर, सॉर्ट</string>
+    <string name="browse_settings_desc">स्कैन, प्रदर्शन</string>
     <string name="font_reader_settings">फ़ॉन्ट</string>
     <string name="text_reader_settings">लेख</string>
     <string name="translator_reader_settings">अनुवादक</string>
-    <string name="padding_reader_settings">पैडिंग</string>
+    <string name="padding_reader_settings">अंतर</string>
     <string name="reading_speed_reader_settings">पढ़ने की गति</string>
     <string name="theme_appearance_settings">थीम सेटिंग्स</string>
     <string name="colors_appearance_settings">रंगों</string>
@@ -72,7 +71,7 @@
     <string name="error_no_description">कोई वर्णन नहीं।</string>
     <string name="error_no_dictionary">कोई शब्दकोश ऐप नहीं मिला ।</string>
     <string name="error_no_browser">कोई ब्राउज़र ऐप नहीं मिला ।</string>
-    <string name="error_could_not_get_text">पुस्तक की सामग्री रिक्त है। कृपया जाँच करें कि पुस्तक की सामग्री रिक्त न हो और उसे अपडेट करें।</string>
+    <string name="error_could_not_get_text">फ़ाइल खाली है, मौजूद नहीं है, या उस तक पहुँचा नहीं जा सकता। फ़ाइल, स्कैन सेटिंग्स या पाथ की जाँच करें, फिर दोबारा प्रयास करें।</string>
     <string name="error_could_not_reset_cover">कवर छवि रीसेट नहीं की जा सकी ।</string>
     <string name="browse_empty">अपने डाउनलोड के साथ पुस्तकालय के पुस्तक संग्रह का विस्तार करें</string>
     <string name="color_preset_query">प्रीसेट %1$s</string>
@@ -192,4 +191,24 @@
     <string name="unknown">अज्ञात</string>
     <string name="report_bug_option">एक बग रिपोर्ट करो</string>
     <string name="credits_updates">नए अपडेट का प्रबंधन</string>
+    <string name="error_no_file_manager_app">फ़ोल्डर चुनने के लिए कोई ऐप नहीं मिला।</string>
+    <string name="error_no_file">फ़ाइल मौजूद नहीं है या उस तक पहुँचा नहीं जा सकता है</string>
+    <string name="error_field_empty">यह फ़ील्ड खाली नहीं होनी चाहिए।</string>
+    <string name="search_field_empty">खोजें…</string>
+    <string name="categories_empty">कोई श्रेणी नहीं है।</string>
+    <string name="report">रिपोर्ट</string>
+    <string name="ok">ठीक है</string>
+    <string name="add_folder">फ़ोल्डर जोड़ें</string>
+    <string name="edit">संपादन</string>
+    <string name="create_category">श्रेणी बनाएँ</string>
+    <string name="set_up_scanning">स्कैनिंग सेट अप करें</string>
+    <string name="default_tab">डिफ़ॉल्ट</string>
+    <string name="display_tab">प्रदर्शन</string>
+    <string name="library_settings">लाइब्रेरी</string>
+    <string name="library_settings_desc">श्रेणियाँ, प्रदर्शन, टैब्स</string>
+    <string name="reading_mode_reader_settings">रीडिंग मोड</string>
+    <string name="remove_category">श्रेणी हटाएँ?</string>
+    <string name="remove_category_description">यह इस श्रेणी को लाइब्रेरी से हटा देगा, लेकिन इसमें मौजूद कोई भी किताब डिलीट नहीं होगी।</string>
+    <string name="images_reader_settings">चित्र</string>
+    <string name="progress_reader_settings">प्रगति</string>
 </resources>

@@ -185,7 +185,6 @@
     <string name="undo">Anulare</string>
     <string name="report">Raportare</string>
     <string name="translate">Traducere</string>
-    <string name="change_path">Schimbați calea</string>
     <string name="create_category">Creați categoria</string>
     <string name="reset_cover">Resetați coperta</string>
 </resources>

@@ -82,7 +82,6 @@
     <string name="selected_items_count_query">%1$s 選択</string>
     <string name="move">移動</string>
     <string name="translate">翻訳</string>
-    <string name="change_path">パスを変更</string>
     <string name="add_folder">フォルダを追加</string>
     <string name="color_tab">カラー</string>
     <string name="filter_tab">フィルタ</string>

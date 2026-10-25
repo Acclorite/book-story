@@ -235,7 +235,6 @@
     <string name="font_thickness_normal">عادي</string>
     <string name="progress_count_quantity">الكمية</string>
     <string name="error_no_file">الملف غير موجود أو لا يمكن الوصول إليه</string>
-    <string name="change_path">تغيير المسار</string>
     <string name="move_books_content_desc">انقل الكُتب المُحدّدة</string>
     <string name="start_welcome_desc">إلى عالم حيث الكلمات تسحر وتعلم وتقود إلى مغامرات لا تصدق! دعنا نرتب بعض الأمور!</string>
     <string name="start_welcome">مرحبًا بك في %1$s!</string>
@@ -250,7 +249,7 @@
     <string name="show_more_content_desc">اعرض المزيد</string>
     <string name="delete_whole_history_content_desc">احذف التاريخ بأكمله</string>
     <string name="perception_expander_padding_option">هامش جانب الخط</string>
-    <string name="start_done_desc">لقد نجحت بإنجاز الإعدادات الأساسية للتطبيق. هل ترغب في معرفة كيفية استخدام التطبيق من خلال قراءة شاشة المساعدة؟</string>
+    <string name="start_done_desc">اكتمل الإعداد.</string>
     <string name="delete_history_element_content_desc">احذف عنصر التاريخ</string>
     <string name="cover_image_content_desc">غلاف الصورة</string>
     <string name="start_theme_preferences">تفضيلات السمة</string>
@@ -341,4 +340,11 @@
     <string name="library_per_category_sort_option_note">يمكن تغيير الترتيب في المكتبة.</string>
     <string name="show_navigation_labels_option">أظهر تسميات التنقل</string>
     <string name="show_navigation_labels_option_desc">أظهر تسميات شريط التنقل أسفل الأيقونات</string>
+    <string name="horizontal_limiter_option">محدد أفقي</string>
+    <string name="horizontal_limiter_option_desc">أظهر المسطرة الأفقية وتعتيم الجزء غير المركّز من الشاشة</string>
+    <string name="horizontal_limiter_height_option">الارتفاع</string>
+    <string name="horizontal_limiter_vertical_offset_option">الإزاحة الرأسية</string>
+    <string name="horizontal_limiter_ruler_option">مسطرة أفقية</string>
+    <string name="horizontal_limiter_ruler_thickness_option">سُمك المسطرة</string>
+    <string name="horizontal_limiter_dimming_option">تعتيم</string>
 </resources>

@@ -32,5 +32,12 @@ object CoreData {
         Language.fromLanguageTag(languageTag = "ja"), // Japanese
         Language.fromLanguageTag(languageTag = "hu"), // Hungarian
         Language.fromLanguageTag(languageTag = "ko"), // Korean
+        Language.fromLanguageTag(languageTag = "el"), // Greek
+        Language.fromLanguageTag(languageTag = "id"), // Indonesian
+        Language.fromLanguageTag(languageTag = "si"), // Sinhala
+        Language.fromLanguageTag(languageTag = "tk"), // Turkmen
+        Language.fromLanguageTag(languageTag = "tl"), // Tagalog
+        Language.fromLanguageTag(languageTag = "vi"), // Vietnamese
+        Language.fromLanguageTag(languageTag = "zh-TW"), // Chinese (Taiwan)
     ).sortedBy { it.displayName }.toPersistentList()
 }
