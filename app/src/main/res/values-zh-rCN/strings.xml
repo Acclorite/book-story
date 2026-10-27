@@ -169,7 +169,7 @@
     <string name="cover_image_changed">成功更改了封面图片。</string>
     <string name="history_element_deleted">成功删除了历史元素。</string>
     <string name="books_moved">成功移动所有已选择的书。</string>
-    <string name="no_chapters">无章节</string>
+    <string name="no_chapters">无当前章节</string>
     <string name="chapters">章节</string>
     <string name="app_version_option">应用版本</string>
     <string name="report_bug_option">报告错误</string>
@@ -279,7 +279,7 @@
     <string name="show_more_content_desc">显示更多信息</string>
     <string name="font_thickness_option">字体粗细</string>
     <string name="font_thickness_light">细体</string>
-    <string name="progress_count_quantity">数量</string>
+    <string name="progress_count_quantity">段落</string>
     <string name="edit">编辑</string>
     <string name="ok">确定</string>
     <string name="font_thickness_thin">极细</string>
@@ -346,4 +346,27 @@
     <string name="horizontal_limiter_ruler_thickness_option">尺子厚度</string>
     <string name="horizontal_limiter_dimming_option">变暗</string>
     <string name="horizontal_limiter_option">水平限制器</string>
+    <string name="error_empty_file">文件似乎是空的。请验证其内容。</string>
+    <string name="error_could_not_validate">无法验证文件内容。请重试并验证文件。(%1$s)</string>
+    <string name="error_could_not_parse_file">无法解析文件。(%1$s)</string>
+    <string name="error_could_not_save_file">无法保存文件。(%1$s)</string>
+    <string name="error_could_not_get_chapters">无法获取章节列表。(%1$s)</string>
+    <string name="error_wrong_file_format">文件格式错误。确保文件格式匹配支持的文件格式。</string>
+    <string name="error_could_not_access_file">无法访问文件。请验证它存在且已授予程序所有必需的权限。</string>
+    <string name="retry">重试</string>
+    <string name="headers_reader_settings">标题</string>
+    <string name="bold_font_thickness_option">粗体字厚度</string>
+    <string name="images_original_size_option">原始大小</string>
+    <string name="images_original_size_option_desc">显示原始尺寸的图片</string>
+    <string name="paged_direction_option">分页方向</string>
+    <string name="layout_continuous">连续</string>
+    <string name="layout_paged">分页</string>
+    <string name="progress_count_characters">章节</string>
+    <string name="paged_direction_left_to_right">从左到右</string>
+    <string name="paged_direction_right_to_left">从右到左</string>
+    <string name="paged_direction_top_to_bottom">从顶部到底部</string>
+    <string name="paged_direction_bottom_to_top">从底部到顶部</string>
+    <string name="continuous_layout_only_setting">此设置只在连续阅读器布局中可用。</string>
+    <string name="processing_content">正在处理书籍内容，可能需要几分钟。</string>
+    <string name="saving_content">正在保存书籍的已处理内容。所花时间应该不超过 1 分钟。</string>
 </resources>
