@@ -7,12 +7,12 @@
 package ua.acclorite.book_story.core.data
 
 object ParsersData {
-    private const val JSOUP_PARSER = 2
-    private const val EPUB_PARSER = 1
-    private const val PDF_PARSER = 1
-    private const val HTML_PARSER = 1
-    private const val TXT_PARSER = 1
-    private const val XML_PARSER = 1
+    private const val JSOUP_PARSER = 3
+    private const val EPUB_PARSER = 2
+    private const val PDF_PARSER = 2
+    private const val HTML_PARSER = 2
+    private const val TXT_PARSER = 2
+    private const val XML_PARSER = 2
 
     fun getCurrentParserVersion(parser: String): Int {
         when (parser.lowercase().trim()) {

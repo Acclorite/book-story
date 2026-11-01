@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropUp
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateSetOf
 import androidx.compose.runtime.remember
@@ -124,6 +125,7 @@ fun ReaderChaptersDrawer(
 
             ModalDrawerSelectableItem(
                 selected = isSelected,
+                shape = MaterialTheme.shapes.extraLarge,
                 onClick = {
                     scrollToChapter(
                         ReaderEvent.OnScrollToChapter(
@@ -140,16 +142,16 @@ fun ReaderChaptersDrawer(
                 StyledText(
                     text = chapter.cleanTitle,
                     modifier = Modifier.weight(1f),
-                    maxLines = 1
+                    maxLines = 4
                 )
 
                 if (isSelected) {
-                    Spacer(modifier = Modifier.width(18.dp))
+                    Spacer(modifier = Modifier.width(12.dp))
                     StyledText(text = "${currentChapterProgress.calculateProgress(0)}%")
                 }
 
                 if (item.hasChildren) {
-                    Spacer(modifier = Modifier.width(18.dp))
+                    Spacer(modifier = Modifier.width(12.dp))
                     Icon(
                         imageVector = Icons.Outlined.ArrowDropUp,
                         modifier = Modifier

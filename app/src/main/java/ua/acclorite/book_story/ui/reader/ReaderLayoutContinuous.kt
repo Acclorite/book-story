@@ -58,6 +58,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import ua.acclorite.book_story.R
 import ua.acclorite.book_story.domain.model.book.Book
 import ua.acclorite.book_story.domain.model.book.Node
+import ua.acclorite.book_story.domain.model.book.NodeContent
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.presentation.reader.ScrollTarget
 import ua.acclorite.book_story.ui.common.components.common.AnimatedVisibility
@@ -148,7 +149,8 @@ fun ReaderLayoutContinuous(
         header5TextStyle = header5TextStyle,
         header6TextStyle = header6TextStyle,
         highlightedReading = highlightedReading,
-        highlightedReadingThickness = highlightedReadingThickness
+        highlightedReadingThickness = highlightedReadingThickness,
+        backgroundColor = backgroundColor
     )
     val reachedFirst = remember(readerNodes) {
         if (readerNodes.isEmpty()) return@remember false
@@ -212,6 +214,7 @@ fun ReaderLayoutContinuous(
         val readerNode = readerNodes[index]
         val offset = readerNode.getNodeVerticalOffsetPx(
             nodeIntraOffset = target.nodeIntraOffset,
+            density = density,
             textMeasurer = textMeasurer,
             constraints = constraints,
             paragraphTextStyle = paragraphTextStyle,
@@ -248,6 +251,7 @@ fun ReaderLayoutContinuous(
                 val currentNodeId = currentNode.node.id
                 val currentNodeIntraOffset = currentNode.getNodeIntraOffset(
                     nodeVerticalOffsetPx = itemOffset,
+                    density = density,
                     textMeasurer = textMeasurer,
                     constraints = constraints,
                     paragraphTextStyle = paragraphTextStyle,
@@ -386,10 +390,15 @@ fun ReaderLayoutContinuous(
                             readerNode is ReaderNode.Image && !images -> {}
                             else -> SpacedItem(
                                 space = index != readerNodes.lastIndex,
-                                spacing = paragraphHeight
+                                spacing = if ((readerNode.node.content as? NodeContent.TableRow)?.lastRow == false) {
+                                    0.dp
+                                } else paragraphHeight
                             ) {
                                 ReaderLayoutContent(
                                     readerNode = readerNode,
+                                    quoteGapAfter = if (readerNode.node.content is NodeContent.Quote &&
+                                        readerNodes.getOrNull(index + 1)?.node?.content is NodeContent.Quote
+                                    ) paragraphHeight else 0.dp,
                                     paragraphTextStyle = paragraphTextStyle,
                                     header1TextStyle = header1TextStyle,
                                     header2TextStyle = header2TextStyle,

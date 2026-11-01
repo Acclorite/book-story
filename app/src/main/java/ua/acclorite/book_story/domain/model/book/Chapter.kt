@@ -7,6 +7,7 @@
 package ua.acclorite.book_story.domain.model.book
 
 import androidx.compose.runtime.Immutable
+import ua.acclorite.book_story.core.helpers.cleanHeaderText
 
 @Immutable
 data class Chapter(
@@ -18,10 +19,7 @@ data class Chapter(
 )
 
 val Chapter.cleanTitle: String
-    get() = title
-        .replace(Regex("<[^>]*>"), "")
-        .replace(Regex("\\{\\{.*?\\}\\}"), "")
-        .trim()
+    get() = title.cleanHeaderText()
 
 @JvmInline
 value class ChapterId(val id: Int)
@@ -34,7 +32,7 @@ value class LinkId(val id: Int)
  *                         (including header).
  * @property endChapterOffset Global end chapter offset that marks the end of the whole chapter
  *                            (not only header).
- * @property chapterLength Length of the header only (not the whole chapter).
+ * @property chapterLength Length of the heading group, including any intervening images or separators.
  */
 @Immutable
 data class ChapterPosition(

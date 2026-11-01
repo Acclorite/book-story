@@ -13,9 +13,18 @@ import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.Density
 import ua.acclorite.book_story.domain.model.book.Node
+import ua.acclorite.book_story.domain.model.book.NodeContent
+import ua.acclorite.book_story.ui.reader.textBlockStyle
+import ua.acclorite.book_story.ui.reader.textBlockPadding
 import ua.acclorite.book_story.domain.model.book.NodeContent.HeaderLevel
 import kotlin.math.roundToInt
+
+private fun Constraints.insetTextBlock(padding: Int): Constraints = copy(
+    minWidth = (minWidth - padding * 2).coerceAtLeast(0),
+    maxWidth = if (hasBoundedWidth) (maxWidth - padding * 2).coerceAtLeast(0) else Constraints.Infinity
+)
 
 @Immutable
 sealed class ReaderNode(val node: Node) {
@@ -23,6 +32,7 @@ sealed class ReaderNode(val node: Node) {
         nodeIntraOffset: Int,
         textMeasurer: TextMeasurer,
         constraints: Constraints,
+        density: Density,
         paragraphTextStyle: TextStyle,
         header1TextStyle: TextStyle,
         header2TextStyle: TextStyle,
@@ -49,21 +59,35 @@ sealed class ReaderNode(val node: Node) {
                 )
 
                 val lineIndex =
-                    result.getLineForOffset(nodeIntraOffset)
+                    result.getLineForOffset(nodeIntraOffset.coerceIn(0, title.length))
                 result.getLineTop(lineIndex).roundToInt()
             }
 
             is Paragraph -> {
                 if (nodeIntraOffset <= 0) return 0
+                if (node.content is NodeContent.TableRow) {
+                    val cells = tableCells()
+                    val cell = cells.firstOrNull { nodeIntraOffset >= it.startOffset && nodeIntraOffset < it.endOffset }
+                        ?: cells.lastOrNull { it.startOffset <= nodeIntraOffset } ?: return 0
+                    val width = tableCellTextWidth(cell.cell, tableColumns(), constraints.maxWidth, density)
+                    val result = textMeasurer.measure(
+                        cell.text, node.content.textBlockStyle(paragraphTextStyle),
+                        constraints = Constraints(minWidth = width, maxWidth = width)
+                    )
+                    val offset = (nodeIntraOffset - cell.startOffset).coerceIn(0, cell.text.length)
+                    return result.getLineTop(result.getLineForOffset(offset)).roundToInt() +
+                        with(density) { ReaderTableCellPadding.roundToPx() }
+                }
+                val padding = with(density) { node.content.textBlockPadding().roundToPx() }
 
                 val result = textMeasurer.measure(
                     text = text,
-                    style = paragraphTextStyle,
-                    constraints = constraints
+                    style = node.content.textBlockStyle(paragraphTextStyle),
+                    constraints = constraints.insetTextBlock(padding)
                 )
                 val lineIndex =
-                    result.getLineForOffset(nodeIntraOffset)
-                result.getLineTop(lineIndex).roundToInt()
+                    result.getLineForOffset(nodeIntraOffset.coerceIn(0, text.length))
+                result.getLineTop(lineIndex).roundToInt() + padding
             }
 
             is Image, is Separator -> 0
@@ -74,6 +98,7 @@ sealed class ReaderNode(val node: Node) {
         nodeVerticalOffsetPx: Int,
         textMeasurer: TextMeasurer,
         constraints: Constraints,
+        density: Density,
         paragraphTextStyle: TextStyle,
         header1TextStyle: TextStyle,
         header2TextStyle: TextStyle,
@@ -104,13 +129,27 @@ sealed class ReaderNode(val node: Node) {
 
             is Paragraph -> {
                 if (nodeVerticalOffsetPx <= 0) return 0
+                if (node.content is NodeContent.TableRow) {
+                    val y = (nodeVerticalOffsetPx - with(density) { ReaderTableCellPadding.roundToPx() }).coerceAtLeast(0)
+                    val measured = tableCells().filter { it.text.isNotEmpty() }.map { cell ->
+                        val width = tableCellTextWidth(cell.cell, tableColumns(), constraints.maxWidth, density)
+                        cell to textMeasurer.measure(
+                            cell.text, node.content.textBlockStyle(paragraphTextStyle),
+                            constraints = Constraints(minWidth = width, maxWidth = width)
+                        )
+                    }
+                    val (cell, result) = measured.firstOrNull { it.second.size.height > y }
+                        ?: measured.lastOrNull() ?: return 0
+                    return cell.startOffset + result.getOffsetForPosition(Offset(0f, y.toFloat()))
+                }
+                val padding = with(density) { node.content.textBlockPadding().roundToPx() }
 
                 val result = textMeasurer.measure(
                     text = text,
-                    style = paragraphTextStyle,
-                    constraints = constraints
+                    style = node.content.textBlockStyle(paragraphTextStyle),
+                    constraints = constraints.insetTextBlock(padding)
                 )
-                result.getOffsetForPosition(Offset(0f, nodeVerticalOffsetPx.toFloat()))
+                result.getOffsetForPosition(Offset(0f, (nodeVerticalOffsetPx - padding).coerceAtLeast(0).toFloat()))
             }
 
             is Image, is Separator -> 0

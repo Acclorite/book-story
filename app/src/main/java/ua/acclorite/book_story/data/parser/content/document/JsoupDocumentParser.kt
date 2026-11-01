@@ -6,486 +6,527 @@
 
 package ua.acclorite.book_story.data.parser.content.document
 
-import androidx.core.net.toUri
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
+import org.jsoup.nodes.Node
+import org.jsoup.nodes.TextNode
+import ua.acclorite.book_story.core.helpers.cleanHeaderText
 import ua.acclorite.book_story.core.helpers.containsVisibleText
-import ua.acclorite.book_story.core.helpers.foundMatch
+import ua.acclorite.book_story.core.log.logW
 import ua.acclorite.book_story.domain.model.book.NodeContent
 import ua.acclorite.book_story.domain.model.file.ImageMetadata
-import java.io.File
-import java.net.URLDecoder
-import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 import kotlin.io.encoding.Base64
 
-data class BinaryImage(
-    val name: String,
-    val bytes: ByteArray
-) {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+data class BinaryImage(val name: String, val bytes: ByteArray) {
+    override fun equals(other: Any?): Boolean = other is BinaryImage &&
+        name == other.name && bytes.contentEquals(other.bytes)
 
-        other as BinaryImage
-
-        if (name != other.name) return false
-        if (!bytes.contentEquals(other.bytes)) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = name.hashCode()
-        result = 31 * result + bytes.contentHashCode()
-        return result
-    }
+    override fun hashCode(): Int = 31 * name.hashCode() + bytes.contentHashCode()
 }
 
+private fun Element.localTag(): String = normalName().substringAfter(':')
+private val ignoredTags = setOf("head", "script", "stylesheet", "binary", "template")
+private val blockTags = setOf(
+    "body", "p", "div", "section", "article", "main", "header", "footer", "aside", "nav",
+    "blockquote", "figure", "figcaption", "dl", "dt", "dd", "ul", "ol", "menu", "li",
+    "table", "thead", "tbody", "tfoot", "tr", "caption", "pre", "address",
+    "epigraph", "poem", "stanza", "v", "text-author", "annotation", "date"
+)
+private val headerTag = Regex("h[1-6]")
+private val htmlWhitespace = Regex("[ \\t\\r\\n\\u000C]+")
+private val externalLink = Regex("^(https?|mailto|tel):", RegexOption.IGNORE_CASE)
+
 class JsoupDocumentParser @Inject constructor() {
-    /**
-     * Mirrors [NodeContent] for Jsoup in order to parse it and get a list of
-     * formatted [NodeContent].
-     *
-     * Contains various methods to insert markers and parse them.
-     *
-     * @see [NodeContent]
-     */
-    private object DocumentContent {
-        object Header {
-            fun insertMarker(level: Int) = "{{HEADER-L='$level'}}"
-            fun isHeader(text: String): Boolean = text.foundMatch("{{HEADER-L='")
-            fun getHeaderLevel(text: String): Int? {
-                text.indexOf("{{HEADER-L='").let { startIndex ->
-                    if (startIndex == -1) return null
-                    // headerLevel is at index 12 of header marker
-                    return text.getOrNull(startIndex + 12)?.digitToIntOrNull()
-                }
-            }
-
-            fun getHeaderTitle(text: String): String = text.substringAfter("'}}")
-        }
-
-        object Paragraph {
-            data class FormattingMarker(
-                val id: String,
-                val start: String?,
-                val startRegex: Regex?,
-                val end: String,
-                val insertStart: (args: Map<String, String>?) -> String,
-                val insertEnd: () -> String,
-                val extractArgs: ((MatchResult) -> Map<String, String>)? = null
-            )
-
-            val boldMarker = FormattingMarker(
-                id = "bold",
-                start = "{{B-START}}",
-                startRegex = null,
-                end = "{{B-END}}",
-                insertStart = { "{{B-START}}" },
-                insertEnd = { "{{B-END}}" }
-            )
-            val italicMarker = FormattingMarker(
-                id = "italic",
-                start = "{{I-START}}",
-                startRegex = null,
-                end = "{{I-END}}",
-                insertStart = { "{{I-START}}" },
-                insertEnd = { "{{I-END}}" }
-            )
-            val linkMarker = FormattingMarker(
-                id = "link",
-                start = null,
-                startRegex = Regex("""\{\{L-START-L='([^']*)'\}\}"""),
-                end = "{{L-END}}",
-                insertStart = { args -> "{{L-START-L='${args?.get("link").orEmpty()}'}}" },
-                insertEnd = { "{{L-END}}" },
-                extractArgs = { match -> mapOf("link" to match.groupValues[1]) }
-            )
-
-            val markers = listOf(boldMarker, italicMarker, linkMarker)
-
-            fun clearMarkers(textWithMarkers: String): String {
-                var result = textWithMarkers
-                for (marker in markers) {
-                    result = when {
-                        marker.start != null -> {
-                            result.replace(marker.start, "")
-                        }
-
-                        marker.startRegex != null -> {
-                            result.replace(marker.startRegex, "")
-                        }
-
-                        else -> result
-                    }
-                    result = result.replace(marker.end, "")
-                }
-                return result
-            }
-
-            fun resolveStyle(
-                marker: FormattingMarker,
-                args: Map<String, String>?
-            ): NodeContent.TextStyle {
-                return when (marker.id) {
-                    "bold" -> NodeContent.TextStyle.Bold
-                    "italic" -> NodeContent.TextStyle.Italic
-                    "link" -> NodeContent.TextStyle.Link(args?.get("link").orEmpty())
-                    else -> error("Unknown marker: ${marker.id}")
-                }
-            }
-
-            fun trimWithStyles(
-                text: String,
-                styles: List<NodeContent.TextStyleRange>
-            ): NodeContent.Paragraph {
-                val trimmedString = text.trim()
-                if (trimmedString.isBlank()) {
-                    return NodeContent.Paragraph("", emptyList())
-                }
-
-                val trimmedShift = text.indexOf(trimmedString)
-                if (trimmedShift <= 0) return NodeContent.Paragraph(text, styles)
-
-                val trimmedStyles = styles.map { style ->
-                    val trimmedStart = (style.start - trimmedShift)
-                        .coerceIn(0, trimmedString.length)
-                    val trimmedEnd = (style.end - trimmedShift)
-                        .coerceIn(0, trimmedString.length)
-
-                    style.copy(start = trimmedStart, end = trimmedEnd)
-                }.filter { style -> style.start < style.end }
-
-                return NodeContent.Paragraph(trimmedString, trimmedStyles)
-            }
-
-            private data class StackMarkerItem(
-                val marker: FormattingMarker,
-                val startIndex: Int,
-                val args: Map<String, String>?
-            )
-
-            fun parseFormatting(textWithMarkers: String): NodeContent.Paragraph {
-                val outputText = StringBuilder(textWithMarkers.length)
-                val styles = mutableListOf<NodeContent.TextStyleRange>()
-                val stackMarkers = ArrayDeque<StackMarkerItem>()
-
-                var index = 0
-                while (index < textWithMarkers.length) {
-                    // Check for closing marker
-                    val lastStackMarker = stackMarkers.lastOrNull()
-                    if (lastStackMarker != null && textWithMarkers.startsWith(
-                            lastStackMarker.marker.end,
-                            index
-                        )
-                    ) {
-                        styles.add(
-                            NodeContent.TextStyleRange(
-                                start = lastStackMarker.startIndex,
-                                end = outputText.length,
-                                style = resolveStyle(lastStackMarker.marker, lastStackMarker.args)
-                            )
-                        )
-                        stackMarkers.removeLast()
-                        index += lastStackMarker.marker.end.length
-                        continue
-                    }
-
-                    // Check for opening marker
-                    var startMarker = false
-                    for (marker in markers) {
-                        var args: Map<String, String>? = null
-                        var markerLength = 0
-
-                        when {
-                            marker.start != null -> {
-                                if (textWithMarkers.startsWith(marker.start, index)) {
-                                    markerLength = marker.start.length
-                                }
-                            }
-
-                            marker.startRegex != null -> {
-                                val startMatch = marker.startRegex.find(textWithMarkers, index)
-                                if (startMatch != null && startMatch.range.first == index) {
-                                    args = marker.extractArgs?.invoke(startMatch)
-                                    markerLength = startMatch.value.length
-                                }
-                            }
-                        }
-
-                        if (markerLength > 0) {
-                            stackMarkers.addLast(StackMarkerItem(marker, outputText.length, args))
-                            index += markerLength
-                            startMarker = true
-                            break
-                        }
-                    }
-                    if (startMarker) continue
-
-                    // Append character if no markers were found
-                    outputText.append(textWithMarkers[index])
-                    index++
-                }
-
-                return trimWithStyles(outputText.toString(), styles)
-            }
-        }
-
-        object Image {
-            fun insertMarker(source: String, alt: String) = "{{IMAGE-S='$source'-A='$alt'}}"
-            fun isImage(text: String): Boolean = text.foundMatch("{{IMAGE-S='")
-            fun parseImage(
-                text: String, images: Map<String, ImageMetadata>
-            ): NodeContent.Image? {
-                val markerStart = "{{IMAGE-S='"
-                val startIndex = text.indexOf(markerStart)
-                if (startIndex == -1) return null
-
-                val sourceStart = startIndex + markerStart.length
-                val sourceEnd = text.indexOf("'-A='", sourceStart)
-                if (sourceEnd == -1) return null
-                val source = text.substring(sourceStart, sourceEnd)
-
-                val altStart = sourceEnd + 5
-                val altEnd = text.indexOf("'}}", altStart)
-                if (altEnd == -1) return null
-                val alt = text.substring(altStart, altEnd).takeIf { it.isNotBlank() }
-
-                val image = images[source] ?: return null
-                return NodeContent.Image(
-                    content = image.path.path,
-                    caption = alt,
-                    width = image.width,
-                    height = image.height,
-                    aspectRatio = image.aspectRatio
-                )
-            }
-        }
-
-        object Separator {
-            fun insertMarker() = "{{SEPARATOR}}"
-            fun isSeparator(text: String): Boolean = text.foundMatch(insertMarker())
-        }
-    }
-
-    /**
-     * Applies various fixes and adds markers to the document.
-     *
-     * Applied document contains formatting markers for later use, such as:
-     * "{{HEADER-L-'1'}} Header text" or "This {{B-START}}is{{B-END}} some example text."
-     *
-     * @param images Optional map of [ImageMetadata.originalName] and
-     * [ImageMetadata] to insert images inside returned list.
-     */
-    private fun Element.processDocument(
-        images: Map<String, ImageMetadata>
-    ) {
-        // Remove manual line breaks from all <p>, <a>
-        select("p").forEach { element ->
-            element.html(element.html().replace(Regex("\\n+"), " "))
-            element.before(Element("br"))
-            element.after(Element("br"))
-        }
-        select("a").forEach { element ->
-            element.html(element.html().replace(Regex("\\n+"), ""))
-        }
-
-        // Remove <head>'s title
-        select("title").remove()
-
-        select("empty-line").forEach { element ->
-            element.after("\n")
-        }
-
-        // Header type
-        select("h1").forEach { element ->
-            element.select("br").before(" ").remove()
-            element.before("\n${DocumentContent.Header.insertMarker(1)}")
-            element.after("\n")
-        }
-        select("h2").forEach { element ->
-            element.select("br").before(" ").remove()
-            element.before("\n${DocumentContent.Header.insertMarker(2)}")
-            element.after("\n")
-        }
-        select("h3").forEach { element ->
-            element.select("br").before(" ").remove()
-            element.before("\n${DocumentContent.Header.insertMarker(3)}")
-            element.after("\n")
-        }
-        select("h4").forEach { element ->
-            element.select("br").before(" ").remove()
-            element.before("\n${DocumentContent.Header.insertMarker(4)}")
-            element.after("\n")
-        }
-        select("h5").forEach { element ->
-            element.select("br").before(" ").remove()
-            element.before("\n${DocumentContent.Header.insertMarker(5)}")
-            element.after("\n")
-        }
-        select("h6").forEach { element ->
-            element.select("br").before(" ").remove()
-            element.before("\n${DocumentContent.Header.insertMarker(6)}")
-            element.after("\n")
-        }
-
-        // Paragraph type
-        select("strong, b, emphasis").forEach { element ->
-            element.before(DocumentContent.Paragraph.boldMarker.insertStart(null))
-            element.after(DocumentContent.Paragraph.boldMarker.insertEnd())
-        }
-        select("em, i, cite, dfn, address").forEach { element ->
-            element.before(DocumentContent.Paragraph.italicMarker.insertStart(null))
-            element.after(DocumentContent.Paragraph.italicMarker.insertEnd())
-        }
-        select("a").forEach { element ->
-            var link = element.attr("href")
-            if (!link.startsWith("http") || element.wholeText().isBlank()) return@forEach
-
-            if (link.startsWith("http://")) {
-                link = link.replaceFirst("http://", "https://")
-            }
-
-            element.before(DocumentContent.Paragraph.linkMarker.insertStart(mapOf("link" to link)))
-            element.after(DocumentContent.Paragraph.linkMarker.insertEnd())
-        }
-
-        // Image type
-        if (images.isNotEmpty()) {
-            select("img").forEach { element ->
-                val src = element.attr("src").trim().substringAfterLast(File.separator).lowercase()
-                    .let { src -> URLDecoder.decode(src, StandardCharsets.UTF_8.name()) }
-                    .let { src -> src.toUri().fragment ?: src }
-                    .takeIf { src ->
-                        if (!src.containsVisibleText()) return@takeIf false
-                        if (images[src] == null) return@takeIf false
-                        return@takeIf true
-                    } ?: return@forEach
-                val alt = element.attr("alt").trim().takeIf { alt ->
-                    alt.containsVisibleText()
-                } ?: ""
-
-                element.before("\n${DocumentContent.Image.insertMarker(src, alt)}\n")
-            }
-            select("image").forEach { element ->
-                val src =
-                    element.attr("xlink:href").trim().substringAfterLast(File.separator).lowercase()
-                        .let { src -> URLDecoder.decode(src, StandardCharsets.UTF_8.name()) }
-                        .let { src -> src.toUri().fragment ?: src }
-                        .takeIf { src ->
-                            if (!src.containsVisibleText()) return@takeIf false
-                            if (images[src] == null) return@takeIf false
-                            return@takeIf true
-                        } ?: return@forEach
-                val alt = ""
-
-                element.before("\n${DocumentContent.Image.insertMarker(src, alt)}\n")
-            }
-        }
-
-        // Separator type
-        select("hr").forEach { element ->
-            element.before("\n${DocumentContent.Separator.insertMarker()}\n")
-        }
-    }
-
-    /**
-     * Processes marked by [processDocument] document.
-     *
-     * Parses text of the document marked with various symbols (such as {{BOLD}})
-     * to retrieve a list of [NodeContent].
-     *
-     * @param images Optional map of [ImageMetadata.originalName] and
-     * [ImageMetadata] to insert images inside returned list.
-     */
-    private fun List<String>.processMarkedDocument(
-        images: Map<String, ImageMetadata>
-    ): List<NodeContent> {
-        val nodes = mutableListOf<NodeContent>()
-
-        forEach { line ->
-            if (line.containsVisibleText()) {
-                when {
-                    DocumentContent.Header.isHeader(line) -> {
-                        val title = DocumentContent.Header.getHeaderTitle(line)
-                        val level = DocumentContent.Header.getHeaderLevel(line)
-                        if (title.isBlank() || level == null) return@forEach
-
-                        nodes.add(
-                            NodeContent.Header(
-                                title = title,
-                                level = NodeContent.HeaderLevel.forNumber(level)
-                            )
-                        )
-                    }
-
-                    DocumentContent.Image.isImage(line) -> {
-                        DocumentContent.Image.parseImage(line, images)?.also { nodes.add(it) }
-                    }
-
-                    DocumentContent.Separator.isSeparator(line) -> {
-                        nodes.add(NodeContent.Separator)
-                    }
-
-                    else -> {
-                        if (DocumentContent.Paragraph.clearMarkers(line).containsVisibleText()) {
-                            nodes.add(DocumentContent.Paragraph.parseFormatting(line))
-                        }
-                    }
-                }
-            }
-        }
-
-        return nodes
-    }
-
-    /**
-     * Parses document, applies formatting and returns a list of [NodeContent].
-     *
-     * @param document Unedited [org.jsoup.nodes.Document].
-     * @param images Optional map of [ImageMetadata.originalName] and
-     * [ImageMetadata] to insert images inside returned list.
-     */
-    fun parseDocument(
+    suspend fun parseDocument(
         document: Document,
-        images: Map<String, ImageMetadata>
+        images: Map<String, ImageMetadata>,
+        documentPath: String = "",
+        stylesheets: List<String> = emptyList(),
+        outline: List<DocumentOutlineEntry> = emptyList()
     ): List<NodeContent> {
-        val documentBody = (document.selectFirst("body") ?: document.body())
-
-        // Apply fixes and markers to the document
-        documentBody.processDocument(images = images)
-
-        // Convert marked text to NodeContent
-        val nodes = documentBody.wholeText().lines().processMarkedDocument(images = images)
-
-        return nodes
+        val fictionBook = document.getAllElements().firstOrNull { it.localTag() == "fictionbook" }
+        val roots = fictionBook?.children()?.filter { it.localTag() == "body" }
+            ?: document.getAllElements().firstOrNull { it.localTag() == "body" }?.let { listOf(it) }
+            ?: document.children().toList()
+        return DocumentReader(images, documentPath, fictionBook != null, DocumentStyleResolver(document, stylesheets), outline).read(roots)
     }
 
-    /**
-     * Extracts <binary> images from document.
-     * Applicable to .fb2 (they embed such binaries inside documents).
-     *
-     * @return A list of [BinaryImage], which is a wrapper for name + byteArray.
-     *         (empty if none found)
-     */
-    fun extractBinaryImages(document: Document): List<BinaryImage> {
-        val images = mutableListOf<BinaryImage>()
-
-        document.select("binary").forEach { element ->
-            if (!element.attr("content-type").startsWith("image", ignoreCase = true)) return@forEach
-
-            val name = URLDecoder.decode(element.attr("id"), StandardCharsets.UTF_8.name())
-            if (name.isBlank()) return@forEach
-
-            val base64Data = element.text().filterNot { character ->
-                character == ' ' || character == '\t' || character == '\r' || character == '\n'
+    fun extractBinaryImages(document: Document): Sequence<BinaryImage> =
+        document.getAllElements().asSequence().filter { it.localTag() == "binary" }.mapNotNull { element ->
+            if (!element.attr("content-type").startsWith("image/", ignoreCase = true)) {
+                return@mapNotNull null
             }
-            val imageBytes = Base64.decode(base64Data)
-
-            images.add(BinaryImage(name, imageBytes))
+            val name = element.id().trim().takeIf { it.isNotEmpty() } ?: return@mapNotNull null
+            try {
+                val encoded = element.wholeText().filterNot { it in " \t\r\n" }
+                BinaryImage(name, Base64.decode(encoded))
+            } catch (exception: IllegalArgumentException) {
+                logW("JsoupDocumentParser", "Skipping invalid binary image [$name]: ${exception.message}")
+                null
+            }
         }
 
-        return images
+    private class DocumentReader(
+        val images: Map<String, ImageMetadata>,
+        val documentPath: String,
+        val fictionBook: Boolean,
+        val styleResolver: DocumentStyleResolver,
+        val outline: List<DocumentOutlineEntry>
+    ) {
+        val nodes = mutableListOf<NodeContent>()
+        val text = StringBuilder()
+        val ranges = mutableListOf<NodeContent.TextStyleRange>()
+        var preformatted = false
+        var listPrefix: String? = null
+        var blockFactory: (String, List<NodeContent.TextStyleRange>) -> NodeContent.TextBlock =
+            { value, styles -> NodeContent.Paragraph(value, styles) }
+        var quoteDepth = 0
+        var tableRow = false
+        var inFootnote = false
+        val outlineHeaders = java.util.IdentityHashMap<Element, DocumentOutlineEntry>()
+        val outlineInsertions = java.util.IdentityHashMap<Element, DocumentOutlineEntry>()
+
+        suspend fun read(
+            roots: List<Element>,
+            inherited: List<NodeContent.TextStyle> = emptyList()
+        ): List<NodeContent> {
+            if (outline.isNotEmpty()) {
+                val elements = roots.flatMap { it.getAllElements() }
+                for (entry in outline) {
+                    val target = if (entry.fragment.isNullOrBlank()) roots.firstOrNull()
+                    else elements.firstOrNull { it.id() == entry.fragment || it.attr("name") == entry.fragment }
+                    if (target == null) continue
+                    fun Element.isHeading() = localTag().matches(headerTag) || attr("role") == "heading"
+                    val heading = if (target.isHeading()) target
+                    else target.getAllElements().firstOrNull { it.isHeading() }
+                        ?: target.nextElementSibling()?.takeIf { target.text().isBlank() && it.isHeading() }
+                        ?: target.takeIf {
+                            it.localTag() in setOf("p", "div", "span") &&
+                                headingText(it) == entry.title.cleanHeaderText()
+                        }
+                    if (heading != null) outlineHeaders.putIfAbsent(heading, entry)
+                    else outlineInsertions.putIfAbsent(target, entry)
+                }
+            }
+            roots.forEach {
+                visit(it, inherited, preserveWhitespace = false)
+                flush()
+            }
+            return nodes
+        }
+
+        fun append(value: String, styles: List<NodeContent.TextStyle>, preserveWhitespace: Boolean) {
+            if (value.isEmpty()) return
+            var normalized = if (preserveWhitespace) value.replace("\r\n", "\n").replace('\r', '\n')
+            else value.replace(htmlWhitespace, " ")
+            if (!preserveWhitespace && (text.isEmpty() || text.last() == ' ')) {
+                normalized = normalized.trimStart(' ')
+            }
+            if (normalized.isEmpty()) return
+            if (text.isEmpty()) listPrefix?.let { text.append(it); listPrefix = null }
+            val start = text.length
+            text.append(normalized)
+            preformatted = preformatted || preserveWhitespace
+            styles.distinct().forEach { ranges.add(NodeContent.TextStyleRange(start, text.length, it)) }
+        }
+
+        fun flush() {
+            var start = 0
+            var end = text.length
+            if (!preformatted) {
+                while (start < end && text[start].isWhitespace()) start++
+                while (end > start && text[end - 1].isWhitespace()) end--
+            }
+            val value = text.substring(start, end)
+            if (value.containsVisibleText()) {
+                if (inFootnote) {
+                    ranges.add(0, NodeContent.TextStyleRange(start, end, NodeContent.TextStyle.Small))
+                }
+                val clipped = ranges.mapNotNull {
+                    val from = it.start.coerceIn(start, end) - start
+                    val to = it.end.coerceIn(start, end) - start
+                    if (from < to) it.copy(start = from, end = to) else null
+                }
+                val merged = mutableListOf<NodeContent.TextStyleRange>()
+                clipped.groupBy { it.style }.forEach { (_, spans) ->
+                    var current: NodeContent.TextStyleRange? = null
+                    spans.sortedBy { it.start }.forEach { span ->
+                        val previous = current
+                        if (previous != null && span.start <= previous.end) {
+                            current = previous.copy(end = maxOf(previous.end, span.end))
+                        } else {
+                            current?.let { merged.add(it) }
+                            current = span
+                        }
+                    }
+                    current?.let { merged.add(it) }
+                }
+                nodes.add(blockFactory(value, merged.sortedBy { it.start }))
+            }
+            text.clear()
+            ranges.clear()
+            preformatted = false
+        }
+
+        fun hidden(element: Element): Boolean {
+            if (element.localTag() in ignoredTags || element.hasAttr("hidden") ||
+                (!fictionBook && element.localTag() == "style")
+            ) return true
+            val css = css(element)
+            return css["display"].equals("none", true) ||
+                css["visibility"].equals("hidden", true) || css["visibility"].equals("collapse", true)
+        }
+
+        fun css(element: Element): Map<String, String> = styleResolver.resolve(element)
+
+        fun footnoteContainer(element: Element): Boolean {
+            if (element.localTag() !in setOf("div", "aside", "section")) return false
+            return "footnote" in element.classNames() ||
+                "doc-footnote" in element.attr("role").split(htmlWhitespace) ||
+                "footnote" in element.attr("epub:type").split(htmlWhitespace) ||
+                "footnote" in element.attr("ops:type").split(htmlWhitespace)
+        }
+
+        fun headingLevel(element: Element): Int? {
+            outlineHeaders[element]?.let { return it.level.coerceIn(1, 6) }
+            val tag = element.localTag()
+            if (tag.matches(headerTag)) return tag.drop(1).toInt()
+            if (element.attr("role").equals("heading", true)) {
+                return (element.attr("aria-level").toIntOrNull() ?: 2).coerceIn(1, 6)
+            }
+            if (!fictionBook) return null
+            if (tag == "title") {
+                if (element.parent()?.localTag() in setOf("poem", "stanza", "epigraph", "cite")) return null
+                val sections = element.parents().count { it.localTag() == "section" }
+                val extra = if (element.parent()?.localTag() in setOf("poem", "stanza")) 1 else 0
+                return (sections + extra).coerceIn(1, 6)
+            }
+
+            return null
+        }
+
+        fun headingText(element: Element): String {
+            val result = StringBuilder()
+            fun collect(node: Node) {
+                when (node) {
+                    is TextNode -> result.append(node.wholeText)
+                    is Element -> {
+                        if (hidden(node)) return
+                        val block = node.localTag() in blockTags || node.localTag() == "br"
+                        if (block) result.append(' ')
+                        node.childNodes().forEach { collect(it) }
+                        if (block) result.append(' ')
+                    }
+                }
+            }
+            collect(element)
+            return result.toString().cleanHeaderText()
+        }
+
+        fun headingImages(element: Element) {
+            if (hidden(element)) return
+            if (element.localTag() in setOf("img", "image", "object") &&
+                image(element, emptyList(), preserveWhitespace = false)
+            ) return
+            element.children().forEach { headingImages(it) }
+        }
+
+        fun href(element: Element): String = element.attr("href").ifBlank {
+            element.attributes().firstOrNull { it.key.substringAfter(':').equals("href", true) }?.value.orEmpty()
+        }
+
+        fun findImage(source: String): ImageMetadata? {
+            val key = if (source.startsWith('#')) decodeDocumentPath(source.drop(1))
+            else resolveDocumentPath(documentPath, source)
+            if (key != null) images[key]?.let { return it }
+            images[source]?.let { return it }
+            val name = key?.substringAfterLast('/') ?: return null
+            val candidates = images.filterKeys { it.substringAfterLast('/').equals(name, true) }.values
+            return candidates.singleOrNull()
+        }
+
+        fun image(element: Element, styles: List<NodeContent.TextStyle>, preserveWhitespace: Boolean): Boolean {
+            val tag = element.localTag()
+            val source = when (tag) {
+                "img" -> element.attr("src")
+                "object" -> element.attr("data")
+                else -> href(element)
+            }.trim()
+            val metadata = findImage(source)
+            val alt = element.attr("alt").ifBlank { element.attr("title") }.trim()
+            if (metadata == null) {
+                if (alt.isNotBlank()) append(alt, styles, preserveWhitespace)
+                return false
+            }
+            flush()
+            nodes.add(
+                NodeContent.Image(
+                    metadata.path.path, alt.takeIf { it.isNotEmpty() },
+                    metadata.width, metadata.height, metadata.aspectRatio
+                )
+            )
+            return true
+        }
+
+        fun inlineStyles(element: Element, inherited: List<NodeContent.TextStyle>): List<NodeContent.TextStyle> {
+            val tag = element.localTag()
+            val css = css(element)
+            val styles = inherited.toMutableList()
+            if (tag in setOf("b", "strong", "th")) styles.add(NodeContent.TextStyle.Bold)
+            if (tag in setOf("i", "em", "emphasis", "cite", "dfn")) styles.add(NodeContent.TextStyle.Italic)
+            css["font-weight"]?.let { weight ->
+                if (weight == "normal" || weight.toIntOrNull()?.let { it < 600 } == true) {
+                    styles.removeAll { it is NodeContent.TextStyle.Bold }
+                } else if (weight in setOf("bold", "bolder") || weight.toIntOrNull()?.let { it >= 600 } == true) {
+                    styles.add(NodeContent.TextStyle.Bold)
+                }
+            }
+            css["font-style"]?.let {
+                if (it == "normal") styles.removeAll { style -> style is NodeContent.TextStyle.Italic }
+                else if (it.startsWith("italic") || it.startsWith("oblique")) styles.add(NodeContent.TextStyle.Italic)
+            }
+            if (tag in setOf("u", "ins")) styles.add(NodeContent.TextStyle.Underline)
+            if (tag in setOf("s", "strike", "del", "strikethrough")) styles.add(NodeContent.TextStyle.Strikethrough)
+            if (tag == "sup") {
+                styles.removeAll { it is NodeContent.TextStyle.Subscript }
+                styles.add(NodeContent.TextStyle.Superscript)
+            }
+            if (tag == "sub") {
+                styles.removeAll { it is NodeContent.TextStyle.Superscript }
+                styles.add(NodeContent.TextStyle.Subscript)
+            }
+            if (tag in setOf("code", "kbd", "samp", "tt")) styles.add(NodeContent.TextStyle.Monospace)
+            val inlineSmall = tag !in blockTags && tag !in setOf("td", "th") &&
+                css["display"] !in setOf("block", "list-item", "table", "table-cell") &&
+                css["font-size"] in setOf("small", "smaller", "x-small", "xx-small")
+            if (tag == "small" || inlineSmall) styles.add(NodeContent.TextStyle.Small)
+            if (tag == "mark") styles.add(NodeContent.TextStyle.Highlight)
+            val decoration = css["text-decoration-line"] ?: css["text-decoration"].orEmpty()
+            if ("underline" in decoration) styles.add(NodeContent.TextStyle.Underline)
+            if ("line-through" in decoration) styles.add(NodeContent.TextStyle.Strikethrough)
+            if (decoration == "none") styles.removeAll {
+                it is NodeContent.TextStyle.Underline || it is NodeContent.TextStyle.Strikethrough
+            }
+            when (css["vertical-align"]) {
+                "super" -> styles.add(NodeContent.TextStyle.Superscript)
+                "sub" -> styles.add(NodeContent.TextStyle.Subscript)
+            }
+            if (css["font-family"]?.contains("monospace") == true) styles.add(NodeContent.TextStyle.Monospace)
+            if (tag == "a") {
+                val link = href(element).trim()
+                if (externalLink.containsMatchIn(link)) styles.add(NodeContent.TextStyle.Link(link))
+            }
+
+            return styles
+        }
+
+        suspend fun readTable(element: Element, inherited: List<NodeContent.TextStyle>) {
+            element.children().filter { it.localTag() == "caption" }.forEach { visit(it, inherited, false) }
+            val rows = element.getAllElements().filter { row ->
+                row.localTag() == "tr" && row.parents().firstOrNull { it.localTag() == "table" } === element &&
+                    row.parents().takeWhile { it !== element }.none { hidden(it) } && !hidden(row)
+            }
+            data class Span(val column: Int, val width: Int, val endRow: Int, val header: Boolean)
+            val active = mutableListOf<Span>()
+            val parsed = mutableListOf<NodeContent.TableRow>()
+            val tableImages = mutableListOf<NodeContent.Image>()
+            var columns = 1
+            rows.forEachIndexed { rowIndex, row ->
+                currentCoroutineContext().ensureActive()
+                active.removeAll { it.endRow <= rowIndex }
+                val value = StringBuilder()
+                val styles = mutableListOf<NodeContent.TextStyleRange>()
+                val cells = active.map { span ->
+                    NodeContent.TableCell(0, 0, span.column, span.width, span.endRow - rowIndex, span.header, true)
+                }.toMutableList()
+                var column = 0
+                var rowStyles = inherited
+                row.parents().takeWhile { it !== element }.asReversed().forEach { parent ->
+                    rowStyles = inlineStyles(parent, rowStyles)
+                }
+                rowStyles = inlineStyles(row, rowStyles)
+                val groupRowsRemaining = rows.drop(rowIndex).takeWhile { it.parent() === row.parent() }.size
+                row.children().filter { it.localTag() in setOf("td", "th") && !hidden(it) }.forEach { cell ->
+                    val width = (cell.attr("colspan").toIntOrNull() ?: 1).coerceIn(1, 1000)
+                    while (active.any { column < it.column + it.width && column + width > it.column }) column++
+                    if (column >= 1000) return@forEach
+                    val spanWidth = width.coerceAtMost(1000 - column)
+                    val requestedHeight = cell.attr("rowspan").toIntOrNull() ?: 1
+                    val height = (if (requestedHeight == 0) groupRowsRemaining else requestedHeight)
+                        .coerceIn(1, minOf(65534, groupRowsRemaining))
+                    val reader = DocumentReader(images, documentPath, fictionBook, styleResolver, emptyList())
+                    reader.tableRow = true
+                    val content = reader.read(listOf(cell), rowStyles)
+                    if (value.isNotEmpty()) value.append(" | ")
+                    val start = value.length
+                    content.forEach { block ->
+                        when (block) {
+                            is NodeContent.TextBlock -> {
+                                if (value.length > start) value.append('\n')
+                                val offset = value.length
+                                value.append(block.text)
+                                styles.addAll(block.styles.map { it.copy(start = it.start + offset, end = it.end + offset) })
+                            }
+                            is NodeContent.Image -> {
+                                tableImages.add(block)
+                                block.caption?.let { caption ->
+                                    if (value.length > start) value.append('\n')
+                                    value.append(caption)
+                                }
+                            }
+                            else -> Unit
+                        }
+                    }
+                    val header = cell.localTag() == "th"
+                    cells.add(NodeContent.TableCell(start, value.length, column, spanWidth, height, header))
+                    if (height > 1) active.add(Span(column, spanWidth, rowIndex + height, header))
+                    column += spanWidth
+                }
+                if (cells.isNotEmpty()) {
+                    columns = maxOf(columns, cells.maxOf { it.column + it.columnSpan })
+                    parsed.add(NodeContent.TableRow(value.toString(), styles, cells.any { it.header }, cells.sortedBy { it.column }))
+                }
+            }
+            parsed.forEachIndexed { index, row ->
+                nodes.add(row.copy(columns = columns, firstRow = index == 0, lastRow = index == parsed.lastIndex))
+            }
+            nodes.addAll(tableImages)
+        }
+
+        suspend fun visit(node: Node, inherited: List<NodeContent.TextStyle>, preserveWhitespace: Boolean) {
+            currentCoroutineContext().ensureActive()
+            if (node is TextNode) {
+                append(node.wholeText, inherited, preserveWhitespace)
+                return
+            }
+            if (node !is Element || hidden(node)) return
+            if (!tableRow && !inFootnote && footnoteContainer(node)) {
+                flush()
+                val start = nodes.size
+                inFootnote = true
+                try {
+                    visit(node, listOf(NodeContent.TextStyle.Small) + inherited, preserveWhitespace)
+                    flush()
+                } finally {
+                    inFootnote = false
+                }
+                if (nodes.size > start && nodes[start] !is NodeContent.Separator &&
+                    nodes.getOrNull(start - 1) !is NodeContent.Separator
+                ) {
+                    nodes.add(start, NodeContent.Separator)
+                }
+                return
+            }
+            val tag = node.localTag()
+            outlineInsertions[node]?.let { entry ->
+                flush()
+                val title = entry.title.cleanHeaderText()
+                if (title.isNotEmpty()) nodes.add(NodeContent.Header(title, NodeContent.HeaderLevel.forNumber(entry.level.coerceIn(1, 6))))
+            }
+            if (tag == "title" && !fictionBook || tag == "desc") return
+
+            val heading = if (tableRow) null else headingLevel(node)
+            if (heading != null) {
+                flush()
+                val title = headingText(node)
+                if (title.containsVisibleText()) {
+                    nodes.add(NodeContent.Header(title, NodeContent.HeaderLevel.forNumber(heading)))
+                }
+                headingImages(node)
+                flush()
+                return
+            }
+            when (tag) {
+                "br" -> {
+                    if (tableRow) append(" / ", inherited, false)
+                    else if (preserveWhitespace) append("\n", inherited, true) else flush()
+                    return
+                }
+                "hr", "empty-line" -> {
+                    flush()
+                    nodes.add(NodeContent.Separator)
+                    return
+                }
+                "img", "image", "object" -> {
+                    if (image(node, inherited, preserveWhitespace) || tag != "object") return
+                }
+            }
+
+            val css = css(node)
+            val previousFactory = blockFactory
+            val previousQuoteDepth = quoteDepth
+            val previousTableRow = tableRow
+            val subtitle = fictionBook && (tag == "subtitle" ||
+                tag == "title" && node.parent()?.localTag() in setOf("poem", "stanza", "epigraph", "cite"))
+            val block = !tableRow && (tag in blockTags || subtitle || (fictionBook && tag == "cite") ||
+                css["display"] in setOf("block", "list-item", "table"))
+            if (block) flush()
+            else if (tableRow && tag in blockTags && text.isNotEmpty() && !text.last().isWhitespace()) {
+                append(" / ", inherited, false)
+            }
+            when {
+                tableRow -> Unit
+                tag == "blockquote" || tag == "epigraph" || fictionBook && tag == "cite" -> {
+                    quoteDepth++
+                    val depth = quoteDepth
+                    blockFactory = { value, spans -> NodeContent.Quote(value, spans, depth) }
+                }
+                tag == "pre" -> blockFactory = { value, spans -> NodeContent.CodeBlock(value, spans) }
+                tag == "v" && fictionBook -> blockFactory = { value, spans -> NodeContent.Verse(value, spans) }
+                subtitle -> blockFactory = { value, spans -> NodeContent.Subtitle(value, spans) }
+                tag in setOf("figcaption", "caption", "text-author") || fictionBook && tag == "date" -> {
+                    blockFactory = { value, spans -> NodeContent.Caption(value, spans) }
+                }
+                tag == "tr" -> {
+                    tableRow = true
+                    val header = node.children().any { it.localTag() == "th" }
+                    blockFactory = { value, spans -> NodeContent.TableRow(value, spans, header) }
+                }
+            }
+            val styles = inlineStyles(node, inherited)
+            if (tag == "table" && !tableRow) {
+                readTable(node, styles)
+                return
+            }
+
+            if (tag == "li" && !tableRow) {
+                val parent = node.parent()
+                val prefix = if (parent?.localTag() == "ol") {
+                    val siblings = parent.children().filter { it.localTag() == "li" }
+                    val step = if (parent.hasAttr("reversed")) -1 else 1
+                    var number = parent.attr("start").toIntOrNull()
+                        ?: if (step < 0) siblings.size else 1
+                    for (sibling in siblings) {
+                        number = sibling.attr("value").toIntOrNull() ?: number
+                        if (sibling === node) break
+                        number += step
+                    }
+                    "$number. "
+                } else "• "
+                listPrefix = prefix
+                val marker = prefix.trimEnd()
+                val depth = node.parents().count { it.localTag() in setOf("ul", "ol", "menu") }.coerceAtLeast(1)
+                blockFactory = { value, spans -> NodeContent.ListItem(value, spans, marker, depth) }
+            }
+            if (text.isNotEmpty() && tag in setOf("td", "th") &&
+                node.previousElementSibling()?.localTag() in setOf("td", "th")
+            ) append(" | ", inherited, false)
+
+            if (tag == "q") append("“", styles, preserveWhitespace)
+            if (tag == "rt") append(" (", styles, preserveWhitespace)
+            if (tag != "rp") node.childNodes().forEach {
+                visit(it, styles, preserveWhitespace || tag == "pre" || fictionBook && tag == "v")
+            }
+            if (tag == "rt") append(")", styles, preserveWhitespace)
+            if (tag == "q") append("”", styles, preserveWhitespace)
+            if (block) flush()
+            blockFactory = previousFactory
+            quoteDepth = previousQuoteDepth
+            tableRow = previousTableRow
+            if (tag == "li") listPrefix = null
+        }
     }
 }

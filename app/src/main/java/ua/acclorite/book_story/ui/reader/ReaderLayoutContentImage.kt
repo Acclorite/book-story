@@ -8,8 +8,8 @@ package ua.acclorite.book_story.ui.reader
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -37,6 +37,10 @@ fun ReaderLayoutContentImage(
     imagesWidth: Float,
     imagesColorEffects: ColorFilter?
 ) {
+    val aspectRatio = image.aspectRatio.takeIf { it.isFinite() && it > 0f }
+        ?: (image.originalWidth.value / image.originalHeight.value)
+            .takeIf { it.isFinite() && it > 0f }
+        ?: 1f
     Box(
         modifier = Modifier
             .padding(horizontal = sidePadding)
@@ -53,14 +57,13 @@ fun ReaderLayoutContentImage(
                 .clip(RoundedCornerShape(imagesCornersRoundness))
                 .background(fontColor.copy(0.3f))
                 .then(
-                    if (imagesOriginalSize) {
-                        Modifier
-                            .width(image.originalWidth)
-                            .height(image.originalHeight)
+                    if (imagesOriginalSize && image.originalWidth.value.isFinite() && image.originalWidth.value > 0f) {
+                        Modifier.width(image.originalWidth)
                     } else {
                         Modifier.fillMaxWidth(imagesWidth)
                     }
-                ),
+                )
+                .aspectRatio(aspectRatio),
             contentScale = ContentScale.FillWidth,
             colorFilter = imagesColorEffects
         )

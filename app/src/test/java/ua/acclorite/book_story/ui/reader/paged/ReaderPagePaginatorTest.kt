@@ -35,11 +35,12 @@ class ReaderPagePaginatorTest {
         imagesWidth = 1f, density = Density(1f)
     )
 
-    private fun measure(text: AnnotatedString, style: TextStyle): ReaderTextMeasurement {
-        val count = ceil(text.length / 4.0).toInt().coerceAtLeast(1)
+    private fun measure(text: AnnotatedString, style: TextStyle, width: Int): ReaderTextMeasurement {
+        val charactersPerLine = width.coerceAtLeast(1)
+        val count = ceil(text.length / charactersPerLine.toDouble()).toInt().coerceAtLeast(1)
         return ReaderTextMeasurement(
             height = count * 10,
-            lineEnds = List(count) { ((it + 1) * 4).coerceAtMost(text.length) },
+            lineEnds = List(count) { ((it + 1) * charactersPerLine).coerceAtMost(text.length) },
             lineBottoms = List(count) { (it + 1) * 10 }
         )
     }

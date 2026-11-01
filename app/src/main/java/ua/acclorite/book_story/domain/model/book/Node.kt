@@ -35,7 +35,7 @@ sealed class NodeContent {
         return when (this) {
             is Header -> title.length
             is Image -> 1
-            is Paragraph -> text.length
+            is TextBlock -> if (this is TableRow) text.length.coerceAtLeast(1) else text.length
             is Separator -> 1
         }
     }
@@ -72,6 +72,21 @@ sealed class NodeContent {
         data object Italic : TextStyle()
 
         @Immutable
+        data object Underline : TextStyle()
+        @Immutable
+        data object Strikethrough : TextStyle()
+        @Immutable
+        data object Superscript : TextStyle()
+        @Immutable
+        data object Subscript : TextStyle()
+        @Immutable
+        data object Monospace : TextStyle()
+        @Immutable
+        data object Small : TextStyle()
+        @Immutable
+        data object Highlight : TextStyle()
+
+        @Immutable
         data class Link(val link: String) : TextStyle()
     }
 
@@ -89,10 +104,74 @@ sealed class NodeContent {
     ) : NodeContent()
 
     @Immutable
+    sealed class TextBlock(open val text: String, open val styles: List<TextStyleRange>) : NodeContent()
+
+    @Immutable
     data class Paragraph(
-        val text: String,
-        val styles: List<TextStyleRange>
-    ) : NodeContent()
+        override val text: String,
+        override val styles: List<TextStyleRange>
+    ) : TextBlock(text, styles)
+
+    @Immutable
+    data class Quote(
+        override val text: String,
+        override val styles: List<TextStyleRange>,
+        val depth: Int = 1
+    ) : TextBlock(text, styles)
+
+    @Immutable
+    data class CodeBlock(
+        override val text: String,
+        override val styles: List<TextStyleRange>
+    ) : TextBlock(text, styles)
+
+    @Immutable
+    data class Verse(
+        override val text: String,
+        override val styles: List<TextStyleRange>
+    ) : TextBlock(text, styles)
+
+    @Immutable
+    data class ListItem(
+        override val text: String,
+        override val styles: List<TextStyleRange>,
+        val marker: String = "•",
+        val depth: Int = 1
+    ) : TextBlock(text, styles)
+
+    @Immutable
+    data class Subtitle(
+        override val text: String,
+        override val styles: List<TextStyleRange>
+    ) : TextBlock(text, styles)
+
+    @Immutable
+    data class TableCell(
+        val start: Int,
+        val end: Int,
+        val column: Int,
+        val columnSpan: Int = 1,
+        val rowSpan: Int = 1,
+        val header: Boolean = false,
+        val continuation: Boolean = false
+    )
+
+    @Immutable
+    data class TableRow(
+        override val text: String,
+        override val styles: List<TextStyleRange>,
+        val header: Boolean = false,
+        val cells: List<TableCell> = emptyList(),
+        val columns: Int = 0,
+        val firstRow: Boolean = true,
+        val lastRow: Boolean = true
+    ) : TextBlock(text, styles)
+
+    @Immutable
+    data class Caption(
+        override val text: String,
+        override val styles: List<TextStyleRange>
+    ) : TextBlock(text, styles)
 
     @Immutable
     data class Image(

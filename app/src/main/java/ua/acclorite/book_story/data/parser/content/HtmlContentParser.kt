@@ -20,6 +20,7 @@ import ua.acclorite.book_story.core.log.logE
 import ua.acclorite.book_story.core.log.logI
 import ua.acclorite.book_story.core.ui.UIText
 import ua.acclorite.book_story.data.parser.content.document.JsoupDocumentParser
+import ua.acclorite.book_story.data.parser.content.document.cacheEmbeddedDocumentImages
 import ua.acclorite.book_story.data.storage.file.CachedFile
 import ua.acclorite.book_story.domain.model.book.NodeContent
 import ua.acclorite.book_story.domain.model.file.FilePath
@@ -46,14 +47,10 @@ class HtmlContentParser @Inject constructor(
 
             val nodePath = cacheNodes(cachedFile.openInputStream()?.use { stream ->
                 emit(ContentParserState.Progress(0.5f))
+                val document = Jsoup.parse(stream, null, "", Parser.htmlParser())
                 jsoupDocumentParser.parseDocument(
-                    document = Jsoup.parse(
-                        stream,
-                        null,
-                        "",
-                        Parser.htmlParser()
-                    ),
-                    images = emptyMap() // HTML has no images
+                    document = document,
+                    images = cacheEmbeddedDocumentImages(document, cacheImage)
                 )
             } ?: throw IllegalStateException("Could not open Input Stream in HTML."))
 

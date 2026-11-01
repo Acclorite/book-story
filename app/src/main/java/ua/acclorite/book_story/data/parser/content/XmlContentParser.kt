@@ -98,14 +98,15 @@ class XmlContentParser @Inject constructor(
         document: Document,
         cacheImage: suspend (filename: String, inputStream: InputStream) -> ImageMetadata?
     ): Map<String, ImageMetadata> {
-        return jsoupDocumentParser.extractBinaryImages(document)
-            .mapNotNull { binaryImage ->
-                binaryImage.bytes.inputStream().use { inputStream ->
-                    cacheImage(
-                        binaryImage.name,
-                        inputStream
-                    ).let { if (it != null) it.originalName to it else null }
+        val images = mutableMapOf<String, ImageMetadata>()
+        for (binaryImage in jsoupDocumentParser.extractBinaryImages(document)) {
+            currentCoroutineContext().ensureActive()
+            binaryImage.bytes.inputStream().use { inputStream ->
+                cacheImage(binaryImage.name, inputStream)?.let { metadata ->
+                    images[binaryImage.name] = metadata
                 }
-            }.associate { it }
+            }
+        }
+        return images
     }
 }

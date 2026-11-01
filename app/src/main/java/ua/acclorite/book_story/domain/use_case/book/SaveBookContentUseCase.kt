@@ -17,10 +17,12 @@ import ua.acclorite.book_story.domain.model.book.BookProgress
 import ua.acclorite.book_story.domain.model.book.Chapter
 import ua.acclorite.book_story.domain.model.book.ChapterId
 import ua.acclorite.book_story.domain.model.book.ChapterPosition
+import ua.acclorite.book_story.domain.model.book.HeaderSequence
 import ua.acclorite.book_story.domain.model.book.LinkId
 import ua.acclorite.book_story.domain.model.book.Metadata
 import ua.acclorite.book_story.domain.model.book.Node
 import ua.acclorite.book_story.domain.model.book.NodeContent
+import ua.acclorite.book_story.domain.model.book.normalized
 import ua.acclorite.book_story.domain.model.book.NodeId
 import ua.acclorite.book_story.domain.model.book.NodePosition
 import ua.acclorite.book_story.domain.model.file.FilePath
@@ -50,6 +52,7 @@ class SaveBookContentUseCase @Inject constructor(
         logI(TAG, "Saving [${book.title}] with [${nodePaths.size}] node paths.")
 
         val chapterHeaders = mutableListOf<ChapterHeader>()
+        val headerSequence = HeaderSequence()
         val savedImages = mutableMapOf<FilePath, FilePath>()
         var totalLength = 0
         var index = 0
@@ -61,6 +64,8 @@ class SaveBookContentUseCase @Inject constructor(
         nodePaths.forEach { nodePath ->
             nodeHandler.getNodesFromFile(nodePath)
                 .getOrThrow()
+                .asSequence()
+                .mapNotNull { it.normalized() }
                 .chunked(SAVE_CHUNK)
                 .forEach { nodesChunk ->
                     currentCoroutineContext().ensureActive()
@@ -70,20 +75,6 @@ class SaveBookContentUseCase @Inject constructor(
                         val nodeLength = nodeContent.computeLength()
                         val nodeContent = nodeContent.let { nodeContent ->
                             when (nodeContent) {
-                                is NodeContent.Header -> {
-                                    chapterHeaders.add(
-                                        ChapterHeader(
-                                            chapterId = ChapterId(chapterIndex),
-                                            linkId = LinkId(index),
-                                            header = nodeContent,
-                                            chapterOffset = totalLength,
-                                            chapterLength = nodeLength
-                                        )
-                                    )
-                                    chapterIndex++
-                                    nodeContent
-                                }
-
                                 is NodeContent.Image -> {
                                     // Accounting for duplicates in nodes
                                     val imagePath = savedImages.getOrPut(
@@ -108,6 +99,30 @@ class SaveBookContentUseCase @Inject constructor(
                                 }
 
                                 else -> nodeContent
+                            }
+                        }
+
+                        val continuesHeaderGroup = headerSequence.append(nodeContent)
+                        if (nodeContent is NodeContent.Header) {
+                            if (continuesHeaderGroup) {
+                                val previous = chapterHeaders.last()
+                                chapterHeaders[chapterHeaders.lastIndex] = previous.copy(
+                                    header = previous.header.copy(
+                                        title = previous.header.title + " • " + nodeContent.title,
+                                        level = minOf(previous.header.level, nodeContent.level, compareBy { it.level })
+                                    ),
+                                    chapterLength = totalLength + nodeLength - previous.chapterOffset
+                                )
+                            } else {
+                                chapterHeaders.add(
+                                    ChapterHeader(
+                                        chapterId = ChapterId(chapterIndex++),
+                                        linkId = LinkId(index),
+                                        header = nodeContent,
+                                        chapterOffset = totalLength,
+                                        chapterLength = nodeLength
+                                    )
+                                )
                             }
                         }
 
@@ -136,44 +151,28 @@ class SaveBookContentUseCase @Inject constructor(
         currentCoroutineContext().ensureActive()
 
         val chapters = mutableListOf<Chapter>()
-        chapterHeaders.forEachIndexed { index, chapterHeader ->
-            var endChapterOffset = totalLength
-            for (nextChapterHeader in chapterHeaders.subList(index + 1, chapterHeaders.size)) {
-                if (NodeContent.HeaderLevel.isHigherOrEqual(
-                        nextChapterHeader.header.level,
-                        chapterHeader.header.level
-                    )
-                ) {
-                    endChapterOffset = nextChapterHeader.chapterOffset
-                    break
-                }
+        val parents = mutableMapOf<ChapterId, ChapterId?>()
+        val ends = mutableMapOf<ChapterId, Int>()
+        val stack = ArrayDeque<ChapterHeader>()
+        for (header in chapterHeaders) {
+            while (stack.isNotEmpty() && stack.last().header.level.level >= header.header.level.level) {
+                ends[stack.removeLast().chapterId] = header.chapterOffset
             }
-
-            var parentId: ChapterId? = null
-            if (index > 0) {
-                for (prevChapterHeader in chapterHeaders.subList(0, index).asReversed()) {
-                    if (
-                        NodeContent.HeaderLevel.isHigher(
-                            prevChapterHeader.header.level,
-                            chapterHeader.header.level
-                        )
-                    ) {
-                        parentId = prevChapterHeader.chapterId
-                        break
-                    }
-                }
-            }
-
+            parents[header.chapterId] = stack.lastOrNull()?.chapterId
+            stack.addLast(header)
+        }
+        stack.forEach { ends[it.chapterId] = totalLength }
+        chapterHeaders.forEach { header ->
             chapters.add(
                 Chapter(
-                    id = chapterHeader.chapterId,
-                    linkId = chapterHeader.linkId,
-                    parentId = parentId,
-                    title = chapterHeader.header.title,
+                    id = header.chapterId,
+                    linkId = header.linkId,
+                    parentId = parents[header.chapterId],
+                    title = header.header.title,
                     position = ChapterPosition(
-                        chapterOffset = chapterHeader.chapterOffset,
-                        endChapterOffset = endChapterOffset,
-                        chapterLength = chapterHeader.chapterLength
+                        chapterOffset = header.chapterOffset,
+                        endChapterOffset = ends.getValue(header.chapterId),
+                        chapterLength = header.chapterLength
                     )
                 )
             )
@@ -194,20 +193,18 @@ class SaveBookContentUseCase @Inject constructor(
         bookRepository.saveBookContentMetadata(book, metadata).getOrThrow()
 
         val nodesCount = index
-        val lastIndex = index - 1
-
-        val progressFraction = if (book.oldProgress != -1f) {
-            book.oldProgress
-        } else {
-            book.progress.getPercentage()
-        }
-        val currentNodeId = (progressFraction * lastIndex).toInt()
-        val currentOffset = (progressFraction * totalLength).toInt()
+        check(nodesCount > 0 && totalLength > 0) { "Parsed book contains no readable nodes." }
+        val previousFraction = if (book.oldProgress != -1f) book.oldProgress
+        else book.progress.getPercentage()
+        val progressFraction = previousFraction.takeIf { it.isFinite() }?.coerceIn(0f, 1f) ?: 0f
+        val currentOffset = (progressFraction * totalLength).toInt().coerceIn(0, totalLength - 1)
+        val currentNode = bookRepository.getBookContentNodeByOffset(book, currentOffset).getOrThrow()
+            ?: error("Cannot resolve reading position after parsing.")
 
         val updatedBook = book.copy(
             progress = BookProgress(
-                currentNodeId = NodeId(currentNodeId),
-                currentNodeIntraOffset = 0,
+                currentNodeId = currentNode.id,
+                currentNodeIntraOffset = currentOffset - currentNode.position.offset,
                 totalNodes = nodesCount,
                 currentOffset = currentOffset,
                 totalLength = totalLength

@@ -76,6 +76,7 @@ import ua.acclorite.book_story.ui.common.helpers.LocalActivity
 import ua.acclorite.book_story.ui.common.helpers.noRippleClickable
 import ua.acclorite.book_story.ui.common.helpers.showToast
 import ua.acclorite.book_story.ui.reader.model.ReaderNode
+import ua.acclorite.book_story.ui.reader.model.tableColumns
 import ua.acclorite.book_story.ui.reader.paged.ReaderPage
 import ua.acclorite.book_story.ui.reader.paged.ReaderPageConfig
 import ua.acclorite.book_story.ui.reader.paged.ReaderPagePosition
@@ -156,7 +157,7 @@ fun ReaderLayoutPaged(
         pageNodes, paragraphTextStyle, boldFontThickness,
         header1TextStyle, header2TextStyle, header3TextStyle,
         header4TextStyle, header5TextStyle, header6TextStyle,
-        highlightedReading, highlightedReadingThickness
+        highlightedReading, highlightedReadingThickness, backgroundColor
     )
     val reachedFirst = pageNodes.firstOrNull()?.id?.id == 0
     val reachedLast = nodes.lastOrNull()?.id?.id == book.progress.totalNodes - 1
@@ -269,11 +270,11 @@ fun ReaderLayoutPaged(
                     } else requestedTarget
                     val nextPages = withContext(Dispatchers.Default) {
                         val measurer = TextMeasurer(fontFamilyResolver, density, layoutDirection, cacheSize = 0)
-                        paginateReaderPages(readerNodes, config) { text, style ->
+                        paginateReaderPages(readerNodes, config) { text, style, textWidth ->
                             val result = measurer.measure(
                                 text = text,
                                 style = style,
-                                constraints = Constraints(minWidth = width, maxWidth = width)
+                                constraints = Constraints(minWidth = textWidth, maxWidth = textWidth)
                             )
                             ReaderTextMeasurement(
                                 height = result.size.height,
@@ -285,7 +286,16 @@ fun ReaderLayoutPaged(
                         }
                     }
                     val lastItem = nextPages.lastOrNull()?.items?.lastOrNull()
-                    val targetBeyondPages = lastItem == null ||
+                    val targetRow = pageNodes.firstOrNull { it.id == target.nodeId }?.content as? NodeContent.TableRow
+                    val tableCellTarget = targetRow?.cells?.any { target.offset >= it.start && target.offset < it.end } == true
+                    val tableCellMissing = tableCellTarget && nextPages.none { page ->
+                        page.items.any { item ->
+                            item.node.node.id == target.nodeId && item.tableCells?.any { cell ->
+                                target.offset >= cell.startOffset && target.offset < cell.endOffset
+                            } == true
+                        }
+                    }
+                    val targetBeyondPages = lastItem == null || tableCellMissing ||
                         target.nodeId.id > lastItem.node.node.id.id ||
                         (target.nodeId == lastItem.node.node.id && target.offset >= lastItem.endOffset)
                     if (!reachedLast && targetBeyondPages) {
@@ -435,23 +445,46 @@ private fun ReaderPagedPage(
             .clipToBounds()
             .padding(horizontal = sidePadding)
     ) {
-        page.items.forEach { item ->
+        page.items.forEachIndexed { index, item ->
+            val nextItem = page.items.getOrNull(index + 1)
+            val quoteGapAfter = if (item.node.node.content is NodeContent.Quote &&
+                nextItem?.node?.node?.content is NodeContent.Quote
+            ) with(density) { nextItem.spaceBefore.toDp() } else 0.dp
             if (item.spaceBefore > 0) {
                 Spacer(Modifier.height(with(density) { item.spaceBefore.toDp() }))
             }
             val height = with(density) { item.height.toDp() }
             when {
+                item.tableCells != null -> {
+                    val row = item.node.node.content as NodeContent.TableRow
+                    val previousRow = page.items.getOrNull(index - 1)?.node?.node?.content as? NodeContent.TableRow
+                    val nextRow = nextItem?.node?.node?.content as? NodeContent.TableRow
+                    ReaderTableRow(
+                        cells = item.tableCells,
+                        columns = (item.node as ReaderNode.Paragraph).tableColumns(),
+                        style = requireNotNull(item.style).copy(color = fontColor),
+                        firstRow = row.firstRow || previousRow == null,
+                        lastRow = row.lastRow || nextRow == null || nextRow.firstRow,
+                        modifier = Modifier.fillMaxWidth().height(height).then(
+                            if (doubleClickTranslation && toolbarHidden) Modifier.noRippleClickable(
+                                onDoubleClick = { openTranslator(ReaderEvent.OnOpenTranslator(row.text, true)) },
+                                onClick = { menuVisibility(ReaderEvent.OnMenuVisibility(!showMenu, true)) }
+                            ) else Modifier
+                        )
+                    )
+                }
                 item.text != null -> StyledText(
                     text = item.text,
                     style = requireNotNull(item.style).copy(color = fontColor),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(height)
+                        .readerTextBlockDecoration(item.node.node.content, fontColor, quoteGapAfter)
                         .then(
                             if (doubleClickTranslation && toolbarHidden && item.node is ReaderNode.Paragraph) {
                                 Modifier.noRippleClickable(
                                     onDoubleClick = {
-                                        val original = item.node.node.content as NodeContent.Paragraph
+                                        val original = item.node.node.content as NodeContent.TextBlock
                                         openTranslator(ReaderEvent.OnOpenTranslator(original.text, true))
                                     },
                                     onClick = { menuVisibility(ReaderEvent.OnMenuVisibility(!showMenu, true)) }

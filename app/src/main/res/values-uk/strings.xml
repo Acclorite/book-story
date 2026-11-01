@@ -332,7 +332,7 @@
 
     <!-- Progress Count properties -->
     <string name="progress_count_percentage">Відсотки</string>
-    <string name="progress_count_quantity">Кількість</string>
+    <string name="progress_count_quantity">Параграфи</string>
     <string name="progress_count_characters">Символи</string>
 
     <!-- Paged Direction properties -->
@@ -391,7 +391,7 @@
     <string name="unknown">Невідомо</string>
 
     <!-- Reader -->
-    <string name="no_chapters">Немає розділів</string>
+    <string name="no_chapters">Немає поточного розділа</string>
     <string name="chapters">Розділи</string>
     <string name="processing_content">
         Вміст книги оброблюється.

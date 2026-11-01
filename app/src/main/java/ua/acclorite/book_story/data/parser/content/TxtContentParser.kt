@@ -23,6 +23,9 @@ import ua.acclorite.book_story.domain.model.book.NodeContent
 import ua.acclorite.book_story.domain.model.file.FilePath
 import ua.acclorite.book_story.domain.model.file.ImageMetadata
 import java.io.InputStream
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 
 private const val TAG = "TxtContentParser"
@@ -43,16 +46,19 @@ class TxtContentParser @Inject constructor() : ContentParser {
 
             currentCoroutineContext().ensureActive()
 
-            cachedFile.openInputStream()?.bufferedReader()?.use { reader ->
+            cachedFile.openInputStream()?.bomAwareReader()?.use { reader ->
                 emit(ContentParserState.Progress(0.5f))
 
                 reader.lineSequence().chunked(NODES_CHUNK_SIZE).forEach { chunk ->
-                    cacheNodes(
-                        chunk.mapNotNull { line ->
-                            if (!line.containsVisibleText()) return@mapNotNull null
-                            NodeContent.Paragraph(text = line, styles = emptyList())
-                        }
-                    )?.let { path -> nodePaths.add(path) }
+                    currentCoroutineContext().ensureActive()
+                    val nodes = chunk.mapNotNull { line ->
+                        if (!line.containsVisibleText()) return@mapNotNull null
+                        NodeContent.Paragraph(text = line, styles = emptyList())
+                    }
+                    if (nodes.isNotEmpty()) {
+                        val path = cacheNodes(nodes) ?: error("Could not save TXT nodes to cache.")
+                        nodePaths.add(path)
+                    }
                 }
             } ?: throw IllegalStateException("Could not open Input Stream in TXT.")
 
@@ -83,4 +89,21 @@ class TxtContentParser @Inject constructor() : ContentParser {
             return@flow
         }
     }.flowOn(Dispatchers.IO)
+
+    private fun InputStream.bomAwareReader(): BufferedReader {
+        val stream = buffered()
+        stream.mark(3)
+        val first = stream.read()
+        val second = stream.read()
+        val third = stream.read()
+        stream.reset()
+        val (charset, bomSize) = when {
+            first == 0xFF && second == 0xFE -> StandardCharsets.UTF_16LE to 2
+            first == 0xFE && second == 0xFF -> StandardCharsets.UTF_16BE to 2
+            first == 0xEF && second == 0xBB && third == 0xBF -> StandardCharsets.UTF_8 to 3
+            else -> StandardCharsets.UTF_8 to 0
+        }
+        repeat(bomSize) { stream.read() }
+        return InputStreamReader(stream, charset).buffered()
+    }
 }

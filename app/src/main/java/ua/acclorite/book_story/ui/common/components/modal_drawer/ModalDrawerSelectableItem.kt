@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 
 /**
@@ -39,6 +40,7 @@ fun ModalDrawerSelectableItem(
     modifier: Modifier = Modifier,
     selected: Boolean,
     enabled: Boolean = true,
+    shape: Shape = CircleShape,
     onClick: () -> Unit,
     content: @Composable RowScope.() -> Unit
 ) {
@@ -46,7 +48,7 @@ fun ModalDrawerSelectableItem(
         modifier = modifier
             .padding(horizontal = 12.dp)
             .fillMaxWidth()
-            .clip(CircleShape)
+            .clip(shape)
             .background(
                 if (selected) MaterialTheme.colorScheme.secondaryContainer
                 else Color.Transparent

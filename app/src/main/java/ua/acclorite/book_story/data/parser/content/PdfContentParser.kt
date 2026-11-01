@@ -10,6 +10,8 @@ import android.app.Application
 import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.text.PDFTextStripper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
@@ -54,7 +56,7 @@ class PdfContentParser @Inject constructor(
 
             val text = cachedFile.openInputStream()?.use { inputStream ->
                 getText(inputStream)
-            } ?: throw IllegalStateException("Could not open Input Stream in XML.")
+            } ?: throw IllegalStateException("Could not open Input Stream in PDF.")
 
             currentCoroutineContext().ensureActive()
             emit(ContentParserState.Progress(0.5f))
@@ -92,75 +94,41 @@ class PdfContentParser @Inject constructor(
             logE(TAG, "Could not extract nodes from PDF with error: ${e.message}.")
             return@flow
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     /**
      * Strips all text from PDF document. Has broken line breaks.
      */
     private fun getText(inputStream: InputStream): List<String> {
-        val pdfStripper = PDFTextStripper()
-        pdfStripper.paragraphStart = "</br>"
-
+        val pdfStripper = PDFTextStripper().apply {
+            paragraphStart = "\u0000BOOK_STORY_PARAGRAPH\u0000"
+            sortByPosition = true
+        }
         return PDDocument.load(inputStream).use { document ->
             pdfStripper.getText(document)
-                .replace("\r", "")
-                .let { text ->
-                    text.filterIndexed { index, c ->
-                        if (c == ' ') {
-                            text[index - 1] != ' '
-                        } else {
-                            true
-                        }
-                    }
-                }
-                .split("${pdfStripper.paragraphStart}|\\n".toRegex())
-                .filter { line -> line.isNotBlank() }
+                .replace("\r\n", "\n")
+                .replace('\r', '\n')
+                .split(pdfStripper.paragraphStart)
+                .filter { it.isNotBlank() }
         }
     }
 
     /**
-     * Processed stripped from PDF document text with hope to fix
-     * broken line breaks.
+     * Rejoins wrapped lines within each detected paragraph, retaining numbers, punctuation
+     * and scripts without letter case. Paragraph boundaries from PDFBox remain boundaries.
      */
-    private fun processText(text: List<String>): List<String> {
-        val processedText = mutableListOf<String>()
-        text.forEachIndexed { index, line ->
-            val line = line.trim()
-
-            if (index == 0) {
-                processedText.add(line)
-                return@forEachIndexed
+    private fun processText(text: List<String>): List<String> = text.mapNotNull { paragraph ->
+        val joined = StringBuilder()
+        for (line in paragraph.lines().map { it.trim() }.filter { it.isNotEmpty() }) {
+            if (joined.isNotEmpty()) {
+                if (joined.last() == '-' && joined.getOrNull(joined.length - 2)?.isLetter() == true &&
+                    line.first().isLowerCase()
+                ) joined.deleteCharAt(joined.lastIndex)
+                else joined.append(' ')
             }
-
-            if (line.all { it.isDigit() }) {
-                return@forEachIndexed
-            }
-
-            if (line.first().isLowerCase()) {
-                val currentLine = processedText[processedText.lastIndex]
-
-                if (currentLine.last() == '-') {
-                    if (currentLine[currentLine.lastIndex - 1].isLowerCase()) {
-                        processedText[processedText.lastIndex] = currentLine.dropLast(1) + line
-                        return@forEachIndexed
-                    }
-                }
-
-                processedText[processedText.lastIndex] += " $line"
-                return@forEachIndexed
-            }
-
-            if (line.first().isUpperCase() || line.first().isDigit()) {
-                processedText.add(line)
-                return@forEachIndexed
-            }
-
-            if (line.first().isLetter()) {
-                processedText[processedText.lastIndex] += " $line"
-                return@forEachIndexed
-            }
+            joined.append(line)
         }
-        return processedText
+        joined.toString().takeIf { it.containsVisibleText() }
     }
 
     /**

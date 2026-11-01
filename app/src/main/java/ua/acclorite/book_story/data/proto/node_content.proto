@@ -18,6 +18,7 @@ message NodeContentProto {
     ParagraphProto paragraph = 2;
     ImageProto image = 3;
     SeparatorProto separator = 4;
+    TextBlockProto text_block = 5;
   }
 }
 
@@ -55,6 +56,13 @@ message TextStyleProto {
     bool bold = 1; // dummy value (always true)
     bool italic = 2; // dummy value (always true)
     string link = 3;
+    bool underline = 4;
+    bool strikethrough = 5;
+    bool superscript = 6;
+    bool subscript = 7;
+    bool monospace = 8;
+    bool small = 9;
+    bool highlight = 10;
   }
 }
 /* - - - - - - - - - - - */
@@ -72,3 +80,35 @@ message ImageProto {
 /* - - - Separator - - - */
 message SeparatorProto {}
 /* - - - - - - - - - - - */
+
+message TextBlockProto {
+  ParagraphProto content = 1;
+  TextBlockKindProto kind = 2;
+  uint32 depth = 3;
+  string marker = 4;
+  bool header = 5;
+  repeated TableCellProto cells = 6;
+  uint32 columns = 7;
+  bool first_row = 8;
+  bool last_row = 9;
+}
+
+message TableCellProto {
+  uint32 start = 1;
+  uint32 end = 2;
+  uint32 column = 3;
+  uint32 column_span = 4;
+  uint32 row_span = 5;
+  bool header = 6;
+  bool continuation = 7;
+}
+
+enum TextBlockKindProto {
+  QUOTE = 0;
+  CODE_BLOCK = 1;
+  VERSE = 2;
+  LIST_ITEM = 3;
+  SUBTITLE = 4;
+  TABLE_ROW = 5;
+  CAPTION = 6;
+}

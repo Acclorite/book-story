@@ -61,6 +61,41 @@ class NodeContentMapperImplTest {
     }
 
     @Test
+    fun allSemanticBlocksAndInlineStylesSurviveSerializedRoundTrip() {
+        val styles = listOf(
+            NodeContent.TextStyle.Bold, NodeContent.TextStyle.Italic,
+            NodeContent.TextStyle.Underline, NodeContent.TextStyle.Strikethrough,
+            NodeContent.TextStyle.Superscript, NodeContent.TextStyle.Subscript,
+            NodeContent.TextStyle.Monospace, NodeContent.TextStyle.Small,
+            NodeContent.TextStyle.Highlight, NodeContent.TextStyle.Link("https://example.org")
+        ).map { NodeContent.TextStyleRange(0, 4, it) }
+        val nodes = listOf(
+            NodeContent.Paragraph("text", styles),
+            NodeContent.Quote("text", styles, 2),
+            NodeContent.CodeBlock("text", styles),
+            NodeContent.Verse("text", styles),
+            NodeContent.ListItem("text", styles, "3.", 2),
+            NodeContent.Subtitle("text", styles),
+            NodeContent.TableRow("text", styles, true),
+            NodeContent.Caption("text", styles)
+        )
+        val encoded = mapper.toNodeContentListProto(nodes).toByteArray()
+        val decoded = ua.acclorite.book_story.proto.NodeContentListProto.parseFrom(encoded)
+        assertEquals(nodes, mapper.toNodeContentList(decoded))
+    }
+
+    @Test
+    fun invalidStyleRangesAreClampedOrDroppedDuringDecoding() {
+        val paragraph = NodeContent.Paragraph("text", listOf(
+            NodeContent.TextStyleRange(-1, 20, NodeContent.TextStyle.Bold),
+            NodeContent.TextStyleRange(9, 10, NodeContent.TextStyle.Italic),
+            NodeContent.TextStyleRange(3, 1, NodeContent.TextStyle.Small)
+        ))
+        val decoded = mapper.toNodeContent(mapper.toNodeContentProto(paragraph)) as NodeContent.Paragraph
+        assertEquals(listOf(NodeContent.TextStyleRange(0, 4, NodeContent.TextStyle.Bold)), decoded.styles)
+    }
+
+    @Test
     fun `Separator should survive round trip`() {
         val original = NodeContent.Separator
 

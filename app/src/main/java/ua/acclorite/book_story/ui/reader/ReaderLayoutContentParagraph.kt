@@ -15,6 +15,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import ua.acclorite.book_story.domain.model.book.NodeContent
+import ua.acclorite.book_story.ui.reader.model.tableCells
+import ua.acclorite.book_story.ui.reader.model.tableColumns
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.ui.common.components.common.StyledText
 import ua.acclorite.book_story.ui.common.helpers.noRippleClickable
@@ -30,8 +34,41 @@ fun ReaderLayoutContentParagraph(
     doubleClickTranslation: Boolean,
     toolbarHidden: Boolean,
     openTranslator: (ReaderEvent.OnOpenTranslator) -> Unit,
-    menuVisibility: (ReaderEvent.OnMenuVisibility) -> Unit
+    menuVisibility: (ReaderEvent.OnMenuVisibility) -> Unit,
+    quoteGapAfter: Dp = 0.dp
 ) {
+    val interaction = if (doubleClickTranslation && toolbarHidden) {
+        Modifier.noRippleClickable(
+            onDoubleClick = {
+                openTranslator(
+                    ReaderEvent.OnOpenTranslator(
+                        textToTranslate = paragraph.text.text,
+                        translateWholeParagraph = true
+                    )
+                )
+            },
+            onClick = {
+                menuVisibility(
+                    ReaderEvent.OnMenuVisibility(
+                        show = !showMenu,
+                        saveCheckpoint = true
+                    )
+                )
+            }
+        )
+    } else Modifier
+    val table = paragraph.node.content as? NodeContent.TableRow
+    if (table != null) {
+        ReaderTableRow(
+            cells = paragraph.tableCells(),
+            columns = paragraph.tableColumns(),
+            style = table.textBlockStyle(paragraphTextStyle),
+            firstRow = table.firstRow,
+            lastRow = table.lastRow,
+            modifier = Modifier.fillMaxWidth().padding(horizontal = sidePadding).then(interaction)
+        )
+        return
+    }
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -41,29 +78,11 @@ fun ReaderLayoutContentParagraph(
     ) {
         StyledText(
             text = paragraph.text,
-            modifier = Modifier.then(
-                if (doubleClickTranslation && toolbarHidden) {
-                    Modifier.noRippleClickable(
-                        onDoubleClick = {
-                            openTranslator(
-                                ReaderEvent.OnOpenTranslator(
-                                    textToTranslate = paragraph.text.text,
-                                    translateWholeParagraph = true
-                                )
-                            )
-                        },
-                        onClick = {
-                            menuVisibility(
-                                ReaderEvent.OnMenuVisibility(
-                                    show = !showMenu,
-                                    saveCheckpoint = true
-                                )
-                            )
-                        }
-                    )
-                } else Modifier
-            ),
-            style = paragraphTextStyle
+            modifier = Modifier
+                .fillMaxWidth()
+                .then(interaction)
+                .readerTextBlockDecoration(paragraph.node.content, paragraphTextStyle.color, quoteGapAfter),
+            style = paragraph.node.content.textBlockStyle(paragraphTextStyle)
         )
     }
 }

@@ -8,11 +8,12 @@ package ua.acclorite.book_story.ui.reader.paged
 
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
+import ua.acclorite.book_story.domain.model.book.HeaderSequence
 import ua.acclorite.book_story.domain.model.book.Node
 import ua.acclorite.book_story.domain.model.book.NodeContent
 import ua.acclorite.book_story.domain.model.book.NodeId
 
-internal suspend fun loadReaderPageWindow(
+suspend fun loadReaderPageWindow(
     nodes: List<Node>,
     cached: List<Node>,
     images: Boolean,
@@ -24,14 +25,12 @@ internal suspend fun loadReaderPageWindow(
     var result = if (preceding.lastOrNull()?.id?.id == firstId - 1) preceding + nodes else nodes
     while (true) {
         currentCoroutineContext().ensureActive()
-        var previousWasHeader = false
+        val headerSequence = HeaderSequence()
         var boundary: Int? = null
         result.forEachIndexed { index, node ->
             if (node.id.id > firstId) return@forEachIndexed
-            if (!images && node.content is NodeContent.Image) return@forEachIndexed
-            val header = node.content is NodeContent.Header
-            if (header && !previousWasHeader) boundary = index
-            previousWasHeader = header
+            val continuesHeaderGroup = headerSequence.append(node.content)
+            if (node.content is NodeContent.Header && !continuesHeaderGroup) boundary = index
         }
         boundary?.takeIf { it > 0 }?.let { return result.drop(it) }
         if (result.first().id.id == 0) return result

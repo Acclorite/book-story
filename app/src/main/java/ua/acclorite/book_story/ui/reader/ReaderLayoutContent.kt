@@ -18,6 +18,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import ua.acclorite.book_story.presentation.reader.ReaderEvent
 import ua.acclorite.book_story.ui.reader.model.ReaderNode
 import ua.acclorite.book_story.ui.theme.model.HorizontalAlignment
@@ -46,7 +47,8 @@ fun ReaderLayoutContent(
     toolbarHidden: Boolean,
     paragraphHeight: Dp,
     openTranslator: (ReaderEvent.OnOpenTranslator) -> Unit,
-    menuVisibility: (ReaderEvent.OnMenuVisibility) -> Unit
+    menuVisibility: (ReaderEvent.OnMenuVisibility) -> Unit,
+    quoteGapAfter: Dp = 0.dp
 ) {
     when (readerNode) {
         is ReaderNode.Header -> {
@@ -65,6 +67,7 @@ fun ReaderLayoutContent(
         is ReaderNode.Paragraph -> {
             ReaderLayoutContentParagraph(
                 paragraph = readerNode,
+                quoteGapAfter = quoteGapAfter,
                 paragraphTextStyle = paragraphTextStyle,
                 showMenu = showMenu,
                 horizontalAlignment = horizontalAlignment,

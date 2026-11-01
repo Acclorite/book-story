@@ -116,9 +116,14 @@ class ReaderModel @Inject constructor(
                                     getBookUseCase(_state.value.book.id)?.let { book ->
                                         _state.update {
                                             it.copy(
-                                                book = book
+                                                book = book,
+                                                scrollTarget = ScrollTarget(
+                                                    book.progress.currentNodeId,
+                                                    book.progress.currentNodeIntraOffset
+                                                )
                                             )
                                         }
+                                        _paginationNodeId.update { book.progress.currentNodeId }
                                     }
 
                                     LibraryScreen.refreshListChannel.trySend(0)
