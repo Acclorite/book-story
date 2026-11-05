@@ -19,10 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import ua.acclorite.book_story.ui.reader.model.ReaderNode
 import ua.acclorite.book_story.ui.theme.model.HorizontalAlignment
 
@@ -47,12 +44,9 @@ fun ReaderLayoutContentImage(
             .fillMaxWidth(),
         contentAlignment = imagesAlignment.alignment
     ) {
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(image.content)
-                .crossfade(300)
-                .build(),
-            contentDescription = null,
+        ReaderAsyncImage(
+            content = image.content,
+            crossfadeMillis = 300,
             modifier = Modifier
                 .clip(RoundedCornerShape(imagesCornersRoundness))
                 .background(fontColor.copy(0.3f))

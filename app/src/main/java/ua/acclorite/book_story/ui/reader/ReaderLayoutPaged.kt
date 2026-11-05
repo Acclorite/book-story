@@ -58,7 +58,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.withContext
@@ -371,6 +370,8 @@ fun ReaderLayoutPaged(
                             key(page) {
                                 ReaderPagedPage(
                                     page = page,
+                                    animationEnabled = windowReady && !reflowing && scrollTarget == null &&
+                                        index == pagerState.currentPage,
                                     sidePadding = sidePadding,
                                     fontColor = fontColor,
                                     imagesCornersRoundness = imagesCornersRoundness,
@@ -427,6 +428,7 @@ fun ReaderLayoutPaged(
 @Composable
 private fun ReaderPagedPage(
     page: ReaderPage,
+    animationEnabled: Boolean,
     sidePadding: Dp,
     fontColor: Color,
     imagesCornersRoundness: Dp,
@@ -498,9 +500,9 @@ private fun ReaderPagedPage(
                     Modifier.fillMaxWidth().height(height),
                     contentAlignment = imagesAlignment.alignment
                 ) {
-                    AsyncImage(
-                        model = item.node.content,
-                        contentDescription = null,
+                    ReaderAsyncImage(
+                        content = item.node.content,
+                        animationEnabled = animationEnabled,
                         modifier = Modifier
                             .size(with(density) { item.width.toDp() }, height)
                             .clip(RoundedCornerShape(imagesCornersRoundness))

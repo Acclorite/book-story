@@ -179,6 +179,7 @@ dependencies {
 
     // Coil for loading images
     implementation("io.coil-kt:coil-compose:2.7.0")
+    implementation("io.coil-kt:coil-gif:2.7.0")
 
     // Open source libraries
     implementation("com.mikepenz:aboutlibraries-core:11.4.0")
