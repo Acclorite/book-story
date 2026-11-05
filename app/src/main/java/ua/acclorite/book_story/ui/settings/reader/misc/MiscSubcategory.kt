@@ -19,6 +19,7 @@ import ua.acclorite.book_story.ui.settings.components.SettingsSubcategory
 import ua.acclorite.book_story.ui.settings.reader.misc.components.FullscreenOption
 import ua.acclorite.book_story.ui.settings.reader.misc.components.HideBarsOnFastScrollOption
 import ua.acclorite.book_story.ui.settings.reader.misc.components.KeepScreenOnOption
+import ua.acclorite.book_story.ui.settings.reader.misc.components.ShowLinkUrlsOption
 
 fun LazyListScope.MiscSubcategory(
     titleColor: @Composable () -> Color = { MaterialTheme.colorScheme.primary },
@@ -44,6 +45,10 @@ fun LazyListScope.MiscSubcategory(
             ContinuousLayoutOnlySetting {
                 HideBarsOnFastScrollOption()
             }
+        }
+
+        item {
+            ShowLinkUrlsOption()
         }
     }
 }

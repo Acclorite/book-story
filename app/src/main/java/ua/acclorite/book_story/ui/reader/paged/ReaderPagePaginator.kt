@@ -45,7 +45,7 @@ data class ReaderPageItem(
 
 data class ReaderPage(val items: List<ReaderPageItem>) {
     val position: ReaderPagePosition
-        get() = items.first().let { ReaderPagePosition(it.node.node.id, it.startOffset) }
+        get() = items.first().let { ReaderPagePosition(it.node.node.id, it.node.toSourceOffset(it.startOffset)) }
 }
 
 data class ReaderPageConfig(
@@ -302,14 +302,16 @@ suspend fun paginateReaderPages(
 fun findReaderPage(pages: List<ReaderPage>, position: ReaderPagePosition): Int {
     val exact = pages.indexOfFirst { page ->
         page.items.any {
+            val offset = it.node.toDisplayOffset(position.offset)
             it.node.node.id == position.nodeId && if (it.tableCells != null) {
-                it.tableCells.any { cell -> position.offset >= cell.startOffset && position.offset < cell.endOffset }
-            } else position.offset >= it.startOffset && position.offset < it.endOffset
+                it.tableCells.any { cell -> offset >= cell.startOffset && offset < cell.endOffset }
+            } else offset >= it.startOffset && offset < it.endOffset
         }
     }
     if (exact >= 0) return exact
     val separator = pages.indexOfFirst { page -> page.items.any {
-        it.node.node.id == position.nodeId && position.offset >= it.startOffset && position.offset < it.endOffset
+        val offset = it.node.toDisplayOffset(position.offset)
+        it.node.node.id == position.nodeId && offset >= it.startOffset && offset < it.endOffset
     } }
     if (separator >= 0) return separator
     return pages.indexOfLast {

@@ -185,6 +185,9 @@ class SettingsManager @Inject constructor(
     val hideBarsOnFastScroll = setting<Boolean, Boolean>(
         key = booleanPreferencesKey("hide_bars_on_fast_scroll"), default = false
     )
+    val showLinkUrls = setting<Boolean, Boolean>(
+        key = booleanPreferencesKey("show_link_urls"), default = false
+    )
     val perceptionExpander = setting<Boolean, Boolean>(
         key = booleanPreferencesKey("perception_expander"), default = false
     )

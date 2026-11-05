@@ -27,7 +27,7 @@ fun ReaderNode.Paragraph.tableColumns(): Int {
 
 fun ReaderNode.Paragraph.tableCells(): List<ReaderTableCell> {
     val row = node.content as NodeContent.TableRow
-    val cells = row.cells.ifEmpty { listOf(NodeContent.TableCell(0, text.length, 0, header = row.header)) }
+    val cells = row.cells.ifEmpty { listOf(NodeContent.TableCell(0, row.text.length, 0, header = row.header)) }
         .sortedBy { it.column }
     val result = mutableListOf<ReaderTableCell>()
     var column = 0
@@ -36,8 +36,8 @@ fun ReaderNode.Paragraph.tableCells(): List<ReaderTableCell> {
         while (column < cell.column) {
             result.add(ReaderTableCell(NodeContent.TableCell(0, 0, column++), AnnotatedString("")))
         }
-        val start = cell.start.coerceIn(0, text.length)
-        val end = cell.end.coerceIn(start, text.length)
+        val start = toDisplayOffset(cell.start).coerceIn(0, text.length)
+        val end = toDisplayOffset(cell.end).coerceIn(start, text.length)
         result.add(ReaderTableCell(cell, text.subSequence(start, end), start, end))
         column = cell.column + cell.columnSpan
     }

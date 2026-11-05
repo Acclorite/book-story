@@ -94,6 +94,7 @@ fun ReaderLayoutContinuous(
     progressBarFontSize: TextUnit,
     paragraphTextStyle: TextStyle,
     boldFontThickness: Int,
+    showLinkUrls: Boolean,
     header1TextStyle: TextStyle,
     header2TextStyle: TextStyle,
     header3TextStyle: TextStyle,
@@ -150,7 +151,8 @@ fun ReaderLayoutContinuous(
         header6TextStyle = header6TextStyle,
         highlightedReading = highlightedReading,
         highlightedReadingThickness = highlightedReadingThickness,
-        backgroundColor = backgroundColor
+        backgroundColor = backgroundColor,
+        showLinkUrls = showLinkUrls
     )
     val reachedFirst = remember(readerNodes) {
         if (readerNodes.isEmpty()) return@remember false

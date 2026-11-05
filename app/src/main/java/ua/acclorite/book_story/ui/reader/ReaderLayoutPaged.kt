@@ -104,6 +104,7 @@ fun ReaderLayoutPaged(
     progressBarFontSize: TextUnit,
     paragraphTextStyle: TextStyle,
     boldFontThickness: Int,
+    showLinkUrls: Boolean,
     header1TextStyle: TextStyle,
     header2TextStyle: TextStyle,
     header3TextStyle: TextStyle,
@@ -156,7 +157,7 @@ fun ReaderLayoutPaged(
         pageNodes, paragraphTextStyle, boldFontThickness,
         header1TextStyle, header2TextStyle, header3TextStyle,
         header4TextStyle, header5TextStyle, header6TextStyle,
-        highlightedReading, highlightedReadingThickness, backgroundColor
+        highlightedReading, highlightedReadingThickness, backgroundColor, showLinkUrls
     )
     val reachedFirst = pageNodes.firstOrNull()?.id?.id == 0
     val reachedLast = nodes.lastOrNull()?.id?.id == book.progress.totalNodes - 1
@@ -289,14 +290,16 @@ fun ReaderLayoutPaged(
                     val tableCellTarget = targetRow?.cells?.any { target.offset >= it.start && target.offset < it.end } == true
                     val tableCellMissing = tableCellTarget && nextPages.none { page ->
                         page.items.any { item ->
+                            val offset = item.node.toDisplayOffset(target.offset)
                             item.node.node.id == target.nodeId && item.tableCells?.any { cell ->
-                                target.offset >= cell.startOffset && target.offset < cell.endOffset
+                                offset >= cell.startOffset && offset < cell.endOffset
                             } == true
                         }
                     }
                     val targetBeyondPages = lastItem == null || tableCellMissing ||
                         target.nodeId.id > lastItem.node.node.id.id ||
-                        (target.nodeId == lastItem.node.node.id && target.offset >= lastItem.endOffset)
+                        (target.nodeId == lastItem.node.node.id &&
+                            lastItem.node.toDisplayOffset(target.offset) >= lastItem.endOffset)
                     if (!reachedLast && targetBeyondPages) {
                         if (!paginating) paginateForward(ReaderEvent.OnPaginateForward(nodes.last().id))
                         return@LaunchedEffect

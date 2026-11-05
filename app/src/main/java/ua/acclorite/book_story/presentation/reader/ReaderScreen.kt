@@ -511,6 +511,7 @@ data class ReaderScreen(val bookId: Int) : Screen, Parcelable {
             progressBarFontSize = progressBarFontSize,
             paragraphTextStyle = paragraphTextStyle,
             boldFontThickness = settings.boldFontThickness.value,
+            showLinkUrls = settings.showLinkUrls.value,
             header1TextStyle = headerTextStyles[0],
             header2TextStyle = headerTextStyles[1],
             header3TextStyle = headerTextStyles[2],

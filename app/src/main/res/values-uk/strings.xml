@@ -200,6 +200,7 @@
     <string name="fullscreen_option_desc">Приховати системні панелі та поля</string>
     <string name="keep_screen_on_option">Тримати екран увімкненим</string>
     <string name="hide_bars_on_fast_scroll_option">Ховати панелі при швидкому прокручуванні</string>
+    <string name="show_link_urls_option">Показувати URL посилань</string>
     <string name="perception_expander_option">Розширення сприйняття</string>
     <string name="perception_expander_option_desc">Збільшіть швидкість вашого читання фокусуючись на середині</string>
     <string name="perception_expander_padding_option">Бокові відступи лінії</string>

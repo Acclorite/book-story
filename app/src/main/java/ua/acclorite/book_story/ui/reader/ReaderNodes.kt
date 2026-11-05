@@ -29,6 +29,8 @@ import ua.acclorite.book_story.domain.model.book.Node
 import ua.acclorite.book_story.domain.model.book.NodeContent
 import ua.acclorite.book_story.ui.common.components.common.getHighlightedText
 import ua.acclorite.book_story.ui.reader.model.ReaderNode
+import ua.acclorite.book_story.ui.reader.model.ReaderLinkUrl
+import ua.acclorite.book_story.ui.reader.model.withLinkUrls
 
 @Composable
 fun rememberReaderNodes(
@@ -43,7 +45,8 @@ fun rememberReaderNodes(
     header6TextStyle: TextStyle,
     highlightedReading: Boolean,
     highlightedReadingThickness: Int,
-    backgroundColor: Color
+    backgroundColor: Color,
+    showLinkUrls: Boolean = false
 ): List<ReaderNode> {
     val density = LocalDensity.current
     val colors = MaterialTheme.colorScheme
@@ -75,7 +78,8 @@ fun rememberReaderNodes(
         highlightColor,
         linkColor,
         boldFontThickness,
-        headerFontWeights
+        headerFontWeights,
+        showLinkUrls
     ) {
         nodes.map { node ->
             when (val nodeContent = node.content) {
@@ -96,8 +100,16 @@ fun rememberReaderNodes(
                     val boldFontWeight = FontWeight(
                         (blockFontWeight.weight + boldFontThickness).coerceAtMost(900)
                     )
+                    val linkUrls = if (showLinkUrls) nodeContent.styles.mapNotNull { range ->
+                        val link = range.style as? NodeContent.TextStyle.Link ?: return@mapNotNull null
+                        if (range.start < 0 || range.end > nodeContent.text.length || range.start >= range.end) {
+                            return@mapNotNull null
+                        }
+                        ReaderLinkUrl(range.start, range.end, link.link)
+                    }.distinct().sortedBy { it.end } else emptyList()
                     ReaderNode.Paragraph(
                         originalNode = node,
+                        linkUrls = linkUrls,
                         text = getHighlightedText(
                             highlight = highlightedReading && nodeContent !is NodeContent.CodeBlock,
                             text = buildAnnotatedString {
@@ -158,7 +170,7 @@ fun rememberReaderNodes(
                                     }
                                     if (values.isNotEmpty()) addStyle(SpanStyle(textDecoration = TextDecoration.combine(values)), start, end)
                                 }
-                            },
+                            }.withLinkUrls(linkUrls),
                             highlightThickness = blockFontWeight,
                             fontWeightIncrease = highlightedReadingThickness
                         )

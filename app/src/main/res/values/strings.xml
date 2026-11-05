@@ -223,6 +223,7 @@
     <string name="fullscreen_option_desc">Hide system bars and margins</string>
     <string name="keep_screen_on_option">Keep screen on</string>
     <string name="hide_bars_on_fast_scroll_option">Hide bars on fast scroll</string>
+    <string name="show_link_urls_option">Show link URLs</string>
     <string name="perception_expander_option">Perception expander</string>
     <string name="perception_expander_option_desc">
         Increase your reading speed by focusing on center
