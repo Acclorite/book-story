@@ -46,3 +46,9 @@
 -keepclassmembernames class org.xmlpull.** { *; }
 -keepnames class kotlin.reflect.jvm.internal.impl.builtins.PrimitiveType { values(); }
 -keepnames class * implements android.os.Parcelable { ** CREATOR; }
+
+# Protobuf (javalite) reflects on GeneratedMessageLite field names (e.g. content_),
+# which R8 renaming breaks at runtime (first EPUB parse fails in minified builds).
+-keepclassmembers class * extends com.google.protobuf.GeneratedMessageLite {
+    <fields>;
+}
