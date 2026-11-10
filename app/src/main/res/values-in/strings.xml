@@ -346,4 +346,26 @@
     <string name="collapse_content_desc">Ciutkan</string>
     <string name="remove_content_desc">Hapus</string>
     <string name="note_content_desc">Catatan</string>
+    <string name="retry">Coba lagi</string>
+    <string name="headers_reader_settings">Tajuk</string>
+    <string name="bold_font_thickness_option">Ketebalan fon tebal</string>
+    <string name="images_original_size_option">Ukuran asli</string>
+    <string name="images_original_size_option_desc">Tampilkan gambar dalam ukuran aslinya</string>
+    <string name="paged_direction_option">Arah halaman</string>
+    <string name="layout_continuous">Berkelanjutan</string>
+    <string name="layout_paged">Per halaman</string>
+    <string name="progress_count_characters">Karakter</string>
+    <string name="paged_direction_left_to_right">Kiri ke kanan</string>
+    <string name="paged_direction_right_to_left">Kanan ke kiri</string>
+    <string name="paged_direction_top_to_bottom">Atas ke bawah</string>
+    <string name="paged_direction_bottom_to_top">Bawah ke atas</string>
+    <string name="processing_content">Konten buku sedang diproses. Ini mungkin memerlukan waktu hingga beberapa menit.</string>
+    <string name="saving_content">Konten buku yang diproses sedang disimpan. Seharusnya ini tidak memakan waktu lebih dari satu menit.</string>
+    <string name="error_empty_file">Berkas tampaknya kosong. Harap periksa isinya.</string>
+    <string name="error_could_not_validate">Tidak dapat memvalidasi konten buku. Silakan coba lagi dan periksa berkasnya. (%1$s)</string>
+    <string name="error_could_not_parse_file">Tidak dapat mengurai berkas. (%1$s)</string>
+    <string name="error_could_not_save_file">Tidak dapat menyimpan berkas. (%1$s)</string>
+    <string name="error_could_not_get_chapters">Tidak dapat memuat daftar bab. (%1$s)</string>
+    <string name="error_wrong_file_format">Format berkas salah. Pastikan format berkas sesuai dengan format yang didukung.</string>
+    <string name="error_could_not_access_file">Tidak dapat mengakses berkas. Pastikan berkas tersebut ada dan semua izin yang diperlukan telah diberikan.</string>
 </resources>

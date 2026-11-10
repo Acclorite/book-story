@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="default_string">Padrão</string>
+    <string name="library_screen">Biblioteca</string>
+    <string name="history_screen">Histórico</string>
+    <string name="browse_screen">Navegação</string>
+    <string name="settings_screen">Configurações</string>
+    <string name="about_screen">Sobre o app</string>
 </resources>
