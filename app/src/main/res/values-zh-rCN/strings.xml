@@ -369,4 +369,5 @@
     <string name="continuous_layout_only_setting">此设置只在连续阅读器布局中可用。</string>
     <string name="processing_content">正在处理书籍内容，可能需要几分钟。</string>
     <string name="saving_content">正在保存书籍的已处理内容。所花时间应该不超过 1 分钟。</string>
+    <string name="show_link_urls_option">显示链接地址</string>
 </resources>
